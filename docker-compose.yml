@@ -8,7 +8,7 @@ services:
     # such as nginx, ubuntu, php, node etc
     image: nginx:latest
     # Container
-    container_name: "HumberRIL-APP"
+    container_name: "Nginx_Server"
     # The port number you want to run the app
     # this this case the port 80 which is for the HTTP with 9090
     ports:
@@ -30,23 +30,23 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: "HumberRIL-APP"
+    container_name: "PHP"
     depends_on:
       - mysql
     volumes:
-      - ./frontend:/var/www/html
+      - ./backend:/var/www/html
     networks:
       - app-network
   # ************************************************ NODE JS ********************************************************
   node:
     image: node:latest
-    container_name: "HumberRIL-APP"
+    container_name: "NodeJS"
     working_dir: /var/www/html
     volumes:
       - ./frontend:/var/www/html
     command: npm run start
     ports:
-      - "4000:4000"
+      - "3000:3000"
     networks:
       - app-network
   # ************************************************ MYSQL ********************************************************
@@ -55,7 +55,7 @@ services:
     image:
       mysql:8.4
       # container_name: mysql_db  ← OPTIONAL (remove if you don't need it)
-    container_name: 'HumberRIL-APP'
+    container_name: 'MYSQL_SERVER'
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: root
