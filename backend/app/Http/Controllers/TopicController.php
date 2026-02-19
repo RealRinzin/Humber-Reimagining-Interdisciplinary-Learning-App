@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Topic;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TopicController extends Controller
@@ -13,6 +14,7 @@ class TopicController extends Controller
     public function index()
     {
         //
+        return User::find(1);
     }
 
     /**
