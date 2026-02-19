@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use Illuminate\Container\Attributes\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,9 +16,12 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        // //
-        // DB::table('roles')->insert([
-        //     'name' => Str::random(2),
-        // ]);
+        // Create random 3 Roles
+        // Fixed roles — using firstOrCreate so re-seeding won't duplicate
+        $roles = ['admin', 'editor', 'viewer', 'moderator', 'guest'];
+
+        foreach ($roles as $role) {
+            Role::firstOrCreate(['name' => $role]);
+        }
     }
 }
