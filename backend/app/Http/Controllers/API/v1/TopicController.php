@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\v1;
 
 use App\Models\Topic;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class TopicController extends Controller
@@ -14,7 +13,7 @@ class TopicController extends Controller
     public function index()
     {
         //
-        return User::find(1);
+        return Topic::all();
     }
 
     /**
@@ -39,6 +38,8 @@ class TopicController extends Controller
     public function show(Topic $topic)
     {
         //
+        return $topic;
+        // return Topic::findOrFail($topic->slug);
     }
 
     /**

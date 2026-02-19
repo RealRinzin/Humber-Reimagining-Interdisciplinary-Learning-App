@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\v1;
 
-use App\Models\Role;
+use App\Models\Video;
 use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class VideoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +26,7 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Role $role)
+    public function show(Video $video)
     {
         //
     }
@@ -34,7 +34,7 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, Video $video)
     {
         //
     }
@@ -42,7 +42,7 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Role $role)
+    public function destroy(Video $video)
     {
         //
     }

@@ -9,4 +9,13 @@ class Topic extends Model
 {
     /** @use HasFactory<\Database\Factories\TopicFactory> */
     use HasFactory;
+
+
+    /*
+    
+    */
+    public function getRouteKeyName()
+    {
+        return 'title';
+    }
 }
