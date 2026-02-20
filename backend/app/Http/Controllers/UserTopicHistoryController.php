@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\API\v1;
+namespace App\Http\Controllers;
 
-use App\Models\Video;
+use App\Models\UserTopicHistory;
 use Illuminate\Http\Request;
 
-class VideoController extends Controller
+class UserTopicHistoryController
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +26,7 @@ class VideoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Video $video)
+    public function show(UserTopicHistory $userTopicHistory)
     {
         //
     }
@@ -34,7 +34,7 @@ class VideoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Video $video)
+    public function update(Request $request, UserTopicHistory $userTopicHistory)
     {
         //
     }
@@ -42,7 +42,7 @@ class VideoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Video $video)
+    public function destroy(UserTopicHistory $userTopicHistory)
     {
         //
     }

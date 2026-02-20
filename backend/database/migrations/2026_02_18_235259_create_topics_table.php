@@ -19,6 +19,9 @@ return new class extends Migration
             $table->foreign('parent_id')
                 ->references('id')
                 ->on('topics');
+            $table->string('thumbnail');
+            $table->string('url');
+            $table->time('duration');
             $table->text('Description');
             // Timestamp
             $table->timestamps();

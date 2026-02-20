@@ -11,15 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('videos', function (Blueprint $table) {
+        Schema::create('flash_cards', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug');
-            $table->text('description');
-            $table->string('url');
-            $table->string('thumbnail');
-            $table->time('duration');
-            // Relationship tables
+            $table->text("content");
             $table->foreignId('topic_id')
             ->constrained('topics')
             ->onUpdate('cascade')
@@ -33,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('videos');
+        Schema::dropIfExists('flash_cards');
     }
 };
