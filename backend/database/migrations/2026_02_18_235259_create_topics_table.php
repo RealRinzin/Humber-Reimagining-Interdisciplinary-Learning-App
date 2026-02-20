@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
+     * 
      * Run the migrations.
      */
     public function up(): void
@@ -20,7 +21,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('topics');
             $table->string('thumbnail');
-            $table->string('url');
+            $table->string('video_url');
             $table->time('duration');
             $table->text('Description');
             // Timestamp

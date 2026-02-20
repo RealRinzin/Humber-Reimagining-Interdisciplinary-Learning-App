@@ -17,7 +17,7 @@ return new class extends Migration
                 ->constrained('topics')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('url');
+            $table->string('subtitle_url');
             $table->string('language');
             $table->timestamps();
         });

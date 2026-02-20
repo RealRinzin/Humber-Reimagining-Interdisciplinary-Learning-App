@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Topic;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\FlashCard>
@@ -18,6 +20,8 @@ class FlashCardFactory extends Factory
     {
         return [
             //
+            'content'=>Str::random(100),
+            'topic_id' => Topic::inRandomOrder()->value('id'),
         ];
     }
 }
