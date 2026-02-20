@@ -9,3 +9,11 @@ php artisan make:model Role -mcrfs --api
 -s → seeder
 --api → API controller (no create/edit)
 ```
+> ## Resources and Resource Collection API
+```sql
+Using --collection flag
+
+You can generate a **resource and its collection in one command:
+
+php artisan make:resource UserResource --collection
+```
