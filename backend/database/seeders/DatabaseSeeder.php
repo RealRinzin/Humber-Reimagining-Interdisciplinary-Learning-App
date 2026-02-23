@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             SubtitleSeeder::class, // Subtitles
             FlashCardSeeder::class, // Flashcard
             UserTopicHistorySeeder::class, // User Topic History
+            UserSavedTopicsSeeder::class, // User Saved Topics
         ]);
     }
 }
