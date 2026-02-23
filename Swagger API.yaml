@@ -1,0 +1,113 @@
+openapi: 3.0.3
+
+info:
+  title: Humber Learning App API
+  description: API documentation for the Humber Learning Application
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8000/api
+    description: Local development server
+
+tags:
+  - name: Users
+    description: User-related endpoints
+  - name: Topics
+    description: Topic-related endpoints
+
+paths:
+  /users:
+    get:
+      tags:
+        - Users
+      summary: Get all users
+      operationId: getUsers
+      responses:
+        '200':
+          description: List of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+              example:
+                - id: 1
+                  name: John Doe
+                  email: john@example.com
+                - id: 2
+                  name: Jane Smith
+                  email: jane@example.com
+
+  /topics:
+    get:
+      tags:
+        - Topics
+      summary: Get all topics
+      operationId: getTopics
+      responses:
+        '200':
+          description: List of topics
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Topic'
+              example:
+                - id: yri9K4n8KOn2fvbJKf
+                  title: Introduction to Programming
+                - id: a92jd82jd92jd
+                  title: Database Fundamentals
+
+  /topics/{id}:
+    get:
+      tags:
+        - Topics
+      summary: Get a single topic by ID
+      operationId: getTopicById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Topic ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Topic found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Topic'
+              example:
+                id: yri9K4n8KOn2fvbJKf
+                title: Introduction to Programming
+        '404':
+          description: Topic not found
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          format: email
+          example: john@example.com
+
+    Topic:
+      type: object
+      properties:
+        id:
+          type: string
+          example: yri9K4n8KOn2fvbJKf
+        title:
+          type: string
+          example: Introduction to Programming

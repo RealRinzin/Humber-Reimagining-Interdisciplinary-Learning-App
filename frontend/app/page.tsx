@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 export default async function Home() {
-  const topicsResponse = await fetch("http://127.0.0.1:8000/v1/topics/ZWclBQ5uBI2oIuAbLu");
+  const topicsResponse = await fetch("http://127.0.0.1:8000/v1/topics/yri9K4n8KOn2fvbJKf");
   const topicsData = await topicsResponse.json();
   // console.log("Topics Data:", topicsData);
   return (
@@ -12,6 +12,8 @@ export default async function Home() {
         id="my-video"
         className="video-js"
         controls
+        width="640"
+        height="264"
         preload="auto"
         poster="//vjs.zencdn.net/v/oceans.png"
         data-setup='{}'>
