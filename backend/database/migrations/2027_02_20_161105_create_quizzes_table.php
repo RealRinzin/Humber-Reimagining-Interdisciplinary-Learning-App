@@ -17,10 +17,12 @@ return new class extends Migration
                 ->constrained('topics')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignId('user_id')
-                ->constrained('users')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+                $table->string('Question');
+                $table->string('description');
+            // $table->foreignId('user_id')
+            //     ->constrained('users')
+            //     ->onUpdate('cascade')
+            //     ->onDelete('cascade');
             $table->time('time_limit');
             $table->timestamps();
         });

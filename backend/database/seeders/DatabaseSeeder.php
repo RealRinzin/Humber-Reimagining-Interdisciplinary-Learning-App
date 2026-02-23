@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             FlashCardSeeder::class, // Flashcard
             UserTopicHistorySeeder::class, // User Topic History
             UserSavedTopicsSeeder::class, // User Saved Topics
+            QuizSeeder::class, // Quiz
+            QuestionSeeder::class, // Question
         ]);
     }
 }

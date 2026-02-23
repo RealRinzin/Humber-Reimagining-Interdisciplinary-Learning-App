@@ -28,6 +28,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <script src="//vjs.zencdn.net/8.23.7/video.min.js"></script>
       </body>
     </html>
   );

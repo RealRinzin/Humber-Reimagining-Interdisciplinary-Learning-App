@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\v1;
 
+use App\Http\Resources\Topic\TopicResource;
 use App\Http\Resources\Topic\TopicResourceCollection;
 use App\Models\Topic;
 use Illuminate\Http\Request;
@@ -39,8 +40,8 @@ class TopicController extends Controller
     public function show(Topic $topic)
     {
         //
-        return $topic;
-        return Topic::findOrFail($topic->slug);
+        return new TopicResource($topic);
+
     }
 
     /**
