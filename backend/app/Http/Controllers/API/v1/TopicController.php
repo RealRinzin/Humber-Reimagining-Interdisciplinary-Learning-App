@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\v1;
 
+use App\Http\Resources\Topic\TopicResourceCollection;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,7 @@ class TopicController extends Controller
     public function index()
     {
         //
-        return Topic::all();
+         return new TopicResourceCollection(Topic::all());
     }
 
     /**
@@ -39,7 +40,7 @@ class TopicController extends Controller
     {
         //
         return $topic;
-        // return Topic::findOrFail($topic->slug);
+        return Topic::findOrFail($topic->slug);
     }
 
     /**

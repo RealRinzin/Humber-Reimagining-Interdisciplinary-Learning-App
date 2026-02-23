@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\UserTopicHistory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,7 @@ class UserTopicHistorySeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        // Create 50 user topic history records using the factory
+        UserTopicHistory::factory(50)->create();
     }
 }
