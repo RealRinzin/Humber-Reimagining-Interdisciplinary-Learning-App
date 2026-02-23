@@ -14,7 +14,7 @@ class SubtitleSeeder extends Seeder
     public function run(): void
     {
         //
-        Subtitle::factory(10)->create();
+        Subtitle::factory(100)->create();
 
     }
 }

@@ -21,7 +21,7 @@ class SubtitleFactory extends Factory
         return [
             //
             'topic_id' => Topic::inRandomOrder()->value('id'),
-            'subtitle_url'=>Str::random(10),
+            'subtitle_url'=>Str::random(100),
             'language'=>'English'
 
         ];

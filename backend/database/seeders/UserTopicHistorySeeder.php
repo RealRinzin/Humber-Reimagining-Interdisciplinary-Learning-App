@@ -13,7 +13,7 @@ class UserTopicHistorySeeder extends Seeder
      */
     public function run(): void
     {
-        // Create 50 user topic history records using the factory
-        UserTopicHistory::factory(50)->create();
+        // Create 100 user topic history records using the factory
+        UserTopicHistory::factory(100)->create();
     }
 }
