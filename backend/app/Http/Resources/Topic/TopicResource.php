@@ -16,6 +16,7 @@ class TopicResource extends JsonResource
     {
         // return parent::toArray($request);
         return [
+            'parent_id'=>$this->parent_id,
             'title' => $this->title,
             'slug' => $this->slug,
             'description' => $this->description,

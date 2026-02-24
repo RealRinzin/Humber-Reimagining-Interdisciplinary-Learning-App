@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('user_quiz_attempts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('quiz_id')->constrained()->onDelete('cascade');
+            // $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            // $table->foreignId('quiz_id')->constrained()->onDelete('cascade');
             $table->decimal('score'); // Store the score as a decimal (e.g., 85.5)
             $table->integer('total_points'); // Store the total points possible for the quiz
             $table->enum('status', ['completed', 'in_progress', 'not_attempted'])->default('not_attempted'); // Track the status of the quiz attempt
