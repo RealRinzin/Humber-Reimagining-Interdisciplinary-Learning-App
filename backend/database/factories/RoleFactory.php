@@ -20,11 +20,11 @@ class RoleFactory extends Factory
     {
         return [
             'name' => fake()->unique()->randomElement([
-                'admin',
-                'editor',
-                'viewer',
-                'moderator',
-                'guest',
+                'student',
+                'staff',
+                // 'viewer',
+                // 'moderator',
+                // 'guest',
             ]),
         ];
     }

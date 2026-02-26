@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Topic;
+use App\Models\Video;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,8 +21,8 @@ class UserSavedTopicsFactory extends Factory
         return [
             // Pick a random existing user ID
             'user_id' => User::inRandomOrder()->value('id'),
-            // Pick a random existing topic ID
-            'topic_id' => Topic::inRandomOrder()->value('id'),
+            // Pick a random existing video ID
+            'video_id' => Video::inRandomOrder()->value('id'),
 
         ];
     }

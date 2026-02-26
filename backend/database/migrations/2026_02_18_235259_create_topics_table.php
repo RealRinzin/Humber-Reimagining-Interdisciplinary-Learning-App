@@ -16,14 +16,14 @@ return new class extends Migration
             $table->id();
             $table->string('title'); // Add this line for the title column
             $table->string('slug')->unique(); // Add this line for the slug column
-            $table->unsignedBigInteger('parent_id')->nullable(); // nullable = root items
-            $table->foreign('parent_id')
-                ->references('id')
-                ->on('topics');
-            $table->string('thumbnail');// Add this line for the thumbnail column
-            $table->string('video_url'); // Add this line for the video_url column
-            $table->time('duration'); // Add this line for the duration column
-            $table->text('description'); // Add this line for the description column
+            // $table->unsignedBigInteger('parent_id')->nullable(); // nullable = root items
+            // $table->foreign('parent_id')
+            //     ->references('id')
+            //     ->on('topics');
+            // $table->string('thumbnail');// Add this line for the thumbnail column
+            // $table->string('video_url'); // Add this line for the video_url column
+            // $table->time('duration'); // Add this line for the duration column
+            // $table->text('description'); // Add this line for the description column
             // Timestamp
             $table->timestamps();
         });

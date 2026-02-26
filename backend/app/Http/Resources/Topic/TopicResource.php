@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Topic;
 
+use App\Http\Resources\Video\VideoResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,13 +17,19 @@ class TopicResource extends JsonResource
     {
         // return parent::toArray($request);
         return [
-            'parent_id'=>$this->parent_id,
+            'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
-            'description' => $this->description,
-            'thumbnail' => $this->thumbnail,
-            'video_url' => $this->video_url,
-            'duration' => $this->duration,
+            // 'videos' => VideoResource::collection($this->whenLoaded('videos')),
+            'videos' =>VideoResource::collection($this->videos)
+            
+            // 'parent_id'=>$this->parent_id,
+            // 'title' => $this->title,
+            // 'slug' => $this->slug,
+            // 'description' => $this->description,
+            // 'thumbnail' => $this->thumbnail,
+            // 'video_url' => $this->video_url,
+            // 'duration' => $this->duration,
         ];
     }
 }

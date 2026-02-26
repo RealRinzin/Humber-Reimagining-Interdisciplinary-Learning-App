@@ -17,8 +17,8 @@ return new class extends Migration
                 ->constrained('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignId('topic_id') // Foreign key referencing the topics table
-                ->constrained('topics')
+            $table->foreignId('video_id') // Foreign key referencing the topics table
+                ->constrained('videos')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->time('started_at'); // Timestamp of when the user started watching the topic

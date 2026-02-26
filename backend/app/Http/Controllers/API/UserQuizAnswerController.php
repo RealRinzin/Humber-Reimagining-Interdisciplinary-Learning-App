@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\v1;
 
-use App\Models\UserQuizAttempt;
+use App\Models\UserQuizAnswer;
 use Illuminate\Http\Request;
 
-class UserQuizAttemptController
+class UserQuizAnswerController
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class UserQuizAttemptController
     /**
      * Display the specified resource.
      */
-    public function show(UserQuizAttempt $userQuizAttempt)
+    public function show(UserQuizAnswer $userQuizAnswer)
     {
         //
     }
@@ -42,7 +42,7 @@ class UserQuizAttemptController
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(UserQuizAttempt $userQuizAttempt)
+    public function edit(UserQuizAnswer $userQuizAnswer)
     {
         //
     }
@@ -50,7 +50,7 @@ class UserQuizAttemptController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, UserQuizAttempt $userQuizAttempt)
+    public function update(Request $request, UserQuizAnswer $userQuizAnswer)
     {
         //
     }
@@ -58,7 +58,7 @@ class UserQuizAttemptController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(UserQuizAttempt $userQuizAttempt)
+    public function destroy(UserQuizAnswer $userQuizAnswer)
     {
         //
     }

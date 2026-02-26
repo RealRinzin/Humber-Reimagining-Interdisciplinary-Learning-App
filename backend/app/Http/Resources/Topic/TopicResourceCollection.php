@@ -17,10 +17,13 @@ class TopicResourceCollection extends ResourceCollection
         // return parent::toArray($request);
 
         return [
-            'data' => $this->collection,
-            'links'=> [
-                'self' => url('/api/v1/topics'),
-            ],
+            'data' => TopicResource::collection($this->collection),
         ];
+        // return [
+        //     'data' => $this->collection,
+        //     'links' => [
+        //         'self' => url('/api/v1/topics'),
+        //     ],
+        // ];
     }
 }

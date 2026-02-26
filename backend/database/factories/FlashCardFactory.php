@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Topic;
+use App\Models\Video;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -21,7 +21,7 @@ class FlashCardFactory extends Factory
         return [
             //
             'content'=>Str::random(100),
-            'topic_id' => Topic::inRandomOrder()->value('id'),
+            'video_id' => Video::inRandomOrder()->value('id'),
         ];
     }
 }

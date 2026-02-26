@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('quizzes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('topic_id')
-                ->constrained('topics')
+            $table->foreignId('video_id')
+                ->constrained('videos')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
                 $table->string('Question');

@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Topic;
 use App\Models\User;
+use App\Models\Video;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,8 +21,8 @@ class UserTopicHistoryFactory extends Factory
         return [
             // Pick a random existing user ID
             'user_id' => User::inRandomOrder()->value('id'),
-            // Pick a random existing topic ID
-            'topic_id' => Topic::inRandomOrder()->value('id'), 
+            // Pick a random existing video ID
+            'video_id' => Video::inRandomOrder()->value('id'), 
             // Generate random timestamps and other fields for the user topic history
             'started_at' => $this->faker->time(),
             // Use optional() to allow for null values in ended_at, watch_duration, and last_paused

@@ -1,7 +1,8 @@
 import Image from "next/image";
+import Script from "next/script";
 
 export default async function Home() {
-  const topicsResponse = await fetch("http://127.0.0.1:8000/v1/topics/yri9K4n8KOn2fvbJKf");
+  const topicsResponse = await fetch("http://127.0.0.1:8000/v1/topics/cznaimhL0F4Y5eh8OQ");
   const topicsData = await topicsResponse.json();
   // console.log("Topics Data:", topicsData);
   return (
@@ -29,7 +30,12 @@ export default async function Home() {
           </a>
         </p>
       </video>
-      <script src="/app/script.js"></script>
+{/* <Script src="script.js" /> */}
+<script>
+  console.log("Script loaded successfully!");
+  const player = videojs('my-video');
+</script>
+
     </>
   );
 }

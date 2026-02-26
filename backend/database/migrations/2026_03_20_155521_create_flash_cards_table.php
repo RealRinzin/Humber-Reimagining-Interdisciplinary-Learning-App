@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('flash_cards', function (Blueprint $table) {
             $table->id();
             $table->text("content");
-            $table->foreignId('topic_id')
-            ->constrained('topics')
+            $table->foreignId('video_id')
+            ->constrained('videos')
             ->onUpdate('cascade')
             ->onDelete('cascade');
             $table->timestamps();

@@ -20,12 +20,13 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class, // Roles
             UserSeeder::class, // Users
             TopicSeeder::class, // Topics
-            SubtitleSeeder::class, // Subtitles
-            FlashCardSeeder::class, // Flashcard
+            VideoSeeder::class, // Question
+            // UserSavedTopicsSeeder::class, // User Saved Topics
             UserTopicHistorySeeder::class, // User Topic History
-            UserSavedTopicsSeeder::class, // User Saved Topics
             QuizSeeder::class, // Quiz
             QuestionSeeder::class, // Question
-        ]);
+            FlashCardSeeder::class, // Flashcard
+            SubtitleSeeder::class, // Subtitles
+            ]);
     }
 }

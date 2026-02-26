@@ -18,7 +18,8 @@ class RoleSeeder extends Seeder
     {
         // Create random 3 Roles
         // Fixed roles — using firstOrCreate so re-seeding won't duplicate
-        $roles = ['admin', 'editor', 'viewer', 'moderator', 'guest'];
+        // $roles = ['admin', 'editor', 'viewer', 'moderator', 'guest'];
+        $roles = ['student', 'staff'];
 
         foreach ($roles as $role) {
             Role::firstOrCreate(['name' => $role]);

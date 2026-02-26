@@ -1,4 +1,5 @@
 console.log("Script loaded");
+
 const player = videojs('my-video');
 // Per
 // player.ready(() => {

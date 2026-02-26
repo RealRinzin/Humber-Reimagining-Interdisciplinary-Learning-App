@@ -10,6 +10,10 @@ class Topic extends Model
     /** @use HasFactory<\Database\Factories\TopicFactory> */
     use HasFactory;
 
+    public function videos()
+    {
+        return $this->hasMany(Video::class);
+    }
     /*
      * Get the route key for the model.
      *

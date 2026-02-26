@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Topic;
 use App\Models\User;
+use App\Models\Video;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -19,11 +20,11 @@ class UserSavedTopicsSeeder extends Seeder
         // Fetch all users and videos to attach saved videos to users
 
         $users = User::factory(100)->create();
-        $topics = Topic::factory(100)->create();
+        $videos = Video::factory(100)->create();
                 // For each user, randomly attach some saved videos
-        $users->each(function ($user) use ($topics) {
+        $users->each(function ($user) use ($videos) {
             $user->user_saved_topics()->attach(
-                $topics->random(rand(1, 5))->pluck('id')->toArray()
+                $videos->random(rand(1, 5))->pluck('id')->toArray()
             );
         });
     }
