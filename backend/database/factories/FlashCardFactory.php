@@ -20,8 +20,11 @@ class FlashCardFactory extends Factory
     {
         return [
             //
-            'content'=>Str::random(100),
             'video_id' => Video::inRandomOrder()->value('id'),
+            'type' => $this->faker->randomElement(['flip', 'mcs', 'tf']),
+            'difficulty' => $this->faker->randomElement(['easy', 'medium', 'hard']),
+            'question'=>Str::random(100),
+            'answer'=>Str::random(100),
         ];
     }
 }

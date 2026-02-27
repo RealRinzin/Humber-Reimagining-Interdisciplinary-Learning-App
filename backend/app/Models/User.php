@@ -53,17 +53,14 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
     // Define relationship with UserTopicHistory model
-    public function user_topic_histories()
-    {
-        return $this->hasMany(UserTopicHistory::class);
-    }
+
     // Define relationship with UserSavedTopics model
     public function user_saved_topics()
     {
         return $this->belongsToMany(Topic::class, 'user_saved_topics', 'user_id', 'topic_id')->withTimestamps();
     }
-
         // Bridging table relations
+        
     public function userVideoMetric()
     {
         return $this->hasMany(UserVideoMetric::class);
