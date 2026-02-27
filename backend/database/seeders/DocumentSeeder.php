@@ -15,6 +15,5 @@ class DocumentSeeder extends Seeder
     {
         //
         Document::factory(30)->create();
-
     }
 }

@@ -28,7 +28,8 @@ class DatabaseSeeder extends Seeder
             QuestionSeeder::class, // Question
             FlashCardSeeder::class, // Flashcard
             SubtitleSeeder::class, // Subtitles
-            DocumentSeeder::class, // Subtitles
+            DocumentSeeder::class, // Documents
+            CodeSeeder::class, // Code
             ]);
     }
 }

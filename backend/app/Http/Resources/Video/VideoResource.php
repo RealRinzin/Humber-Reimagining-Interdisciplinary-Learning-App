@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Video;
 
+use App\Http\Resources\Code\CodeResource;
 use App\Http\Resources\Document\DocumentResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -25,7 +26,11 @@ class VideoResource extends JsonResource
             'thumbnail' => $this->thumbnail,
             'video_url' => $this->video_url,
             'duration' => $this->duration,
-            'documents' =>DocumentResource::collection($this->document)
+            // Document relationship data
+            'documents' =>DocumentResource::collection($this->document),
+            // Code relationship data
+            'codes' =>CodeResource::collection($this->code),
+
         ];
     }
 }
