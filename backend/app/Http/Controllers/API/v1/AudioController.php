@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\API\v1;
 
-use App\Models\Video;
+use App\Models\Audio;
 use Illuminate\Http\Request;
 
-class VideoController
+class AudioController
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class VideoController
     /**
      * Display the specified resource.
      */
-    public function show(Video $video)
+    public function show(Audio $audio)
     {
         //
     }
@@ -42,7 +42,7 @@ class VideoController
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Video $video)
+    public function edit(Audio $audio)
     {
         //
     }
@@ -50,7 +50,7 @@ class VideoController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Video $video)
+    public function update(Request $request, Audio $audio)
     {
         //
     }
@@ -58,7 +58,7 @@ class VideoController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Video $video)
+    public function destroy(Audio $audio)
     {
         //
     }

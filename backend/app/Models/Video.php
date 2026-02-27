@@ -12,9 +12,17 @@ class Video extends Model
 
 
     // Relationship Tables
-
     public function topic()
     {
         return $this->belongsTo(Topic::class);
+    }
+
+    // Document Relationship
+    public function document(){
+        return $this->hasMany(Document::class);
+    }
+    // Code Section Relationship
+    public function code(){
+        return $this->hasMany(Code::class);
     }
 }

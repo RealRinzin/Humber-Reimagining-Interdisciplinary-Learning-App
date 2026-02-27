@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use App\Models\User;
+
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
             QuestionSeeder::class, // Question
             FlashCardSeeder::class, // Flashcard
             SubtitleSeeder::class, // Subtitles
+            DocumentSeeder::class, // Subtitles
             ]);
     }
 }
