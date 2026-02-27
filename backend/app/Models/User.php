@@ -65,8 +65,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserVideoMetric::class);
     }
+    // User Topic Metric Relationship Table
     public function userTopicMetric()
     {
         return $this->hasMany(UserTopicMetric::class);
+    }
+    // User Flash Card metrics table
+    public function userFlashCardMetric(){
+        return $this->hasMany(UserFlashCardMetric::class);
     }
 }

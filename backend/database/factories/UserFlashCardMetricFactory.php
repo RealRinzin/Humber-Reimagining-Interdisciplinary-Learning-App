@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\FlashCard;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,6 +20,10 @@ class UserFlashCardMetricFactory extends Factory
     {
         return [
             //
+            'user_id' => User::inRandomOrder()->value('id'), 
+            'flash_card_id' => FlashCard::inRandomOrder()->value('id'), 
+            'attempted_on' => $this->faker->date(),
+            'correct'=>$this->faker->boolean(),
         ];
     }
 }

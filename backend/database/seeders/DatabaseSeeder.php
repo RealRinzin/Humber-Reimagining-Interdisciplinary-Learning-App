@@ -29,8 +29,10 @@ class DatabaseSeeder extends Seeder
             SubtitleSeeder::class, // Subtitles
             DocumentSeeder::class, // Documents
             CodeSeeder::class, // Code
+            UserTopicMetricSeeder::class, // User Topic Metrics
             UserVideoMetricSeeder::class, // User Video Metrics
-            UserTopicMetricSeeder::class, // User Video Metrics
+            UserFlashCardMetricSeeder::class // User Flash card Metrics
+
             ]);
     }
 }

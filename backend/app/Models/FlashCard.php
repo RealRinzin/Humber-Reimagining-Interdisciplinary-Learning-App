@@ -9,4 +9,11 @@ class FlashCard extends Model
 {
     /** @use HasFactory<\Database\Factories\FlashCardFactory> */
     use HasFactory;
+
+    // Bridging table relationship
+
+    public function userFlashCardMetric()
+    {
+        return $this->hasMany(UserFlashCardMetric::class);
+    }
 }
