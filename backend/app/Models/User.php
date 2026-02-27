@@ -53,12 +53,14 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
     // Video table relationship
-    public function video(){
+    public function video()
+    {
         return $this->hasMany(Video::class);
     }
 
     // Topic Table
-   public function topic(){
+    public function topic()
+    {
         return $this->hasMany(Topic::class);
     }
 
@@ -67,8 +69,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Topic::class, 'user_saved_topics', 'user_id', 'topic_id')->withTimestamps();
     }
-        // Bridging table relations
-        
+    // Bridging table relations
+
     public function userVideoMetric()
     {
         return $this->hasMany(UserVideoMetric::class);
@@ -79,7 +81,8 @@ class User extends Authenticatable
         return $this->hasMany(UserTopicMetric::class);
     }
     // User Flash Card metrics table
-    public function userFlashCardMetric(){
+    public function userFlashCardMetric()
+    {
         return $this->hasMany(UserFlashCardMetric::class);
     }
 }

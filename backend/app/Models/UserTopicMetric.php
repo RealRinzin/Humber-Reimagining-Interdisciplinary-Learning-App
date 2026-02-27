@@ -13,11 +13,11 @@ class UserTopicMetric extends Model
         // Bridging table relations
 
     public function user(){
-        $this->belongsToMany(Topic::class);
+       return  $this->belongsToMany(User::class);
     }
     // Video
-
     public function topic(){
-        $this->belongsToMany(User::class);
+       return  $this->belongsToMany(Topic::class);
     }
+
 }

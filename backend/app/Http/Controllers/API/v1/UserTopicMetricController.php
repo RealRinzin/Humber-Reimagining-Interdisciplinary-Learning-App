@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API\v1;
 
-
+use App\Http\Resources\UserTopicMetric\UserTopicMetricResourceCollection;
 use App\Models\UserTopicMetric;
 use Illuminate\Http\Request;
 
@@ -14,6 +14,8 @@ class UserTopicMetricController
     public function index()
     {
         //
+         return new UserTopicMetricResourceCollection(UserTopicMetric::all());
+
     }
 
     /**

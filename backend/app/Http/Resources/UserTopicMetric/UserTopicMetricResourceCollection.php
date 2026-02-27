@@ -14,6 +14,9 @@ class UserTopicMetricResourceCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        // return parent::toArray($request);
+        return [
+            'data' => UserTopicMetricResource::collection($this->collection),
+        ];
     }
 }

@@ -11,14 +11,14 @@ class UserFlashCardMetric extends Model
     use HasFactory;
 
     // Bridging table relations
+    
     public function user()
     {
-        $this->belongsToMany(FlashCard::class);
+       return $this->belongsToMany(User::class);
     }
-    // Video
-
-    public function flash_card()
+    // Flash Card
+    public function flashCard()
     {
-        $this->belongsToMany(User::class);
+       return $this->belongsTo(FlashCard::class);
     }
 }
