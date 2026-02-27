@@ -63,5 +63,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Topic::class, 'user_saved_topics', 'user_id', 'topic_id')->withTimestamps();
     }
 
-
+        // Bridging table relations
+    public function userVideoMetric()
+    {
+        return $this->hasMany(UserVideoMetric::class);
+    }
 }

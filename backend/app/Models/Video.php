@@ -18,11 +18,19 @@ class Video extends Model
     }
 
     // Document Relationship
-    public function document(){
+    public function document()
+    {
         return $this->hasMany(Document::class);
     }
     // Code Section Relationship
-    public function code(){
+    public function code()
+    {
         return $this->hasMany(Code::class);
+    }
+
+    // Bridging table relations
+    public function userVideoMetric()
+    {
+        return $this->hasMany(UserVideoMetric::class);
     }
 }
