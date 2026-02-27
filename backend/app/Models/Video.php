@@ -16,7 +16,10 @@ class Video extends Model
     {
         return $this->belongsTo(Topic::class);
     }
-
+    // Video Relationship
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
     // Document Relationship
     public function document()
     {

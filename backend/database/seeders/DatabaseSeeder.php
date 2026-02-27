@@ -32,7 +32,6 @@ class DatabaseSeeder extends Seeder
             UserTopicMetricSeeder::class, // User Topic Metrics
             UserVideoMetricSeeder::class, // User Video Metrics
             UserFlashCardMetricSeeder::class // User Flash card Metrics
-
             ]);
     }
 }
