@@ -68,4 +68,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserVideoMetric::class);
     }
+    public function userTopicMetric()
+    {
+        return $this->hasMany(UserTopicMetric::class);
+    }
 }

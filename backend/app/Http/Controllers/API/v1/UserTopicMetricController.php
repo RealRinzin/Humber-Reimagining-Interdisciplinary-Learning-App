@@ -2,15 +2,24 @@
 
 namespace App\Http\Controllers\API\v1;
 
-use App\Models\UserTopicHistory;
+
+use App\Models\UserTopicMetric;
 use Illuminate\Http\Request;
 
-class UserTopicHistoryController
+class UserTopicMetricController
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
         //
     }
@@ -26,7 +35,15 @@ class UserTopicHistoryController
     /**
      * Display the specified resource.
      */
-    public function show(UserTopicHistory $userTopicHistory)
+    public function show(UserTopicMetric $userTopicMetric)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(UserTopicMetric $userTopicMetric)
     {
         //
     }
@@ -34,7 +51,7 @@ class UserTopicHistoryController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, UserTopicHistory $userTopicHistory)
+    public function update(Request $request, UserTopicMetric $userTopicMetric)
     {
         //
     }
@@ -42,7 +59,7 @@ class UserTopicHistoryController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(UserTopicHistory $userTopicHistory)
+    public function destroy(UserTopicMetric $userTopicMetric)
     {
         //
     }

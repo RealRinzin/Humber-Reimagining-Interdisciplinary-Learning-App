@@ -28,4 +28,10 @@ class Topic extends Model
     {
         return 'slug';
     }
+
+        // Bridging table relations
+    public function userTopicMetric()
+    {
+        return $this->hasMany(UserTopicMetric::class);
+    }
 }

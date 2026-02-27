@@ -2,18 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Models\UserTopicHistory;
+use App\Models\UserTopicMetric;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class UserTopicHistorySeeder extends Seeder
+class UserTopicMetricSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        // Create 100 user topic history records using the factory
-        UserTopicHistory::factory(100)->create();
+        //
+        UserTopicMetric::factory(30)->create();
     }
 }
