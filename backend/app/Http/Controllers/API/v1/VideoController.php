@@ -15,7 +15,6 @@ class VideoController
     {
         //
          return new VideoResourceCollection(Video::all());
-
     }
 
     /**

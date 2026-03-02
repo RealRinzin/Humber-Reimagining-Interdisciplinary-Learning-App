@@ -13,11 +13,11 @@ class UserVideoMetric extends Model
     // Bridging table relations
 
     public function user(){
-        return $this->belongsToMany(Video::class);
+        return $this->belongsToMany(User::class);
     }
     // Video
 
     public function video(){
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(Video::class);
     }
 }

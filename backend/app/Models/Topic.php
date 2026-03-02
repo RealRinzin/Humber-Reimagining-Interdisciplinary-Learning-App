@@ -10,9 +10,15 @@ class Topic extends Model
     /** @use HasFactory<\Database\Factories\TopicFactory> */
     use HasFactory;
 
-    public function videos()
+    // Video Relationship
+    public function video()
     {
         return $this->hasMany(Video::class);
+    }
+    // Topic Relationship
+    public function topic()
+    {
+        return $this->hasMany(Topic::class);
     }
     /*
      * Get the route key for the model.
@@ -29,9 +35,4 @@ class Topic extends Model
         return 'slug';
     }
 
-        // Bridging table relations
-    public function userTopicMetric()
-    {
-        return $this->hasMany(UserTopicMetric::class);
-    }
 }
