@@ -16,10 +16,10 @@ class Topic extends Model
         return $this->hasMany(Video::class);
     }
     // Topic Relationship
-    public function topic()
-    {
-        return $this->hasMany(Topic::class);
-    }
+    // public function topic()
+    // {
+    //     return $this->hasMany(Topic::class);
+    // }
     /*
      * Get the route key for the model.
      *

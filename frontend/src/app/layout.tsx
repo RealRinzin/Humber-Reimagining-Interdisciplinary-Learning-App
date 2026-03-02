@@ -30,6 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className}>
       <body>
+        <link rel="icon" href="/img/logo/favicon-32x32.png" />
         <DesktopNavigation />
 
         {children}

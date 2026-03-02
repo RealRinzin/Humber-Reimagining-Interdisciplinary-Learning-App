@@ -22,7 +22,7 @@ class TopicResource extends JsonResource
             'slug' => $this->slug,
             // 'user_id'=>$this->user_id,
             // 'videos' => VideoResource::collection($this->whenLoaded('videos')),
-            'videos' =>VideoResource::collection($this->videos)
+            'videos' =>VideoResource::collection($this->video)
             
             // 'parent_id'=>$this->parent_id,
             // 'title' => $this->title,

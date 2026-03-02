@@ -14,7 +14,7 @@ class VideoController
     public function index()
     {
         //
-         return new VideoResourceCollection(Video::all());
+         return new VideoResourceCollection(Video::get());
     }
 
     /**

@@ -15,7 +15,7 @@ class TopicController extends Controller
     public function index()
     {
         //
-         return new TopicResourceCollection(Topic::all());
+         return new TopicResourceCollection(Topic::get());
     }
 
     /**
