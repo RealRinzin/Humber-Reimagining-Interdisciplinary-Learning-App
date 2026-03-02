@@ -11,21 +11,32 @@ body {
   background: var(--background);
   color: var(--foreground);
   /* font-family: ,sans-serif; */
-  font-family: "Inter","Arial", sans-serif;
+  font-family: "Inter", "Arial", sans-serif;
 }
-
 
 /*
 * Custom css class for the page
  */
 
- header{
-  background-color:var(--primary-color); /* This is set the default navigation background to humber royal black theme color */
+header {
+  background-color: var(
+    --primary-color
+  ); /* This is set the default navigation background to humber royal black theme color */
   /* color:var(--secondary-color)  */
   /* Choosing the humber theme color yellow text */
- }
+}
 
- header #hb_search{
+header #hb_search {
+  /* Header Search bar css */
   background-color: #32325b;
-  color:var(--secondary-color);
- }
+  color: var(--secondary-color);
+}
+main {
+  height: 100vh;
+}
+
+/* FOOTER CSS */
+footer {
+  /* background-color: var(--secondary-color); */
+  background-color: #191947;
+}

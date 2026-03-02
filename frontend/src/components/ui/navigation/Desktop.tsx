@@ -17,16 +17,6 @@ export default function DesktopNavigation() {
             <li><a href=""> <FontAwesomeIcon icon={faUser} size="1x" /></a></li>
           </ul>
         </nav>
-        {/* <nav className='flex-2'>
-          <div></div>
-          <ul className='flex gap-5 place-items-center justify-end'>
-              <input id="hb_search" type="text" className='px-2 py-1 rounded-xl' placeholder='Search'  />
-              <FontAwesomeIcon icon={faMagnifyingGlass} size='1x' className='relative'/>
-            <li><a href=""> <FontAwesomeIcon icon={faHouse} size="1x" /></a></li>
-            <li><a href=""> <FontAwesomeIcon icon={faAtom} size="1x" /></a></li>
-            <li><a href=""> <FontAwesomeIcon icon={faUser} size="1x" /></a></li>
-          </ul>
-        </nav> */}
       </header>
     </>
   )

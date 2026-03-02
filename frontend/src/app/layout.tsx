@@ -13,11 +13,13 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false; // We are adding the autoAddClass to avoid the hydration page
 // Desktop Navivation 
 import DesktopNavigation from "@/components/ui/navigation/Desktop";
+import Footer from "@/components/layout/Footer";
 
 // SEO meta description
 export const metadata: Metadata = {
   title: "Humber Learning APP",
   description: "Learning through the online educational tech",
+  viewport: "width=device-width, initial-scale=1.0",
 };
 
 export default function RootLayout({
@@ -26,10 +28,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="{inter.className}">
+    <html lang="en" className={inter.className}>
       <body>
         <DesktopNavigation />
+
         {children}
+        <Footer/>
       </body>
     </html>
   );
