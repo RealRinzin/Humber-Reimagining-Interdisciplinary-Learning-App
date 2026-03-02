@@ -28,9 +28,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+
+        asdfds
         {children}
-        <script src="//vjs.zencdn.net/8.23.7/video.min.js"></script>
-        <Script src="script.js"/>
       </body>
     </html>
   );

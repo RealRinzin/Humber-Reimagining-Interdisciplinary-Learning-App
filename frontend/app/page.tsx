@@ -1,7 +1,5 @@
-import Image from "next/image";
-import Script from "next/script";
 
-export default async function Home() {
+export default  function Home() {
   return(
     <>
     Home Page
