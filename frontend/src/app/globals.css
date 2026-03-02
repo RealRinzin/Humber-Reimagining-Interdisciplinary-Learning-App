@@ -13,3 +13,19 @@ body {
   /* font-family: ,sans-serif; */
   font-family: "Inter","Arial", sans-serif;
 }
+
+
+/*
+* Custom css class for the page
+ */
+
+ header{
+  background-color:var(--primary-color); /* This is set the default navigation background to humber royal black theme color */
+  /* color:var(--secondary-color)  */
+  /* Choosing the humber theme color yellow text */
+ }
+
+ header #hb_search{
+  background-color: #32325b;
+  color:var(--secondary-color);
+ }
