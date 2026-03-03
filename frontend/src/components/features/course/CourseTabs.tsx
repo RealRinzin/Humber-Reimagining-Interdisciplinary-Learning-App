@@ -1,7 +1,7 @@
 import { faCaretLeft, faParagraph, faVial } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function CourseTabs({ title }) {
+export default function CourseTabs({ title }: { title: string }) {
   return (
     <section className="my-2" >
       <div className="flex justify-between bg-slate-300 p-3 rounded-sm">
