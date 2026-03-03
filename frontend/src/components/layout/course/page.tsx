@@ -1,4 +1,5 @@
 import CourseProgressUI from '@/components/features/course/CourseProgressUI'
+import CourseTabs from '@/components/features/course/CourseTabs'
 import CourseTitle from '@/components/features/course/CourseTitle'
 import CourseVideo from '@/components/features/course/CourseVideo'
 import React from 'react'
@@ -14,10 +15,19 @@ export default function VideoPage() {
                     <CourseVideo />
                 </section>
                 {/* Tabs */}
+                <CourseTabs title={"Too Long Did Not watch"}/>
                 {/* Tabs */}
+                <CourseTabs title={"Apply Your Knowledge"}/>
                 {/* Tabs */}
+                <CourseTabs title={"Test Your knowledge"}/>
                 {/* Tabs */}
+                <CourseTabs title={"Umer's Ramblings"} />
                 {/* Tabs */}
+                <CourseTabs title={"Code"} />
+                {/* Tabs */}
+                <CourseTabs title={"Resources"} />
+                {/* Tabs */}
+                <CourseTabs title={"Whats next?"} />
             </div>
             <aside className="md:flex-[2]">
                 Progress links

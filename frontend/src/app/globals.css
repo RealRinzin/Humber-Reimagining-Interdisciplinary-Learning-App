@@ -39,10 +39,6 @@ header #hb_search {
   background-color: #32325b;
   color: var(--secondary-color);
 }
-main {
-  height: 100vh;
-}
-
 /* FOOTER CSS */
 footer {
   /* background-color: var(--secondary-color); */
