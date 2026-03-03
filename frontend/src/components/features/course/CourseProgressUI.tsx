@@ -13,11 +13,11 @@ export default function CourseProgressUI() {
                     {/* <FontAwesomeIcon icon={faCheck} size="1x" className="text-slate-500" /> */}
                 </li>
                 <li className="border border-stone-300 h-28 my-1"></li>
-                <li className="bg-white border-4 border-slate-700 rounded-full text-center h-6 w-6 text-white hover:border-green-600 hover:cursor-pointer transition duration-300 ease-in-out">
+                <li className="bg-white border-4 border-slate-700 rounded-full text-center h-6 w-6 text-white hover:border-green-600 hover:cursor-pointer transition duration-300 ease-in-out hover:shadow-[0_0_10px_3px_rgba(34,197,94,0.6)]">
                     {/* <FontAwesomeIcon icon={faCheck} size="1x" className="text-slate-500" /> */}
                 </li>
                 <li className="border border-stone-300 h-28 my-1"></li>
-                <li className="bg-white border-4 border-slate-700 rounded-full text-center h-6 w-6 text-white hover:border-green-600 hover:cursor-pointer transition duration-300 ease-in-out">
+                <li className="bg-white border-4 border-slate-700 rounded-full text-center h-6 w-6 text-white hover:border-green-600 hover:cursor-pointer transition duration-300 ease-in-out hover:shadow-[0_0_10px_3px_rgba(34,197,94,0.6)]">
                     {/* <FontAwesomeIcon icon={faCheck} size="1x" className="text-slate-500" /> */}
                 </li>
             </ul>
