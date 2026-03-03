@@ -2,7 +2,6 @@ import CourseProgressUI from '@/components/features/course/CourseProgressUI'
 import CourseTabs from '@/components/features/course/CourseTabs'
 import CourseTitle from '@/components/features/course/CourseTitle'
 import CourseVideo from '@/components/features/course/CourseVideo'
-import React from 'react'
 
 export default function VideoPage() {
     return (
