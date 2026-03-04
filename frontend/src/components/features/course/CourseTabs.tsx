@@ -4,7 +4,7 @@ import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 // export default function CourseTabs({ title,status,icon }: { title: string,status:boolean,icon:IconDefinition }) {
-export default function CourseTabs({ title,status}: { title: string,status:boolean}) {
+export default function CourseTabs({ title, status }: { title: string, status: boolean }) {
   const [drop, setDrop] = useState(true);
   return (
     <section className="my-2" >
@@ -18,7 +18,7 @@ export default function CourseTabs({ title,status}: { title: string,status:boole
             className="cursor-pointer"
           />
         </h2>
-        <div className={`h-8 w-8 rounded-full border-6  ${status ? 'bg-green-600 border-green-600' : 'bg-slate-400 border-slate-600'} hover:border-green-600 hover:cursor-pointer hover:bg-white transition duration-300 ease-in-out 
+        <div className={`h-8 w-8 rounded-full border-6  ${status ? 'bg-green-600 border-green-600' : 'bg-slate-400 border-slate-600 hover:border-green-600 hover:cursor-pointer hover:bg-white transition duration-300 ease-in-out'}  
  hover:shadow-[0_0_10px_3px_rgba(34,197,94,0.6)]`}>
           {
             status ? (<FontAwesomeIcon icon={faCheck} size="1x" className="text-white" />) : ''

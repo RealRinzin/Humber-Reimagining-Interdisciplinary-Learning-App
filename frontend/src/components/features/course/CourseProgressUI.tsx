@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function CourseProgressUI() {
     return (
         <div className="bg-blue-900 py-3 px-2 rounded-full text-white">
-            <ul className="flex flex-col place-items-center">
+            <ul className="flex md:flex-col place-items-center justify-evenly">
                 <li className="bg-green-600 rounded-full text-center h-6 w-6 text-white">
                     <FontAwesomeIcon icon={faCheck} size="1x" />
                 </li>

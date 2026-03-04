@@ -11,7 +11,7 @@ export default function VideoPage() {
             <div className="md:flex-[4]">
                 <CourseTitle />
                 {/* Video section */}
-                <section className='flex gap-3 py-3'>
+                <section className='flex flex-col md:flex-row gap-3 py-3'>
                     <CourseProgressUI />
                     <CourseVideo />
                 </section>
