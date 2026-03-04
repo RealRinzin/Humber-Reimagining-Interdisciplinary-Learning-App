@@ -4,7 +4,7 @@ const CourseTitle = async () => {
   const data = await res.json();
   console.log(data);
   return (
-    <h1 className='text-xl'>Intro to Spaces</h1>
+    <h1 className='text-2xl font-bold bg-gray-200 p-2 rounded'>Intro to Spaces</h1>
   )
 }
 export default CourseTitle;

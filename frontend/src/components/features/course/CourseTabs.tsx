@@ -1,10 +1,11 @@
 'use client'
 import { faAngleDown, faAngleUp, faCheck, faVial } from "@fortawesome/free-solid-svg-icons";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-export default function CourseTabs({ title,status }: { title: string,status:boolean }) {
+// export default function CourseTabs({ title,status,icon }: { title: string,status:boolean,icon:IconDefinition }) {
+export default function CourseTabs({ title,status}: { title: string,status:boolean}) {
   const [drop, setDrop] = useState(true);
-
   return (
     <section className="my-2" >
       <div className="flex justify-between bg-slate-300 p-3 rounded-sm">
