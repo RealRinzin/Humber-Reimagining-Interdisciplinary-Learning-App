@@ -14,19 +14,19 @@ export default function VideoPage() {
                     <CourseVideo />
                 </section>
                 {/* Tabs */}
-                <CourseTabs title={"Too Long Did Not watch"}/>
+                <CourseTabs title={"Too Long Did Not watch"} status={true}/>
                 {/* Tabs */}
-                <CourseTabs title={"Apply Your Knowledge"}/>
+                <CourseTabs title={"Apply Your Knowledge"} status={false}/>
                 {/* Tabs */}
-                <CourseTabs title={"Test Your knowledge"}/>
+                <CourseTabs title={"Test Your knowledge"} status={true}/>
                 {/* Tabs */}
-                <CourseTabs title={"Umer's Ramblings"} />
+                <CourseTabs title={"Umer's Ramblings"}  status={false}/>
                 {/* Tabs */}
-                <CourseTabs title={"Code"} />
+                <CourseTabs title={"Code"} status={true} />
                 {/* Tabs */}
-                <CourseTabs title={"Resources"} />
+                <CourseTabs title={"Resources"}  status={false}/>
                 {/* Tabs */}
-                <CourseTabs title={"Whats next?"} />
+                <CourseTabs title={"Whats next?"} status={true}/>
             </div>
             <aside className="md:flex-[2]">
                 Progress links
