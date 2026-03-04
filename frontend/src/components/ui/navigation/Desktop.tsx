@@ -12,9 +12,9 @@ export default function DesktopNavigation() {
             <FontAwesomeIcon icon={faMagnifyingGlass} size='1x' className='absolute top-2 right-2' />
           </div>
           <ul className='flex gap-5 justify-evenly'>
-            <li><a href=""> <FontAwesomeIcon icon={faHouse} size="1x" /></a></li>
-            <li><a href=""> <FontAwesomeIcon icon={faAtom} size="1x" /></a></li>
-            <li><a href=""> <FontAwesomeIcon icon={faUser} size="1x" /></a></li>
+            <li><a href="/"> <FontAwesomeIcon icon={faHouse} size="1x" /></a></li>
+            <li><a href="/"> <FontAwesomeIcon icon={faAtom} size="1x" /></a></li>
+            <li><a href="/"> <FontAwesomeIcon icon={faUser} size="1x" /></a></li>
           </ul>
         </nav>
       </header>
