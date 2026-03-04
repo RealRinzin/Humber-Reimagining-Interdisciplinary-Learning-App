@@ -1,6 +1,6 @@
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+// 
 export default function CourseProgressUI() {
     return (
         <div className="bg-blue-900 py-3 px-2 rounded-full text-white">
