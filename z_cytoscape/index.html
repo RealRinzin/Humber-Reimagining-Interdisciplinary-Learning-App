@@ -25,31 +25,53 @@
 
         elements: [
           // Nodes
-          { data: { id: "a",value:'a' } },
-          { data: { id: "b" } },
-          { data: { id: "c" } },
-          { data: { id: "d" } },
+          { data: { id: "a", label: "Translation" } },
+          { data: { id: "b", label: "Space" } },
+          { data: { id: "c", label: "Vertex" } },
+          { data: { id: "d", label: "Translation" } },
 
           // Edges
           { data: { id: "ab", source: "a", target: "b" } },
           { data: { id: "bc", source: "c", target: "a" } },
           { data: { id: "dd", source: "d", target: "a" } },
           { data: { id: "da", source: "d", target: "c" } },
-          { data: { id: "dad", source: "b", target: "d" } },
+          // { data: { id: "dad", source: "b", target: "d" } },
           // { data: { id: "ad", source: "a", target: "c" } },
         ],
 
         style: [
           {
-            selector: "#a",
+            // selector: "#a",
+            selector: "node",
             style: {
               width: 80,
               height: 80,
+              // Label Text
+              label: "data(label)",
+              "text-valign": "center",
+              "text-halign": "center",
+
+              // Font
+              // "font-family": "Arial, sans-serif", // any valid CSS font
+              "font-size": 14, // in pixels
+              "font-weight": "bold", // normal | bold | 100..900
+              // "font-style": "italic", // normal | italic | oblique
+              "text-transform": "uppercase", // none | uppercase | lowercase | capitalize
+
+              // Color and outline
+              color: "#fff",
+              "text-outline-color": "#000",
+              "text-outline-width": 2,
+
+              // Text background (optional)
+              "text-background-color": "#000",
+              "text-background-opacity": 0.9,
+              "text-background-padding": 8,
+              "text-background-shape": "roundrectangle",
               // Inner circle
               "background-color": "#ff0080",
-
               // Ring effect
-              "border-width": 10,
+              "border-width": 20,
               "border-color": "#b0005a",
 
               // Glow
@@ -58,44 +80,48 @@
               "shadow-opacity": 0.7,
 
               // Remove label if not needed
-              label: "",
+              // label: "",
             },
           },
-                    {
-            selector: "#b",
-            style: {
-              width: 80,
-              height: 80,
-              // Inner circle
-              "background-color": "#ff0080",
+          // {
+          //   selector: "#b",
+          //   style: {
+          //     width: 80,
+          //     height: 80,
+          //     // Inner circle
+          //     "background-color": "#ff0080",
 
-              // Ring effect
-              "border-width": 10,
-              "border-color": "#b0005a",
+          //     // Ring effect
+          //     "border-width": 20,
+          //     "border-color": "#b0005a",
 
-              // Glow
-              "shadow-blur": 40,
-              "shadow-color": "#00ff88",
-              "shadow-opacity": 0.7,
+          //     // Glow
+          //     "shadow-blur": 40,
+          //     "shadow-color": "#00ff88",
+          //     "shadow-opacity": 0.7,
 
-              // Remove label if not needed
-              label: "",
-            },
-          },
+          //     // Remove label if not needed
+          //     label: "",
+          //   },
+          // },
           {
             selector: "edge",
             style: {
               width: 2,
-              "line-color": "#aaa",
-              "target-arrow-color": "#aaa",
-              "target-arrow-shape": "triangle",
+              "line-color": "#000",
               "curve-style": "bezier",
+              "target-arrow-shape": "triangle",
+              "target-arrow-color": "#888",
             },
           },
         ],
 
         layout: {
-          name: "grid",
+          name: "cose",
+          animate: true,
+          idealEdgeLength: 120,
+          nodeRepulsion: 400000,
+          gravity: 0.3,
         },
       });
     </script>
