@@ -3,6 +3,7 @@
 import { faMagnifyingGlassMinus, faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import CytoscapeComponent from "react-cytoscapejs";
+import type { StylesheetCSS } from 'cytoscape';
 import { useRef } from "react";
 export default function CourseNodeLink() {
     const cyRef = useRef(null);
@@ -31,7 +32,7 @@ export default function CourseNodeLink() {
         // { data: { source: "c", target: "a" } },
     ];
     // console.log(elements)
-    const stylesheet = [
+    const stylesheet:any = [
         {
             selector: "node",
             style: {
@@ -157,8 +158,8 @@ export default function CourseNodeLink() {
                     </div>
                 </div>
                 <div className="flex flex-col justify-end items-end gap-2 my-2">
-                    <FontAwesomeIcon icon={faMagnifyingGlassPlus} size="1x" className="text-white bg-slate-700 p-1 rounded hover:cursor-pointer" onClick={() => cyRef.current.zoom(cyRef.current.zoom() * 1.2)} />
-                    <FontAwesomeIcon icon={faMagnifyingGlassMinus} size="1x" className="text-white bg-slate-700 p-1 rounded hover:cursor-pointer"  onClick={() => cyRef.current.zoom(cyRef.current.zoom() / 1.2)} />
+                    <FontAwesomeIcon icon={faMagnifyingGlassPlus} size="1x" className="text-white bg-slate-700 p-1 rounded hover:cursor-pointer"/>
+                    <FontAwesomeIcon icon={faMagnifyingGlassMinus} size="1x" className="text-white bg-slate-700 p-1 rounded hover:cursor-pointer"  />
                 </div>
 
             </div>
@@ -167,21 +168,17 @@ export default function CourseNodeLink() {
                     elements={elements}
                     stylesheet={stylesheet}
                     layout={{
-                        // name:"preset",
                         name: "circle",
-                        // name: "random",
-                        // name: "cose",
-                        // directed:true,
                         animate: true,
-                        idealEdgeLength: 10,
-                        nodeRepulsion: 400000,
-                        gravity: 0.3,
-                        padding: 10,
+                        // idealEdgeLength: 10,
+                        // nodeRepulsion: 400000,
+                        // gravity: 0.3,
+                        // padding: 10,
                     }}
                     style={{ width: "100%", height: "100%" }}
-                    cy={(cy) => {
-                        cyRef.current = cy; // store cy instance
-                    }}
+                    // cy={(cy) => {
+                    //     cyRef.current = cy; // store cy instance
+                    // }}
                 />
             </div>
         </>
