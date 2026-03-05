@@ -18,7 +18,8 @@
     "react": "19.2.3",
     "react-cytoscapejs": "^2.0.0",
     "react-dom": "19.2.3",
-    "react-syntax-highlighter": "^16.1.1"
+    "react-syntax-highlighter": "^16.1.1",
+    "video.js": "^8.23.7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -27,6 +28,7 @@
     "@types/react-cytoscapejs": "^1.2.6",
     "@types/react-dom": "^19",
     "@types/react-syntax-highlighter": "^15.5.13",
+    "@types/video.js": "^7.3.58",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",

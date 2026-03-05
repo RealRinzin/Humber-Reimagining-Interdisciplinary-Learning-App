@@ -1,12 +1,29 @@
+'use client';
 
-export default function CourseVideo() {
+import { useEffect, useRef } from 'react';
+import videojs from 'video.js';
+import 'video.js/dist/video-js.css';
+
+export default function VideoPlayer() {
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    useEffect(() => {
+        if (!videoRef.current) return;
+
+        const player = videojs(videoRef.current, {
+            controls: true,
+            fluid:true,
+            responsive:true,
+            height: 'auto',
+            sources: [{ src: 'https://loremipsum.video/vt/powerpoint-3.mp4', type: 'video/mp4' }],
+        });
+
+        return () => {
+            player.dispose();
+        };
+    }, []);
+
     return (
-        <>
-        <section>
-        <video controls>
-            <source src="https://www.pexels.com/download/video/5198159" type="video/mp4"/>
-        </video>
-        </section>
-    </>
-  )
+        <video ref={videoRef} className="video-js" />
+    );
 }
