@@ -22,6 +22,9 @@ html {
   /* 1. Apply box-sizing to all elements */
   box-sizing: inherit;
 }
+.primary-color{
+  background: var(--primary-color);
+}
 /*
 * Custom css class for the page
  */
