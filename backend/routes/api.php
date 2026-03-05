@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 Route::prefix('v1')->name('v1.')->group(function () {
     Route::get('/topics', [TopicController::class, 'index']);
-    Route::get('/topics/{topic}', [TopicController::class, 'show']);
+    Route::get('/topics/{topic:slug}', [TopicController::class, 'show']);
 
 
     // Video

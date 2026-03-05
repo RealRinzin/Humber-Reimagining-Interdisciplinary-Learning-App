@@ -27,11 +27,11 @@ export default function TopicProgressTracking() {
                     <FontAwesomeIcon icon={faMagnifyingGlassPlus} size="1x" className="text-white bg-slate-700 p-1 rounded" />
                     <FontAwesomeIcon icon={faMagnifyingGlassMinus} size="1x" className="text-white bg-slate-700 p-1 rounded" />
                 </div>
-                <ul className="relative gap-8">
+                <ul className="relative gap-4">
                     {
                         tracking.map((color, index) => (
                             <React.Fragment key={index}>
-                                <li className={`flex  h-12 w-12 relative items-center justify-center rounded-full ${color.status ? `bg-pink-600 outline-pink-600 border-pink-900` : `bg-green-600 outline-green-600 border-green-900`}   outline-4 border-5  shadow-[0_0_20px_5px_rgba(34,197,94,0.6)]`}
+                                <li className={`flex h-12 w-12 relative items-center justify-center rounded-full ${color.status ? `bg-pink-600 outline-pink-600 border-pink-900` : `bg-green-600 outline-green-600 border-green-900`}   outline-4 border-5  shadow-[0_0_20px_5px_rgba(34,197,94,0.6)]`}
                                     style={{
                                         marginLeft: `calc(${Math.random() * 90}% - ${Math.random() * 80}px)`
                                     }}
@@ -40,7 +40,7 @@ export default function TopicProgressTracking() {
                                         {color.color}
                                     </a>
                                 </li>
-                                <li className="border border-slate-700 h-0 w-24 md:h-28 md:w-0"
+                                <li className="border border-slate-700 h-28 w-0"
                                     style={{
                                         // transform: `rotate(${Math.random()*90}deg)` /* tilts 10 degrees 
                                     }}

@@ -5,7 +5,7 @@ export default function CourseProgressUI() {
     return (
         <div className="bg-blue-900 py-3 px-2 rounded-full text-white">
             <ul className="flex flex-row md:flex-col items-center justify-evenly">
-                <li className="bg-green-600 rounded-full text-center h-6 w-6 text-white">
+                <li className="flex flex-col justify-center items-center bg-green-600 rounded-full text-center h-6 w-6 text-white">
                     <FontAwesomeIcon icon={faCheck} size="1x" />
                 </li>
                 <li className="border border-stone-300 h-0 w-24 md:h-28 md:w-0 my-1"></li>
