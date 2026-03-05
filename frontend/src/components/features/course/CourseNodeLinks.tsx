@@ -166,13 +166,16 @@ export default function CourseNodeLink() {
                     elements={elements}
                     stylesheet={stylesheet}
                     layout={{
+                        // name:"preset",
                         name: "circle",
+                        // name: "random",
                         // name: "cose",
                         // directed:true,
                         animate: true,
                         idealEdgeLength: 10,
                         nodeRepulsion: 400000,
                         gravity: 0.3,
+                        padding:10,
                     }}
                     style={{ width: "100%", height: "100%" }}
                 />
