@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('videos', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Add this line for the title column
+            $table->string('title'); // Add this line for the title column
             $table->string('slug')->unique(); // Add this line for the slug column
             // Foreign key to topics table
             $table->foreignId('topic_id')

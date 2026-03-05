@@ -14,7 +14,7 @@ class UserFlashCardMetricSeeder extends Seeder
     public function run(): void
     {
         //
-        UserFlashCardMetric::factory(100)->create();
+        UserFlashCardMetric::factory(3)->create();
 
     }
 }

@@ -21,7 +21,7 @@ class VideoFactory extends Factory
     {
         return [
             //
-            'name' => fake()->name(), // Generate a random name for the topic title
+            'title' => fake()->name(), // Generate a random name for the topic title
             'slug' => Str::random(18), // Generate a random string for the topic slug
             'topic_id' => Topic::inRandomOrder()->value('id'),
             'parent_id' => Video::count() ? Video::inRandomOrder()->value('id') : null, // Randomly assign a parent topic if any exist, otherwise set to null
