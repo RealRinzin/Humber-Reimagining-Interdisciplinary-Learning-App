@@ -3,8 +3,9 @@
 import { faMagnifyingGlassMinus, faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import CytoscapeComponent from "react-cytoscapejs";
-
+import { useRef } from "react";
 export default function CourseNodeLink() {
+    const cyRef = useRef(null);
 
     const elements = [
         { data: { id: "1", label: "Intro to Space" } },
@@ -148,19 +149,19 @@ export default function CourseNodeLink() {
 
     return (
         <>
-        <div className="p-2 text-white">
-            <div className="flex justify-end items-center">
-                <div className="flex gap-3 items-center justify-center bg-slate-700 rounded px-3 py-1 ">
-                    <span className="text-sm ">Tracking</span>
-                    <span><input type="checkbox" className="" /></span>
+            <div className="p-2 text-white">
+                <div className="flex justify-end items-center">
+                    <div className="flex gap-3 items-center justify-center bg-slate-700 rounded px-3 py-1 ">
+                        <span className="text-sm ">Tracking</span>
+                        <span><input type="checkbox" className="" /></span>
+                    </div>
                 </div>
-            </div>
-            <div className="flex flex-col justify-end items-end gap-2 my-2">
-                <FontAwesomeIcon icon={faMagnifyingGlassPlus} size="1x" className="text-white bg-slate-700 p-1 rounded" />
-                <FontAwesomeIcon icon={faMagnifyingGlassMinus} size="1x" className="text-white bg-slate-700 p-1 rounded" />
-            </div>
+                <div className="flex flex-col justify-end items-end gap-2 my-2">
+                    <FontAwesomeIcon icon={faMagnifyingGlassPlus} size="1x" className="text-white bg-slate-700 p-1 rounded hover:cursor-pointer" onClick={() => cyRef.current.zoom(cyRef.current.zoom() * 1.2)} />
+                    <FontAwesomeIcon icon={faMagnifyingGlassMinus} size="1x" className="text-white bg-slate-700 p-1 rounded hover:cursor-pointer"  onClick={() => cyRef.current.zoom(cyRef.current.zoom() / 1.2)} />
+                </div>
 
-        </div>
+            </div>
             <div style={{ width: "100%", height: "100vh" }} className="h-full">
                 <CytoscapeComponent
                     elements={elements}
@@ -175,9 +176,12 @@ export default function CourseNodeLink() {
                         idealEdgeLength: 10,
                         nodeRepulsion: 400000,
                         gravity: 0.3,
-                        padding:10,
+                        padding: 10,
                     }}
                     style={{ width: "100%", height: "100%" }}
+                    cy={(cy) => {
+                        cyRef.current = cy; // store cy instance
+                    }}
                 />
             </div>
         </>
