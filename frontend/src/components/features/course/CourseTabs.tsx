@@ -1,5 +1,5 @@
 'use client'
-import { faAngleDown, faAngleUp, faCheck, faVial } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faAngleUp, faCheck, faVial,faCopy } from "@fortawesome/free-solid-svg-icons";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -58,7 +58,8 @@ Vec4 vertexPosScreenSpace = viewportMatrix * vertexPosNdcSpace;
           }
         </div>
       </div>
-      <div className={`p-3 ${status ? "block" : "hidden"}`}>
+      <div className={`relative p-3 ${status ? "block" : "hidden"}`}>
+        <p className="absolute right-10 my-4"><FontAwesomeIcon icon={faCopy} size="1x" className="text-white hover:cursor-pointer" /></p>
         <SyntaxHighlighter language="cpp" style={solarizedDarkAtom}>
           {code}
         </SyntaxHighlighter>
