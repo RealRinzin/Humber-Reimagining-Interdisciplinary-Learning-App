@@ -29,13 +29,15 @@ export default function CourseNodeLink() {
         { data: { source: "7", target: "1" } },
         { data: { source: "8", target: "5" } },
         { data: { source: "9", target: "7" } },
+        { data: { source: "1", target: "5" } },
         // { data: { source: "c", target: "a" } },
     ];
     // console.log(elements)
-    const stylesheet:any = [
+    const stylesheet: any = [
         {
             selector: "node",
             style: {
+                // ← align to top∂∂
                 width: 80,
                 height: 80,
                 // Label Text
@@ -145,6 +147,7 @@ export default function CourseNodeLink() {
                 "target-arrow-color": "#888",
             },
         },
+
     ];
 
 
@@ -158,8 +161,8 @@ export default function CourseNodeLink() {
                     </div>
                 </div>
                 <div className="flex flex-col justify-end items-end gap-2 my-2">
-                    <FontAwesomeIcon icon={faMagnifyingGlassPlus} size="1x" className="text-white bg-slate-700 p-1 rounded hover:cursor-pointer"/>
-                    <FontAwesomeIcon icon={faMagnifyingGlassMinus} size="1x" className="text-white bg-slate-700 p-1 rounded hover:cursor-pointer"  />
+                    <FontAwesomeIcon icon={faMagnifyingGlassPlus} size="1x" className="text-white bg-slate-700 p-1 rounded hover:cursor-pointer" />
+                    <FontAwesomeIcon icon={faMagnifyingGlassMinus} size="1x" className="text-white bg-slate-700 p-1 rounded hover:cursor-pointer" />
                 </div>
 
             </div>
@@ -168,17 +171,20 @@ export default function CourseNodeLink() {
                     elements={elements}
                     stylesheet={stylesheet}
                     layout={{
-                        name: "circle",
+                        name: "random",
+                        fit: true,
+                        // startTemp: 1000,
                         animate: true,
                         // idealEdgeLength: 10,
                         // nodeRepulsion: 400000,
-                        // gravity: 0.3,
-                        // padding: 10,
+                        // gravity: 10,
+                        padding: 20,
+
                     }}
                     style={{ width: "100%", height: "100%" }}
-                    // cy={(cy) => {
-                    //     cyRef.current = cy; // store cy instance
-                    // }}
+                // cy={(cy) => {
+                //     cyRef.current = cy; // store cy instance
+                // }}
                 />
             </div>
         </>
