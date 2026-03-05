@@ -4,26 +4,59 @@ import { useEffect, useRef } from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 
-export default function VideoPlayer() {
-    const videoRef = useRef<HTMLVideoElement>(null);
+// Type fixes
+type VideoJsPlayer = ReturnType<typeof videojs>;
+type VideoJsPlayerOptions = Parameters<typeof videojs>[1];
+type VideoJsPlayerTrackOptions = any; // define if you need
 
-    useEffect(() => {
-        if (!videoRef.current) return;
+interface VideoPlayerProps {
+  options?: VideoJsPlayerOptions;
+  tracks?: VideoJsPlayerTrackOptions[];
+}
 
-        const player = videojs(videoRef.current, {
-            controls: true,
-            fluid:true,
-            responsive:true,
-            height: 'auto',
-            sources: [{ src: 'https://loremipsum.video/vt/powerpoint-3.mp4', type: 'video/mp4' }],
-        });
+export default function VideoPlayer({ options, tracks }: VideoPlayerProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const playerRef = useRef<VideoJsPlayer | null>(null);
 
-        return () => {
-            player.dispose();
-        };
-    }, []);
+  useEffect(() => {
+    if (!videoRef.current || playerRef.current) return;
 
-    return (
-        <video ref={videoRef} className="video-js" />
-    );
+    // Initialize player
+    const player = videojs(videoRef.current, options ?? {
+      controls: true,
+      fluid: true,
+      responsive: true,
+      height: 'auto',
+      sources: [{ src: 'https://loremipsum.video/vt/powerpoint-3.mp4', type: 'video/mp4' }],
+    });
+    playerRef.current = player;
+
+    // Add tracks if provided
+    if (tracks?.length) {
+      tracks.forEach(track => player.addRemoteTextTrack(track, false));
+    }
+
+    // Example events
+    const logEvents = [
+      'play', 'pause', 'ended', 'seeking', 'timeupdate',
+      'loadedmetadata', 'loadeddata', 'durationchange', 'volumechange',
+      'fullscreenchange', 'click', 'dblclick', 'useractive', 'userinactive',
+      'dispose', 'ready'
+    ] as const;
+
+    logEvents.forEach(event => {
+      player.on(event, () => console.log(`Event: ${event}`, event === 'timeupdate' ? player.currentTime() : ''));
+    });
+
+    return () => {
+      player.dispose();
+      playerRef.current = null;
+    };
+  }, [options, tracks]);
+
+  return (
+    <div data-vjs-player>
+      <video ref={videoRef} className="video-js vjs-big-play-centered" />
+    </div>
+  );
 }
