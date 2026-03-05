@@ -13,7 +13,7 @@ export default function TopicProgressTracking() {
         { color: 'Matrix', status: false },
         { color: 'Projection', status: false },
     ]
-    console.log(tracking)
+    // console.log(tracking)
     return (
         <>
             <aside className="text-white m-8">

@@ -1,5 +1,5 @@
-import VideoPage from '@/components/layout/course/page'
 
+import VideoPage from '@/components/layout/course/page'
 export default function CoursePage() {
   return (
     <>
