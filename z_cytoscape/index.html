@@ -20,6 +20,28 @@
     <div id="cy"></div>
 
     <script>
+      let videos = [
+        {
+          id:1,
+          parent_id:null,
+          title:'label',
+          color:'green'
+        },
+        {
+          id:2,
+          parent_id:1,
+          title:'label',
+          color:'pink'
+        },
+                {
+          id:3,
+          parent_id:1,
+          title:'label',
+          color:'red'
+        }
+      ];
+      console.log(videos);
+      // Cytoscape
       const cy = cytoscape({
         container: document.getElementById("cy"),
 
