@@ -18,5 +18,6 @@ class UserResourceCollection extends ResourceCollection
         return [
             'data' => UserResource::collection($this->collection),
         ];
+        
     }
 }

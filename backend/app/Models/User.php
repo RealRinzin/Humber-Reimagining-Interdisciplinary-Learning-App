@@ -84,4 +84,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserFlashCardMetric::class);
     }
+
+
+    // AGGREGATION FUNCTIONS AND CALCULATIONS 
+    public function averageWatchTime()
+    {
+        return $this->videos()->avg('pause_count');
+    }
 }

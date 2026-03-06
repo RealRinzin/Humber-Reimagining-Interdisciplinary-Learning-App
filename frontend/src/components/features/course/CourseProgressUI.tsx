@@ -8,7 +8,7 @@ export default function CourseProgressUI() {
                 <li className="flex flex-col justify-center items-center bg-green-600 rounded-full text-center h-6 w-6 text-white">
                     <FontAwesomeIcon icon={faCheck} size="1x" />
                 </li>
-                <li className="border border-green-600 h-0 w-24 md:h-28 md:w-0 my-1"></li>
+                <li className="border border-green-600 h-0 w-24 md:h-28 md:w-0 my-1 transition-all delay-300 duration-300 ease-in-out"></li>
 
                 <li className="bg-white border-4 border-green-600 rounded-full text-center h-6 w-6 text-white">
                     {/* <FontAwesomeIcon icon={faCheck} size="1x" className="text-slate-500" /> */}

@@ -15,5 +15,11 @@ class UserVideoMetricResource extends JsonResource
     public function toArray(Request $request): array
     {
         return parent::toArray($request);
+        // return [
+        //     'id'=>$this->id,
+        //     'video_id'=>$this->video_id,
+        //     'started_at'=>$this->started_at,
+        //     'interaction_type'=>$this->interaction_type,
+        // ];
     }
 }

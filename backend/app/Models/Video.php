@@ -35,5 +35,7 @@ class Video extends Model
     public function userVideoMetric()
     {
         return $this->hasMany(UserVideoMetric::class);
+
     }
+
 }

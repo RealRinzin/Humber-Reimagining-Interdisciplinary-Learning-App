@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\v1;
 
+use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserResourceCollection;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -15,9 +16,12 @@ class UserController
     {
         //
         // return "Test";
-         return new UserResourceCollection(User::all());
-
-
+        //  return new UserResourceCollection(User::all());
+        // 1. Fetch users with their related metrics
+        // Use paginate() for production APIs to handle large datasets
+        // $users = User::with('metrics.video')->paginate(15);
+        // 2. Return via the Resource Collection
+        return new UserResourceCollection(User::all());
     }
 
     /**
@@ -31,9 +35,18 @@ class UserController
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
         //
+        // return new UserResource($user);
+        return User::withAvg('userVideoMetric', 'watch_duration')
+            ->withSum('userVideoMetric', 'watch_duration')
+            ->withCount('userVideoMetric')->get();
+        // $user =  UserResource::findOrFail($id);
+
+        // return $user;
+        // $avg = $user->averageWatchTime();
+        // return $avg;
     }
 
     /**
