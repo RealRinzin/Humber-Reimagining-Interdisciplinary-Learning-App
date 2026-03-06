@@ -21,4 +21,11 @@ Route::prefix('v1')->name('v1.')->group(function () {
     Route::get('/users', [UserController::class, 'index']);
     Route::get('/users/{id}', [UserController::class, 'show']);
     // Route::get('/users', [UserTopicMetricController::class, 'index']);
+
+
+    // Route::post('/tokens/create', function (Request $request) {
+    //     $token = $request->user()->createToken($request->token_name);
+
+    //     return ['token' => $token->plainTextToken];
+    // });
 });

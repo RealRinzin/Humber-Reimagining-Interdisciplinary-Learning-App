@@ -30,6 +30,9 @@ class UserController
     public function store(Request $request)
     {
         //
+        $token = $request->user()->createToken($request->token_name);
+
+        return ['token' => $token->plainTextToken];
     }
 
     /**
@@ -39,6 +42,7 @@ class UserController
     {
         //
         // return new UserResource($user);
+
         return User::withAvg('userVideoMetric', 'watch_duration')
             ->withSum('userVideoMetric', 'watch_duration')
             ->withCount('userVideoMetric')->get();
