@@ -42,11 +42,6 @@ class UserController
         return User::withAvg('userVideoMetric', 'watch_duration')
             ->withSum('userVideoMetric', 'watch_duration')
             ->withCount('userVideoMetric')->get();
-        // $user =  UserResource::findOrFail($id);
-
-        // return $user;
-        // $avg = $user->averageWatchTime();
-        // return $avg;
     }
 
     /**
