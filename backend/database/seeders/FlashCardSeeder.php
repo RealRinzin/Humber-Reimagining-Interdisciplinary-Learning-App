@@ -14,7 +14,7 @@ class FlashCardSeeder extends Seeder
     public function run(): void
     {
         //
-        FlashCard::factory(config('app.seeder_count'))->create();
+        FlashCard::factory()->count(config('app.seeder_count'))->create();
 
     }
 }

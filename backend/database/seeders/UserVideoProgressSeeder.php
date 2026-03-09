@@ -14,7 +14,7 @@ class UserVideoProgressSeeder extends Seeder
     public function run(): void
     {
         //
-        UserVideoProgress::factory(config('app.seeder_count'))->create();
+        UserVideoProgress::factory()->count(config('app.seeder_count'))->create();
 
     }
 }

@@ -14,6 +14,6 @@ class UserTopicMetricSeeder extends Seeder
     public function run(): void
     {
         //
-        UserTopicMetric::factory(config('app.seeder_count'))->create();
+        UserTopicMetric::factory()->count(config('app.seeder_count'))->create();
     }
 }

@@ -56,7 +56,7 @@ return [
     /*
     Added by Rinzin to create global seeder counter
      */
-    'seeder_count' => env('SEEDER_COUNT', 50),
+    'seeder_count' => env('SEEDER_COUNT', 1),
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

@@ -37,6 +37,7 @@ class VideoWatchHistoryController
     public function show(VideoWatchHistory $videoWatchHistory)
     {
         //
+        return $videoWatchHistory;
     }
 
     /**

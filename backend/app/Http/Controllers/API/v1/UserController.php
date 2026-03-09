@@ -40,12 +40,15 @@ class UserController
      */
     public function show(User $user)
     {
-        //
-        return $user;
+        $user->load('videoWatchHistory');
 
-        return User::withAvg('userVideoMetric', 'watch_duration')
-            ->withSum('userVideoMetric', 'watch_duration')
-            ->withCount('userVideoMetric')->get();
+        return new UserResource($user);
+        //
+        // return $user;
+
+        // return User::withAvg('userVideoMetric', 'watch_duration')
+        //     ->withSum('userVideoMetric', 'watch_duration')
+        //     ->withCount('userVideoMetric')->get();
     }
 
     /**

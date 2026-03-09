@@ -4,6 +4,7 @@ namespace App\Http\Resources\Video;
 
 use App\Http\Resources\Code\CodeResource;
 use App\Http\Resources\Document\DocumentResource;
+use App\Http\Resources\UserVideoProgress\UserVideoProgressResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,6 +22,8 @@ class VideoResource extends JsonResource
             'id' => $this->id,
             'title' => $this->name,
             'slug' => $this->slug,
+            // 'user_progress' => new UserVideoProgressResource($this->whenLoaded('userVideoProgress')),
+            'user_progress' => new UserVideoProgressResource($this->userVideoProgress),
             'parent_id'=>$this->parent_id,
             'description' => $this->description,
             'thumbnail' => $this->thumbnail,

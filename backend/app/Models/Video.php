@@ -37,4 +37,7 @@ class Video extends Model
     {
         return $this->hasMany(VideoWatchHistory::class);
     }
+    public function userVideoProgress(){
+        return $this->hasMany(UserVideoProgress::class);
+    }
 }
