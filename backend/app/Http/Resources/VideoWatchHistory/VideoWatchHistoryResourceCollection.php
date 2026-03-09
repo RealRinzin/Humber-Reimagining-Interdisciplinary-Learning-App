@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\VideoWatchHistory;
 
+use App\Http\Resources\UserVideoProgress\UserVideoProgressResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
@@ -14,6 +15,8 @@ class VideoWatchHistoryResourceCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'data' => UserVideoProgressResource::collection($this->collection),
+        ];
     }
 }

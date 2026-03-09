@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\v1;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserResourceCollection;
 use App\Models\User;
+use App\Models\Video;
 use Illuminate\Http\Request;
 
 class UserController
@@ -15,11 +16,6 @@ class UserController
     public function index()
     {
         //
-        // return "Test";
-        //  return new UserResourceCollection(User::all());
-        // 1. Fetch users with their related metrics
-        // Use paginate() for production APIs to handle large datasets
-        // $users = User::with('metrics.video')->paginate(15);
         // 2. Return via the Resource Collection
         return new UserResourceCollection(User::all());
     }
@@ -31,7 +27,6 @@ class UserController
     {
         //
         $token = $request->user()->createToken($request->token_name);
-
         return ['token' => $token->plainTextToken];
     }
 
@@ -40,7 +35,7 @@ class UserController
      */
     public function show(User $user)
     {
-        $user->load('videoWatchHistory');
+        // $user->load('videoWatchHistory');
 
         return new UserResource($user);
         //
@@ -65,5 +60,12 @@ class UserController
     public function destroy(string $id)
     {
         //
+    }
+
+
+    // More Controllers
+    public function videos(Video $video,User $user)
+    {
+        return $user;
     }
 }

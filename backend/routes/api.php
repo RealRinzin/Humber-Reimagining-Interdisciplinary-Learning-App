@@ -20,18 +20,25 @@ Route::prefix('v1')->name('v1.')->group(function () {
     // Video
     Route::get('/videos', [VideoController::class, 'index']);
     Route::get('/videos/{video:id}', [VideoController::class, 'show']);
+    Route::get('videos/{video}/users', [VideoController::class, 'users']);
+
+
     // User
     Route::get('/users', [UserController::class, 'index']);
     Route::get('/users/{user:id}', [UserController::class, 'show']);
-
+    Route::get('users/{user}/videos', [UserController::class, 'videos']);
     // User Progress 
-    Route::get('/videos/{video:slug}/progress', [UserVideoProgressController::class, 'show']);
+    // Route::get('/videos/{video}/progress', [UserVideoProgressController::class, 'show']);
+    Route::get('users/{user}/videos/{video}/progress', [UserVideoProgressController::class, 'show']);
 
-    // Route::get('/users', [UserTopicMetricController::class, 'index']);
 
-    // Route::post('/tokens/create', function (Request $request) {
-    //     $token = $request->user()->createToken($request->token_name);
+    /**
+     * User With Video API with its code, document 
+     * 
+     */
+    // API for the all videos resources of the User
+    Route::get('/users/{user}/videos', [UserController::class, 'index']); // This is for all the video of the user
+    // API for the specific video resources of the User
+    Route::get('/users/{user}/videos/{video}', [UserController::class, 'index']);
 
-    //     return ['token' => $token->plainTextToken];
-    // });
 });

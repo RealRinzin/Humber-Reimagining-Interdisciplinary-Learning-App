@@ -22,7 +22,7 @@ class VideoResource extends JsonResource
             'id' => $this->id,
             'title' => $this->name,
             'slug' => $this->slug,
-            // 'user_progress' => new UserVideoProgressResource($this->whenLoaded('userVideoProgress')),
+            'user_progress' => new UserVideoProgressResource($this->whenLoaded('userVideoProgress')),
             'user_progress' => new UserVideoProgressResource($this->userVideoProgress),
             'parent_id'=>$this->parent_id,
             'description' => $this->description,
@@ -30,7 +30,7 @@ class VideoResource extends JsonResource
             'video_url' => $this->video_url,
             'duration' => $this->duration,
             // Document relationship data
-            'documents' =>DocumentResource::collection($this->document),
+            // 'documents' =>DocumentResource::collection($this->document),
             // Code relationship data
             'codes' =>CodeResource::collection($this->code),
 
