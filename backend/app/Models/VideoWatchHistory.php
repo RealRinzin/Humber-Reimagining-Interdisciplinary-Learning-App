@@ -14,12 +14,12 @@ class VideoWatchHistory extends Model
 
     public function user()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(User::class);
     }
     // Video
 
     public function video()
     {
-        return $this->belongsToMany(Video::class);
+        return $this->belongsTo(Video::class);
     }
 }

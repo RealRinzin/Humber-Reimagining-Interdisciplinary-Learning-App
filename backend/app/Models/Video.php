@@ -17,7 +17,8 @@ class Video extends Model
         return $this->belongsTo(Topic::class);
     }
     // Video Relationship
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
     // Document Relationship
@@ -32,10 +33,8 @@ class Video extends Model
     }
 
     // Bridging table relations
-    public function userVideoMetric()
+    public function videoWatchHistory()
     {
-        return $this->hasMany(UserVideoMetric::class);
-
+        return $this->hasMany(VideoWatchHistory::class);
     }
-
 }
