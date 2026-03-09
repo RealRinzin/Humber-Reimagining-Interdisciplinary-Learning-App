@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\API\v1;
 
+use App\Http\Resources\UserVideoMetric\UserVideoMetricResource;
 use App\Models\UserVideoProgress;
+use App\Models\Video;
 use Illuminate\Http\Request;
 
 class UserVideoProgressController
@@ -34,9 +36,15 @@ class UserVideoProgressController
     /**
      * Display the specified resource.
      */
-    public function show(UserVideoProgress $userVideoProgress)
+    public function show(UserVideoProgress $userVideoProgress, Video $video)
     {
         //
+        $progress = UserVideoProgress::firstOrNew([
+            'user_id'  => 1,
+            'video_id' => $video->id,
+        ]);
+
+        return new UserVideoMetricResource($progress);
     }
 
     /**

@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\API\v1\TopicController;
 use App\Http\Controllers\API\v1\UserController;
-use App\Http\Controllers\API\v1\UserTopicMetricController;
+use App\Http\Controllers\API\v1\UserVideoProgressController;
 use App\Http\Controllers\API\v1\VideoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,9 +19,14 @@ Route::prefix('v1')->name('v1.')->group(function () {
 
     // Video
     Route::get('/videos', [VideoController::class, 'index']);
+    Route::get('/videos/{video:id}', [VideoController::class, 'show']);
     // User
     Route::get('/users', [UserController::class, 'index']);
     Route::get('/users/{user:id}', [UserController::class, 'show']);
+
+    // User Progress 
+    Route::get('/videos/{video:slug}/progress', [UserVideoProgressController::class, 'show']);
+
     // Route::get('/users', [UserTopicMetricController::class, 'index']);
 
     // Route::post('/tokens/create', function (Request $request) {

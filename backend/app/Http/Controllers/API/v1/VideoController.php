@@ -31,6 +31,7 @@ class VideoController
     public function store(Request $request)
     {
         //
+
     }
 
     /**
