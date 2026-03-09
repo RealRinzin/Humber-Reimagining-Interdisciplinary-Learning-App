@@ -14,6 +14,6 @@ class UserSeeder extends Seeder
     public function run(): void
     {
       // Create 10 Users Accounts
-        User::factory(3)->create();
+        User::factory(config('app.seeder_count'))->create();
     }
 }

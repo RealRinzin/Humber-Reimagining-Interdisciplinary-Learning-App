@@ -14,6 +14,6 @@ class TopicSeeder extends Seeder
     public function run(): void
     {
         // Create 10 Topics using the factory
-        Topic::factory(10)->create();
+        Topic::factory(config('app.seeder_count'))->create();
     }
 }

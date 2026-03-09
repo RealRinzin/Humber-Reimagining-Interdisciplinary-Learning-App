@@ -53,7 +53,10 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
-
+    /*
+    Added by Rinzin to create global seeder counter
+     */
+    'seeder_count' => env('SEEDER_COUNT', 50),
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

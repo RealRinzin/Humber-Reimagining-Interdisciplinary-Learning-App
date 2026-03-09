@@ -21,7 +21,7 @@ Route::prefix('v1')->name('v1.')->group(function () {
     Route::get('/videos', [VideoController::class, 'index']);
     // User
     Route::get('/users', [UserController::class, 'index']);
-    Route::get('/users/{id}', [UserController::class, 'show']);
+    Route::get('/users/{user:id}', [UserController::class, 'show']);
     // Route::get('/users', [UserTopicMetricController::class, 'index']);
 
     // Route::post('/tokens/create', function (Request $request) {

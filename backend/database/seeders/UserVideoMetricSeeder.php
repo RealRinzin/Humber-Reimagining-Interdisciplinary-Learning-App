@@ -14,6 +14,6 @@ class UserVideoMetricSeeder extends Seeder
     public function run(): void
     {
         //
-        UserVideoMetric::factory(3)->create();
+        UserVideoMetric::factory(config('app.seeder_count'))->create();
     }
 }

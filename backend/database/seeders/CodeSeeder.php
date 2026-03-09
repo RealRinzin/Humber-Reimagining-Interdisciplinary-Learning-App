@@ -14,7 +14,7 @@ class CodeSeeder extends Seeder
     public function run(): void
     {
         //
-        Code::factory(3)->create();
+        Code::factory(config('app.seeder_count'))->create();
 
     }
 }
