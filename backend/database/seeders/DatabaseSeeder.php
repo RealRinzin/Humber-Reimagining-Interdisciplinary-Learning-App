@@ -31,7 +31,8 @@ class DatabaseSeeder extends Seeder
             CodeSeeder::class, // Code
             UserTopicMetricSeeder::class, // User Topic Metrics
             UserVideoMetricSeeder::class, // User Video Metrics
-            UserFlashCardMetricSeeder::class // User Flash card Metrics
+            UserFlashCardMetricSeeder::class, // User Flash card Metrics
+            VideoWatchHistorySeeder::class, // User Video Watch History for tracking 
             ]);
     }
 }

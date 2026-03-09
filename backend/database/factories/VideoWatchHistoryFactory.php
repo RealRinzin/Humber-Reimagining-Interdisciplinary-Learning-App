@@ -7,9 +7,9 @@ use App\Models\Video;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UserVideoMetric>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\VideoWatchHistory>
  */
-class UserVideoMetricFactory extends Factory
+class VideoWatchHistoryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,11 +19,10 @@ class UserVideoMetricFactory extends Factory
     public function definition(): array
     {
         return [
-            //
             // Pick a random existing user ID
             'user_id' => User::inRandomOrder()->value('id'),
             // Pick a random existing video ID
-            'video_id' => Video::inRandomOrder()->value('id'), 
+            'video_id' => Video::inRandomOrder()->value('id'),
             // Generate random timestamps and other fields for the user topic history
             'started_at' => $this->faker->time(),
             // Use optional() to allow for null values in ended_at, watch_duration, and last_paused
@@ -40,7 +39,7 @@ class UserVideoMetricFactory extends Factory
             'complete_status' => $this->faker->randomElement(['completed', 'in_progress', 'not_started']),
             'interaction_type' => $this->faker->randomElement(['paused', 'skipped', 'fullscreen']),
             // Generate a random played date
-            'played_date' => $this->faker->date() 
+            'played_date' => $this->faker->date()
         ];
     }
 }

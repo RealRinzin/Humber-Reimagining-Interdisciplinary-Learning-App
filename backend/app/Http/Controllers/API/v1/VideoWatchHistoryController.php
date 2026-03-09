@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\API\v1;
 
-use App\Models\UserVideoMetric;
+use App\Models\VideoWatchHistory;
 use Illuminate\Http\Request;
 
-class UserVideoMetricController
+class VideoWatchHistoryController
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class UserVideoMetricController
     /**
      * Display the specified resource.
      */
-    public function show(UserVideoMetric $userVideoMetric)
+    public function show(VideoWatchHistory $videoWatchHistory)
     {
         //
     }
@@ -42,7 +42,7 @@ class UserVideoMetricController
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(UserVideoMetric $userVideoMetric)
+    public function edit(VideoWatchHistory $videoWatchHistory)
     {
         //
     }
@@ -50,7 +50,7 @@ class UserVideoMetricController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, UserVideoMetric $userVideoMetric)
+    public function update(Request $request, VideoWatchHistory $videoWatchHistory)
     {
         //
     }
@@ -58,7 +58,7 @@ class UserVideoMetricController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(UserVideoMetric $userVideoMetric)
+    public function destroy(VideoWatchHistory $videoWatchHistory)
     {
         //
     }

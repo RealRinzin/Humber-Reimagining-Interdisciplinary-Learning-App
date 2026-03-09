@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_video_metrics', function (Blueprint $table) {
-            $table->id(); // Primary key for the user_topic_histories table
+        Schema::create('video_watch_histories', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id') // Foreign key referencing the users table
                 ->constrained('users')
                 ->onUpdate('cascade')
@@ -39,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_video_metrics');
+        Schema::dropIfExists('video_watch_histories');
     }
 };

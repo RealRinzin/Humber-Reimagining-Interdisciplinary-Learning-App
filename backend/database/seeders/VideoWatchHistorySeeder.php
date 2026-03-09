@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\UserVideoMetric;
+use App\Models\VideoWatchHistory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class UserVideoMetricSeeder extends Seeder
+class VideoWatchHistorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,7 @@ class UserVideoMetricSeeder extends Seeder
     public function run(): void
     {
         //
-        UserVideoMetric::factory(config('app.seeder_count'))->create();
+        VideoWatchHistory::factory(config('app.seeder_count'))->create();
+
     }
 }
