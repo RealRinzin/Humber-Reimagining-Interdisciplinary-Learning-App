@@ -16,7 +16,7 @@ class VideoWatchHistoryResourceCollection extends ResourceCollection
     public function toArray(Request $request): array
     {
         return [
-            'data' => UserVideoProgressResource::collection($this->collection),
+            'data' => VideoWatchHistoryResource::collection($this->collection),
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserResourceCollection;
+use App\Http\Resources\VideoWatchHistory\VideoWatchHistoryResource;
 use App\Models\User;
 use App\Models\Video;
 use Illuminate\Http\Request;
@@ -67,7 +68,18 @@ class UserController
     // More Controllers
     public function videos(Request $request)
     {
-        // return $request->user()->load('videoWatchHistory');
-        return $request->user()->videoWatchHistory;
+        //     // return $request->user()->load('videoWatchHistory');
+        // $watchHistory = $request->user()
+        //     ->videoWatchHistory()
+        //     ->with('video')  // eager load parent video
+        //     ->get();
+
+        // return $watchHistory;
+        return VideoWatchHistoryResource::collection(
+            $request->user()
+                ->videoWatchHistory()
+                ->with('video')  // eager load parent video
+                ->get()
+        );
     }
 }
