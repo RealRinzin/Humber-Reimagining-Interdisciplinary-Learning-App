@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('language');
             $table->foreignId('video_id')
+                ->unique()
                 ->constrained('videos')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();

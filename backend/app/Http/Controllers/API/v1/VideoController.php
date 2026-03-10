@@ -42,6 +42,7 @@ class VideoController
     public function show(Video $video)
     {
         //
+         $video->load(['code', 'document']);
         return new VideoResource($video);
 
     }

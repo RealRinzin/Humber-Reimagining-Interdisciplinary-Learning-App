@@ -43,8 +43,6 @@ Route::prefix('v1')
 
         Route::get('/topics', [TopicController::class, 'index']);
         Route::get('/topics/{topic:slug}', [TopicController::class, 'show']);
-
-
         // Video
         Route::get('/videos', [VideoController::class, 'index']);
         Route::get('/videos/{video:id}', [VideoController::class, 'show']);

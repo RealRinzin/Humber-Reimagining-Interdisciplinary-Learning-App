@@ -24,12 +24,12 @@ class Video extends Model
     // Document Relationship
     public function document()
     {
-        return $this->hasMany(Document::class);
+        return $this->hasOne(Document::class);
     }
     // Code Section Relationship
     public function code()
     {
-        return $this->hasMany(Code::class);
+        return $this->hasOne(Code::class);
     }
 
     // Bridging table relations
