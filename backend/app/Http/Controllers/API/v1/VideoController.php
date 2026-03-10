@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\API\v1;
 
+use App\Http\Resources\Video\VideoResource;
 use App\Http\Resources\Video\VideoResourceCollection;
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VideoController
 {
@@ -40,6 +42,8 @@ class VideoController
     public function show(Video $video)
     {
         //
+        return new VideoResource($video);
+
     }
 
     /**

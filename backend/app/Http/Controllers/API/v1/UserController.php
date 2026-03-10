@@ -7,6 +7,7 @@ use App\Http\Resources\User\UserResourceCollection;
 use App\Models\User;
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController
 {
@@ -15,6 +16,7 @@ class UserController
      */
     public function index()
     {
+
         //
         // 2. Return via the Resource Collection
         return new UserResourceCollection(User::all());
@@ -62,10 +64,10 @@ class UserController
         //
     }
 
-
     // More Controllers
-    public function videos(Video $video,User $user)
+    public function videos(Request $request)
     {
-        return $user;
+        // return $request->user()->load('videoWatchHistory');
+        return $request->user()->videoWatchHistory;
     }
 }

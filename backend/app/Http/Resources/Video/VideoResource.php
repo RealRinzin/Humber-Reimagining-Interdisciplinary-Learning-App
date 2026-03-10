@@ -22,7 +22,7 @@ class VideoResource extends JsonResource
             'id' => $this->id,
             'title' => $this->name,
             'slug' => $this->slug,
-            'user_progress' => new UserVideoProgressResource($this->whenLoaded('userVideoProgress')),
+            // 'user_progress' => new UserVideoProgressResource($this->whenLoaded('userVideoProgress')),
             'user_progress' => new UserVideoProgressResource($this->userVideoProgress),
             'parent_id'=>$this->parent_id,
             'description' => $this->description,
