@@ -37,16 +37,32 @@ class AuthController
 
         // return $request;
         //  $dto = CreateUserDTO::fromArray($request->validated());
-        $user = $action->execute(
-            CreateUserDTO::fromRequest($request)
-        );
-
-        // $user = $action->execute($dto);
-        $token = $user->createToken('api-token')->plainTextToken;
+        /**
+         * New User Registration
+         * Create a new user with the user Action (CreateUserAction) 
+         * and execute the DTOs of the User and validate it with the StoreUserRequest from 
+         * the Request folder
+         */
+        $dto = CreateUserDTO::fromRequest($request);
+        $newUser = $action->execute($dto);
+        // $newUser = $action->execute(
+        //     CreateUserDTO::fromRequest($request)
+        // );
+        /**
+         * Access Token
+         * Generate the user access token after creating new user
+         */
+        $token = $newUser->createToken('access_Token')->plainTextToken; // Convert the access token to plain text for API Authorization
+        /**
+         * Return Object
+         * Return the user details along with the access token for the API authorization with Bearer Token
+         * Bearer "access token"
+         */
         return response()->json([
-            'user' => $user,
-            'token' => $token
+            'user' => $newUser, // Keep the user details like name, username, here
+            'token' => $token  // assign the generate token of the new user
         ]);
+
         // die();
         // // return $request;
         // $request->validate([
