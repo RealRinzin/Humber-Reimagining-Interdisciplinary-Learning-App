@@ -12,8 +12,10 @@ class CreateUserAction
     {
         return User::create([
             'name'     => $dto->name,
-            'email'    => $dto->email,
+            // 'email'    => $dto->email,
+            'username' => $dto->username,
             'password' => Hash::make($dto->password),
+            'role_id' => $dto->role_id,
         ]);
     }
 }

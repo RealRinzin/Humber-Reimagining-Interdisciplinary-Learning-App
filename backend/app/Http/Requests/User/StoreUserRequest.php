@@ -1,23 +1,23 @@
-
 <?php
-
 namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
-
 class StoreUserRequest extends FormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
+    // public function authorize(): bool
+    // {
+    //     return true;
+    // }
 
     public function rules(): array
     {
         return [
             'name'     => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            // 'email'    => ['required', 'email', 'unique:users,email'],
+            'username'    => ['required', 'string','unique:users'],
+            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:6'],
+            'role_id' => ['required','integer'],
         ];
     }
 

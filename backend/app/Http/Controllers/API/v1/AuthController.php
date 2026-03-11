@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\API\v1;
 
+use App\Actions\User\CreateUserAction;
+use App\DTOs\User\CreateUserDTO;
+use App\Http\Requests\User\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,8 +32,19 @@ class AuthController
         ]);
     }
     //
-    public function register(Request $request)
+    public function register(StoreUserRequest $request,CreateUserAction $action)
     {
+
+    // return $request;
+     $dto = CreateUserDTO::fromArray($request->validated());
+
+        $user = $action->execute($dto);
+        $token = $user->createToken('api-token')->plainTextToken;
+        return response()->json([
+            'user' => $user,
+            'token' => $token
+        ]);
+    die();
         // return $request;
         $request->validate([
             'name' => 'required',
