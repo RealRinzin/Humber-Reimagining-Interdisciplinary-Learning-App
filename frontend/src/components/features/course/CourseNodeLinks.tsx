@@ -9,15 +9,15 @@ export default function CourseNodeLink() {
     const cyRef = useRef(null);
 
     const elements = [
-        { data: { id: "1", label: "Intro to Space" } },
-        { data: { id: "2", label: "Model Space" } },
-        { data: { id: "3", label: "Translation" } },
-        { data: { id: "4", label: "Projection Matrix" } },
-        { data: { id: "5", label: "Perspective Divine" } },
-        { data: { id: "6", label: "Scale" } },
-        { data: { id: "7", label: "Rotation" } },
-        { data: { id: "8", label: "Camera Space" } },
-        { data: { id: "9", label: "Viewport Matrix" } },
+        { data: { id: "1", label: "Intro to Space", url: "https://example.com/intro" } },
+        { data: { id: "2", label: "Model Space", url: "https://example.com/intro" } },
+        { data: { id: "3", label: "Translation", url: "https://example.com/intro" } },
+        { data: { id: "4", label: "Projection Matrix", url: "https://example.com/intro" } },
+        { data: { id: "5", label: "Perspective Divine", url: "https://example.com/intro" } },
+        { data: { id: "6", label: "Scale", url: "https://example.com/intro" } },
+        { data: { id: "7", label: "Rotation", url: "https://example.com/intro" } },
+        { data: { id: "8", label: "Camera Space", url: "https://example.com/intro" } },
+        { data: { id: "9", label: "Viewport Matrix", url: "https://example.com/intro" } },
 
         // Links
         { data: { source: "1", target: "2" } },
@@ -42,6 +42,7 @@ export default function CourseNodeLink() {
                 height: 80,
                 // Label Text
                 label: "data(label)",
+                cursor: "pointer",
                 "text-valign": "center",
                 "text-halign": "center",
                 // Font
@@ -67,7 +68,9 @@ export default function CourseNodeLink() {
                 "shadow-blur": 40,
                 "shadow-color": "#ff0080",
                 "shadow-opacity": 0.7,
+
             },
+
         },
         {
             selector: "#4",
@@ -76,6 +79,8 @@ export default function CourseNodeLink() {
                 height: 80,
                 // Label Text
                 label: "data(label)",
+                cursor: "pointer",
+
                 "text-valign": "center",
                 "text-halign": "center",
                 // Font
@@ -110,6 +115,8 @@ export default function CourseNodeLink() {
                 height: 80,
                 // Label Text
                 label: "data(label)",
+                cursor: "pointer",
+
                 "text-valign": "center",
                 "text-halign": "center",
                 // Font
@@ -182,9 +189,18 @@ export default function CourseNodeLink() {
 
                     }}
                     style={{ width: "100%", height: "100%" }}
-                // cy={(cy) => {
-                //     cyRef.current = cy; // store cy instance
-                // }}
+                    cy={(cy) => {
+                        cyRef.current = cy;
+
+                        cy.on("tap", "node", (event) => {
+                            const node = event.target;
+                            const url = node.data("url");
+
+                            if (url) {
+                                window.open(url, "_blank");
+                            }
+                        });
+                    }}
                 />
             </div>
         </>
