@@ -5,7 +5,7 @@ import CourseTitle from '@/components/features/course/CourseTitle'
 import CourseVideo from '@/components/features/course/CourseVideo'
 
 async function getVideos() {
-    const res = await fetch(`${process.env.API_BASE_URL}/videos/1`, {
+    const res = await fetch(`${process.env.API_BASE_URL}/videos/2`, {
         headers: {
             Authorization: `Bearer ${process.env.API_TOKEN}`,
         },
@@ -19,19 +19,16 @@ async function getVideos() {
 }
 
 export default async function Page() {
-    const videos = await getVideos()
-    console.log(videos)
-
+    const {data} = await getVideos()
     return (
         <main className='px-1 md:px-40 py-5'>
-
             <section className="flex flex-col md:flex-row gap-4">
                 <div className="md:flex-[4]">
-                    <CourseTitle />
+                    <CourseTitle  title={data.title}/>
                     {/* Video section */}
                     <section className='flex flex-col md:flex-row gap-3 py-3'>
                         <CourseProgressUI />
-                        <CourseVideo />
+                        <CourseVideo videoLink={data.video_url}/>
                     </section>
                     {/* Tabs */}
                     <CourseTabs title={"Too Long Did Not watch"} status={true} />

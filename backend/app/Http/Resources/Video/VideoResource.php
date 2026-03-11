@@ -21,7 +21,7 @@ class VideoResource extends JsonResource
         // return parent::toArray($request);
         return [
             'id' => $this->id,
-            'title' => $this->name,
+            'title' => $this->title,
             'slug' => $this->slug,
             // 'user_progress' => new UserVideoProgressResource($this->whenLoaded('userVideoProgress')),
             // 'user_progress' => new UserVideoProgressResource($this->userVideoProgress),

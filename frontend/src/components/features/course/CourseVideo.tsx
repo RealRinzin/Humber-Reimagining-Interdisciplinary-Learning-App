@@ -12,9 +12,10 @@ type VideoJsPlayerTrackOptions = any; // define if you need
 interface VideoPlayerProps {
   options?: VideoJsPlayerOptions;
   tracks?: VideoJsPlayerTrackOptions[];
+  videoLink?:string
 }
 
-export default function VideoPlayer({ options, tracks }: VideoPlayerProps) {
+export default function VideoPlayer({ options, tracks,videoLink}: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const playerRef = useRef<VideoJsPlayer | null>(null);
 
@@ -27,7 +28,7 @@ export default function VideoPlayer({ options, tracks }: VideoPlayerProps) {
       fluid: true,
       responsive: true,
       height: 'auto',
-      sources: [{ src: 'https://loremipsum.video/vt/powerpoint-3.mp4', type: 'video/mp4' }],
+      sources: [{ src: videoLink, type: 'video/mp4' }],
     });
     playerRef.current = player;
 
