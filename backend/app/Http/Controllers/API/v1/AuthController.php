@@ -32,47 +32,50 @@ class AuthController
         ]);
     }
     //
-    public function register(StoreUserRequest $request,CreateUserAction $action)
+    public function register(StoreUserRequest $request, CreateUserAction $action)
     {
 
-    // return $request;
-     $dto = CreateUserDTO::fromArray($request->validated());
-
-        $user = $action->execute($dto);
-        $token = $user->createToken('api-token')->plainTextToken;
-        return response()->json([
-            'user' => $user,
-            'token' => $token
-        ]);
-    die();
         // return $request;
-        $request->validate([
-            'name' => 'required',
-            // 'email' => 'required|email|unique:users',
-            'username' => 'required|unique:users',
-            'password' => 'required|min:6',
-            'role_id' => 'required'
-        ]);
+        //  $dto = CreateUserDTO::fromArray($request->validated());
+        $user = $action->execute(
+            CreateUserDTO::fromRequest($request)
+        );
 
-        // return $request->username;
-        $user = User::create([
-            'name' => $request->name,
-            // 'email' => $request->email,
-            'username' => $request->username,
-            'password' => Hash::make($request->password),
-            'role_id' => $request->role_id
-        ]);
-        // return $user;
+        // $user = $action->execute($dto);
         $token = $user->createToken('api-token')->plainTextToken;
-
         return response()->json([
             'user' => $user,
             'token' => $token
         ]);
+        // die();
+        // // return $request;
+        // $request->validate([
+        //     'name' => 'required',
+        //     // 'email' => 'required|email|unique:users',
+        //     'username' => 'required|unique:users',
+        //     'password' => 'required|min:6',
+        //     'role_id' => 'required'
+        // ]);
+
+        // // return $request->username;
+        // $user = User::create([
+        //     'name' => $request->name,
+        //     // 'email' => $request->email,
+        //     'username' => $request->username,
+        //     'password' => Hash::make($request->password),
+        //     'role_id' => $request->role_id
+        // ]);
+        // // return $user;
+        // $token = $user->createToken('api-token')->plainTextToken;
+
+        // return response()->json([
+        //     'user' => $user,
+        //     'token' => $token
+        // ]);
     }
 
     // Logout
-    
+
     public function logout(Request $request)
     {
         // $request->user();

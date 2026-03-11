@@ -2,6 +2,8 @@
 
 namespace App\DTOs\User;
 
+use App\Http\Requests\User\StoreUserRequest;
+
 class CreateUserDTO
 {
     public function __construct(
@@ -12,14 +14,17 @@ class CreateUserDTO
         public readonly ?string $password,
         public readonly ?int $role_id,
     ) {}
-
-    public static function fromArray(array $data): self
+    public static function fromRequest(StoreUserRequest $request): self
     {
-        return new self(
-            name: $data['name'],
-            username: $data['username'],
-            password: $data['password'],
-            role_id: $data['role_id']
-        );
+        return new self(...$request->validated());
     }
+    // public static function fromArray(array $data): self
+    // {
+    //     return new self(
+    //         name: $data['name'],
+    //         username: $data['username'],
+    //         password: $data['password'],
+    //         role_id: $data['role_id']
+    //     );
+    // }
 }
