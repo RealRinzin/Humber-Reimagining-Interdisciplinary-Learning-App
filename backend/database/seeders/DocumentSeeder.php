@@ -15,6 +15,6 @@ class DocumentSeeder extends Seeder
     {
         //
         // Document::factory()->count(config('app.seeder_count'))->create();
-        Document::factory(2)->create();
+        Document::factory(1)->create();
     }
 }
