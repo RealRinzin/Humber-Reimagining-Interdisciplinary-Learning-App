@@ -14,6 +14,7 @@ class CreateUserDTO
         public readonly ?string $password,
         public readonly ?int $role_id,
     ) {}
+    // Validates
     public static function fromRequest(StoreUserRequest $request): self
     {
         return new self(...$request->validated());

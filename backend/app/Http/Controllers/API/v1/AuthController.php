@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\API\v1;
 
 use App\Actions\User\CreateUserAction;
+use App\Actions\User\LoginUserAction;
+use App\DTOs\User\LoginUserDTO;
 use App\DTOs\User\CreateUserDTO;
+use App\Http\Requests\User\LoginUserRequest;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,17 +15,29 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController
 {
-    public function login(Request $request)
+    public function login(LoginUserRequest $request, LoginUserAction $action)
     {
+        $dto = LoginUserDTO::fromRequest($request);
+
+        $user = $action->execute($dto);
+
+
+        // return response()->json([
+        //     'token' => $token,
+        //     'user' => $request->user(),
+        // ]);
+        // $dto = LoginUserDTO::fromRequest($request);
+        // $userLogin =  $action->execute($dto);
+        // return $userLogin;
         // return $request;
         // if (!Auth::attempt($request->only('email', 'password'))) {
-        if (!Auth::attempt($request->only('username', 'password'))) {
-            return response()->json([
-                'message' => 'Invalid credentials'
-            ], 401);
-        }
+        // if (!Auth::attempt($request->only('username', 'password'))) {
+        //     return response()->json([
+        //         'message' => 'Invalid credentials'
+        //     ], 401);
+        // }
 
-        $user = Auth::user();
+        // $user = Auth::user();
 
         $token = $user->createToken('access_token')->plainTextToken;
 
