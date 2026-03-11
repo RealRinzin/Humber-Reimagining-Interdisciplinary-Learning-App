@@ -35,7 +35,7 @@ class AuthController
         $request->validate([
             'name' => 'required',
             // 'email' => 'required|email|unique:users',
-            'username' => 'required',
+            'username' => 'required|unique:users',
             'password' => 'required|min:6',
             'role_id' => 'required'
         ]);
