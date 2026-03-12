@@ -14,6 +14,6 @@ class VideoWatchHistorySeeder extends Seeder
     public function run(): void
     {
         //
-        VideoWatchHistory::factory()->count(config('app.seeder_count'))->create();
+        VideoWatchHistory::factory(5)->create();
     }
 }
