@@ -7,9 +7,15 @@ use App\Http\Resources\UserVideoProgress\UserVideoProgressResourceCollection;
 use App\Models\UserVideoProgress;
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserVideoProgressController
 {
+
+    private function authorizeUser($userId)
+    {
+        abort_if(auth()->id() != $userId, 403, 'Forbidden.');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -41,9 +47,12 @@ class UserVideoProgressController
     /**
      * Display the specified resource.
      */
-    public function show(Request $request)
+    public function show(Request $request,$userId)
     {
 
+
+        // $this->authorizeUser($userId);
+        return 'Approved';
         //
         // return "check";
         // $user = 1;
@@ -78,5 +87,18 @@ class UserVideoProgressController
     public function destroy(UserVideoProgress $userVideoProgress)
     {
         //
+    }
+
+
+    // User 
+    public function user(Request $request,$userId)
+    {
+        // return $request->user();
+        $this->authorizeUser($userId);
+        $progress = UserVideoProgress::with(['video'])
+            ->where('user_id', $userId)
+            ->get();
+
+        return UserVideoProgressResource::collection($progress);
     }
 }

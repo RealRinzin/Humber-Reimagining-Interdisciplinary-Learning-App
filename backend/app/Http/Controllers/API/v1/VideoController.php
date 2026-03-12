@@ -9,14 +9,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class VideoController
-{
+{    
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         //
-         return new VideoResourceCollection(Video::get());
+        
+
+        return new VideoResourceCollection(Video::get());
     }
 
     /**
@@ -42,9 +44,8 @@ class VideoController
     public function show(Video $video)
     {
         //
-         $video->load(['code', 'document']);
+        $video->load(['code', 'document']);
         return new VideoResource($video);
-
     }
 
     /**

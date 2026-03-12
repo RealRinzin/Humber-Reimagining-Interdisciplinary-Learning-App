@@ -52,8 +52,10 @@ Route::prefix('v1')
         Route::get('/users', [UserController::class, 'index']);
         Route::get('/users/{user:id}', [UserController::class, 'show']);
         Route::get('users/{me}/videos', [UserController::class, 'videos']);
+        Route::get('users/{me}/videos/{video}', [UserController::class, 'videos']);
         // User Progress 
         Route::get('/progress', [UserVideoProgressController::class, 'index']);
+        Route::get('/users/{user}/progress/{progress}', [UserVideoProgressController::class, 'user']);
         // Route::get('/videos/{video}/progress', [UserVideoProgressController::class, 'show']);
         // Route::get('users/{user:id}/videos/{video}/progress', [UserVideoProgressController::class, 'show']);
 
