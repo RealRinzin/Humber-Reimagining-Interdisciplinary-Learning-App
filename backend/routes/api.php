@@ -12,32 +12,31 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::get('users/{user}/videos/{video}/progress', [UserVideoProgressController::class, 'show']);
+
 // Route::prefix('v1')->name('v1.')->middleware('auth:sanctum')->group(function () {
 Route::prefix('v1')
     ->name('v1.')
     ->middleware('auth:sanctum')
     ->group(function () {
 
-    /**
-     * IMPORTANT API
-     *  /api/v1/users/{me}/videos // This api will get all the videos 
-     *  /api/v1/users/{me}/videos/{video:id} // This is the default api when user load the particular video  ? progress is tied with it 
-     *  {
-     * id,title,slug,progress:[]
-     * 
-     * }
-     */
+        /**
+         * IMPORTANT API
+         *  /api/v1/users/{me}/videos // This api will get all the videos 
+         *  /api/v1/users/{me}/videos/{video:id} // This is the default api when user load the particular video  ? progress is tied with it 
+         *  {
+         * id,title,slug,progress:[]
+         * 
+         * }
+         */
 
-    /**
-     * NOTES
-     *  - When user clicked or landed on any video topic, we only need to user the video api (api/v1/videos/{video:id} - with its code,document stuff)
-     *  - For the progress bar at the left, we need to use the video's and logged's id to fetch the details
-     *  - For the Tabs, we need to use same video's id and authenticated user's detail to check the status of each tab
-     *  - For the lesson or overview progress at the right, we need to use more calculation and resource api
-     */
+        /**
+         * NOTES
+         *  - When user clicked or landed on any video topic, we only need to user the video api (api/v1/videos/{video:id} - with its code,document stuff)
+         *  - For the progress bar at the left, we need to use the video's and logged's id to fetch the details
+         *  - For the Tabs, we need to use same video's id and authenticated user's detail to check the status of each tab
+         *  - For the lesson or overview progress at the right, we need to use more calculation and resource api
+         */
 
 
 
@@ -54,18 +53,21 @@ Route::prefix('v1')
         Route::get('/users/{user:id}', [UserController::class, 'show']);
         Route::get('users/{me}/videos', [UserController::class, 'videos']);
         // User Progress 
+        Route::get('/progress', [UserVideoProgressController::class, 'index']);
         // Route::get('/videos/{video}/progress', [UserVideoProgressController::class, 'show']);
-        Route::get('users/{user:id}/videos/{video}/progress', [UserVideoProgressController::class, 'show']);
+        // Route::get('users/{user:id}/videos/{video}/progress', [UserVideoProgressController::class, 'show']);
 
 
         /**
+         * 
+         * ----------- TEST API BELOW----------------
          * User With Video API with its code, document 
          * 
          */
-        // API for the all videos resources of the User
-        Route::get('/users/{user}/videos', [UserController::class, 'index']); // This is for all the video of the user
+        // // API for the all videos resources of the User
+        // Route::get('/users/{user}/videos', [UserController::class, 'index']); // This is for all the video of the user
         // API for the specific video resources of the User
-        Route::get('/users/{user}/videos/{video}', [UserController::class, 'index']);
+        // Route::get('/users/{user}/videos/{video}', [UserController::class, 'index']);
 
         // Logout
         Route::post('/logout', [AuthController::class, 'logout']);

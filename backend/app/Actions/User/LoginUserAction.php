@@ -6,10 +6,11 @@ use App\DTOs\User\LoginUserDTO;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class LoginUserAction
 {
-    public function execute(LoginUserDTO $dto): User
+    public function execute(LoginUserDTO $dto): array
     {
 
         // Login Authentication and Credential Check
@@ -18,12 +19,16 @@ class LoginUserAction
             'username' => $dto->username,
             'password' => $dto->password
         ])) {
-            throw new \Exception('Invalid credentials');
+            throw ValidationException::withMessages([
+                'username' => ['Invalid credentials']
+            ]);
         }
-
-        return $user = Auth::user();
-
-        // Returns token
-        // return $user->createToken('access_token')->plainTextToken;
+        // Authenticated user object
+        $user = Auth::user();
+        // Return response object for the API call
+        return [
+            'user' => $user,
+            'token' => $user->createToken('access_token')->plainTextToken
+        ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\v1;
 
+use App\Http\Resources\UserVideoProgress\UserVideoProgressResource;
 use App\Http\Resources\UserVideoProgress\UserVideoProgressResourceCollection;
 use App\Models\UserVideoProgress;
 use App\Models\Video;
@@ -15,6 +16,8 @@ class UserVideoProgressController
     public function index()
     {
         //
+        return UserVideoProgress::with(['video', 'user'])->get();
+
         // return new UserVideoProgressResourceCollection(UserVideoProgress::all());
 
     }
@@ -38,10 +41,11 @@ class UserVideoProgressController
     /**
      * Display the specified resource.
      */
-    public function show(UserVideoProgress $userVideoProgress, Video $video)
+    public function show(Request $request)
     {
+
         //
-        return "check";
+        // return "check";
         // $user = 1;
         // if($user !== 1) return;
         // $progress = UserVideoProgress::firstOrNew([

@@ -19,8 +19,8 @@ class VideoWatchHistoryResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'video_id' => $this->video_id,
+            // 'user_id' => $this->user_id,
+            // 'video_id' => $this->video_id,
             'started_at'=>$this->started_at,
             'interaction_type'=>$this->interaction_type,
             'ended_at' => $this->ended_at,
