@@ -8,15 +8,16 @@ import { useState } from "react";
 
 // Props
 interface contentProps {
-    title:string,
-    content:string
-    icon: IconDefinition;
+  title: string,
+  content: string
+  icon: IconDefinition;
+  type: string,
 }
-export default function CourseTabs({title,content,icon}:contentProps) {
+export default function CourseTabs({ title, content, icon, type }: contentProps) {
   const [drop, setDrop] = useState(false);
   const [isChecked, setIsChecked] = useState(false)
   return (
-    <section className="my-2" >
+    <section className="my-5" >
       <div className="flex justify-between bg-slate-300 p-3 rounded-sm">
         <h2 className="text-xl font-bold text-gray-600 ">
           <FontAwesomeIcon icon={icon} size="1x" /> {title}
@@ -37,9 +38,19 @@ export default function CourseTabs({title,content,icon}:contentProps) {
       <div className={`relative p-3 ${drop ? "block" : "hidden"}`}>
         {/* <div className={`relative p-3`}> */}
         <p className="absolute right-10 my-4"><FontAwesomeIcon icon={faCopy} size="1x" className="text-white hover:cursor-pointer" /></p>
-        <SyntaxHighlighter language="cpp" style={solarizedDarkAtom}>
-          {content}
-        </SyntaxHighlighter>
+        {/* Check the Type for the format */}
+        {
+          type === 'code' ?
+            <SyntaxHighlighter language="cpp" style={solarizedDarkAtom}>
+              {content}
+            </SyntaxHighlighter> :
+            type ==='rambling'?'Rambling':
+            type ==='tyk'?'Testing Your knowledge':
+            type ==='tldnw'?'Later watch':
+            // Resources Component
+            type === 'resources' ? 'Documents' : content
+
+        }
       </div>
     </section>
   )

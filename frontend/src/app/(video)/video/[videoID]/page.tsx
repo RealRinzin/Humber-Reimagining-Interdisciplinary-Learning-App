@@ -4,7 +4,7 @@ import CourseTabs from '@/components/features/course/CourseTabs'
 import CourseTitle from '@/components/features/course/CourseTitle'
 import CourseVideo from '@/components/features/course/CourseVideo'
 import MoreCourses from '@/components/features/course/MoreCourses'
-import { faAlignLeft, faHexagonNodes,faClipboardQuestion, faCode } from '@fortawesome/free-solid-svg-icons'
+import { faAlignLeft, faHexagonNodes, faClipboardQuestion, faCode, faBook } from '@fortawesome/free-solid-svg-icons'
 
 async function getVideos() {
     const res = await fetch(`${process.env.API_BASE_URL}/videos/intro-to-space`, {
@@ -18,33 +18,30 @@ async function getVideos() {
     return res.json()
 }
 export default async function Page() {
-    const {data} = await getVideos()
+    const { data } = await getVideos()
     return (
         <main className='px-1 md:px-40 py-5'>
             <section className="flex flex-col md:flex-row gap-4">
                 <div className="md:flex-[4]">
-                    <CourseTitle  title={data.title}/>
+                    <CourseTitle title={data.title} />
                     {/* Video section */}
                     <section className='flex flex-col md:flex-row gap-3 py-3'>
-                        {/* <CourseProgressUI /> */}
-                        <CourseVideo videoLink={data.video_url}/>
+                        <CourseProgressUI />
+                        <CourseVideo videoLink={data.video_url} />
                     </section>
                     {/* Tabs */}
-                    <CourseTabs title={"Too Long Did Not watch"} icon={faAlignLeft} content={data.title}/>
+                    <CourseTabs type="tldnw" title={"Too Long Did Not watch"} icon={faAlignLeft} content={data.title} />
                     {/* Knowledge */}
-                    <CourseTabs title={"Test Your Knowledge"} icon={faClipboardQuestion} content={data.title}/>
+                    <CourseTabs type="tyk" title={"Test Your Knowledge"} icon={faClipboardQuestion} content={data.title} />
                     {/* Tabs */}
-                    <CourseTabs title={"Umer's Rambling"}   icon={faHexagonNodes}   content={data.title}/>
+                    <CourseTabs type="rambling" title={"Umer's Rambling"} icon={faHexagonNodes} content={data.title} />
                     {/* Tabs */}
-                    <CourseTabs title={"Code"} icon={faCode} content={data.codes.code}/>
+                    <CourseTabs type="code" title={"Code"} icon={faCode} content={data.codes.code} />
                     {/* Tabs */}
-                    {/* <CourseTabs title={"Umer's Ramblings"} status={false} /> */}
-                    {/* Tabs */}
-                    {/* <CourseTabs title={"Code"} status={true} /> */}
-                    {/* Tabs */}
-                    {/* <CourseTabs title={"Resources"} status={false} /> */}
-                    {/* Tabs */}
-                    {/* <CourseTabs title={"Whats next?"} status={true} /> */}
+                    <CourseTabs type="resources" title={"Resources"} icon={faBook} content={data.title} />
+                    <section className='my-10'>
+                        <MoreCourses />
+                    </section>
                 </div>
                 <aside className="md:flex-[2] bg-slate-900" style={{ 'backgroundColor': "#000033" }}>
                     {/* <TopicProgressTracking/> */}
@@ -52,9 +49,7 @@ export default async function Page() {
                 </aside>
 
             </section >
-            <section>
-                <MoreCourses/>
-            </section>
+
         </main>
 
     )
