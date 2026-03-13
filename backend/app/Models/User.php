@@ -76,6 +76,9 @@ class User extends Authenticatable
     public function videoWatchHistory(){
         return $this->hasMany(VideoWatchHistory::class);
     }
+       public function userVideoProgress(){
+        return $this->hasMany(UserVideoProgress::class);
+    }
     // User Topic Metric Relationship Table
     public function userTopicMetric()
     {

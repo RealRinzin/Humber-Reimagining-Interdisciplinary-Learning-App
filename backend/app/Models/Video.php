@@ -10,7 +10,10 @@ class Video extends Model
     /** @use HasFactory<\Database\Factories\VideoFactory> */
     use HasFactory;
 
-
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
     // Relationship Tables
     public function topic()
     {
@@ -32,7 +35,10 @@ class Video extends Model
     {
         return $this->hasOne(Code::class);
     }
-
+    public function quiz()
+    {
+        return $this->hasMany(Quiz::class);
+    }
     // Bridging table relations
     public function videoWatchHistory()
     {

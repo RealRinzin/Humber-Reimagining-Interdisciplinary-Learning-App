@@ -9,4 +9,10 @@ class Quiz extends Model
 {
     /** @use HasFactory<\Database\Factories\QuizFactory> */
     use HasFactory;
+
+
+    public function video(){
+        return $this->belongsTo(Video::class);
+
+    }
 }

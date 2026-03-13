@@ -18,7 +18,7 @@ class VideoController
     {
         // 
         // return $request->user();
-        return new VideoResourceCollection(Video::with('videoWatchHistory')->get());
+        return new VideoResourceCollection(Video::with('videoWatchHistory', 'userVideoProgress')->get());
 
         // return new VideoResourceCollection(Video::get());
     }
@@ -43,11 +43,19 @@ class VideoController
     /**
      * Display the specified resource.
      */
-    public function show(Video $video)
+    public function show($slug)
     {
-        //
-        // return $video->id;
-        $video->load('videoWatchHistory','userVideoProgress'); // eager load relationship on the model instance
+
+
+        $video = Video::with('videoWatchHistory', 'userVideoProgress', 'quiz')->where('slug', $slug)->firstOrFail();
+        return new VideoResource($video);
+
+        $video = Video::with('videoWatchHistory', 'quiz')->findOrFail($slug);
+        return new VideoResource($video);
+
+
+        
+        $video->load('videoWatchHistory', 'userVideoProgress', 'quiz'); // eager load relationship on the model instance
         return new VideoResource($video); // return as a resource
         // return new VideoResourceCollection(Video::with('videoWatchHistory')->find($video));
     }

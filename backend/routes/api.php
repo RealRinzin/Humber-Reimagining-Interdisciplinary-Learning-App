@@ -39,20 +39,18 @@ Route::prefix('v1')
          */
 
 
-
-        Route::get('/topics', [TopicController::class, 'index']);
-        Route::get('/topics/{topic:slug}', [TopicController::class, 'show']);
-        // Video
-        Route::get('/videos', [VideoController::class, 'index']);
-        Route::get('/videos/{video:id}', [VideoController::class, 'show']);
-        Route::get('videos/{video}/users', [VideoController::class, 'users']);
-
-
         // User
         Route::get('/users', [UserController::class, 'index']);
         Route::get('/users/{user:id}', [UserController::class, 'show']);
         Route::get('users/{me}/videos', [UserController::class, 'videos']);
-        Route::get('users/{me}/videos/{video}', [UserController::class, 'videos']);
+
+        // Video
+        Route::get('/videos', [VideoController::class, 'index']);
+        Route::get('/videos/{video:slug}', [VideoController::class, 'show']);
+        Route::get('videos/{video}/users', [VideoController::class, 'users']);
+
+
+        // Route::get('users/{me}/videos/{video}', [UserController::class, 'videos']);
         // User Progress 
         Route::get('/progress', [UserVideoProgressController::class, 'index']);
         Route::get('/users/{user}/progress/{progress}', [UserVideoProgressController::class, 'user']);

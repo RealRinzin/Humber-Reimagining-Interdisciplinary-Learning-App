@@ -19,9 +19,12 @@ class UserVideoProgressResource extends JsonResource
         // return parent::toArray($request);
         return [
             'id' => $this->id,
+            'user_id'=>$this->user_id,
+            'video_id'=>$this->video_id,
             // 'video' => new VideoResource($this->whenLoaded('video')),
-            // 'user' => new UserResource($this->whenLoaded('user')),
+            // 'user' => UserResource::collection($this->user),
             // 'user' => new UserResource($this->user),
+            // 'video' => new VideoResource($this->video),
             'tldnw' => $this->tldnw,
             'code' => $this->code_section,
         ];

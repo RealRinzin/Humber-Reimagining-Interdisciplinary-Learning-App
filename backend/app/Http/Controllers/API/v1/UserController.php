@@ -45,7 +45,7 @@ class UserController
         //     'videos' => $videos
         // ]);
         // 2. Return via the Resource Collection
-        return new UserResourceCollection(User::with('videoWatchHistory.video')->get());
+        return new UserResourceCollection(User::with('videoWatchHistory')->get());
         // return new UserResourceCollection(User::with('video')->get());
         // User::with('videoWatchHistory')->get()
     }
@@ -65,7 +65,7 @@ class UserController
      */
     public function show(User $user)
     {
-        // $user->load('videoWatchHistory');
+        $user->load('videoWatchHistory.video');
 
         return new UserResource($user);
         //
@@ -93,12 +93,19 @@ class UserController
     }
 
     // More Controllers
-    public function videos(Request $request)
+    public function videos()
     {
+        // $video->load('videoWatchHistory','userVideoProgress'); // eager load relationship on the model instance
+        return new VideoResource(Video::get()); // return as a resource
+        // $user->load('userVideoProgress'); // eager load relationship on the model instance
+        // return new User($user); // return as a resource
+
         // return Video::with(['document', 'code', 'userVideoProgress'])->get();
         // return VideoResource::collection(
         //     Video::with('videoWatchHistory')->get()
         // );
+        // $video->load('videoWatchHistory', 'userVideoProgress'); // eager load relationship on the model instance
+        // return new VideoResource($video); // return as a resource
         return VideoWatchHistoryResource::collection(
             $request->user()
                 ->videoWatchHistory()

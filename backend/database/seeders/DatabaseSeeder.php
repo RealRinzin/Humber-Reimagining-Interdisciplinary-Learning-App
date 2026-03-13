@@ -23,9 +23,9 @@ class DatabaseSeeder extends Seeder
             TopicSeeder::class, // Topics
             VideoSeeder::class, // Question
             // UserSavedTopicsSeeder::class, // User Saved Topics
-            // QuizSeeder::class, // Quiz
+            QuizSeeder::class, // Quiz
             // QuestionSeeder::class, // Question
-            // FlashCardSeeder::class, // Flashcard
+            FlashCardSeeder::class, // Flashcard
             SubtitleSeeder::class, // Subtitles
             DocumentSeeder::class, // Documents
             CodeSeeder::class, // Code
