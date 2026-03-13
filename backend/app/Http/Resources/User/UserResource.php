@@ -19,12 +19,22 @@ class UserResource extends JsonResource
     {
         // return parent::toArray($request);
         return [
+            'name' => $this->name,
+            'email' => $this->email,
+            'videos' => new VideoResource($this->whenLoaded('user')),
             // 'id'=>$this->id,
-            'role_id'=>$this->role_id,
-            'name'=>$this->name,
-            'email'=>$this->email,
-            'created_at'=>$this->created_at,
-            'videos' => VideoWatchHistoryResource::collection($this->videoWatchHistory),
+            // 'role_id' => $this->role_id,
+            // 'created_at' => $this->created_at,
+            // Only included when loaded via BelongsToMany
+            // 'pivot' => $this->whenPivotLoaded('videoWatchHistory', fn() => [
+            //     'device_type' => $this->pivot->device_type,
+            // ]),
+            'watch_histories' => VideoWatchHistoryResource::collection($this->videoWatchHistory),
+            // 'video_watch_history' => VideoWatchHistoryResource::collection(
+            //     $this->videoWatchHistory
+            // ),
+            // Only included when the relation was eager-loaded
+            // 'videos' => VideoResource::collection($this->video),
             // 'progress' => UserVideoProgress::collection($this->userVideoProgress),
             // 'pause_count'=>$this->video()->avg('pause_count')
         ];

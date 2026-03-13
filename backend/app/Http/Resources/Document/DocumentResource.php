@@ -19,7 +19,7 @@ class DocumentResource extends JsonResource
             'id'=>$this->id,
             'title'=>$this->title,
             'document_url'=>$this->document_url,
-            'video_id'=>$this->video_id,
+            // 'video_id'=>$this->video_id,
         ];
     }
 }

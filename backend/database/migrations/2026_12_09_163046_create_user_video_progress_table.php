@@ -23,7 +23,7 @@ return new class extends Migration
                 ->onDelete('cascade');
                 // Check or unchecked status
             $table->boolean('tldnw','false');
-            $table->boolean('code','false');
+            $table->boolean('code_section','false');
             $table->boolean('test_your_knowledge','false');
             $table->boolean('umer_rambling','false');
             $table->boolean('resources','false');

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController
 {
+
     public function login(LoginUserRequest $request, LoginUserAction $action)
     {
         // $dto = LoginUserDTO::fromRequest($request);

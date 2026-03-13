@@ -21,6 +21,7 @@ class Video extends Model
     {
         return $this->belongsTo(User::class);
     }
+
     // Document Relationship
     public function document()
     {
@@ -37,7 +38,9 @@ class Video extends Model
     {
         return $this->hasMany(VideoWatchHistory::class);
     }
-    public function userVideoProgress(){
+    // 
+    public function userVideoProgress()
+    {
         return $this->hasMany(UserVideoProgress::class);
     }
 }

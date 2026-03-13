@@ -59,6 +59,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Video::class);
     }
+    
 
     // Topic Table
     public function topic()

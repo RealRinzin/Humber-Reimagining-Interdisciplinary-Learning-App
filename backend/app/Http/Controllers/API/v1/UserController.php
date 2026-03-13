@@ -20,10 +20,34 @@ class UserController
      */
     public function index()
     {
-        return new VideoResourceCollection(Video::get());
-        //
+
+
+        // $user = User::with('videoWatchHistory.video')->find(3);
+        // $videos = $user->videoWatchHistory
+        //     ->groupBy('video_id') // group multiple interactions per video
+        //     ->map(function ($histories) {
+        //         $video = $histories->first()->video; // take video metadata once
+
+        //         return [
+        //             'id' => $video->id,
+        //             'title' => $video->title,
+        //             'videoWatchHistory' => $histories->map(function ($h) {
+        //                 return [
+        //                     'paused_at' => $h->paused_at,
+        //                     'device_type' => $h->device_type,
+        //                     'created_at' => $h->created_at
+        //                 ];
+        //             })
+        //         ];
+        //     })->values();
+        // return response()->json([
+        //     'user_id' => $user->id,
+        //     'videos' => $videos
+        // ]);
         // 2. Return via the Resource Collection
-        return new UserResourceCollection(User::all());
+        return new UserResourceCollection(User::with('videoWatchHistory.video')->get());
+        // return new UserResourceCollection(User::with('video')->get());
+        // User::with('videoWatchHistory')->get()
     }
 
     /**

@@ -25,7 +25,7 @@ class UserVideoProgressFactory extends Factory
             // Pick a random existing video ID
             'video_id' => Video::inRandomOrder()->value('id'),
             'tldnw'=>false,
-            'code'=>false,
+            'code_section'=>false,
             'test_your_knowledge'=>false,
             'umer_rambling'=>false,
             'resources'=>false,

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\VideoWatchHistory;
 
+use App\Http\Resources\User\UserResource;
 use App\Http\Resources\UserVideoProgress\UserVideoProgressResource;
 use App\Http\Resources\Video\VideoResource;
 use Illuminate\Http\Request;
@@ -28,7 +29,8 @@ class VideoWatchHistoryResource extends JsonResource
             'device_type' => $this->device_type,
             'last_paused' => $this->last_paused,
             'complete_status' => $this->complete_status,
-            'video' => new VideoResource($this->whenLoaded('video')), // parent video
+            // 'user' => new UserResource($this->whenLoaded('user')),
+            // 'video' => new VideoResource($this->whenLoaded('video')), // parent video
 
         ];
     }
