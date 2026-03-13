@@ -20,13 +20,13 @@ async function getVideos() {
 export default async function Page() {
     const { data } = await getVideos()
     return (
-        <main className='px-1 md:px-40 py-5'>
+        <main className='px-1 md:px-20 py-5'>
             <section className="flex flex-col md:flex-row gap-4">
                 <div className="md:flex-[4]">
                     <CourseTitle title={data.title} />
                     {/* Video section */}
                     <section className='flex flex-col md:flex-row gap-3 py-3'>
-                        <CourseProgressUI />
+                        {/* <CourseProgressUI /> */}
                         <CourseVideo videoLink={data.video_url} />
                     </section>
                     {/* Tabs */}

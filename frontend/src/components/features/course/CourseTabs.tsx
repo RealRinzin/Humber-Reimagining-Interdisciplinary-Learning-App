@@ -19,13 +19,13 @@ export default function CourseTabs({ title, content, icon, type }: contentProps)
   return (
     <section className="my-5" >
       <div className="flex justify-between bg-slate-300 p-3 rounded-sm">
-        <h2 className="text-xl font-bold text-gray-600 ">
+        <h2 className="text-xl font-bold text-gray-600">
           <FontAwesomeIcon icon={icon} size="1x" /> {title}
           <FontAwesomeIcon
             icon={drop ? faAngleUp : faAngleDown}
             size="1x"
             onClick={() => setDrop(prev => !prev)}
-            className="cursor-pointer"
+            className="cursor-pointer text-gray-600 px-2"
           />
         </h2>
         <div className={`h-8 w-8 rounded-full border-6  ${isChecked ? 'bg-green-600 border-green-600' : 'bg-slate-400 border-slate-600 hover:border-green-600 hover:cursor-pointer hover:bg-white transition duration-300 ease-in-out'}  
