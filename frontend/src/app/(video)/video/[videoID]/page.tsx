@@ -5,7 +5,7 @@ import CourseTitle from '@/components/features/course/CourseTitle'
 import CourseVideo from '@/components/features/course/CourseVideo'
 import MoreCourses from '@/components/features/course/MoreCourses'
 import { faAlignLeft, faHexagonNodes, faClipboardQuestion, faCode, faBook } from '@fortawesome/free-solid-svg-icons'
-
+// Get the Video
 async function getVideos() {
     const res = await fetch(`${process.env.API_BASE_URL}/videos/intro-to-space`, {
         headers: {
@@ -17,8 +17,30 @@ async function getVideos() {
     }
     return res.json()
 }
+
+// lastWatchRecord
+async function lastWatchRecord() {
+    const res = await fetch(`${process.env.API_BASE_URL}/user_video`, {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${process.env.API_TOKEN}`,
+            "Content-Type": "application/json",
+
+        },
+    })
+    if (!res.ok) {
+        throw new Error("Failed to fetch videos")
+    }
+    console.log(res);
+    return res;
+
+}
+
 export default async function Page() {
+
     const { data } = await getVideos()
+    const res = await lastWatchRecord();
+    console.log(res);
     return (
         <main className='px-1 md:px-20 py-5'>
             <section className="flex flex-col md:flex-row gap-4">

@@ -8,9 +8,12 @@ use App\DTOs\User\LoginUserDTO;
 use App\DTOs\User\CreateUserDTO;
 use App\Http\Requests\User\LoginUserRequest;
 use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Resources\UserVideo\UserVideoResource;
+use App\Http\Resources\UserVideoAnalytic\UserVideoAnalyticResource;
 use App\Http\Resources\Video\VideoResource;
 use App\Models\User;
 use App\Models\UserVideo;
+use App\Models\UserVideoAnalytic;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -103,16 +106,29 @@ class AuthController
         ]);
     }
 
-
     // test
-        public function index(Request $request)
+    public function index(Request $request,User $user)
     {
-        //
+
+
+    return UserVideoResource::collection($user->userVideo()->with('video')->get());
+    return UserVideo::with(['user','video','userVideoAnalytic'])->find(1);
+    return UserVideoAnalytic::with('userVideo.video','userVideo.user')->get();
+        // return $request->user;
+        return UserVideoAnalyticResource::collection(
+            UserVideo::with('video')
+                ->where('user_id', $request->user()->id)
+                ->get()
+        );
+
         return UserVideo::with('video')
-        ->where('user_id',2)
-        ->get();
-        return Video::with('videoWatchHistory','quiz','topic')->find(1);
-        return User::with('userVideoProgress','role')->find(4);
-        
+            ->where('user_id', 1)
+            ->get();
+
+        return UserVideo::with('video', 'userVideoAnalytic')
+            ->where('user_id', 1)
+            ->get();
+        return Video::with('videoWatchHistory', 'quiz', 'topic')->find(1);
+        return User::with('userVideoProgress', 'role')->find(4);
     }
 }

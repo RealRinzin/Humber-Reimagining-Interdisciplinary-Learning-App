@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API\v1;
 
+use App\Http\Resources\Video\VideoResource;
+use App\Models\User;
 use App\Models\UserVideo;
 use Illuminate\Http\Request;
 
@@ -28,7 +30,18 @@ class UserVideoController
      */
     public function store(Request $request)
     {
-        //
+
+        // return $request->user();
+        UserVideo::updateOrCreate(
+            [
+                'user_id' => $request->user()->id,
+                'video_id' =>$request->video_id,
+            ],
+            [
+                'watch_minute' => $request->watch_minute?? '0:0'
+
+            ]
+        );
     }
 
     /**
@@ -36,6 +49,7 @@ class UserVideoController
      */
     public function show(UserVideo $userVideo)
     {
+        return $userVideo::with('user','video')->find($userVideo);
         //
     }
 
@@ -61,5 +75,11 @@ class UserVideoController
     public function destroy(UserVideo $userVideo)
     {
         //
+    }
+
+    public function userVideo(Request $request)
+    {
+        $user = User::with('video')->findOrFail($request->user()->id);
+        return VideoResource::collection($user->video);
     }
 }

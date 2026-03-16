@@ -33,8 +33,8 @@ class VideoResource extends JsonResource
             'thumbnail' => $this->thumbnail,
             'video_url' => $this->video_url,
             'duration' => $this->duration,
-            'user' => new UserResource($this->whenLoaded('user')),
-            'userVideos' => new UserVideoResource($this->whenLoaded('userVideo')),
+            // 'user' => new UserResource($this->whenLoaded('user')),
+            // 'userVideos' => new UserVideoResource($this->userVideo),
             // Code relationship tables
             'documents' => new DocumentResource($this->document), // One - one call Get the all the related documents of the video
             'codes' => new CodeResource($this->code), // Get all the related codes for the video

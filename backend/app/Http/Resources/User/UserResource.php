@@ -21,7 +21,7 @@ class UserResource extends JsonResource
         // return parent::toArray($request);
         return [
             'name' => $this->name,
-            'email' => $this->email,
+            'username' => $this->username,
             'watch_histories' => VideoWatchHistoryResource::collection($this->whenLoaded('videoWatchHistory')), // getting the watch histories of the video
             // 'videos' => new VideoResource($this->whenLoaded('video')),
             // 'user_video_tracking' => UserVideoProgressResource::collection($this->whenLoaded('userVideoProgress')), // get the is_checked status for the video code, documents, files etc

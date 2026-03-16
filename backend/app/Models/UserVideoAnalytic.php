@@ -13,4 +13,5 @@ class UserVideoAnalytic extends Model
     public function userVideo(){
         return $this->belongsTo(UserVideo::class);
     }
+
 }

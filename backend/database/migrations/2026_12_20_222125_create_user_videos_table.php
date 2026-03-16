@@ -25,6 +25,8 @@ return new class extends Migration
             // $table->integer('progress')->default(0);
             // $table->integer('watch_time')->default(0);
             $table->timestamps();
+            // Unique constrain protection
+            // $table->unique('user_id','video_id');
         });
     }
 
