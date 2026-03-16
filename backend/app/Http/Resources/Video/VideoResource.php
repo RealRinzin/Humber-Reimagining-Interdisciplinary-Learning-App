@@ -6,8 +6,10 @@ use App\Http\Resources\Code\CodeResource;
 use App\Http\Resources\Document\DocumentResource;
 use App\Http\Resources\Quiz\QuizResource;
 use App\Http\Resources\User\UserResource;
+use App\Http\Resources\UserVideo\UserVideoResource;
 use App\Http\Resources\UserVideoProgress\UserVideoProgressResource;
 use App\Http\Resources\VideoWatchHistory\VideoWatchHistoryResource;
+use App\Models\UserVideo;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -32,6 +34,7 @@ class VideoResource extends JsonResource
             'video_url' => $this->video_url,
             'duration' => $this->duration,
             'user' => new UserResource($this->whenLoaded('user')),
+            'userVideos' => new UserVideoResource($this->whenLoaded('userVideo')),
             // Code relationship tables
             'documents' => new DocumentResource($this->document), // One - one call Get the all the related documents of the video
             'codes' => new CodeResource($this->code), // Get all the related codes for the video

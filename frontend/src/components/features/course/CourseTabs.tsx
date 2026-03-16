@@ -18,7 +18,7 @@ export default function CourseTabs({ title, content, icon, type }: contentProps)
   const [isChecked, setIsChecked] = useState(false)
   return (
     <section className="my-5" >
-      <div className="flex justify-between bg-slate-300 p-3 rounded-sm">
+      <div className="flex justify-between bg-slate-200 p-3 rounded-sm">
         <h2 className="text-xl font-bold text-gray-600">
           <FontAwesomeIcon icon={icon} size="1x" /> {title}
           <FontAwesomeIcon
@@ -28,7 +28,7 @@ export default function CourseTabs({ title, content, icon, type }: contentProps)
             className="cursor-pointer text-gray-600 px-2"
           />
         </h2>
-        <div className={`h-8 w-8 rounded-full border-6  ${isChecked ? 'bg-green-600 border-green-600' : 'bg-slate-400 border-slate-600 hover:border-green-600 hover:cursor-pointer hover:bg-white transition duration-300 ease-in-out'}  
+        <div className={`h-8 w-8 rounded-full border-6  ${isChecked ? 'bg-green-600 border-green-600 hover:cursor-pointer' : 'bg-slate-400 border-slate-600 hover:border-green-600 hover:cursor-pointer hover:bg-white transition duration-300 ease-in-out'}  
  hover:shadow-[0_0_10px_3px_rgba(34,197,94,0.6)]`} onClick={() => setIsChecked(prev => !prev)}>
           {
             isChecked ? (<FontAwesomeIcon icon={faCheck} size="1x" className="text-white" />) : ''
@@ -44,11 +44,11 @@ export default function CourseTabs({ title, content, icon, type }: contentProps)
             <SyntaxHighlighter language="cpp" style={solarizedDarkAtom}>
               {content}
             </SyntaxHighlighter> :
-            type ==='rambling'?'Rambling':
-            type ==='tyk'?'Testing Your knowledge':
-            type ==='tldnw'?'Later watch':
-            // Resources Component
-            type === 'resources' ? 'Documents' : content
+            type === 'rambling' ? 'Rambling' :
+              type === 'tyk' ? 'Testing Your knowledge' :
+                type === 'tldnw' ? 'Later watch' :
+                  // Resources Component
+                  type === 'resources' ? 'Documents' : content
 
         }
       </div>

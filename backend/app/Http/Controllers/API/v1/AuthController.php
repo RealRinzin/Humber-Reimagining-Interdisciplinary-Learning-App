@@ -8,7 +8,10 @@ use App\DTOs\User\LoginUserDTO;
 use App\DTOs\User\CreateUserDTO;
 use App\Http\Requests\User\LoginUserRequest;
 use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Resources\Video\VideoResource;
 use App\Models\User;
+use App\Models\UserVideo;
+use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -98,5 +101,18 @@ class AuthController
         return response()->json([
             'message' => 'Logged out'
         ]);
+    }
+
+
+    // test
+        public function index(Request $request)
+    {
+        //
+        return UserVideo::with('video')
+        ->where('user_id',2)
+        ->get();
+        return Video::with('videoWatchHistory','quiz','topic')->find(1);
+        return User::with('userVideoProgress','role')->find(4);
+        
     }
 }

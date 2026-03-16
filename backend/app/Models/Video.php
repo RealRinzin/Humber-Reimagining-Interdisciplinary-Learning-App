@@ -22,9 +22,11 @@ class Video extends Model
     // Video Relationship
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(User::class);
     }
-
+    public function userVideo(){
+        return $this->hasMany(UserVideo::class);
+    }
     // Document Relationship
     public function document()
     {
