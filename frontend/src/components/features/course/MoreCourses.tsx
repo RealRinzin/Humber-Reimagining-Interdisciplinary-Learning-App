@@ -33,7 +33,7 @@ export default async function MoreCourses() {
                     width={1200}
                     height={600}
                     sizes="100vw"
-                    className="w-full h-[200px] object-cover rounded-md"
+                    className="w-full h-[200px] object-cover rounded-2xl"
                   />
                   {/* <img
                     src="https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200"

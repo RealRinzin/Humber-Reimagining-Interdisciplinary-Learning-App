@@ -56,7 +56,7 @@ export default function VideoPlayer({ options, tracks, videoLink, last_watch }: 
       player.dispose();
       playerRef.current = null;
     };
-  }, [options, tracks, last_watch]);
+  }, [videoLink,options, tracks, last_watch]);
 
   return (
     <div data-vjs-player>

@@ -5,6 +5,7 @@ import CourseTabs from '@/components/features/course/CourseTabs'
 import CourseTitle from '@/components/features/course/CourseTitle'
 import CourseVideo from '@/components/features/course/CourseVideo'
 import MoreCourses from '@/components/features/course/MoreCourses'
+import { MyPlayer } from '@/components/ui/video/videoPlayer'
 
 import { faAlignLeft, faHexagonNodes, faClipboardQuestion, faCode, faBook } from '@fortawesome/free-solid-svg-icons'
 
@@ -52,8 +53,9 @@ export default async function Page({ params }: { params: Promise<{ videoID: stri
                     <CourseTitle title={data.title} />
                     {/* Video section */}
                     <section className='flex flex-col md:flex-row gap-3 py-3'>
+                        <MyPlayer src={data.video_url}  />
                         {/* <CourseProgressUI /> */}
-                        <CourseVideo videoLink={data.video_url} last_watch="00:00:02" />
+                        {/* <CourseVideo videoLink={data.video_url} last_watch="00:00:02" /> */}
                     </section>
                     {/* Tabs */}
                     <CourseTabs type="tldnw" title={"Too Long Did Not watch"} icon={faAlignLeft} content={data.title} />
