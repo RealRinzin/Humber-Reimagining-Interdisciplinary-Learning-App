@@ -17,8 +17,9 @@ class VideoController
     public function index(Request $request)
     {
         // 
+        return Video::get();
         // return $request->user();
-        return new VideoResourceCollection(Video::with('videoWatchHistory', 'userVideoProgress')->get());
+        // return new VideoResourceCollection(Video::with('videoWatchHistory', 'userVideoProgress')->get());
 
         // return new VideoResourceCollection(Video::get());
     }

@@ -12,14 +12,18 @@ type VideoJsPlayerTrackOptions = any; // define if you need
 interface VideoPlayerProps {
   options?: VideoJsPlayerOptions;
   tracks?: VideoJsPlayerTrackOptions[];
-  videoLink?:string
+  videoLink?: string
+  last_watch?: string
 }
 
-export default function VideoPlayer({ options, tracks,videoLink}: VideoPlayerProps) {
+export default function VideoPlayer({ options, tracks, videoLink, last_watch }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const playerRef = useRef<VideoJsPlayer | null>(null);
 
   useEffect(() => {
+    console.log('loadded')
+    console.log('last_watch received:', last_watch);
+
     if (!videoRef.current || playerRef.current) return;
 
     // Initialize player
@@ -31,7 +35,7 @@ export default function VideoPlayer({ options, tracks,videoLink}: VideoPlayerPro
       sources: [{ src: videoLink, type: 'video/mp4' }],
     });
     playerRef.current = player;
-
+    // player.currentTime(120);
     // Add tracks if provided
     if (tracks?.length) {
       tracks.forEach(track => player.addRemoteTextTrack(track, false));
@@ -48,12 +52,11 @@ export default function VideoPlayer({ options, tracks,videoLink}: VideoPlayerPro
     logEvents.forEach(event => {
       player.on(event, () => console.log(`Event: ${event}`, event === 'timeupdate' ? player.currentTime() : ''));
     });
-
     return () => {
       player.dispose();
       playerRef.current = null;
     };
-  }, [options, tracks]);
+  }, [options, tracks, last_watch]);
 
   return (
     <div data-vjs-player>
