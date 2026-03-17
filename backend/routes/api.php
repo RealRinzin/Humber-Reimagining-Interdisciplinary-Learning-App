@@ -7,13 +7,13 @@ use App\Http\Controllers\API\v1\UserController;
 use App\Http\Controllers\API\v1\UserVideoController;
 use App\Http\Controllers\API\v1\UserVideoProgressController;
 use App\Http\Controllers\API\v1\VideoController;
+use App\Models\UserVideo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/login', [AuthController::class, 'login']);
-
 
 Route::get('users/{user}/videos/{video}/progress', [UserVideoProgressController::class, 'show']);
 
@@ -22,7 +22,6 @@ Route::prefix('v1')
     ->name('v1.')
     ->middleware('auth:sanctum')
     ->group(function () {
-        Route::get('/test', [AuthController::class, 'index']);
         /**
          * IMPORTANT API
          *  /api/v1/users/{me}/videos // This api will get all the videos 
@@ -32,6 +31,41 @@ Route::prefix('v1')
          * 
          * }
          */
+        /**
+         * 
+         * Video Route API Group
+         * 
+         */
+        Route::controller(VideoController::class)->group(function () {
+            Route::get('/videos', [VideoController::class, 'index'])->name('users.index');
+            Route::get('/videos/{video:slug}', [VideoController::class, 'show']);
+            Route::get('videos/{video}/users', [VideoController::class, 'users']);
+        });
+
+        /**
+         * USER API
+         */
+        Route::controller(UserController::class)->group(function () {
+            // User
+            Route::get('/users', [UserController::class, 'index']);
+            Route::get('/users/{user:id}', [UserController::class, 'show']);
+            Route::get('users/{id}/videos', [UserController::class, 'videos']);
+            Route::get('/users/{me}/videos/1/user_video', [UserController::class, 'userVideo']);
+            Route::get('/userVideos', [UserController::class, 'userVideo']);
+        });
+        /**
+         * USER VIDEO API
+         */
+        Route::controller(UserVideoController::class)->group(function () {
+            // Video
+            Route::get('/videos', [VideoController::class, 'index']);
+            Route::get('/videos/{video:slug}', [VideoController::class, 'show']);
+            Route::get('videos/{video}/users', [VideoController::class, 'users']);
+            Route::post('/user_videos', [UserVideoController::class, 'store']);
+            // Route::get('/user-videos/{userVideo}',[UserVideoController::class,'show']);
+            Route::get('/user-videos/{userVideo}', [UserVideoController::class, 'show']);
+        });
+        Route::get('/test', [AuthController::class, 'index']);
 
         /**
          * NOTES
@@ -42,23 +76,8 @@ Route::prefix('v1')
          */
 
 
-        // User
-        Route::get('/users', [UserController::class, 'index']);
-        Route::get('/users/{user:id}', [UserController::class, 'show']);
-        Route::get('users/{id}/videos', [UserController::class, 'videos']);
-        Route::get('/users/{me}/videos/1/user_video',[UserController::class,'userVideo']);
-
-        // Video
-        Route::get('/videos', [VideoController::class, 'index']);
-        Route::get('/videos/{video:slug}', [VideoController::class, 'show']);
-        Route::get('videos/{video}/users', [VideoController::class, 'users']);
-
 
         // User Video API Controller
-        Route::post('/user_videos',[UserVideoController::class,'store']);
-        // Route::get('/user-videos/{userVideo}',[UserVideoController::class,'show']);
-        Route::get('/user-videos/{userVideo}', [UserVideoController::class, 'show']);
-        Route::get('/userVideos',[UserController::class,'userVideo']);
         // Route::get('users/{me}/videos/{video}', [UserController::class, 'videos']);
         // User Progress 
         Route::get('/progress', [UserVideoProgressController::class, 'index']);

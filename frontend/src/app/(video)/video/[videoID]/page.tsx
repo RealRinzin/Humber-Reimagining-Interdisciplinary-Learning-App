@@ -38,9 +38,9 @@ async function lastWatchRecord() {
         throw new Error("Failed to fetch videos")
     }
     return res.json();
-
 }
 
+// Page Export here
 export default async function Page({ params }: { params: Promise<{ videoID: string }> }) {
     const { videoID } = await params;
     console.log(videoID)
@@ -53,7 +53,8 @@ export default async function Page({ params }: { params: Promise<{ videoID: stri
                     <CourseTitle title={data.title} />
                     {/* Video section */}
                     <section className='flex flex-col md:flex-row gap-3 py-3'>
-                        <MyPlayer src={data.video_url}  />
+                        {/* <MyPlayer src={`${data.video_url}/#t=4`}  /> */}
+                        <MyPlayer src={data.video_url} last_stop={data.id}  />
                         {/* <CourseProgressUI /> */}
                         {/* <CourseVideo videoLink={data.video_url} last_watch="00:00:02" /> */}
                     </section>

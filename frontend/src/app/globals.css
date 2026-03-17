@@ -47,3 +47,10 @@ footer {
   /* background-color: var(--secondary-color); */
   background-color: #191947;
 }
+
+
+
+/* VideoJs Custom CSS */
+.media-default-skin .media-slider__fill{
+  background-color: red !important;
+}

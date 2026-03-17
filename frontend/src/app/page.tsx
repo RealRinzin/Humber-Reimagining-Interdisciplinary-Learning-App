@@ -4,7 +4,8 @@ export default function CoursePage() {
   return (
     <>
     <main className="px-1 md:px-20 py-5">
-      <VideoPage/>
+
+<h1>Home Page</h1>
     </main>
     </>
   )

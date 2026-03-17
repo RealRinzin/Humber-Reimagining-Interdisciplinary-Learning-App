@@ -3,10 +3,10 @@
 import { faMagnifyingGlassMinus, faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import CytoscapeComponent from "react-cytoscapejs";
-import type { StylesheetCSS } from 'cytoscape';
+import type { Core, StylesheetCSS } from 'cytoscape';
 import { useRef } from "react";
 export default function CourseNodeLink() {
-    const cyRef = useRef(null);
+const cyRef = useRef<Core | null>(null);
 
     const elements = [
         { data: { id: "1", label: "Intro to Space", url: "https://example.com/intro" } },

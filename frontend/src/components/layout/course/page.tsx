@@ -10,30 +10,9 @@ export default function VideoPage() {
     return (
         <section className="flex flex-col md:flex-row gap-4">
             <div className="md:flex-[4]">
-                <CourseTitle />
-                {/* Video section */}
-                <section className='flex flex-col md:flex-row gap-3 py-3'>
-                    <CourseProgressUI />
-                    <CourseVideo />
-                </section>
-                {/* Tabs */}
-                <CourseTabs title={"Too Long Did Not watch"} status={true} />
-                {/* Tabs */}
-                <CourseTabs title={"Apply Your Knowledge"} status={false} />
-                {/* Tabs */}
-                <CourseTabs title={"Test Your knowledge"} status={true} />
-                {/* Tabs */}
-                <CourseTabs title={"Umer's Ramblings"} status={false} />
-                {/* Tabs */}
-                <CourseTabs title={"Code"} status={true} />
-                {/* Tabs */}
-                <CourseTabs title={"Resources"} status={false} />
-                {/* Tabs */}
-                <CourseTabs title={"Whats next?"} status={true} />
             </div>
             <aside className="md:flex-[2] bg-slate-900" style={{'backgroundColor': "#000033"} }>
                 {/* <TopicProgressTracking/> */}
-                <CourseNodeLink />
             </aside>
 
         </section>
