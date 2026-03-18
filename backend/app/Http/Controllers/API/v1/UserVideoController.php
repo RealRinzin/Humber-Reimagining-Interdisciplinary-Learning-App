@@ -5,7 +5,10 @@ namespace App\Http\Controllers\API\v1;
 use App\Http\Resources\Video\VideoResource;
 use App\Models\User;
 use App\Models\UserVideo;
+use App\Models\Video;
 use Illuminate\Http\Request;
+
+use function Pest\Laravel\get;
 
 class UserVideoController
 {
@@ -35,10 +38,10 @@ class UserVideoController
         UserVideo::updateOrCreate(
             [
                 'user_id' => $request->user()->id,
-                'video_id' =>$request->video_id,
+                'video_id' => $request->video_id,
             ],
             [
-                'watch_minute' => $request->watch_minute?? '0:0'
+                'watch_minute' => $request->watch_minute ?? '0:0'
 
             ]
         );
@@ -47,10 +50,17 @@ class UserVideoController
     /**
      * Display the specified resource.
      */
-    public function show(UserVideo $userVideo)
+    public function show(Request $request, $id)
+    // public function show(UserVideo $userVideo)
     {
-        return $userVideo::with('user','video')->find($userVideo);
-        //
+        $userVideo = UserVideo::where('user_id', $request->user()->id)
+            ->where('video_id', $id)
+            ->first();
+
+            // Return JSON response
+        return response()->json([
+            'data' => $userVideo ?? null,
+        ]);
     }
 
     /**

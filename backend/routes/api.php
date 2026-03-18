@@ -13,14 +13,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:10,1');
 
 Route::get('users/{user}/videos/{video}/progress', [UserVideoProgressController::class, 'show']);
 
 // Route::prefix('v1')->name('v1.')->middleware('auth:sanctum')->group(function () {
 Route::prefix('v1')
     ->name('v1.')
-    ->middleware('auth:sanctum')
+    ->middleware(['auth:sanctum','throttle:60,1'])
     ->group(function () {
         /**
          * IMPORTANT API
@@ -31,17 +31,6 @@ Route::prefix('v1')
          * 
          * }
          */
-        /**
-         * 
-         * Video Route API Group
-         * 
-         */
-        Route::controller(VideoController::class)->group(function () {
-            Route::get('/videos', [VideoController::class, 'index'])->name('users.index');
-            Route::get('/videos/{video:slug}', [VideoController::class, 'show']);
-            Route::get('videos/{video}/users', [VideoController::class, 'users']);
-        });
-
         /**
          * USER API
          */
@@ -54,16 +43,28 @@ Route::prefix('v1')
             Route::get('/userVideos', [UserController::class, 'userVideo']);
         });
         /**
+         * 
+         * Video Route API Group
+         * 
+         */
+        Route::controller(VideoController::class)->group(function () {
+            Route::get('/videos', [VideoController::class, 'index'])->name('videos.index');
+            Route::get('/videos/{video:slug}', [VideoController::class, 'show'])->name('videos.show');
+            Route::get('videos/{video}/users', [VideoController::class, 'users']);
+        });
+
+
+        /**
          * USER VIDEO API
          */
         Route::controller(UserVideoController::class)->group(function () {
             // Video
-            Route::get('/videos', [VideoController::class, 'index']);
-            Route::get('/videos/{video:slug}', [VideoController::class, 'show']);
-            Route::get('videos/{video}/users', [VideoController::class, 'users']);
+            Route::get('/user_videos/{user_video}', [UserVideoController::class, 'show'])->name('user_videos.show');
             Route::post('/user_videos', [UserVideoController::class, 'store']);
+            // Route::get('/videos/{video:slug}', [VideoController::class, 'show']);
+            // Route::get('videos/{video}/users', [VideoController::class, 'users']);
             // Route::get('/user-videos/{userVideo}',[UserVideoController::class,'show']);
-            Route::get('/user-videos/{userVideo}', [UserVideoController::class, 'show']);
+            // Route::get('/user-videos/{userVideo}', [UserVideoController::class, 'show']);
         });
         Route::get('/test', [AuthController::class, 'index']);
 

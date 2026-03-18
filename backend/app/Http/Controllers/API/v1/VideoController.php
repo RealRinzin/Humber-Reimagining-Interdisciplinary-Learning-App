@@ -44,12 +44,16 @@ class VideoController
     /**
      * Display the specified resource.
      */
-    public function show($slug)
+    // public function show(Video $video)
+    public function show(Video $video)
     {
-
-
-        $video = Video::with('videoWatchHistory', 'userVideoProgress', 'quiz')->where('slug', $slug)->firstOrFail();
+        // $video = Video::with('videoWatchHistory','userVideo')
+        // ->where('slug', $video->slug)
+        // ->firstOrFail();
         return new VideoResource($video);
+
+
+
 
         $video = Video::with('videoWatchHistory', 'quiz')->findOrFail($slug);
         return new VideoResource($video);
