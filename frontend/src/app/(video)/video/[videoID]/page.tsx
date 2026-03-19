@@ -59,7 +59,7 @@ export default async function Page({ params }: { params: Promise<{ videoID: stri
                     <CourseTitle title={data.title} />
                     {/* Video section */}
                     <section className='flex flex-col md:flex-row gap-3 py-3'>
-                        <CourseProgressUI />
+                        {/* <CourseProgressUI /> */}
                         {/* <MyPlayer src={`${data.video_url}/#t=4`}  /> */}
                         <MyPlayer src={data.video_url} last_stop={!watch.data ? 0 : timeToDigit({ time: watch.data.watch_minute })} />
                         {/* <MyPlayer src={data.video_url} last_stop={9} /> */}

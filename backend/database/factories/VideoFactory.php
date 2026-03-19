@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Topic;
+use App\Models\TopicNode;
 use App\Models\Video;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -23,7 +24,7 @@ class VideoFactory extends Factory
             //
             'title' => fake()->name(), // Generate a random name for the topic title
             'slug' => Str::random(18), // Generate a random string for the topic slug
-            'topic_id' => Topic::inRandomOrder()->value('id'),
+            'topic_node_id' => TopicNode::inRandomOrder()->value('id'),
             'parent_id' => Video::count() ? Video::inRandomOrder()->value('id') : null, // Randomly assign a parent topic if any exist, otherwise set to null
             'thumbnail' => Str::random(10), // Generate a random string for the topic thumbnail
             'video_url' => 'https://www.pexels.com/download/video/5198159', // Generate a random string for the topic video URL

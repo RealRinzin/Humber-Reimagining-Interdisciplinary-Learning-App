@@ -21,9 +21,10 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class, // Roles
             UserSeeder::class, // Users
             TopicSeeder::class, // Topics
+            TopicNodeSeeder::class,
             VideoSeeder::class, // Question
             // UserSavedTopicsSeeder::class, // User Saved Topics
-            QuizSeeder::class, // Quiz
+            // QuizSeeder::class, // Quiz
             // QuestionSeeder::class, // Question
             FlashCardSeeder::class, // Flashcard
             SubtitleSeeder::class, // Subtitles
@@ -36,6 +37,6 @@ class DatabaseSeeder extends Seeder
             UserVideoSeeder::class,
             UserVideoProgressSeeder::class, // User Video Watch History for tracking 
             UserVideoAnalyticSeeder::class, // User Video Watch History for tracking 
-            ]);
+        ]);
     }
 }

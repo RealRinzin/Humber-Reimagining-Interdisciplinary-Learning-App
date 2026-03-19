@@ -1,0 +1,16 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:02.000
+Welcome to this quick demo.
+
+00:00:02.000 --> 00:00:04.000
+Captions are working perfectly.
+
+00:00:04.000 --> 00:00:06.000
+This is a random subtitle line.
+
+00:00:06.000 --> 00:00:08.000
+Video.js supports WebVTT natively.
+
+00:00:08.000 --> 00:00:10.000
+Enjoy your playback experience!

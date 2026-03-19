@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('title'); // Add this line for the title column
             $table->string('slug')->unique(); // Add this line for the slug column
             // Foreign key to topics table
-            $table->foreignId('topic_id')
-            ->constrained('topics')
+            $table->foreignId('topic_node_id')
+            ->constrained('topic_nodes')
             ->cascadeOnDelete()
             ->cascadeOnUpdate();   
             $table->unsignedBigInteger('parent_id')->nullable(); // nullable = root items

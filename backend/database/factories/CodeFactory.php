@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\TopicNode;
 use App\Models\Video;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -23,6 +24,7 @@ class CodeFactory extends Factory
             'title' => Str::random(100),
             'language'=>'Python',
             'video_id' => Video::inRandomOrder()->value('id'),
+            'topic_node_id' => TopicNode::inRandomOrder()->value('id'),
             'code'=>Str::random(100)
 
         ];

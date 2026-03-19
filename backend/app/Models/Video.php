@@ -15,9 +15,9 @@ class Video extends Model
     //     return 'slug';
     // }
     // Relationship Tables
-    public function topic()
+    public function topicNode()
     {
-        return $this->belongsTo(Topic::class);
+        return $this->belongsTo(TopicNode::class);
     }
     // Video Relationship
     public function user()

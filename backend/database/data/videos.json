@@ -2,7 +2,7 @@
     {
         "title":"Intro to Space",
         "slug":"intro-to-space",
-        "topic_id":1,
+        "topic_node_id":1,
         "parent_id":null,
         "thumbnail":"https://images.pexels.com/photos/239548/pexels-photo-239548.jpeg",
         "video_url":"https://www.pexels.com/download/video/35828342",
@@ -12,7 +12,7 @@
     {
         "title":"Model Space",
         "slug":"model-space",
-        "topic_id":1,
+        "topic_node_id":1,
         "parent_id":1,
         "thumbnail":"https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
         "video_url":"https://www.pexels.com/download/video/1422633",
@@ -22,7 +22,7 @@
     {
         "title":"Translation",
         "slug":"translation",
-        "topic_id":1,
+        "topic_node_id":1,
         "parent_id":1,
         "thumbnail":"https://images.pexels.com/photos/4144923/pexels-photo-4144923.jpeg",
         "video_url":"https://www.pexels.com/download/video/6209572",
@@ -32,7 +32,7 @@
     {
         "title":"Projection Matrix",
         "slug":"projection-matrix",
-        "topic_id":1,
+        "topic_node_id":1,
         "parent_id":2,
         "thumbnail":"https://images.pexels.com/photos/3938023/pexels-photo-3938023.jpeg",
         "video_url":"https://www.pexels.com/download/video/3196425",
@@ -42,7 +42,7 @@
     {
         "title":"Perspective Divine",
         "slug":"perspective-divine",
-        "topic_id":2,
+        "topic_node_id":2,
         "parent_id":3,
         "thumbnail":"https://images.pexels.com/photos/2156/sky-earth-space-working.jpg",
         "video_url":"https://www.pexels.com/download/video/1580509",
@@ -52,7 +52,7 @@
     {
         "title":"Pixel Space",
         "slug":"pixel-space",
-        "topic_id":2,
+        "topic_node_id":2,
         "parent_id":3,
         "thumbnail":"https://images.pexels.com/photos/8471930/pexels-photo-8471930.jpeg",
         "video_url":"https://www.pexels.com/download/video/5198159",
