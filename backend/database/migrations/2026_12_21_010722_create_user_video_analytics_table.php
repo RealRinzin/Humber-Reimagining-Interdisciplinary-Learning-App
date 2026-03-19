@@ -17,15 +17,12 @@ return new class extends Migration
                 ->constrained('user_videos')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->time('started_at'); // Timestamp of when the user started watching the topic
-            $table->string('interaction_type');
-            $table->time('ended_at')->nullable(); // Timestamp of when the user stopped watching the topic
-            $table->time('watch_duration')->nullable(); //  Total time spent watching the topic
-            $table->time('last_paused')->nullable();  // Timestamp of the last pause action
-            $table->integer('pause_count')->default(0); // Number of times the user paused the topic
-            $table->string('device_type')->nullable(); // Type of device used (e.g., mobile, desktop)
-            $table->string('complete_status'); // Status of the topic (e.g., 'completed', 'in_progress', 'not_started')
-            $table->date('played_date');    // Date when the topic was played
+                $table->string('interaction_type');
+                $table->string('interact_at');
+                $table->string('device_type');
+            $table->string('os_type');
+            $table->string('browser_type');
+            $table->date('played_on');    // Date when the topic was played
             $table->timestamps();
         });
     }

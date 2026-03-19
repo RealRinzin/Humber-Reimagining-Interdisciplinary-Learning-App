@@ -110,7 +110,7 @@ class AuthController
     public function index(Request $request,User $user)
     {
 
-
+    return UserVideoAnalytic::with('userVideo')->get();
     return UserVideoResource::collection($user->userVideo()->with('video')->get());
     return UserVideo::with(['user','video','userVideoAnalytic'])->find(1);
     return UserVideoAnalytic::with('userVideo.video','userVideo.user')->get();

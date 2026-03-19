@@ -4,10 +4,12 @@ use App\Http\Controllers\API\v1\AuthController;
 use App\Http\Controllers\API\v1\Controller;
 use App\Http\Controllers\API\v1\TopicController;
 use App\Http\Controllers\API\v1\UserController;
+use App\Http\Controllers\API\v1\UserVideoAnalyticController;
 use App\Http\Controllers\API\v1\UserVideoController;
 use App\Http\Controllers\API\v1\UserVideoProgressController;
 use App\Http\Controllers\API\v1\VideoController;
 use App\Models\UserVideo;
+use App\Models\UserVideoAnalytic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +22,7 @@ Route::get('users/{user}/videos/{video}/progress', [UserVideoProgressController:
 // Route::prefix('v1')->name('v1.')->middleware('auth:sanctum')->group(function () {
 Route::prefix('v1')
     ->name('v1.')
-    ->middleware(['auth:sanctum','throttle:60,1'])
+    ->middleware(['auth:sanctum', 'throttle:60,1'])
     ->group(function () {
         /**
          * IMPORTANT API
@@ -66,6 +68,18 @@ Route::prefix('v1')
             // Route::get('/user-videos/{userVideo}',[UserVideoController::class,'show']);
             // Route::get('/user-videos/{userVideo}', [UserVideoController::class, 'show']);
         });
+
+        /**
+         *
+         *  USER VIDEO ANALYTIC
+         * API ENDPOINTS
+         * 
+         */
+        Route::controller(UserVideoAnalytic::class)->group(function(){
+            Route::post('/user_video_analytic',[UserVideoAnalyticController::class,'store']);
+        });
+
+        // TESTING API
         Route::get('/test', [AuthController::class, 'index']);
 
         /**

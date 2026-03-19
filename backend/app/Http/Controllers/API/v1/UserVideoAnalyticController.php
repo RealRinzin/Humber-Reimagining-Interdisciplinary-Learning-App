@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\API\v1;
 
+use App\Actions\UserVideoAnalytic\CreateUserVideoAnalyticAction;
+use App\DTOs\UserVideoAnalytic\CreateUserVideoAnalyticDTO;
+use App\Http\Requests\UserVideoAnalytic\StoreUserVideoAnalyticRequest;
 use App\Models\UserVideoAnalytic;
 use Illuminate\Http\Request;
 
@@ -18,9 +21,16 @@ class UserVideoAnalyticController
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(StoreUserVideoAnalyticRequest $request,CreateUserVideoAnalyticAction $action)
     {
         //
+        $dto = CreateUserVideoAnalyticDTO::fromRequest($request);
+        $newData = $action->execute($dto);
+
+        return response()->json([
+            'data'=>$newData
+        ]);
+
     }
 
     /**

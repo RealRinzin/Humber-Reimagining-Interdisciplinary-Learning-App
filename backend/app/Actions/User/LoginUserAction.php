@@ -26,9 +26,10 @@ class LoginUserAction
         // Authenticated user object
         $user = Auth::user();
         // Return response object for the API call
+        session()->regenerate();
         return [
             'user' => $user,
-            'token' => $user->createToken('access_token')->plainTextToken
+            'token' => $user->createToken('access_token')->plainTextToken,
         ];
     }
 }

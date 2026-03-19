@@ -19,13 +19,5 @@ class CreateUserDTO
     {
         return new self(...$request->validated());
     }
-    // public static function fromArray(array $data): self
-    // {
-    //     return new self(
-    //         name: $data['name'],
-    //         username: $data['username'],
-    //         password: $data['password'],
-    //         role_id: $data['role_id']
-    //     );
-    // }
+
 }

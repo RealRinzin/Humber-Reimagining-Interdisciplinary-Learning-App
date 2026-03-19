@@ -79,7 +79,7 @@ export default async function Page({ params }: { params: Promise<{ videoID: stri
                         <MoreCourses />
                     </section>
                 </div>
-                <aside className="md:flex-[2] bg-slate-900" style={{ 'backgroundColor': "#000033" }}>
+                <aside className="md:flex-[2] bg-slate-900 rounded-xl" style={{ 'backgroundColor': "#000033" }}>
                     {/* <TopicProgressTracking/> */}
                     <CourseNodeLink />
                 </aside>
