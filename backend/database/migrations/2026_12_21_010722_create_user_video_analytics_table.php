@@ -22,6 +22,7 @@ return new class extends Migration
                 $table->string('device_type');
             $table->string('os_type');
             $table->string('browser_type');
+            // $table->string('played_on');    // Date when the topic was played
             $table->date('played_on');    // Date when the topic was played
             $table->timestamps();
         });

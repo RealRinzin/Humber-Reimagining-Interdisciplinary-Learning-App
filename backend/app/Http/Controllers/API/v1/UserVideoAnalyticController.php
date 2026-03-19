@@ -21,7 +21,16 @@ class UserVideoAnalyticController
     /**
      * Show the form for creating a new resource.
      */
-    public function create(StoreUserVideoAnalyticRequest $request,CreateUserVideoAnalyticAction $action)
+    public function create()
+    {
+
+
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreUserVideoAnalyticRequest $request,CreateUserVideoAnalyticAction $action)
     {
         //
         $dto = CreateUserVideoAnalyticDTO::fromRequest($request);
@@ -30,15 +39,6 @@ class UserVideoAnalyticController
         return response()->json([
             'data'=>$newData
         ]);
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**

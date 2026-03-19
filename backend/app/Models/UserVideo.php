@@ -11,7 +11,7 @@ class UserVideo extends Model
     use HasFactory;
 
     // fillable fields
-        protected $fillable = [
+    protected $fillable = [
         'user_id',
         'video_id',
         'watch_minute',

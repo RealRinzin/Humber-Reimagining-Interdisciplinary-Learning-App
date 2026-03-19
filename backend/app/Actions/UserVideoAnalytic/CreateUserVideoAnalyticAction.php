@@ -15,7 +15,8 @@ class CreateUserVideoAnalyticAction
             'interact_at' => $dto->interact_at,
             'device_type' => $dto->device_type,
             'os_type' => $dto->os_type,
-            'browser_type'=>$dto->browser_type
+            'browser_type'=>$dto->browser_type,
+            'played_on'=>$dto->played_on
         ]);
     }
 }

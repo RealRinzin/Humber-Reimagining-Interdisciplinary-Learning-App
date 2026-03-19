@@ -20,25 +20,11 @@ class UserVideoAnalyticFactory extends Factory
         return [
             // Pick a random existing user ID
             'user_video_id' => UserVideo::inRandomOrder()->value('id'),
-            // Generate random timestamps and other fields for the user topic history
-            // 'started_at' => $this->faker->time(),
-            // Use optional() to allow for null values in ended_at, watch_duration, and last_paused
-            // 'ended_at' => $this->faker->time(),
-            //  Generate a random watch duration, allowing for null values
-            // 'watch_duration' => $this->faker->time(),
-            // Generate a random last paused time, allowing for null values
-            // 'last_paused' => $this->faker->time(),
-            // Generate a random pause count between 0 and 5
-            // 'pause_count' => $this->faker->numberBetween(0, 5),
-            // Randomly assign a device type, allowing for null values
             'interaction_type' => $this->faker->randomElement(['paused', 'skipped', 'fullscreen','played','close']),
             'interact_at' => '2',
             'device_type' => $this->faker->randomElement(['mobile', 'desktop', 'tablet']),
             'os_type' => $this->faker->randomElement(['iOS','Android','Windows','iPhone','Linux']),
             'browser_type' => $this->faker->randomElement(['Chrome','Firefox','Edge','iPhone','Linux']),
-            // Randomly assign a complete status from the specified options
-            // 'complete_status' => $this->faker->randomElement(['completed', 'in_progress', 'not_started']),
-            // Generate a random played date
             'played_on' => $this->faker->date()
         ];
     }

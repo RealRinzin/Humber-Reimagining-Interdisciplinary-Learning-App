@@ -12,7 +12,7 @@ class StoreUserVideoAnalyticRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_vide_id'     => ['required', 'integer', 'max:255'],
+            'user_video_id'     => ['required', 'integer', 'max:255'],
             'interaction_type'    => ['required', 'string','max:255'],
             'interact_at' => ['required','string','max:255'],
             'device_type' => ['required','string','max:255'],
@@ -25,7 +25,7 @@ class StoreUserVideoAnalyticRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'user_vide_id.required'      => 'required.',
+            'user_video_id.required'      => 'required.',
             'interaction_type.required'      => 'required.',
             'interact_at.required'      => 'required.',
             'device_type.required'      => 'required.',
