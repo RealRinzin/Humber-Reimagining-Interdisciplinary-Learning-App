@@ -6,7 +6,7 @@ import CytoscapeComponent from "react-cytoscapejs";
 import type { Core, StylesheetCSS } from 'cytoscape';
 import { useRef } from "react";
 export default function CourseNodeLink() {
-const cyRef = useRef<Core | null>(null);
+    const cyRef = useRef<Core | null>(null);
 
     const elements = [
         { data: { id: "1", label: "Intro to Space", url: "https://example.com/intro" } },
@@ -147,11 +147,23 @@ const cyRef = useRef<Core | null>(null);
         {
             selector: "edge",
             style: {
-                width: 2,
+                width: 3,
                 "line-color": "#32325b",
                 "curve-style": "bezier",
                 "target-arrow-shape": "triangle",
                 "target-arrow-color": "#888",
+            },
+        },
+        {
+           selector: 'edge[source = "2"], edge[target = "3"]',
+            style: {
+                width: 3,
+                "line-color": "#32325b",
+                "curve-style": "bezier",
+                "target-arrow-shape": "triangle",
+                "target-arrow-color": "#888",
+                "line-style": "dashed",
+                "line-dash-pattern": [4, 3] // [dash length, gap length]
             },
         },
 
