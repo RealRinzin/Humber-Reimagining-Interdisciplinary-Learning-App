@@ -49,10 +49,8 @@ class AuthController
          * the Request folder
          */
         $dto = CreateUserDTO::fromRequest($request);
+        // Assign the return to new Variable
         $newUser = $action->execute($dto);
-        // $newUser = $action->execute(
-        //     CreateUserDTO::fromRequest($request)
-        // );
         /**
          * Access Token
          * Generate the user access token after creating new user
@@ -68,31 +66,6 @@ class AuthController
             'token' => $token  // assign the generate token of the new user
         ]);
 
-        // die();
-        // // return $request;
-        // $request->validate([
-        //     'name' => 'required',
-        //     // 'email' => 'required|email|unique:users',
-        //     'username' => 'required|unique:users',
-        //     'password' => 'required|min:6',
-        //     'role_id' => 'required'
-        // ]);
-
-        // // return $request->username;
-        // $user = User::create([
-        //     'name' => $request->name,
-        //     // 'email' => $request->email,
-        //     'username' => $request->username,
-        //     'password' => Hash::make($request->password),
-        //     'role_id' => $request->role_id
-        // ]);
-        // // return $user;
-        // $token = $user->createToken('api-token')->plainTextToken;
-
-        // return response()->json([
-        //     'user' => $user,
-        //     'token' => $token
-        // ]);
     }
 
     // Logout
@@ -111,6 +84,8 @@ class AuthController
     {
 
     return UserVideoAnalytic::with('userVideo')->get();
+
+    
     return UserVideoResource::collection($user->userVideo()->with('video')->get());
     return UserVideo::with(['user','video','userVideoAnalytic'])->find(1);
     return UserVideoAnalytic::with('userVideo.video','userVideo.user')->get();
