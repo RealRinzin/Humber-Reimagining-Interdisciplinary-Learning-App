@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:10,1');
-
+Route::get('/users', [UserController::class, 'index']);
 Route::get('users/{user}/videos/{video}/progress', [UserVideoProgressController::class, 'show']);
 
 // Route::prefix('v1')->name('v1.')->middleware('auth:sanctum')->group(function () {
@@ -38,7 +38,7 @@ Route::prefix('v1')
          */
         Route::controller(UserController::class)->group(function () {
             // User
-            Route::get('/users', [UserController::class, 'index']);
+            // Route::get('/users', [UserController::class, 'index']);
             Route::get('/users/{user:id}', [UserController::class, 'show']);
             Route::get('users/{id}/videos', [UserController::class, 'videos']);
             Route::get('/users/{me}/videos/1/user_video', [UserController::class, 'userVideo']);
@@ -75,8 +75,8 @@ Route::prefix('v1')
          * API ENDPOINTS
          * 
          */
-        Route::controller(UserVideoAnalytic::class)->group(function(){
-            Route::post('/user_video_analytic',[UserVideoAnalyticController::class,'store']);
+        Route::controller(UserVideoAnalytic::class)->group(function () {
+            Route::post('/user_video_analytic', [UserVideoAnalyticController::class, 'store']);
         });
 
         // TESTING API

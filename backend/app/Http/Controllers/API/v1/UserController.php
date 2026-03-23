@@ -23,7 +23,7 @@ class UserController
     public function index()
     {
 
-
+    return User::get();
         // $user = User::with('videoWatchHistory.video')->find(3);
         // $videos = $user->videoWatchHistory
         //     ->groupBy('video_id') // group multiple interactions per video
