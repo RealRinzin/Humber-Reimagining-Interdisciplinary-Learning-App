@@ -3,22 +3,8 @@
 import '@videojs/react/video/skin.css';
 import { createPlayer } from '@videojs/react';
 
-// import { VideoSkin, Video, videoFeatures } from '@videojs/react/video';
-
-import {
-  VideoSkin,
-  Video,
-  PlayButton,
-  SeekBar,
-  MuteButton,
-  VolumeSlider,
-  FullscreenButton,
-  PlaybackRateMenu,
-  TextTrackButton,
-  PictureInPicture,
-  CurrentTimeDisplay,
-  DurationDisplay,
-} from '@videojs/react/video';
+import { VideoSkin, Video, videoFeatures } from '@videojs/react/video';
+// import { useEffect, useRef } from 'react';
 import { notFound } from 'next/navigation';
 
 interface InteractionPayload {
@@ -26,22 +12,7 @@ interface InteractionPayload {
   sec: string
 }
 
-// const Player = createPlayer({ features: videoFeatures });
-const Player = createPlayer({
-  features: [
-    PlayButton,
-    SeekBar,
-    MuteButton,
-    VolumeSlider,
-    FullscreenButton,
-    PlaybackRateMenu,   // speed control
-    TextTrackButton,    // CC button
-    PictureInPicture,   // PiP mode
-    CurrentTimeDisplay,
-    DurationDisplay,
-  ]
-});
-
+const Player = createPlayer({ features: videoFeatures });
 interface MyPlayerProps {
   src: string;
   last_stop: number,
@@ -112,6 +83,7 @@ export const MyPlayer = ({ src, last_stop }: MyPlayerProps) => {
 
             // true / false
           }}>
+            {/* Closed Captions */}
           <track
             kind="captions"
             label="English"
