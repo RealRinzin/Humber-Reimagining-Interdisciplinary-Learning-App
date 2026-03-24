@@ -5,7 +5,7 @@ export const getAllUsers = async ():Promise<User[]> =>{
         if(!res.ok){
             throw new Error('Failed to fetch user');
         }
-        const data : User[]=res.json();
+        const data: User[]=res.json();
         return data;
     }catch(error){
         throw new Error("Failed to connect")
