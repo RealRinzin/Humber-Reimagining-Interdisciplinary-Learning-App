@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\v1\AuthController;
 use App\Http\Controllers\API\v1\Controller;
 use App\Http\Controllers\API\v1\TopicController;
+use App\Http\Controllers\API\v1\TopicNodeController;
 use App\Http\Controllers\API\v1\UserController;
 use App\Http\Controllers\API\v1\UserVideoAnalyticController;
 use App\Http\Controllers\API\v1\UserVideoController;
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:10,1');
-Route::get('/users', [UserController::class, 'index']);
+// Route::get('/users', [UserController::class, 'index']);
 Route::get('users/{user}/videos/{video}/progress', [UserVideoProgressController::class, 'show']);
 
 // Route::prefix('v1')->name('v1.')->middleware('auth:sanctum')->group(function () {
@@ -38,11 +39,20 @@ Route::prefix('v1')
          */
         Route::controller(UserController::class)->group(function () {
             // User
-            // Route::get('/users', [UserController::class, 'index']);
+            Route::get('/users', [UserController::class, 'index']);
             Route::get('/users/{user:id}', [UserController::class, 'show']);
             Route::get('users/{id}/videos', [UserController::class, 'videos']);
             Route::get('/users/{me}/videos/1/user_video', [UserController::class, 'userVideo']);
             Route::get('/userVideos', [UserController::class, 'userVideo']);
+        });
+        /**
+         * 
+         * Video Route API Group
+         * 
+         */
+        Route::controller(TopicNodeController::class)->group(function () {
+            // Index Call
+            Route::get('/nodes', [TopicNodeController::class, 'index'])->name('nodes.index');
         });
         /**
          * 
