@@ -38,7 +38,7 @@ class VideoResource extends JsonResource
             // Code relationship tables
             'documents' => new DocumentResource($this->document), // One - one call Get the all the related documents of the video
             'codes' => new CodeResource($this->code), // Get all the related codes for the video
-            'watch_histories' => VideoWatchHistoryResource::collection($this->whenLoaded('videoWatchHistory')), // getting the watch histories of the video
+            // 'watch_histories' => VideoWatchHistoryResource::collection($this->whenLoaded('videoWatchHistory')), // getting the watch histories of the video
             'user_video_tracking' => UserVideoProgressResource::collection($this->whenLoaded('userVideoProgress')), // get the is_checked status for the video code, documents, files etc
             'quiz' => QuizResource::collection($this->whenLoaded('quiz')),
 

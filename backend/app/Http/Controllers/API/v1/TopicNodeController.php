@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\v1;
 
+use App\Http\Resources\TopicNode\TopicNodeResource;
 use App\Models\TopicNode;
 use Illuminate\Http\Request;
 
@@ -13,6 +14,7 @@ class TopicNodeController
     public function index()
     {
         //
+        return TopicNode::get();
     }
 
     /**
