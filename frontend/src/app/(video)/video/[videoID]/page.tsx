@@ -75,6 +75,11 @@ export default async function Page({ params }: { params: Promise<{ videoID: stri
                     <CourseTabs type="code" title={"Code"} icon={faCode} content={data?.codes?.code} />
                     {/* Tabs */}
                     <CourseTabs type="resources" title={"Resources"} icon={faBook} content={data.title} />
+                    <iframe
+                        src="http://localhost:3001"
+                        className="w-full h-screen border-0"
+                        allow="accelerometer; gyroscope"
+                    />
                     <section className='my-10'>
                         <MoreCourses />
                     </section>

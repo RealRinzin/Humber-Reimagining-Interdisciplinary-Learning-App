@@ -1,61 +1,49 @@
-'use client'
-import { useState } from "react"
+'use client';
+
+import { useState } from 'react';
+import { login } from '@/lib/auth';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const [error, setError] = useState('')
+    const router = useRouter();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
 
-    const login = async () => {
+    async function handleLogin(e: any) {
+        e.preventDefault();
+        setLoading(true);
+        setError(null);
+
         try {
-            const res = await fetch(`http://localhost:8000/api/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-                body: JSON.stringify({
-                    username,
-                    password
-                }),
-            })
-
-            if (!res.ok) {
-                const data = await res.json()
-                setError(data.message || 'Invalid credentials')
-                return
-            }
-
-            const data = await res.json()
-            console.log("Success:", data)
-
+            await login(username, password);
+            router.push('/nodes');
         } catch (err) {
-            console.error(err)
-            setError('Something went wrong')
+            setError(err.message);
+        } finally {
+            setLoading(false);
         }
     }
 
     return (
-        <>
+        <form onSubmit={handleLogin}>
+            {error && <p>{error}</p>}
             <input
                 type="text"
-                name="username"
-                className="border-slate-400 border-2 rounded"
+                value={username}
+                placeholder="username"
                 onChange={(e) => setUsername(e.target.value)}
-                required
             />
-
             <input
                 type="password"
-                name="password"
-                className="border-slate-400 border-2 rounded"
+                value={password}
+                placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
-                required
             />
-
-            <button onClick={login}>Login</button>
-
-            {error && <p className="text-red-500">{error}</p>}
-        </>
-    )
+            <button type="submit" disabled={loading}>
+                {loading ? 'Logging in...' : 'Login'}
+            </button>
+        </form>
+    );
 }
