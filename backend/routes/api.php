@@ -25,7 +25,7 @@ Route::get('users/{user}/videos/{video}/progress', [UserVideoProgressController:
 // Route::prefix('v1')->name('v1.')->middleware('auth:sanctum')->group(function () {
 Route::prefix('v1')
     ->name('v1.')
-    ->middleware(['auth:sanctum', 'throttle:60,1'])
+    ->middleware(['auth:sanctum', 'throttle:1000,1'])
     ->group(function () {
         /**
          * IMPORTANT API

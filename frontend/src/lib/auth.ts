@@ -1,13 +1,7 @@
+
 const API_URL = 'http://localhost:8000';
-
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-    return null;
-}
-
-export async function login(username, password) {
+import { getCookie } from './cookie';
+export async function login(username: string, password: string) {
     // Step 1 — get CSRF token
     await fetch(`${API_URL}/sanctum/csrf-cookie`, {
         credentials: 'include',
@@ -20,7 +14,7 @@ export async function login(username, password) {
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'X-XSRF-TOKEN': decodeURIComponent(getCookie('XSRF-TOKEN')),
+            'X-XSRF-TOKEN': decodeURIComponent(getCookie('XSRF-TOKEN') ?? ''),
         },
         body: JSON.stringify({ username, password }),
     });
