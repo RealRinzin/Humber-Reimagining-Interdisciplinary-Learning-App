@@ -9,7 +9,6 @@ import { MyPlayer } from '@/components/ui/video/videoPlayer'
 import timeToDigit from '@/utils/timeToDigit'
 import { faAlignLeft, faHexagonNodes, faClipboardQuestion, faCode, faBook } from '@fortawesome/free-solid-svg-icons'
 import { notFound } from 'next/navigation'
-
 // Get the Video
 async function getVideos({ videoID }: { videoID: string }) {
     // const res = await fetch(`${process.env.API_BASE_URL}/videos/intro-to-space`, {
@@ -44,13 +43,18 @@ async function lastWatchRecord({ id }: { id: number }) {
 // Page Export here
 export default async function Page({ params }: { params: Promise<{ videoID: string }> }) {
     const { videoID } = await params;
-
     const { data } = await getVideos({ videoID })
     const id = data.id;
     // console.log(id)
     const watch = await lastWatchRecord({ id });
     // const result = timeToDigit({ time: watch.data.watch_minute });
     // console.log(watch.data.watch_minute)
+    const demo = <iframe
+        src="http://localhost:3001"
+        // src='file:///Users/tenzinrinzin/Downloads/space_demo_3.html'
+        className="w-full h-screen border-0"
+        allow="accelerometer; gyroscope"
+    />
     return (
         <main className='px-1 md:px-20 py-5'>
             <section className="flex flex-col md:flex-row gap-4">
@@ -72,14 +76,18 @@ export default async function Page({ params }: { params: Promise<{ videoID: stri
                     {/* Tabs */}
                     <CourseTabs type="rambling" title={"Umer's Rambling"} icon={faHexagonNodes} content={data.title} />
                     {/* Tabs */}
-                    <CourseTabs type="code" title={"Code"} icon={faCode} content={data?.codes?.code} />
+                    {
+                        data?.codes ? <CourseTabs type="code" title={"Code"} icon={faCode} content={data?.codes?.code} /> : ''
+                    }
+                    {/* Tabs */}
+                    <CourseTabs type="interactive" title={"Interactive Mode"} icon={faBook} content={demo} />
                     {/* Tabs */}
                     <CourseTabs type="resources" title={"Resources"} icon={faBook} content={data.title} />
-                    <iframe
+                    {/* <iframe
                         src="http://localhost:3001"
                         className="w-full h-screen border-0"
                         allow="accelerometer; gyroscope"
-                    />
+                    /> */}
                     <section className='my-10'>
                         <MoreCourses />
                     </section>

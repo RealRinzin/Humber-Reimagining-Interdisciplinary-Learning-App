@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server'
 
 export function proxy(request: NextRequest) {
     const session = request.cookies.get('humber-idl-app-session')
-    console.log(session);
+    // console.log(session);
     const isLoggedIn = !!session
 
     const isAuthPage = request.nextUrl.pathname === '/'

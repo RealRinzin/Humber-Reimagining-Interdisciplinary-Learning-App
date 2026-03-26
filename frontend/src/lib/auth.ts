@@ -1,11 +1,23 @@
 
 const API_URL = 'http://localhost:8000';
+import { LoginDType } from '@/types/auth.types';
 import { getCookie } from './cookie';
-export async function login(username: string, password: string) {
-    // Step 1 — get CSRF token
+
+// Step 1: always call this before login to get CSRF cookie
+async function getCsrfCookie() {
     await fetch(`${API_URL}/sanctum/csrf-cookie`, {
-        credentials: 'include',
+        credentials: 'include', // required to store the cookie
     });
+}
+
+
+export async function login(username: string, password: string): Promise<LoginDType> {
+
+    // Step 1 — get CSRF token
+    await getCsrfCookie();
+    // await fetch(`${API_URL}/sanctum/csrf-cookie`, {
+    //     credentials: 'include',
+    // });
 
     // Step 2 — login
     const response = await fetch(`${API_URL}/login`, {
