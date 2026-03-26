@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   description: "Learning through the online educational tech",
   // viewport: "width=device-width, initial-scale=1.0",
 };
-
+console.log("Index Page")
 export default function RootLayout({
   children,
 }: Readonly<{
