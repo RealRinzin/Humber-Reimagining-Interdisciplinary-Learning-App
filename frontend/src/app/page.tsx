@@ -11,7 +11,11 @@ import VideoPage from '@/components/layout/course/page'
 // import InteractivePlayer from '@/components/ui/interactive'
 import LoginPage from '@/components/ui/loginPage'
 import useUsers from '@/hooks/user/useUsers'
-export default function CoursePage() {
+import { cookies } from 'next/headers';
+export default async function CoursePage() {
+  const cookieStore = await cookies()
+  const theme = cookieStore.get('cookie')
+  console.log(theme);
   // const data = await useUsers();
   // console.log(data);
   return (

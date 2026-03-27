@@ -10,15 +10,10 @@ async function getCsrfCookie() {
     });
 }
 
-
 export async function login(username: string, password: string): Promise<LoginDType> {
 
-    // Step 1 — get CSRF token
+    // Step 1 — get CSRF token from the browser for authentication
     await getCsrfCookie();
-    // await fetch(`${API_URL}/sanctum/csrf-cookie`, {
-    //     credentials: 'include',
-    // });
-
     // Step 2 — login
     const response = await fetch(`${API_URL}/login`, {
         method: 'POST',
@@ -26,11 +21,10 @@ export async function login(username: string, password: string): Promise<LoginDT
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'X-XSRF-TOKEN': decodeURIComponent(getCookie('XSRF-TOKEN') ?? ''),
+            'X-XSRF-TOKEN': decodeURIComponent(getCookie('XSRF-TOKEN') ?? ''), // decodeURIComponent and send XSRF Token 
         },
         body: JSON.stringify({ username, password }),
     });
-
     if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message || 'Login failed');

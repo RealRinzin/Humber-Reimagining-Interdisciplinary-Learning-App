@@ -17,3 +17,8 @@ You can generate a **resource and its collection in one command:
 
 php artisan make:resource UserResource --collection
 ```
+
+### Production serve
+``` sql
+php artisan serve --env=production
+```
