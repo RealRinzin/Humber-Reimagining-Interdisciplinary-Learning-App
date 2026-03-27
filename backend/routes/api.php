@@ -16,9 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware(['web', 'auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
+// Route::get('/user', function (Request $request) {
+//     return $request->user();
+// });
 Route::get('/nodes', [TopicNodeController::class, 'index'])->name('nodes.index');
 // Route::get('/users', [UserController::class, 'index']);
 Route::get('users/{user}/videos/{video}/progress', [UserVideoProgressController::class, 'show']);

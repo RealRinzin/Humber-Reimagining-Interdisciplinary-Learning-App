@@ -13,10 +13,13 @@ import LoginPage from '@/components/ui/loginPage'
 import useUsers from '@/hooks/user/useUsers'
 import { cookies } from 'next/headers';
 export default async function CoursePage() {
-  const cookieStore = await cookies()
-  const theme = cookieStore.get('cookie')
-  console.log(theme);
-  // const data = await useUsers();
+  // const res = await fetch(`http:localhost:8000/api/user`, {
+  //   credentials: 'include',
+  //   headers: {
+  //     Accept: "application/json"
+  //   }
+  // })
+  // const data = await res;
   // console.log(data);
   return (
     <>

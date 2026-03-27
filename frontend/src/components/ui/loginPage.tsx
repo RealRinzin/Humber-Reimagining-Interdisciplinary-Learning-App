@@ -15,17 +15,16 @@ export default function LoginPage() {
         e.preventDefault();
         setLoading(true);
         setError(null);
-
         try {
             await login(username, password);
             router.push('/nodes');
-        } catch (err) {
+        } catch (err:any) {
             setError(err.message);
         } finally {
             setLoading(false);
         }
     }
-
+    
     return (
         <form onSubmit={handleLogin}>
             {error && <p>{error}</p>}

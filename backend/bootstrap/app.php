@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         // Line add by Rinzin
+        $middleware->statefulApi(); // ← add this line
         // to force the response api in JSON format
         $middleware->api(prepend: [
             ForceJsonResponse::class,

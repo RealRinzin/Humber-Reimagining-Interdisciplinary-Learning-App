@@ -25,16 +25,17 @@ class AuthController
     public function login(LoginUserRequest $request, LoginUserAction $action)
     {
         // $dto = LoginUserDTO::fromRequest($request);
-
-        $user = $action->execute(LoginUserDTO::fromRequest($request));
-        return $user;
+        // $user = $action->execute(LoginUserDTO::fromRequest($request));
+        $action->execute(LoginUserDTO::fromRequest($request));
+        return response()->json(['message' => 'Authenticated']);
         // return $user;
-        $token = $user->createToken('access_token')->plainTextToken;
+        // return $user;
+        // $token = $user->createToken('access_token')->plainTextToken;
 
-        return response()->json([
-            'user' => $user,
-            'accessToken' => $token
-        ]);
+        // return response()->json([
+        //     'user' => $user,
+        //     'accessToken' => $token
+        // ]);
     }
     //
     public function register(StoreUserRequest $request, CreateUserAction $action)
@@ -65,7 +66,6 @@ class AuthController
             'user' => $newUser, // Keep the user details like name, username, here
             'token' => $token  // assign the generate token of the new user
         ]);
-
     }
 
     // Logout
@@ -80,15 +80,15 @@ class AuthController
     }
 
     // test
-    public function index(Request $request,User $user)
+    public function index(Request $request, User $user)
     {
 
-    return UserVideoAnalytic::with('userVideo')->get();
+        return UserVideoAnalytic::with('userVideo')->get();
 
-    
-    return UserVideoResource::collection($user->userVideo()->with('video')->get());
-    return UserVideo::with(['user','video','userVideoAnalytic'])->find(1);
-    return UserVideoAnalytic::with('userVideo.video','userVideo.user')->get();
+
+        return UserVideoResource::collection($user->userVideo()->with('video')->get());
+        return UserVideo::with(['user', 'video', 'userVideoAnalytic'])->find(1);
+        return UserVideoAnalytic::with('userVideo.video', 'userVideo.user')->get();
         // return $request->user;
         return UserVideoAnalyticResource::collection(
             UserVideo::with('video')

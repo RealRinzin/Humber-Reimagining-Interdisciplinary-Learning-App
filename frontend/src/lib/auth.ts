@@ -11,11 +11,10 @@ async function getCsrfCookie() {
 }
 
 export async function login(username: string, password: string): Promise<LoginDType> {
-
     // Step 1 — get CSRF token from the browser for authentication
     await getCsrfCookie();
     // Step 2 — login
-    const response = await fetch(`${API_URL}/login`, {
+    const res = await fetch(`${API_URL}/login`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -25,10 +24,10 @@ export async function login(username: string, password: string): Promise<LoginDT
         },
         body: JSON.stringify({ username, password }),
     });
-    if (!response.ok) {
-        const error = await response.json();
+    if (!res.ok) {
+        const error = await res.json();
         throw new Error(error.message || 'Login failed');
     }
 
-    return response.json();
+    return res.json();
 }

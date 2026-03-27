@@ -10,7 +10,7 @@ use Illuminate\Validation\ValidationException;
 
 class LoginUserAction
 {
-    public function execute(LoginUserDTO $dto): array
+    public function execute(LoginUserDTO $dto)
     {
 
         // Login Authentication and Credential Check
@@ -27,9 +27,6 @@ class LoginUserAction
         $user = Auth::user();
         // Return response object for the API call
         session()->regenerate();
-        return [
-            'user' => $user,
-            'token' => $user->createToken('access_token')->plainTextToken,
-        ];
+        return $user;
     }
 }
