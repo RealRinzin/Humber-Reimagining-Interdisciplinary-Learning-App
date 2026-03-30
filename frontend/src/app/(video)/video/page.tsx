@@ -4,7 +4,7 @@ export default async function CoursePage() {
   return (
     <>
     <main className="px-1 md:px-40 py-5">
-      <VideoPage/>
+      {/* <VideoPage/> */}
     </main>
     </>
   )

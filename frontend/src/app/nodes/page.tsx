@@ -1,14 +1,13 @@
 
-import { getAllUsers } from "@/services/user/userService"
-import ListPage from "./list"
+
 import { cookies } from "next/headers";
 export default async function NodePage() {
-    const cookieStore = await cookies();
+    const cookieStore = (await cookies()).toString();
 
     const res = await fetch('http://localhost:8000/api/user', {
         method: "GET",
         headers: {
-            Cookie: cookieStore.toString(),
+            Cookie: cookieStore,
             Accept: "application/json"
         }
     });
@@ -18,7 +17,7 @@ export default async function NodePage() {
     // return page
     return (
         <>
-            <ListPage />
+        <h1>{data.name}</h1>
         </>
     )
 }
