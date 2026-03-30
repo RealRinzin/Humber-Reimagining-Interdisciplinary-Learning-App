@@ -80,7 +80,7 @@ export default async function Page({ params }: { params: Promise<{ videoID: stri
                         data?.codes ? <CourseTabs type="code" title={"Code"} icon={faCode} content={data?.codes?.code} /> : ''
                     }
                     {/* Tabs */}
-                    <CourseTabs type="interactive" title={"Interactive Mode"} icon={faBook} content={demo} />
+                    <CourseTabs type="interactive" title={"Interactive Mode"} icon={faBook} content={'demo'} />
                     {/* Tabs */}
                     <CourseTabs type="resources" title={"Resources"} icon={faBook} content={data.title} />
                     {/* <iframe
