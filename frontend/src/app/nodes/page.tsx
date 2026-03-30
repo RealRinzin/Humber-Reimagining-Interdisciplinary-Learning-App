@@ -1,21 +1,21 @@
-import { useTopicNodes } from "@/hooks/topic_node/useTopicNode"
+
+import { getAllUsers } from "@/services/user/userService"
 import ListPage from "./list"
-import { getCookie } from "@/lib/cookie";
-import { cookies } from 'next/headers'; // ← Next.js server side cookie helper
+import { cookies } from "next/headers";
 export default async function NodePage() {
     const cookieStore = await cookies();
-    console.log(await cookieStore);
-    const res = await fetch(`http:localhost:8000/api/user`, {
+
+    const res = await fetch('http://localhost:8000/api/user', {
         method: "GET",
         headers: {
             Cookie: cookieStore.toString(),
-            Accept: "application/json",
-        },
+            Accept: "application/json"
+        }
     });
+    const data = await res.json();
+    console.log(data);
 
-    if (!res.ok) return "failed";
-    console.log(res)
-    // return res.json();
+    // return page
     return (
         <>
             <ListPage />

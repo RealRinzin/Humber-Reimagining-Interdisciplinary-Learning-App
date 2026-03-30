@@ -24,10 +24,12 @@ class AuthController
 
     public function login(LoginUserRequest $request, LoginUserAction $action)
     {
+
         // $dto = LoginUserDTO::fromRequest($request);
         // $user = $action->execute(LoginUserDTO::fromRequest($request));
         $action->execute(LoginUserDTO::fromRequest($request));
         return response()->json(['message' => 'Authenticated']);
+
         // return $user;
         // return $user;
         // $token = $user->createToken('access_token')->plainTextToken;

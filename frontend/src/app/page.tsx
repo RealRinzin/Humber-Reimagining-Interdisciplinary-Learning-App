@@ -11,16 +11,7 @@ import VideoPage from '@/components/layout/course/page'
 // import InteractivePlayer from '@/components/ui/interactive'
 import LoginPage from '@/components/ui/loginPage'
 import useUsers from '@/hooks/user/useUsers'
-import { cookies } from 'next/headers';
 export default async function CoursePage() {
-  // const res = await fetch(`http:localhost:8000/api/user`, {
-  //   credentials: 'include',
-  //   headers: {
-  //     Accept: "application/json"
-  //   }
-  // })
-  // const data = await res;
-  // console.log(data);
   return (
     <>
       <main className="px-1 md:px-20 py-5">
