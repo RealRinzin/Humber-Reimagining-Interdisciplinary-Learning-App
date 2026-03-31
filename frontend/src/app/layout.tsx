@@ -94,7 +94,7 @@ export default function RootLayout({
                         >
                           {step.number}
                         </div>
-                        <span className="text-[10px] text-center text-slate-500 leading-tight whitespace-pre-line">
+                        <span className="text-[10px] text-center text-slate-600  leading-tight whitespace-pre-line">
                           {step.label}
                         </span>
                       </div>
