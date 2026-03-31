@@ -9,7 +9,7 @@ export default function CoursePage() {
     <>
       <main className="px-1 md:px-20 py-5">
         <LoginPage />
-        <PivotScene />
+        {/* <PivotScene /> */}
       </main>
     </>
   )
