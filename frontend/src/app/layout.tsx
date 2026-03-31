@@ -63,6 +63,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={inter.className}>
+      <title>Humber Space Project </title>
       <link rel="icon" href="/img/logo/favicon-32x32.png" />
       <body>
         <Script
