@@ -29,15 +29,15 @@ class AuthController
         // $user = $action->execute(LoginUserDTO::fromRequest($request));
         $action->execute(LoginUserDTO::fromRequest($request));
         return response()->json(['message' => 'Authenticated']);
+        // return response()->json([
+        //     'user' => $user,
+        //     'accessToken' => $token
+        // ]);
 
         // return $user;
         // return $user;
         // $token = $user->createToken('access_token')->plainTextToken;
 
-        // return response()->json([
-        //     'user' => $user,
-        //     'accessToken' => $token
-        // ]);
     }
     //
     public function register(StoreUserRequest $request, CreateUserAction $action)

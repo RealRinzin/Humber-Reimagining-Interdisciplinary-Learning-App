@@ -19,13 +19,11 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::middleware(['web', 'auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
+
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::get('/nodes', [TopicNodeController::class, 'index'])->name('nodes.index');
-// Route::get('/users', [UserController::class, 'index']);
-Route::get('users/{user}/videos/{video}/progress', [UserVideoProgressController::class, 'show']);
-
+// Route::get('/nodes', [TopicNodeController::class, 'index'])->name('nodes.index');
 // Route::prefix('v1')->name('v1.')->middleware('auth:sanctum')->group(function () {
 Route::prefix('v1')
     ->name('v1.')
@@ -43,13 +41,12 @@ Route::prefix('v1')
         /**
          * USER API
          */
-        Route::controller(UserController::class)->group(function () {
+        Route::controller(UserController::class)->prefix('users')->group(function () {
             // User
-            Route::get('/users', [UserController::class, 'index']);
-            Route::get('/users/{user:id}', [UserController::class, 'show']);
-            Route::get('users/{id}/videos', [UserController::class, 'videos']);
-            Route::get('/users/{me}/videos/1/user_video', [UserController::class, 'userVideo']);
-            Route::get('/userVideos', [UserController::class, 'userVideo']);
+            Route::get('/', 'index');
+            Route::get('/{user}', 'show');
+            Route::get('/{user}/videos', 'videos');
+            Route::get('/{user}/videos/user_video', 'userVideo');
         });
         /**
          * 
@@ -65,10 +62,10 @@ Route::prefix('v1')
          * Video Route API Group
          * 
          */
-        Route::controller(VideoController::class)->group(function () {
-            Route::get('/videos', [VideoController::class, 'index'])->name('videos.index');
-            Route::get('/videos/{video:slug}', [VideoController::class, 'show'])->name('videos.show');
-            Route::get('videos/{video}/users', [VideoController::class, 'users']);
+        Route::controller(VideoController::class)->prefix('videos')->group(function () {
+            Route::get('/', [VideoController::class, 'index'])->name('videos.index');
+            Route::get('/{video:slug}', [VideoController::class, 'show'])->name('videos.show');
+            Route::get('/{video}/users', [VideoController::class, 'users']);
         });
 
 
@@ -77,12 +74,8 @@ Route::prefix('v1')
          */
         Route::controller(UserVideoController::class)->group(function () {
             // Video
-            Route::get('/user_videos/{user_video}', [UserVideoController::class, 'show'])->name('user_videos.show');
-            Route::post('/user_videos', [UserVideoController::class, 'store']);
-            // Route::get('/videos/{video:slug}', [VideoController::class, 'show']);
-            // Route::get('videos/{video}/users', [VideoController::class, 'users']);
-            // Route::get('/user-videos/{userVideo}',[UserVideoController::class,'show']);
-            // Route::get('/user-videos/{userVideo}', [UserVideoController::class, 'show']);
+            // Route::get('/user_videos/{user_video}', [UserVideoController::class, 'show'])->name('user_videos.show');
+            // Route::post('/user_videos', [UserVideoController::class, 'store']);
         });
 
         /**
@@ -92,11 +85,11 @@ Route::prefix('v1')
          * 
          */
         Route::controller(UserVideoAnalytic::class)->group(function () {
-            Route::post('/user_video_analytic', [UserVideoAnalyticController::class, 'store']);
+            // Route::post('/user_video_analytic', [UserVideoAnalyticController::class, 'store']);
         });
 
         // TESTING API
-        Route::get('/test', [AuthController::class, 'index']);
+        // Route::get('/test', [AuthController::class, 'index']);
 
         /**
          * NOTES

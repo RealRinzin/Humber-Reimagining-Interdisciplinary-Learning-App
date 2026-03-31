@@ -8,7 +8,7 @@ export default function CoursePage() {
   return (
     <>
       <main className="px-1 md:px-20 py-5">
-        {/* <LoginPage /> */}
+        <LoginPage />
         <PivotScene />
       </main>
     </>

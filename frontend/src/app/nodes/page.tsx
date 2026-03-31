@@ -12,12 +12,24 @@ export default async function NodePage() {
         }
     });
     const data = await res.json();
-    console.log(data);
+
+    // Uses
+    const users = await fetch('http://localhost:8000/api/v1/users', {
+        method: "GET",
+        headers: {
+            Cookie: cookieStore,
+            Accept: "application/json",
+            Referer: "http://localhost:3000",
+            Origin: "http://localhost:3000",
+        }
+    });
+    const user = await users.json();
+    console.log(user);
 
     // return page
     return (
         <>
-        <h1>{data.name}</h1>
+            <h1>{data.name}</h1>
         </>
     )
 }
