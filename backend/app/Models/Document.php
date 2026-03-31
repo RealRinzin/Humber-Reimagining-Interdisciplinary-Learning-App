@@ -9,12 +9,13 @@ class Document extends Model
 {
     /** @use HasFactory<\Database\Factories\DocumentFactory> */
     use HasFactory;
-        /** 
+    /** 
      * Document belongs to one Video
      * Document Table relationship with video table
      * Document has many documents
      * */
-    public function video(){
-        return $this->belongsTo(Video::class);
+    public function topicNode()
+    {
+        return $this->belongsTo(TopicNode::class);
     }
 }

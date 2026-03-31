@@ -28,9 +28,9 @@ class TopicNode extends Model
 
     // Code Model
 
-    public function code()
+    public function codes()
     {
-        return $this->hasOne(Code::class);
+        return $this->hasMany(Code::class);
     }
 
     /*

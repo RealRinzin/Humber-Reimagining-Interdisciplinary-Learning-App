@@ -15,40 +15,34 @@ class Video extends Model
     //     return 'slug';
     // }
     // Relationship Tables
+    // TopicNode Relationship
+    /**
+     * Video belongs to one TopicNode
+     * Video Table relationship with topic_node table
+     * Video has many topic nodes
+     */
     public function topicNode()
     {
         return $this->belongsTo(TopicNode::class);
     }
     // Video Relationship
+    /**
+     * Video has many Users
+     * Video Table relationship with user table
+     * Video has many users
+     */
     public function user()
     {
         return $this->hasMany(User::class);
     }
-    public function userVideo(){
+    // UserVideo Relationship
+    /**
+     * Video has many UserVideo
+     * Video Table relationship with user_video table
+     * Video has many user videos
+     */
+    public function userVideo()
+    {
         return $this->hasMany(UserVideo::class);
-    }
-    // Document Relationship
-    public function document()
-    {
-        return $this->hasOne(Document::class);
-    }
-    // Code Section Relationship
-    public function code()
-    {
-        return $this->hasOne(Code::class);
-    }
-    public function quiz()
-    {
-        return $this->hasMany(Quiz::class);
-    }
-    // Bridging table relations
-    public function videoWatchHistory()
-    {
-        return $this->hasMany(VideoWatchHistory::class);
-    }
-    // 
-    public function userVideoProgress()
-    {
-        return $this->hasMany(UserVideoProgress::class);
     }
 }

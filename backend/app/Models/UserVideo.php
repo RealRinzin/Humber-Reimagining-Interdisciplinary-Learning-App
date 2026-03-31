@@ -18,15 +18,33 @@ class UserVideo extends Model
     ];
 
 
-
-    public function user()
+// Table Relationships
+    /**
+     * UserVideo belongs to one User
+     * UserVideo Table relationship with user table
+     * User has many UserVideo
+     */
+    public function user() // UserVideo belongs to one User
     {
         return $this->belongsTo(User::class);
     }
+    // UserVideo belongs to one Video
+    /**
+     * UserVideo belongs to one Video
+     * UserVideo Table relationship with video table
+     * Video has many UserVideo
+     * */
+
     public function video()
     {
-        return $this->belongsTo(Video::class);
+        return $this->belongsTo(Video::class); // UserVideo belongs to one Video
     }
+    // UserVideo has many UserVideoAnalytic
+    /**
+     * UserVideo has many UserVideoAnalytic
+     * UserVideo Table relationship with user_video_analytics table
+     * UserVideoAnalytic belongs to one UserVideo
+     */
     public function userVideoAnalytic()
     {
         return $this->hasMany(UserVideoAnalytic::class);

@@ -9,4 +9,9 @@ class Subtitle extends Model
 {
     /** @use HasFactory<\Database\Factories\SubtitleFactory> */
     use HasFactory;
+    // Table Relationship
+    public function video()
+    {
+        return $this->belongsTo(Video::class);
+    }
 }

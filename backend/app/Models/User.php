@@ -11,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasApiTokens,HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -48,50 +48,37 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    // Role table relationship
+    /**
+     * User belongs to one Role
+     * User Table relationship with role table
+     * User has many roles
+     */
 
-    // Define relationship with Role model
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
     // Video table relationship
-    public function video()
+    /**
+     * User has many Videos
+     * User Table relationship with video table
+     * User has many videos
+     */
+    public function videos()
     {
         return $this->hasMany(Video::class);
     }
-    public function userVideo(){
+    // UserVideo table relationship
+    /**
+     * User has many UserVideo
+     * User Table relationship with user_video table       
+     * UserVideo belongs to one User
+     */
+    public function userVideo()
+    {
         return $this->hasMany(UserVideo::class);
     }
-    // Topic Table
-    public function topic()
-    {
-        return $this->hasMany(Topic::class);
-    }
-
-    // Define relationship with UserSavedTopics model
-    // public function user_saved_topics()
-    // {
-    //     return $this->belongsToMany(Topic::class, 'user_saved_topics', 'user_id', 'topic_id')->withTimestamps();
-    // }
-    // Bridging table relations
-    public function videoWatchHistory(){
-        return $this->hasMany(VideoWatchHistory::class);
-    }
-       public function userVideoProgress(){
-        return $this->hasMany(UserVideoProgress::class);
-    }
-    // User Topic Metric Relationship Table
-    public function userTopicMetric()
-    {
-        return $this->hasMany(UserTopicMetric::class);
-    }
-    // User Flash Card metrics table
-    public function userFlashCardMetric()
-    {
-        return $this->hasMany(UserFlashCardMetric::class);
-    }
-
-
     // AGGREGATION FUNCTIONS AND CALCULATIONS 
     public function averageWatchTime()
     {

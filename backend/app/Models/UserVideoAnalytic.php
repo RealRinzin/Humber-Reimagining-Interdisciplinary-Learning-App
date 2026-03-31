@@ -9,7 +9,7 @@ class UserVideoAnalytic extends Model
 {
     /** @use HasFactory<\Database\Factories\UserVideoAnalyticFactory> */
     use HasFactory;
-        // fillable fields
+    // fillable fields
     protected $fillable = [
         'user_video_id',
         'interaction_type',
@@ -19,9 +19,16 @@ class UserVideoAnalytic extends Model
         'browser_type',
         'played_on',
     ];
+    // Table Relationships
 
-    public function userVideo(){
+    // UserVideoAnalytic belongs to one UserVideo
+    /**
+     * UserVideoAnalytic belongs to one UserVideo
+     * UserVideoAnalytic Table relationship with user_video table
+     * UserVideo has many UserVideoAnalytic
+     */
+    public function userVideo()
+    {
         return $this->belongsTo(UserVideo::class);
     }
-
 }

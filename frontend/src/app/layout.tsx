@@ -22,7 +22,7 @@ import Footer from "@/components/layout/Footer";
 //   description: "Learning through the online educational tech",
 //   // viewport: "width=device-width, initial-scale=1.0",
 // };
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import Script from 'next/script'
 const steps = [
   { number: 1, label: "Personal\nDetails" },

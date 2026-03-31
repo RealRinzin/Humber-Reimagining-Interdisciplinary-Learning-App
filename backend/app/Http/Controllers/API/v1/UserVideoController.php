@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\API\v1;
 
+use App\Actions\UserVideo\CreateUpdateUserVideoAction;
+use App\DTOs\UserVideo\CreateUpdateUserVideoDTO;
+use App\Http\Requests\UserVideo\CreateUpdateRequest;
 use App\Http\Resources\Video\VideoResource;
 use App\Models\User;
 use App\Models\UserVideo;
@@ -31,22 +34,12 @@ class UserVideoController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateUpdateRequest $request, CreateUpdateUserVideoAction $action)
     {
 
-        // return $request->user();
-        UserVideo::updateOrCreate(
-            [
-                'user_id' => $request->user()->id,
-                'video_id' => $request->video_id,
-            ],
-            [
-                'watch_minute' => $request->watch_minute ?? '0:0'
-
-            ]
-        );
+        $userVideo = $action->execute(CreateUpdateUserVideoDTO::fromRequest($request), $request->user()->id);
+        return response()->json($userVideo, $userVideo->wasRecentlyCreated ? 201 : 200);
     }
-
     /**
      * Display the specified resource.
      */
@@ -55,13 +48,11 @@ class UserVideoController
         $userVideo = UserVideo::where('user_id', $request->user()->id)
             ->where('video_id', $id)
             ->first();
-
-            // Return JSON response
+        // Return JSON response
         return response()->json([
             'data' => $userVideo ?? null,
         ]);
     }
-
     /**
      * Show the form for editing the specified resource.
      */

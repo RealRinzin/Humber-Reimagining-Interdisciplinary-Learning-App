@@ -15,7 +15,7 @@ class Code extends Model
      * Document Table relationship with video table
      * Video has many documents
      * */
-    public function video(){
-        return $this->belongsTo(Video::class);
+    public function topicNode(){
+        return $this->belongsTo(TopicNode::class);
     }
 }

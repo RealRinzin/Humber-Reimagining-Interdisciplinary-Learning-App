@@ -53,9 +53,9 @@ Route::prefix('v1')
          * Video Route API Group
          * 
          */
-        Route::controller(TopicNodeController::class)->group(function () {
+        Route::controller(TopicNodeController::class)->prefix('nodes')->group(function () {
             // Index Call
-            // Route::get('/nodes', [TopicNodeController::class, 'index'])->name('nodes.index');
+            Route::get('/', 'index')->name('nodes.index');
         });
         /**
          * 
@@ -63,19 +63,18 @@ Route::prefix('v1')
          * 
          */
         Route::controller(VideoController::class)->prefix('videos')->group(function () {
-            Route::get('/', [VideoController::class, 'index'])->name('videos.index');
-            Route::get('/{video:slug}', [VideoController::class, 'show'])->name('videos.show');
-            Route::get('/{video}/users', [VideoController::class, 'users']);
+            Route::get('/', 'index')->name('videos.index');
+            Route::get('/{video:slug}', 'show')->name('videos.show');
+            Route::get('/{video}/users', 'users')->name('videos.users');
         });
-
 
         /**
          * USER VIDEO API
          */
-        Route::controller(UserVideoController::class)->group(function () {
+        Route::controller(UserVideoController::class)->prefix('user_videos')->group(function () {
             // Video
-            // Route::get('/user_videos/{user_video}', [UserVideoController::class, 'show'])->name('user_videos.show');
-            // Route::post('/user_videos', [UserVideoController::class, 'store']);
+            Route::get('/{user_video}', 'show')->name('user_videos.show');
+            Route::post('/', 'store')->name('user_videos.store');
         });
 
         /**
@@ -122,5 +121,5 @@ Route::prefix('v1')
         // Route::get('/users/{user}/videos/{video}', [UserController::class, 'index']);
 
         // Logout
-        Route::post('/logout', [AuthController::class, 'logout']);
+        // Route::post('/logout', [AuthController::class, 'logout']);
     });
