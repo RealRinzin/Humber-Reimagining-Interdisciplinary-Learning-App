@@ -23,33 +23,7 @@ class UserController
     public function index()
     {
 
-    return User::get();
-        // $user = User::with('videoWatchHistory.video')->find(3);
-        // $videos = $user->videoWatchHistory
-        //     ->groupBy('video_id') // group multiple interactions per video
-        //     ->map(function ($histories) {
-        //         $video = $histories->first()->video; // take video metadata once
-
-        //         return [
-        //             'id' => $video->id,
-        //             'title' => $video->title,
-        //             'videoWatchHistory' => $histories->map(function ($h) {
-        //                 return [
-        //                     'paused_at' => $h->paused_at,
-        //                     'device_type' => $h->device_type,
-        //                     'created_at' => $h->created_at
-        //                 ];
-        //             })
-        //         ];
-        //     })->values();
-        // return response()->json([
-        //     'user_id' => $user->id,
-        //     'videos' => $videos
-        // ]);
-        // 2. Return via the Resource Collection
-        return new UserResourceCollection(User::with('videoWatchHistory')->get());
-        // return new UserResourceCollection(User::with('video')->get());
-        // User::with('videoWatchHistory')->get()
+        return User::get();
     }
 
     /**
@@ -99,9 +73,9 @@ class UserController
     {
 
         // return UserVideo::
-    // return $request->user();
+        // return $request->user();
 
-    // return "working";
+        // return "working";
         // $video->load('videoWatchHistory','userVideoProgress'); // eager load relationship on the model instance
         // return new VideoResource(Video::get()); // return as a resource
         // $user->load('userVideoProgress'); // eager load relationship on the model instance
@@ -125,7 +99,8 @@ class UserController
 
     // User Video Controller
 
-    public function userVideo(){
+    public function userVideo()
+    {
         return User::get();
     }
 }
