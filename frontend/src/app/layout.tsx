@@ -45,7 +45,7 @@ export default function RootLayout({
           <div className="bg-red-200 p-4">Item 3</div>
         </div> */}
           <Home/>
-          {/* {children} */}
+          {children}
           {/* <LoginPage/> */}
         {/* <Footer /> */}
       </body>
