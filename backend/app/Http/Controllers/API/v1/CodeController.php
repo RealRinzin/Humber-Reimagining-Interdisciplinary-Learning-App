@@ -13,8 +13,7 @@ class CodeController
      */
     public function index()
     {
-        //
-        
+        return Code::get();
     }
 
     /**
@@ -24,7 +23,6 @@ class CodeController
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -35,6 +33,7 @@ class CodeController
 
     /**
      * Display the specified resource.
+     * 
      */
     public function show(Code $code)
     {

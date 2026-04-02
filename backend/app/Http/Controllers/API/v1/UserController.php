@@ -22,7 +22,6 @@ class UserController
      */
     public function index()
     {
-
         return User::get();
     }
 
@@ -71,6 +70,7 @@ class UserController
     // More Controllers
     public function videos(Request $request)
     {
+
 
         // return UserVideo::
         // return $request->user();
