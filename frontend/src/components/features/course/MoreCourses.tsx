@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import VideoCard from './VideoCard'
 async function getAllVideos() {
   const res = await fetch(`${process.env.API_BASE_URL}/videos`, {
     headers: {
@@ -24,8 +25,9 @@ export default async function MoreCourses() {
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
         {
           videos.map((video: any, index: number) => (
+           
             <div className='my-2' key={index} >
-              <div className='relative'>
+              {/* <div className='relative'>
                   <Link href={`/video/${video.slug}`}>
                     <Image
                       src={video.thumbnail}
@@ -38,7 +40,8 @@ export default async function MoreCourses() {
                   </Link>
                   <span className="absolute right-2 bottom-2 bg-gray-800 px-2 py-1 opacity-80  rounded-xl"><FontAwesomeIcon icon={faPlay} size="1x" className='text-white' /></span>
               </div>
-              <h3 className='py-2 text-lg text-slate-600 font-bold'>{video.title}</h3>
+              <h3 className='py-2 text-lg text-slate-600 font-bold'>{video.title}</h3> */}
+            <VideoCard/>
             </div>
           ))
         }

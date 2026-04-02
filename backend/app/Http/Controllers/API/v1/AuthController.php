@@ -24,7 +24,6 @@ class AuthController
 
     public function login(LoginUserRequest $request, LoginUserAction $action)
     {
-
         // $dto = LoginUserDTO::fromRequest($request);
         // $user = $action->execute(LoginUserDTO::fromRequest($request));
         $action->execute(LoginUserDTO::fromRequest($request));
@@ -87,25 +86,5 @@ class AuthController
 
         return UserVideoAnalytic::with('userVideo')->get();
 
-
-        return UserVideoResource::collection($user->userVideo()->with('video')->get());
-        return UserVideo::with(['user', 'video', 'userVideoAnalytic'])->find(1);
-        return UserVideoAnalytic::with('userVideo.video', 'userVideo.user')->get();
-        // return $request->user;
-        return UserVideoAnalyticResource::collection(
-            UserVideo::with('video')
-                ->where('user_id', $request->user()->id)
-                ->get()
-        );
-
-        return UserVideo::with('video')
-            ->where('user_id', 1)
-            ->get();
-
-        return UserVideo::with('video', 'userVideoAnalytic')
-            ->where('user_id', 1)
-            ->get();
-        return Video::with('videoWatchHistory', 'quiz', 'topic')->find(1);
-        return User::with('userVideoProgress', 'role')->find(4);
     }
 }
