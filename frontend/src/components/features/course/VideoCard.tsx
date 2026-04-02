@@ -1,4 +1,5 @@
-import RingProgressBar from "../progress/ring"
+import RingProgressBar from "@/components/ui/progress/ring";
+
 
 export default function VideoCard({ id }: { id: number }) {
   return (

@@ -1,5 +1,4 @@
 import { RingProgressBarType } from "@/types/common/ringProgressBar";
-
 export default function RingProgressBar({id,color,borderColor,percentage}:RingProgressBarType) {
   return (
     <>

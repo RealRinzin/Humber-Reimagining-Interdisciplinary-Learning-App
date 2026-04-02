@@ -22,7 +22,7 @@ import Footer from "@/components/layout/Footer"
 //   // viewport: "width=device-width, initial-scale=1.0",
 // };
 import Script from 'next/script'
-import LoginPage from "@/components/ui/loginPage";
+import LoginPage from "@/components/ui/LoginPage";
 import Home from "@/components/layout/Home";
 
 const currentStep = 1;

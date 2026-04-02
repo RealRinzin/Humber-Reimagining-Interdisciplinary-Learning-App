@@ -5,7 +5,7 @@ import CourseTabs from '@/components/features/course/CourseTabs'
 import CourseTitle from '@/components/features/course/CourseTitle'
 import CourseVideo from '@/components/features/course/CourseVideo'
 import MoreCourses from '@/components/features/course/MoreCourses'
-import { MyPlayer } from '@/components/ui/video/videoPlayer'
+import { MyPlayer } from '@/components/ui/video/VideoPlayer'
 import timeToDigit from '@/utils/timeToDigit'
 import { faAlignLeft, faHexagonNodes, faClipboardQuestion, faCode, faBook } from '@fortawesome/free-solid-svg-icons'
 import { notFound } from 'next/navigation'
@@ -58,7 +58,7 @@ export default async function Page({ params }: { params: Promise<{ videoID: stri
     return (
         <main className='px-1 md:px-20 py-5'>
             <section className="flex flex-col md:flex-row gap-4">
-                <div className="md:flex-[4]">
+                <div className="md:flex-4">
                     {/* {result} */}
                     <CourseTitle title={data.title} />
                     {/* Video section */}
@@ -92,7 +92,7 @@ export default async function Page({ params }: { params: Promise<{ videoID: stri
                         <MoreCourses />
                     </section>
                 </div>
-                <aside className="md:flex-[2] bg-slate-900 rounded-xl" style={{ 'backgroundColor': "#000033" }}>
+                <aside className="md:flex-2 bg-slate-900 rounded-xl" style={{ 'backgroundColor': "#000033" }}>
                     {/* <TopicProgressTracking/> */}
                     <CourseNodeLink />
                 </aside>
