@@ -41,7 +41,7 @@ export default async function MoreCourses() {
                   <span className="absolute right-2 bottom-2 bg-gray-800 px-2 py-1 opacity-80  rounded-xl"><FontAwesomeIcon icon={faPlay} size="1x" className='text-white' /></span>
               </div>
               <h3 className='py-2 text-lg text-slate-600 font-bold'>{video.title}</h3> */}
-            <VideoCard/>
+            <VideoCard id={index}/>
             </div>
           ))
         }

@@ -16,7 +16,6 @@ export default function OnBoardingPersonalDetail() {
               const isActive = step.number === currentStep;
               const isCompleted = step.number < currentStep;
               const isLast = i === steps.length - 1;
-
               return (
                 <div key={step.number} className="flex items-start flex-1">
                   <div className="flex flex-col items-center gap-1">
