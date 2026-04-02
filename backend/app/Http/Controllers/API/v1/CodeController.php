@@ -11,6 +11,7 @@ class CodeController
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
         return Code::get();

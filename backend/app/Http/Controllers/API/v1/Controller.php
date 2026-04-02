@@ -12,6 +12,5 @@ abstract class Controller
     {
         //
         return User::get();
-        
     }
 }
