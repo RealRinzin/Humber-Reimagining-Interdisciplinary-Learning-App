@@ -5,7 +5,7 @@ export default function OnBoardingRegistration() {
   return (
     <div className="flex justify-center-safe items-center h-screen">
       <div className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 bg-slate-300/90 flex flex-col px-5 py-16 gap-10 rounded-2xl">
-        <div className="flex justify-center bg-slate-800 mx-auto p-5 rounded-full">
+        <div className="flex justify-center bg-slate-800 mx-auto p-5 rounded-full h-30 w-30 items-center-safe">
             <FontAwesomeIcon icon={faAtom} size='4x' className="text-white" />
         </div>
         <h1 className="text-2xl font-semibold text-center text-gray-900 tracking-widest">
@@ -18,11 +18,11 @@ export default function OnBoardingRegistration() {
           >
             Create an Account
           </a>
-          <p className="text-gray-500 text-xs mt-4">
+          <p className="text-gray-500 text-xs mt-4 pt-2">
             Already have an Account?
             <a
               href="#"
-              className="underline text-slate-800 hover:text-slate-900"
+              className="underline text-slate-800 hover:text-slate-900 px-1"
             >
               Login
             </a>
