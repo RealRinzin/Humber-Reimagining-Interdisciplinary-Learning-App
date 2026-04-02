@@ -8,9 +8,9 @@ export default function VideoCard() {
           </div>
           <div>
             <h5 className="pb-3 text-lg font-medium">Camera Space</h5>
-            <div className="font-light text-gray-500 flex gap-2">
-              <span className="rounded-sm bg-slate-300 p-1"> 5 Min</span>
-              <span className="rounded-sm bg-slate-300 p-1"> Professor</span>
+            <div className="font-extralight text-gray-500 flex gap-2">
+              <span className="rounded-md bg-slate-300 p-1"> 5 Min</span>
+              <span className="rounded-md bg-slate-300 p-1"> Professor</span>
             </div>
           </div>
         </div>

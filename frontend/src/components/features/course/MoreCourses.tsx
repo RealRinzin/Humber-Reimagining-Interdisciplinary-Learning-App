@@ -22,7 +22,7 @@ export default async function MoreCourses() {
     <>
       <h2 className='text-xl font-bold text-gray-600 '><FontAwesomeIcon icon={faCircleArrowRight} size="1x" className='pr-2' />What is next ?</h2>
       <p className='py-4 text-slate-500'>Ready to learn more? Check out these suggested modules</p>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
         {
           videos.map((video: any, index: number) => (
            
