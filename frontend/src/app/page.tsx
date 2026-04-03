@@ -1,6 +1,4 @@
 "use client";
-import VideoPage from "@/components/layout/course/page";
-import Home from "@/components/layout/Home";
 import LoginPage from "@/components/ui/LoginPage";
 import dynamic from "next/dynamic";
 const PivotScene = dynamic(() => import("@/components/ui/PivotScene"), {
