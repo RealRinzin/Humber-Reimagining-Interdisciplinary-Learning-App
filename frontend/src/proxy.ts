@@ -2,7 +2,11 @@ import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-// Use Authenticate
+/**
+ * 
+ * @param request 
+ * @returns 
+ */
 async function isAuthenticated(request: NextRequest): Promise<boolean> {
     const cookieStore = await cookies();
     try {
@@ -21,7 +25,11 @@ async function isAuthenticated(request: NextRequest): Promise<boolean> {
     }
 
 }
-
+/**
+ * 
+ * @param request 
+ * @returns 
+ */
 export async function proxy(request: NextRequest) {
     // const session = request.cookies.get('humber-idl-app-session')
     const loggedIn = await isAuthenticated(request)
@@ -41,5 +49,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/', '/nodes/:path*', '/profile/:path*', '/video/:path*'],
+    matcher: ['/', '/topics/:path*', '/profile/:path*', '/video/:path*'],
 }

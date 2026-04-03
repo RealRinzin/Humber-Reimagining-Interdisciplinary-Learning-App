@@ -6,7 +6,8 @@ export default function ProfileLayout({
   return (
     <>
       <div className="flex justify-center-safe my-4">
-        <OnBoardingRegistration/>
+        {children}
+        {/* <OnBoardingRegistration/> */}
       </div>
     </>
   );
