@@ -24,7 +24,6 @@ import Footer from "@/components/layout/Footer"
 import Script from 'next/script'
 import LoginPage from "@/components/ui/LoginPage";
 import Home from "@/components/layout/Home";
-
 const currentStep = 1;
 export default function RootLayout({
   children,
@@ -44,7 +43,7 @@ export default function RootLayout({
           <div className="bg-green-200 p-4">Item 2</div>
           <div className="bg-red-200 p-4">Item 3</div>
         </div> */}
-          <Home/>
+          {/* <Home/> */}
           {children}
           {/* <LoginPage/> */}
         {/* <Footer /> */}

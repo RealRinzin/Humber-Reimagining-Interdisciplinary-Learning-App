@@ -1,14 +1,22 @@
-import OnBoardingRegistration from "@/components/ui/onboarding/Register";
 
+import { Inter } from "next/font/google";
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'], // optional
+})
 export default function ProfileLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <>
-      <div className="flex justify-center-safe my-4">
-        {children}
-        {/* <OnBoardingRegistration/> */}
-      </div>
+      <html lang="en" className={inter.className}>
+        <title>Humber Space Project </title>
+        <link rel="icon" href="/img/logo/favicon-32x32.png" />
+        <body>
+            {children}
+            {/* <OnBoardingRegistration/> */}
+        </body>
+      </html>
     </>
   );
 }
