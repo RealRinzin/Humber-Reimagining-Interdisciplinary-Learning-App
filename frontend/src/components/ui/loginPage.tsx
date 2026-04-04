@@ -17,7 +17,7 @@ export default function LoginPage() {
         setError(null);
         try {
             await login(username, password);
-            router.push('/nodes');
+            router.push('/profile');
         } catch (err: any) {
             setError(err.message);
         } finally {

@@ -5,7 +5,7 @@ export default function VideoCard({ id }: { id: number }) {
     <>
       <div className="rounded-3xl border-2 border-slate-400 bg-slate-100 p-3 text-sm">
         <div className="flex gap-10 items-center-safe">
-          <RingProgressBar id={id} color={'#378ADD'} borderColor={'#D3D1C7'} percentage={23} />
+          <RingProgressBar id={id} color={'#f6339a'} borderColor={'#D3D1C7'} percentage={23} />
           {/* <div className="h-10 w-10 rounded-full ring-6 ring-slate-400 relative">
             <div
               className={`absolute top-1/2 left-1/2 

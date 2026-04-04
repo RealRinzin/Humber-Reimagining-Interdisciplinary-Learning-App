@@ -14,7 +14,6 @@ export default function ProfileLayout({
         <link rel="icon" href="/img/logo/favicon-32x32.png" />
         <body>
             {children}
-            {/* <OnBoardingRegistration/> */}
         </body>
       </html>
     </>

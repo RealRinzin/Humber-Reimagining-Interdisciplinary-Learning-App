@@ -1,4 +1,5 @@
 "use client";
+import Home from "@/components/layout/Home";
 import LoginPage from "@/components/ui/LoginPage";
 import dynamic from "next/dynamic";
 const PivotScene = dynamic(() => import("@/components/ui/PivotScene"), {
@@ -7,10 +8,11 @@ const PivotScene = dynamic(() => import("@/components/ui/PivotScene"), {
 export default function CoursePage() {
   return (
     <>
-      <main className="px-1 md:px-20 py-5">
+      {/* <main className="px-1 md:px-20 py-5"> */}
         <LoginPage />
+        <Home/>
         {/* <PivotScene /> */}
-      </main>
+      {/* </main> */}
     </>
   );
 }
