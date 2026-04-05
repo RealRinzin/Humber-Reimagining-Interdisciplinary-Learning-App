@@ -3,15 +3,8 @@
 namespace App\Http\Controllers\API\v1;
 
 use App\Http\Resources\User\UserResource;
-use App\Http\Resources\User\UserResourceCollection;
-use App\Http\Resources\UserVideo\UserVideoResource;
-use App\Http\Resources\UserVideoProgress\UserVideoProgressResource;
-use App\Http\Resources\Video\VideoResource;
-use App\Http\Resources\Video\VideoResourceCollection;
-use App\Http\Resources\VideoWatchHistory\VideoWatchHistoryResource;
+use App\Http\Resources\UserVideo\UserVideoResource;;
 use App\Models\User;
-use App\Models\UserVideo;
-use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,8 +13,11 @@ class UserController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        //
+        // return $request->user();
         return User::get();
     }
 

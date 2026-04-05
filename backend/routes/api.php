@@ -1,15 +1,11 @@
 <?php
 
 use App\Http\Controllers\API\v1\AuthController;
-use App\Http\Controllers\API\v1\Controller;
-use App\Http\Controllers\API\v1\TopicController;
 use App\Http\Controllers\API\v1\TopicNodeController;
 use App\Http\Controllers\API\v1\UserController;
-use App\Http\Controllers\API\v1\UserVideoAnalyticController;
 use App\Http\Controllers\API\v1\UserVideoController;
 use App\Http\Controllers\API\v1\UserVideoProgressController;
 use App\Http\Controllers\API\v1\VideoController;
-use App\Models\UserVideo;
 use App\Models\UserVideoAnalytic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +16,9 @@ Route::middleware(['web', 'auth:sanctum'])->get('/user', function (Request $requ
     return $request->user();
 });
 
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // });
@@ -27,7 +26,7 @@ Route::middleware(['web', 'auth:sanctum'])->get('/user', function (Request $requ
 // Route::prefix('v1')->name('v1.')->middleware('auth:sanctum')->group(function () {
 Route::prefix('v1')
     ->name('v1.')
-    ->middleware(['auth:sanctum', 'throttle:1000,1'])
+    ->middleware(['web','auth:sanctum', 'throttle:1000,1'])
     ->group(function () {
         /**
          * IMPORTANT API

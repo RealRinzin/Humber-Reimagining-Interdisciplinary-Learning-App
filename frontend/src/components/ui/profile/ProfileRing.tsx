@@ -1,4 +1,25 @@
-export default function ProfileCirleRing() {
+import { cookies } from "next/headers";
+
+// import { useEffect, useState } from "react";
+export default async function ProfileCirleRing() {
+  
+  const cookieStore = await cookies();
+
+  const cookieHeader = cookieStore
+    .getAll()
+    .map((c) => `${c.name}=${c.value}`)
+    .join("; ");
+  
+  const res = await fetch('http://localhost:8000/api/v1/users', {
+    headers: {
+      Cookie: cookieHeader,
+      Referer: 'http://localhost:3000', // required for Sanctum stateful check
+    },
+    cache: 'no-store',
+  });
+
+  const user = await res.json();
+  console.log(user)
   return (
     <div className="flex flex-col gap-y-3 py-2">
       <h1 className="font-semibold text-gray-700">Your Progress</h1>
@@ -39,7 +60,7 @@ export default function ProfileCirleRing() {
         </svg>
       </div>
       <div className="text-center py-2">
-        <p className="text-sm font-semibold text-gray-700">3/12</p>
+        <p className="text-sm font-semibold text-gray-700">4/12</p>
         <p className="text-xs font-light text-gray-500">Modules Complete</p>
       </div>
     </div>

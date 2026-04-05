@@ -3,7 +3,10 @@ import VideoCard from "@/components/features/course/VideoCard";
 import ContentSetting from "@/components/ui/profile/ContentSetting";
 import ProfileCirleRing from "@/components/ui/profile/ProfileRing";
 import TabProgressBar from "@/components/ui/progress/Tab";
-export default function ProfilePage() {
+import HeaderCookie from "@/lib/httpHeaderCookie";
+import { cookies } from "next/headers";
+
+export default async function ProfilePage() {
   return (
     <div className="grid grid-cols-3 gap-4 m-10">
       <div className="col-span-2">
@@ -44,7 +47,7 @@ export default function ProfilePage() {
       </div>
       {/* Node Links */}
       <div className="bg-blue-950 rounded-lg">
-        <CourseNodeLink/>
+        <CourseNodeLink />
       </div>
     </div>
   );

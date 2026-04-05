@@ -13,9 +13,8 @@ class UserTopicMetricController
      */
     public function index()
     {
-        //
-         return new UserTopicMetricResourceCollection(UserTopicMetric::all());
 
+        return new UserTopicMetricResourceCollection(UserTopicMetric::all());
     }
 
     /**

@@ -26,17 +26,16 @@ class AuthController
     {
         // $dto = LoginUserDTO::fromRequest($request);
         // $user = $action->execute(LoginUserDTO::fromRequest($request));
-        $action->execute(LoginUserDTO::fromRequest($request));
-        return response()->json(['message' => 'Authenticated']);
-        // return response()->json([
-        //     'user' => $user,
-        //     'accessToken' => $token
-        // ]);
+        $user = $action->execute(LoginUserDTO::fromRequest($request));
+        // Regenerate session for SPA
 
-        // return $user;
-        // return $user;
-        // $token = $user->createToken('access_token')->plainTextToken;
+        // CRITICAL for Sanctum SPA
+        $request->session()->regenerate();
 
+        return response()->json([
+            'message' => 'Authenticated',
+            'user' => $user,
+        ]);
     }
     //
     public function register(StoreUserRequest $request, CreateUserAction $action)
@@ -85,6 +84,5 @@ class AuthController
     {
 
         return UserVideoAnalytic::with('userVideo')->get();
-
     }
 }
