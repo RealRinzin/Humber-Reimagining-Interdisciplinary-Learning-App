@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 
-export default async function HeaderCookie(){
+async function HeaderCookie(){
   const cookieStore = await cookies();
   const cookieHeader = cookieStore
     .getAll()
@@ -16,7 +16,5 @@ export default async function HeaderCookie(){
   });
 
   const user = await res.json();
-
-  return user;
   
 }

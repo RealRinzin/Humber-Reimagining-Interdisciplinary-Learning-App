@@ -3,7 +3,7 @@ import VideoCard from "@/components/features/course/VideoCard";
 import ContentSetting from "@/components/ui/profile/ContentSetting";
 import ProfileCirleRing from "@/components/ui/profile/ProfileRing";
 import TabProgressBar from "@/components/ui/progress/Tab";
-import HeaderCookie from "@/lib/httpHeaderCookie";
+// import HeaderCookie from "@/lib/httpHeaderCookie";
 import { cookies } from "next/headers";
 
 export default async function ProfilePage() {
