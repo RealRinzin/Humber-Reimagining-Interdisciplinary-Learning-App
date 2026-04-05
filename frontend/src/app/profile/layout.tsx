@@ -1,4 +1,6 @@
 
+import Footer from "@/components/layout/Footer";
+import DesktopNavigation from "@/components/ui/navigation/Desktop";
 import { Inter } from "next/font/google";
 const inter = Inter({
   subsets: ['latin'],
@@ -13,7 +15,9 @@ export default function ProfileLayout({
         <title>Humber Space Project </title>
         <link rel="icon" href="/img/logo/favicon-32x32.png" />
         <body>
+          <DesktopNavigation />
             {children}
+            <Footer/>
         </body>
       </html>
     </>
