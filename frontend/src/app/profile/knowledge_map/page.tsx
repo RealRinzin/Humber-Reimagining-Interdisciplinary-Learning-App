@@ -12,14 +12,12 @@ export default async function KnowledgeMapPage() {
     },
     cache: "no-store",
   });
-  console.log(res.status);
   const user = await res.json();
-  console.log(user);
   return (
     <>
-      <main className="grid grid-cols-4">
+      <main className="grid grid-cols-6">
         {/* Sidebar */}
-        <div className="bg-gray-300 p-6">
+        <div className="bg-gray-300 p-6 col-span-2">
           <ul className="flex w-fulljustify-evenly gap-6 items-center-safe text-center">
             <li className="w-full bg-gray-400 rounded-xl py-2 text-gray-600">
               Explore Mode
@@ -54,7 +52,7 @@ export default async function KnowledgeMapPage() {
           </div>
         </div>
         {/* Progress */}
-        <div className="col-span-3 bg-blue-950">
+        <div className="col-span-4 bg-blue-950">
           <CourseNodeLink />
         </div>
       </main>
