@@ -3,6 +3,7 @@ import CourseNodeLink from '@/components/features/course/CourseNodeLinks'
 import CourseProgressUI from '@/components/features/course/CourseProgressUI'
 import CourseTabs from '@/components/features/course/CourseTabs'
 import CourseTitle from '@/components/features/course/CourseTitle'
+import CourseVideo from '@/components/features/course/CourseVideo'
 import MoreCourses from '@/components/features/course/MoreCourses'
 import { MyPlayer } from '@/components/ui/video/VideoPlayer'
 import timeToDigit from '@/utils/timeToDigit'
@@ -14,7 +15,6 @@ async function getVideos({ videoID }: { videoID: string }) {
     const res = await fetch(`${process.env.API_BASE_URL}/videos/${videoID}`, {
         headers: {
             Authorization: `Bearer ${process.env.API_TOKEN}`,
-            "Content-Type": "application/json",
         },
     })
     if (!res.ok) {

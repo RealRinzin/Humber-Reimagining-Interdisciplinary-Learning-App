@@ -1,5 +1,5 @@
 
-const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const API_URL = 'http://localhost:8000';
 import { LoginDType } from '@/types/auth.types';
 import { getCookie } from './cookie';
 
