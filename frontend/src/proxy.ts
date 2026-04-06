@@ -33,8 +33,9 @@ async function isAuthenticated(request: NextRequest): Promise<boolean> {
 export async function proxy(request: NextRequest) {
     // const session = request.cookies.get('humber-idl-app-session')
     const loggedIn = await isAuthenticated(request)
-    // const isLoggedIn = !!session
+
     const isAuthPage = request.nextUrl.pathname === '/'
+    const isOnBoardingPage = request.nextUrl.pathname === '/onboarding';;
     // If not logged in and trying to access protected page → redirect to login
     if (!loggedIn && !isAuthPage) {
         return NextResponse.redirect(new URL('/', request.url))
