@@ -26,7 +26,7 @@ export default async function ProfileCirleRing() {
 
       <div className="relative flex h-30 w-30 items-center justify-center">
         {/* Profile image */}
-        <img src="/img/profile.jpg" alt="" className="h-24 w-24 rounded-full" />
+        <img src="/img/student_icon.png" alt="" className="h-24 w-24 rounded-full" />
         <svg
           className="absolute inset-0"
           width="120"

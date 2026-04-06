@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 export default async function KnowledgeMapPage(){
   const cookieStore = await cookies();
 
-  const res = await fetch('http://localhost:8000/api/v1/users', {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/users`, {
     headers: {
       Cookie: cookieStore.toString(), // 🔥 important
     },
@@ -17,7 +17,7 @@ console.log(res.status)
     return(
         <>
         <TabHorizontal/>
-        <TabProgressBar/>
+        <TabProgressBar name="Coming up " completed={4} incomplete={10}/>
         </>
     )
 }

@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 export default async function NodePage() {
   const cookieStore = (await cookies()).toString();
 
-  const res = await fetch("http://localhost:8000/api/user", {
+  const res = await fetch(`http://localhost:8000/api/user`, {
     method: "GET",
     headers: {
       Cookie: cookieStore,
@@ -12,7 +12,7 @@ export default async function NodePage() {
   const data = await res.json();
 
   // Uses
-  const users = await fetch("http://localhost:8000/api/v1/users", {
+  const users = await fetch(`http://localhost:8000/api/v1/users`, {
     headers: {
       Cookie: cookieStore,
       Accept: "application/json",

@@ -10,7 +10,7 @@ import type { NextRequest } from 'next/server'
 async function isAuthenticated(request: NextRequest): Promise<boolean> {
     const cookieStore = await cookies();
     try {
-        const res = await fetch(`http://localhost:8000/api/user`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user`, {
             method: "GET",
             headers: {
                 Cookie: cookieStore.toString(),
