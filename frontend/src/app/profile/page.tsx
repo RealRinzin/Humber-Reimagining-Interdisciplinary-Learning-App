@@ -16,20 +16,40 @@ export default async function ProfilePage() {
           {/* Tab Progress UI */}
           <div>
             <ul>
-              {Array.from({ length: 3 }).map((_, index) => (
-                <li key={index}>
-                  <TabProgressBar />
-                </li>
-              ))}
+              <TabProgressBar
+                name={"Lectures Watched"}
+                completed={10}
+                incomplete={2}
+              />
+              <TabProgressBar
+                name={"Code Tested"}
+                completed={1}
+                incomplete={11}
+              />
+              <TabProgressBar
+                name={"Flashcards Completed"}
+                completed={2}
+                incomplete={10}
+              />
             </ul>
           </div>
           <div>
             <ul>
-              {Array.from({ length: 3 }).map((_, index) => (
-                <li key={index}>
-                  <TabProgressBar />
-                </li>
-              ))}
+              <TabProgressBar
+                name={"Demos Completed"}
+                completed={1}
+                incomplete={11}
+              />
+              <TabProgressBar
+                name={"Ramblings Read"}
+                completed={5}
+                incomplete={7}
+              />
+              <TabProgressBar
+                name={"Resources Reviewed"}
+                completed={6}
+                incomplete={6}
+              />
             </ul>
           </div>
         </div>
