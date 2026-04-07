@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\v1\AuthController;
 use App\Http\Controllers\API\v1\TopicNodeController;
 use App\Http\Controllers\API\v1\UserController;
+use App\Http\Controllers\API\v1\UserTopicController;
 use App\Http\Controllers\API\v1\UserVideoController;
 use App\Http\Controllers\API\v1\UserVideoProgressController;
 use App\Http\Controllers\API\v1\VideoController;
@@ -12,22 +13,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::middleware(['web', 'auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware(['web', 'auth:sanctum'])->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// });
-// Route::get('/nodes', [TopicNodeController::class, 'index'])->name('nodes.index');
 // Route::prefix('v1')->name('v1.')->middleware('auth:sanctum')->group(function () {
 Route::prefix('v1')
     ->name('v1.')
-    ->middleware(['web','auth:sanctum', 'throttle:1000,1'])
+    ->middleware(['web', 'auth:sanctum', 'throttle:1000,1'])
     ->group(function () {
+        Route::get('/user', function (Request $request) {
+            return $request->user();
+        });
         /**
          * IMPORTANT API
          *  /api/v1/users/{me}/videos // This api will get all the videos 
@@ -89,6 +86,13 @@ Route::prefix('v1')
         // TESTING API
         // Route::get('/test', [AuthController::class, 'index']);
 
+        // Route::apiResources([
+        //     'user_topics'  => UserTopicController::class,
+        // ]);
+         // User topics
+        Route::apiResource('user-topics', UserTopicController::class)->except(['create','edit']);
+            // ('/user_topics', [UserTopicController√::class, 'index'])->name('user_topics.index');
+
         /**
          * NOTES
          *  - When user clicked or landed on any video topic, we only need to user the video api (api/v1/videos/{video:id} - with its code,document stuff)
@@ -96,7 +100,6 @@ Route::prefix('v1')
          *  - For the Tabs, we need to use same video's id and authenticated user's detail to check the status of each tab
          *  - For the lesson or overview progress at the right, we need to use more calculation and resource api
          */
-
 
 
         // User Video API Controller

@@ -79,6 +79,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserVideo::class);
     }
+    // User Topic Relations
+    /**
+     * 
+     */
+    public function userTopics(){
+        return $this->hasMany(UserTopic::class);
+    }
     // AGGREGATION FUNCTIONS AND CALCULATIONS 
     public function averageWatchTime()
     {

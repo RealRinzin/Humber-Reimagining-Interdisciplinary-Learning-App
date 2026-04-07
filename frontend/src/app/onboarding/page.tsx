@@ -86,6 +86,7 @@ export default function OnboardingPage() {
                 );
               })}
             </div>
+            
             {/* Individual */}
             <OnBoardingPersonalDetail />
             {/* <OnBoardingSelectContent/> */}
