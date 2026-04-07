@@ -1,5 +1,5 @@
 import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
-import VideoCard from "@/components/features/course/VideoCard";
+import VideoCard from "@/components/ui/video/VideoCard";
 import ContentSetting from "@/components/ui/profile/ContentSetting";
 import ProfileCirleRing from "@/components/ui/profile/ProfileRing";
 import TabProgressBar from "@/components/ui/progress/Tab";
@@ -11,7 +11,7 @@ export default async function ProfilePage() {
     <div className="grid grid-cols-3 gap-4 m-10">
       <div className="col-span-2">
         {/* Progress Session */}
-        <div className="flex flex-row justify-around gap-10 bg-gray-200 rounded-lg p-6">
+        <div className="flex flex-row justify-around gap-10 bg-gray-200 rounded-lg p-6 ">
           <ProfileCirleRing />
           {/* Tab Progress UI */}
           <div>

@@ -4,9 +4,11 @@ import OnBoardingPersonalDetail from "@/components/ui/onboarding/PersonalDetail"
 import OnBoardingSelectContent from "@/components/ui/onboarding/SelectContent";
 import OnBoardingShowProgress from "@/components/ui/onboarding/ShowProgress";
 import Script from "next/script";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export default function OnboardingPage() {
+
+  //Select Content
   const ref = useRef<HTMLDivElement>(null);
   const initVanta = () => {
     if ((window as any).VANTA && ref.current) {
@@ -98,6 +100,15 @@ export default function OnboardingPage() {
                 Next
               </button>
             </div>
+            <p className="text-gray-800 text-xs mt-4 pt-2 flex">
+              Already have account?
+              <a
+                href="/"
+                className="text-slate-900 font-extrabold hover:text-slate-900 px-2 underline"
+              >
+                Login here
+              </a>
+            </p>
           </div>
         </div>
       </div>

@@ -26,7 +26,7 @@ export default function VideoCard({ id }: { id: number }) {
         </p>
         <div className="flex justify-end">
           <a
-            href="#"
+            href="/video/intro-to-space"
             className="rounded-md bg-slate-950 px-2 py-0.5 text-sm font-medium text-white"
           >
             {" "}

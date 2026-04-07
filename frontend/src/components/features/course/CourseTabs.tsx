@@ -18,7 +18,7 @@ export default function CourseTabs({ title, content, icon, type }: contentProps)
   const [isChecked, setIsChecked] = useState(false)
   return (
     <section className="my-5" >
-      <div className="flex justify-between bg-slate-200 p-3 rounded-md">
+      <div className="flex justify-between bg-slate-100 p-3 rounded-md">
         <h2 className="text-xl font-bold text-gray-600">
           <FontAwesomeIcon icon={icon} size="1x" /> {title}
           <FontAwesomeIcon
