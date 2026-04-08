@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             // QuestionSeeder::class, // Question
             FlashCardSeeder::class, // Flashcard
             SubtitleSeeder::class, // Subtitles
-            DocumentSeeder::class, // Documents
+            LessonDocumentSeeder::class, // Documents
             CodeSeeder::class, // Code
             UserTopicSeeder::class, // User Topics
             // UserTopicMetricSeeder::class, // User Topic Metrics

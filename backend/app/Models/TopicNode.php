@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Dom\Document;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,9 +22,8 @@ class TopicNode extends Model
     // Document Model
     public function documents()
     {
-        return $this->hasMany(Document::class);
+        return $this->hasMany(LessonDocument::class);
     }
-
     // Code Model
 
     public function codes()

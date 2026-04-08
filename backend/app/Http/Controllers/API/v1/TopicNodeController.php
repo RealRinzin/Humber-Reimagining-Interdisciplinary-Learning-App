@@ -13,8 +13,9 @@ class TopicNodeController
      */
     public function index()
     {
-        //
-        return TopicNode::get();
+        // $topicNode = TopicNode::paginate(20); // ✅ always paginate
+        $topicNode = TopicNode::with(['videos','codes','documents'])->paginate(2); // ✅ always paginate
+        return TopicNodeResource::collection($topicNode);
     }
 
     /**
@@ -38,7 +39,8 @@ class TopicNodeController
      */
     public function show(TopicNode $topicNode)
     {
-        //
+
+        return $topicNode::get();
     }
 
     /**

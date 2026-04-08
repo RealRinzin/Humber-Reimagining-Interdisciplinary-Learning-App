@@ -21,7 +21,7 @@ class Video extends Model
      * Video Table relationship with topic_node table
      * Video has many topic nodes
      */
-    public function topicNode()
+    public function topic()
     {
         return $this->belongsTo(TopicNode::class);
     }

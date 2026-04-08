@@ -7,7 +7,6 @@ export function useTopicNodes() {
     const [topics, setTopics] = useState<TopicNode[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-
     // Use Effect mount
 
     useEffect(() => {
