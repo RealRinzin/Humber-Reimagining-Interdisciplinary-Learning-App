@@ -53,8 +53,6 @@ class VideoController
         return new VideoResource($video);
 
 
-
-
         $video = Video::with('videoWatchHistory', 'quiz')->findOrFail($slug);
         return new VideoResource($video);
 

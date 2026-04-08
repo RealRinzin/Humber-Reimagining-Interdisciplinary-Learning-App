@@ -5,6 +5,7 @@ export default async function CoursePage() {
     <>
     <main className="px-1 md:px-40 py-5">
       {/* <VideoPage/> */}
+      here
     </main>
     </>
   )

@@ -21,6 +21,16 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController
 {
+    // Login
+    /**
+     * Login
+     * Login User
+     * 
+     * @param LoginUserRequest $request
+     * @param LoginUserAction $action
+     * 
+     * @return void
+     */
 
     public function login(LoginUserRequest $request, LoginUserAction $action)
     {

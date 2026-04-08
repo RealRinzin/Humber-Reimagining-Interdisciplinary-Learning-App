@@ -12,19 +12,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class, 'register']);
-
-// Route::middleware(['web', 'auth:sanctum'])->get('/user', function (Request $request) {
+// To Get the authentication when first access by the user
+// Route::get('/user', function (Request $request) {
 //     return $request->user();
 // });
-
+Route::middleware(['web','auth:sanctum'])->get('/user', function (Request $request) {
+    return $request->user();
+});
 // Route::prefix('v1')->name('v1.')->middleware('auth:sanctum')->group(function () {
 Route::prefix('v1')
     ->name('v1.')
     ->middleware(['web', 'auth:sanctum', 'throttle:1000,1'])
     ->group(function () {
-        Route::get('/user', function (Request $request) {
-            return $request->user();
-        });
+        // Route::get('/user', function (Request $request) {
+        //     return $request->user();
+        // });
         /**
          * IMPORTANT API
          *  /api/v1/users/{me}/videos // This api will get all the videos 
@@ -37,12 +39,14 @@ Route::prefix('v1')
         /**
          * USER API
          */
+        /*
+
         Route::controller(UserController::class)->prefix('users')->group(function () {
             // User
             Route::get('/', 'index');
             Route::get('/{user}', 'show');
             Route::get('/{user}/videos', 'videos');
-            Route::get('/{user}/videos/user_video', 'userVideo');
+            Route::get('/{user}/videos/user-video', 'userVideo');
         });
         /**
          * 
@@ -56,8 +60,8 @@ Route::prefix('v1')
         /**
          * 
          * Video Route API Group
-         * 
          */
+        // 
         Route::controller(VideoController::class)->prefix('videos')->group(function () {
             Route::get('/', 'index')->name('videos.index');
             Route::get('/{video:slug}', 'show')->name('videos.show');
@@ -67,9 +71,9 @@ Route::prefix('v1')
         /**
          * USER VIDEO API
          */
-        Route::controller(UserVideoController::class)->prefix('user_videos')->group(function () {
+        Route::controller(UserVideoController::class)->prefix('user_video')->group(function () {
             // Video
-            Route::get('/{user_video}', 'show')->name('user_videos.show');
+            Route::get('/{userVideo}', 'show')->name('user_video.show');
             Route::post('/', 'store')->name('user_videos.store');
         });
 
@@ -89,8 +93,8 @@ Route::prefix('v1')
         // Route::apiResources([
         //     'user_topics'  => UserTopicController::class,
         // ]);
-         // User topics
-        Route::apiResource('user-topics', UserTopicController::class)->except(['create','edit']);
+        // User topics
+        Route::apiResource('user-topics', UserTopicController::class)->except(['create', 'edit']);
             // ('/user_topics', [UserTopicController√::class, 'index'])->name('user_topics.index');
 
         /**
