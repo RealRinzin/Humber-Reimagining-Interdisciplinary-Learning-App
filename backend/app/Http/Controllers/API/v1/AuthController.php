@@ -1,23 +1,15 @@
 <?php
 
 namespace App\Http\Controllers\API\v1;
-
 use App\Actions\User\CreateUserAction;
 use App\Actions\User\LoginUserAction;
 use App\DTOs\User\LoginUserDTO;
 use App\DTOs\User\CreateUserDTO;
 use App\Http\Requests\User\LoginUserRequest;
 use App\Http\Requests\User\StoreUserRequest;
-use App\Http\Resources\UserVideo\UserVideoResource;
-use App\Http\Resources\UserVideoAnalytic\UserVideoAnalyticResource;
-use App\Http\Resources\Video\VideoResource;
 use App\Models\User;
-use App\Models\UserVideo;
 use App\Models\UserVideoAnalytic;
-use App\Models\Video;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController
 {
@@ -36,18 +28,34 @@ class AuthController
     {
         // $dto = LoginUserDTO::fromRequest($request);
         // $user = $action->execute(LoginUserDTO::fromRequest($request));
+        /**
+         * Login User
+         * Login the user with the login user action
+         * and execute the DTOs of the User
+         */
         $user = $action->execute(LoginUserDTO::fromRequest($request));
-        // Regenerate session for SPA
-
         // CRITICAL for Sanctum SPA
         $request->session()->regenerate();
 
+        /**
+         * Return Object
+         * Return the user details
+         * return response()->json(['message' => 'Authenticated', 'user' => $user]);
+         */
         return response()->json([
             'message' => 'Authenticated',
             'user' => $user,
         ]);
     }
-    //
+    // Register
+    /**
+     * Register
+     * Register User
+     * 
+     * @param StoreUserRequest $request
+     * @param CreateUserAction $action
+     * @return void
+     */
     public function register(StoreUserRequest $request, CreateUserAction $action)
     {
 
@@ -79,11 +87,23 @@ class AuthController
     }
 
     // Logout
-
+    /**
+     * Logout
+     * Logout User
+     * 
+     * @param Request $request
+     * @return void
+     */
     public function logout(Request $request)
     {
+        /**
+         * Delete the current access token
+         * Delete the access token of the current user
+         */
         // $request->user();
         $request->user()->currentAccessToken()->delete();
+        // Return JSON response
+        // return response()->json(['message' => 'Logged out']);
         return response()->json([
             'message' => 'Logged out'
         ]);

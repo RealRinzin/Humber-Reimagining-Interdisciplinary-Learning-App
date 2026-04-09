@@ -15,6 +15,7 @@ class UserTopicController
     {
         //
         // return UserTopic::with('users');
+        return "Rinzing";
     }
 
     /**

@@ -88,15 +88,11 @@ Route::prefix('v1')
             // Route::post('/user_video_analytic', [UserVideoAnalyticController::class, 'store']);
         });
 
-        // TESTING API
-        // Route::get('/test', [AuthController::class, 'index']);
-
-        // Route::apiResources([
-        //     'user_topics'  => UserTopicController::class,
-        // ]);
-        // User topics
+        // User Topics
+        /**
+         * USER TOPICS 
+         */
         Route::apiResource('user-topics', UserTopicController::class)->except(['create', 'edit']);
-            // ('/user_topics', [UserTopicController√::class, 'index'])->name('user_topics.index');
 
         /**
          * NOTES

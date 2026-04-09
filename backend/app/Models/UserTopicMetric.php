@@ -16,8 +16,5 @@ class UserTopicMetric extends Model
        return  $this->belongsToMany(User::class);
     }
     // Video
-    public function topic(){
-       return  $this->belongsToMany(Topic::class);
-    }
 
 }
