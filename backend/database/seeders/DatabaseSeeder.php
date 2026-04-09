@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             TopicNodeSeeder::class,
             VideoSeeder::class, // Question
             // UserSavedTopicsSeeder::class, // User Saved Topics
-            // QuizSeeder::class, // Quiz
+            QuizSeeder::class, // Quiz
             // QuestionSeeder::class, // Question
             FlashCardSeeder::class, // Flashcard
             SubtitleSeeder::class, // Subtitles

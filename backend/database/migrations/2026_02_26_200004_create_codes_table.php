@@ -16,12 +16,12 @@ return new class extends Migration
             $table->string('title');
             $table->string('language');
             $table->foreignId('topic_node_id')
-                ->unique()
+                // ->unique()
                 ->constrained('topic_nodes')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
             $table->foreignId('video_id')
-                ->unique()
+                // ->unique()
                 ->constrained('videos')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();

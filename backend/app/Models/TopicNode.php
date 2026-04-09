@@ -31,6 +31,15 @@ class TopicNode extends Model
         return $this->hasMany(Code::class);
     }
 
+    // Quiz
+   public function quizees()
+    {
+        return $this->hasMany(Quiz::class);
+    }
+   public function flash_cards()
+    {
+        return $this->hasMany(FlashCard::class);
+    }
     /*
      * Get the route key for the model.
      *

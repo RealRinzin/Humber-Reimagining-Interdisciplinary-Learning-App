@@ -13,8 +13,7 @@ class TopicNodeController
      */
     public function index()
     {
-        // $topicNode = TopicNode::paginate(20); // ✅ always paginate
-        $topicNode = TopicNode::with(['videos','codes','documents'])->paginate(2); // ✅ always paginate
+        $topicNode = TopicNode::with(['videos', 'codes', 'documents', 'flash_cards', 'quizees'])->paginate(2); // ✅ always paginate
         return TopicNodeResource::collection($topicNode);
     }
 

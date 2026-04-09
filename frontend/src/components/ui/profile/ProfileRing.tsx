@@ -2,7 +2,6 @@ import { cookies } from "next/headers";
 
 // import { useEffect, useState } from "react";
 export default async function ProfileCirleRing() {
-  
   const cookieStore = await cookies();
 
   const cookieHeader = cookieStore
@@ -10,7 +9,7 @@ export default async function ProfileCirleRing() {
     .map((c) => `${c.name}=${c.value}`)
     .join("; ");
   
-  const res = await fetch('http://localhost:8000/api/v1/users', {
+  const res = await fetch('http://localhost:8000/api/v1/nodes', {
     headers: {
       Cookie: cookieHeader,
       Referer: 'http://localhost:3000', // required for Sanctum stateful check
