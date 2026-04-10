@@ -18,7 +18,7 @@ export default async function ProfileCirleRing() {
   });
 
   const user = await res.json();
-  console.log(user)
+  // console.log(user)
   return (
     <div className="flex flex-col gap-y-3 py-2">
       <h1 className="font-semibold text-gray-700">Your Progress</h1>

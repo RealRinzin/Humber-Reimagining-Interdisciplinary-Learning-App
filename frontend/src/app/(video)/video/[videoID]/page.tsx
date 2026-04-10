@@ -6,6 +6,7 @@ import CourseVideo from "@/components/features/course/CourseVideo";
 import MoreCourses from "@/components/features/course/MoreCourses";
 import { MyPlayer } from "@/components/ui/video/VideoPlayer";
 import timeToDigit from "@/utils/timeToDigit";
+import { notFound } from "next/navigation";
 import {
   faAlignLeft,
   faHexagonNodes,
@@ -13,7 +14,6 @@ import {
   faCode,
   faBook,
 } from "@fortawesome/free-solid-svg-icons";
-import { notFound } from "next/navigation";
 // Get the Video
 async function getVideos({ videoID }: { videoID: string }) {
   // const res = await fetch(`${process.env.API_BASE_URL}/videos/intro-to-space`, {
@@ -29,6 +29,12 @@ async function getVideos({ videoID }: { videoID: string }) {
   return res.json();
 }
 // lastWatchRecord
+/**
+ * 
+ * @param param0 
+ * @returns 
+ * 
+ */
 async function lastWatchRecord({ id }: { id: number }) {
   const res = await fetch(`${process.env.API_BASE_URL}/user_video/${id}`, {
     // method: "POST",
@@ -44,13 +50,13 @@ async function lastWatchRecord({ id }: { id: number }) {
   return res.json();
 }
 export default async function Page({
-  params,
+params,
 }: {
   params: Promise<{ videoID: string }>;
 }) {
   const { videoID } = await params;
   const { data } = await getVideos({ videoID });
-  console.log(data);
+  // console.log(data);
   const id = data.id;
   // console.log(id)
   const watch = await lastWatchRecord({ id });

@@ -16,13 +16,13 @@ class UserController
      */
     public function index(Request $request)
     {
-        $users = User::with(['userTopics.topicNode'])->paginate(10);
-        return UserResource::collection($users);
-        // $user = $request->user();
+        // $users = User::with(['userTopics.topicNode'])->paginate(10);
+        // return UserResource::collection($users);
+        $user = $request->user();
 
-        // $user->load(['userTopics.topicNode']);
+        $user->load(['userTopics.topicNode']);
 
-        // return new UserResource($user);
+        return new UserResource($user);
     }
 
     /**
@@ -40,15 +40,8 @@ class UserController
      */
     public function show(User $user)
     {
-        $user->load('videoWatchHistory.video');
-
-        return new UserResource($user);
-        //
-        // return $user;
-
-        // return User::withAvg('userVideoMetric', 'watch_duration')
-        //     ->withSum('userVideoMetric', 'watch_duration')
-        //     ->withCount('userVideoMetric')->get();
+    $user->load(['userTopics.topicNode']);
+    return new UserResource($user);
     }
 
     /**
