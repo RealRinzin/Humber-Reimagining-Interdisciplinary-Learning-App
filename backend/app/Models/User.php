@@ -85,7 +85,7 @@ class User extends Authenticatable
      */
     public function topicNodes()
     {
-        return $this->belongsToMany(TopicNode::class, 'user_topics');
+        return $this->hasMany(TopicNode::class, 'user_topics');
     }
     // AGGREGATION FUNCTIONS AND CALCULATIONS 
     public function averageWatchTime()

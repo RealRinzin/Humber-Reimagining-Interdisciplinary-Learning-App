@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\UserTopic;
 
+use App\Http\Resources\TopicNode\TopicNodeResource;
 use App\Http\Resources\User\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -17,9 +18,9 @@ class UserTopicResource extends JsonResource
     {
         // return parent::toArray($request);
         return [
-
-            'id'=> $this->id,
-            'users' => UserResource::collection($this->whenLoaded('users')), // One - one call Get the all the related documents of the video
+            'id' => $this->id,
+            'user'       => new UserResource($this->whenLoaded('user')),
+            'topic_node' => new TopicNodeResource($this->whenLoaded('topicNode')),
         ];
     }
 }

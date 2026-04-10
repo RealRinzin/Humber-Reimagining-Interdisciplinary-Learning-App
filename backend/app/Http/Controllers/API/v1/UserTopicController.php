@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\API\v1;
 
+use App\Http\Resources\TopicNode\TopicNodeResource;
 use App\Http\Resources\UserTopic\UserTopicResource;
+use App\Models\TopicNode;
 use App\Models\UserTopic;
 use Illuminate\Http\Request;
 
@@ -14,9 +16,8 @@ class UserTopicController
     public function index()
     {
 
-        $topicNode = UserTopic::with([''])->paginate(2); // ✅ always paginate
-        return UserTopicResource::collection($topicNode);
-        // return UserTopicResource::collection(UserTopic::get());
+        $userTopics = UserTopic::with(['user', 'topicNode'])->paginate(10);
+        return UserTopicResource::collection($userTopics);
     }
 
     /**

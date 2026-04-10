@@ -21,7 +21,7 @@ return new class extends Migration
                 ->constrained('topic_nodes')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->primary(['user_id', 'topic_node_id']);
+
             $table->timestamps();
         });
     }

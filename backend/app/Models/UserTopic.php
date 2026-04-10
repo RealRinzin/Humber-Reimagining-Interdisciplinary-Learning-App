@@ -7,17 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserTopic extends Model
 {
+     protected $table = 'user_topics'; 
     /** @use HasFactory<\Database\Factories\UserTopicFactory> */
     use HasFactory;
 
     // Relationship table
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
-    // 
-    public function topicNodes()
+
+    public function topicNode()
     {
         return $this->belongsTo(TopicNode::class);
     }
