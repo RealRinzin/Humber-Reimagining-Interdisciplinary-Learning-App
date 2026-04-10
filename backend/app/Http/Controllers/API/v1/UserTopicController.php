@@ -13,9 +13,10 @@ class UserTopicController
      */
     public function index()
     {
-        //
-        // return UserTopic::with('users');
-        return "Rinzing";
+
+        $topicNode = UserTopic::with([''])->paginate(2); // ✅ always paginate
+        return UserTopicResource::collection($topicNode);
+        // return UserTopicResource::collection(UserTopic::get());
     }
 
     /**

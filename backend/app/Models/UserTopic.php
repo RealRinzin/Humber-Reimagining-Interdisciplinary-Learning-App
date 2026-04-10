@@ -12,12 +12,13 @@ class UserTopic extends Model
 
     // Relationship table
 
-    public function user()
+    public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(User::class);
     }
-    public function topicNode(){
-        return $this->belongsToMany(topicNode::class);
+    // 
+    public function topicNodes()
+    {
+        return $this->belongsTo(TopicNode::class);
     }
 }
-

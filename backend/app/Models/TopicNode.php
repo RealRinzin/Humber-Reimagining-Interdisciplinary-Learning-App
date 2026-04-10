@@ -32,11 +32,11 @@ class TopicNode extends Model
     }
 
     // Quiz
-   public function quizees()
+    public function quizees()
     {
         return $this->hasMany(Quiz::class);
     }
-   public function flash_cards()
+    public function flash_cards()
     {
         return $this->hasMany(FlashCard::class);
     }
@@ -45,8 +45,9 @@ class TopicNode extends Model
      *
      * @return string
      */
-    public function topicNodes(){
-        return $this->hasMany(UserTopic::class);
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_topics');
     }
     // Override the default route key name to use 'slug' instead of 'id'
     // This allows us to use the topic's slug in URLs instead of its numeric ID.

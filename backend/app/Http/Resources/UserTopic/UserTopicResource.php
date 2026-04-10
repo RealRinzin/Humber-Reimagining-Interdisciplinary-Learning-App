@@ -19,7 +19,7 @@ class UserTopicResource extends JsonResource
         return [
 
             'id'=> $this->id,
-            'users' => new UserResource($this->users), // One - one call Get the all the related documents of the video
+            'users' => UserResource::collection($this->whenLoaded('users')), // One - one call Get the all the related documents of the video
         ];
     }
 }

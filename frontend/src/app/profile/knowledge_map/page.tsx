@@ -1,18 +1,18 @@
 import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
-import TabProgressBar from "@/components/ui/progress/Tab";
+// import TabProgressBar from "@/components/ui/progress/Tab";
 import TabHorizontal from "@/components/ui/progress/TabHorizontal";
 import { cookies } from "next/headers";
 
 export default async function KnowledgeMapPage() {
-  const cookieStore = await cookies();
+  // const cookieStore = await cookies();
 
-  const res = await fetch("http://localhost:8000/api/v1/users", {
-    headers: {
-      Cookie: cookieStore.toString(), // 🔥 important
-    },
-    cache: "no-store",
-  });
-  const user = await res.json();
+  // const res = await fetch("http://localhost:8000/api/v1/users", {
+  //   headers: {
+  //     Cookie: cookieStore.toString(), // 🔥 important
+  //   },
+  //   cache: "no-store",
+  // });
+  // const user = await res.json();
   return (
     <>
       <main className="grid grid-cols-6">

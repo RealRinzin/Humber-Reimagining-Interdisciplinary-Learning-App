@@ -22,7 +22,7 @@ class UserTopicFactory extends Factory
         return [
             //
             'user_id' => User::inRandomOrder()->value('id'),
-            'topic_id' => TopicNode::inRandomOrder()->value('id')
+            'topic_node_id' => TopicNode::inRandomOrder()->value('id')
         ];
     }
 }

@@ -14,13 +14,14 @@ return new class extends Migration
         Schema::create('user_topics', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')
-            ->constrained('users')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
-            $table->foreignId('topic_id')
-            ->constrained('topic_nodes')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+                ->constrained('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('topic_node_id')
+                ->constrained('topic_nodes')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->primary(['user_id', 'topic_node_id']);
             $table->timestamps();
         });
     }
