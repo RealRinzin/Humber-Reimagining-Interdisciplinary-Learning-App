@@ -48,11 +48,14 @@ Route::prefix('v1')
             Route::get('/{user}/videos', 'videos');
             Route::get('/{user}/videos/user-video', 'userVideo');
         });
+        
         /**
          * 
          * Video Route API Group
          * 
          */
+        Route::apiResource('users', UserController::class)->except(['create', 'edit']);
+
         Route::controller(TopicNodeController::class)->prefix('nodes')->group(function () {
             // Index Call
             Route::get('/', 'index')->name('nodes.index');

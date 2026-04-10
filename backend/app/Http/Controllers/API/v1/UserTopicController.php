@@ -13,10 +13,14 @@ class UserTopicController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
 
-        $userTopics = UserTopic::with(['user', 'topicNode'])->paginate(10);
+    $user = $request->user();
+
+        $userTopics = UserTopic::with(['user', 'topicNode'])
+        ->where('user_id',3)
+        ->paginate(10);
         return UserTopicResource::collection($userTopics);
     }
 

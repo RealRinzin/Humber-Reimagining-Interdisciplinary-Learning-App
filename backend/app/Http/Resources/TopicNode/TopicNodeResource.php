@@ -24,6 +24,7 @@ class TopicNodeResource extends JsonResource
             'id'=>$this->id,
             'title' =>$this->title,
             'videos' => VideoResource::collection($this->whenLoaded('videos')),
+            
             'codes' => CodeResource::collection($this->whenLoaded('codes')),
             'documents' => LessonDocumentResource::collection($this->whenLoaded('documents')),
             'flash_cards' => FlashCardResource::collection($this->whenLoaded('flash_cards')),

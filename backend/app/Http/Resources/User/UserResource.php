@@ -2,9 +2,12 @@
 
 namespace App\Http\Resources\User;
 
+use App\Http\Resources\TopicNode\TopicNodeResource;
+use App\Http\Resources\UserTopic\UserTopicResource;
 use App\Http\Resources\UserVideoProgress\UserVideoProgressResource;
 use App\Http\Resources\Video\VideoResource;
 use App\Http\Resources\VideoWatchHistory\VideoWatchHistoryResource;
+use App\Models\UserTopic;
 use App\Models\UserVideoProgress;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -23,6 +26,9 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'username' => $this->username,
+            // 'user_topics' => TopicNodeResource::collection($this->whenLoaded('topicNodes')),
+            'topic_nodes' => UserTopicResource::collection($this->whenLoaded('userTopics')),
+
         ];
     }
 }

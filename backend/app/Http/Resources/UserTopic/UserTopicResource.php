@@ -21,6 +21,7 @@ class UserTopicResource extends JsonResource
             'id' => $this->id,
             'user'       => new UserResource($this->whenLoaded('user')),
             'topic_node' => new TopicNodeResource($this->whenLoaded('topicNode')),
+            
         ];
     }
 }

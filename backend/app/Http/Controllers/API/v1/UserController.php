@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\UserVideo\UserVideoResource;;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,8 +16,13 @@ class UserController
      */
     public function index(Request $request)
     {
-        // return $request->user();
-        return User::get();
+        $users = User::with(['userTopics.topicNode'])->paginate(10);
+        return UserResource::collection($users);
+        // $user = $request->user();
+
+        // $user->load(['userTopics.topicNode']);
+
+        // return new UserResource($user);
     }
 
     /**

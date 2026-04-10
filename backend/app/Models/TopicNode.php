@@ -45,9 +45,13 @@ class TopicNode extends Model
      *
      * @return string
      */
-    public function users()
+    // public function users()
+    // {
+    //     return $this->hasMany(User::class, 'user_topics');
+    // }
+    public function userTopics()
     {
-        return $this->hasMany(User::class, 'user_topics');
+        return $this->hasMany(UserTopic::class);
     }
     // Override the default route key name to use 'slug' instead of 'id'
     // This allows us to use the topic's slug in URLs instead of its numeric ID.

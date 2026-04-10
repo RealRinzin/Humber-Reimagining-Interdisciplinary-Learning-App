@@ -83,9 +83,9 @@ class User extends Authenticatable
     /**
      * 
      */
-    public function topicNodes()
+    public function userTopics()
     {
-        return $this->hasMany(TopicNode::class, 'user_topics');
+        return $this->hasMany(UserTopic::class);
     }
     // AGGREGATION FUNCTIONS AND CALCULATIONS 
     public function averageWatchTime()
