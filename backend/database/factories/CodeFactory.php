@@ -22,10 +22,38 @@ class CodeFactory extends Factory
         return [
             //
             'title' => Str::random(100),
-            'language'=>'Python',
+            'language' => 'Python',
             'video_id' => Video::inRandomOrder()->value('id'),
             'topic_node_id' => TopicNode::inRandomOrder()->value('id'),
-            'code'=>Str::random(100)
+            'code' => "// Grab a 3D vertex from Paul Neale's model and turn it into 4D
+
+Vec4 vertexPos = Vec4(vertex.x, vertex.y, vertex.z, 1);
+
+// Pretend we already have the 4x4 matrices in the following steps built
+
+// modelMatrix takes you from model to world space
+
+Vec4 vertexPosWorldSpace = modelMatrix * vertexPos;
+
+// viewMatrix takes you from world to camera space
+
+Vec4 vertexPosCameraSpace = viewMatrix * vertexPosWorldSpace;
+
+// projectionMatrix takes you from camera to NDC space (after dividing out the w)
+
+Vec4 vertexPosNdcSpace = projectionMatrix * vertexPosCameraSpace;
+
+vertexPosNdcSpace.x /= vertexPosNdcSpace.w;
+
+vertexPosNdcSpace.y /= vertexPosNdcSpace.w;
+
+vertexPosNdcSpace.z /= vertexPosNdcSpace.w;
+
+vertexPosNdcSpace.w = 1;
+
+// Lastly the viewportMatrix takes you from NDC to screen space
+
+Vec4 vertexPosScreenSpace = viewportMatrix * vertexPosNdcSpace;"
 
         ];
     }

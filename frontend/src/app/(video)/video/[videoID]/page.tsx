@@ -50,6 +50,7 @@ export default async function Page({
 }) {
   const { videoID } = await params;
   const { data } = await getVideos({ videoID });
+  console.log(data);
   const id = data.id;
   // console.log(id)
   const watch = await lastWatchRecord({ id });

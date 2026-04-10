@@ -3,9 +3,9 @@ import OnBoardingLearningPath from "@/components/ui/onboarding/LearningPath";
 import OnBoardingPersonalDetail from "@/components/ui/onboarding/PersonalDetail";
 import OnBoardingSelectContent from "@/components/ui/onboarding/SelectContent";
 import OnBoardingShowProgress from "@/components/ui/onboarding/ShowProgress";
+import dynamic from "next/dynamic";
 import Script from "next/script";
 import { useRef, useState } from "react";
-
 export default function OnboardingPage() {
 
   //Select Content
