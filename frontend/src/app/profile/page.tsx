@@ -7,27 +7,27 @@ import TabProgressBar from "@/components/ui/progress/Tab";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 
-async function getVideos() {
-  // const res = await fetch(`${process.env.API_BASE_URL}/videos/intro-to-space`, {
-  const res = await fetch(`${process.env.API_BASE_URL}/users/1`, {
-    headers: {
-      Authorization: `Bearer ${process.env.API_TOKEN}`,
-    },
-  });
-  if (!res.ok) {
-    if (res.status === 404) notFound();
-    throw new Error("Failed to fetch videos");
-  }
-  // console.log(res.json())
-  return res.json();
-}
+// async function getVideos() {
+//   // const res = await fetch(`${process.env.API_BASE_URL}/videos/intro-to-space`, {
+//   const res = await fetch(`${process.env.API_BASE_URL}/users/1`, {
+//     headers: {
+//       Authorization: `Bearer ${process.env.API_TOKEN}`,
+//     },
+//   });
+//   if (!res.ok) {
+//     if (res.status === 404) notFound();
+//     throw new Error("Failed to fetch videos");
+//   }
+//   // console.log(res.json())
+//   return res.json();
+// }
 
 /**
  *
  * @returns
  */
 export default async function ProfilePage() {
-  const data = await getVideos();
+  // const data = await getVideos();
   return (
     <div className="grid grid-cols-3 gap-4 m-10">
       <div className="col-span-2">

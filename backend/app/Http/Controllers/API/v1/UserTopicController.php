@@ -53,7 +53,7 @@ class UserTopicController
                 'message' => 'Topic not found for this user.'
             ], 404);
         }
-        // Detached record
+        // Detached recordcd
         $user->topics()->detach($topic->id);
 
         return response()->noContent(); // 204
