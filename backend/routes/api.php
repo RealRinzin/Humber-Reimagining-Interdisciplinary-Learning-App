@@ -16,13 +16,13 @@ Route::post('/register', [AuthController::class, 'register']);
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::middleware(['web','auth:sanctum'])->get('/user', function (Request $request) {
+Route::middleware(['web', 'auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 // Route::prefix('v1')->name('v1.')->middleware('auth:sanctum')->group(function () {
 Route::prefix('v1')
     ->name('v1.')
-    ->middleware(['web', 'auth:sanctum', 'throttle:1000,1'])
+    ->middleware(['auth:sanctum', 'throttle:1000,1'])
     ->group(function () {
         // Route::get('/user', function (Request $request) {
         //     return $request->user();
@@ -36,6 +36,17 @@ Route::prefix('v1')
          * 
          * }
          */
+
+        // User Topics
+        /**
+         * USER TOPICS 
+         */
+        // Route::apiResource('user-topics', UserTopicController::class)->except(['create', 'edit']);
+        Route::controller(UserTopicController::class)->prefix('user-topics/users/{user}')->group(function () {
+            Route::get('/topics', 'index')->name('user-topics.index');
+            Route::post('/topics', 'store')->name('user-topics.store');
+            Route::delete('/topics/{topic:id}', 'destroy')->name('user-topics.destroy');
+        });
         /**
          * USER API
          */
@@ -55,7 +66,7 @@ Route::prefix('v1')
          * 
          */
         Route::apiResource('users', UserController::class)->except(['create', 'edit']);
-
+        // TopicNode
         Route::controller(TopicNodeController::class)->prefix('nodes')->group(function () {
             // Index Call
             Route::get('/', 'index')->name('nodes.index');
@@ -81,21 +92,7 @@ Route::prefix('v1')
             Route::post('/', 'store')->name('user_videos.store');
         });
 
-        /**
-         *
-         *  USER VIDEO ANALYTIC
-         * API ENDPOINTS
-         * 
-         */
-        Route::controller(UserVideoAnalytic::class)->group(function () {
-            // Route::post('/user_video_analytic', [UserVideoAnalyticController::class, 'store']);
-        });
 
-        // User Topics
-        /**
-         * USER TOPICS 
-         */
-        Route::apiResource('user-topics', UserTopicController::class)->except(['create', 'edit']);
 
         /**
          * NOTES
@@ -114,7 +111,15 @@ Route::prefix('v1')
         // Route::get('/videos/{video}/progress', [UserVideoProgressController::class, 'show']);
         // Route::get('users/{user:id}/videos/{video}/progress', [UserVideoProgressController::class, 'show']);
 
-
+        /**
+         *
+         *  USER VIDEO ANALYTIC
+         * API ENDPOINTS
+         * 
+         */
+        Route::controller(UserVideoAnalytic::class)->group(function () {
+            // Route::post('/user_video_analytic', [UserVideoAnalyticController::class, 'store']);
+        });
         /**
          * 
          * ----------- TEST API BELOW----------------

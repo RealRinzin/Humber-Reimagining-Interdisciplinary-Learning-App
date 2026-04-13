@@ -12,17 +12,22 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_topics', function (Blueprint $table) {
-            $table->id();
+            // We are creating a pivot table to represent the many-to-many relationship between users and topic nodes
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            // Note: We are not using $table->id() here because we want to use a composite primary key
             $table->foreignId('topic_node_id')
                 ->constrained('topic_nodes')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-
+            // Add timestamps for when the user followed the topic node
             $table->timestamps();
+            // Set the primary key to be a combination of user_id and topic_node_id
+            $table->primary(['user_id', 'topic_node_id']);
+            // Add an index for faster lookups when querying by user_id and topic_node_id
+            $table->index(['user_id', 'topic_node_id']);
         });
     }
 

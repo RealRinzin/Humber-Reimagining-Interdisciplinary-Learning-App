@@ -81,11 +81,16 @@ class User extends Authenticatable
     }
     // User Topic Relations
     /**
-     * 
+     * User has many UserTopic
+     * User Table relationship with user_topic table
+     * UserTopic belongs to one User
+     * UserTopic belongs to one TopicNode
      */
-    public function userTopics()
+    public function topics()
     {
-        return $this->hasMany(UserTopic::class);
+        return $this->belongsToMany(TopicNode::class, 'user_topics')
+            ->withTimestamps();
+            // ->withPivot('created_at'); // Include timestamps from the pivot table
     }
     // AGGREGATION FUNCTIONS AND CALCULATIONS 
     public function averageWatchTime()

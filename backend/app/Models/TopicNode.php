@@ -10,7 +10,7 @@ class TopicNode extends Model
     /** @use HasFactory<\Database\Factories\TopicNodeFactory> */
     use HasFactory;
 
-
+    protected $table = 'topic_nodes';
     /**
      * Relationship Models
      */
@@ -45,14 +45,13 @@ class TopicNode extends Model
      *
      * @return string
      */
-    // public function users()
-    // {
-    //     return $this->hasMany(User::class, 'user_topics');
-    // }
-    public function userTopics()
+    public function users()
     {
-        return $this->hasMany(UserTopic::class);
+        return $this->belongsToMany(User::class, 'user_topics')
+            ->withTimestamps();
+        // ->withPivot('created_at'); // Include timestamps from the pivot table   
     }
+
     // Override the default route key name to use 'slug' instead of 'id'
     // This allows us to use the topic's slug in URLs instead of its numeric ID.
     // For example, instead of /topics/1, we can have /topics/my-topic-slug.

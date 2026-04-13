@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\v1;
 
+use App\Http\Resources\TopicNode\TopicNodeResource;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\UserVideo\UserVideoResource;;
 
@@ -14,15 +15,17 @@ class UserController
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(User $user)
     {
+
+        return TopicNodeResource::collection(
+            $user->topicNodes()->get()
+        );
         // $users = User::with(['userTopics.topicNode'])->paginate(10);
         // return UserResource::collection($users);
-        $user = $request->user();
-
-        $user->load(['userTopics.topicNode']);
-
-        return new UserResource($user);
+        // $user = $request->user();
+        // $user->load(['userTopics.topicNode']);
+        // return new UserResource($user);
     }
 
     /**
@@ -38,10 +41,13 @@ class UserController
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(User $user, Request $request)
     {
-    $user->load(['userTopics.topicNode']);
-    return new UserResource($user);
+        $user = $request->user();
+        $user->load('topicNodes');
+        return new UserResource($user);
+        $user->load(['userTopics.topicNode']);
+        return new UserResource($user);
     }
 
     /**
