@@ -26,6 +26,5 @@ class UserTopicSeeder extends Seeder
                 $user->topics()->syncWithoutDetaching([$topic->id]);
             }
         }
-        // UserTopic::factory(10)->create();
     }
 }

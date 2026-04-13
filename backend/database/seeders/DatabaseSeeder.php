@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             LessonDocumentSeeder::class, // Documents
             CodeSeeder::class, // Code
             UserTopicSeeder::class, // User Topics
+            TopicVideoSeeder::class,
             // UserTopicMetricSeeder::class, // User Topic Metrics
             // UserFlashCardMetricSeeder::class, // User Flash card Metrics
             VideoWatchHistorySeeder::class, // User Video Watch History for tracking 

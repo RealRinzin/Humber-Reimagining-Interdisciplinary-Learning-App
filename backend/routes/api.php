@@ -7,6 +7,7 @@ use App\Http\Controllers\API\v1\UserTopicController;
 use App\Http\Controllers\API\v1\UserVideoController;
 use App\Http\Controllers\API\v1\UserVideoProgressController;
 use App\Http\Controllers\API\v1\VideoController;
+use App\Http\Controllers\API\v1\TopicVideoController;
 use App\Models\UserVideoAnalytic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,16 @@ Route::prefix('v1')
             Route::get('/topics', 'index')->name('user-topics.index');
             Route::post('/topics', 'store')->name('user-topics.store');
             Route::delete('/topics/{topic:id}', 'destroy')->name('user-topics.destroy');
+        });
+
+        // Topic Video Relationship
+        /**
+         *
+         */
+        Route::controller(TopicVideoController::class)->prefix('topic-videos/topics/{topicNode}')->group(function () {
+            Route::get('/videos', 'index')->name('topic-videos.index');
+            Route::post('/videos', 'store')->name('topic-videos.store');
+            Route::delete('/videos/{video}', 'destroy')->name('topic-videos.destroy');
         });
         /**
          * USER API

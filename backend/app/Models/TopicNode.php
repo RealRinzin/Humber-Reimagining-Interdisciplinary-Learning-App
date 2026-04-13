@@ -14,11 +14,6 @@ class TopicNode extends Model
     /**
      * Relationship Models
      */
-    // Videos Model
-    public function videos()
-    {
-        return $this->hasMany(Video::class);
-    }
     // Document Model
     public function documents()
     {
@@ -48,6 +43,12 @@ class TopicNode extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'user_topics')
+            ->withTimestamps();
+        // ->withPivot('created_at'); // Include timestamps from the pivot table   
+    }
+    public function videos()
+    {
+        return $this->belongsToMany(Video::class, 'topic_videos','video_id','topic_node_id')
             ->withTimestamps();
         // ->withPivot('created_at'); // Include timestamps from the pivot table   
     }

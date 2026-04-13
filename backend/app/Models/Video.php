@@ -21,9 +21,10 @@ class Video extends Model
      * Video Table relationship with topic_node table
      * Video has many topic nodes
      */
-    public function topic()
+    public function topics()
     {
-        return $this->belongsTo(TopicNode::class);
+        return $this->belongsToMany(TopicNode::class, 'topic_videos','video_id','topic_node_id')
+            ->withTimestamps();
     }
     // Video Relationship
     /**
@@ -35,12 +36,16 @@ class Video extends Model
     {
         return $this->hasMany(User::class);
     }
+    // 
+
     // UserVideo Relationship
     /**
      * Video has many UserVideo
      * Video Table relationship with user_video table
      * Video has many user videos
      */
+
+
     public function userVideo()
     {
         return $this->hasMany(UserVideo::class);
