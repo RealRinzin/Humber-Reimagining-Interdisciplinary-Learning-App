@@ -14,7 +14,7 @@ class UserVideo extends Model
     protected $fillable = [
         'user_id',
         'video_id',
-        'watch_minute',
+        'last_paused',
     ];
 
 

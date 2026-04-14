@@ -15,7 +15,7 @@ class CreateUpdateRequest extends FormRequest
     {
         return [
             'video_id'     => ['required', 'integer', 'exists:videos,id'],
-            'watch_minute' => ['nullable', 'string'],
+            'last_paused' => ['nullable', 'string'],
         ];
     }
 
@@ -25,7 +25,7 @@ class CreateUpdateRequest extends FormRequest
             'video_id.required'  => 'Video ID is required.',
             'video_id.integer'   => 'Video ID must be an integer.',
             'video_id.exists'    => 'The specified video does not exist.',
-            'watch_minute.string' => 'Watch minute must be a string.',
+            'last_paused.string' => 'Watch minute must be a string.',
         ];
     }
 }

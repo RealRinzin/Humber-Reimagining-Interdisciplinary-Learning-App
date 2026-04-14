@@ -18,14 +18,7 @@ class UserVideoResource extends JsonResource
     {
         // return parent::toArray($request);
         return[
-            'id'=>$this->id,
-            'last_watch_timestamp'=>$this->watch_time,
-            'videos'=>new VideoResource($this->whenLoaded('video')),
-            'users'=>new UserResource($this->whenLoaded('video')),
-            // 'video' => new VideoResource(
-            //     $this->video,
-            //     $this->whenLoaded('userVideoAnalytic')
-            // )
+            'last_paused'=>$this->last_paused,
         ];
     }
 }

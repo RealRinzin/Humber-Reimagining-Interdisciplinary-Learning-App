@@ -14,19 +14,16 @@ return new class extends Migration
         Schema::create('user_videos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')
-            ->constrained('users')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+                ->constrained('users')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->foreignId('video_id')
-            ->constrained('videos')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
-            $table->time('watch_minute')->default(0);
-            // $table->integer('progress')->default(0);
-            // $table->integer('watch_time')->default(0);
+                ->constrained('videos')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            $table->time('last_paused')->default(0);
             $table->timestamps();
-            // Unique constrain protection
-            // $table->unique('user_id','video_id');
+            $table->unique(['user_id', 'video_id']);
         });
     }
 

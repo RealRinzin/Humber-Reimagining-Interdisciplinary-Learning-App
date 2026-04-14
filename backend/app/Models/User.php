@@ -65,10 +65,14 @@ class User extends Authenticatable
      * User Table relationship with video table
      * User has many videos
      */
-    public function videos()
-    {
-        return $this->hasMany(Video::class);
-    }
+
+    
+
+public function videos()
+{
+    return $this->belongsToMany(Video::class, 'user_videos')
+                ->withTimestamps();
+}
     // UserVideo table relationship
     /**
      * User has many UserVideo
@@ -88,9 +92,9 @@ class User extends Authenticatable
      */
     public function topics()
     {
-        return $this->belongsToMany(TopicNode::class, 'user_topics')
+        return $this->belongsToMany(TopicNode::class, 'user_topics','user_id', 'topic_node_id')
             ->withTimestamps();
-            // ->withPivot('created_at'); // Include timestamps from the pivot table
+        // ->withPivot('created_at'); // Include timestamps from the pivot table
     }
     // AGGREGATION FUNCTIONS AND CALCULATIONS 
     public function averageWatchTime()

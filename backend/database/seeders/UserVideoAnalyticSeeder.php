@@ -15,6 +15,5 @@ class UserVideoAnalyticSeeder extends Seeder
     {
         //
         UserVideoAnalytic::factory(5)->create();
-
     }
 }

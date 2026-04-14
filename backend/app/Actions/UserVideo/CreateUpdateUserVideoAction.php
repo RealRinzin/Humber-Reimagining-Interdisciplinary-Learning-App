@@ -10,9 +10,10 @@ class CreateUpdateUserVideoAction
     public function execute(CreateUpdateUserVideoDTO $dto, int $userId): UserVideo
     {
 
+
         return UserVideo::updateOrCreate(
             [
-                'watch_minute' => $dto->watch_minute ?? '0:0',
+                'last_paused' => $dto->last_paused ?? '0:0',
                 'video_id' => $dto->video_id,
             ],
             [

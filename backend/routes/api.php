@@ -7,7 +7,6 @@ use App\Http\Controllers\API\v1\UserTopicController;
 use App\Http\Controllers\API\v1\UserVideoController;
 use App\Http\Controllers\API\v1\UserVideoProgressController;
 use App\Http\Controllers\API\v1\VideoController;
-use App\Http\Controllers\API\v1\TopicVideoController;
 use App\Models\UserVideoAnalytic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -49,18 +48,15 @@ Route::prefix('v1')
             Route::delete('/topics/{topic:id}', 'destroy')->name('user-topics.destroy');
         });
 
-        // Topic Video Relationship
         /**
-         *
+         * User Videos
          */
-        Route::controller(TopicVideoController::class)->prefix('topic-videos/topics/{topicNode}')->group(function () {
-            Route::get('/videos', 'index')->name('topic-videos.index');
-            Route::post('/videos', 'store')->name('topic-videos.store');
-            Route::delete('/videos/{video}', 'destroy')->name('topic-videos.destroy');
+        Route::controller(UserVideoController::class)->prefix('user-videos/users/{user}')->group(function () {
+            Route::get('/videos', 'index')->name('user-videos.index');
+            Route::post('/videos', 'store')->name('user-videos.store');
+            Route::delete('/videos/{video:id}', 'destroy')->name('user-videos.destroy');
         });
-        /**
-         * USER API
-         */
+
         /*
 
         Route::controller(UserController::class)->prefix('users')->group(function () {
@@ -97,11 +93,11 @@ Route::prefix('v1')
         /**
          * USER VIDEO API
          */
-        Route::controller(UserVideoController::class)->prefix('user_video')->group(function () {
-            // Video
-            Route::get('/{userVideo}', 'show')->name('user_video.show');
-            Route::post('/', 'store')->name('user_videos.store');
-        });
+        // Route::controller(UserVideoController::class)->prefix('user_video')->group(function () {
+        //     // Video
+        //     Route::get('/{userVideo}', 'show')->name('user_video.show');
+        //     Route::post('/', 'store')->name('user_videos.store');
+        // });
 
 
 

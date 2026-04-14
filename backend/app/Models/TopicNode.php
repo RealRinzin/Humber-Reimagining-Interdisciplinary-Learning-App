@@ -42,15 +42,13 @@ class TopicNode extends Model
      */
     public function users()
     {
-        return $this->belongsToMany(User::class, 'user_topics')
+        return $this->belongsToMany(User::class, 'user_topics', 'topic_node_id', 'user_id')
             ->withTimestamps();
         // ->withPivot('created_at'); // Include timestamps from the pivot table   
     }
     public function videos()
     {
-        return $this->belongsToMany(Video::class, 'topic_videos','video_id','topic_node_id')
-            ->withTimestamps();
-        // ->withPivot('created_at'); // Include timestamps from the pivot table   
+        return $this->hasMany(Video::class, 'topic_node_id');
     }
 
     // Override the default route key name to use 'slug' instead of 'id'

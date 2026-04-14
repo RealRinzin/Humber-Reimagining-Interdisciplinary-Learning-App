@@ -18,18 +18,12 @@ class UserVideoController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(User $user)
     {
         //
+        return VideoResource::collection($user->videos);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -52,13 +46,6 @@ class UserVideoController
         return response()->json([
             'data' => $userVideo ?? null,
         ]);
-    }
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(UserVideo $userVideo)
-    {
-        //
     }
 
     /**

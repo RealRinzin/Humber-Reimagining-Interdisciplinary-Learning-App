@@ -16,15 +16,9 @@ class Video extends Model
     // }
     // Relationship Tables
     // TopicNode Relationship
-    /**
-     * Video belongs to one TopicNode
-     * Video Table relationship with topic_node table
-     * Video has many topic nodes
-     */
-    public function topics()
+    public function topic()
     {
-        return $this->belongsToMany(TopicNode::class, 'topic_videos','video_id','topic_node_id')
-            ->withTimestamps();
+        return $this->belongsTo(TopicNode::class, 'topic_node_id');
     }
     // Video Relationship
     /**
@@ -32,22 +26,9 @@ class Video extends Model
      * Video Table relationship with user table
      * Video has many users
      */
-    public function user()
+    public function users()
     {
-        return $this->hasMany(User::class);
-    }
-    // 
-
-    // UserVideo Relationship
-    /**
-     * Video has many UserVideo
-     * Video Table relationship with user_video table
-     * Video has many user videos
-     */
-
-
-    public function userVideo()
-    {
-        return $this->hasMany(UserVideo::class);
+        return $this->belongsToMany(User::class, 'user_videos')
+            ->withTimestamps();
     }
 }
