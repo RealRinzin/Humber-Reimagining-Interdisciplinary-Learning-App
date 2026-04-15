@@ -47,6 +47,7 @@ async function lastWatchRecord({ id }: { id: number }) {
     if (res.status === 404) notFound();
     throw new Error("Failed to fetch videos");
   }
+  console.log(res.json());
   return res.json();
 }
 export default async function Page({
@@ -56,10 +57,10 @@ params,
 }) {
   const { videoID } = await params;
   const { data } = await getVideos({ videoID });
-  // console.log(data);
+  console.log(data);
   const id = data.id;
-  // console.log(id)
-  const watch = await lastWatchRecord({ id });
+  console.log(id)
+//   const watch = await lastWatchRecord({ id });
   return (
     <main className="px-1 md:px-20 py-5">
       <section className="flex flex-col md:flex-row gap-4">
@@ -69,15 +70,13 @@ params,
           {/* Video section */}
           <section className="flex flex-col md:flex-row gap-3 py-3">
             {/* <CourseProgressUI /> */}
-            {/* <MyPlayer src={`${data.video_url}/#t=4`}  /> */}
             <MyPlayer
               src={data.video_url}
-              last_stop={
-                !watch.data ? 0 : timeToDigit({ time: watch.data.watch_minute })
-              }
+            //   last_stop={
+            //     !watch.data ? 0 : timeToDigit({ time: watch.data.watch_minute })
+            //   }
+            last_stop={1}
             />
-            {/* <MyPlayer src={data.video_url} last_stop={9} /> */}
-            {/* <CourseVideo videoLink={data.video_url} last_watch="00:00:02" /> */}
           </section>
           {/* Tabs */}
           <CourseTabs

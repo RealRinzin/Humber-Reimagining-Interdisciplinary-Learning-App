@@ -22,7 +22,7 @@ Route::middleware(['web', 'auth:sanctum'])->get('/user', function (Request $requ
 // Route::prefix('v1')->name('v1.')->middleware('auth:sanctum')->group(function () {
 Route::prefix('v1')
     ->name('v1.')
-    ->middleware(['auth:sanctum', 'throttle:1000,1'])
+    ->middleware(['web','auth:sanctum', 'throttle:1000,1'])
     ->group(function () {
         // Route::get('/user', function (Request $request) {
         //     return $request->user();
@@ -93,11 +93,11 @@ Route::prefix('v1')
         /**
          * USER VIDEO API
          */
-        // Route::controller(UserVideoController::class)->prefix('user_video')->group(function () {
-        //     // Video
-        //     Route::get('/{userVideo}', 'show')->name('user_video.show');
-        //     Route::post('/', 'store')->name('user_videos.store');
-        // });
+        Route::controller(UserVideoController::class)->prefix('user_video')->group(function () {
+            // Video
+            Route::get('/{userVideo}', 'show')->name('user_video.show');
+            Route::post('/', 'store')->name('user_videos.store');
+        });
 
 
 
