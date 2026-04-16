@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('audio_url');
-            $table->foreignId('topic_node_id')
-                ->constrained('topic_nodes')
+            $table->foreignId('topic_id')
+                ->constrained('topics')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
             $table->timestamps();

@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\API\v1;
+namespace App\Http\Controllers;
 
-use App\Http\Resources\TopicNode\TopicNodeResource;
-use App\Models\TopicNode;
+use App\Http\Resources\Topic\TopicResource;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 
-class TopicNodeController
+class TopicController
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $topicNode = TopicNode::with(['videos', 'codes', 'documents', 'flash_cards', 'quizees'])->paginate(2); // ✅ always paginate
-        return TopicNodeResource::collection($topicNode);
+        //
+        $topics = Topic::with(['videos', 'codes', 'documents', 'flash_cards', 'quizees'])->paginate(2); // ✅ always paginate
+        return TopicResource::collection($topics);
     }
 
     /**
@@ -36,16 +37,15 @@ class TopicNodeController
     /**
      * Display the specified resource.
      */
-    public function show(TopicNode $topicNode)
+    public function show(Topic $topic)
     {
-
-        return $topicNode::get();
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(TopicNode $topicNode)
+    public function edit(Topic $topic)
     {
         //
     }
@@ -53,7 +53,7 @@ class TopicNodeController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, TopicNode $topicNode)
+    public function update(Request $request, Topic $topic)
     {
         //
     }
@@ -61,7 +61,7 @@ class TopicNodeController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TopicNode $topicNode)
+    public function destroy(Topic $topic)
     {
         //
     }

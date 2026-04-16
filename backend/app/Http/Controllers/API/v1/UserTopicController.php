@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\API\v1;
 
+use App\Http\Resources\Topic\TopicResource;
 use App\Http\Resources\TopicNode\TopicNodeResource;
 use App\Http\Resources\UserTopic\UserTopicResource;
+use App\Models\Topic;
 use App\Models\TopicNode;
 use App\Models\User;
 use App\Models\UserTopic;
@@ -17,7 +19,7 @@ class UserTopicController
     public function index(User $user)
     {
         // 
-        return TopicNodeResource::collection($user->topics);
+        return TopicResource::collection($user->topics);
     }
 
     /**
@@ -27,24 +29,24 @@ class UserTopicController
     {
         // return "testting";
         $request->validate([
-            'topic_node_ids'   => 'required|array',
-            'topic_node_ids.*' => 'exists:topic_nodes,id',
+            'topic_ids'   => 'required|array',
+            'topic_ids.*' => 'exists:topics,id',
         ]);
 
         // syncWithoutDetaching = attach only NEW ones, skip duplicates
-        $user->topics()->syncWithoutDetaching($request->topic_node_ids);
+        $user->topics()->syncWithoutDetaching($request->topic_ids);
 
-        return TopicNodeResource::collection($user->topics()->get());
+        return TopicResource::collection($user->topics()->get());
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user, TopicNode $topic)
+    public function destroy(User $user, Topic $topic)
     {
 
 
-        $exists = $user->topics()->where('topic_node_id', $topic->id)->exists();
+        $exists = $user->topics()->where('topic_id', $topic->id)->exists();
         /**
          * Relationship not Found
          */

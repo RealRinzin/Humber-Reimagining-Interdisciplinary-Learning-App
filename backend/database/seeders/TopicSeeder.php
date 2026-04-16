@@ -2,18 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\TopicNode;
+use App\Models\Topic;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class TopicNodeSeeder extends Seeder
+class TopicSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        TopicNode::factory(20)->create();
-
+        Topic::factory(20)->create();
     }
 }

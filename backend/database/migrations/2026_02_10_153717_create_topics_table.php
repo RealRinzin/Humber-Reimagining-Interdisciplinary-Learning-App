@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('topic_nodes', function (Blueprint $table) {
+        Schema::create('topics', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
             $table->unsignedBigInteger('parent_id')->nullable(); // nullable = root items
             $table->foreign('parent_id')
                 ->references('id')
-                ->on('topic_nodes');
+                ->on('topics');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('topic_nodes');
+        Schema::dropIfExists('topics');
     }
 };

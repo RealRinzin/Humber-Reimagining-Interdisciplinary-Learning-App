@@ -9,8 +9,8 @@ class LessonDocument extends Model
 {
     /** @use HasFactory<\Database\Factories\LessonDocumentFactory> */
     use HasFactory;
-    public function topicNode()
+    public function topic()
     {
-        return $this->belongsTo(TopicNode::class);
+        return $this->belongsTo(Topic::class);
     }
 }

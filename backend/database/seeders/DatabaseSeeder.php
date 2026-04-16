@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class, // Roles
             UserSeeder::class, // Users
-            TopicNodeSeeder::class,
+            TopicSeeder::class,
             VideoSeeder::class, // Question
             // UserSavedTopicsSeeder::class, // User Saved Topics
             QuizSeeder::class, // Quiz

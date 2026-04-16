@@ -11,23 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('topic_videos', function (Blueprint $table) {
+        Schema::create('user_topics', function (Blueprint $table) {
             // We are creating a pivot table to represent the many-to-many relationship between users and topic nodes
-            $table->foreignId('video_id')
-                ->constrained('videos')
+            $table->foreignId('user_id')
+                ->constrained('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             // Note: We are not using $table->id() here because we want to use a composite primary key
-            $table->foreignId('topic_node_id')
-                ->constrained('topic_nodes')
+            $table->foreignId('topic_id')
+                ->constrained('topics')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             // Add timestamps for when the user followed the topic node
             $table->timestamps();
-            // Set the primary key to be a combination of user_id and topic_node_id
-            $table->primary(['video_id', 'topic_node_id']);
-            // Add an index for faster lookups when querying by user_id and topic_node_id
-            $table->index(['video_id', 'topic_node_id']);
+            // Set the primary key to be a combination of user_id and topic
+            $table->primary(['user_id', 'topic_id']);
+            // Add an index for faster lookups when querying by user_id and topic
+            $table->index(['user_id', 'topic_id']);
         });
     }
 
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('topic_videos');
+        Schema::dropIfExists('user_topics');
     }
 };

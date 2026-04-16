@@ -17,8 +17,8 @@ return new class extends Migration
             ->constrained('videos')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-        $table->foreignId('topic_node_id')
-            ->constrained('topic_nodes')
+        $table->foreignId('topic_id')
+            ->constrained('topics')
             ->onUpdate('cascade')
             ->onDelete('cascade');
             $table->string("type");

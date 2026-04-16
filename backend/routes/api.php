@@ -16,13 +16,13 @@ Route::post('/register', [AuthController::class, 'register']);
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::middleware(['web', 'auth:sanctum'])->get('/user', function (Request $request) {
+Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 // Route::prefix('v1')->name('v1.')->middleware('auth:sanctum')->group(function () {
 Route::prefix('v1')
     ->name('v1.')
-    ->middleware(['web','auth:sanctum', 'throttle:1000,1'])
+    ->middleware(['auth:sanctum', 'throttle:1000,1'])
     ->group(function () {
         // Route::get('/user', function (Request $request) {
         //     return $request->user();

@@ -10,9 +10,9 @@ class Quiz extends Model
     /** @use HasFactory<\Database\Factories\QuizFactory> */
     use HasFactory;
 
-    public function topicNodes()
+    public function topic()
     {
-        return $this->belongsTo(TopicNode::class);
+        return $this->belongsTo(Topic::class);
     }
 
     public function video()

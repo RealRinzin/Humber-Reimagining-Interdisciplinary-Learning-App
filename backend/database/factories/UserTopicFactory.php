@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Topic;
 use App\Models\TopicNode;
 use App\Models\User;
 use App\Models\UserTopic;
@@ -23,7 +24,7 @@ class UserTopicFactory extends Factory
         return [
             //
             'user_id' => User::inRandomOrder()->value('id'),
-            'topic_node_id' => TopicNode::inRandomOrder()->value('id')
+            'topic_id' => Topic::inRandomOrder()->value('id')
         ];
     }
 }

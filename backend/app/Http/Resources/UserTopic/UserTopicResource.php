@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\UserTopic;
 
+use App\Http\Resources\Topic\TopicResource;
 use App\Http\Resources\TopicNode\TopicNodeResource;
 use App\Http\Resources\User\UserResource;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class UserTopicResource extends JsonResource
         return [
             'id' => $this->id,
             'user'       => new UserResource($this->whenLoaded('user')),
-            'topic_node' => new TopicNodeResource($this->whenLoaded('topicNode')),
+            'topics' => new TopicResource($this->whenLoaded('topic')),
         ];
     }
 }

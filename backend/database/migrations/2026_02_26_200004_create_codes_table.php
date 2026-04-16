@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('language');
-            $table->foreignId('topic_node_id')
+            $table->foreignId('topic_id')
                 // ->unique()
-                ->constrained('topic_nodes')
+                ->constrained('topics')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
             $table->foreignId('video_id')

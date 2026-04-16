@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Topic;
 use App\Models\TopicNode;
 use App\Models\User;
 use App\Models\UserTopic;
@@ -17,7 +18,7 @@ class UserTopicSeeder extends Seeder
     {
         //
         $users = User::all();
-        $topics = TopicNode::all();
+        $topics = Topic::all();
 
         foreach ($users as $user) {
             $randomTopics = $topics->random(3);

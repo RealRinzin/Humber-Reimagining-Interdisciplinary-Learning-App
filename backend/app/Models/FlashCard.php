@@ -11,8 +11,9 @@ class FlashCard extends Model
     use HasFactory;
 
     // Bridging table relationship
-    public function topicNode(){
-        return $this->belongsTo(TopicNode::class);
+    public function topic()
+    {
+        return $this->belongsTo(Topic::class);
     }
     public function userFlashCardMetric()
     {

@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\TopicNode;
+use App\Models\Topic;
 use App\Models\Video;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -22,7 +22,7 @@ class FlashCardFactory extends Factory
         return [
             //
             'video_id' => Video::inRandomOrder()->value('id'),
-            'topic_node_id' => TopicNode::inRandomOrder()->value('id'), // Randomly assign an existing video ID to the quiz
+            'topic_id' => Topic::inRandomOrder()->value('id'), // Randomly assign an existing video ID to the quiz
             'type' => $this->faker->randomElement(['flip', 'mcs', 'tf']),
             'difficulty' => $this->faker->randomElement(['easy', 'medium', 'hard']),
             'question'=>Str::random(100),

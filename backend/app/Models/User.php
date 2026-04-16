@@ -92,7 +92,7 @@ public function videos()
      */
     public function topics()
     {
-        return $this->belongsToMany(TopicNode::class, 'user_topics','user_id', 'topic_node_id')
+        return $this->belongsToMany(Topic::class, 'user_topics','user_id', 'topic_id')
             ->withTimestamps();
         // ->withPivot('created_at'); // Include timestamps from the pivot table
     }

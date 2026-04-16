@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TopicNode extends Model
-{
-    /** @use HasFactory<\Database\Factories\TopicNodeFactory> */
-    use HasFactory;
 
-    protected $table = 'topic_nodes';
+class Topic extends Model
+{
+    /** @use HasFactory<\Database\Factories\TopicFactory> */
+    use HasFactory;
+    protected $table = 'topics';
     /**
      * Relationship Models
      */
@@ -42,13 +42,13 @@ class TopicNode extends Model
      */
     public function users()
     {
-        return $this->belongsToMany(User::class, 'user_topics', 'topic_node_id', 'user_id')
+        return $this->belongsToMany(User::class, 'user_topics', 'topic_id', 'user_id')
             ->withTimestamps();
         // ->withPivot('created_at'); // Include timestamps from the pivot table   
     }
     public function videos()
     {
-        return $this->hasMany(Video::class, 'topic_node_id');
+        return $this->hasMany(Video::class, 'topic_id');
     }
 
     // Override the default route key name to use 'slug' instead of 'id'

@@ -18,7 +18,7 @@ class Video extends Model
     // TopicNode Relationship
     public function topic()
     {
-        return $this->belongsTo(TopicNode::class, 'topic_node_id');
+        return $this->belongsTo(Topic::class, 'topic');
     }
     // Video Relationship
     /**

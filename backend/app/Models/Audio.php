@@ -10,8 +10,8 @@ class Audio extends Model
     /** @use HasFactory<\Database\Factories\AudioFactory> */
     use HasFactory;
     // Table Relationship
-    public function topicNode()
+    public function topic()
     {
-        return $this->belongsTo(TopicNode::class);
+        return $this->belongsTo(Topic::class);
     }
 }

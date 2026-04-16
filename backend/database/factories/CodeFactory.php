@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Topic;
 use App\Models\TopicNode;
 use App\Models\Video;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -24,7 +25,7 @@ class CodeFactory extends Factory
             'title' => Str::random(100),
             'language' => 'Python',
             'video_id' => Video::inRandomOrder()->value('id'),
-            'topic_node_id' => TopicNode::inRandomOrder()->value('id'),
+            'topic_id' => Topic::inRandomOrder()->value('id'),
             'code' => "// Grab a 3D vertex from Paul Neale's model and turn it into 4D
 
 Vec4 vertexPos = Vec4(vertex.x, vertex.y, vertex.z, 1);

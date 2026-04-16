@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\TopicNode;
+namespace App\Http\Resources\Topic;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class TopicNodeResourceCollection extends ResourceCollection
+class TopicResourceCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
