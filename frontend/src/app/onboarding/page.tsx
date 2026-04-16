@@ -89,9 +89,9 @@ export default function OnboardingPage() {
             
             {/* Individual */}
             <OnBoardingPersonalDetail />
-            {/* <OnBoardingSelectContent/> */}
-            {/* <OnBoardingLearningPath/> */}
-            {/* <OnBoardingShowProgress/> */}
+            <OnBoardingSelectContent/>
+            <OnBoardingLearningPath/>
+            <OnBoardingShowProgress/>
             {/* Actions */}
             <div className="flex items-center justify-end gap-4 mt-8">
               <button className="bg-slate-700 hover:bg-slate-800 text-white text-sm font-medium px-6 py-2.5 rounded-lg transition-colors">

@@ -27,7 +27,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'username' => $this->username,
             'topics' => TopicNodeResource::collection($this->whenLoaded('topics')),
-
+            'count' => $this->topics->count(),
         ];
     }
 }

@@ -74,7 +74,7 @@ export default function OnBoardingSelectContent() {
             />
             <span className="px-3">Ramblings</span>
           </label>
-          <label htmlFor="audio_bites">
+          {/* <label htmlFor="audio_bites">
             <input
               type="checkbox"
               name="audio_bites"
@@ -82,7 +82,7 @@ export default function OnBoardingSelectContent() {
             />
             <span className="px-3">Audio Bites</span>
           </label>
-          <Input type="checkbox" name="resources" />
+          <Input type="checkbox" name="resources" /> */}
         </div>
       </div>
     </>

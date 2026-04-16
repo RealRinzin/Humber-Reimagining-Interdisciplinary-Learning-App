@@ -13,7 +13,7 @@ export default function DesktopNavigation() {
           </div>
           <ul className='flex gap-5 justify-evenly'>
             <li><a href="/"> <FontAwesomeIcon icon={faHouse} size="1x" /></a></li>
-            <li><a href="/"> <FontAwesomeIcon icon={faAtom} size="1x" /></a></li>
+            <li><a href="/profile/knowledge_map"> <FontAwesomeIcon icon={faAtom} size="1x" /></a></li>
             <li><a href="/"> <FontAwesomeIcon icon={faUser} size="1x" /></a></li>
           </ul>
         </nav>
