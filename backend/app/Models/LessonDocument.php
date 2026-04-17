@@ -13,4 +13,8 @@ class LessonDocument extends Model
     {
         return $this->belongsTo(Topic::class);
     }
+    public function video()
+    {
+        return $this->belongsTo(Video::class);
+    }
 }

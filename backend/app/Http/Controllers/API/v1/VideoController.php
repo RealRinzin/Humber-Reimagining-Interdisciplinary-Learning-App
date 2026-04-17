@@ -16,10 +16,11 @@ class VideoController
      */
     public function index(Request $request)
     {
-        // 
-        return Video::get();
+        // Load
+        $videos = Video::with(['codes', 'documents'])
+            ->paginate();
 
-        // return new VideoResourceCollection(Video::get());
+        return new VideoResourceCollection($videos);
     }
 
     /**
@@ -45,12 +46,10 @@ class VideoController
     // public function show(Video $video)
     public function show(Video $video)
     {
-        // $video = Video::with('videoWatchHistory','userVideo')
-        // ->where('slug', $video->slug)
-        // ->firstOrFail();
-        return new VideoResource($video);
 
-        
+        $video->load(['codes', 'documents'])
+            ->loadCount(['codes', 'documents']);
+        return new VideoResource($video);
     }
 
     /**

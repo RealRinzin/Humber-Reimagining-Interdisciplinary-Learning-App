@@ -25,6 +25,11 @@ class Video extends Model
     public function codes(){
         return $this->hasMany(Code::class);
     }
+
+    // Documents
+    public function documents(){
+        return $this->hasMany(LessonDocument::class);
+    }
     // Video Relationship
     /**
      * Video has many Users
