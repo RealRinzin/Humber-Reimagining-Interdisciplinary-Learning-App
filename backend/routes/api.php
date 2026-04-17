@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\v1\AuthController;
+use App\Http\Controllers\API\v1\CodeController;
 use App\Http\Controllers\API\v1\TopicNodeController;
 use App\Http\Controllers\API\v1\UserController;
 use App\Http\Controllers\API\v1\UserTopicController;
@@ -16,13 +17,13 @@ Route::post('/register', [AuthController::class, 'register']);
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
+Route::middleware(['web','auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 // Route::prefix('v1')->name('v1.')->middleware('auth:sanctum')->group(function () {
 Route::prefix('v1')
     ->name('v1.')
-    ->middleware(['auth:sanctum', 'throttle:1000,1'])
+    ->middleware(['web','auth:sanctum', 'throttle:1000,1'])
     ->group(function () {
         // Route::get('/user', function (Request $request) {
         //     return $request->user();
@@ -47,6 +48,9 @@ Route::prefix('v1')
             Route::post('/topics', 'store')->name('user-topics.store');
             Route::delete('/topics/{topic:id}', 'destroy')->name('user-topics.destroy');
         });
+
+
+        Route::apiResource('codes', CodeController::class)->except(['create', 'edit']);
 
         /**
          * User Videos
@@ -73,20 +77,11 @@ Route::prefix('v1')
          * 
          */
         Route::apiResource('users', UserController::class)->except(['create', 'edit']);
-        // TopicNode
-        Route::controller(TopicNodeController::class)->prefix('nodes')->group(function () {
-            // Index Call
-            Route::get('/', 'index')->name('nodes.index');
-            Route::get('/{id}', 'show')->name('nodes.show');
-        });
-        /**
-         * 
-         * Video Route API Group
-         */
+
         // 
         Route::controller(VideoController::class)->prefix('videos')->group(function () {
             Route::get('/', 'index')->name('videos.index');
-            Route::get('/{video:slug}', 'show')->name('videos.show');
+            Route::get('/{video:id}', 'show')->name('videos.show');
             Route::get('/{video}/users', 'users')->name('videos.users');
         });
 

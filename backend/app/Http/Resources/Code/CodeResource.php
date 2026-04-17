@@ -19,7 +19,7 @@ class CodeResource extends JsonResource
             'id'=>$this->id,
             'title'=>$this->title,
             'language'=>$this->language,
-            // 'video_id'=>$this->video_id,
+            'video_id'=>$this->video_id,
             'code'=>$this->code
         ];
     }

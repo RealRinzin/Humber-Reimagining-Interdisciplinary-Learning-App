@@ -31,6 +31,7 @@ class Topic extends Model
     {
         return $this->hasMany(Quiz::class);
     }
+    // 
     public function flash_cards()
     {
         return $this->hasMany(FlashCard::class);

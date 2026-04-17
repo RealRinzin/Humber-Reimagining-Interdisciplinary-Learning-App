@@ -33,10 +33,7 @@ class VideoResource extends JsonResource
             'thumbnail' => $this->thumbnail,
             'video_url' => $this->video_url,
             'duration' => $this->duration,
-            'user_videos' => $this->userVideos,
-            // 'watch_histories' => VideoWatchHistoryResource::collection($this->whenLoaded('videoWatchHistory')), // getting the watch histories of the video
-            // 'user_video_tracking' => UserVideoProgressResource::collection($this->whenLoaded('userVideoProgress')), // get the is_checked status for the video code, documents, files etc
-            // 'quiz' => QuizResource::collection($this->whenLoaded('quiz')),
+            'codes' => CodeResource::collection($this->codes)
 
         ];
     }

@@ -39,6 +39,7 @@ class CodeController
     public function show(Code $code)
     {
         //
+        return $code;
     }
 
     /**

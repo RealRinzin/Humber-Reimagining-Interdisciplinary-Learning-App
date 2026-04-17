@@ -18,7 +18,12 @@ class Video extends Model
     // TopicNode Relationship
     public function topic()
     {
-        return $this->belongsTo(Topic::class, 'topic');
+        return $this->belongsTo(Topic::class, 'topics');
+    }
+
+    // Codes
+    public function codes(){
+        return $this->hasMany(Code::class);
     }
     // Video Relationship
     /**
