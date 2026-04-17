@@ -15,6 +15,7 @@ class UserVideo extends Model
         'user_id',
         'video_id',
         'last_paused',
+        'completed'
     ];
 
 

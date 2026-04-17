@@ -29,6 +29,6 @@ class UserVideoAnalytic extends Model
      */
     public function userVideo()
     {
-        return $this->belongsTo(UserVideo::class);
+        return $this->belongsTo(UserVideo::class,"'user_video_id'");
     }
 }

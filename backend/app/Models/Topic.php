@@ -31,11 +31,6 @@ class Topic extends Model
     {
         return $this->hasMany(Quiz::class);
     }
-    // 
-    public function flash_cards()
-    {
-        return $this->hasMany(FlashCard::class);
-    }
     /*
      * Get the route key for the model.
      *
@@ -47,6 +42,7 @@ class Topic extends Model
             ->withTimestamps();
         // ->withPivot('created_at'); // Include timestamps from the pivot table   
     }
+    // Videos
     public function videos()
     {
         return $this->hasMany(Video::class, 'topic_id');

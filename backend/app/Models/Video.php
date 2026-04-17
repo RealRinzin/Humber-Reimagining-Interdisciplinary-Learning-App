@@ -22,12 +22,14 @@ class Video extends Model
     }
 
     // Codes
-    public function codes(){
+    public function codes()
+    {
         return $this->hasMany(Code::class);
     }
 
     // Documents
-    public function documents(){
+    public function documents()
+    {
         return $this->hasMany(LessonDocument::class);
     }
     // Video Relationship
@@ -36,9 +38,8 @@ class Video extends Model
      * Video Table relationship with user table
      * Video has many users
      */
-    public function users()
+    public function userVideos()
     {
-        return $this->belongsToMany(User::class, 'user_videos')
-            ->withTimestamps();
+        return $this->hasMany(UserVideo::class);
     }
 }

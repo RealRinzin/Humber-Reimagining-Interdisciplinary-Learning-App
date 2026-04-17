@@ -21,9 +21,9 @@ return new class extends Migration
                 ->constrained('videos')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->time('last_paused')->default(0);
+            $table->integer('last_paused')->default(0);
+            $table->boolean('completed')->default(false);
             $table->timestamps();
-            $table->unique(['user_id', 'video_id']);
         });
     }
 

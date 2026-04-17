@@ -18,17 +18,17 @@ class UserVideoSeeder extends Seeder
         //
         
         //
-        $users = User::all();
-        $videos = Video::all();
+        // $users = User::all();
+        // $videos = Video::all();
 
-        foreach ($users as $user) {
-            $randomVideos = $videos->random(3);
+        // foreach ($users as $user) {
+        //     $randomVideos = $videos->random(3);
 
-            foreach ($randomVideos as $video) {
-                $user->videos()->syncWithoutDetaching([$video->id]);
-            }
-        }
-        // UserVideo::factory(6)->create();
+        //     foreach ($randomVideos as $video) {
+        //         $user->videos()->syncWithoutDetaching([$video->id]);
+        //     }
+        // }
+        UserVideo::factory(6)->create();
 
     }
 }
