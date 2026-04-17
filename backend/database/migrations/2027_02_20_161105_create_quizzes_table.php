@@ -21,13 +21,13 @@ return new class extends Migration
                 ->constrained('videos')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-                $table->string('Question');
-                $table->string('description');
-            // $table->foreignId('user_id')
-            //     ->constrained('users')
-            //     ->onUpdate('cascade')
-            //     ->onDelete('cascade');
+            $table->string('description');
             $table->time('time_limit');
+            $table->string("type");
+            $table->string("difficulty");
+            $table->string("question");
+            $table->string("answer");
+
             $table->timestamps();
         });
     }

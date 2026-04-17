@@ -22,22 +22,14 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class, // Users
             TopicSeeder::class,
             VideoSeeder::class, // Question
-            // UserSavedTopicsSeeder::class, // User Saved Topics
             QuizSeeder::class, // Quiz
-            // QuestionSeeder::class, // Question
-            FlashCardSeeder::class, // Flashcard
             SubtitleSeeder::class, // Subtitles
             LessonDocumentSeeder::class, // Documents
             CodeSeeder::class, // Code
             UserTopicSeeder::class, // User Topics
-            // TopicVideoSeeder::class,
-            // UserTopicMetricSeeder::class, // User Topic Metrics
-            // UserFlashCardMetricSeeder::class, // User Flash card Metrics
-            VideoWatchHistorySeeder::class, // User Video Watch History for tracking 
             // Analytics
-            UserVideoSeeder::class,
-            UserVideoProgressSeeder::class, // User Video Watch History for tracking 
-            // UserVideoAnalyticSeeder::class, // User Video Watch History for tracking 
+            UserVideoSeeder::class, // User last Watch
+            UserVideoAnalyticSeeder::class, // User Video Watch History for tracking 
         ]);
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\API\v1;
+namespace App\Http\Controllers;
 
-use App\Models\VideoWatchHistory;
+use App\Models\UserContentSetting;
 use Illuminate\Http\Request;
 
-class VideoWatchHistoryController
+class UserContentSettingController
 {
     /**
      * Display a listing of the resource.
@@ -34,16 +34,15 @@ class VideoWatchHistoryController
     /**
      * Display the specified resource.
      */
-    public function show(VideoWatchHistory $videoWatchHistory)
+    public function show(UserContentSetting $userContentSetting)
     {
         //
-        return $videoWatchHistory;
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(VideoWatchHistory $videoWatchHistory)
+    public function edit(UserContentSetting $userContentSetting)
     {
         //
     }
@@ -51,7 +50,7 @@ class VideoWatchHistoryController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, VideoWatchHistory $videoWatchHistory)
+    public function update(Request $request, UserContentSetting $userContentSetting)
     {
         //
     }
@@ -59,7 +58,7 @@ class VideoWatchHistoryController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(VideoWatchHistory $videoWatchHistory)
+    public function destroy(UserContentSetting $userContentSetting)
     {
         //
     }

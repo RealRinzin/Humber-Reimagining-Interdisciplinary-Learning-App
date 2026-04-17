@@ -37,7 +37,7 @@ class UserVideoController
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, string $id)
     {
         $userVideo = UserVideo::where('user_id', $request->user()->id)
             ->where('video_id', $id)

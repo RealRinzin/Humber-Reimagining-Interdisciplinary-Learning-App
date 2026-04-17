@@ -9,7 +9,7 @@ export default async function ProfileCirleRing() {
     .map((c) => `${c.name}=${c.value}`)
     .join("; ");
   
-  const res = await fetch('http://localhost:8000/api/v1/nodes', {
+  const res = await fetch('http://localhost:8000/api/v1/users', {
     headers: {
       Cookie: cookieHeader,
       Referer: 'http://localhost:3000', // required for Sanctum stateful check

@@ -11,22 +11,26 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_video_progress', function (Blueprint $table) {
+        Schema::create('user_content_settings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')
                 ->constrained('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('topic_id') // Foreign key referencing the topics table
+                ->constrained('topics')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->foreignId('video_id') // Foreign key referencing the topics table
                 ->constrained('videos')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-                // Check or unchecked status
-            $table->boolean('tldnw','false');
-            $table->boolean('code_section','false');
-            $table->boolean('test_your_knowledge','false');
-            $table->boolean('umer_rambling','false');
-            $table->boolean('resources','false');
+            // Check or unchecked status
+            $table->boolean('tldnw', 'false');
+            $table->boolean('code_section', 'false');
+            $table->boolean('test_your_knowledge', 'false');
+            $table->boolean('umer_rambling', 'false');
+            $table->boolean('resources', 'false');
             $table->timestamps();
         });
     }
@@ -36,6 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_video_progress');
+        Schema::dropIfExists('user_content_settings');
     }
 };

@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Setting;
+use App\Models\UserContentSetting;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Setting>
+ * @extends Factory<UserContentSetting>
  */
-class SettingFactory extends Factory
+class UserContentSettingFactory extends Factory
 {
     /**
      * Define the model's default state.
