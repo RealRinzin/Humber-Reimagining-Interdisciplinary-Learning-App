@@ -2,11 +2,9 @@
 
 use App\Http\Controllers\API\v1\AuthController;
 use App\Http\Controllers\API\v1\CodeController;
-use App\Http\Controllers\API\v1\TopicNodeController;
 use App\Http\Controllers\API\v1\UserController;
 use App\Http\Controllers\API\v1\UserTopicController;
 use App\Http\Controllers\API\v1\UserVideoController;
-use App\Http\Controllers\API\v1\UserVideoProgressController;
 use App\Http\Controllers\API\v1\VideoController;
 use App\Models\UserVideoAnalytic;
 use Illuminate\Http\Request;
@@ -14,16 +12,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class, 'register']);
 // To Get the authentication when first access by the user
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::get('/test', function () {
+    return "This working fine";
+});
 Route::middleware(['web','auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 // Route::prefix('v1')->name('v1.')->middleware('auth:sanctum')->group(function () {
 Route::prefix('v1')
     ->name('v1.')
-    ->middleware(['web','auth:sanctum', 'throttle:1000,1'])
+    ->middleware(['auth:sanctum', 'throttle:1000,1'])
     ->group(function () {
         // Route::get('/user', function (Request $request) {
         //     return $request->user();
@@ -78,10 +76,13 @@ Route::prefix('v1')
          */
         Route::apiResource('users', UserController::class)->except(['create', 'edit']);
 
-        // 
+        // Video Controller
+        // Route::apiResource('codes', VideoController::class)->except(['create', 'edit']);
+
         Route::controller(VideoController::class)->prefix('videos')->group(function () {
             Route::get('/', 'index')->name('videos.index');
             Route::get('/{video:id}', 'show')->name('videos.show');
+            Route::post('/','store')->name('video.store');
             Route::get('/{video}/users', 'users')->name('videos.users');
         });
 
@@ -103,15 +104,6 @@ Route::prefix('v1')
          *  - For the Tabs, we need to use same video's id and authenticated user's detail to check the status of each tab
          *  - For the lesson or overview progress at the right, we need to use more calculation and resource api
          */
-
-
-        // User Video API Controller
-        // Route::get('users/{me}/videos/{video}', [UserController::class, 'videos']);
-        // User Progress 
-        Route::get('/progress', [UserVideoProgressController::class, 'index']);
-        Route::get('/users/{user}/progress/{progress}', [UserVideoProgressController::class, 'user']);
-        // Route::get('/videos/{video}/progress', [UserVideoProgressController::class, 'show']);
-        // Route::get('users/{user:id}/videos/{video}/progress', [UserVideoProgressController::class, 'show']);
 
         /**
          *

@@ -20,16 +20,16 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class, // Roles
             UserSeeder::class, // Users
-            TopicSeeder::class,
+            TopicSeeder::class, // Key component
             VideoSeeder::class, // Question
-            QuizSeeder::class, // Quiz
-            SubtitleSeeder::class, // Subtitles
+            QuizSeeder::class, // Quiz for the topic or vidoes
+            SubtitleSeeder::class, // Subtitles for the videos
             LessonDocumentSeeder::class, // Documents
-            CodeSeeder::class, // Code
+            CodeSeeder::class, // Code for the topics or videos
             UserTopicSeeder::class, // User Topics
-            // Analytics
-            UserVideoSeeder::class, // User last Watch
-            UserVideoAnalyticSeeder::class, // User Video Watch History for tracking 
+            UserVideoSeeder::class, // User last Watch tracking record
+            // Analytics 
+            UserVideoAnalyticSeeder::class, // User Video Watch History for tracking for each video of the user
         ]);
     }
 }

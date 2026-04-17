@@ -10,6 +10,22 @@ class Video extends Model
     /** @use HasFactory<\Database\Factories\VideoFactory> */
     use HasFactory;
 
+        /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $fillable = [
+        'title',
+        'slug',
+        'topic_id',
+        'parent_id',
+        'thumbnail',
+        'video_url',
+        'duration',
+        'description'
+    ];
+
     public function getRouteKeyName()
     {
         return 'slug';

@@ -1,7 +1,7 @@
 <?php
 namespace App\DTOs\Code;
 
-class CreateVideoDTO {
+class CreateCodeDTO {
     public function __construct(
         public readonly ?int $id,
         public readonly ?string $title,
