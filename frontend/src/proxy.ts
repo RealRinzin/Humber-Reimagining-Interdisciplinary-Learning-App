@@ -18,6 +18,7 @@ async function isAuthenticated(request: NextRequest): Promise<boolean> {
                 Accept: "application/json"
             }
         })
+        console.log(res)
         if (!res.ok) return false;
         return true;
 

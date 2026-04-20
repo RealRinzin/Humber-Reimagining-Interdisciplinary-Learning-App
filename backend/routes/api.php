@@ -15,6 +15,13 @@ Route::get('/test', function () {
     return "This working fine";
 });
 
+Route::get('/debug-session', function (Request $request) {
+    return [
+        'session_id'    => session()->getId(),
+        'sanctum_user'  => auth('sanctum')->user(),
+        'session_data'  => session()->all(),
+    ];
+});
 // Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 
@@ -26,17 +33,20 @@ Route::prefix('v1')
     });
 
 
-// =============== Authorized Protected API | Session Token ===============================| 
-
-Route::middleware(['web', 'auth:sanctum'])->get('/user', function (Request $request) {
+// Get Logged User session or Token for proxy and middleware
+Route::middleware(['web','auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
+// =============== Authorized Protected API | Session Token ===============================| 
+
+
 // Route::prefix('v1')->name('v1.')->middleware('auth:sanctum')->group(function () {
 Route::prefix('v1')
     ->name('v1.')
     ->middleware(['auth:sanctum', 'throttle:1000,1'])
     ->group(function () {
         // =============== User Logout | Registeration ===============================| 
+        // Route::get('/user', fn(Request $request) => $request->user());
         Route::post('/register', [AuthController::class, 'register']);
         Route::post('/logout', [AuthController::class, 'logout']);
         // Route::get('/user', function (Request $request) {
@@ -52,7 +62,6 @@ Route::prefix('v1')
          * }
          */
 
-        // User Topics
         /**
          * USER TOPICS 
          */
