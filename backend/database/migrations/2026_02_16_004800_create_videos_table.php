@@ -26,7 +26,7 @@ return new class extends Migration
                 ->on('videos');
             $table->string('thumbnail');// Add this line for the thumbnail column
             $table->string('video_url'); // Add this line for the video_url column
-            $table->time('duration'); // Add this line for the duration column
+            $table->integer('duration'); // Add this line for the duration column
             $table->text('description'); // Add this line for the description column
             // Timestamp
             $table->timestamps();

@@ -29,9 +29,15 @@ class UserVideoController
     public function index(User $user)
     {
         // The user can only access their own watched videos, so we will check if the authenticated user is the same as the user in the route parameter
-        // if (auth()->id() !== $user->id) {
-        //     return response()->json(['message' => 'Unauthorized'], 403);
-        // }
+        // If the authenticated user is not the same as the user in the route parameter, we will return a 403 forbidden response
+        /**
+         * IMPORTANT: We need to check if the authenticated user is the same as the user in the route parameter, otherwise we will return a 403 forbidden response, because we don't want the user to access other user's watched videos
+         */
+        // abort_if(auth()->id() !== $user->id, 403);
+
+        if (auth()->id() !== $user->id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
         // We will return the list of videos that the user has watched, along with the watched_at timestamp, and the video details (title, description, etc.)
         return UserVideoResource::collection($user->userVideos()->with('video')->get());
     }
@@ -45,7 +51,7 @@ class UserVideoController
     // The response will return the user video record, and the status code will be 201 if the record was created, or 200 if the record was updated
     /**
      * @return \Illuminate\Http\Response
-     */ 
+     */
     public function store(CreateUpdateRequest $request, CreateUpdateUserVideoAction $action)
     {
         $userVideo = $action->execute(CreateUpdateUserVideoDTO::fromRequest($request), $request->user()->id);
