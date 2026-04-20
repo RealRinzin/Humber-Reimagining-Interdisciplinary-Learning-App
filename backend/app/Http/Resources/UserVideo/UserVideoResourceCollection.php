@@ -14,6 +14,15 @@ class UserVideoResourceCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        // return parent::toArray($request);
+        // return [
+        //     'data'  => $this->collection,
+        //     'total' => $this->collection->count(),
+        //     'links' => ['self' => 'link-value'],
+        // ];
+        return [
+            'data'  => $this->collection,
+            'total' => $this->resource->count(),
+        ];
     }
 }

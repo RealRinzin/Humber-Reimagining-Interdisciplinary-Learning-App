@@ -19,9 +19,9 @@ class UserVideoResource extends JsonResource
          * This API will return the list of videos that the user has watched
          */
         return [
-            'id' => $this->id,
-            'user_id' => $this->user_id,
-            'video_id' => $this->video_id,
+            'id' => $this->id, // This is the id of the user video record, not the video id
+            'user_id' => $this->user_id, // This is the id of the user who watched the video
+            'video_id' => $this->video_id, // This is the id of the video that was watched
             'videos' => $this->whenLoaded('video', function () {
                 return [
                     'title' => $this->video->title,

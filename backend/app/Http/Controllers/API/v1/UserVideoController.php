@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\v1;
 use App\Actions\UserVideo\CreateUpdateUserVideoAction;
 use App\DTOs\UserVideo\CreateUpdateUserVideoDTO;
 use App\Http\Requests\UserVideo\CreateUpdateRequest;
+use App\Http\Resources\User\UserResourceCollection;
 use App\Http\Resources\UserVideo\UserVideoResource;
 use App\Models\User;
 use App\Models\UserVideo;
@@ -39,7 +40,10 @@ class UserVideoController
             return response()->json(['message' => 'Unauthorized'], 403);
         }
         // We will return the list of videos that the user has watched, along with the watched_at timestamp, and the video details (title, description, etc.)
-        return UserVideoResource::collection($user->userVideos()->with('video')->get());
+        // 
+        return UserVideoResource::collection($user->userVideos()->with('video')->get())->additional([
+            'total' => $user->userVideos()->count(),
+        ]);
     }
 
     /**
