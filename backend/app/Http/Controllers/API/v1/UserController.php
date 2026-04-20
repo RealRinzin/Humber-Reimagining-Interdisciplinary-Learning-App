@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers\API\v1;
 
-use App\Http\Resources\TopicNode\TopicNodeResource;
 use App\Http\Resources\User\UserResource;
-use App\Http\Resources\UserVideo\UserVideoResource;
-use App\Models\TopicNode;;
-
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,9 +14,7 @@ class UserController
      */
     public function index()
     {
-        
-        // Check if user_videos has data
-        // TopicNode::first();
+
         $users = User::with(['topics', 'videos.topic'])->get();
         return UserResource::collection($users);
     }
@@ -42,12 +36,6 @@ class UserController
     {
 
         $user = User::with(['topics'])->findOrFail($user->id);
-        return new UserResource($user);
-
-        $user = $request->user();
-        $user->load('topicNodes');
-        return new UserResource($user);
-        $user->load(['userTopics.topicNode']);
         return new UserResource($user);
     }
 
@@ -87,12 +75,12 @@ class UserController
         // );
         // $video->load('videoWatchHistory', 'userVideoProgress'); // eager load relationship on the model instance
         // return new VideoResource($video); // return as a resource
-        return UserVideoResource::collection(
-            $request->user()
-                ->videoWatchHistory()
-                ->with('video')  // eager load parent video
-                ->get()
-        );
+        // return UserVideoResource::collection(
+        //     $request->user()
+        //         ->videoWatchHistory()
+        //         ->with('video')  // eager load parent video
+        //         ->get()
+        // );
     }
 
 

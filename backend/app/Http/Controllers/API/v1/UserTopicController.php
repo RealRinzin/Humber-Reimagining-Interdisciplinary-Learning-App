@@ -3,12 +3,8 @@
 namespace App\Http\Controllers\API\v1;
 
 use App\Http\Resources\Topic\TopicResource;
-use App\Http\Resources\TopicNode\TopicNodeResource;
-use App\Http\Resources\UserTopic\UserTopicResource;
 use App\Models\Topic;
-use App\Models\TopicNode;
 use App\Models\User;
-use App\Models\UserTopic;
 use Illuminate\Http\Request;
 
 class UserTopicController
@@ -16,10 +12,10 @@ class UserTopicController
     /**
      * Display a listing of the resource.
      */
-    public function index(User $user)
+    public function index(User $me)
     {
         // 
-        return TopicResource::collection($user->topics);
+        return TopicResource::collection($me->topics);
     }
 
     /**

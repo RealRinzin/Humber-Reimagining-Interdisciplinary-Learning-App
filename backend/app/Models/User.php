@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
+    // use HasFactory; use HasFactory, Notifiable;
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -48,30 +49,29 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    // Role table relationship
+    // Role Relationship
     /**
      * User belongs to one Role
-     * User Table relationship with role table
-     * User has many roles
-     */
-
+     * User Table relationship with roles table
+     * Role has many User
+     * */
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
-    // Video table relationship
+
+
+    // UserVideo Relationship
     /**
-     * User has many Videos
-     * User Table relationship with video table
-     * User has many videos
+     * User has many UserVideo
+     * User Table relationship with user_video table
+     * UserVideo belongs to one User
+     * UserVideo belongs to one Video
      */
-
-
     public function userVideos()
     {
         return $this->hasMany(UserVideo::class);
     }
-
     // User Topic Relations
     /**
      * User has many UserTopic
@@ -81,8 +81,8 @@ class User extends Authenticatable
      */
     public function topics()
     {
-        return $this->belongsToMany(Topic::class, 'user_topics', 'user_id', 'topic_id')
-            ->withTimestamps();
+        return $this->belongsToMany(Topic::class, 'user_topics', 'user_id', 'topic_id') // User belongs to many Topic through user_topics pivot table
+            ->withTimestamps(); // Include timestamps from the pivot table
         // ->withPivot('created_at'); // Include timestamps from the pivot table
     }
 }

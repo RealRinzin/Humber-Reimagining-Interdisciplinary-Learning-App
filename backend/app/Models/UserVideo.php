@@ -25,7 +25,7 @@ class UserVideo extends Model
      * UserVideo Table relationship with user table
      * User has many UserVideo
      */
-    public function user() // UserVideo belongs to one User
+    public function users() // UserVideo belongs to one User
     {
         return $this->belongsTo(User::class);
     }
@@ -36,7 +36,7 @@ class UserVideo extends Model
      * Video has many UserVideo
      * */
 
-    public function video()
+    public function videos()
     {
         return $this->belongsTo(Video::class); // UserVideo belongs to one Video
     }

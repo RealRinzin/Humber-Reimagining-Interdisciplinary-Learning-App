@@ -10,7 +10,7 @@ class Video extends Model
     /** @use HasFactory<\Database\Factories\VideoFactory> */
     use HasFactory;
 
-        /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
@@ -30,30 +30,51 @@ class Video extends Model
     {
         return 'slug';
     }
-    // Relationship Tables
-    // TopicNode Relationship
+    // Topic Relationship
+    // A video belongs to one topic
+    // Video Table relationship with topics table
+    // Topic has many videos
+    /**
+     * Video belongs to one Topic
+     * Video Table relationship with topics table
+     * Topic has many videos
+     * */
     public function topic()
     {
         return $this->belongsTo(Topic::class, 'topics');
     }
-
-    // Codes
+    // Code Relationship
+    // A video can have many codes
+    // Video Table relationship with codes table
+    // Code belongs to one Video
+    /**
+     * Video has many Code
+     * Video Table relationship with codes table
+     * Code belongs to one Video
+     * */
     public function codes()
     {
         return $this->hasMany(Code::class);
     }
-
-    // Documents
+    // LessonDocument Relationship
+    // A video can have many lesson documents
+    // Video Table relationship with lesson_documents table
+    // LessonDocument belongs to one Video
+    /**
+     * Video has many LessonDocument
+     * Video Table relationship with lesson_documents table
+     * LessonDocument belongs to one Video
+     * */
     public function documents()
     {
         return $this->hasMany(LessonDocument::class);
     }
-    // Video Relationship
+    // UserVideo Relationship
     /**
-     * Video has many Users
-     * Video Table relationship with user table
-     * Video has many users
-     */
+     * Video has many UserVideo
+     * Video Table relationship with user_video table
+     * UserVideo belongs to one Video
+     * */
     public function userVideos()
     {
         return $this->hasMany(UserVideo::class);
