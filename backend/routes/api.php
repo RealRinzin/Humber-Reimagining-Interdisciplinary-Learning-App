@@ -22,15 +22,15 @@ Route::get('/debug-session', function (Request $request) {
         'session_data'  => session()->all(),
     ];
 });
-// =============== User Login ===============================| 
-// This API is open to public but it will be rate limited by the throttle middleware
+
+// This API will be used for user login and it will return the user data and token for the user to access the protected API
+// The API will be accessed by the frontend when the user tries to login and it will return the user data and token for the user to access the protected API
 /**
  * IMPORTANT API
- * /api/v1/login // This API will be used for user login and it will
- * return the user data and token for the user to access the protected API
- * {
- * id,name,username,role_id,token
- * }
+ * /api/v1/login // This API will be used for user login and it will return the user data and token for the user to access the protected API
+ * /api/v1/register // This API will be used for user registration and it will return the user data and token for the user to access the protected API
+ * /api/v1/logout // This API will be used for user logout and it will revoke the token of the user and it will return a success message   
+ * 
  */
 Route::prefix('v1')
     ->name('v1.')
@@ -112,11 +112,14 @@ Route::prefix('v1')
          * /api/v1/user-videos/users/{user}/videos // This API will add a video to the user
          * /api/v1/user-videos/users/{user}/videos/{video:id} // This API will remove a video from the user 
          */
-        Route::controller(UserVideoController::class)->prefix('user-videos/users/{user}')->group(function () {
-            Route::get('/videos', 'index')->name('user-videos.index');
-            Route::post('/videos', 'store')->name('user-videos.store');
-            Route::delete('/videos/{video:id}', 'destroy')->name('user-videos.destroy');
-        });
+        Route::controller(UserVideoController::class)->prefix('user-videos/users/{user}/videos')
+            ->group(function () {
+                Route::get('/', 'index')->name('user-videos.index'); // This API will be used to get the videos of the user and also to add or remove videos from the user
+                Route::post('/', 'store')->name('user-videos.store'); // This API will be used to create or update the user video record when the user watches a video
+                Route::patch('/{userVideo:id}', 'update')->name('user-videos.update'); // This API will be used to update the watched_at timestamp of the user video record when the user watches a video again
+                // Route::delete('/{userVideo:id}', 'destroy')->name('user-videos.destroy');
+            });
+
         // === Code Controller ==
         // This API will be used to get the codes of the user and also to add or remove codes from the user
         // GET /api/v1/codes/users/{user}/codes // This API will return the codes of the user
@@ -130,7 +133,6 @@ Route::prefix('v1')
          * /api/v1/codes/users/{user}/codes/{code:id} // This API will remove a code from the user 
          */
         Route::apiResource('codes', CodeController::class)->except(['create', 'edit']);
-
 
         // === Video Controller ==
         // This API will be used to get the videos and also to add or remove videos from the user
@@ -152,5 +154,4 @@ Route::prefix('v1')
             Route::post('/', 'store')->name('video.store');
             Route::get('/{video}/users', 'users')->name('videos.users');
         });
-
     });

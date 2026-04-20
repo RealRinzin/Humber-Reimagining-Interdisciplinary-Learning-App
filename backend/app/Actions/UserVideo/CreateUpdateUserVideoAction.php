@@ -12,13 +12,21 @@ class CreateUpdateUserVideoAction
 
 
         return UserVideo::updateOrCreate(
-            [
-                'last_paused' => $dto->last_paused ?? '0:0',
-                'video_id' => $dto->video_id,
-            ],
-            [
-                'user_id' => $userId,
-            ]
+                [
+                    'video_id' => $dto->video_id,
+                    'user_id' => $userId,
+                ],
+                [
+                    'last_paused' => $dto->last_paused ?? '0:0',
+                    'completed' => $dto->completed ?? false,
+                ]
+            // [
+            //     'last_paused' => $dto->last_paused ?? '0:0',
+            //     'video_id' => $dto->video_id,
+            // ],
+            // [
+            //     'user_id' => $userId,
+            // ]
         );
     }
 }

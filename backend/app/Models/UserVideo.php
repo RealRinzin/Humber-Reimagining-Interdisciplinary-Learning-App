@@ -12,8 +12,8 @@ class UserVideo extends Model
 
     // fillable fields
     protected $fillable = [
-        'user_id',
         'video_id',
+        'user_id',
         'last_paused',
         'completed'
     ];
@@ -25,7 +25,7 @@ class UserVideo extends Model
      * UserVideo Table relationship with user table
      * User has many UserVideo
      */
-    public function users() // UserVideo belongs to one User
+    public function user() // UserVideo belongs to one User
     {
         return $this->belongsTo(User::class);
     }
@@ -35,8 +35,7 @@ class UserVideo extends Model
      * UserVideo Table relationship with video table
      * Video has many UserVideo
      * */
-
-    public function videos()
+    public function video()
     {
         return $this->belongsTo(Video::class); // UserVideo belongs to one Video
     }

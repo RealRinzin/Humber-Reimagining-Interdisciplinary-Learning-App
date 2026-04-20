@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 use App\Http\Resources\Code\CodeResource;
-use App\Http\Resources\FlashCard\FlashCardResource;
 use App\Http\Resources\LessonDocument\LessonDocumentResource;
 use App\Http\Resources\Quiz\QuizResource;
 use App\Http\Resources\Video\VideoResource;
@@ -25,7 +24,6 @@ class TopicResource extends JsonResource
             'videos' => VideoResource::collection($this->whenLoaded('videos')),
             'codes' => CodeResource::collection($this->whenLoaded('codes')),
             'documents' => LessonDocumentResource::collection($this->whenLoaded('documents')),
-            'flash_cards' => FlashCardResource::collection($this->whenLoaded('flash_cards')),
             'quizees' => QuizResource::collection($this->whenLoaded('quizees'))
         ];
     }

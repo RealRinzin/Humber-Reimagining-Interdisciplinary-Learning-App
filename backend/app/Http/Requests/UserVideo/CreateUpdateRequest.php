@@ -14,8 +14,10 @@ class CreateUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'video_id'     => ['required', 'integer', 'exists:videos,id'],
-            'last_paused' => ['nullable', 'string'],
+            'video_id'     => ['required', 'integer' ],
+            'user_id'      => ['required', 'integer'],
+            'last_paused' => ['required', 'integer'],
+            'completed'   => ['required', 'boolean'],   
         ];
     }
 
@@ -24,8 +26,12 @@ class CreateUpdateRequest extends FormRequest
         return [
             'video_id.required'  => 'Video ID is required.',
             'video_id.integer'   => 'Video ID must be an integer.',
-            'video_id.exists'    => 'The specified video does not exist.',
-            'last_paused.string' => 'Watch minute must be a string.',
+            'user_id.required'   => 'User ID is required.',
+            'user_id.integer'    => 'User ID must be an integer.',
+            'last_paused.required' => 'Watch minute is required.',  
+            'last_paused.integer'  => 'Watch minute must be an integer.',
+            'completed.required'   => 'Completed status is required.',
+            'completed.boolean'    => 'Completed status must be a boolean value.',
         ];
     }
 }

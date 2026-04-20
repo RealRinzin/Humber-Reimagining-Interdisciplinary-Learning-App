@@ -12,10 +12,19 @@ class UserTopicController
     /**
      * Display a listing of the resource.
      */
-    public function index(User $me)
+    // This API will return the list of topics for a specific user
+    // GET /api/v1/user-topics/users/{user}/topics
+    // The API will return the user data and the topic data
+    public function index(User $user)
     {
-        // 
-        return TopicResource::collection($me->topics);
+        // return $user->topics; // return the topics of the user
+        /** Eager Loading
+         * Eager loading is a powerful technique in Laravel that allows you to load related models along with the main model in a single query. This can significantly improve performance by reducing the number of database queries needed to retrieve related data.
+         * In this case, we are eager loading the 'topics' relationship on the User model. This means that when we retrieve the user, we also retrieve all of their associated topics in one query, rather than making separate queries for each topic.
+         * By using eager loading, we can avoid the N+1 query problem, where N is the number of related records. Instead of executing one query to get the user and then N additional queries to get each topic, we execute just two queries: one for the user and one for all related topics.
+         */
+        $user = User::with(['topics'])->findOrFail($user->id);
+        return TopicResource::collection($user->topics);
     }
 
     /**

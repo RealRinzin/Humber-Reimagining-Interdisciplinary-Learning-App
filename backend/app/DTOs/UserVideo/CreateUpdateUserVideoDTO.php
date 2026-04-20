@@ -12,7 +12,9 @@ class CreateUpdateUserVideoDTO
      */
     public function __construct(
         public readonly ?int $video_id,
+        public readonly ?int $user_id,
         public readonly ?string $last_paused,
+        public readonly ?bool $completed,
     ) {}
 
     /**
