@@ -6,16 +6,29 @@ use App\Http\Controllers\API\v1\UserController;
 use App\Http\Controllers\API\v1\UserTopicController;
 use App\Http\Controllers\API\v1\UserVideoController;
 use App\Http\Controllers\API\v1\VideoController;
-use App\Models\UserVideoAnalytic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-Route::post('/register', [AuthController::class, 'register']);
+// 
+// 
 // To Get the authentication when first access by the user
 Route::get('/test', function () {
     return "This working fine";
 });
-Route::middleware(['web','auth:sanctum'])->get('/user', function (Request $request) {
+
+// Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
+
+// =============== User Login ===============================| 
+Route::prefix('v1')
+    ->name('v1.')
+    ->group(function () {
+        Route::post('/login', [AuthController::class, 'login']);
+    });
+
+
+// =============== Authorized Protected API | Session Token ===============================| 
+
+Route::middleware(['web', 'auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 // Route::prefix('v1')->name('v1.')->middleware('auth:sanctum')->group(function () {
@@ -23,6 +36,9 @@ Route::prefix('v1')
     ->name('v1.')
     ->middleware(['auth:sanctum', 'throttle:1000,1'])
     ->group(function () {
+        // =============== User Logout | Registeration ===============================| 
+        Route::post('/register', [AuthController::class, 'register']);
+        Route::post('/logout', [AuthController::class, 'logout']);
         // Route::get('/user', function (Request $request) {
         //     return $request->user();
         // });
@@ -82,7 +98,7 @@ Route::prefix('v1')
         Route::controller(VideoController::class)->prefix('videos')->group(function () {
             Route::get('/', 'index')->name('videos.index');
             Route::get('/{video:id}', 'show')->name('videos.show');
-            Route::post('/','store')->name('video.store');
+            Route::post('/', 'store')->name('video.store');
             Route::get('/{video}/users', 'users')->name('videos.users');
         });
 
@@ -94,37 +110,4 @@ Route::prefix('v1')
             Route::get('/{userVideo}', 'show')->name('user_video.show');
             Route::post('/', 'store')->name('user_videos.store');
         });
-
-
-
-        /**
-         * NOTES
-         *  - When user clicked or landed on any video topic, we only need to user the video api (api/v1/videos/{video:id} - with its code,document stuff)
-         *  - For the progress bar at the left, we need to use the video's and logged's id to fetch the details
-         *  - For the Tabs, we need to use same video's id and authenticated user's detail to check the status of each tab
-         *  - For the lesson or overview progress at the right, we need to use more calculation and resource api
-         */
-
-        /**
-         *
-         *  USER VIDEO ANALYTIC
-         * API ENDPOINTS
-         * 
-         */
-        Route::controller(UserVideoAnalytic::class)->group(function () {
-            // Route::post('/user_video_analytic', [UserVideoAnalyticController::class, 'store']);
-        });
-        /**
-         * 
-         * ----------- TEST API BELOW----------------
-         * User With Video API with its code, document 
-         * 
-         */
-        // // API for the all videos resources of the User
-        // Route::get('/users/{user}/videos', [UserController::class, 'index']); // This is for all the video of the user
-        // API for the specific video resources of the User
-        // Route::get('/users/{user}/videos/{video}', [UserController::class, 'index']);
-
-        // Logout
-        // Route::post('/logout', [AuthController::class, 'logout']);
     });

@@ -14,7 +14,7 @@ export async function login(username: string, password: string): Promise<LoginDT
     // Step 1 — get CSRF token from the browser for authentication
     await getCsrfCookie();
     // Step 2 — login
-    const res = await fetch(`${API_URL}/login`, {
+    const res = await fetch(`${API_URL}/api/login`, {
         method: 'POST',
         credentials: 'include',
         headers: {

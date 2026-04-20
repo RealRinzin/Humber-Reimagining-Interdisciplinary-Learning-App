@@ -39,7 +39,6 @@ export const useAuth = () => {
             // if (data.token) {
             //     localStorage.setItem("token", data.token)
             // }
-
             return data
 
         } catch (err: any) {
