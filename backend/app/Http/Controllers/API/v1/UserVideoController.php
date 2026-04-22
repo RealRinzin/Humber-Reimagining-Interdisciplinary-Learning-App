@@ -5,13 +5,8 @@ namespace App\Http\Controllers\API\v1;
 use App\Actions\UserVideo\CreateUpdateUserVideoAction;
 use App\DTOs\UserVideo\CreateUpdateUserVideoDTO;
 use App\Http\Requests\UserVideo\CreateUpdateRequest;
-use App\Http\Resources\User\UserResourceCollection;
 use App\Http\Resources\UserVideo\UserVideoResource;
 use App\Models\User;
-use App\Models\UserVideo;
-use Illuminate\Http\Request;
-
-use function Pest\Laravel\get;
 
 class UserVideoController
 {
@@ -56,9 +51,18 @@ class UserVideoController
     /**
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateUpdateRequest $request, CreateUpdateUserVideoAction $action)
+    public function store(CreateUpdateRequest $request, CreateUpdateUserVideoAction $action,User $user)
     {
-        $userVideo = $action->execute(CreateUpdateUserVideoDTO::fromRequest($request), $request->user()->id);
+        // The user can only create or update their own watched videos, so we will check if the authenticated user is the same as the user in the route parameter
+        // If the authenticated user is not the same as the user in the route parameter, we will return a 403 forbidden response
+        /**
+         * IMPORTANT: We need to check if the authenticated user is the same as the user in the route parameter, otherwise we will return a 403 forbidden response, because we don't want the user to create or update other user's watched videos
+         */
+
+        if (auth()->id() !== $user->id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+        $userVideo = $action->execute(CreateUpdateUserVideoDTO::fromRequest($request));
         return response()->json($userVideo, $userVideo->wasRecentlyCreated ? 201 : 200);
     }
 }

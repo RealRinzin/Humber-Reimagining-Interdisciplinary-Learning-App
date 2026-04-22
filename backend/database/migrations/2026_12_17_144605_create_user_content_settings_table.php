@@ -17,20 +17,17 @@ return new class extends Migration
                 ->constrained('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignId('topic_id') // Foreign key referencing the topics table
-                ->constrained('topics')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->foreignId('video_id') // Foreign key referencing the topics table
-                ->constrained('videos')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            // Check or unchecked status
-            $table->boolean('tldnw')->default(false);
-            $table->boolean('code_section')->default(false);
-            $table->boolean('test_your_knowledge')->default(false);
-            $table->boolean('umer_rambling')->default(false);
-            $table->boolean('resources')->default(false);
+            // Content Selection
+            $table->boolean('video')->default(false); 
+            $table->boolean('code')->default(false);
+            $table->boolean('quiz')->default(false);
+            $table->boolean('interactive')->default(false);
+            // Learning Path
+            $table->boolean('explore_mode')->default(false);
+            $table->boolean('guide_path')->default(false);
+            // Progress show
+            $table->boolean('progress')->default(false);
+
             $table->timestamps();
         });
     }

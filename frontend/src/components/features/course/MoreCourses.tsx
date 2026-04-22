@@ -1,22 +1,22 @@
-import { faArrowRight, faCircleArrowRight, faPlay } from '@fortawesome/free-solid-svg-icons'
+import {faCircleArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
 import VideoCard from '../../ui/video/VideoCard'
 async function getAllVideos() {
   const res = await fetch(`${process.env.API_BASE_URL}/videos`, {
+    
     headers: {
       Authorization: `Bearer ${process.env.API_TOKEN}`,
     },
   })
+  console.log(res)
   if (!res.ok) {
     throw new Error("Failed to fetch videos")
   }
   return res.json()
 }
 export default async function MoreCourses() {
-  const videos = await getAllVideos();
+  const {data} = await getAllVideos();
+  console.log(data)
   return (
 
     <>
@@ -24,7 +24,7 @@ export default async function MoreCourses() {
       <p className='py-4 text-slate-500'>Ready to learn more? Check out these suggested modules</p>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
         {
-          videos.map((video: any, index: number) => (
+          data.map((video: any, index: number) => (
            
             <div className='my-2' key={index} >
               {/* <div className='relative'>

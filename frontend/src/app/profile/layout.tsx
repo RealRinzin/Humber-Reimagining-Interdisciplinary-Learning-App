@@ -1,3 +1,4 @@
+'use client'
 import Footer from "@/components/layout/Footer";
 import DesktopNavigation from "@/components/ui/navigation/Desktop";
 import { Inter } from "next/font/google";
@@ -9,6 +10,7 @@ export default function ProfileLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
+
     <>
       <DesktopNavigation />
       {children}

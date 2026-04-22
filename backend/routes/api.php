@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 // 
 // 
 // To Get the authentication when first access by the user
+//
 Route::get('/test', function () {
     return "This working fine";
 });
@@ -150,7 +151,7 @@ Route::prefix('v1')
          */
         Route::controller(VideoController::class)->prefix('videos')->group(function () {
             Route::get('/', 'index')->name('videos.index');
-            Route::get('/{video:id}', 'show')->name('videos.show');
+            Route::get('/{video:slug}', 'show')->name('videos.show');
             Route::post('/', 'store')->name('video.store');
             Route::get('/{video}/users', 'users')->name('videos.users');
         });

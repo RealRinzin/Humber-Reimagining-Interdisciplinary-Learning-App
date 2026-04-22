@@ -1,18 +1,22 @@
+'use client'
 import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
 // import TabProgressBar from "@/components/ui/progress/Tab";
 import TabHorizontal from "@/components/ui/progress/TabHorizontal";
-import { cookies } from "next/headers";
+import { useEffect, useState } from "react";
+export default  function KnowledgeMapPage() {
+ const [data, setData] = useState(null);
 
-export default async function KnowledgeMapPage() {
-  // const cookieStore = await cookies();
-
-  // const res = await fetch("http://localhost:8000/api/v1/users", {
-  //   headers: {
-  //     Cookie: cookieStore.toString(), // 🔥 important
-  //   },
-  //   cache: "no-store",
-  // });
-  // const user = await res.json();
+    useEffect(() => {
+        fetch('http://localhost:8000/api/v1/videos', {
+            credentials: 'include', // browser handles cookies + referer automatically
+            headers: {
+                Accept: 'application/json',
+            },
+        })
+            .then(res => res.json())
+            .then(data => setData(data));
+    }, []);
+    console.log(data)
   return (
     <>
       <main className="grid grid-cols-6">

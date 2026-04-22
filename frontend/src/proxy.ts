@@ -43,7 +43,7 @@ async function isAuthenticated(request: NextRequest): Promise<boolean> {
                 Accept: "application/json"
             }
         })
-        console.log(res)
+        // console.log(res)
         if (!res.ok) return false; // if the response is not successful (e.g., if it returns a 401 Unauthorized status), we return false, indicating that the user is not authenticated.
         return true; // if the response is successful (i.e., the user is authenticated), we return true.
 

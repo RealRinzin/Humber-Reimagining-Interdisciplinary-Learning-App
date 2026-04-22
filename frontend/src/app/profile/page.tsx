@@ -7,27 +7,35 @@ import TabProgressBar from "@/components/ui/progress/Tab";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 
-// async function getVideos() {
-//   // const res = await fetch(`${process.env.API_BASE_URL}/videos/intro-to-space`, {
-//   const res = await fetch(`${process.env.API_BASE_URL}/users/1`, {
-//     headers: {
-//       Authorization: `Bearer ${process.env.API_TOKEN}`,
-//     },
-//   });
-//   if (!res.ok) {
-//     if (res.status === 404) notFound();
-//     throw new Error("Failed to fetch videos");
-//   }
-//   // console.log(res.json())
-//   return res.json();
-// }
-
 /**
  *
  * @returns
  */
 export default async function ProfilePage() {
-  // const data = await getVideos();
+  //
+  const cookieStore = await cookies();
+  const cookieHeader = cookieStore
+    .getAll()
+    .map((c) => `${c.name}=${c.value}`)
+    .join("; ");
+  // 👇 get and decode the XSRF token
+  const xsrfToken = cookieStore.get("XSRF-TOKEN")?.value ?? "";
+  const decodedXsrf = decodeURIComponent(xsrfToken);
+  console.log("All cookies:", cookieStore.getAll()); // 👈 add this
+  // Function
+  const res = await fetch("http://localhost:8000/api/v1/videos", {
+    headers: {
+      Accept: "application/json",
+      Cookie: cookieHeader, // forward cookies manually
+      "X-XSRF-TOKEN": decodedXsrf, // 👈 add this
+      Referer: "http://localhost:3000", // 👈 add this
+    },
+    cache: "no-store",
+  });
+
+  const data = await res.json();
+  console.log(data);
+  // Return page
   return (
     <div className="grid grid-cols-3 gap-4 m-10">
       <div className="col-span-2">

@@ -3,6 +3,7 @@
 namespace App\Actions\UserVideo;
 
 use App\DTOs\UserVideo\CreateUpdateUserVideoDTO;
+use App\Models\User;
 use App\Models\UserVideo;
 
 class CreateUpdateUserVideoAction
@@ -20,47 +21,64 @@ class CreateUpdateUserVideoAction
             ->where('user_id', auth()->id())
             ->latest() // orders by created_at DESC
             ->first();
-        // If the user has already completed the video, we will not update the record, because we don't want to change the completed status of the video, and we will return the record as-is, otherwise we will update or create the record with the new data, and we will return the updated or created record
-        if ($lastVideo->last_paused !== $dto->last_paused) {
-            // $lastVideo->update([
-            //     'completed' => true,
-            // ]);
-            // return $lastVideo;
-            return UserVideo::updateOrCreate(
-                [
-                    'video_id' => $dto->video_id,
-                    'user_id' => auth()->id(),
-                ],
-                [
-                    'last_paused' => $dto->last_paused ?? '0:0',
-                    'completed' => true
-                ]
-            );
+            // We will check if the user has already completed the video, if yes, we will return the record as-is, otherwise we will update or create the record with the new data, and we will return the updated or created record
+        /**
+         * IMPORTANT: We need to check if the user has already completed the video, if yes, we will return the record as-is, otherwise we will update or create the record with the new data, and we will return the updated or created record, because we don't want to change the completed status of the video, and we will return the record as-is, otherwise we will update or create the record with the new data, and we will return the updated or created record
+         * We need to check if the user has already completed the video, if yes, we
+         * will return the record as-is, otherwise we will update or create the record with the new data, and we will return the updated or created record, because we don't want to change the completed status of the video, and we will return the record as-is, otherwise we will update or create the record with the new data, and we will return the updated or created record
+         * We need to check if the user has already completed the video, if yes, we will return the record as-is, otherwise we will update or create the record with the new data, and we will return the updated or created record, because we don't want to change the completed status of the video, and we will return the record as-is, otherwise we will update or create the record with the new data, and we will return the updated or created record
+         * We need to check if the user has already completed the video, if yes, we
+         * will return the record as-is, otherwise we will update or create the record with the new data, and we will return the updated or created record, because we don't want to change the completed status of the video, and we will return the record as-is, otherwise we will update or create the record with the new data, and we will return the updated or created record
+         * We need to check if the user has already completed the video, if yes, we will return the record as-is, otherwise we will update or create the record with the new data,
+         */
+        if (!$lastVideo) { // If the user has not watched any video before, we will create a new record with the new data, and we will return the created record
+            return UserVideo::create([
+                'video_id' => $dto->video_id,
+                // 'user_id' =>  auth()->id(),
+                // 'last_paused' => $dto->last_paused ?? 0,
+                // 'completed' =>  false,
+            ]);
         }
+        // We will check if the user has already completed the video, if yes, we will return the record as-is, otherwise we will update or create the record with the new data, and we will return the updated or created record
+        // If the user has already completed the video, we will not update the record, because we don't want to change the completed status of the video, and we will return the record as-is, otherwise we will update or create the record with the new data, and we will return the updated or created record
+        // If the user has already completed the video, we will not update the record, because we don't want to change the completed status of the video, and we will return the record as-is, otherwise we will update or create the record with the new data, and we will return the updated or created record
+
+        if ($lastVideo && $lastVideo->completed) { // If the user has already completed the video, we will not update the record, because we don't want to change the completed status of the video, and we will return the record as-is, otherwise we will update or create the record with the new data, and we will return the updated or created record
+            return UserVideo::create([
+                'video_id' => $dto->video_id,
+                'user_id' =>  auth()->id(),
+                'last_paused' => $dto->last_paused ?? 0,
+                'completed' =>  true,
+            ]);
+        }
+
+
         /**
          * IMPORTANT: If the user has already completed the video, we will not update the record, because we don't want to change the completed status of the video, and we will return the record as-is, otherwise we will update or create the record with the new data, and we will return the updated or created record
          * If the user has already completed the video, we will not update the record, because we don't want to change the completed status of the video, and we will return the record as-is, otherwise we will update or create the record with the new data, and we will return the updated or created record
          */
-        if ($lastVideo && $lastVideo->completed) {
-            return UserVideo::create([
-                'video_id' => $dto->video_id,
-                'user_id' =>  auth()->id(),
-                'last_paused' => $dto->last_paused ?? '0:0',
-            ]);
-        }
+        // if ($lastVideo && $lastVideo->completed) {
+        // return UserVideo::create([
+        //     'video_id' => $dto->video_id,
+        //     'user_id' =>  auth()->id(),
+        //     'last_paused' => $dto->last_paused ?? '0å',
+        //     'completed' => $dto->completed ?? false,
+        // ]);
+        // }
         // Otherwise, update or create the record with the new data
         // If the record already exists, it will update the watched_at timestamp, otherwise it will create a new record
         // The request will contain the video_id and the watched_at timestamp, and the user_id will be taken from the authenticated user
         /**
          * IMPORTANT: If the user has already completed the video, we will not update the record, because we don't want to change the completed status of the video, and we will return the record as-is, otherwise we will update or create the record with the new data, and we will return the updated or created record
          */
+
         return UserVideo::updateOrCreate(
             [
                 'video_id' => $dto->video_id,
                 'user_id' => auth()->id(),
             ],
             [
-                'last_paused' => $dto->last_paused ?? '0:0',
+                'last_paused' => $dto->last_paused ?? 0,
                 'completed' => $dto->completed ?? false,
             ]
         );
