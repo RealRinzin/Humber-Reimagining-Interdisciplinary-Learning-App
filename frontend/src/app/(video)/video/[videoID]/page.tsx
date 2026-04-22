@@ -47,7 +47,6 @@ async function lastWatchRecord({ id }: { id: number }) {
     if (res.status === 404) notFound();
     throw new Error("Failed to fetch videos");
   }
-  console.log(res.json());
   return res.json();
 }
 export default async function Page({
@@ -57,9 +56,7 @@ params,
 }) {
   const { videoID } = await params;
   const { data } = await getVideos({ videoID });
-  console.log(data);
   const id = data.id;
-  console.log(id)
 //   const watch = await lastWatchRecord({ id });
   return (
     <main className="px-1 md:px-20 py-5">

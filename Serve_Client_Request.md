@@ -25,10 +25,11 @@
   const data = await res.json();
   console.log(data);
 ```
-```
+```tsx
 Notes 
-1. We need to include referer since server does not know the call
-2. 
+1. We need to include referer  "Referer":" http://localhost:3000",
+// 👈 add this since server does not know the call
+2. also include  "X-XSRF-TOKEN": decodedXsrf, // 👈 add this"
 ```
 
 

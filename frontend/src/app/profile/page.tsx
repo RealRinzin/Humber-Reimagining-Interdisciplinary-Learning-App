@@ -21,7 +21,6 @@ export default async function ProfilePage() {
   // 👇 get and decode the XSRF token
   const xsrfToken = cookieStore.get("XSRF-TOKEN")?.value ?? "";
   const decodedXsrf = decodeURIComponent(xsrfToken);
-  console.log("All cookies:", cookieStore.getAll()); // 👈 add this
   // Function
   const res = await fetch("http://localhost:8000/api/v1/videos", {
     headers: {
