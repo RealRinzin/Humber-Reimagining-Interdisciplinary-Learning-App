@@ -8,7 +8,7 @@ export default async function ProfileCirleRing() {
     .getAll()
     .map((c) => `${c.name}=${c.value}`)
     .join("; ");
-  
+
   const res = await fetch('http://localhost:8000/api/v1/users', {
     headers: {
       Cookie: cookieHeader,

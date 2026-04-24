@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import VideoCard from '../../ui/video/VideoCard'
 async function getAllVideos() {
   const res = await fetch(`${process.env.API_BASE_URL}/videos`, {
-    
+  
     headers: {
       Authorization: `Bearer ${process.env.API_TOKEN}`,
     },

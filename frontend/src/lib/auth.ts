@@ -2,7 +2,6 @@
 const API_URL = 'http://localhost:8000';
 import { LoginDType } from '@/types/auth.types';
 import { getCookie } from './cookie';
-
 // Step 1: get CSRF cookie
 // This function will call the endpoint to get the CSRF cookie and store it in the browser. 
 // This is required to get the CSRF token from the server and store it in the cookie, so that it can be sent with the login request. 
@@ -51,6 +50,7 @@ export async function login(username: string, password: string): Promise<LoginDT
             'Accept': 'application/json',
             'X-XSRF-TOKEN': decodeURIComponent(getCookie('XSRF-TOKEN') ?? ''),  // include the CSRF token from the cookie in the headers
         },
+        // 
         body: JSON.stringify({ username, password }), // send the username and password in the request body as JSON
     });
     console.log(res)

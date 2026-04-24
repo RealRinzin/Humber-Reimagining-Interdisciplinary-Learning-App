@@ -6,13 +6,13 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dark, solarizedlight, solarizedDarkAtom } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useState } from "react";
 
-// Props
 interface contentProps {
   title: string,
   content: string
   icon: IconDefinition;
   type: string,
 }
+//
 export default function CourseTabs({ title, content, icon, type }: contentProps) {
   const [drop, setDrop] = useState(false);
   const [isChecked, setIsChecked] = useState(false)

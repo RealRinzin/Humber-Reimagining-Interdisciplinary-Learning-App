@@ -1,12 +1,11 @@
 import { cookies } from 'next/headers';
 export async function serverFetch(path: string, options: RequestInit = {}) {
     const cookieStore = await cookies();
-
     const cookieHeader = cookieStore
         .getAll()
         .map((c) => `${c.name}=${c.value}`)
         .join('; ');
-
+        
     const xsrfToken = cookieStore.get('XSRF-TOKEN')?.value ?? '';
     const decodedXsrf = decodeURIComponent(xsrfToken);
 
@@ -20,5 +19,6 @@ export async function serverFetch(path: string, options: RequestInit = {}) {
             ...options.headers, // allow overriding headers per call
         },
         cache: 'no-store',
+        
     });
 }

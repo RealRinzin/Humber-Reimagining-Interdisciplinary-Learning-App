@@ -5,7 +5,6 @@ import TabHorizontal from "@/components/ui/progress/TabHorizontal";
 import { useEffect, useState } from "react";
 export default  function KnowledgeMapPage() {
  const [data, setData] = useState(null);
-
     useEffect(() => {
         fetch('http://localhost:8000/api/v1/videos', {
             credentials: 'include', // browser handles cookies + referer automatically

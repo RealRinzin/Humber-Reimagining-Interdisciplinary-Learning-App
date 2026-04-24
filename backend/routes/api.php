@@ -16,14 +16,6 @@ Route::get('/test', function () {
     return "This working fine";
 });
 
-Route::get('/debug-session', function (Request $request) {
-    return [
-        'session_id'    => session()->getId(),
-        'sanctum_user'  => auth('sanctum')->user(),
-        'session_data'  => session()->all(),
-    ];
-});
-
 // This API will be used for user login and it will return the user data and token for the user to access the protected API
 // The API will be accessed by the frontend when the user tries to login and it will return the user data and token for the user to access the protected API
 /**

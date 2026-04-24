@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 import Script from "next/script";
 import { useRef, useState } from "react";
 export default function OnboardingPage() {
-
+  // 
   //Select Content
   const ref = useRef<HTMLDivElement>(null);
   const initVanta = () => {
