@@ -25,6 +25,7 @@ class UserVideoResource extends JsonResource
             'videos' => $this->whenLoaded('video', function () {
                 return [
                     'title' => $this->video->title,
+                    'slug' => $this->video->slug,
                     'duration' => $this->video->duration,
                     'completed' => $this->video->completed,
                 ];

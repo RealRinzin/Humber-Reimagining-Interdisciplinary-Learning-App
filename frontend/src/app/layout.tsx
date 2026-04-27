@@ -9,6 +9,7 @@ const inter = Inter({
   weight: ['400', '500', '700'], // optional
 })
 // Fontawesome configuration setup fo
+// 
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false; // We are adding the autoAddClass to avoid the hydration page

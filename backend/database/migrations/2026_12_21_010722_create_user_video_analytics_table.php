@@ -13,16 +13,26 @@ return new class extends Migration
     {
         Schema::create('user_video_analytics', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_video_id') // Foreign key referencing the users table
+            $table->foreignId('user_video_id')
                 ->constrained('user_videos')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-                $table->string('interaction_type');
-                $table->string('interact_at');
-                $table->string('device_type');
-            $table->string('os_type');
-            $table->string('browser_type');
-            // $table->string('played_on');    // Date when the topic was played
+            // Fix: enum instead of free varchar
+            $table->enum('interaction_type', ['play', 'pause', 'seek', 'complete', 'replay', 'skip','fullscreen','closed']);
+            // Fix: timestamp instead of varchar
+            $table->integer('interact_at');
+            // Device info
+            $table->string('device_type')->nullable();
+            $table->string('os_type')->nullable();
+            $table->string('browser_type')->nullable();
+            $table->string('user_agent')->nullable(); // raw UA string for future re-parsing
+
+            // Network
+            $table->ipAddress('ip_address')->nullable(); // Laravel's built-in ipAddress() handles IPv4 + IPv6
+            // Engagement metrics
+            // $table->unsignedInteger('watch_duration_seconds')->nullable();
+            // $table->unsignedInteger('video_position_seconds')->nullable();
+            // $table->unsignedTinyInteger('completion_percentage')->nullable(); // 0-100
             $table->date('played_on');    // Date when the topic was played
             $table->timestamps();
         });

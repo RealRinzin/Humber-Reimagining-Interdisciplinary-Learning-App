@@ -7,6 +7,8 @@ use App\DTOs\UserVideo\CreateUpdateUserVideoDTO;
 use App\Http\Requests\UserVideo\CreateUpdateRequest;
 use App\Http\Resources\UserVideo\UserVideoResource;
 use App\Models\User;
+use App\Models\UserVideo;
+use App\Models\Video;
 
 class UserVideoController
 {
@@ -40,7 +42,7 @@ class UserVideoController
             'total' => $user->userVideos()->count(),
         ]);
     }
-
+    
     /**
      * Store a newly created resource in storage.
      */

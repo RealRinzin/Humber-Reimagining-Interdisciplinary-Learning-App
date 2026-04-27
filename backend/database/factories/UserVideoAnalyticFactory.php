@@ -20,11 +20,13 @@ class UserVideoAnalyticFactory extends Factory
         return [
             // Pick a random existing user ID
             'user_video_id' => UserVideo::inRandomOrder()->value('id'),
-            'interaction_type' => $this->faker->randomElement(['paused', 'skipped', 'fullscreen','played','close']),
+            'interaction_type' => $this->faker->randomElement( ['play', 'pause', 'seek', 'complete', 'replay', 'skip','fullscreen','close']),
             'interact_at' => '2',
             'device_type' => $this->faker->randomElement(['mobile', 'desktop', 'tablet']),
             'os_type' => $this->faker->randomElement(['iOS','Android','Windows','iPhone','Linux']),
             'browser_type' => $this->faker->randomElement(['Chrome','Firefox','Edge','iPhone','Linux']),
+            'user_agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15',
+            'ip_address' =>fake()->ipv4(),
             'played_on' => $this->faker->date()
         ];
     }
