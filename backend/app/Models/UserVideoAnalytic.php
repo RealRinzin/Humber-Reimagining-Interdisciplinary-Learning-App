@@ -15,9 +15,16 @@ class UserVideoAnalytic extends Model
      *
      * @var list<string>
      */
-      protected $fillable = [
-        'user_video_id', 'interaction_type', 'interact_at',
-        'device_type', 'os_type', 'browser_type', 'played_on'
+    protected $fillable = [
+        'user_video_id',
+        'interaction_type',
+        'interact_at',
+        'device_type',
+        'os_type',
+        'browser_type',
+        'user_agent',
+        'ip_address',
+        'played_on'
     ];
     // Table Relationships
 
@@ -29,6 +36,16 @@ class UserVideoAnalytic extends Model
      */
     public function userVideo()
     {
-        return $this->belongsTo(UserVideo::class,"user_video_id");
+        return $this->belongsTo(UserVideo::class);
+    }
+    // Convenience accessors to travel up the chain
+    public function user()
+    {
+        return $this->userVideo->user;
+    }
+
+    public function video()
+    {
+        return $this->userVideo->video;
     }
 }

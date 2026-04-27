@@ -14,6 +14,6 @@ class UserVideoAnalyticSeeder extends Seeder
     public function run(): void
     {
         //
-        UserVideoAnalytic::factory(5)->create();
+        UserVideoAnalytic::factory(40)->create();
     }
 }

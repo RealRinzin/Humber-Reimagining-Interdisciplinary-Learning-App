@@ -18,6 +18,8 @@ class StoreUserVideoAnalyticRequest extends FormRequest
             'device_type' => ['required','string','max:255'],
             'os_type' => ['required','string','max:255'],
             'browser_type' => ['required','string','max:255'],
+            'user_agent' => ['required','string','max:255'],
+            'ip_address' => ['required','string','max:255'],
             'played_on' => ['required','string','max:255'],
         ];
     }
@@ -31,6 +33,8 @@ class StoreUserVideoAnalyticRequest extends FormRequest
             'device_type.required'      => 'required.',
             'os_type.required'      => 'required.',
             'browser_type.required'      => 'required.',
+            'user_agent.required'      => 'required.',
+            'ip_address.required'      => 'required.',
             'played_on.required'      => 'required.',
         ];
     }

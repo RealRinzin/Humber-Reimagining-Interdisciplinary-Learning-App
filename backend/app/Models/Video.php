@@ -41,7 +41,7 @@ class Video extends Model
      * */
     public function topic()
     {
-        return $this->belongsTo(Topic::class, 'topics');
+        return $this->belongsTo(Topic::class, 'topic_id');
     }
     // Code Relationship
     // A video can have many codes
@@ -78,5 +78,16 @@ class Video extends Model
     public function userVideos()
     {
         return $this->hasMany(UserVideo::class);
+    }
+
+    // User Video Analytics
+    /**
+     * Model Relationship
+     */
+
+    // Video.php — replace with hasManyThrough
+    public function userVideoAnalytics()
+    {
+        return $this->hasManyThrough(UserVideoAnalytic::class, UserVideo::class);
     }
 }

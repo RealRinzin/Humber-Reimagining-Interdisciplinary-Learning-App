@@ -16,6 +16,8 @@ class CreateUserVideoAnalyticAction
             'device_type' => $dto->device_type,
             'os_type' => $dto->os_type,
             'browser_type'=>$dto->browser_type,
+            'user_agent'=>$dto->user_agent,
+            'ip_address'=>$dto->ip_address,
             'played_on'=>$dto->played_on
         ]);
     }

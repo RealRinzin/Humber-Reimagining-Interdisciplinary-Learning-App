@@ -15,6 +15,8 @@ class CreateUserVideoAnalyticDTO
         public readonly ?string $device_type,
         public readonly ?string $os_type,
         public readonly ?string $browser_type,
+        public readonly ?string $user_agent,
+        public readonly ?string $ip_address, 
         public readonly ?string $played_on,
     ) {}
     // Validates

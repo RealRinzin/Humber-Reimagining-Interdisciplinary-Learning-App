@@ -45,7 +45,7 @@ class UserVideo extends Model
      * UserVideo Table relationship with user_video_analytics table
      * UserVideoAnalytic belongs to one UserVideo
      */
-    public function userVideoAnalytic()
+    public function userVideoAnalytics()
     {
         return $this->hasMany(UserVideoAnalytic::class);
     }

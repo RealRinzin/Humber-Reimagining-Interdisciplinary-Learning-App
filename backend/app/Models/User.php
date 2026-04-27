@@ -85,4 +85,15 @@ class User extends Authenticatable
             ->withTimestamps(); // Include timestamps from the pivot table
         // ->withPivot('created_at'); // Include timestamps from the pivot table
     }
+
+    // User Video Analytics
+    /**
+     * Model Relationship
+     */
+
+    // correct approach — hasManyThrough
+    public function userVideoAnalytics()
+    {
+        return $this->hasManyThrough(UserVideoAnalytic::class, UserVideo::class);
+    }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\UserVideoAnalytic;
 
+use App\Http\Resources\User\UserResource;
+use App\Http\Resources\UserVideo\UserVideoResource;
 use App\Http\Resources\Video\VideoResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -18,7 +20,15 @@ class UserVideoAnalyticResource extends JsonResource
         // return parent::toArray($request);
         return[
             'id' => $this->id,
-            'video' => new VideoResource($this->whenLoaded('video')),
+            'user_videos' => new UserVideoResource($this->whenLoaded('userVideo')),
+            'interaction_type' => $this->interaction_type,
+            'interact_at' =>$this->interact_at,
+            'device_type' => $this->device_type,
+            'os_type'=>$this->os_type,
+            'browser_type'=>$this->browser_type,
+            'user_agent'=>$this->user_agent,
+            'ip_address' => $this->ip_address,
+            'played_on' => $this->played_on
         ];
     }
 }

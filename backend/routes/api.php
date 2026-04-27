@@ -4,6 +4,7 @@ use App\Http\Controllers\API\v1\AuthController;
 use App\Http\Controllers\API\v1\CodeController;
 use App\Http\Controllers\API\v1\UserController;
 use App\Http\Controllers\API\v1\UserTopicController;
+use App\Http\Controllers\API\v1\UserVideoAnalyticController;
 use App\Http\Controllers\API\v1\UserVideoController;
 use App\Http\Controllers\API\v1\VideoController;
 use Illuminate\Http\Request;
@@ -61,58 +62,6 @@ Route::prefix('v1')
          * /api/v1/users/{user} // This API will update the user data 
          */
         Route::apiResource('users', UserController::class)->except(['create', 'edit']);
-        /**
-         * IMPORTANT API
-         *  /api/v1/users/{me}/videos // This api will get all the videos 
-         *  /api/v1/users/{me}/videos/{video:id} // This is the default api when user load the particular video  ? progress is tied with it 
-         *  {
-         * id,title,slug,progress:[]
-         * 
-         * }
-         */
-
-        /**
-         * USER TOPICS 
-         */
-
-        // User Topics API
-        // This API will be used to get the topics of the user and also to add or remove topics from the user
-        // GET /api/v1/user-topics/users/{user}/topics // This API will return the topics of the user
-        // POST /api/v1/user-topics/users/{user}/topics // This API will add a topic to the user
-        // DELETE /api/v1/user-topics/users/{user}/topics/{topic:id} // This API will remove a topic from the user
-        // The API will return the user data and the topic data
-        /**
-         * IMPORTANT API
-         * /api/v1/user-topics/users/{user}/topics // This API will return the topics of the user
-         * /api/v1/user-topics/users/{user}/topics // This API will add a topic to the user
-         * /api/v1/user-topics/users/{user}/topics/{topic:id} // This API will remove a topic from the user 
-         */
-        Route::controller(UserTopicController::class)->prefix('user-topics/users/{user}')->group(function () {
-            Route::get('/topics', 'index')->name('user-topics.index');
-            // Route::get('/topics/{topic:id}', 'show')->name('user-topics.show');
-            Route::post('/topics', 'store')->name('user-topics.store');
-            Route::delete('/topics/{topic:id}', 'destroy')->name('user-topics.destroy');
-        });
-        // User Videos API
-        // This API will be used to get the videos of the user and also to add or remove videos from the user
-        // GET /api/v1/user-videos/users/{user}/videos // This API will return the videos of the user
-        // POST /api/v1/user-videos/users/{user}/videos // This API will add a video to the user
-        // DELETE /api/v1/user-videos/users/{user}/videos/{video:id} // This API will remove a video from the user
-        // The API will return the user data and the video data
-        /**
-         * IMPORTANT API
-         * /api/v1/user-videos/users/{user}/videos // This API will return the videos of the user
-         * /api/v1/user-videos/users/{user}/videos // This API will add a video to the user
-         * /api/v1/user-videos/users/{user}/videos/{video:id} // This API will remove a video from the user 
-         */
-        Route::controller(UserVideoController::class)->prefix('user-videos/users/{user}/videos')
-            ->group(function () {
-                Route::get('/', 'index')->name('user-videos.index'); // This API will be used to get the videos of the user and also to add or remove videos from the user
-                Route::post('/', 'store')->name('user-videos.store'); // This API will be used to create or update the user video record when the user watches a video
-                Route::patch('/{userVideo:id}', 'update')->name('user-videos.update'); // This API will be used to update the watched_at timestamp of the user video record when the user watches a video again
-                // Route::delete('/{userVideo:id}', 'destroy')->name('user-videos.destroy');
-            });
-
         // === Code Controller ==
         // This API will be used to get the codes of the user and also to add or remove codes from the user
         // GET /api/v1/codes/users/{user}/codes // This API will return the codes of the user
@@ -147,4 +96,48 @@ Route::prefix('v1')
             Route::post('/', 'store')->name('video.store');
             Route::get('/{video}/users', 'users')->name('videos.users');
         });
+
+        /**
+         * USER TOPICS 
+         */
+
+        // User Topics API
+        // This API will be used to get the topics of the user and also to add or remove topics from the user
+        // GET /api/v1/user-topics/users/{user}/topics // This API will return the topics of the user
+        // POST /api/v1/user-topics/users/{user}/topics // This API will add a topic to the user
+        // DELETE /api/v1/user-topics/users/{user}/topics/{topic:id} // This API will remove a topic from the user
+        // The API will return the user data and the topic data
+        /**
+         * IMPORTANT API
+         * /api/v1/user-topics/users/{user}/topics // This API will return the topics of the user
+         * /api/v1/user-topics/users/{user}/topics // This API will add a topic to the user
+         * /api/v1/user-topics/users/{user}/topics/{topic:id} // This API will remove a topic from the user 
+         */
+        Route::controller(UserTopicController::class)->prefix('user-topics/users/{user}')->group(function () {
+            Route::get('/topics', 'index')->name('user-topics.index');
+            // Route::get('/topics/{topic:id}', 'show')->name('user-topics.show');
+            Route::post('/topics', 'store')->name('user-topics.store');
+            Route::delete('/topics/{topic:id}', 'destroy')->name('user-topics.destroy');
+        });
+        // User Videos API
+        // This API will be used to get the videos of the user and also to add or remove videos from the user
+        // GET /api/v1/user-videos/users/{user}/videos // This API will return the videos of the user
+        // POST /api/v1/user-videos/users/{user}/videos // This API will add a video to the user
+        // DELETE /api/v1/user-videos/users/{user}/videos/{video:id} // This API will remove a video from the user
+        // The API will return the user data and the video data
+
+        Route::controller(UserVideoController::class)->prefix('user-videos/users/{user}/videos')
+            ->group(function () {
+                Route::get('/', 'index')->name('user-videos.index'); // This API will be used to get the videos of the user and also to add or remove videos from the user
+                Route::post('/', 'store')->name('user-videos.store'); // This API will be used to create or update the user video record when the user watches a video
+                Route::patch('/{userVideo:id}', 'update')->name('user-videos.update'); // This API will be used to update the watched_at timestamp of the user video record when the user watches a video again
+                // Route::delete('/{userVideo:id}', 'destroy')->name('user-videos.destroy');
+            });
+        // User Video Analytics API 
+        Route::controller(UserVideoAnalyticController::class)->prefix('user-video-analytics/users/{user}/userVideoAnalytics')
+            ->group(function () {
+                Route::get('/', 'index')->name('user-video-analytics.index');
+                Route::get('/{id}', 'show')->name('user-video-analytics.show');
+                Route::post('/', 'store')->name('user-video-analytics.store'); // This API will be used to create or update the user video record when the user watches a video
+            });
     });

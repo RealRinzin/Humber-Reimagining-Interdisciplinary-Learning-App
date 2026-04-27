@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API\v1;
 use App\Actions\UserVideoAnalytic\CreateUserVideoAnalyticAction;
 use App\DTOs\UserVideoAnalytic\CreateUserVideoAnalyticDTO;
 use App\Http\Requests\UserVideoAnalytic\StoreUserVideoAnalyticRequest;
+use App\Http\Resources\UserVideoAnalytic\UserVideoAnalyticResource;
+use App\Models\User;
 use App\Models\UserVideoAnalytic;
 use Illuminate\Http\Request;
 
@@ -13,49 +15,49 @@ class UserVideoAnalyticController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(User $user)
     {
-        //
-    }
+        // Check the authorization if the user is logged 
+        if (auth()->id() !== $user->id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
 
+        // return UserVideoAnalyticResource::collection(UserVideoAnalytic::with('userVideo')->get());
+        return UserVideoAnalyticResource::collection(
+            $user->userVideoAnalytics()->with('userVideo')->get()
+        );
+    }
     /**
-     * Show the form for creating a new resource.
+     * Display the specified resource.
      */
-    public function create()
+    public function show(UserVideoAnalytic $userVideoAnalytic, User $user)
     {
-
-
+        // Check the authorization if the user is logged 
+        if (auth()->id() !== $user->id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+        return UserVideoAnalyticResource::collection(
+            $user->userVideoAnalytics()->get()
+        );
     }
+
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUserVideoAnalyticRequest $request,CreateUserVideoAnalyticAction $action)
+    public function store(StoreUserVideoAnalyticRequest $request, CreateUserVideoAnalyticAction $action)
     {
+
+        // return $request;
         //
         $dto = CreateUserVideoAnalyticDTO::fromRequest($request);
         $newData = $action->execute($dto);
 
         return response()->json([
-            'data'=>$newData
+            'data' => $newData
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(UserVideoAnalytic $userVideoAnalytic)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(UserVideoAnalytic $userVideoAnalytic)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
