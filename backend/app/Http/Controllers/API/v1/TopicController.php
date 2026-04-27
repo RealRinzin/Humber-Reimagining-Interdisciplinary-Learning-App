@@ -14,16 +14,8 @@ class TopicController
     public function index()
     {
         //
-        $topics = Topic::with(['videos', 'codes', 'documents', 'flash_cards', 'quizees'])->paginate(2); // ✅ always paginate
+        $topics = Topic::with(['videos', 'codes', 'documents', 'quizees'])->paginate(2); // ✅ always paginate
         return TopicResource::collection($topics);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -38,14 +30,6 @@ class TopicController
      * Display the specified resource.
      */
     public function show(Topic $topic)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Topic $topic)
     {
         //
     }

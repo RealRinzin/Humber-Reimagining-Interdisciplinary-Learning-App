@@ -14,6 +14,7 @@ import {
   faCode,
   faBook,
 } from "@fortawesome/free-solid-svg-icons";
+import { serverFetch } from "@/lib/fetch";
 // Get the Video
 async function getVideos({ videoID }: { videoID: string }) {
   // const res = await fetch(`${process.env.API_BASE_URL}/videos/intro-to-space`, {
@@ -36,7 +37,7 @@ async function getVideos({ videoID }: { videoID: string }) {
  * 
  */
 async function lastWatchRecord({ id }: { id: number }) {
-  const res = await fetch(`${process.env.API_BASE_URL}/user_video/${id}`, {
+  const res = await fetch(`${process.env.API_BASE_URL}/user-videos/users/{me}/videos/`, {
     // method: "POST",
     headers: {
       Authorization: `Bearer ${process.env.API_TOKEN}`,
@@ -49,13 +50,23 @@ async function lastWatchRecord({ id }: { id: number }) {
   }
   return res.json();
 }
+
+// Main Page
 export default async function Page({
 params,
 }: {
   params: Promise<{ videoID: string }>;
 }) {
+  // Get the Vide Id
   const { videoID } = await params;
-  const { data } = await getVideos({ videoID });
+  // console.log(params)
+    const res = await serverFetch(`/videos/${videoID}`);
+    const {data} = await res.json();
+    console.log(data)
+  // console.log(check);
+  // const { data } = await getVideos({ videoID });
+
+  // The 
   const id = data.id;
 //   const watch = await lastWatchRecord({ id });
   return (
@@ -128,7 +139,7 @@ params,
                         allow="accelerometer; gyroscope"
                     /> */}
           <section className="my-10">
-            <MoreCourses />
+            {/* <MoreCourses /> */}
           </section>
         </div>
         <aside

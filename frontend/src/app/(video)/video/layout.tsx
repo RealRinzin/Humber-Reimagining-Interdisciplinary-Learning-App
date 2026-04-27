@@ -8,9 +8,9 @@ export default async function VideoLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const res = await serverFetch("/videos");
-  const data = await res.json();
-  console.log(data)
+  // const res = await serverFetch("/videos");
+  // const data = await res.json();
+  // console.log(data)
   return (
     <>
       <DesktopNavigation />

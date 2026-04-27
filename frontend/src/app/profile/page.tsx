@@ -6,7 +6,6 @@ import TabProgressBar from "@/components/ui/progress/Tab";
 // import HeaderCookie from "@/lib/httpHeaderCookie";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
-
 /**
  *
  * @returns
@@ -33,7 +32,6 @@ export default async function ProfilePage() {
   });
 
   const data = await res.json();
-  console.log(data);
   // Return page
   return (
     <div className="grid grid-cols-3 gap-4 m-10">

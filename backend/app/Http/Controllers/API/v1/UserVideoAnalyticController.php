@@ -15,14 +15,23 @@ class UserVideoAnalyticController
     /**
      * Display a listing of the resource.
      */
+    // public function index(User $user)
+    // {
+    //     abort_if(auth()->id() !== $user->id, 403, 'Unauthorized');
+
+    //     return UserVideoAnalyticResource::collection(
+    //         $user->userVideoAnalytics()->get()
+    //     );
+    // }
     public function index(User $user)
     {
+
+
         // Check the authorization if the user is logged 
         if (auth()->id() !== $user->id) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
-
-        // return UserVideoAnalyticResource::collection(UserVideoAnalytic::with('userVideo')->get());
+        // Resources
         return UserVideoAnalyticResource::collection(
             $user->userVideoAnalytics()->with('userVideo')->get()
         );
@@ -30,15 +39,11 @@ class UserVideoAnalyticController
     /**
      * Display the specified resource.
      */
-    public function show(UserVideoAnalytic $userVideoAnalytic, User $user)
+    public function show(User $user, UserVideoAnalytic $userVideoAnalytic)
     {
-        // Check the authorization if the user is logged 
-        if (auth()->id() !== $user->id) {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
-        return UserVideoAnalyticResource::collection(
-            $user->userVideoAnalytics()->get()
-        );
+        abort_if(auth()->id() !== $user->id, 403, 'Unauthorized');
+
+        return new UserVideoAnalyticResource($userVideoAnalytic);
     }
 
 
@@ -47,24 +52,15 @@ class UserVideoAnalyticController
      */
     public function store(StoreUserVideoAnalyticRequest $request, CreateUserVideoAnalyticAction $action)
     {
-
-        // return $request;
-        //
+        // Create dto Object
         $dto = CreateUserVideoAnalyticDTO::fromRequest($request);
+        // Execute the Action
         $newData = $action->execute($dto);
 
+        // return response in json
         return response()->json([
             'data' => $newData
         ]);
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, UserVideoAnalytic $userVideoAnalytic)
-    {
-        //
     }
 
     /**

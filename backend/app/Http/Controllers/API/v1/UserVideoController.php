@@ -8,7 +8,6 @@ use App\Http\Requests\UserVideo\CreateUpdateRequest;
 use App\Http\Resources\UserVideo\UserVideoResource;
 use App\Models\User;
 use App\Models\UserVideo;
-use App\Models\Video;
 
 class UserVideoController
 {
@@ -42,7 +41,16 @@ class UserVideoController
             'total' => $user->userVideos()->count(),
         ]);
     }
-    
+
+    // Show
+    public function show(User $user, UserVideo $userVideo)
+    {
+        if ($userVideo->user_id !== $user->id) {
+            abort(403);
+        }
+
+        return new UserVideoResource($userVideo);
+    }
     /**
      * Store a newly created resource in storage.
      */
@@ -53,7 +61,7 @@ class UserVideoController
     /**
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateUpdateRequest $request, CreateUpdateUserVideoAction $action,User $user)
+    public function store(CreateUpdateRequest $request, CreateUpdateUserVideoAction $action, User $user)
     {
         // The user can only create or update their own watched videos, so we will check if the authenticated user is the same as the user in the route parameter
         // If the authenticated user is not the same as the user in the route parameter, we will return a 403 forbidden response

@@ -129,15 +129,21 @@ Route::prefix('v1')
         Route::controller(UserVideoController::class)->prefix('user-videos/users/{user}/videos')
             ->group(function () {
                 Route::get('/', 'index')->name('user-videos.index'); // This API will be used to get the videos of the user and also to add or remove videos from the user
+                Route::get('/{userVideo:id}', 'show')->name('user-videos.show'); // This API will be used to get the videos of the user and also to add or remove videos from the user
                 Route::post('/', 'store')->name('user-videos.store'); // This API will be used to create or update the user video record when the user watches a video
                 Route::patch('/{userVideo:id}', 'update')->name('user-videos.update'); // This API will be used to update the watched_at timestamp of the user video record when the user watches a video again
                 // Route::delete('/{userVideo:id}', 'destroy')->name('user-videos.destroy');
             });
         // User Video Analytics API 
+        // This API will be used to get the videos of the user and also to add or remove videos from the user
+        // GET /api/v1/user-videos/users/{user}/videos // This API will return the videos of the user
+        // POST /api/v1/user-videos/users/{user}/videos // This API will add a video to the user
+        // DELETE /api/v1/user-videos/users/{user}/videos/{video:id} // This API will remove a video from the user
+        // The API will return the user data and the video data
         Route::controller(UserVideoAnalyticController::class)->prefix('user-video-analytics/users/{user}/userVideoAnalytics')
             ->group(function () {
                 Route::get('/', 'index')->name('user-video-analytics.index');
-                Route::get('/{id}', 'show')->name('user-video-analytics.show');
+                Route::get('/{userVideoAnalytic:id}', 'show')->name('user-video-analytics.show');
                 Route::post('/', 'store')->name('user-video-analytics.store'); // This API will be used to create or update the user video record when the user watches a video
             });
     });
