@@ -6,32 +6,37 @@ import TabProgressBar from "@/components/ui/progress/Tab";
 // import HeaderCookie from "@/lib/httpHeaderCookie";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
+import { serverFetch } from "@/lib/fetch";
+import { VideoType } from "@/types/video";
 /**
  *
  * @returns
  */
 export default async function ProfilePage() {
   //
-  const cookieStore = await cookies();
-  const cookieHeader = cookieStore
-    .getAll()
-    .map((c) => `${c.name}=${c.value}`)
-    .join("; ");
-  // 👇 get and decode the XSRF token
-  const xsrfToken = cookieStore.get("XSRF-TOKEN")?.value ?? "";
-  const decodedXsrf = decodeURIComponent(xsrfToken);
-  // Function
-  const res = await fetch("http://localhost:8000/api/v1/videos", {
-    headers: {
-      Accept: "application/json",
-      Cookie: cookieHeader, // forward cookies manually
-      "X-XSRF-TOKEN": decodedXsrf, // 👈 add this
-      Referer: "http://localhost:3000", // 👈 add this
-    },
-    cache: "no-store",
-  });
+  // const cookieStore = await cookies();
+  // const cookieHeader = cookieStore
+  //   .getAll()
+  //   .map((c) => `${c.name}=${c.value}`)
+  //   .join("; ");
+  // // 👇 get and decode the XSRF token
+  // const xsrfToken = cookieStore.get("XSRF-TOKEN")?.value ?? "";
+  // const decodedXsrf = decodeURIComponent(xsrfToken);
+  // // Function
+  // const res = await fetch("http://localhost:8000/api/v1/videos", {
+  //   headers: {
+  //     Accept: "application/json",
+  //     Cookie: cookieHeader, // forward cookies manually
+  //     "X-XSRF-TOKEN": decodedXsrf, // 👈 add this
+  //     Referer: "http://localhost:3000", // 👈 add this
+  //   },
+  //   cache: "no-store",
+  // });
 
-  const data = await res.json();
+  // const data = await res.json();
+
+  const res = await serverFetch(`/videos`);
+  const { data } = await res.json();
   // Return page
   return (
     <div className="grid grid-cols-3 gap-4 m-10">
@@ -82,8 +87,10 @@ export default async function ProfilePage() {
         {/* Continue Learning section */}
 
         <div className="flex gap-10 my-10">
-          {Array.from({ length: 4 }).map((_, index) => (
-            <VideoCard id={3} key={index} />
+          {data.map((video: VideoType, index: number) => (
+            <div key={index}> 
+              <VideoCard video={video} />
+            </div>
           ))}
         </div>
         {/* Content Setting */}

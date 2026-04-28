@@ -15,28 +15,19 @@ import {
   faBook,
 } from "@fortawesome/free-solid-svg-icons";
 
-// lastWatchRecord
-/**
- * 
- * @param param0 
- * @returns 
- * 
- */
-
 // Main Page
 export default async function Page({
-params,
+  params,
 }: {
   params: Promise<{ videoID: string }>;
 }) {
   // Get the Vide Id
   const { videoID } = await params;
   // console.log(params)
-    const res = await serverFetch(`/videos/${videoID}`);
-    const {data} = await res.json();
-    const last = await serverFetch(`/user-videos/users/4/videos/${data.id}`)
-    const content= await last.json();
-    console.log(content)
+  const res = await serverFetch(`/videos/${videoID}`);
+  const { data } = await res.json();
+  const last_pause = await serverFetch(`/user-videos/users/4/videos/${data.id}`);
+  const content = await last_pause.json();
   return (
     <main className="px-1 md:px-20 py-5">
       <section className="flex flex-col md:flex-row gap-4">
@@ -48,13 +39,7 @@ params,
             {/* <CourseProgressUI /> */}
             <MyPlayer
               src={data.video_url}
-              // last_stop={
-                
-              // }
-            //   last_stop={
-            //     !watch.data ? 0 : timeToDigit({ time: watch.data.watch_minute })
-            //   }
-            last_stop={content.data ? content.data.last_paused : 0}
+              last_stop={content.data ? content.data.last_paused : 0}
             />
           </section>
           {/* Tabs */}

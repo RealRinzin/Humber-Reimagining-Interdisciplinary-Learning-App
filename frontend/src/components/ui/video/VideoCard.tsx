@@ -5,15 +5,9 @@ export default function VideoCard({ video }: { video: VideoType }) {
   return (
     <>
       <div className="rounded-3xl border-2 border-slate-400 bg-slate-100 p-3 text-sm">
-        <div className="flex gap-10 items-center-safe">
+        <div className="flex gap-2 items-center-safe">
           <RingProgressBar id={video.id} color={'#f6339a'} borderColor={'#D3D1C7'} percentage={video.id+2} />
-          <div>
-            <h5 className="pb-3 text-lg font-medium">{video.title}</h5>
-            <div className="font-extralight text-gray-500 flex gap-2">
-              <span className="rounded-md bg-slate-300 p-1"> 5 Min</span>
-              <span className="rounded-md bg-slate-300 p-1"> Professor</span>
-            </div>
-          </div>
+            <h5 className="pb-3 text-lg font-medium items-center-safe">{video.title}</h5>
         </div>
         <p className="py-3">
           Quick Little Overview of the lecture content. Maybe 3 sentences
