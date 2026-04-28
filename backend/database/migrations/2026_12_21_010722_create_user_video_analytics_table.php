@@ -18,9 +18,9 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             // Fix: enum instead of free varchar
-            $table->enum('interaction_type', ['play', 'pause', 'seek', 'complete', 'replay', 'skip','fullscreen','closed']);
+            $table->enum('interaction_type', ['Played', 'Paused', 'Seeked', 'Completed', 'Buffering', 'RateChange', 'Volume', 'Progress','Close']);
             // Fix: timestamp instead of varchar
-            $table->integer('interact_at');
+            $table->unsignedInteger('interact_at');
             // Device info
             $table->string('device_type')->nullable();
             $table->string('os_type')->nullable();

@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Http\Requests\UserVideoAnalytic;
 
 use Illuminate\Foundation\Http\FormRequest;
+
 class StoreUserVideoAnalyticRequest extends FormRequest
 {
     public function authorize(): bool
@@ -13,14 +15,14 @@ class StoreUserVideoAnalyticRequest extends FormRequest
     {
         return [
             'user_video_id'     => ['required', 'integer', 'max:255'],
-            'interaction_type'    => ['required', 'string','max:255'],
-            'interact_at' => ['required','integer','max:255'],
-            'device_type' => ['required','string','max:255'],
-            'os_type' => ['required','string','max:255'],
-            'browser_type' => ['required','string','max:255'],
-            'user_agent' => ['required','string','max:255'],
-            'ip_address' => ['required','string','max:255'],
-            'played_on' => ['required','string','max:255'],
+            'interaction_type' => ['required', 'string', 'in:Played,Paused,Seeked,Completed,Buffering,RateChange,Volume,Progress'],
+            'interact_at'      => ['required', 'integer', 'min:0'],
+            'device_type' => ['required', 'string', 'max:255'],
+            'os_type' => ['required', 'string', 'max:255'],
+            'browser_type' => ['required', 'string', 'max:255'],
+            'user_agent' => ['required', 'string', 'max:255'],
+            'ip_address' => ['required', 'string', 'max:255'],
+            'played_on' => ['required', 'string', 'max:255'],
         ];
     }
 

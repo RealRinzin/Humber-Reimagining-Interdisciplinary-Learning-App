@@ -21,7 +21,7 @@ interface MyPlayerProps {
   onVolumeChange?: () => void;
 }
 async function postInteraction({ type, sec }: InteractionPayload) {
-  console.log(sec);
+  console.log(sec)
   // read XSRF token from cookie
   const xsrfToken =
     document.cookie
@@ -77,30 +77,30 @@ export const MyPlayer = ({ src, last_stop }: MyPlayerProps) => {
           onPlay={(e) => {
             const video = e.target as HTMLVideoElement;
             // console.log("Playing at:", video.currentTime);
-            postInteraction({ type: "play", sec: video.currentTime });
+            postInteraction({ type: "Played", sec: Math.floor(video.currentTime) });
           }}
           onPause={(e) => {
             const video = e.target as HTMLVideoElement;
             // console.log("Paused at:", video.currentTime);
-            postInteraction({ type: "pause", sec: video.currentTime });
+            postInteraction({ type: "Paused", sec: Math.floor(video.currentTime) });
           }}
           onVolumeChange={(e) => {
             const video = e.currentTarget as HTMLVideoElement;
             // console.log("Volume:", video.volume); // 0.0 to 1.0
             // console.log("Muted:", video.muted);
-            postInteraction({ type: "Volume", sec: video.currentTime });
+            postInteraction({ type: "Volume", sec: Math.floor(video.currentTime) });
 
             // true / false
           }}
           // ✅ Track progress every second
-          onTimeUpdate={(e) => {
-            const video = e.target as HTMLVideoElement;
-            const current = Math.floor(video.currentTime);
-            // throttle — only post every 5 seconds to avoid spamming your Laravel API
-            if (current % 5 === 0) {
-              postInteraction({ type: "Progress", sec: current });
-            }
-          }}
+          // onTimeUpdate={(e) => {
+          //   const video = e.target as HTMLVideoElement;
+          //   const current = Math.floor(video.currentTime);
+          //   // throttle — only post every 5 seconds to avoid spamming your Laravel API
+          //   if (current % 5 === 0) {
+          //     postInteraction({ type: "Progress", sec: current });
+          //   }
+          // }}
           // ✅ User scrubbed to a different position
           onSeeked={(e) => {
             const video = e.target as HTMLVideoElement;
