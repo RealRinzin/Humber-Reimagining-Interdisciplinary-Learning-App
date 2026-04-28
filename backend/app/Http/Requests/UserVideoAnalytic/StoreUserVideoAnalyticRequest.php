@@ -14,7 +14,7 @@ class StoreUserVideoAnalyticRequest extends FormRequest
         return [
             'user_video_id'     => ['required', 'integer', 'max:255'],
             'interaction_type'    => ['required', 'string','max:255'],
-            'interact_at' => ['required','string','max:255'],
+            'interact_at' => ['required','integer','max:255'],
             'device_type' => ['required','string','max:255'],
             'os_type' => ['required','string','max:255'],
             'browser_type' => ['required','string','max:255'],

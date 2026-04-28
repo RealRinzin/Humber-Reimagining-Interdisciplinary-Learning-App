@@ -18,7 +18,7 @@ export default function VideoCard({ video }: { video: VideoType }) {
             href={`/video/${video.slug}`}
             className="rounded-md bg-slate-950 px-2 py-0.5 text-sm font-medium text-white"
           >
-            {" "}
+
             Start
           </a>
         </div>

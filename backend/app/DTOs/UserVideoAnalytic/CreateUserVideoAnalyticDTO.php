@@ -11,7 +11,7 @@ class CreateUserVideoAnalyticDTO
         public readonly ?int $user_video_id,
         // public readonly ?string $email,
         public readonly ?string $interaction_type,
-        public readonly ?string $interact_at,
+        public readonly ?int $interact_at,
         public readonly ?string $device_type,
         public readonly ?string $os_type,
         public readonly ?string $browser_type,

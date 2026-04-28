@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import { notFound } from 'next/navigation';
 export async function serverFetch(path: string, options: RequestInit = {}) {
     const cookieStore = await cookies();
     const cookieHeader = cookieStore
@@ -9,7 +10,7 @@ export async function serverFetch(path: string, options: RequestInit = {}) {
     const xsrfToken = cookieStore.get('XSRF-TOKEN')?.value ?? '';
     const decodedXsrf = decodeURIComponent(xsrfToken);
 
-    return fetch(`${process.env.API_BASE_URL}${path}`, {
+    const res = await fetch(`${process.env.API_BASE_URL}${path}`, {
         ...options,
         headers: {
             Accept: 'application/json',
@@ -21,4 +22,8 @@ export async function serverFetch(path: string, options: RequestInit = {}) {
         cache: 'no-store',
         
     });
+    // Redirect to page not found  if 404 status
+    // if(res.status === 404) notFound();
+    // console.log(res.status)
+    return res;
 }

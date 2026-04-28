@@ -2,7 +2,7 @@ export interface userVideoAnalyticsType{
     id: number;
     user_video_id: number;
     interaction_type: 'play' | 'pause' | 'seek' | 'complete' | 'replay' | 'skip';
-    interact_at: string;
+    interact_at: number;
     device_type: string;
     os_type: string;
     browser_type: string;

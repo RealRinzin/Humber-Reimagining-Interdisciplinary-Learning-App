@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dark, solarizedlight, solarizedDarkAtom } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useState } from "react";
-
+// Content Type
 interface contentProps {
   title: string,
   content: string

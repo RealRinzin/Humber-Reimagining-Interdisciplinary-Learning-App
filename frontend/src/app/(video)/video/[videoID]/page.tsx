@@ -1,8 +1,6 @@
 import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
-import CourseProgressUI from "@/components/features/course/CourseProgressUI";
 import CourseTabs from "@/components/features/course/CourseTabs";
 import CourseTitle from "@/components/features/course/CourseTitle";
-import CourseVideo from "@/components/features/course/CourseVideo";
 import MoreCourses from "@/components/features/course/MoreCourses";
 import { MyPlayer } from "@/components/ui/video/VideoPlayer";
 import { notFound } from "next/navigation";
@@ -13,8 +11,15 @@ import {
   faClipboardQuestion,
   faCode,
   faBook,
+  faCirclePlay,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Courses",
+  description: "Browse all courses",
+};
 // Main Page
 export default async function Page({
   params,
@@ -22,18 +27,27 @@ export default async function Page({
   params: Promise<{ videoID: string }>;
 }) {
   // Get the Vide Id
+
   const { videoID } = await params;
   // console.log(params)
   const res = await serverFetch(`/videos/${videoID}`);
   const { data } = await res.json();
-  const last_pause = await serverFetch(`/user-videos/users/4/videos/${data.id}`);
+  const last_pause = await serverFetch(
+    `/user-videos/users/4/videos/${data.id}`,
+  );
   const content = await last_pause.json();
   return (
     <main className="px-1 md:px-20 py-5">
       <section className="flex flex-col md:flex-row gap-4">
         <div className="md:flex-4">
-          {/* {result} */}
           <CourseTitle title={data.title} />
+          <div className="px-1 py-8">
+            <h1 className="text-2xl font-semibold">
+              {" "}
+              <FontAwesomeIcon icon={faCirclePlay} size="1x" /> Video
+            </h1>
+            <p className="py-2 px-10 text-gray-800 text-md">{data.tldw}</p>
+          </div>
           {/* Video section */}
           <section className="flex flex-col md:flex-row gap-3 py-3">
             {/* <CourseProgressUI /> */}
@@ -42,28 +56,7 @@ export default async function Page({
               last_stop={content.data ? content.data.last_paused : 0}
             />
           </section>
-          {/* Tabs */}
-          <CourseTabs
-            type="tldnw"
-            title={"Too Long Did Not watch"}
-            icon={faAlignLeft}
-            content={data.title}
-          />
-          {/* Knowledge */}
-          <CourseTabs
-            type="tyk"
-            title={"Test Your Knowledge"}
-            icon={faClipboardQuestion}
-            content={data.title}
-          />
-          {/* Tabs */}
-          <CourseTabs
-            type="rambling"
-            title={"Umer's Rambling"}
-            icon={faHexagonNodes}
-            content={data.title}
-          />
-          {/* Tabs */}
+          {/* Code Tabe */}
           {data?.codes ? (
             <CourseTabs
               type="code"
@@ -74,21 +67,28 @@ export default async function Page({
           ) : (
             ""
           )}
-          {/* Tabs */}
-
+          {/* Interactive */}
           <CourseTabs
             type="interactive"
             title={"Interactive Mode"}
             icon={faBook}
             content={"demo"}
           />
-          {/* Tabs */}
+          {/* Quiz Tab */}
           <CourseTabs
-            type="resources"
-            title={"Resources"}
-            icon={faBook}
+            type="tyk"
+            title={"Test Your Knowledge"}
+            icon={faClipboardQuestion}
             content={data.title}
           />
+          {/* Rambling Tab */}
+          <CourseTabs
+            type="rambling"
+            title={"Umer's Rambling"}
+            icon={faHexagonNodes}
+            content={data.title}
+          />
+
           {/* <iframe
                         src="http://localhost:3001"
                         className="w-full h-screen border-0"

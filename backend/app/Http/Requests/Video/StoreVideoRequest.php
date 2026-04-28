@@ -21,7 +21,8 @@ class StoreVideoRequest extends FormRequest
             'thumbnail' => ['required','string','max:255'],
             'video_url' => ['required','string','max:255'],
             'duration' => ['required','integer'],
-            'description' => ['required','string']
+            'description' => ['required','string'],
+            'tlwd' => ['required','string']
         ];
     }
 

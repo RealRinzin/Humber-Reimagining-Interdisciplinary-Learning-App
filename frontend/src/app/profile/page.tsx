@@ -87,7 +87,7 @@ export default async function ProfilePage() {
         {/* Continue Learning section */}
 
         <div className="flex gap-10 my-10">
-          {data.map((video: VideoType, index: number) => (
+          {data.slice(0, 3).map((video: VideoType, index: number) => (
             <div key={index}> 
               <VideoCard video={video} />
             </div>

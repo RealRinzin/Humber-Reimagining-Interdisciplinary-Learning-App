@@ -1,48 +1,61 @@
-'use client';
+"use client";
 
-import '@videojs/react/video/skin.css';
-import { createPlayer } from '@videojs/react';
+import "@videojs/react/video/skin.css";
+import { createPlayer } from "@videojs/react";
 
-import { VideoSkin, Video, videoFeatures } from '@videojs/react/video';
+import { VideoSkin, Video, videoFeatures } from "@videojs/react/video";
 // import { useEffect, useRef } from 'react';
-import { notFound } from 'next/navigation';
+import { notFound } from "next/navigation";
 
 interface InteractionPayload {
-  type: string,
-  sec: string
+  type: string;
+  sec: number;
 }
 
 const Player = createPlayer({ features: videoFeatures });
 interface MyPlayerProps {
   src: string;
-  last_stop: number,
+  last_stop: number;
   onPlay?: () => void;
   onPause?: () => void;
   onVolumeChange?: () => void;
 }
 async function postInteraction({ type, sec }: InteractionPayload) {
+  console.log(sec);
+  // read XSRF token from cookie
+  const xsrfToken =
+    document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("XSRF-TOKEN="))
+      ?.split("=")[1] ?? "";
+
+  const decodedXsrf = decodeURIComponent(xsrfToken);
   try {
-    const res = await fetch("http://localhost:8000/api/v1/user_video_analytic", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer 1|BMECIpZdLlTJmnWsbEzvSIal8S8VOunBwLaBhrEg82a48e7e`, // ⚠️ temporary only
+    const res = await fetch(
+      `http://localhost:8000/api/v1/user-video-analytics/users/4/userVideoAnalytics/`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "X-XSRF-TOKEN": decodedXsrf, // ✅ add this
+        },
+        body: JSON.stringify({
+          user_video_id: 3,
+          interaction_type: type,
+          interact_at: sec,
+          device_type: "phone",
+          os_type: "android",
+          ip_address:'23213',
+          user_agent:'useragent',
+          browser_type: "chrome",
+          played_on: new Date().toISOString().split("T")[0],
+        }),
       },
-      body: JSON.stringify({
-        user_video_id: 3,
-        interaction_type: type,
-        // interact_at: Math.floor(3.4),
-        interact_at: sec,
-        device_type: "phone",
-        os_type: "android",
-        browser_type: "chrome",
-        played_on: new Date().toISOString().split("T")[0],
-      }),
-    });
+    );
 
     const data = await res.json();
     console.log("API response:", data);
-
   } catch (err) {
     console.error("API error:", err);
   }
@@ -51,7 +64,6 @@ export const MyPlayer = ({ src, last_stop }: MyPlayerProps) => {
   return (
     <Player.Provider>
       <VideoSkin>
-        {/* <Video src={`${src}#t=${last_stop}`} playsInline /> */}
         <Video
           src={src}
           playsInline
@@ -64,26 +76,65 @@ export const MyPlayer = ({ src, last_stop }: MyPlayerProps) => {
           // ✅ Play event
           onPlay={(e) => {
             const video = e.target as HTMLVideoElement;
-            console.log("Playing at:", video.currentTime);
-            postInteraction({ type: "Played", sec: '2' });
+            // console.log("Playing at:", video.currentTime);
+            postInteraction({ type: "play", sec: video.currentTime });
           }}
-
           onPause={(e) => {
             const video = e.target as HTMLVideoElement;
-            console.log("Paused at:", video.currentTime);
-            postInteraction({ type: "Paused", sec: '10' })
-
+            // console.log("Paused at:", video.currentTime);
+            postInteraction({ type: "pause", sec: video.currentTime });
           }}
-
           onVolumeChange={(e) => {
             const video = e.currentTarget as HTMLVideoElement;
-            console.log("Volume:", video.volume);       // 0.0 to 1.0
-            console.log("Muted:", video.muted);
-            postInteraction({ type: "Volume", sec: '10' })
+            // console.log("Volume:", video.volume); // 0.0 to 1.0
+            // console.log("Muted:", video.muted);
+            postInteraction({ type: "Volume", sec: video.currentTime });
 
             // true / false
-          }}>
-            {/* Closed Captions */}
+          }}
+          // ✅ Track progress every second
+          onTimeUpdate={(e) => {
+            const video = e.target as HTMLVideoElement;
+            const current = Math.floor(video.currentTime);
+            // throttle — only post every 5 seconds to avoid spamming your Laravel API
+            if (current % 5 === 0) {
+              postInteraction({ type: "Progress", sec: current });
+            }
+          }}
+          // ✅ User scrubbed to a different position
+          onSeeked={(e) => {
+            const video = e.target as HTMLVideoElement;
+            postInteraction({
+              type: "Seeked",
+              sec: Math.floor(video.currentTime),
+            });
+          }}
+          // ✅ Video finished
+          onEnded={(e) => {
+            const video = e.target as HTMLVideoElement;
+            postInteraction({
+              type: "Completed",
+              sec: Math.floor(video.duration),
+            });
+          }}
+          // ✅ Buffering / stalled
+          onWaiting={(e) => {
+            const video = e.target as HTMLVideoElement;
+            postInteraction({
+              type: "Buffering",
+              sec: Math.floor(video.currentTime),
+            });
+          }}
+          // ✅ Playback rate changed (0.5x, 1x, 1.5x, 2x)
+          onRateChange={(e) => {
+            const video = e.target as HTMLVideoElement;
+            postInteraction({
+              type: "RateChange",
+              sec: video.playbackRate,
+            });
+          }}
+        >
+          {/* Closed Captions */}
           <track
             kind="captions"
             label="English"
@@ -92,7 +143,6 @@ export const MyPlayer = ({ src, last_stop }: MyPlayerProps) => {
             default
           />
         </Video>
-
       </VideoSkin>
     </Player.Provider>
   );

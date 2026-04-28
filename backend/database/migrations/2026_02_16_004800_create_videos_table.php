@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('video_url'); // Add this line for the video_url column
             $table->integer('duration'); // Add this line for the duration column
             $table->text('description'); // Add this line for the description column
+            $table->text('tldw');
             // Timestamp
             $table->timestamps();
         });
