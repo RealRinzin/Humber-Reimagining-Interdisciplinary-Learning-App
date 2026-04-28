@@ -5,8 +5,8 @@ import CourseTitle from "@/components/features/course/CourseTitle";
 import CourseVideo from "@/components/features/course/CourseVideo";
 import MoreCourses from "@/components/features/course/MoreCourses";
 import { MyPlayer } from "@/components/ui/video/VideoPlayer";
-import timeToDigit from "@/utils/timeToDigit";
 import { notFound } from "next/navigation";
+import { serverFetch } from "@/lib/fetch";
 import {
   faAlignLeft,
   faHexagonNodes,
@@ -14,21 +14,7 @@ import {
   faCode,
   faBook,
 } from "@fortawesome/free-solid-svg-icons";
-import { serverFetch } from "@/lib/fetch";
-// Get the Video
-async function getVideos({ videoID }: { videoID: string }) {
-  // const res = await fetch(`${process.env.API_BASE_URL}/videos/intro-to-space`, {
-  const res = await fetch(`${process.env.API_BASE_URL}/videos/${videoID}`, {
-    headers: {
-      Authorization: `Bearer ${process.env.API_TOKEN}`,
-    },
-  });
-  if (!res.ok) {
-    if (res.status === 404) notFound();
-    throw new Error("Failed to fetch videos");
-  }
-  return res.json();
-}
+
 // lastWatchRecord
 /**
  * 
@@ -36,20 +22,6 @@ async function getVideos({ videoID }: { videoID: string }) {
  * @returns 
  * 
  */
-async function lastWatchRecord({ id }: { id: number }) {
-  const res = await fetch(`${process.env.API_BASE_URL}/user-videos/users/{me}/videos/`, {
-    // method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.API_TOKEN}`,
-      "Content-Type": "application/json",
-    },
-  });
-  if (!res.ok) {
-    if (res.status === 404) notFound();
-    throw new Error("Failed to fetch videos");
-  }
-  return res.json();
-}
 
 // Main Page
 export default async function Page({
@@ -62,13 +34,9 @@ params,
   // console.log(params)
     const res = await serverFetch(`/videos/${videoID}`);
     const {data} = await res.json();
-    console.log(data)
-  // console.log(check);
-  // const { data } = await getVideos({ videoID });
-
-  // The 
-  const id = data.id;
-//   const watch = await lastWatchRecord({ id });
+    const last = await serverFetch(`/user-videos/users/4/videos/${data.id}`)
+    const content= await last.json();
+    console.log(content)
   return (
     <main className="px-1 md:px-20 py-5">
       <section className="flex flex-col md:flex-row gap-4">
@@ -80,10 +48,13 @@ params,
             {/* <CourseProgressUI /> */}
             <MyPlayer
               src={data.video_url}
+              // last_stop={
+                
+              // }
             //   last_stop={
             //     !watch.data ? 0 : timeToDigit({ time: watch.data.watch_minute })
             //   }
-            last_stop={1}
+            last_stop={content.data ? content.data.last_paused : 0}
             />
           </section>
           {/* Tabs */}
@@ -139,7 +110,7 @@ params,
                         allow="accelerometer; gyroscope"
                     /> */}
           <section className="my-10">
-            {/* <MoreCourses /> */}
+            <MoreCourses />
           </section>
         </div>
         <aside

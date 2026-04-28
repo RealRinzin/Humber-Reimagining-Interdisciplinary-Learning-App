@@ -36,14 +36,6 @@ class VideoController
         return new VideoResourceCollection($videos);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
     // public function store(Request $request)
     /**
      * In the store method of the VideoController, we are handling the creation of a new video resource. We are accepting a StoreVideoRequest, which is a custom request class that likely contains validation rules for the incoming data. We are also injecting a CreateVideoAction, which is an action class responsible
@@ -84,13 +76,6 @@ class VideoController
         return new VideoResource($video);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Video $video)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

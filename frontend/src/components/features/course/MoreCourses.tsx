@@ -1,33 +1,25 @@
-import {faCircleArrowRight } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import VideoCard from '../../ui/video/VideoCard'
-async function getAllVideos() {
-  const res = await fetch(`${process.env.API_BASE_URL}/videos`, {
-  
-    headers: {
-      Authorization: `Bearer ${process.env.API_TOKEN}`,
-    },
-  })
-  console.log(res)
-  if (!res.ok) {
-    throw new Error("Failed to fetch videos")
-  }
-  return res.json()
-}
-export default async function MoreCourses() {
-  const {data} = await getAllVideos();
-  console.log(data)
-  return (
+import { faCircleArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import VideoCard from "../../ui/video/VideoCard";
+import { serverFetch } from "@/lib/fetch";
+import { VideoType } from "@/types/video";
 
+export default async function MoreCourses() {
+  const res = await serverFetch(`/videos`);
+  const { data } = await res.json();
+  return (
     <>
-      <h2 className='text-xl font-bold text-gray-600 '><FontAwesomeIcon icon={faCircleArrowRight} size="1x" className='pr-2' />What is next ?</h2>
-      <p className='py-4 text-slate-500'>Ready to learn more? Check out these suggested modules</p>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-        {
-          data.map((video: any, index: number) => (
-           
-            <div className='my-2' key={index} >
-              {/* <div className='relative'>
+      <h2 className="text-xl font-bold text-gray-600 ">
+        <FontAwesomeIcon icon={faCircleArrowRight} size="1x" className="pr-2" />
+        What is next ?
+      </h2>
+      <p className="py-4 text-slate-500">
+        Ready to learn more? Check out these suggested modules
+      </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {data.map((video: VideoType, index: number) => (
+          <div className="my-2" key={index}>
+            {/* <div className='relative'>
                   <Link href={`/video/${video.slug}`}>
                     <Image
                       src={video.thumbnail}
@@ -41,11 +33,10 @@ export default async function MoreCourses() {
                   <span className="absolute right-2 bottom-2 bg-gray-800 px-2 py-1 opacity-80  rounded-xl"><FontAwesomeIcon icon={faPlay} size="1x" className='text-white' /></span>
               </div>
               <h3 className='py-2 text-lg text-slate-600 font-bold'>{video.title}</h3> */}
-            <VideoCard id={index}/>
-            </div>
-          ))
-        }
+            <VideoCard  video={video}/>
+          </div>
+        ))}
       </div>
     </>
-  )
+  );
 }

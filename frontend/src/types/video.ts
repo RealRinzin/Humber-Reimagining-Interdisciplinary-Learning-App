@@ -2,6 +2,7 @@
 export interface VideoType{
     id:number,
     name:string,
+    title:string,
     slug:string,
     topic_id:number,
     parent_id:number,

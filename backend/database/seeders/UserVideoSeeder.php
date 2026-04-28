@@ -28,7 +28,7 @@ class UserVideoSeeder extends Seeder
         //         $user->videos()->syncWithoutDetaching([$video->id]);
         //     }
         // }
-        UserVideo::factory(6)->create();
+        UserVideo::factory(20)->create();
 
     }
 }

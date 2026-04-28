@@ -24,7 +24,7 @@ class UserVideoFactory extends Factory
             'user_id' => User::inRandomOrder()->value('id'),
             // Pick a random existing video ID
             'video_id' => Video::inRandomOrder()->value('id'),
-            'last_paused' => 12,
+            'last_paused' => fake()->numberBetween(1, 10),
             'completed'=>false,
         ];
     }

@@ -129,7 +129,7 @@ Route::prefix('v1')
         Route::controller(UserVideoController::class)->prefix('user-videos/users/{user}/videos')
             ->group(function () {
                 Route::get('/', 'index')->name('user-videos.index'); // This API will be used to get the videos of the user and also to add or remove videos from the user
-                Route::get('/{userVideo:id}', 'show')->name('user-videos.show'); // This API will be used to get the videos of the user and also to add or remove videos from the user
+                Route::get('/{videoId}', 'show')->name('user-videos.show'); // This API will be used to get the videos of the user and also to add or remove videos from the user
                 Route::post('/', 'store')->name('user-videos.store'); // This API will be used to create or update the user video record when the user watches a video
                 Route::patch('/{userVideo:id}', 'update')->name('user-videos.update'); // This API will be used to update the watched_at timestamp of the user video record when the user watches a video again
                 // Route::delete('/{userVideo:id}', 'destroy')->name('user-videos.destroy');

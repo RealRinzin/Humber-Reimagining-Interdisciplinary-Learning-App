@@ -43,11 +43,12 @@ class UserVideoController
     }
 
     // Show
-    public function show(User $user, UserVideo $userVideo)
+    public function show(User $user, int $videoId)
     {
-        if ($userVideo->user_id !== $user->id) {
-            abort(403);
-        }
+        $userVideo = UserVideo::where('user_id', $user->id)
+            ->where('video_id', $videoId)
+            ->latest() // orders by created_at desc
+            ->firstOrFail();
 
         return new UserVideoResource($userVideo);
     }
