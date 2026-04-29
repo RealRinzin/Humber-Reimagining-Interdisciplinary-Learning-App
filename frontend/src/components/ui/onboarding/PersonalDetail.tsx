@@ -13,9 +13,6 @@ const OnBoardingPersonalDetail = ({ onSuccess, values }: Props) => {
   } = useForm<OnboardPersonalDetailType>({ values });
 
   const onSubmit = (data: OnboardPersonalDetailType) => {
-    let user: any = [];
-    user["user"] = data;
-    // console.log(data);
     onSuccess(data);
   };
   return (

@@ -5,10 +5,8 @@ import { useForm } from "react-hook-form";
 type Props = {
   onSuccess: (data: OnboardSelectContentType) => void;
   values: OnboardSelectContentType;
-  personalDetail: OnboardPersonalDetailType  // ← add this
 };
-const OnBoardingSelectContent = ({ onSuccess, values,personalDetail }: Props) => {
-  console.log(personalDetail);
+const OnBoardingSelectContent = ({ onSuccess, values }: Props) => {
   const {
     register,
     handleSubmit,

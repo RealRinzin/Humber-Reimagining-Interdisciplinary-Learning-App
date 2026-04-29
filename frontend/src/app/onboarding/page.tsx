@@ -34,6 +34,7 @@ export default function OnboardingPage() {
   console.log();
   // Data pass
   const [currentStep, setCurrentStep] = useState(0);
+  // Next Handle
   const handleNext = (stepKey: string, data: any) => {
     setFormData((prev) => ({ ...prev, [stepKey]: data }));
     if (currentStep < onBoardingForm.length - 1) {
@@ -55,7 +56,6 @@ export default function OnboardingPage() {
     <OnBoardingSelectContent
       onSuccess={(data) => handleNext("selectContent", data)}
       values={formData.selectContent}
-      personalDetail={formData.personalDetail}
     />,
     <OnBoardingLearningPath
       onSuccess={(data) => handleNext("learningPath", data)}
@@ -64,6 +64,10 @@ export default function OnboardingPage() {
     <OnBoardingShowProgress
       onSuccess={(data) => handleNext("showProgress", data)}
       values={formData.showProgress}
+      personalDetail={formData.personalDetail}
+      selectContent={formData.selectContent}
+      learningPath={formData.learningPath}
+
     />,
   ];
 
