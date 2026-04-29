@@ -1,39 +1,24 @@
-import { useState } from "react";
+import { OnboardPersonalDetailType } from "@/types/onboard/onboard-types";
+import { useForm } from "react-hook-form";
+type Props = {
+  onSuccess: (data: OnboardPersonalDetailType) => void;
+  values: OnboardPersonalDetailType;
+};
+// Export Page
+const OnBoardingPersonalDetail = ({ onSuccess, values }: Props) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<OnboardPersonalDetailType>({ values });
 
-export default function OnBoardingPersonalDetail() {
-  //  Personal Detail Form
-  const [personalDetailForm, setPersonalDetailForm] = useState({
-    name: "",
-    username: "",
-    password: "",
-  });
-  // Error Message
-  const [errorMsg,setErrorMsg] = useState('');
-  // Field Handler
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setPersonalDetailForm((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-  
-  // Form Submission
-  const handlePersonalDetailForm = (e: any) => {
-    // Check empty field
-    const isFieldEmpty = Object.values(personalDetailForm).some(
-      (value) => value.trim() === "",
-    );
-    if (isFieldEmpty) {
-      alert("Empty Field");
-    } else {
-      console.log("Form Valid");
-    }
-    e.preventDefault();
-    console.log(personalDetailForm);
+  const onSubmit = (data: OnboardPersonalDetailType) => {
+    let user: any = [];
+    user["user"] = data;
+    onSuccess(data);
   };
   return (
-    <form onSubmit={handlePersonalDetailForm}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       {/* Title */}
       <div className="mb-6">
         <h2 className="text-xl font-bold text-slate-800 text-center">
@@ -45,42 +30,74 @@ export default function OnBoardingPersonalDetail() {
       {/* Fields */}
       <div className="space-y-5">
         <div className="space-y-1.5">
-          <label className="text-sm font-medium text-slate-700">Name</label>
+          <label className="text-sm font-medium text-slate-700">
+            Name <span className="text-red-700">*</span>
+          </label>
           <input
             type="text"
             placeholder="name"
-            name="name"
+            {...register("name", {
+              required: "Name is required",
+              minLength: { value: 6, message: "Min 8 characters" },
+              maxLength: { value: 20, message: "Max 20 characters" },
+            })}
             className="w-full rounded-lg bg-white/70 border border-slate-300 px-4 py-2.5 text-sm text-slate-700 placeholder-slate-400 outline-none focus:ring-2 focus:ring-slate-400"
-            value={personalDetailForm.name}
-            onChange={handleChange}
           />
+          {errors.name && (
+            <p className="text-xs text-red-700">{errors.name.message}</p>
+          )}
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-sm font-medium text-slate-700">Username</label>
+          <label className="text-sm font-medium text-slate-700">
+            Username <span className="text-red-700">*</span>
+          </label>
           <input
             type="text"
-            name="username"
+            // name="username"
             placeholder="username"
+            {...register("username", {
+              required: "Username is required",
+              minLength: { value: 4, message: "Min 8 characters" },
+              maxLength: { value: 20, message: "Max 20 characters" },
+            })}
             className="w-full rounded-lg bg-white/70 border border-slate-300 px-4 py-2.5 text-sm text-slate-700 placeholder-slate-400 outline-none focus:ring-2 focus:ring-slate-400"
-            value={personalDetailForm.username}
-            onChange={handleChange}
           />
+          {errors.username && (
+            <p className="text-xs text-red-700">{errors.username.message}</p>
+          )}
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-sm font-medium text-slate-700">Password</label>
+          <label className="text-sm font-medium text-slate-700">
+            Password <span className="text-red-700">*</span>
+          </label>
           <input
             type="password"
             placeholder="Password"
-            name="password"
+            {...register("password", {
+              required: "Password is required",
+              minLength: { value: 8, message: "Min 8 characters" },
+              maxLength: { value: 20, message: "Max 20 characters" },
+            })}
             className="w-full rounded-lg bg-white/70 border border-slate-300 px-4 py-2.5 text-sm text-slate-700 placeholder-slate-400 outline-none focus:ring-2 focus:ring-slate-400"
-            value={personalDetailForm.password}
-            onChange={handleChange}
           />
+          {errors.password && (
+            <p className="text-xs text-red-700">{errors.password.message}</p>
+          )}
         </div>
       </div>
-      <button type="submit">Submit</button>
+      <div className="flex items-center justify-end gap-4 mt-8">
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="bg-slate-700 hover:bg-slate-800 disabled:opacity-50 text-white text-sm font-medium px-6 py-2.5 rounded-lg transition-colors"
+        >
+          {isSubmitting ? "Submitting..." : "Next"}
+        </button>
+      </div>
     </form>
   );
-}
+};
+
+export default OnBoardingPersonalDetail;

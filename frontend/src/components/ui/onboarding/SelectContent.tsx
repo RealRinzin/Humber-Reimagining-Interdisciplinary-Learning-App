@@ -1,6 +1,12 @@
 import Input from "../form/Input";
+import { OnboardSelectContentType } from "@/types/onboard/onboard-types";
+import { useForm } from "react-hook-form";
 
-export default function OnBoardingSelectContent() {
+type Props = {
+  onSuccess: (data: OnboardSelectContentType) => void;
+  values: OnboardSelectContentType;
+};
+const OnBoardingSelectContent = ({ onSuccess, values }: Props) => {
   return (
     <>
       <div className="mb-6">
@@ -47,25 +53,6 @@ export default function OnBoardingSelectContent() {
             />
             <span className="px-3">Quizes</span>
           </label>
-          <label htmlFor="written_explanation">
-            <input
-              type="checkbox"
-              name="written_explanation"
-              className="h-4 w-4 rounded border-4 border-gray-600 bg-white checked:border-amber-500 checked:bg--500 "
-            />
-            <span className="px-3"> Written Explanation</span>
-          </label>
-        </div>
-        {/* Other sectino */}
-        <div className="flex flex-col gap-5">
-          <label htmlFor="surveys">
-            <input
-              type="checkbox"
-              name="surveys"
-              className="h-4 w-4 rounded border-4 border-gray-600 bg-white checked:border-amber-500 checked:bg--500 "
-            />
-            <span className="px-3">Surveys</span>
-          </label>
           <label htmlFor="ramblings">
             <input
               type="checkbox"
@@ -74,17 +61,18 @@ export default function OnBoardingSelectContent() {
             />
             <span className="px-3">Ramblings</span>
           </label>
-          {/* <label htmlFor="audio_bites">
-            <input
-              type="checkbox"
-              name="audio_bites"
-              className="h-4 w-4 rounded border-4 border-gray-600 bg-white checked:border-amber-500 checked:bg--500 "
-            />
-            <span className="px-3">Audio Bites</span>
-          </label>
-          <Input type="checkbox" name="resources" /> */}
         </div>
+      </div>
+      <div className="flex items-center justify-end gap-4 mt-8">
+        <button
+          type="submit"
+          className="bg-slate-700 hover:bg-slate-800 disabled:opacity-50 text-white text-sm font-medium px-6 py-2.5 rounded-lg transition-colors"
+        >
+          Next
+        </button>
       </div>
     </>
   );
-}
+};
+
+export default OnBoardingSelectContent;

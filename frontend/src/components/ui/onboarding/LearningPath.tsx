@@ -1,11 +1,18 @@
 import Input from "../form/Input";
+import { OnboardLearningPathType } from "@/types/onboard/onboard-types";
 
-export default function OnBoardingLearningPath() {
+type Props = {
+  onSuccess: (data: OnboardLearningPathType) => void;
+  values: OnboardLearningPathType;
+};
+// const OnBoardingLearningPath = ({ onSuccess }: { onSuccess: () => void }) => {
+  const OnBoardingLearningPath = ({ onSuccess, values }: Props)=> {
+
   return (
     <>
       <div className="mb-6">
         <h2 className="text-xl font-bold text-gray-900 text-center">
-            Learning Path
+          Learning Path
         </h2>
         <div className="mt-2 border-t border-gray-600/50" />
       </div>
@@ -28,4 +35,6 @@ export default function OnBoardingLearningPath() {
       </div>
     </>
   );
-}
+};
+
+export default OnBoardingLearningPath;

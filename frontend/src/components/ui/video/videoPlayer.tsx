@@ -6,6 +6,8 @@ import { createPlayer } from "@videojs/react";
 import { VideoSkin, Video, videoFeatures } from "@videojs/react/video";
 // import { useEffect, useRef } from 'react';
 import { notFound } from "next/navigation";
+import { serverFetch } from "@/lib/fetch";
+import { useEffect, useState } from "react";
 
 interface InteractionPayload {
   type: string;
@@ -21,7 +23,6 @@ interface MyPlayerProps {
   onVolumeChange?: () => void;
 }
 async function postInteraction({ type, sec }: InteractionPayload) {
-  console.log(sec)
   // read XSRF token from cookie
   const xsrfToken =
     document.cookie
@@ -46,8 +47,8 @@ async function postInteraction({ type, sec }: InteractionPayload) {
           interact_at: sec,
           device_type: "phone",
           os_type: "android",
-          ip_address:'23213',
-          user_agent:'useragent',
+          ip_address: "23213",
+          user_agent: "useragent",
           browser_type: "chrome",
           played_on: new Date().toISOString().split("T")[0],
         }),
@@ -55,13 +56,29 @@ async function postInteraction({ type, sec }: InteractionPayload) {
     );
 
     const data = await res.json();
-    console.log("API response:", data);
+    
   } catch (err) {
     console.error("API error:", err);
   }
 }
+
+// Video
+
+// Export
 export const MyPlayer = ({ src, last_stop }: MyPlayerProps) => {
-  return (
+  const [data,setData] = useState();
+  useEffect(() => {
+    fetch("http://localhost:8000/api/v1//user-videos/users/4/videos/3", {
+      credentials: "include", // browser handles cookies + referer automatically
+      headers: {
+        Accept: "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setData(data));
+    }, []);
+    console.log(data)
+    return (
     <Player.Provider>
       <VideoSkin>
         <Video
@@ -77,18 +94,27 @@ export const MyPlayer = ({ src, last_stop }: MyPlayerProps) => {
           onPlay={(e) => {
             const video = e.target as HTMLVideoElement;
             // console.log("Playing at:", video.currentTime);
-            postInteraction({ type: "Played", sec: Math.floor(video.currentTime) });
+            postInteraction({
+              type: "Played",
+              sec: Math.floor(video.currentTime),
+            });
           }}
           onPause={(e) => {
             const video = e.target as HTMLVideoElement;
             // console.log("Paused at:", video.currentTime);
-            postInteraction({ type: "Paused", sec: Math.floor(video.currentTime) });
+            postInteraction({
+              type: "Paused",
+              sec: Math.floor(video.currentTime),
+            });
           }}
           onVolumeChange={(e) => {
             const video = e.currentTarget as HTMLVideoElement;
             // console.log("Volume:", video.volume); // 0.0 to 1.0
             // console.log("Muted:", video.muted);
-            postInteraction({ type: "Volume", sec: Math.floor(video.currentTime) });
+            postInteraction({
+              type: "Volume",
+              sec: Math.floor(video.currentTime),
+            });
 
             // true / false
           }}
@@ -118,21 +144,21 @@ export const MyPlayer = ({ src, last_stop }: MyPlayerProps) => {
             });
           }}
           // ✅ Buffering / stalled
-          onWaiting={(e) => {
-            const video = e.target as HTMLVideoElement;
-            postInteraction({
-              type: "Buffering",
-              sec: Math.floor(video.currentTime),
-            });
-          }}
+          // onWaiting={(e) => {
+          //   const video = e.target as HTMLVideoElement;
+          //   postInteraction({
+          //     type: "Buffering",
+          //     sec: Math.floor(video.currentTime),
+          //   });
+          // }}
           // ✅ Playback rate changed (0.5x, 1x, 1.5x, 2x)
-          onRateChange={(e) => {
-            const video = e.target as HTMLVideoElement;
-            postInteraction({
-              type: "RateChange",
-              sec: video.playbackRate,
-            });
-          }}
+          // onRateChange={(e) => {
+          //   const video = e.target as HTMLVideoElement;
+          //   postInteraction({
+          //     type: "RateChange",
+          //     sec: Math.floor(video.currentTime),
+          //   });
+          // }}
         >
           {/* Closed Captions */}
           <track

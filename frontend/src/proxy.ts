@@ -63,7 +63,7 @@ export async function proxy(request: NextRequest) {
     const loggedIn = await isAuthenticated(request)
 
     const isAuthPage = request.nextUrl.pathname === '/'
-    const isOnBoardingPage = request.nextUrl.pathname === '/onboarding';;
+    const isOnBoardingPage = request.nextUrl.pathname === '/onboarding';
     // If not logged in and trying to access protected page → redirect to login
     if (!loggedIn && !isAuthPage) {
         return NextResponse.redirect(new URL('/', request.url))

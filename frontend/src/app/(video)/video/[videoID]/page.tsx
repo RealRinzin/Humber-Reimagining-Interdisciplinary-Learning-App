@@ -3,10 +3,8 @@ import CourseTabs from "@/components/features/course/CourseTabs";
 import CourseTitle from "@/components/features/course/CourseTitle";
 import MoreCourses from "@/components/features/course/MoreCourses";
 import { MyPlayer } from "@/components/ui/video/VideoPlayer";
-import { notFound } from "next/navigation";
 import { serverFetch } from "@/lib/fetch";
 import {
-  faAlignLeft,
   faHexagonNodes,
   faClipboardQuestion,
   faCode,
@@ -27,15 +25,14 @@ export default async function Page({
   params: Promise<{ videoID: string }>;
 }) {
   // Get the Vide Id
-
-  const { videoID } = await params;
-  // console.log(params)
-  const res = await serverFetch(`/videos/${videoID}`);
-  const { data } = await res.json();
+  const { videoID } = await params; // Get the video params
+  const res = await serverFetch(`/videos/${videoID}`); // call the video details
+  const { data } = await res.json(); // destructure the data
   const last_pause = await serverFetch(
     `/user-videos/users/4/videos/${data.id}`,
   );
   const content = await last_pause.json();
+  console.log(content)
   return (
     <main className="px-1 md:px-20 py-5">
       <section className="flex flex-col md:flex-row gap-4">
@@ -53,7 +50,10 @@ export default async function Page({
             {/* <CourseProgressUI /> */}
             <MyPlayer
               src={data.video_url}
+              // last_stop={4}
+              // last_stop={content.data.last_paused}
               last_stop={content.data ? content.data.last_paused : 0}
+              // last_stop={content.data ? Number(content.data.last_paused) : 0}
             />
           </section>
           {/* Code Tabe */}
