@@ -23,14 +23,15 @@ export default function OnboardingPage() {
     personalDetail: { name: "", username: "", password: "" }, // or a default object with empty strings
     selectContent: {
       video: false,
-      interactiveMode: false,
+      interactive: false,
       code: false,
       quiz: false,
       rambling: false,
     },
     learningPath: { explore_mode: false, guided_path: false },
-    showProgress: {status:false},
+    showProgress: { status: false },
   });
+  console.log();
   // Data pass
   const [currentStep, setCurrentStep] = useState(0);
   const handleNext = (stepKey: string, data: any) => {
@@ -54,15 +55,17 @@ export default function OnboardingPage() {
     <OnBoardingSelectContent
       onSuccess={(data) => handleNext("selectContent", data)}
       values={formData.selectContent}
+      personalDetail={formData.personalDetail}
     />,
     <OnBoardingLearningPath
       onSuccess={(data) => handleNext("learningPath", data)}
       values={formData.learningPath}
     />,
-    // <OnBoardingShowProgress onSuccess={handleNext} />,
+    <OnBoardingShowProgress
+      onSuccess={(data) => handleNext("showProgress", data)}
+      values={formData.showProgress}
+    />,
   ];
-
-  console.log(components[currentStep].type.name);
 
   // Page Return Layout
   const [onBoardingForm, setOnBoardingForm] = useState<OnboardStepsType[]>([
@@ -139,7 +142,7 @@ export default function OnboardingPage() {
                     <div className="flex flex-col items-center gap-1">
                       <div
                         className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold
-                      ${step.status ? "bg-slate-700 text-white" : "bg-slate-400/60 text-slate-500"}`}
+                      ${step.component === components[currentStep].type.name ? "bg-slate-700 text-white" : "bg-slate-400/60 text-slate-500"}`}
                       >
                         {step.number}
                       </div>

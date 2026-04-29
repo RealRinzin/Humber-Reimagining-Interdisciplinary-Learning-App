@@ -15,7 +15,7 @@ export interface OnboardPersonalDetailType{
 // Select Content 
 export interface OnboardSelectContentType{
     video:boolean,
-    interactiveMode:boolean,
+    interactive:boolean,
     code:boolean,
     quiz:boolean,
     rambling:boolean

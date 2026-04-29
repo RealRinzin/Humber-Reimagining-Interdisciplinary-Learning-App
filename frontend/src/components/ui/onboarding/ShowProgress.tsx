@@ -1,14 +1,24 @@
 import { OnboardShowProgressType } from "@/types/onboard/onboard-types";
 import Input from "../form/Input";
+import { useForm } from "react-hook-form";
 type Props = {
   onSuccess: (data: OnboardShowProgressType) => void;
   values: OnboardShowProgressType;
 };
-const OnBoardingShowProgress = ({ onSuccess }: { onSuccess: () => void }) => {
+const OnBoardingShowProgress = ({ onSuccess, values }: Props) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<OnboardShowProgressType>({ values });
 
+  const onSubmit = (data: OnboardShowProgressType) => {
+    console.log(data);
+    onSuccess(data);
+  };
   return (
     <>
-      <form action="">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-6">
           <h2 className="text-xl font-bold text-gray-900 text-center">
             Learning Path
@@ -19,13 +29,20 @@ const OnBoardingShowProgress = ({ onSuccess }: { onSuccess: () => void }) => {
           Choose whether you'd like to see your progress as you learn. You can
           turn this on or off anytime.
         </p>
-        <Input type="checkbox" name="show progress" />
+        <label htmlFor="status">
+          <input
+            type="checkbox"
+            {...register("status")}
+            className="h-4 w-4 rounded border-4 border-gray-600 bg-white checked:border-amber-500 checked:bg--500 "
+          />
+          <span className="px-3">Guided Path</span>
+        </label>
         <div className="flex items-center justify-end gap-4 mt-8">
           <button
             type="submit"
             className="bg-slate-700 hover:bg-slate-800 disabled:opacity-50 text-white text-sm font-medium px-6 py-2.5 rounded-lg transition-colors"
           >
-            Next
+            Submit
           </button>
         </div>
       </form>
