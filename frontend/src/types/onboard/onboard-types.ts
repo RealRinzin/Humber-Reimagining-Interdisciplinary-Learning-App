@@ -24,10 +24,10 @@ export interface OnboardSelectContentType{
 // Learning Path
 export interface OnboardLearningPathType{
     explore_mode:boolean,
-    guided_path:boolean
+    guide_path:boolean
 }
 // Show progress
 
 export interface OnboardShowProgressType{
-    status:boolean
+    progress:boolean
 }

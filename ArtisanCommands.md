@@ -20,3 +20,12 @@ You can generate a **resource and its collection in one command:
 
 php artisan make:resource UserResource --collection
 ```
+> ### DTOs - create
+```php
+php artisan make:class DTOs/UserContentSetting/CreateUserContentSettingDTO
+```
+
+> ### Action - create
+```php
+php artisan make:class Actions/UserContentSetting/CreateUserContentSettingAction
+```

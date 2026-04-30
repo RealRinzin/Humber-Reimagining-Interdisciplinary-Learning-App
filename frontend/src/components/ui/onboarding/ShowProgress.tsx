@@ -51,7 +51,7 @@ const OnBoardingShowProgress = ({
 
   async function onBoardCall(): Promise<void> {
     const xsrfToken = await fetchCsrfToken(); // ← get cookie first, THEN read it
-    // return ;
+    // // return ;
     const res = await fetch(`http://localhost:8000/api/register`, {
       method: "POST",
       credentials: "include",
@@ -67,8 +67,29 @@ const OnBoardingShowProgress = ({
       const error = await res.json();
       throw error;
     }
-    const user = await res.json();
-    console.log(user)
+    const data = await res.json(); // return new user detail
+  
+    // Content settings post
+    const setting = await fetch(
+      `http://localhost:8000/api/v1/user-content-settings`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "X-XSRF-TOKEN": xsrfToken,
+        },
+        //  Post body
+        body: JSON.stringify({
+          ...userData.selectContent,
+          ...userData.learningPath,
+          ...userData.progress,
+          user_id: data.user.id,
+        }),
+      },
+    );
+    // console.log(user);
   }
 
   const onSubmit = async (data: OnboardShowProgressType) => {
@@ -92,10 +113,10 @@ const OnBoardingShowProgress = ({
           Choose whether you'd like to see your progress as you learn. You can
           turn this on or off anytime.
         </p>
-        <label htmlFor="status">
+        <label htmlFor="progress">
           <input
             type="checkbox"
-            {...register("status")}
+            {...register("progress")}
             className="h-4 w-4 rounded border-4 border-gray-600 bg-white checked:border-amber-500 checked:bg--500 "
           />
           <span className="px-3">Show Progress</span>

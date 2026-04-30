@@ -28,8 +28,8 @@ export default function OnboardingPage() {
       quiz: false,
       rambling: false,
     },
-    learningPath: { explore_mode: false, guided_path: false },
-    showProgress: { status: false },
+    learningPath: { explore_mode: false, guide_path: false },
+    showProgress: { progress: false },
   });
   console.log();
   // Data pass

@@ -42,10 +42,10 @@ const OnBoardingLearningPath = ({ onSuccess, values }: Props) => {
             />
             <span className="px-3">Explore Mode</span>
           </label>
-          <label htmlFor="guided_path">
+          <label htmlFor="guide_path">
             <input
               type="checkbox"
-              {...register("guided_path")}
+              {...register("guide_path")}
               className="h-4 w-4 rounded border-4 border-gray-600 bg-white checked:border-amber-500 checked:bg--500 "
             />
             <span className="px-3">Guided Path</span>
