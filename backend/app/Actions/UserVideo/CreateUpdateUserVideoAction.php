@@ -48,7 +48,7 @@ class CreateUpdateUserVideoAction
                 'video_id' => $dto->video_id,
                 'user_id' =>  auth()->id(),
                 'last_paused' => $dto->last_paused ?? 0,
-                'completed' =>  true,
+                'completed' =>  false,
             ]);
         }
 

@@ -15,8 +15,9 @@ interface MyPlayerProps {
   onPause?: () => void;
   onVolumeChange?: () => void;
 }
-// Interaction
-async function postInteraction({ type, sec }: InteractionPayload) {
+
+// ASYNC
+async function getXsrfToken() {
   // read XSRF token from cookie
   const xsrfToken =
     document.cookie
@@ -24,18 +25,27 @@ async function postInteraction({ type, sec }: InteractionPayload) {
       .find((row) => row.startsWith("XSRF-TOKEN="))
       ?.split("=")[1] ?? "";
 
-  const decodedXsrf = decodeURIComponent(xsrfToken);
+  // const decodedXsrf = decodeURIComponent(xsrfToken);
+  return decodeURIComponent(xsrfToken);
+}
+let me:any = [];
+// Interaction
+async function postInteraction({ type, sec }: InteractionPayload) {
+  // read XSRF token from cookie
+  const xsrfToken = await getXsrfToken();
   try {
     const currentUser = await fetch("http://localhost:8000/api/v1/me", {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        "X-XSRF-TOKEN": decodedXsrf, // ✅ add this
+        "X-XSRF-TOKEN": xsrfToken, // ✅ add this
       },
     });
 
+    // Current User Detail;
     const user = await currentUser.json();
-    console.log(user.id);
+    me = user;
+    // Update the interaction
     const res = await fetch(
       `http://localhost:8000/api/v1/user-video-analytics/users/${user.id}/userVideoAnalytics/`,
       {
@@ -43,7 +53,7 @@ async function postInteraction({ type, sec }: InteractionPayload) {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          "X-XSRF-TOKEN": decodedXsrf, // ✅ add this
+          "X-XSRF-TOKEN": xsrfToken, // ✅ add this
         },
         body: JSON.stringify({
           user_video_id: 3,
@@ -63,8 +73,46 @@ async function postInteraction({ type, sec }: InteractionPayload) {
   } catch (err) {
     console.error("API error:", err);
   }
-}
 
+  // Only react or update
+  if (type === "Paused") {
+    const userVideo = await fetch(
+      `http://localhost:8000/api/v1/user-videos/users/${me.id}/videos`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "X-XSRF-TOKEN": xsrfToken, // ✅ add this
+        },
+        body: JSON.stringify({
+          video_id: 1,
+          last_paused: sec,
+          completed: false,
+        }),
+      },
+    );
+  }
+  if (type === "Completed") {
+    const userVideo = await fetch(
+      `http://localhost:8000/api/v1/user-videos/users/${me.id}/videos`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "X-XSRF-TOKEN": xsrfToken, // ✅ add this
+        },
+        body: JSON.stringify({
+          video_id: 1,
+          last_paused: sec,
+          completed: true,
+        }),
+      },
+    );
+    console.log(await userVideo.json());
+  }
+}
 // Export
 export const MyPlayer = ({ src, last_stop }: MyPlayerProps) => {
   return (

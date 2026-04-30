@@ -45,10 +45,16 @@ class UserVideoController
     // Show
     public function show(User $user, int $videoId)
     {
+        abort_if(auth()->id() !== $user->id, 403);
+
         $userVideo = UserVideo::where('user_id', $user->id)
             ->where('video_id', $videoId)
-            ->latest() // orders by created_at desc
-            ->firstOrFail();
+            ->latest()
+            ->first(); // null instead of 404
+
+        if (!$userVideo) {
+            return response()->json(['data' => null]);
+        }
 
         return new UserVideoResource($userVideo);
     }

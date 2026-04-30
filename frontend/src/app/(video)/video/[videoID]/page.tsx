@@ -28,11 +28,27 @@ export default async function Page({
   const { videoID } = await params; // Get the video params
   const res = await serverFetch(`/videos/${videoID}`); // call the video details
   const { data } = await res.json(); // destructure the data
-  const last_pause = await serverFetch(
-    `/user-videos/users/3/videos/${data.id}`,
-  );
-  const content = await last_pause.json();
-  console.log(content)
+
+  const user = await serverFetch(`/me`);
+  const me = await user.json();
+
+  // With this:
+  let lastPaused = 0;
+
+  try {
+    const last_pause = await serverFetch(
+      `/user-videos/users/${me.id}/videos/${data.id}`,
+    );
+
+    if (last_pause.ok) {
+      const content = await last_pause.json();
+      lastPaused = content?.data?.last_paused ?? 0;
+    }
+  } catch (e) {
+    // No record yet, default to 0
+  }
+
+  
   return (
     <main className="px-1 md:px-20 py-5">
       <section className="flex flex-col md:flex-row gap-4">
@@ -47,14 +63,7 @@ export default async function Page({
           </div>
           {/* Video section */}
           <section className="flex flex-col md:flex-row gap-3 py-3">
-            {/* <CourseProgressUI /> */}
-            <MyPlayer
-              src={data.video_url}
-              // last_stop={4}
-              // last_stop={content.data.last_paused}
-              last_stop={content.data ? content.data.last_paused : 0}
-              // last_stop={content.data ? Number(content.data.last_paused) : 0}
-            />
+            <MyPlayer src={data.video_url} last_stop={lastPaused} />
           </section>
           {/* Code Tabe */}
           {data?.codes ? (
