@@ -29,7 +29,7 @@ export default async function Page({
   const res = await serverFetch(`/videos/${videoID}`); // call the video details
   const { data } = await res.json(); // destructure the data
   const last_pause = await serverFetch(
-    `/user-videos/users/4/videos/${data.id}`,
+    `/user-videos/users/3/videos/${data.id}`,
   );
   const content = await last_pause.json();
   console.log(content)

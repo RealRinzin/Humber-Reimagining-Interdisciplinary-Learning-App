@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController
 {
+    // Current User
+
+    public function me(Request $request)
+    {
+        // returns the current user details
+        return response()->json(Auth::user());
+    }
     // Login
     /**
      * Login

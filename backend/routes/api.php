@@ -47,6 +47,8 @@ Route::prefix('v1')
     ->name('v1.')
     ->middleware(['auth:sanctum', 'throttle:1000,1'])
     ->group(function () {
+        // Current User detail
+        Route::get('/me',[AuthController::class, 'me']);
         // =============== User Logout | Registeration ===============================| 
         // This API is protected by sanctum middleware and it will be used for user logout
         // This API will revoke the token of the user and it will return a success message
