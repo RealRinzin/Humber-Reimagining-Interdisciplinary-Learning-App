@@ -34,9 +34,9 @@ class CreateUpdateUserVideoAction
         if (!$lastVideo) { // If the user has not watched any video before, we will create a new record with the new data, and we will return the created record
             return UserVideo::create([
                 'video_id' => $dto->video_id,
-                // 'user_id' =>  auth()->id(),
-                // 'last_paused' => $dto->last_paused ?? 0,
-                // 'completed' =>  false,
+                'user_id' =>  auth()->id(),
+                'last_paused' => $dto->last_paused ?? 0,
+                'completed' =>  false,
             ]);
         }
         // We will check if the user has already completed the video, if yes, we will return the record as-is, otherwise we will update or create the record with the new data, and we will return the updated or created record

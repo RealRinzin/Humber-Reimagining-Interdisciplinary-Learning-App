@@ -10,10 +10,10 @@ class StoreUserContentSettingRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    // public function authorize(): bool
-    // {
-    //     return false;
-    // }
+    public function authorize(): bool
+    {
+        return auth()->check();
+    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -23,7 +23,6 @@ class StoreUserContentSettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id'=>['required','integer'],
             'video' => ['required','boolean'],
             'code' => ['required','boolean'],
             'quiz' => ['required','boolean'],
@@ -37,7 +36,6 @@ class StoreUserContentSettingRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'user_id.required'      => 'user id is required.',
             'video.required'     => 'Video status is required.',
             'code.required'     => 'Code status is required.',
             'quiz.required'     => 'Quiz status is required.',

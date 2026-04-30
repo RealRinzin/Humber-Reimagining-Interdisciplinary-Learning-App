@@ -11,10 +11,10 @@ class CreateUpdateUserVideoDTO
      * @param string|null $watch_minute
      */
     public function __construct(
-        public readonly ?int $video_id,
-        public readonly ?int $user_id,
-        public readonly ?string $last_paused,
-        public readonly ?bool $completed,
+        public readonly int $user_id,
+        public readonly int $video_id,
+        public readonly string $last_paused,
+        public readonly bool $completed,
     ) {}
 
     /**
@@ -23,6 +23,11 @@ class CreateUpdateUserVideoDTO
      */
     public static function fromRequest(CreateUpdateRequest $request): self
     {
-        return new self(...$request->validated());
+        return new self(
+            user_id:auth()->id(),
+            video_id:$request->validated('video_id'),
+            last_paused:$request->validated('last_paused'),
+            completed:$request->validated('completed'),
+        );
     }
 }

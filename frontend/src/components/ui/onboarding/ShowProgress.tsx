@@ -1,11 +1,13 @@
+"use client";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+
 import {
   OnboardPersonalDetailType,
   OnboardSelectContentType,
   OnboardLearningPathType,
   OnboardShowProgressType,
 } from "@/types/onboard/onboard-types";
-import Input from "../form/Input";
-import { useForm } from "react-hook-form";
 type Props = {
   onSuccess: (data: OnboardShowProgressType) => void;
   values: OnboardShowProgressType;
@@ -32,6 +34,7 @@ const OnBoardingShowProgress = ({
     handleSubmit,
     formState: { errors },
   } = useForm<OnboardShowProgressType>({ values });
+  const router = useRouter();
 
   // GET CSRF TOKEN
   async function fetchCsrfToken(): Promise<string> {
@@ -68,9 +71,27 @@ const OnBoardingShowProgress = ({
       throw error;
     }
     const data = await res.json(); // return new user detail
-  
+
+    // ✅ Login to establish the session
+    const freshXsrfToken = await fetchCsrfToken();
+    const loginRes = await fetch(`http://localhost:8000/api/v1/login`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "X-XSRF-TOKEN": freshXsrfToken,
+      },
+      body: JSON.stringify({
+        username: userData.personalDetail.username,
+        password: userData.personalDetail.password,
+      }),
+    });
+
     // Content settings post
-    const setting = await fetch(
+    // ✅ Fetch a fresh token before the second request
+    const settingXsrfToken = await fetchCsrfToken();
+    const settingRes = await fetch(
       `http://localhost:8000/api/v1/user-content-settings`,
       {
         method: "POST",
@@ -78,24 +99,25 @@ const OnBoardingShowProgress = ({
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          "X-XSRF-TOKEN": xsrfToken,
+          "X-XSRF-TOKEN": settingXsrfToken,
         },
         //  Post body
         body: JSON.stringify({
           ...userData.selectContent,
           ...userData.learningPath,
           ...userData.progress,
-          user_id: data.user.id,
         }),
       },
     );
-    // console.log(user);
+    // if (settingRes.ok) {
+    // }
   }
 
   const onSubmit = async (data: OnboardShowProgressType) => {
     try {
       await onBoardCall();
       onSuccess(data);
+      router.push("/profile");
     } catch (err) {
       console.error("error", err);
     }

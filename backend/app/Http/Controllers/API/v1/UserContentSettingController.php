@@ -25,6 +25,7 @@ class UserContentSettingController
      */
     public function store(StoreUserContentSettingRequest $request, CreateUserContentSettingAction $action,User $user)
     {
+
         $userContentSetting = $action->execute(CreateUserContentSettingDTO::fromRequest($request));
         return response()->json($userContentSetting, $userContentSetting->wasRecentlyCreated ? 201 : 200);
 

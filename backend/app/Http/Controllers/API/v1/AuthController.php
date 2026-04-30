@@ -1,15 +1,15 @@
 <?php
 
 namespace App\Http\Controllers\API\v1;
+
 use App\Actions\User\CreateUserAction;
 use App\Actions\User\LoginUserAction;
 use App\DTOs\User\LoginUserDTO;
 use App\DTOs\User\CreateUserDTO;
 use App\Http\Requests\User\LoginUserRequest;
 use App\Http\Requests\User\StoreUserRequest;
-use App\Models\User;
-use App\Models\UserVideoAnalytic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController
 {
@@ -70,19 +70,18 @@ class AuthController
         $dto = CreateUserDTO::fromRequest($request);
         // Assign the return to new Variable
         $newUser = $action->execute($dto);
-        /**
-         * Access Token
-         * Generate the user access token after creating new user
-         */
-        $token = $newUser->createToken('access_Token')->plainTextToken; // Convert the access token to plain text for API Authorization
+
+        // Geerate the
+        $request->session()->regenerate();
+
         /**
          * Return Object
-         * Return the user details along with the access token for the API authorization with Bearer Token
-         * Bearer "access token"
+         * Return the user details
+         * return response()->json(['message' => 'Authenticated', 'user' => $user]);
          */
         return response()->json([
-            'user' => $newUser, // Keep the user details like name, username, here
-            'token' => $token  // assign the generate token of the new user
+            'message' => 'Authenticated',
+            'user' => $newUser,
         ]);
     }
 
@@ -96,6 +95,13 @@ class AuthController
      */
     public function logout(Request $request)
     {
+
+        // For SPA (cookie/session) auth — this is what you're using
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return response()->json(['message' => 'Logged out']);
         /**
          * Delete the current access token
          * Delete the access token of the current user
@@ -107,12 +113,5 @@ class AuthController
         return response()->json([
             'message' => 'Logged out'
         ]);
-    }
-
-    // test
-    public function index(Request $request, User $user)
-    {
-
-        return UserVideoAnalytic::with('userVideo')->get();
     }
 }
