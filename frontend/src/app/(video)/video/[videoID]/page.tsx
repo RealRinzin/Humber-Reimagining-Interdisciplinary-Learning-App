@@ -32,14 +32,14 @@ export default async function Page({
   const user = await serverFetch(`/me`);
   const me = await user.json();
 
+
+  
   // With this:
   let lastPaused = 0;
-
   try {
     const last_pause = await serverFetch(
       `/user-videos/users/${me.id}/videos/${data.id}`,
     );
-
     if (last_pause.ok) {
       const content = await last_pause.json();
       lastPaused = content?.data?.last_paused ?? 0;
@@ -48,7 +48,7 @@ export default async function Page({
     // No record yet, default to 0
   }
 
-  
+
   return (
     <main className="px-1 md:px-20 py-5">
       <section className="flex flex-col md:flex-row gap-4">
@@ -63,7 +63,7 @@ export default async function Page({
           </div>
           {/* Video section */}
           <section className="flex flex-col md:flex-row gap-3 py-3">
-            <MyPlayer src={data.video_url} last_stop={lastPaused} />
+            <MyPlayer src={data.video_url} last_stop={lastPaused} videoID={data.id} />
           </section>
           {/* Code Tabe */}
           {data?.codes ? (

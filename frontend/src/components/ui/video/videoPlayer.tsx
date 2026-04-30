@@ -3,18 +3,22 @@ import "@videojs/react/video/skin.css";
 import { createPlayer } from "@videojs/react";
 
 import { VideoSkin, Video, videoFeatures } from "@videojs/react/video";
+import { serverFetch } from "@/lib/fetch";
 interface InteractionPayload {
   type: string;
   sec: number;
+  videoID: number;
 }
 const Player = createPlayer({ features: videoFeatures });
 interface MyPlayerProps {
   src: string;
   last_stop: number;
+  videoID: number;
   onPlay?: () => void;
   onPause?: () => void;
   onVolumeChange?: () => void;
 }
+let me: any = [];
 
 // ASYNC
 async function getXsrfToken() {
@@ -28,9 +32,8 @@ async function getXsrfToken() {
   // const decodedXsrf = decodeURIComponent(xsrfToken);
   return decodeURIComponent(xsrfToken);
 }
-let me:any = [];
 // Interaction
-async function postInteraction({ type, sec }: InteractionPayload) {
+async function postInteraction({ type, sec, videoID }: InteractionPayload) {
   // read XSRF token from cookie
   const xsrfToken = await getXsrfToken();
   try {
@@ -45,18 +48,19 @@ async function postInteraction({ type, sec }: InteractionPayload) {
     // Current User Detail;
     const user = await currentUser.json();
     me = user;
+
     // Update the interaction
     const res = await fetch(
-      `http://localhost:8000/api/v1/user-video-analytics/users/${user.id}/userVideoAnalytics/`,
+      `http://localhost:8000/api/v1/user-video-analytics/users/${me.id}/userVideoAnalytics`,
       {
         method: "POST",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          "X-XSRF-TOKEN": xsrfToken, // ✅ add this
+          "X-XSRF-TOKEN": xsrfToken, 
         },
         body: JSON.stringify({
-          user_video_id: 3,
+          user_video_id: 1,
           interaction_type: type,
           interact_at: sec,
           device_type: "phone",
@@ -86,7 +90,7 @@ async function postInteraction({ type, sec }: InteractionPayload) {
           "X-XSRF-TOKEN": xsrfToken, // ✅ add this
         },
         body: JSON.stringify({
-          video_id: 1,
+          video_id: videoID,
           last_paused: sec,
           completed: false,
         }),
@@ -104,7 +108,7 @@ async function postInteraction({ type, sec }: InteractionPayload) {
           "X-XSRF-TOKEN": xsrfToken, // ✅ add this
         },
         body: JSON.stringify({
-          video_id: 1,
+          video_id: videoID,
           last_paused: sec,
           completed: true,
         }),
@@ -114,7 +118,7 @@ async function postInteraction({ type, sec }: InteractionPayload) {
   }
 }
 // Export
-export const MyPlayer = ({ src, last_stop }: MyPlayerProps) => {
+export const MyPlayer = ({ src, last_stop, videoID }: MyPlayerProps) => {
   return (
     <Player.Provider>
       <VideoSkin>
@@ -132,6 +136,7 @@ export const MyPlayer = ({ src, last_stop }: MyPlayerProps) => {
             postInteraction({
               type: "Played",
               sec: Math.floor(video.currentTime),
+              videoID: videoID,
             });
           }}
           onPause={(e) => {
@@ -139,6 +144,7 @@ export const MyPlayer = ({ src, last_stop }: MyPlayerProps) => {
             postInteraction({
               type: "Paused",
               sec: Math.floor(video.currentTime),
+              videoID: videoID,
             });
           }}
           onVolumeChange={(e) => {
@@ -146,6 +152,7 @@ export const MyPlayer = ({ src, last_stop }: MyPlayerProps) => {
             postInteraction({
               type: "Volume",
               sec: Math.floor(video.currentTime),
+              videoID: videoID,
             });
           }}
           onSeeked={(e) => {
@@ -153,6 +160,7 @@ export const MyPlayer = ({ src, last_stop }: MyPlayerProps) => {
             postInteraction({
               type: "Seeked",
               sec: Math.floor(video.currentTime),
+              videoID: videoID,
             });
           }}
           // ✅ Video finished
@@ -161,6 +169,7 @@ export const MyPlayer = ({ src, last_stop }: MyPlayerProps) => {
             postInteraction({
               type: "Completed",
               sec: Math.floor(video.duration),
+              videoID: videoID,
             });
           }}
         >
