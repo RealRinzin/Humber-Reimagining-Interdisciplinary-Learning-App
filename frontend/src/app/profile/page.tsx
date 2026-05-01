@@ -13,28 +13,6 @@ import { VideoType } from "@/types/video";
  * @returns
  */
 export default async function ProfilePage() {
-  //
-  // const cookieStore = await cookies();
-  // const cookieHeader = cookieStore
-  //   .getAll()
-  //   .map((c) => `${c.name}=${c.value}`)
-  //   .join("; ");
-  // // 👇 get and decode the XSRF token
-  // const xsrfToken = cookieStore.get("XSRF-TOKEN")?.value ?? "";
-  // const decodedXsrf = decodeURIComponent(xsrfToken);
-  // // Function
-  // const res = await fetch("http://localhost:8000/api/v1/videos", {
-  //   headers: {
-  //     Accept: "application/json",
-  //     Cookie: cookieHeader, // forward cookies manually
-  //     "X-XSRF-TOKEN": decodedXsrf, // 👈 add this
-  //     Referer: "http://localhost:3000", // 👈 add this
-  //   },
-  //   cache: "no-store",
-  // });
-
-  // const data = await res.json();
-
   const res = await serverFetch(`/videos`);
   const { data } = await res.json();
   // Return page

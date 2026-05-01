@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('user_content_settings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')
+                ->unique()        // <-- add this
                 ->constrained('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             // Content Selection
-            $table->boolean('video')->default(false); 
+            $table->boolean('video')->default(false);
             $table->boolean('code')->default(false);
             $table->boolean('quiz')->default(false);
             $table->boolean('interactive')->default(false);
@@ -27,7 +28,6 @@ return new class extends Migration
             $table->boolean('guide_path')->default(false);
             // Progress show
             $table->boolean('progress')->default(false);
-
             $table->timestamps();
         });
     }

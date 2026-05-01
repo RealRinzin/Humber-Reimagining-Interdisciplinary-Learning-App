@@ -6,23 +6,28 @@ use App\Models\Topic;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-/**
- * @extends Factory<Topic>
- */
 class TopicFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = Topic::class;
+
     public function definition(): array
     {
+        $title = $this->faker->unique()->words(2, true);
+
         return [
-            //
-            'title'=>fake()->name(), // Generate a random name for the topic title
-            'slug'=>Str::random(18), 
-            'parent_id'=>Topic::count() ? Topic::inRandomOrder()->value('id') : null, // Randomly assign a parent topic if any exist, otherwise set to null
+            'title'      => ucwords($title),
+            'slug'       => Str::slug($title),
+            'node_color' => $this->faker->randomElement(['blue', 'pink']),
         ];
+    }
+
+    public function blue(): static
+    {
+        return $this->state(['node_color' => 'blue']);
+    }
+
+    public function pink(): static
+    {
+        return $this->state(['node_color' => 'pink']);
     }
 }

@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class, // Roles
             UserSeeder::class, // Users
             TopicSeeder::class, // Key component
+            TopicConnectionSeeder::class,
             VideoSeeder::class, // Question
             QuizSeeder::class, // Quiz for the topic or vidoes
             SubtitleSeeder::class, // Subtitles for the videos
@@ -28,6 +29,8 @@ class DatabaseSeeder extends Seeder
             CodeSeeder::class, // Code for the topics or videos
             UserTopicSeeder::class, // User Topics
             UserVideoSeeder::class, // User last Watch tracking record
+            UserContentSettingSeeder::class,
+            UserVideoSettingSeeder::class,
             // Analytics 
             UserVideoAnalyticSeeder::class, // User Video Watch History for tracking for each video of the user
         ]);

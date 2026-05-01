@@ -42,33 +42,7 @@ export default function ContentSetting() {
             <li>
               <label htmlFor="videos">
                 <input type="radio" className="accent-blue-500 w-4 h-4 text-blue-600 cursor-pointer"/>
-                <span className="px-2">Written Explanation</span>
-              </label>
-            </li>
-            <li>
-              <label htmlFor="videos">
-                <input type="radio" className="accent-blue-500 w-4 h-4 text-blue-600 cursor-pointer"/>
-                <span className="px-2">Surveys</span>
-              </label>
-            </li>
-          </ul>
-          <ul className="flex flex-col gap-4">
-            <li>
-              <label htmlFor="videos">
-                <input type="radio" className="accent-blue-500 w-4 h-4 text-blue-600 cursor-pointer"/>
-                <span className="px-2">Ramblings</span>
-              </label>
-            </li>
-            <li>
-              <label htmlFor="videos">
-                <input type="radio" className="accent-blue-500 w-4 h-4 text-blue-600 cursor-pointer"/>
-                <span className="px-2">Audio Bites</span>
-              </label>
-            </li>
-            <li>
-              <label htmlFor="videos">
-                <input type="radio" className="accent-blue-500 w-4 h-4 text-blue-600 cursor-pointer"/>
-                <span className="px-2">Resources</span>
+                <span className="px-2">Ramblings</span> <span className="text-gray-500 text-sm"> Extra thoughts and insights from your professor.</span>
               </label>
             </li>
           </ul>

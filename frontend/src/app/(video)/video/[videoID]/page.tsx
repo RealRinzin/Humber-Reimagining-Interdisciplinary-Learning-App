@@ -24,7 +24,6 @@ export default async function Page({
 }: {
   params: Promise<{ videoID: string }>;
 }) {
-
   // Get the Current Video Slug or ID to make api call
   const { videoID } = await params; // Get the video params
   const res = await serverFetch(`/videos/${videoID}`); // call the video details
@@ -47,32 +46,40 @@ export default async function Page({
     if (last_pause.ok) {
       // Read the await responst
       const content = await last_pause.json();
+      console.log(content);
       // Check if the user already have user_video records for this video
       // if no then register on right when the page loads
       // if the record is empty or if already exist but the complete status is true
       if (content.data === null || content.data.completed) {
         // Here we are going to post
         console.log("First register on user_video with 0 index");
-        const post_user_video_record = await serverPost(`/user-videos/users/${me.id}/videos/`, {
-          user_id: me.id,
-          video_id: data.id,
-          last_paused: 0,
-          completed: false,
-        });
+        const post_user_video_record = await serverPost(
+          `/user-videos/users/${me.id}/videos`,
+          {
+            user_id: me.id,
+            video_id: data.id,
+            last_paused: 0,
+            completed: false,
+          },
+        );
         const newUserVideo = await post_user_video_record.json();
         userVideoID = newUserVideo.id;
         // other wise read the exist for the time stame
       } else {
         console.log("We already have one and read the timestampe");
-        userVideoID = content.data.id
+        userVideoID = content.data.id;
         // Here we will only read the record
         lastPaused = content?.data?.last_paused ?? 0; // assign the timestampe either from the existing record or 0
       }
     }
   } catch (e) {
     // No record yet, default to 0
-  }
 
+  }
+  // Register User Topics Too
+  const userTopic = await serverFetch(`/user-topics/users/${me.id}/topics`);
+  const topics = await userTopic.json();
+  console.log(topics)
   return (
     <main className="px-1 md:px-20 py-5">
       <section className="flex flex-col md:flex-row gap-4">

@@ -11,14 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Schema::create('topics', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('title');
+        //     $table->string('slug')->unique();
+        //     $table->unsignedBigInteger('parent_id')->nullable(); // nullable = root items
+        //     $table->foreign('parent_id')
+        //         ->references('id')
+        //         ->on('topics');
+        //     $table->timestamps();
+        // });
+
         Schema::create('topics', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->unsignedBigInteger('parent_id')->nullable(); // nullable = root items
-            $table->foreign('parent_id')
-                ->references('id')
-                ->on('topics');
+            $table->string('node_color')->default('blue'); // 'blue' | 'pink'
             $table->timestamps();
         });
     }
