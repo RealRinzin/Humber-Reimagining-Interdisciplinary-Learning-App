@@ -3,7 +3,7 @@ import CourseTabs from "@/components/features/course/CourseTabs";
 import CourseTitle from "@/components/features/course/CourseTitle";
 import MoreCourses from "@/components/features/course/MoreCourses";
 import { MyPlayer } from "@/components/ui/video/VideoPlayer";
-import { serverFetch } from "@/lib/fetch";
+import { serverFetch, serverPost } from "@/lib/fetch";
 import {
   faHexagonNodes,
   faClipboardQuestion,
@@ -29,25 +29,43 @@ export default async function Page({
   const res = await serverFetch(`/videos/${videoID}`); // call the video details
   const { data } = await res.json(); // destructure the data
 
+  // Get me the the current logged user
+  // so that we can pass the user id in api
   const user = await serverFetch(`/me`);
   const me = await user.json();
 
-
-  
   // With this:
   let lastPaused = 0;
+  // Try to read the user_video record for the current user on this video
   try {
     const last_pause = await serverFetch(
       `/user-videos/users/${me.id}/videos/${data.id}`,
     );
+    // Check if response is ok
     if (last_pause.ok) {
+      // Read the await responst
       const content = await last_pause.json();
-      lastPaused = content?.data?.last_paused ?? 0;
+      // Check if the user already have user_video records for this video
+      // if no then register on right when the page loads
+      if (content.data === null) {
+        // Here we are going to post
+        console.log("First register on user_video with 0 index");
+        const post = await serverPost(`/user-videos/users/${me.id}/videos/`, {
+          user_id: me.id,
+          video_id: data.id,
+          last_paused: 0,
+          completed: false,
+        });
+        // other wise read the exist for the time stame
+      } else {
+        console.log("We already have one and read the timestampe");
+        // Here we will only read the record
+        lastPaused = content?.data?.last_paused ?? 0;
+      }
     }
   } catch (e) {
     // No record yet, default to 0
   }
-
 
   return (
     <main className="px-1 md:px-20 py-5">
@@ -63,7 +81,11 @@ export default async function Page({
           </div>
           {/* Video section */}
           <section className="flex flex-col md:flex-row gap-3 py-3">
-            <MyPlayer src={data.video_url} last_stop={lastPaused} videoID={data.id} />
+            <MyPlayer
+              src={data.video_url}
+              last_stop={lastPaused}
+              videoID={data.id}
+            />
           </section>
           {/* Code Tabe */}
           {data?.codes ? (
@@ -71,7 +93,7 @@ export default async function Page({
               type="code"
               title={"Code"}
               icon={faCode}
-              content={data?.codes?.code}
+              content={data?.codes[0]?.code}
             />
           ) : (
             ""

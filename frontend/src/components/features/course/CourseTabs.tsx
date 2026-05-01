@@ -43,6 +43,7 @@ export default function CourseTabs({ title, content, icon, type }: contentProps)
           type === 'code' ?
             <SyntaxHighlighter language="cpp" style={solarizedDarkAtom}>
               {content}
+              rinzin
             </SyntaxHighlighter> :
             type === 'rambling' ? 'Rambling' :
               type === 'tyk' ? 'Testing Your knowledge' :

@@ -121,4 +121,35 @@ class AuthController
             'message' => 'Logged out'
         ]);
     }
+    // PostMan Register
+
+    public function postmanRegister(StoreUserRequest $request, CreateUserAction $action)
+    {
+
+        // return $request;
+        //  $dto = CreateUserDTO::fromArray($request->validated());
+        /**
+         * New User Registration
+         * Create a new user with the user Action (CreateUserAction) 
+         * and execute the DTOs of the User and validate it with the StoreUserRequest from 
+         * the Request folder
+         */
+        $dto = CreateUserDTO::fromRequest($request);
+        // Assign the return to new Variable
+        $newUser = $action->execute($dto);
+        /**
+         * Access Token
+         * Generate the user access token after creating new user
+         */
+        $token = $newUser->createToken('access_Token')->plainTextToken; // Convert the access token to plain text for API Authorization
+        /**
+         * Return Object
+         * Return the user details along with the access token for the API authorization with Bearer Token
+         * Bearer "access token"
+         */
+        return response()->json([
+            'user' => $newUser, // Keep the user details like name, username, here
+            'token' => $token  // assign the generate token of the new user
+        ]);
+    }
 }
