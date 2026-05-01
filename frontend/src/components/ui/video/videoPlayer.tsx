@@ -3,17 +3,18 @@ import "@videojs/react/video/skin.css";
 import { createPlayer } from "@videojs/react";
 
 import { VideoSkin, Video, videoFeatures } from "@videojs/react/video";
-import { serverFetch } from "@/lib/fetch";
 interface InteractionPayload {
   type: string;
   sec: number;
   videoID: number;
+  userVideoID:number;
 }
 const Player = createPlayer({ features: videoFeatures });
 interface MyPlayerProps {
   src: string;
   last_stop: number;
   videoID: number;
+userVideoID:number,
   onPlay?: () => void;
   onPause?: () => void;
   onVolumeChange?: () => void;
@@ -33,7 +34,7 @@ async function getXsrfToken() {
   return decodeURIComponent(xsrfToken);
 }
 // Interaction
-async function postInteraction({ type, sec, videoID }: InteractionPayload) {
+async function postInteraction({ type, sec, videoID,userVideoID }: InteractionPayload) {
   // read XSRF token from cookie
   const xsrfToken = await getXsrfToken();
   try {
@@ -60,7 +61,7 @@ async function postInteraction({ type, sec, videoID }: InteractionPayload) {
           "X-XSRF-TOKEN": xsrfToken, 
         },
         body: JSON.stringify({
-          user_video_id: 1,
+          user_video_id: userVideoID,
           interaction_type: type,
           interact_at: sec,
           device_type: "phone",
@@ -118,7 +119,7 @@ async function postInteraction({ type, sec, videoID }: InteractionPayload) {
   }
 }
 // Export
-export const MyPlayer = ({ src, last_stop, videoID }: MyPlayerProps) => {
+export const MyPlayer = ({ src, last_stop, videoID,userVideoID }: MyPlayerProps) => {
   return (
     <Player.Provider>
       <VideoSkin>
@@ -137,6 +138,7 @@ export const MyPlayer = ({ src, last_stop, videoID }: MyPlayerProps) => {
               type: "Played",
               sec: Math.floor(video.currentTime),
               videoID: videoID,
+              userVideoID:userVideoID
             });
           }}
           onPause={(e) => {
@@ -145,6 +147,8 @@ export const MyPlayer = ({ src, last_stop, videoID }: MyPlayerProps) => {
               type: "Paused",
               sec: Math.floor(video.currentTime),
               videoID: videoID,
+              userVideoID:userVideoID
+
             });
           }}
           onVolumeChange={(e) => {
@@ -153,6 +157,8 @@ export const MyPlayer = ({ src, last_stop, videoID }: MyPlayerProps) => {
               type: "Volume",
               sec: Math.floor(video.currentTime),
               videoID: videoID,
+              userVideoID:userVideoID
+
             });
           }}
           onSeeked={(e) => {
@@ -161,6 +167,8 @@ export const MyPlayer = ({ src, last_stop, videoID }: MyPlayerProps) => {
               type: "Seeked",
               sec: Math.floor(video.currentTime),
               videoID: videoID,
+              userVideoID:userVideoID
+
             });
           }}
           // ✅ Video finished
@@ -170,6 +178,7 @@ export const MyPlayer = ({ src, last_stop, videoID }: MyPlayerProps) => {
               type: "Completed",
               sec: Math.floor(video.duration),
               videoID: videoID,
+              userVideoID:userVideoID
             });
           }}
         >

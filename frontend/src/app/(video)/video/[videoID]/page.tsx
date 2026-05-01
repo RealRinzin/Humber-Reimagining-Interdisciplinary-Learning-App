@@ -24,7 +24,8 @@ export default async function Page({
 }: {
   params: Promise<{ videoID: string }>;
 }) {
-  // Get the Vide Id
+
+  // Get the Current Video Slug or ID to make api call
   const { videoID } = await params; // Get the video params
   const res = await serverFetch(`/videos/${videoID}`); // call the video details
   const { data } = await res.json(); // destructure the data
@@ -36,6 +37,7 @@ export default async function Page({
 
   // With this:
   let lastPaused = 0;
+  let userVideoID;
   // Try to read the user_video record for the current user on this video
   try {
     const last_pause = await serverFetch(
@@ -47,20 +49,24 @@ export default async function Page({
       const content = await last_pause.json();
       // Check if the user already have user_video records for this video
       // if no then register on right when the page loads
-      if (content.data === null) {
+      // if the record is empty or if already exist but the complete status is true
+      if (content.data === null || content.data.completed) {
         // Here we are going to post
         console.log("First register on user_video with 0 index");
-        const post = await serverPost(`/user-videos/users/${me.id}/videos/`, {
+        const post_user_video_record = await serverPost(`/user-videos/users/${me.id}/videos/`, {
           user_id: me.id,
           video_id: data.id,
           last_paused: 0,
           completed: false,
         });
+        const newUserVideo = await post_user_video_record.json();
+        userVideoID = newUserVideo.id;
         // other wise read the exist for the time stame
       } else {
         console.log("We already have one and read the timestampe");
+        userVideoID = content.data.id
         // Here we will only read the record
-        lastPaused = content?.data?.last_paused ?? 0;
+        lastPaused = content?.data?.last_paused ?? 0; // assign the timestampe either from the existing record or 0
       }
     }
   } catch (e) {
@@ -85,6 +91,7 @@ export default async function Page({
               src={data.video_url}
               last_stop={lastPaused}
               videoID={data.id}
+              userVideoID={userVideoID}
             />
           </section>
           {/* Code Tabe */}
