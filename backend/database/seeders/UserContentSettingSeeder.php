@@ -14,6 +14,6 @@ class UserContentSettingSeeder extends Seeder
     public function run(): void
     {
         //
-        UserContentSetting::factory(2)->create();
+        UserContentSetting::factory(1)->create();
     }
 }

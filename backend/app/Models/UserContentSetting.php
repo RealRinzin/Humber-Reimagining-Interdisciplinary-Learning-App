@@ -9,7 +9,7 @@ class UserContentSetting extends Model
 {
     /** @use HasFactory<\Database\Factories\UserContentSettingFactory> */
     use HasFactory;
-        protected $fillable = [
+    protected $fillable = [
         'user_id',
         'video',
         'code',
@@ -19,4 +19,10 @@ class UserContentSetting extends Model
         'guide_path',
         'progress'
     ];
+
+    // Relationship with the User
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

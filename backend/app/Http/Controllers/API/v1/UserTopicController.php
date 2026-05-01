@@ -17,6 +17,10 @@ class UserTopicController
     // The API will return the user data and the topic data
     public function index(User $user)
     {
+
+        if (auth()->id() !== $user->id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
         // return $user->topics; // return the topics of the user
         /** Eager Loading
          * Eager loading is a powerful technique in Laravel that allows you to load related models along with the main model in a single query. This can significantly improve performance by reducing the number of database queries needed to retrieve related data.

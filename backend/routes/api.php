@@ -32,7 +32,6 @@ Route::prefix('v1')
     ->group(function () {
         Route::post('/login', [AuthController::class, 'login']);
     });
-
 // Registeration API
 // This API is open to public but it will be rate limited by the throttle middleware
 Route::post('/register', [AuthController::class, 'register']);
@@ -49,7 +48,7 @@ Route::prefix('v1')
     ->middleware(['auth:sanctum', 'throttle:1000,1'])
     ->group(function () {
         // Current User detail
-        Route::get('/me',[AuthController::class, 'me']);
+        Route::get('/me', [AuthController::class, 'me']);
         // =============== User Logout | Registeration ===============================| 
         // This API is protected by sanctum middleware and it will be used for user logout
         // This API will revoke the token of the user and it will return a success message
@@ -159,6 +158,7 @@ Route::prefix('v1')
         // The API will return the user data and the video data
         Route::controller(UserContentSettingController::class)->prefix('user-content-settings')
             ->group(function () {
-                Route::post('/', 'store')->name('user-content-settings.store'); // This API will be used to create or update the user video record when the user watches a video
+                Route::get('/users/{user}', 'index')->name('user-content-settings.index'); // This API will be used to create or update the user video record when the user watches a video
+                Route::patch('/', 'store')->name('user-content-settings.store'); // This API will be used to create or update the user video record when the user watches a video
             });
     });

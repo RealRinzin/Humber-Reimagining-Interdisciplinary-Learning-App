@@ -109,7 +109,7 @@ export default function ModelSpaceSkeleton() {
           </div>
 
           {/* Right panel — knowledge graph */}
-          <div className="w-[380px] bg-[#060d1f] relative flex-shrink-0 min-h-full">
+          <div className="w-95 bg-[#060d1f] relative flex-shrink-0 min-h-full">
             {/* Tracking toggle */}
             <div className="absolute top-3 right-3 flex items-center gap-2 animate-pulse">
               <div className="h-4 w-14 bg-gray-700 rounded" />

@@ -5,7 +5,7 @@ export default function ModelSpaceSkeleton() {
         <div className="min-h-screen bg-gray-100 flex flex-col">
           <div className="flex flex-1">
             {/* Main Content */}
-            <div className="flex-1 p-6 space-y-5 max-w-[700px]">
+            <div className="flex-1 p-6 space-y-5 max-w-175">
               {/* Header card */}
               <div className="bg-white rounded-lg p-5 flex items-center justify-between shadow-sm">
                 <div className="h-7 w-40 bg-gray-200 rounded animate-pulse" />

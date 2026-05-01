@@ -29,6 +29,7 @@ const OnBoardingShowProgress = ({
     learningPath,
     progress: values,
   };
+
   const {
     register,
     handleSubmit,
@@ -52,6 +53,7 @@ const OnBoardingShowProgress = ({
     return decodeURIComponent(token);
   }
 
+
   async function onBoardCall(): Promise<void> {
     const xsrfToken = await fetchCsrfToken(); // ← get cookie first, THEN read it
     // // return ;
@@ -70,9 +72,10 @@ const OnBoardingShowProgress = ({
       const error = await res.json();
       throw error;
     }
-    const data = await res.json(); // return new user detail
+    // const data = await res.json(); // return new user detail
 
-    // ✅ Login to establish the session
+    // if the registeratio is successed
+    // Then login with the current user to create fresh cookies session
     const freshXsrfToken = await fetchCsrfToken();
     const loginRes = await fetch(`http://localhost:8000/api/v1/login`, {
       method: "POST",
@@ -89,12 +92,11 @@ const OnBoardingShowProgress = ({
     });
 
     // Content settings post
-    // ✅ Fetch a fresh token before the second request
     const settingXsrfToken = await fetchCsrfToken();
     const settingRes = await fetch(
       `http://localhost:8000/api/v1/user-content-settings`,
       {
-        method: "POST",
+        method: "PATCH",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
@@ -109,8 +111,9 @@ const OnBoardingShowProgress = ({
         }),
       },
     );
-    // if (settingRes.ok) {
-    // }
+    if (!settingRes.ok) {
+      console.log("error");
+    }
   }
 
   const onSubmit = async (data: OnboardShowProgressType) => {

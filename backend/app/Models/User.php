@@ -97,5 +97,10 @@ class User extends Authenticatable
         return $this->hasManyThrough(UserVideoAnalytic::class, UserVideo::class);
     }
 
-    
+
+    // User Content Setting
+    public function userContentSetting()
+    {
+        return $this->hasOne(UserContentSetting::class);
+    }
 }
