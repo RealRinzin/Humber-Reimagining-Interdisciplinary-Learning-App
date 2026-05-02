@@ -1,7 +1,7 @@
 "use client";
 import "@videojs/react/video/skin.css";
 import { createPlayer } from "@videojs/react";
-
+import { getBrowser,getDevice,getOS,getUserAgent } from "@/utils/UserAgents";
 import { VideoSkin, Video, videoFeatures } from "@videojs/react/video";
 interface InteractionPayload {
   type: string;
@@ -64,11 +64,11 @@ async function postInteraction({ type, sec, videoID,userVideoID }: InteractionPa
           user_video_id: userVideoID,
           interaction_type: type,
           interact_at: sec,
-          device_type: "phone",
-          os_type: "android",
+          device_type: getDevice(),
+          os_type: getOS(),
           ip_address: "23213",
-          user_agent: "useragent",
-          browser_type: "chrome",
+          user_agent: getUserAgent(),
+          browser_type: getBrowser(),
           played_on: new Date().toISOString().split("T")[0],
         }),
       },

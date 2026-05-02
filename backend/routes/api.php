@@ -161,4 +161,11 @@ Route::prefix('v1')
                 Route::get('/users/{user}', 'index')->name('user-content-settings.index'); // This API will be used to create or update the user video record when the user watches a video
                 Route::patch('/', 'store')->name('user-content-settings.store'); // This API will be used to create or update the user video record when the user watches a video
             });
+
+
+        Route::controller(UserContentSettingController::class)->prefix('users/me')
+            ->group(function () {
+                Route::get('user-content-settings', 'index')->name('user-setting.index'); // This API will be used to create or update the user video record when the user watches a video
+                // Route::patch('/', 'store')->name('user-content-settings.store'); // This API will be used to create or update the user video record when the user watches a video
+            });
     });

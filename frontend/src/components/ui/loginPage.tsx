@@ -27,10 +27,10 @@ export default function LoginPage() {
       setLoading(false);
     }
   }
-
   //
   const ref = useRef<HTMLDivElement>(null);
   const initVanta = () => {
+    
     if ((window as any).VANTA && ref.current) {
       (window as any).VANTA.NET({
         el: ref.current,
@@ -56,7 +56,7 @@ export default function LoginPage() {
     <>
       <Script
         src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"
-        strategy="beforeInteractive"
+        strategy="afterInteractive"
       />
       <Script
         src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"

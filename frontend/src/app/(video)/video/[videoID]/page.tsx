@@ -78,9 +78,9 @@ export default async function Page({
   }
 
   // Content settin
-      const content_settin = await serverFetch(`/user-content-settings/users/${me.id}`)
+      const content_settin = await serverFetch(`/users/me/user-content-settings`)
       const record = await content_settin.json()
-      console.log(record);
+      console.log(record.id);
   // Register User Topics Too
   const userTopic = await serverFetch(`/user-topics/users/${me.id}/topics`);
   const topics = await userTopic.json();

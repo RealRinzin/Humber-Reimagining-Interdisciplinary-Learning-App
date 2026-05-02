@@ -13,6 +13,7 @@ async function buildFetchOptions(options: RequestInit = {}): Promise<RequestInit
 
     return {
         ...options,
+        credentials: 'include',
         headers: {
             Accept: 'application/json',
             Cookie: cookieHeader,
@@ -26,9 +27,7 @@ async function buildFetchOptions(options: RequestInit = {}): Promise<RequestInit
 
 export async function serverFetch(path: string, options: RequestInit = {}) {
     const fetchOptions = await buildFetchOptions(options);
-
     const res = await fetch(`${process.env.API_BASE_URL}${path}`, fetchOptions);
-
     if (!res.ok) {
         if (res.status === 404) notFound();
         if (res.status === 401) redirect('/login');
@@ -44,6 +43,7 @@ export async function serverPost(
 ) {
     return serverFetch(path, {
         ...options,
+        credentials: 'include',
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -60,6 +60,7 @@ export async function serverPatch(
 ) {
     return serverFetch(path, {
         ...options,
+        credentials: 'include',
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',

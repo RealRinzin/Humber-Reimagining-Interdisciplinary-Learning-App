@@ -14,13 +14,15 @@ class UserContentSettingController
     /**
      * Display a listing of the resource.
      */
-    public function index(User $user)
+    public function index()
     {
 
-        if (auth()->id() !== $user->id) {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
-        // return $user;
+        // if (auth()->id() !== $user->id) {
+        //     return response()->json(['message' => 'Unauthorized'], 403);
+        // }
+        // // return $user;
+        // return $user->userContentSetting;
+        $user = auth()->user();
         return $user->userContentSetting;
     }
 
@@ -38,5 +40,4 @@ class UserContentSettingController
         $userContentSetting = $action->execute(CreateUserContentSettingDTO::fromRequest($request));
         return response()->json($userContentSetting, $userContentSetting->wasRecentlyCreated ? 201 : 200);
     }
-
 }
