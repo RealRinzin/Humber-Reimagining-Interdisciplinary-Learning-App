@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 // To Get the authentication when first access by the user
 //
 Route::get('/test', function () {
-    return "This working fine";
+
+return "This API endpoint is active and working well";
 });
 
 // This API will be used for user login and it will return the user data and token for the user to access the protected API
