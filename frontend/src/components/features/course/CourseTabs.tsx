@@ -22,6 +22,7 @@ interface contentProps {
   icon: IconDefinition;
   type: string;
   status: boolean;
+  all_complete: boolean;
 }
 //
 export default function CourseTabs({
@@ -30,16 +31,15 @@ export default function CourseTabs({
   icon,
   type,
   status,
+  all_complete,
 }: contentProps) {
   const [drop, setDrop] = useState(false);
   const [isChecked, setIsChecked] = useState(status);
-
-    useEffect(() => {
-        setIsChecked(status);
-    }, [status]);
+  useEffect(() => {
+    setIsChecked(status);
+  }, [status]);
   return (
     <section className="my-5">
-      {status ? "True" : "False"}
       <div className="flex justify-between bg-slate-100 p-3 rounded-md">
         <h2 className="text-xl font-bold text-gray-600">
           <FontAwesomeIcon icon={icon} size="1x" /> {title}
@@ -51,11 +51,18 @@ export default function CourseTabs({
           />
         </h2>
         <div
-          className={`h-8 w-8 rounded-full border-6  ${isChecked ? "bg-green-600 border-green-600 hover:cursor-pointer" : "bg-slate-400 border-slate-600 hover:border-green-600 hover:cursor-pointer hover:bg-white transition duration-300 ease-in-out"}  
- hover:shadow-[0_0_10px_3px_rgba(34,197,94,0.6)]`}
+          className={`h-8 w-8 rounded-full border-6  ${
+            all_complete
+              ? "bg-green-600 border-green-600 hover:cursor-pointer"
+              : status
+                ? "bg-green-600 border-green-600 hover:cursor-pointer"
+                : "bg-slate-400 border-slate-600 hover:border-green-600 hover:cursor-pointer hover:bg-white transition duration-300 ease-in-out"
+          } hover:shadow-[0_0_10px_3px_rgba(34,197,94,0.6)]`}
           onClick={() => setIsChecked((prev) => !prev)}
         >
-          {isChecked ? (
+          {all_complete ? (
+            <FontAwesomeIcon icon={faCheck} size="1x" className="text-white" />
+          ) : status ? (
             <FontAwesomeIcon icon={faCheck} size="1x" className="text-white" />
           ) : (
             ""

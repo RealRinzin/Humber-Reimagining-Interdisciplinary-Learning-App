@@ -9,35 +9,41 @@ export default function CourseTitle({
   title,
   videoID,
   userID,
+  status,
 }: {
   title: string;
   videoID: number;
   userID: number;
+  status:any
 }) {
   const router = useRouter();
-  const [markCompleteAll, setMarkCompleteAll] = useState(false);
+
+const [markCompleteAll, setMarkCompleteAll] = useState(status?.all_checked ? true : false);
+console.log(status?.all_checked)
+  // Update all check
   async function handleMarkAllComplete() {
+
     const res = await clientFetch(
       `/user-video-setting/users/me/videos/${videoID}`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          code: true,
-          interactive: true,
-          rambling: true,
-          quiz: true,
-          quiz_checked_with_all: true,
-          code_checked_with_all: true,
-          interactive_checked_with_all: true,
-          rambling_checked_with_all: true,
-          all_checked:false
+          code:status?.code,
+          interactive: status?.interactive,
+          rambling: status?.rambling,
+          quiz: status?.quiz,
+          quiz_checked_with_all: markCompleteAll?true:false,
+          code_checked_with_all: markCompleteAll?true:false,
+          interactive_checked_with_all: markCompleteAll?true:false,
+          rambling_checked_with_all: markCompleteAll?true:false,
+          all_checked:!status?.all_checked
         }),
       },
     );
 
     const { data: setting } = await res.json();
-    console.log(setting)
+    // console.log(setting)
     // 3. data now has the latest checked status for each tab
     // emit it up or store it
     router.refresh();

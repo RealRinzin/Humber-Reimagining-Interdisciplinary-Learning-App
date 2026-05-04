@@ -74,16 +74,21 @@ export default async function Page({
   } catch (e) {
     // No record yet, default to 0
   }
-
-  // Register User Topics Too
-  const userTopic = await serverFetch(`/user-topics/users/${me.id}/topics`);
-  const topics = await userTopic.json();
-  // console.log(topics)
+  // Complete Mark status check
+  const completeStatusRes = await serverFetch(
+    `/user-video-setting/users/me/videos/${video.id}`,
+  );
+  const { data: completeStatus } = await completeStatusRes.json();
   return (
     <main className="px-1 md:px-20 py-5">
       <section className="flex flex-col md:flex-row gap-4">
         <div className="md:flex-4">
-          <CourseTitle title={video.title} videoID={video.id} userID={me.id} />
+          <CourseTitle
+            title={video.title}
+            videoID={video.id}
+            userID={me.id}
+            status={completeStatus}
+          />
           {/* <div className="flex justify-between items-center-safe bg-gray-200 p-8 rounded-xl">
             <h1 className="text-3xl font-bold">{video.title}</h1>
             <button className="rounded-2xl  p-3 text-white cursor-pointer">
@@ -113,7 +118,8 @@ export default async function Page({
               title={"Code"}
               icon={faCode}
               content={video?.codes[0]?.code}
-              status={true}
+              status={completeStatus?.code}
+              all_complete={completeStatus?.all_checked}
             />
           ) : (
             ""
@@ -124,7 +130,8 @@ export default async function Page({
             title={"Interactive Mode"}
             icon={faBook}
             content={"demo"}
-            status={false}
+            status={completeStatus?.interactive}
+            all_complete={completeStatus?.all_checked}
           />
           {/* Quiz Tab */}
           <CourseTabs
@@ -132,7 +139,8 @@ export default async function Page({
             title={"Test Your Knowledge"}
             icon={faClipboardQuestion}
             content={video.title}
-            status={false}
+            status={completeStatus?.quiz}
+            all_complete={completeStatus?.all_checked}
           />
           {/* Rambling Tab */}
           <CourseTabs
@@ -140,7 +148,8 @@ export default async function Page({
             title={"Umer's Rambling"}
             icon={faHexagonNodes}
             content={video.title}
-            status={false}
+            status={completeStatus?.rambling}
+            all_complete={completeStatus?.all_checked}
           />
 
           {/* <iframe
