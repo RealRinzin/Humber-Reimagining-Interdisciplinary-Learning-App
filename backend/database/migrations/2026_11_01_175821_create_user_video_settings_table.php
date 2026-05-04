@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('user_video_settings', function (Blueprint $table) {
             // We are creating a pivot table to represent the many-to-many relationship between users and topic nodes
+            $table->id(); 
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onUpdate('cascade')
@@ -36,9 +37,9 @@ return new class extends Migration
             // Add timestamps for when the user followed the topic node
             $table->timestamps();
             // Set the primary key to be a combination of user_id and topic
-            $table->primary(['user_id', 'video_id']);
+            // $table->primary(['user_id', 'video_id']);
             // Add an index for faster lookups when querying by user_id and topic
-            $table->index(['user_id', 'video_id']);
+            $table->unique(['user_id', 'video_id']);
         });
     }
 

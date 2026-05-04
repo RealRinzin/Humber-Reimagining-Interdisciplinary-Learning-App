@@ -147,7 +147,7 @@ Route::prefix('v1')
         // POST /api/v1/user-videos/users/{user}/videos // This API will add a video to the user
         // DELETE /api/v1/user-videos/users/{user}/videos/{video:id} // This API will remove a video from the user
         // The API will return the user data and the video data
-        Route::controller(UserVideoSettingController::class)->prefix('user-video-setting/users/me/videos/{video}')
+        Route::controller(UserVideoSettingController::class)->prefix('user-video-setting/users/me/videos/{videoID}')
             ->group(function () {
                 Route::get('/', 'index')->name('user-video-setting.index'); // This API will be used to create or update the user video record when the user watches a video
                 // Route::post('/', 'store')->name('user-video-settings.store'); // This API will be used to create or update the user video record when the user watches a video

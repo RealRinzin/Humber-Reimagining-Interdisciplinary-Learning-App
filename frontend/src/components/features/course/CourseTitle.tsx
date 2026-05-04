@@ -23,24 +23,24 @@ export default function CourseTitle({
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          code: false,
-          interactive: false,
-          rambling: false,
-          quiz: false,
-          quiz_checked_with_all: false,
-          code_checked_with_all: false,
-          interactive_checked_with_all: false,
-          rambling_checked_with_all: false,
+          code: true,
+          interactive: true,
+          rambling: true,
+          quiz: true,
+          quiz_checked_with_all: true,
+          code_checked_with_all: true,
+          interactive_checked_with_all: true,
+          rambling_checked_with_all: true,
           all_checked:false
         }),
       },
     );
 
     const { data: setting } = await res.json();
+    console.log(setting)
     // 3. data now has the latest checked status for each tab
     // emit it up or store it
     router.refresh();
-    console.log(setting)
     // onStatusUpdate(setting);
   }
 

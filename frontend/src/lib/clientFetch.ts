@@ -24,8 +24,10 @@ export async function clientFetch(path: string, options: RequestInit = {}) {
             "Content-Type": "application/json",
             Accept: "application/json",
             "X-XSRF-TOKEN": xsrfToken,
+            ...options.headers, 
         },
         credentials: 'include', // needed for Sanctum cookie auth
+        
     });
 
     if (!res.ok) {
