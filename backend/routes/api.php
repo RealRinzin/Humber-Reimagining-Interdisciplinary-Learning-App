@@ -8,6 +8,8 @@ use App\Http\Controllers\API\v1\UserVideoAnalyticController;
 use App\Http\Controllers\API\v1\UserVideoController;
 use App\Http\Controllers\API\v1\VideoController;
 use App\Http\Controllers\API\v1\UserContentSettingController;
+use App\Http\Controllers\API\v1\UserVideoSettingController;
+use App\Models\UserVideoSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 // 
@@ -16,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 //
 Route::get('/test', function () {
 
-return "This API endpoint is active and working well";
+    return "This API endpoint is active and working well";
 });
 
 // This API will be used for user login and it will return the user data and token for the user to access the protected API
@@ -138,6 +140,19 @@ Route::prefix('v1')
                 Route::patch('/{userVideo:id}', 'update')->name('user-videos.update'); // This API will be used to update the watched_at timestamp of the user video record when the user watches a video again
                 // Route::delete('/{userVideo:id}', 'destroy')->name('user-videos.destroy');
             });
+
+        // User Content Setting
+        // This API will be used to get the videos of the user and also to add or remove videos from the user
+        // GET /api/v1/user-videos/users/{user}/videos // This API will return the videos of the user
+        // POST /api/v1/user-videos/users/{user}/videos // This API will add a video to the user
+        // DELETE /api/v1/user-videos/users/{user}/videos/{video:id} // This API will remove a video from the user
+        // The API will return the user data and the video data
+        Route::controller(UserVideoSettingController::class)->prefix('user-video-setting/users/me/videos/{video}')
+            ->group(function () {
+                Route::get('/', 'index')->name('user-video-setting.index'); // This API will be used to create or update the user video record when the user watches a video
+                // Route::post('/', 'store')->name('user-video-settings.store'); // This API will be used to create or update the user video record when the user watches a video
+                Route::patch('/', 'update')->name('user-video-settings.update'); // This API will be used to create or update the user video record when the user watches a video
+            });
         // User Video Analytics API 
         // This API will be used to get the videos of the user and also to add or remove videos from the user
         // GET /api/v1/user-videos/users/{user}/videos // This API will return the videos of the user
@@ -166,7 +181,7 @@ Route::prefix('v1')
 
         Route::controller(UserContentSettingController::class)->prefix('users/me')
             ->group(function () {
-                Route::get('user-content-settings', 'index')->name('user-setting.index'); // This API will be used to create or update the user video record when the user watches a video
+                Route::get('/user-content-settings', 'index')->name('user-setting.index'); // This API will be used to create or update the user video record when the user watches a video
                 // Route::patch('/', 'store')->name('user-content-settings.store'); // This API will be used to create or update the user video record when the user watches a video
             });
     });

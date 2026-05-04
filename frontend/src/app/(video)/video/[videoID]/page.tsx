@@ -27,8 +27,7 @@ export default async function Page({
   // Get the Current Video Slug or ID to make api call
   const { videoID } = await params; // Get the video params
   const res = await serverFetch(`/videos/${videoID}`); // call the video details
-  const { data } = await res.json(); // destructure the data
-
+  const { data: video } = await res.json(); // destructure the data
   // Get me the the current logged user
   // so that we can pass the user id in api
   const user = await serverFetch(`/me`);
@@ -40,7 +39,7 @@ export default async function Page({
   // Try to read the user_video record for the current user on this video
   try {
     const last_pause = await serverFetch(
-      `/user-videos/users/${me.id}/videos/${data.id}`,
+      `/user-videos/users/${me.id}/videos/${video.id}`,
     );
     // Check if response is ok
     if (last_pause.ok) {
@@ -57,7 +56,7 @@ export default async function Page({
           `/user-videos/users/${me.id}/videos`,
           {
             user_id: me.id,
-            video_id: data.id,
+            video_id: video.id,
             last_paused: 0,
             completed: false,
           },
@@ -74,7 +73,6 @@ export default async function Page({
     }
   } catch (e) {
     // No record yet, default to 0
-
   }
 
   // Register User Topics Too
@@ -85,30 +83,37 @@ export default async function Page({
     <main className="px-1 md:px-20 py-5">
       <section className="flex flex-col md:flex-row gap-4">
         <div className="md:flex-4">
-          <CourseTitle title={data.title} />
+          <CourseTitle title={video.title} videoID={video.id} userID={me.id} />
+          {/* <div className="flex justify-between items-center-safe bg-gray-200 p-8 rounded-xl">
+            <h1 className="text-3xl font-bold">{video.title}</h1>
+            <button className="rounded-2xl  p-3 text-white cursor-pointer">
+              "Mark All Content Complete
+            </button>
+          </div> */}
           <div className="px-1 py-8">
             <h1 className="text-2xl font-semibold">
               {" "}
               <FontAwesomeIcon icon={faCirclePlay} size="1x" /> Video
             </h1>
-            <p className="py-2 px-10 text-gray-800 text-md">{data.tldw}</p>
+            <p className="py-2 px-10 text-gray-800 text-md">{video.tldw}</p>
           </div>
           {/* Video section */}
           <section className="flex flex-col md:flex-row gap-3 py-3">
             <MyPlayer
-              src={data.video_url}
+              src={video.video_url}
               last_stop={lastPaused}
-              videoID={data.id}
+              videoID={video.id}
               userVideoID={userVideoID}
             />
           </section>
           {/* Code Tabe */}
-          {data?.codes ? (
+          {video?.codes ? (
             <CourseTabs
               type="code"
               title={"Code"}
               icon={faCode}
-              content={data?.codes[0]?.code}
+              content={video?.codes[0]?.code}
+              status={true}
             />
           ) : (
             ""
@@ -119,20 +124,23 @@ export default async function Page({
             title={"Interactive Mode"}
             icon={faBook}
             content={"demo"}
+            status={false}
           />
           {/* Quiz Tab */}
           <CourseTabs
             type="tyk"
             title={"Test Your Knowledge"}
             icon={faClipboardQuestion}
-            content={data.title}
+            content={video.title}
+            status={false}
           />
           {/* Rambling Tab */}
           <CourseTabs
             type="rambling"
             title={"Umer's Rambling"}
             icon={faHexagonNodes}
-            content={data.title}
+            content={video.title}
+            status={false}
           />
 
           {/* <iframe

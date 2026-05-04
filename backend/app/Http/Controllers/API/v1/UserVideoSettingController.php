@@ -10,17 +10,14 @@ class UserVideoSettingController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index( $videoId)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        // Returns the User setting for this specific video by
+        // using the auth guard(me) and video id from the endpoint
+        $setting = UserVideoSetting::where('user_id', auth()->id())
+            ->where('video_id', $videoId)
+            ->first();
+        return response()->json(['data' => $setting]);
     }
 
     /**
@@ -31,28 +28,29 @@ class UserVideoSettingController
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(UserVideoSetting $userVideoSetting)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(UserVideoSetting $userVideoSetting)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, UserVideoSetting $userVideoSetting)
+    public function update(Request $request,$videoID)
     {
-        //
+        return $request->all();
+    $setting = UserVideoSetting::updateOrCreate(
+        // find by these fields
+        [
+            'user_id'  => auth()->id(),
+            'video_id' => $videoID,
+        ],
+        // create or update with these values
+        [
+            'code'        => true,
+            'interactive' => true,
+            'rambling'    => true,
+            'quiz'        => true,
+        ]
+    );
+
+    return response()->json(['data' => $setting]);
     }
 
     /**

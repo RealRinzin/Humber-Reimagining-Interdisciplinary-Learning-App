@@ -2,6 +2,7 @@
 namespace App\DTOs\Code;
 
 class CreateCodeDTO {
+    
     public function __construct(
         public readonly ?int $id,
         public readonly ?string $title,

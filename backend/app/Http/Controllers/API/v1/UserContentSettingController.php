@@ -16,14 +16,10 @@ class UserContentSettingController
      */
     public function index()
     {
-
-        // if (auth()->id() !== $user->id) {
-        //     return response()->json(['message' => 'Unauthorized'], 403);
-        // }
-        // // return $user;
-        // return $user->userContentSetting;
+        // Return the logged user content setting
+        // Return null if it does not have the 
         $user = auth()->user();
-        return $user->userContentSetting;
+        return response()->json(['data' => $user->userContentSetting]);
     }
 
 

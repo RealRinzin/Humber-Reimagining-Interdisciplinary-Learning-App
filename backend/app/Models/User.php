@@ -103,4 +103,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserContentSetting::class);
     }
+
+    // User Video Setting
+    public function userVideoSetting()
+    {
+        return $this->belongsToMany(Video::class, 'user_video_settings')
+            ->using(UserVideoSetting::class)
+            ->withPivot('code', 'interactive', 'rambling', 'quiz')
+            ->withTimestamps();
+    }
 }

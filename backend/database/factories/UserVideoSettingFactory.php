@@ -23,10 +23,15 @@ class UserVideoSettingFactory extends Factory
             //
             'user_id' => User::inRandomOrder()->value('id'),
             'video_id' => Video::inRandomOrder()->value('id'),
-            'code'=>false,
-            'quiz'=>false,
-            'interactive'=>false,
-            'rambling'=>false,
+            'code' => false,
+            'quiz' => false,
+            'interactive' => false,
+            'rambling' => false,
+            'code_checked_with_all' => false,
+            'quiz_checked_with_all' => false,
+            'interactive_checked_with_all' => false,
+            'rambling_checked_with_all' => false,
+            'all_checked'=>false
         ];
     }
 }

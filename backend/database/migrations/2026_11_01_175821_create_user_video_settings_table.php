@@ -22,10 +22,17 @@ return new class extends Migration
                 ->constrained('videos')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            // For individual check 
             $table->boolean('code')->default(false);
             $table->boolean('interactive')->default(false);
             $table->boolean('rambling')->default(false);
             $table->boolean('quiz')->default(false);
+            // For all complete check status fields
+            $table->boolean('code_checked_with_all')->default(false);
+            $table->boolean('interactive_checked_with_all')->default(false);
+            $table->boolean('rambling_checked_with_all')->default(false);
+            $table->boolean('quiz_checked_with_all')->default(false);
+            $table->boolean('all_checked')->default(false);
             // Add timestamps for when the user followed the topic node
             $table->timestamps();
             // Set the primary key to be a combination of user_id and topic

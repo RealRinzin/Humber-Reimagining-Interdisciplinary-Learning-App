@@ -4,8 +4,8 @@ import { serverFetch } from "@/lib/fetch";
 
 export default async function ContentSetting() {
   // Content settin
-  const content_settin = await serverFetch(`/users/me/user-content-settings`);
-  const record = await content_settin.json();
+  const content_setting = await serverFetch(`/users/me/user-content-settings`);
+  const record = await content_setting.json();
   console.log(record);
   return (
     <>
