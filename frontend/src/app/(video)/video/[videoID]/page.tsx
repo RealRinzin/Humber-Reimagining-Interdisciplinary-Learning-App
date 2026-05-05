@@ -86,7 +86,6 @@ export default async function Page({
           <CourseTitle
             title={video.title}
             videoID={video.id}
-            userID={me.id}
             status={completeStatus}
           />
           {/* <div className="flex justify-between items-center-safe bg-gray-200 p-8 rounded-xl">
@@ -118,6 +117,7 @@ export default async function Page({
               title={"Code"}
               icon={faCode}
               content={video?.codes[0]?.code}
+              videoID={video?.id}
               status={completeStatus?.code}
               all_complete={completeStatus?.all_checked}
             />
@@ -130,6 +130,7 @@ export default async function Page({
             title={"Interactive Mode"}
             icon={faBook}
             content={"demo"}
+            videoID={video?.id}
             status={completeStatus?.interactive}
             all_complete={completeStatus?.all_checked}
           />
@@ -140,6 +141,7 @@ export default async function Page({
             icon={faClipboardQuestion}
             content={video.title}
             status={completeStatus?.quiz}
+            videoID={video?.id}
             all_complete={completeStatus?.all_checked}
           />
           {/* Rambling Tab */}
@@ -148,6 +150,7 @@ export default async function Page({
             title={"Umer's Rambling"}
             icon={faHexagonNodes}
             content={video.title}
+            videoID={video?.id}
             status={completeStatus?.rambling}
             all_complete={completeStatus?.all_checked}
           />
@@ -165,7 +168,6 @@ export default async function Page({
           className="md:flex-2 bg-slate-900 rounded-xl"
           style={{ backgroundColor: "#000033" }}
         >
-          {/* <TopicProgressTracking/> */}
           <CourseNodeLink />
         </aside>
       </section>

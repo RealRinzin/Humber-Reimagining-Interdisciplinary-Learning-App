@@ -4,7 +4,7 @@ export default function ModelSpaceSkeleton() {
       <div className="min-h-screen bg-gray-100 flex flex-col">
         <div className="flex flex-1">
           {/* Main Content */}
-          <div className="flex-1 p-6 space-y-5 max-w-[700px]">
+          <div className="flex-1 p-6 space-y-5 max-w-175">
             {/* Header card */}
             <div className="bg-white rounded-lg p-5 flex items-center justify-between shadow-sm">
               <div className="h-7 w-40 bg-gray-200 rounded animate-pulse" />
@@ -109,7 +109,7 @@ export default function ModelSpaceSkeleton() {
           </div>
 
           {/* Right panel — knowledge graph */}
-          <div className="w-95 bg-[#060d1f] relative flex-shrink-0 min-h-full">
+          <div className="w-95 bg-[#060d1f] relative shrink-0 min-h-full">
             {/* Tracking toggle */}
             <div className="absolute top-3 right-3 flex items-center gap-2 animate-pulse">
               <div className="h-4 w-14 bg-gray-700 rounded" />

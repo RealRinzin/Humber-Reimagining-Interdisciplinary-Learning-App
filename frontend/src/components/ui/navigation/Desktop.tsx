@@ -16,7 +16,7 @@ export default function DesktopNavigation() {
       .find((row) => row.startsWith("XSRF-TOKEN="))
       ?.split("=")[1];
 
-    await fetch("http://localhost:8000/api/v1/logout", {
+    await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/logout`, {
       method: "POST",
       credentials: "include",
       headers: {

@@ -38,7 +38,7 @@ async function postInteraction({ type, sec, videoID,userVideoID }: InteractionPa
   // read XSRF token from cookie
   const xsrfToken = await getXsrfToken();
   try {
-    const currentUser = await fetch("http://localhost:8000/api/v1/me", {
+    const currentUser = await fetch(`${process.env.API_BASE_URL}/me`, {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
@@ -52,7 +52,7 @@ async function postInteraction({ type, sec, videoID,userVideoID }: InteractionPa
 
     // Update the interaction
     const res = await fetch(
-      `http://localhost:8000/api/v1/user-video-analytics/users/${me.id}/userVideoAnalytics`,
+      `${process.env.API_BASE_URL}/user-video-analytics/users/${me.id}/userVideoAnalytics`,
       {
         method: "POST",
         credentials: "include",
@@ -82,7 +82,7 @@ async function postInteraction({ type, sec, videoID,userVideoID }: InteractionPa
   // Only react or update
   if (type === "Paused") {
     const userVideo = await fetch(
-      `http://localhost:8000/api/v1/user-videos/users/${me.id}/videos`,
+      `${process.env.API_BASE_URL}/user-videos/users/${me.id}/videos`,
       {
         method: "POST",
         credentials: "include",
@@ -100,7 +100,7 @@ async function postInteraction({ type, sec, videoID,userVideoID }: InteractionPa
   }
   if (type === "Completed") {
     const userVideo = await fetch(
-      `http://localhost:8000/api/v1/user-videos/users/${me.id}/videos`,
+      `${process.env.API_BASE_URL}/user-videos/users/${me.id}/videos`,
       {
         method: "POST",
         credentials: "include",

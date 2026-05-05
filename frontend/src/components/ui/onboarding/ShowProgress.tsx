@@ -39,7 +39,7 @@ const OnBoardingShowProgress = ({
 
   // GET CSRF TOKEN
   async function fetchCsrfToken(): Promise<string> {
-    await fetch(`http://localhost:8000/sanctum/csrf-cookie`, {
+    await fetch(`${process.env.BASE_END_PONT}/sanctum/csrf-cookie`, {
       credentials: "include",
     });
 
@@ -57,7 +57,7 @@ const OnBoardingShowProgress = ({
   async function onBoardCall(): Promise<void> {
     const xsrfToken = await fetchCsrfToken(); // ← get cookie first, THEN read it
     // // return ;
-    const res = await fetch(`http://localhost:8000/api/register`, {
+    const res = await fetch(`${process.env.BASE_END_PONT}/api/register`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -77,7 +77,7 @@ const OnBoardingShowProgress = ({
     // if the registeratio is successed
     // Then login with the current user to create fresh cookies session
     const freshXsrfToken = await fetchCsrfToken();
-    const loginRes = await fetch(`http://localhost:8000/api/v1/login`, {
+    const loginRes = await fetch(`${process.env.BASE_END_PONT}/api/v1/login`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -94,7 +94,7 @@ const OnBoardingShowProgress = ({
     // Content settings post
     const settingXsrfToken = await fetchCsrfToken();
     const settingRes = await fetch(
-      `http://localhost:8000/api/v1/user-content-settings`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/user-content-settings`,
       {
         method: "PATCH",
         credentials: "include",

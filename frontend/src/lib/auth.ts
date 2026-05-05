@@ -8,10 +8,11 @@ import { getCookie } from './cookie';
 // The CSRF token is required to prevent CSRF attacks, and it is usually stored in a cookie by the server. By calling this function before login, you ensure that the CSRF token is available in the cookie and can be sent with the login request. 
 // If you don't call this function before login, the login request will fail with a 419 error (CSRF token mismatch) because the server will not receive the CSRF token in the request.
 async function getCsrfCookie() {
-    await fetch(`${API_URL}/sanctum/csrf-cookie`, {
+    await fetch(`${process.env.API_BASE_URL}/sanctum/csrf-cookie`, {
         credentials: 'include', // required to store the cookie
     });
 }
+console.log(`thisis - ${process.env.API_BASE_URL}`)
 // Step 2: call this function to login the user
 // This function will throw an error if the login fails, so you can catch it in your component and display an error message to the user.
 /**

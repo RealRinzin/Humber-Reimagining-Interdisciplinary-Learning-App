@@ -15,10 +15,13 @@ import {
   solarizedDarkAtom,
 } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { useEffect, useState } from "react";
+import { clientFetch } from "@/lib/clientFetch";
+import PivotScene from "@/components/ui/interactive/PivotScene";
 // Content Type
 interface contentProps {
   title: string;
   content: string;
+  videoID: number;
   icon: IconDefinition;
   type: string;
   status: boolean;
@@ -28,6 +31,7 @@ interface contentProps {
 export default function CourseTabs({
   title,
   content,
+  videoID,
   icon,
   type,
   status,
@@ -35,6 +39,13 @@ export default function CourseTabs({
 }: contentProps) {
   const [drop, setDrop] = useState(false);
   const [isChecked, setIsChecked] = useState(status);
+  // Async function to update individual status
+  async function updateTheStatus() {
+    const completeStatusRes = await clientFetch(
+      `/user-video-setting/users/me/videos/${videoID}`,
+    );
+  }
+console.log(status)
   useEffect(() => {
     setIsChecked(status);
   }, [status]);
@@ -55,10 +66,13 @@ export default function CourseTabs({
             all_complete
               ? "bg-green-600 border-green-600 hover:cursor-pointer"
               : status
-                ? "bg-green-600 border-green-600 hover:cursor-pointer"
-                : "bg-slate-400 border-slate-600 hover:border-green-600 hover:cursor-pointer hover:bg-white transition duration-300 ease-in-out"
+              ? "bg-green-600 border-green-600 hover:cursor-pointer"
+              : "bg-slate-400 border-slate-600 hover:border-green-600 hover:cursor-pointer hover:bg-white transition duration-300 ease-in-out"
           } hover:shadow-[0_0_10px_3px_rgba(34,197,94,0.6)]`}
-          onClick={() => setIsChecked((prev) => !prev)}
+          onClick={() => {
+            setIsChecked((prev) => !prev);
+            updateTheStatus();
+          }}
         >
           {all_complete ? (
             <FontAwesomeIcon icon={faCheck} size="1x" className="text-white" />
@@ -90,7 +104,11 @@ export default function CourseTabs({
           "Testing Your knowledge"
         ) : type === "tldnw" ? (
           "Later watch"
-        ) : // Resources Component
+        ) : type ==='interactive'?(
+          'Interactive'
+          // <PivotScene/>
+        ):
+
         type === "resources" ? (
           "Documents"
         ) : (

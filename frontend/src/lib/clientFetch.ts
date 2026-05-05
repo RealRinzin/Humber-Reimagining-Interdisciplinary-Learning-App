@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation';
 // GET CSRF TOKEN
 async function fetchCsrfToken(): Promise<string> {
-    await fetch(`http://localhost:8000/sanctum/csrf-cookie`, {
+    await fetch(`${process.env.BASE_END_PONT}/sanctum/csrf-cookie`, {
         credentials: "include",
     });
 

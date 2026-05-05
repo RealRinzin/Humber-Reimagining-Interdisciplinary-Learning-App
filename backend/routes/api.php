@@ -50,6 +50,10 @@ Route::prefix('v1')
     ->name('v1.')
     ->middleware(['auth:sanctum', 'throttle:1000,1'])
     ->group(function () {
+        // Proxy user return
+        Route::get('/user',function(Request $request){
+            return $request->user();
+        });
         // Current User detail
         Route::get('/me', [AuthController::class, 'me']);
         // =============== User Logout | Registeration ===============================| 

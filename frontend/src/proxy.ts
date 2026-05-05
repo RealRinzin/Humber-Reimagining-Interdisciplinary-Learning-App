@@ -34,16 +34,15 @@ async function isAuthenticated(request: NextRequest): Promise<boolean> {
     const cookieStore = await cookies(); // get the cookies from the request using Next.js's cookies function, which returns a cookie store object that we can use to access the cookies in the request
     // We convert the cookie store to a string and include it in the headers of the fetch request to the backend API.
     //  This allows the backend to identify the user based on their session cookie and determine if they are authenticated.
-
     try { 
-        const res = await fetch(`http://localhost:8000/api/user`, {
+        const res = await fetch(`${process.env.BASE_END_PONT}/api/user`, { // Default
             method: "GET",
+            // credentials: "include",
             headers: {
                 Cookie: cookieStore.toString(),
                 Accept: "application/json"
             }
         })
-        // console.log(res)
         if (!res.ok) return false; // if the response is not successful (e.g., if it returns a 401 Unauthorized status), we return false, indicating that the user is not authenticated.
         return true; // if the response is successful (i.e., the user is authenticated), we return true.
 

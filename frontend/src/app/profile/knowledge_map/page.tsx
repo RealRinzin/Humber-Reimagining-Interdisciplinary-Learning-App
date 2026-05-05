@@ -4,9 +4,10 @@ import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
 import TabHorizontal from "@/components/ui/progress/TabHorizontal";
 import { useEffect, useState } from "react";
 export default  function KnowledgeMapPage() {
+  console.log(`${process.env.NEXT_PUBLIC_API_BASE_URL}`)
  const [data, setData] = useState(null);
     useEffect(() => {
-        fetch('http://localhost:8000/api/v1/videos', {
+        fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/videos`, {
             credentials: 'include', // browser handles cookies + referer automatically
             headers: {
                 Accept: 'application/json',

@@ -1,6 +1,9 @@
+
+
 export default function ModelSpaceSkeleton() {
   return (
     <main className="px-1 md:px-20 py-5">
+      {/* <PivotScene/> */}
       <section className="flex flex-col md:flex-row gap-4">
         <div className="min-h-screen bg-gray-100 flex flex-col">
           <div className="flex flex-1">
