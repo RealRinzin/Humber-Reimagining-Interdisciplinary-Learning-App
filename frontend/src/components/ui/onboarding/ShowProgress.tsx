@@ -53,7 +53,6 @@ const OnBoardingShowProgress = ({
 
     return decodeURIComponent(token);
   }
-console.log(`${process.env.BASE_END_POINT}`)
   async function onBoardCall(): Promise<void> {
     const xsrfToken = await fetchCsrfToken(); // ← get cookie first, THEN read it
     // // return ;
