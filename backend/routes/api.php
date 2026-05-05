@@ -38,6 +38,8 @@ Route::prefix('v1')
 // Registeration API
 // This API is open to public but it will be rate limited by the throttle middleware
 Route::post('/register', [AuthController::class, 'register']);
+
+
 Route::post('/postmanRegister', [AuthController::class, 'postmanRegister']);
 // Get Logged User session or Token for proxy and middleware
 Route::middleware(['web', 'auth:sanctum'])->get('/user', function (Request $request) {
