@@ -29,9 +29,9 @@ class UserContentSettingController
     public function store(StoreUserContentSettingRequest $request, CreateUserContentSettingAction $action, User $user)
     {
 
-        if (auth()->id() !== $user->id) {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
+        // if (auth()->id() !== $user->id) {
+        //     return response()->json(['message' => 'Unauthorized'], 403);
+        // }
 
         $userContentSetting = $action->execute(CreateUserContentSettingDTO::fromRequest($request));
         return response()->json($userContentSetting, $userContentSetting->wasRecentlyCreated ? 201 : 200);

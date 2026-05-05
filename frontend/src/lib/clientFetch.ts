@@ -2,10 +2,9 @@
 import { useRouter } from 'next/navigation';
 // GET CSRF TOKEN
 async function fetchCsrfToken(): Promise<string> {
-    await fetch(`${process.env.BASE_END_PONT}/sanctum/csrf-cookie`, {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_END_POINT}/sanctum/csrf-cookie`, {
         credentials: "include",
     });
-
     const token = document.cookie
         .split("; ")
         .find((row) => row.startsWith("XSRF-TOKEN="))
@@ -15,7 +14,6 @@ async function fetchCsrfToken(): Promise<string> {
 
     return decodeURIComponent(token);
 }
-
 export async function clientFetch(path: string, options: RequestInit = {}) {
     const xsrfToken = await fetchCsrfToken(); 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${path}`, {

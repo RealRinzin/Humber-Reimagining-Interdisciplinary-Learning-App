@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 export default async function NodePage() {
   const cookieStore = (await cookies()).toString();
 
-  const res = await fetch(`${process.env.BASE_END_PONT}/api/user`, {
+  const res = await fetch(`${process.env.BASE_END_POINT}/api/user`, {
     method: "GET",
     headers: {
       Cookie: cookieStore,
@@ -12,7 +12,7 @@ export default async function NodePage() {
   const data = await res.json();
 
   // Uses
-  const users = await fetch(`${process.env.BASE_END_PONT}/api/v1/users`, {
+  const users = await fetch(`${process.env.BASE_END_POINT}/api/v1/users`, {
     headers: {
       Cookie: cookieStore,
       Accept: "application/json",
@@ -20,8 +20,6 @@ export default async function NodePage() {
     },
   });
   const user = await users.json();
-  console.log(user);
-
   // return page
   return (
     <>

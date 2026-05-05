@@ -15,6 +15,7 @@ const OnBoardingPersonalDetail = ({ onSuccess, values }: Props) => {
   const onSubmit = (data: OnboardPersonalDetailType) => {
     onSuccess(data);
   };
+    console.log(`${process.env.NEXT_PUBLIC_BASE_END_POINT}`);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {/* Title */}

@@ -4,7 +4,6 @@ import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
 import TabHorizontal from "@/components/ui/progress/TabHorizontal";
 import { useEffect, useState } from "react";
 export default  function KnowledgeMapPage() {
-  console.log(`${process.env.NEXT_PUBLIC_API_BASE_URL}`)
  const [data, setData] = useState(null);
     useEffect(() => {
         fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/videos`, {
@@ -16,7 +15,6 @@ export default  function KnowledgeMapPage() {
             .then(res => res.json())
             .then(data => setData(data));
     }, []);
-    console.log(data)
   return (
     <>
       <main className="grid grid-cols-6">

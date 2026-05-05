@@ -31,7 +31,6 @@ export default function OnboardingPage() {
     learningPath: { explore_mode: false, guide_path: false },
     showProgress: { progress: false },
   });
-  console.log();
   // Data pass
   const [currentStep, setCurrentStep] = useState(0);
   // Next Handle

@@ -1,5 +1,4 @@
 
-const API_URL = 'http://localhost:8000';
 import { LoginDType } from '@/types/auth.types';
 import { getCookie } from './cookie';
 // Step 1: get CSRF cookie
@@ -8,11 +7,11 @@ import { getCookie } from './cookie';
 // The CSRF token is required to prevent CSRF attacks, and it is usually stored in a cookie by the server. By calling this function before login, you ensure that the CSRF token is available in the cookie and can be sent with the login request. 
 // If you don't call this function before login, the login request will fail with a 419 error (CSRF token mismatch) because the server will not receive the CSRF token in the request.
 async function getCsrfCookie() {
-    await fetch(`${process.env.API_BASE_URL}/sanctum/csrf-cookie`, {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_END_POINT}/sanctum/csrf-cookie`, {
         credentials: 'include', // required to store the cookie
     });
 }
-console.log(`thisis - ${process.env.API_BASE_URL}`)
+console.log("testing");
 // Step 2: call this function to login the user
 // This function will throw an error if the login fails, so you can catch it in your component and display an error message to the user.
 /**
@@ -43,7 +42,7 @@ export async function login(username: string, password: string): Promise<LoginDT
      * The `credentials: 'include'` option is used to ensure that cookies are sent with the request, which is necessary for authentication to work properly. 
      * If the login is successful, we return the response as JSON. If the login fails, we throw an error with the message from the response.
      */
-    const res = await fetch(`${API_URL}/api/v1/login`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/login`, {
         method: 'POST', // use POST method for login
         credentials: 'include', // required to send cookies with the request
         headers: {
