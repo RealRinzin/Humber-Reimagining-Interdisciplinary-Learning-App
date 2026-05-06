@@ -5,5 +5,6 @@ export interface TopicType {
         url: string|null;
         source:string | null;
         target:string | null;
+        node_color:string;
     };
 }
