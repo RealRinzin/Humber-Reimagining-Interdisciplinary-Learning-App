@@ -2,7 +2,7 @@ import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
 import CourseTabs from "@/components/features/course/CourseTabs";
 import CourseTitle from "@/components/features/course/CourseTitle";
 import MoreCourses from "@/components/features/course/MoreCourses";
-import NodeTest from "@/components/features/course/NodeTest";
+import NodeTest from "@/components/features/course/NodeConnection-Orginal";
 import { MyPlayer } from "@/components/ui/video/VideoPlayer";
 import { serverFetch, serverPost } from "@/lib/fetch";
 import {

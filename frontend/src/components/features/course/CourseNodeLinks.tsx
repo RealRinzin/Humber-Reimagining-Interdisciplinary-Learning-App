@@ -155,7 +155,7 @@ export default function CourseNodeLink() {
           selector: `edge[source = "${element.topic_id}"], edge[target = "${element.connected_topic_id}"]`,
           style: {
             width: 2,
-            "line-color": "#F72585",
+            "line-color": `${[15, 12,10 ,2].includes(element.topic_id) ? "#F72585" : "#4CC9F0"}`,
             "curve-style": "straight", // beizer, straight, taxi, segments
             "target-arrow-shape": "none", // triangle, vee, circle, none
             "line-style": `${element.line_style}`,
@@ -238,7 +238,6 @@ export default function CourseNodeLink() {
             animate: true,
             padding: 20,
           }}
-
           style={{ width: "100%", height: "100%" }}
           cy={(cy) => {
             cyRef.current = cy;

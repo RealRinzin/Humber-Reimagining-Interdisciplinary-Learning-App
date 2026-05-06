@@ -142,7 +142,7 @@ const OnBoardingShowProgress = ({
             name="progress"
             label="Progress"
             register={register}
-            required={true}
+            required={false}
             error={errors.progress?.message}
 
           />

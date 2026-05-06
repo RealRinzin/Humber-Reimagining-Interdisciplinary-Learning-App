@@ -1,20 +1,11 @@
-'use client'
+
 import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
 // import TabProgressBar from "@/components/ui/progress/Tab";
 import TabHorizontal from "@/components/ui/progress/TabHorizontal";
-import { useEffect, useState } from "react";
-export default  function KnowledgeMapPage() {
- const [data, setData] = useState(null);
-    useEffect(() => {
-        fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/videos`, {
-            credentials: 'include', // browser handles cookies + referer automatically
-            headers: {
-                Accept: 'application/json',
-            },
-        })
-            .then(res => res.json())
-            .then(data => setData(data));
-    }, []);
+import { serverFetch } from "@/lib/fetch";
+export default  async function KnowledgeMapPage() {
+  const res = await serverFetch(`/topics`)
+  const data = await res.json();
   return (
     <>
       <main className="grid grid-cols-6">
@@ -22,7 +13,7 @@ export default  function KnowledgeMapPage() {
         <div className="bg-gray-300 p-6 col-span-2">
           <ul className="flex w-fulljustify-evenly gap-6 items-center-safe text-center">
             <li className="w-full bg-gray-400 rounded-xl py-2 text-gray-600">
-              Explore Mode
+              Step-by-Step
             </li>
             <li className="w-full bg-gray-900 rounded-xl py-2 text-white">
               Main Path
@@ -44,13 +35,11 @@ export default  function KnowledgeMapPage() {
           </p>
           {/* Progres Tabs */}
           <div className="my-4">
-          <TabHorizontal name={"Intro to Spaces"} color={"color"}/>
-          <TabHorizontal name={"Model Space"} color={"color"}/>
-          <TabHorizontal name={"Model Matrix"} color={"color"}/>
-          <TabHorizontal name={"Module"} color={"color"}/>
-          <TabHorizontal name={"Volexity"} color={"color"}/>
-          <TabHorizontal name={"Vertex"} color={"color"}/>
-          <TabHorizontal name={"Translation"} color={"color"}/>
+            {
+              data.map((topic:any,index:number)=>(
+                <TabHorizontal name={topic.title} color={topic.node_color} key={index}/>
+              ))
+            }
           </div>
         </div>
         {/* Progress */}
