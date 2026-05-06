@@ -46,7 +46,6 @@ export default async function Page({
     if (last_pause.ok) {
       // Read the await responst
       const content = await last_pause.json();
-      // console.log(content);
       // Check if the user already have user_video records for this video
       // if no then register on right when the page loads
       // if the record is empty or if already exist but the complete status is true
@@ -80,6 +79,7 @@ export default async function Page({
     `/user-video-setting/users/me/videos/${video.id}`,
   );
   const { data: completeStatus } = await completeStatusRes.json();
+  console.log(completeStatus)
   return (
     <main className="px-1 md:px-20 py-5">
       <section className="flex flex-col md:flex-row gap-4">
@@ -169,8 +169,8 @@ export default async function Page({
           className="md:flex-2 bg-slate-900 rounded-xl"
           style={{ backgroundColor: "#000033" }}
         >
-          <NodeTest/>
-          {/* <CourseNodeLink /> */}
+          {/* <NodeTest/> */}
+          <CourseNodeLink />
         </aside>
       </section>
     </main>

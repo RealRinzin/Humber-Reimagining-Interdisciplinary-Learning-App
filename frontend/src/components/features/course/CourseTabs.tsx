@@ -16,7 +16,6 @@ import {
 } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { useEffect, useState } from "react";
 import { clientFetch } from "@/lib/clientFetch";
-import PivotScene from "@/components/ui/interactive/PivotScene";
 // Content Type
 interface contentProps {
   title: string;
@@ -44,13 +43,15 @@ export default function CourseTabs({
     const completeStatusRes = await clientFetch(
       `/user-video-setting/users/me/videos/${videoID}`,
     );
+    const data = await completeStatusRes.json();
+    status = !status;
   }
-console.log(status)
   useEffect(() => {
     setIsChecked(status);
   }, [status]);
   return (
     <section className="my-5">
+      {status?"True":'False'}
       <div className="flex justify-between bg-slate-100 p-3 rounded-md">
         <h2 className="text-xl font-bold text-gray-600">
           <FontAwesomeIcon icon={icon} size="1x" /> {title}
@@ -66,8 +67,8 @@ console.log(status)
             all_complete
               ? "bg-green-600 border-green-600 hover:cursor-pointer"
               : status
-              ? "bg-green-600 border-green-600 hover:cursor-pointer"
-              : "bg-slate-400 border-slate-600 hover:border-green-600 hover:cursor-pointer hover:bg-white transition duration-300 ease-in-out"
+                ? "bg-green-600 border-green-600 hover:cursor-pointer"
+                : "bg-slate-400 border-slate-600 hover:border-green-600 hover:cursor-pointer hover:bg-white transition duration-300 ease-in-out"
           } hover:shadow-[0_0_10px_3px_rgba(34,197,94,0.6)]`}
           onClick={() => {
             setIsChecked((prev) => !prev);
@@ -104,12 +105,9 @@ console.log(status)
           "Testing Your knowledge"
         ) : type === "tldnw" ? (
           "Later watch"
-        ) : type ==='interactive'?(
-          'Interactive'
-
-        ):
-
-        type === "resources" ? (
+        ) : type === "interactive" ? (
+          "Interactive"
+        ) : type === "resources" ? (
           "Documents"
         ) : (
           content

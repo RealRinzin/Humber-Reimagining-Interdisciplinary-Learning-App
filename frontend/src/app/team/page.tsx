@@ -1,11 +1,12 @@
-import NodeTest from "@/components/features/course/NodeTest";
+import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
+
 
 export default function TeamPage(){
     return(
         <>
         <div className="bg-black">
-
-        <NodeTest/>
+        <CourseNodeLink/>
+        {/* <NodeTest/> */}
         </div>
         </>
     )
