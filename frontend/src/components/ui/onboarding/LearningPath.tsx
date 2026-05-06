@@ -1,6 +1,7 @@
-import Input from "../form/Input";
+
 import { OnboardLearningPathType } from "@/types/onboard/onboard-types";
 import { useForm } from "react-hook-form";
+import ToggleCheckBox from "../form/ToggleCheckbox";
 
 type Props = {
   onSuccess: (data: OnboardLearningPathType) => void;
@@ -17,7 +18,7 @@ const OnBoardingLearningPath = ({ onSuccess, values }: Props) => {
   const onSubmit = (data: OnboardLearningPathType) => {
     let user: any = [];
     user["user"] = data;
-    console.log(data)
+    console.log(data);
     onSuccess(data);
   };
   return (
@@ -34,22 +35,21 @@ const OnBoardingLearningPath = ({ onSuccess, values }: Props) => {
           at any time
         </p>
         <div className="flex flex-col gap-5">
-          <label htmlFor="explore_mode">
-            <input
-              type="checkbox"
-              {...register("explore_mode")}
-              className="h-4 w-4 rounded border-4 border-gray-600 bg-white checked:border-amber-500 checked:bg--500 "
-            />
-            <span className="px-3">Explore Mode</span>
-          </label>
-          <label htmlFor="guide_path">
-            <input
-              type="checkbox"
-              {...register("guide_path")}
-              className="h-4 w-4 rounded border-4 border-gray-600 bg-white checked:border-amber-500 checked:bg--500 "
-            />
-            <span className="px-3">Guided Path</span>
-          </label>
+          {/* <ToggleCheckBox name="explore_mode" label="Explore Mode" register={register} /> */}
+          <ToggleCheckBox <OnboardLearningPathType>
+            name="explore_mode"
+            label="Explore Mode"
+            register={register}
+            required={true}
+            error={errors.explore_mode?.message}
+          />
+          <ToggleCheckBox <OnboardLearningPathType>
+            name="guide_path"
+            label="Guide Path"
+            register={register}
+            required={true}
+            error={errors.guide_path?.message}
+          />
         </div>
         <div className="flex items-center justify-end gap-4 mt-8">
           <button

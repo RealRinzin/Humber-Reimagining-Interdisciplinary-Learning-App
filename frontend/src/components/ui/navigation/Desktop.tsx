@@ -1,8 +1,10 @@
 "use client";
 import { useRouter } from "next/navigation";
+import Image from 'next/image'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAtom,
+  faCircleUser,
   faHouse,
   faMagnifyingGlass,
   faUser,
@@ -31,9 +33,8 @@ export default function DesktopNavigation() {
   return (
     <>
       <header className="flex flex-col md:flex-row justify-between place-items-center px-20 md:py-6 md:px-20 text-white">
-        <h2 className="">
-          Spaces <FontAwesomeIcon icon={faAtom} size="1x" />
-          Project
+        <h2 className="text-xl">
+          SPA<Image src="/img/SpaceLogo.png" height={20} width={20} alt="User Icon" className="inline"/>CES  PROJECT
         </h2>
         <nav className="flex flex-col md:flex-row  place-items-center justify-end gap-5">
           <div id="hb_search" className="rounded-xl relative">
@@ -50,15 +51,13 @@ export default function DesktopNavigation() {
           </div>
           <ul className="flex gap-5 justify-evenly">
             <li>
-              <a href="/">
-                {" "}
-                <FontAwesomeIcon icon={faHouse} size="1x" />
+              <a href="/team">
+                <Image src="/img/InformationIcon.png" height={25} width={25} alt="Home Icon"/>
               </a>
             </li>
             <li>
               <a href="/profile/knowledge_map">
-                {" "}
-                <FontAwesomeIcon icon={faAtom} size="1x" />
+                <Image src="/img/HomeIcon.png" height={25} width={25} alt="Home Icon"/>
               </a>
             </li>
             <li>
@@ -69,8 +68,7 @@ export default function DesktopNavigation() {
                   logOut();
                 }}
               >
-                {" "}
-                <FontAwesomeIcon icon={faUser} size="1x" />
+                <Image src="/img/AccountIcon.png" height={25} width={25} alt="User Icon"/>
               </a>
             </li>
           </ul>

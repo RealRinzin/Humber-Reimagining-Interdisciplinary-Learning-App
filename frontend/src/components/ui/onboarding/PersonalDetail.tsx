@@ -25,7 +25,6 @@ const OnBoardingPersonalDetail = ({ onSuccess, values }: Props) => {
         </h2>
         <div className="mt-2 border-t border-slate-400/50" />
       </div>
-
       {/* Fields */}
       <div className="space-y-5">
         <div className="space-y-1.5">

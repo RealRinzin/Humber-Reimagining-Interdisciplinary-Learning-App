@@ -19,7 +19,7 @@ export default function LoginPage() {
     setError(null);
     try {
       await login(username, password);
-      router.push("/profile");
+      router.push("/profile/knowledge_map");
     } catch (err: any) {
       setError(err.message);
     } finally {

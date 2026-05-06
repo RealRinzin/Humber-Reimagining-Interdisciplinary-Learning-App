@@ -8,6 +8,7 @@ import {
   OnboardLearningPathType,
   OnboardShowProgressType,
 } from "@/types/onboard/onboard-types";
+import ToggleCheckBox from "../form/ToggleCheckbox";
 type Props = {
   onSuccess: (data: OnboardShowProgressType) => void;
   values: OnboardShowProgressType;
@@ -137,6 +138,14 @@ const OnBoardingShowProgress = ({
           Choose whether you'd like to see your progress as you learn. You can
           turn this on or off anytime.
         </p>
+        <ToggleCheckBox <OnboardShowProgressType>
+            name="progress"
+            label="Progress"
+            register={register}
+            required={true}
+            error={errors.progress?.message}
+
+          />
         <label htmlFor="progress">
           <input
             type="checkbox"

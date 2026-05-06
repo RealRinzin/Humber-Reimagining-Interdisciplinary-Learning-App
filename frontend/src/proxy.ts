@@ -70,7 +70,7 @@ export async function proxy(request: NextRequest) {
 
     // If already logged in and trying to access login page → redirect to dashboard
     if (loggedIn && isAuthPage) {
-        return NextResponse.redirect(new URL('/profile', request.url))
+        return NextResponse.redirect(new URL('/profile/knowledge_map', request.url))
     }
     // log
     return NextResponse.next()
