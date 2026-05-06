@@ -13,144 +13,18 @@ export default function NodeTest() {
   // User State Data
   const [topics, setTopics] = useState<TopicType[]>([]);
   const [styles, setStyles] = useState([]);
-  const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0 });
+  const [tooltip, setTooltip] = useState({
+    visible: false,
+    x: 0,
+    y: 0,
+    label: "",
+  });
 
-  // console.log(elements)
-  const stylesheet: any = [
-    {
-      selector: "node",
-      style: {
-        // ← align to top∂∂
-        width: 80,
-        height: 80,
-        // Label Text
-        label: "data(label)",
-        cursor: "pointer",
-        "text-valign": "center",
-        "text-halign": "center",
-        // Font
-        // "font-family": "Arial, sans-serif", // any valid CSS font
-        "font-size": 14, // in pixels
-        "font-weight": "bold", // normal | bold | 100..900
-        // "font-style": "italic", // normal | italic | oblique
-        "text-transform": "uppercase", // none | uppercase | lowercase | capitalize
-        // Color and outline
-        color: "#000",
-        // Text background (optional)
-        "text-background-color": "#fff",
-        "text-background-opacity": 0.7,
-        "text-background-padding": 4,
-        "text-background-shape": "roundrectangle",
-        // Inner circle
-        "background-color": "#ff0080",
-        // Ring effect
-        "border-width": 20,
-        "border-color": "#b0005a",
-        // Glow
-        "shadow-blur": 40,
-        "shadow-color": "#ff0080",
-        "shadow-opacity": 0.7,
-      },
-    },
-    {
-      selector: "#4",
-      style: {
-        width: 80,
-        height: 80,
-        // Label Text
-        label: "data(label)",
-        cursor: "pointer",
-        "text-valign": "center",
-        "text-halign": "center",
-        // Font
-        // "font-family": "Arial, sans-serif", // any valid CSS font
-        "font-size": 14, // in pixels
-        "font-weight": "bold", // normal | bold | 100..900
-        // "font-style": "italic", // normal | italic | oblique
-        "text-transform": "uppercase", // none | uppercase | lowercase | capitalize
-        // Color and outline
-        color: "#000",
-        // Text background (optional)
-        "text-background-color": "#fff",
-        "text-background-opacity": 0.7,
-        "text-background-padding": 4,
-        "text-background-shape": "roundrectangle",
-        // Inner circle
-        "background-color": "#999999",
-        // Ring effect
-        "border-width": 20,
-        "border-color": "#666666",
-
-        // Glow
-        "shadow-blur": 80,
-        "shadow-color": "#00ff88",
-        "shadow-opacity": 0.7,
-      },
-    },
-    {
-      selector: "#18",
-      style: {
-        width: 80,
-        height: 80,
-        // Label Text
-        label: "data(label)",
-        cursor: "pointer",
-
-        "text-valign": "center",
-        "text-halign": "center",
-        // Font
-        // "font-family": "Arial, sans-serif", // any valid CSS font
-        "font-size": 14, // in pixels
-        "font-weight": "bold", // normal | bold | 100..900
-        // "font-style": "italic", // normal | italic | oblique
-        "text-transform": "uppercase", // none | uppercase | lowercase | capitalize
-        // Color and outline
-        color: "#000",
-        // Text background (optional)
-        "text-background-color": "#fff",
-        "text-background-opacity": 0.7,
-        "text-background-padding": 4,
-        "text-background-shape": "roundrectangle",
-        // Inner circle
-        "background-color": "#99cc99",
-        // Ring effect
-        "border-width": 20,
-        "border-color": "#329932",
-
-        // Glow
-        "shadow-blur": 80,
-        "shadow-color": "#00ff88",
-        "shadow-opacity": 0.7,
-      },
-    },
-    // Edge
-    {
-      selector: "edge",
-      style: {
-        width: 3,
-        "line-color": "#32325b",
-        "curve-style": "bezier",
-        "target-arrow-shape": "triangle",
-        "target-arrow-color": "#888",
-      },
-    },
-    {
-      selector: 'edge[source = "2"], edge[target = "3"]',
-      style: {
-        width: 3,
-        "line-color": "#32325b",
-        "curve-style": "bezier",
-        "target-arrow-shape": "triangle",
-        "target-arrow-color": "#888",
-        "line-style": "dashed",
-        "line-dash-pattern": [4, 3], // [dash length, gap length]
-      },
-    },
-  ];
-
+  // Use Effect state for loading
   useEffect(() => {
-    const List = [];
+    const List = []; // List of Topic Nodes
     const newStyle: any = [
+      // Initialize static properties that are common for all the nodes
       {
         selector: "node",
         style: {
@@ -186,18 +60,28 @@ export default function NodeTest() {
           "shadow-opacity": 0.7,
         },
       },
+      {
+        selector: "edge",
+        style: {
+          width: 3,
+          "line-color": "#32325b",
+          "curve-style": "bezier",
+          "target-arrow-shape": "triangle",
+          "target-arrow-color": "#888",
+        },
+      },
     ];
     // function
     async function getTopics() {
       // Topcis
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/topics`);
       const data = await res.json();
+
       // Connection
       const connection = await fetch(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/topic-connections`,
       );
       const connect = await connection.json();
-      console.log(connect);
       const List: TopicType[] = [];
       // Push the nodes into array
       data.forEach((topic: any) => {
@@ -276,7 +160,6 @@ export default function NodeTest() {
     // Invoke Function
     getTopics();
     // Tooltips
-
   }, []);
   return (
     <>
@@ -302,7 +185,10 @@ export default function NodeTest() {
           />
         </div>
       </div>
-      <div style={{ width: "100%", height: "100vh" }} className="h-full relative">
+      <div
+        style={{ width: "100%", height: "100vh" }}
+        className="h-full relative"
+      >
         <CytoscapeComponent
           elements={topics}
           autoungrabify={true} // Disable the node dragging
@@ -316,7 +202,7 @@ export default function NodeTest() {
           style={{ width: "100%", height: "100%" }}
           cy={(cy) => {
             cyRef.current = cy;
-            //
+            //tap and node
             cy.on("tap", "node", (event) => {
               const node = event.target;
               const url = node.data("url");
@@ -324,28 +210,30 @@ export default function NodeTest() {
                 window.open(url, "_blank");
               }
             });
-            // inside useEffect
+            // Mouse over
             cy.on("mouseover", "node", (e) => {
               const pos = e.renderedPosition;
-              setTooltip({ visible: true, x: pos.x, y: pos.y });
+              const label = e.target.data("label");
+              setTooltip({ visible: true, x: pos.x, y: pos.y, label });
             });
 
             cy.on("mouseout", "node", () => {
-              setTooltip({ visible: false, x: 0, y: 0 });
+              setTooltip({ visible: false, x: 0, y: 0, label: "" });
             });
           }}
         />
         {tooltip.visible && (
           <div
-          className="absolute bg-white px-2 py-4 rounded-md text-black text-sm"
+            className="absolute bg-white px-2 py-4 rounded-md text-black text-sm transition-all duration-150"
             style={{
               // position: "absolute",
               left: tooltip.x + 10,
               top: tooltip.y - 30,
               pointerEvents: "none", // so it doesn't interfere with mouse events
+              opacity: tooltip.visible ? 1 : 0,
             }}
           >
-This is information
+            {`${tooltip.label} industry. Lorem Ipsum has been the industry's standard dummy text ever since`}
           </div>
         )}
       </div>

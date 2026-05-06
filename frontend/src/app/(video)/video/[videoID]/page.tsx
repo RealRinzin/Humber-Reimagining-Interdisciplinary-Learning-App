@@ -2,6 +2,7 @@ import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
 import CourseTabs from "@/components/features/course/CourseTabs";
 import CourseTitle from "@/components/features/course/CourseTitle";
 import MoreCourses from "@/components/features/course/MoreCourses";
+import NodeTest from "@/components/features/course/NodeTest";
 import { MyPlayer } from "@/components/ui/video/VideoPlayer";
 import { serverFetch, serverPost } from "@/lib/fetch";
 import {
@@ -168,7 +169,8 @@ export default async function Page({
           className="md:flex-2 bg-slate-900 rounded-xl"
           style={{ backgroundColor: "#000033" }}
         >
-          <CourseNodeLink />
+          <NodeTest/>
+          {/* <CourseNodeLink /> */}
         </aside>
       </section>
     </main>
