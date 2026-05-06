@@ -1,13 +1,14 @@
 "use client";
 import {
+  faHand,
   faMagnifyingGlassMinus,
   faMagnifyingGlassPlus,
+  faPlayCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CytoscapeComponent from "react-cytoscapejs";
-import type { Core, StylesheetCSS } from "cytoscape";
+import type { Core } from "cytoscape";
 import { useEffect, useRef, useState } from "react";
-import { TopicType } from "@/types/topic/topic.types";
 export default function CourseNodeLink() {
   const cyRef = useRef<Core | null>(null);
 
@@ -171,6 +172,26 @@ export default function CourseNodeLink() {
     getTopics();
     // Tooltips
   }, []);
+
+  const handleZoomIn = () => {
+    if (cyRef.current) {
+      cyRef.current.zoom(cyRef.current.zoom() * 1.2);
+      cyRef.current.center();
+    }
+  };
+
+  const handleZoomOut = () => {
+    if (cyRef.current) {
+      cyRef.current.zoom(cyRef.current.zoom() * 0.8);
+      cyRef.current.center();
+    }
+  };
+
+  const handleFitAll = () => {
+    if (cyRef.current) {
+      cyRef.current.fit(undefined, 40);
+    }
+  };
   return (
     <>
       <div className="p-2 text-white">
@@ -185,12 +206,20 @@ export default function CourseNodeLink() {
         <div className="flex flex-col justify-end items-end gap-2 my-2">
           <FontAwesomeIcon
             icon={faMagnifyingGlassPlus}
+            onClick={handleZoomIn}
             size="1x"
             className="text-white bg-slate-700 p-1 rounded hover:cursor-pointer"
           />
           <FontAwesomeIcon
             icon={faMagnifyingGlassMinus}
             size="1x"
+            onClick={handleZoomOut}
+            className="text-white bg-slate-700 p-1 rounded hover:cursor-pointer"
+          />
+          <FontAwesomeIcon
+            icon={faHand}
+            size="1x"
+            onClick={handleFitAll}
             className="text-white bg-slate-700 p-1 rounded hover:cursor-pointer"
           />
         </div>
@@ -209,6 +238,7 @@ export default function CourseNodeLink() {
             animate: true,
             padding: 20,
           }}
+
           style={{ width: "100%", height: "100%" }}
           cy={(cy) => {
             cyRef.current = cy;
@@ -222,28 +252,38 @@ export default function CourseNodeLink() {
             });
             // Mouse over
             cy.on("mouseover", "node", (e) => {
+              const container = cy.container();
               const pos = e.renderedPosition;
               const label = e.target.data("label");
+              if (container) container.style.cursor = "pointer";
               setTooltip({ visible: true, x: pos.x, y: pos.y, label });
             });
 
             cy.on("mouseout", "node", () => {
+              const container = cy.container();
+              if (container) container.style.cursor = "default";
+
               setTooltip({ visible: false, x: 0, y: 0, label: "" });
             });
           }}
         />
+        {/* Tooltip */}
         {tooltip.visible && (
           <div
-            className="absolute bg-white px-2 py-4 rounded-md text-black text-sm transition-all duration-150 w-50"
-            style={{
-              // position: "absolute",
-              left: tooltip.x + 10,
-              top: tooltip.y - 30,
-              pointerEvents: "none", // so it doesn't interfere with mouse events
-              opacity: tooltip.visible ? 1 : 0,
-            }}
+            className="absolute z-30 pointer-events-none"
+            style={{ left: tooltip.x + 16, top: tooltip.y - 60 }}
           >
-            {`${tooltip.label} industry. Lorem Ipsum has been the industry's standard dummy text ever since`}
+            <div className="bg-white border border-pink-500/40 rounded-xl px-4 py-3 shadow-xl shadow-pink-900/20 min-w-45">
+              <p className="text-black font-bold text-sm uppercase tracking-wide mb-1">
+                {tooltip.label}
+              </p>
+              <div className="flex items-center gap-1.5 text-pink-400 text-xs mt-2">
+                <FontAwesomeIcon icon={faPlayCircle} size="sm" />
+                <span>Click to watch</span>
+              </div>
+            </div>
+            {/* Arrow */}
+            <div className="w-2 h-2 bg-white border-b border-r border-pink-500/40 rotate-45 ml-4 -mt-1" />
           </div>
         )}
       </div>

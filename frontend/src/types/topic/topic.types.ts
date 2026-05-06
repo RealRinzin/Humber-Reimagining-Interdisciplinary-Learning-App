@@ -1,6 +1,6 @@
 export interface TopicType {
     data: {
-        id: number | null;
+        id: string | null;
         label: string | null;
         url: string | null;
         source: string | null;
