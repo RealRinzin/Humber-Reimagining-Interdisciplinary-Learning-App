@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\v1;
 
 use App\Http\Resources\Topic\TopicResource;
 use App\Models\Topic;
@@ -14,8 +14,9 @@ class TopicController
     public function index()
     {
         //
-        $topics = Topic::with(['videos', 'codes', 'documents', 'quizees'])->paginate(2); // ✅ always paginate
-        return TopicResource::collection($topics);
+        // $topics = Topic::with(['videos', 'codes', 'documents', 'quizees'])->paginate(2); 
+        // return TopicResource::collection($topics);
+        return Topic::get();
     }
 
     /**
@@ -49,4 +50,5 @@ class TopicController
     {
         //
     }
+
 }

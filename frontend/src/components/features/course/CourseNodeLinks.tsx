@@ -29,7 +29,6 @@ export default function CourseNodeLink() {
         { data: { source: "8", target: "5" } },
         { data: { source: "9", target: "7" } },
         { data: { source: "1", target: "5" } },
-        // { data: { source: "c", target: "a" } },
     ];
     // console.log(elements)
     const stylesheet: any = [

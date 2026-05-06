@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\API\v1\AuthController;
 use App\Http\Controllers\API\v1\CodeController;
+use App\Http\Controllers\API\v1\TopicConnectionController;
+use App\Http\Controllers\API\v1\TopicController;
 use App\Http\Controllers\API\v1\UserController;
 use App\Http\Controllers\API\v1\UserTopicController;
 use App\Http\Controllers\API\v1\UserVideoAnalyticController;
@@ -9,7 +11,6 @@ use App\Http\Controllers\API\v1\UserVideoController;
 use App\Http\Controllers\API\v1\VideoController;
 use App\Http\Controllers\API\v1\UserContentSettingController;
 use App\Http\Controllers\API\v1\UserVideoSettingController;
-use App\Models\UserVideoSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 // 
@@ -20,7 +21,7 @@ Route::get('/test', function () {
 
     return "This API endpoint is active and working well";
 });
-
+// Topic Connection 
 // This API will be used for user login and it will return the user data and token for the user to access the protected API
 // The API will be accessed by the frontend when the user tries to login and it will return the user data and token for the user to access the protected API
 /**
@@ -34,6 +35,14 @@ Route::prefix('v1')
     ->name('v1.')
     ->group(function () {
         Route::post('/login', [AuthController::class, 'login']);
+        // // Topic
+        Route::controller(TopicController::class)->prefix('topics')->group(function () {
+            Route::get('/', 'index')->name('topic.index');
+        });
+        // Topic Connection 
+        Route::controller(TopicConnectionController::class)->prefix('topic-connections')->group(function () {
+            Route::get('/', 'index')->name('topic-connection.index');
+        });
     });
 // Registeration API
 // This API is open to public but it will be rate limited by the throttle middleware
@@ -53,7 +62,7 @@ Route::prefix('v1')
     ->middleware(['auth:sanctum', 'throttle:1000,1'])
     ->group(function () {
         // Proxy user return
-        Route::get('/user',function(Request $request){
+        Route::get('/user', function (Request $request) {
             return $request->user();
         });
         // Current User detail
@@ -74,6 +83,22 @@ Route::prefix('v1')
          * /api/v1/users/{user} // This API will update the user data 
          */
         Route::apiResource('users', UserController::class)->except(['create', 'edit']);
+        // === Topic Controller ==
+        // This API will be used to get the codes of the user and also to add or remove codes from the user
+        // GET /api/v1/codes/users/{user}/codes // This API will return the codes of the user
+        // POST /api/v1/codes/users/{user}/codes // This API will add
+        // DELETE /api/v1/codes/users/{user}/codes/{code:id} // This API will remove a code from the user
+        // The API will return the user data and the code data
+        /**
+         * IMPORTANT API
+         * /api/v1/codes/users/{user}/codes // This API will return the codes of the user
+         * /api/v1/codes/users/{user}/codes // This API will add a code to the user
+         * /api/v1/codes/users/{user}/codes/{code:id} // This API will remove a code from the user 
+         */
+        // Topic
+        // Route::controller(TopicController::class)->prefix('topics')->group(function () {
+        //     Route::get('/', 'index')->name('topic.index');
+        // });
         // === Code Controller ==
         // This API will be used to get the codes of the user and also to add or remove codes from the user
         // GET /api/v1/codes/users/{user}/codes // This API will return the codes of the user

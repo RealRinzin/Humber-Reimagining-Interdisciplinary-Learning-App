@@ -13,14 +13,7 @@ class TopicConnectionController
     public function index()
     {
         //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return TopicConnection::get();
     }
 
     /**
@@ -35,14 +28,6 @@ class TopicConnectionController
      * Display the specified resource.
      */
     public function show(TopicConnection $topicConnection)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(TopicConnection $topicConnection)
     {
         //
     }

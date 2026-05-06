@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('node_color')->default('blue'); // 'blue' | 'pink'
+            $table->integer('x_axis');
+            $table->integer('y_axis');
             $table->timestamps();
         });
     }

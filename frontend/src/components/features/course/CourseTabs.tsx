@@ -106,7 +106,7 @@ console.log(status)
           "Later watch"
         ) : type ==='interactive'?(
           'Interactive'
-          // <PivotScene/>
+
         ):
 
         type === "resources" ? (

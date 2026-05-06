@@ -6,7 +6,6 @@ interface ToggleInterface <T extends FieldValues> {
   label: string; // use label prop, not hardcoded
   required?: boolean;
   error: any; 
-  type:string;
 }
 export default function ToggleCheckBox<T extends FieldValues>({
   name,
