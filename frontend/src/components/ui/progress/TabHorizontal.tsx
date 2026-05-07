@@ -12,6 +12,7 @@ export default function TabHorizontal({
 }: HorizontalTabTypes) {
   // Calling the state and toggle function for the hook
   const { isOn: isOpen, toggle } = useToggle(false);
+  // Client component return page function
   return (
     <div
       className="flex bg-white items-center border-3 rounded-2xl border-gray-400/80 my-2 cursor-pointer "

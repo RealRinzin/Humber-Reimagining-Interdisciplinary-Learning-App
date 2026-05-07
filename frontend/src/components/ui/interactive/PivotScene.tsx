@@ -239,7 +239,8 @@ export default function PivotScene() {
                 backdropFilter: 'blur(6px)',
                 border: '1px solid rgba(255,255,255,0.06)',
                 pointerEvents: 'none',
-            }}>
+            }}
+            >
                 Drag to orbit · Scroll to zoom · <span style={{ color: '#ff5555' }}>●</span> Red = pivot center
             </div>
         </div>

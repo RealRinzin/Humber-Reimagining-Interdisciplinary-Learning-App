@@ -16,6 +16,8 @@ import {
 } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { useEffect, useState } from "react";
 import { clientFetch } from "@/lib/clientFetch";
+import { useToggle } from "@/hooks/common/useToggle";
+import PivotScene from "@/components/ui/interactive/PivotScene";
 // Content Type
 interface contentProps {
   title: string;
@@ -38,6 +40,7 @@ export default function CourseTabs({
 }: contentProps) {
   const [drop, setDrop] = useState(false);
   const [isChecked, setIsChecked] = useState(status);
+  const { isOn: isOpen, toggle } = useToggle(status);
   // Async function to update individual status
   async function updateTheStatus() {
     const completeStatusRes = await clientFetch(
@@ -51,7 +54,6 @@ export default function CourseTabs({
   }, [status]);
   return (
     <section className="my-5">
-      {status?"True":'False'}
       <div className="flex justify-between bg-slate-100 p-3 rounded-md">
         <h2 className="text-xl font-bold text-gray-600">
           <FontAwesomeIcon icon={icon} size="1x" /> {title}
@@ -64,7 +66,7 @@ export default function CourseTabs({
         </h2>
         <div
           className={`h-8 w-8 rounded-full border-6  ${
-            all_complete
+            all_complete || isOpen
               ? "bg-green-600 border-green-600 hover:cursor-pointer"
               : status
                 ? "bg-green-600 border-green-600 hover:cursor-pointer"
@@ -72,10 +74,11 @@ export default function CourseTabs({
           } hover:shadow-[0_0_10px_3px_rgba(34,197,94,0.6)]`}
           onClick={() => {
             setIsChecked((prev) => !prev);
+            toggle();
             updateTheStatus();
           }}
         >
-          {all_complete ? (
+          {all_complete || isOpen? (
             <FontAwesomeIcon icon={faCheck} size="1x" className="text-white" />
           ) : status ? (
             <FontAwesomeIcon icon={faCheck} size="1x" className="text-white" />
@@ -106,7 +109,8 @@ export default function CourseTabs({
         ) : type === "tldnw" ? (
           "Later watch"
         ) : type === "interactive" ? (
-          "Interactive"
+          'Interactive'
+          // <PivotScene/>
         ) : type === "resources" ? (
           "Documents"
         ) : (
