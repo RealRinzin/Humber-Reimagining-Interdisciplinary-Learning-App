@@ -7,7 +7,7 @@ async function buildFetchOptions(options: RequestInit = {}): Promise<RequestInit
         .getAll()
         .map((c) => `${c.name}=${c.value}`)
         .join('; ');
-
+        // 
     const xsrfToken = cookieStore.get('XSRF-TOKEN')?.value ?? '';
     const decodedXsrf = decodeURIComponent(xsrfToken);
 
