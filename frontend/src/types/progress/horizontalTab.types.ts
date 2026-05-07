@@ -1,4 +1,5 @@
 export interface HorizontalTabTypes{
     name:string,
-    color:string
+    color:string,
+    slug:string,
 }

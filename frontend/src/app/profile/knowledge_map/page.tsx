@@ -37,7 +37,7 @@ export default  async function KnowledgeMapPage() {
           <div className="my-4">
             {
               data.map((topic:any,index:number)=>(
-                <TabHorizontal name={topic.title} color={topic.node_color} key={index}/>
+                <TabHorizontal name={topic.title} color={topic.node_color} slug={topic.slug} key={index}/>
               ))
             }
           </div>

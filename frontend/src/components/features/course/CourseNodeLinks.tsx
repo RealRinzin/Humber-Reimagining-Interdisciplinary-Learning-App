@@ -65,11 +65,14 @@ export default function CourseNodeLink() {
       {
         selector: "edge",
         style: {
-          width: 3,
-          "line-color": "#32325b",
-          "curve-style": "bezier",
-          "target-arrow-shape": "triangle",
-          "target-arrow-color": "#888",
+          width: 2,
+          "line-color": "data(lineColor)",
+          "line-style": "data(lineStyle)",
+          "line-opacity": 0.5,
+          "target-arrow-shape": "none",
+          "curve-style": "unbundled-bezier", // ← key change
+          "control-point-distances": "data(controlPointDistance)",
+          "control-point-weights": 0.5,
         },
       },
     ];
@@ -88,7 +91,7 @@ export default function CourseNodeLink() {
       const List: cytoscape.ElementDefinition[] = [];
       // const List: cytoscape.ElementDefinition[] = [];
       // Push the nodes into array
-      data.forEach((topic: any) => {
+      data.forEach((topic: any, index: number) => {
         List.push({
           data: {
             id: String(topic.id),
@@ -97,6 +100,8 @@ export default function CourseNodeLink() {
             target: null, // add this
             node_color: null,
             url: `/video/${topic.slug}`,
+            controlPointDistance:
+              (Math.floor(index / 2) + 1) * 40 * (index % 2 === 0 ? 1 : -1),
           },
           position: { x: topic.x_axis, y: topic.y_axis },
         });
@@ -155,7 +160,7 @@ export default function CourseNodeLink() {
           selector: `edge[source = "${element.topic_id}"], edge[target = "${element.connected_topic_id}"]`,
           style: {
             width: 2,
-            "line-color": `${[15, 12,10 ,2].includes(element.topic_id) ? "#F72585" : "#4CC9F0"}`,
+            "line-color": `${[15, 12, 10, 2].includes(element.topic_id) ? "#F72585" : "#4CC9F0"}`,
             "curve-style": "straight", // beizer, straight, taxi, segments
             "target-arrow-shape": "none", // triangle, vee, circle, none
             "line-style": `${element.line_style}`,

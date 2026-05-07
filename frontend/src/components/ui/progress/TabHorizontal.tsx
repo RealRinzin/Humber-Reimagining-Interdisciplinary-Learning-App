@@ -4,7 +4,7 @@
 import { HorizontalTabTypes } from "@/types/progress/horizontalTab.types";
 import RingProgressBar from "./Ring";
 
-export default function TabHorizontal({ name, color }: HorizontalTabTypes) {
+export default function TabHorizontal({ name, color,slug }: HorizontalTabTypes) {
   return (
     <div className="flex items-center border-3 rounded-2xl border-gray-400/80 my-2">
       <div className="flex flex-col items-center justify-center border-r-3 border-gray-400/80 p-3">
@@ -17,7 +17,7 @@ export default function TabHorizontal({ name, color }: HorizontalTabTypes) {
       <div className="flex flex-col flex-1 px-3 py-2">
         <div className="flex flex-1 justify-between items-center">
           <h2 className="text-gray-600 font-bold">{name}</h2>
-          <a href="" className="bg-gray-400 rounded-md px-2 py-1 text-gray-00">
+          <a href={`/video/${slug}`} className="bg-gray-400 rounded-md px-2 py-1 text-gray-00">
             Start
           </a>
         </div>
