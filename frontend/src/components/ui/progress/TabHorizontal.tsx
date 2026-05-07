@@ -8,7 +8,7 @@ export default function TabHorizontal({ name, color,slug }: HorizontalTabTypes) 
   return (
     <div className="flex items-center border-3 rounded-2xl border-gray-400/80 my-2">
       <div className="flex flex-col items-center justify-center border-r-3 border-gray-400/80 p-3">
-        <RingProgressBar color={color} borderColor={color} percentage={90} />
+        <RingProgressBar id={2} color={color} borderColor={color} percentage={90} />
         <div className="pt-2">
           <p className="text-center text-sm font-semibold">4/8</p>
           <p className="text-gray-600">Complete</p>
