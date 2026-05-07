@@ -1,8 +1,5 @@
-import Input from "../form/Input";
-import {
-  OnboardPersonalDetailType,
-  OnboardSelectContentType,
-} from "@/types/onboard/onboard-types";
+
+import {OnboardSelectContentType,} from "@/types/onboard/onboard-types";
 import { useForm } from "react-hook-form";
 import ToggleCheckBox from "../form/ToggleCheckbox";
 
@@ -35,46 +32,23 @@ const OnBoardingSelectContent = ({ onSuccess, values }: Props) => {
         </p>
         <div className="flex justify-start mt-6">
           <div className="flex flex-col gap-5">
-            {/* <label htmlFor="videos">
-              <input
-                type="checkbox"
-                {...register("video")}
-                className="h-4 w-4 rounded border-4 border-gray-600 bg-white checked:border-amber-500 checked:bg--500 "
-              />
-              <span className="px-3">Videos</span>
-            </label> */}
+            {/* Video Checkbox */}
             <ToggleCheckBox<OnboardSelectContentType>
               name="video"
               label="video"
               register={register}
-              required={true}
+              required={false}
               error={errors.video?.message}
             />
-
-            {/* <label htmlFor="interactive">
-              <input
-                type="checkbox"
-                {...register("interactive")}
-                className="h-4 w-4 rounded border-4 border-gray-600 bg-white checked:border-amber-500 checked:bg--500 "
-              />
-              <span className="px-3">Interactive Demos</span>
-            </label> */}
+            {/* Interactive Checkbox */}
             <ToggleCheckBox<OnboardSelectContentType>
               name="interactive"
-              label="Interactive"
+              label="interactive"
               register={register}
               required={false}
               error={errors.interactive?.message}
             />
-            {/* <label htmlFor="code">
-              <input
-                type="checkbox"
-                {...register("code")}
-
-                className="h-4 w-4 rounded border-4 border-gray-600 bg-white checked:border-amber-500 checked:bg--500 "
-              />
-              <span className="px-3">Code</span>
-            </label> */}
+            {/* Code Checkbox */}
             <ToggleCheckBox<OnboardSelectContentType>
               name="code"
               label="Code"
@@ -82,14 +56,7 @@ const OnBoardingSelectContent = ({ onSuccess, values }: Props) => {
               required={false}
               error={errors.code?.message}
             />
-            {/* <label htmlFor="quizes">
-              <input
-                type="checkbox"
-                {...register("quiz")}
-                className="h-4 w-4 rounded border-4 border-gray-600 bg-white checked:border-amber-500 checked:bg--500 "
-              />
-              <span className="px-3">Quizes</span>
-            </label> */}
+            {/* Quiz Checkbox */}
             <ToggleCheckBox<OnboardSelectContentType>
               name="quiz"
               label="Quiz"
@@ -97,14 +64,8 @@ const OnBoardingSelectContent = ({ onSuccess, values }: Props) => {
               required={false}
               error={errors.quiz?.message}
             />
-            {/* <label htmlFor="ramblings">
-              <input
-                type="checkbox"
-                {...register("rambling")}
-                className="h-4 w-4 rounded border-4 border-gray-600 bg-white checked:border-amber-500 checked:bg--500 "
-              />
-              <span className="px-3">Ramblings</span>
-            </label> */}
+            {/* Rambling Checkbox */}
+
             <ToggleCheckBox<OnboardSelectContentType>
               name="rambling"
               label="Rambling"

@@ -9,6 +9,7 @@ import {
   OnboardShowProgressType,
 } from "@/types/onboard/onboard-types";
 import ToggleCheckBox from "../form/ToggleCheckbox";
+import { useState } from "react";
 type Props = {
   onSuccess: (data: OnboardShowProgressType) => void;
   values: OnboardShowProgressType;
@@ -30,14 +31,16 @@ const OnBoardingShowProgress = ({
     learningPath,
     progress: values,
   };
-
+  // Handle the form validation
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<OnboardShowProgressType>({ values });
+  // Router library to push the path once registered
   const router = useRouter();
-
+  // loading states
+  const[loading,setLoading] = useState(true)
 
   // GET CSRF TOKEN
   async function fetchCsrfToken(): Promise<string> {
@@ -115,12 +118,13 @@ const OnBoardingShowProgress = ({
       console.log("error");
     }
   }
-
   const onSubmit = async (data: OnboardShowProgressType) => {
     try {
+      // Loading state
+      setLoading(false)
       await onBoardCall();
       onSuccess(data);
-      router.push("/profile");
+      router.push("/profile/knowledge_map");
     } catch (err) {
       console.error("error", err);
     }
@@ -138,28 +142,25 @@ const OnBoardingShowProgress = ({
           Choose whether you'd like to see your progress as you learn. You can
           turn this on or off anytime.
         </p>
+            {/* Progress Checkbox */}
+
         <ToggleCheckBox <OnboardShowProgressType>
             name="progress"
-            label="Progress"
+            label="progress"
             register={register}
             required={false}
             error={errors.progress?.message}
 
           />
-        <label htmlFor="progress">
-          <input
-            type="checkbox"
-            {...register("progress")}
-            className="h-4 w-4 rounded border-4 border-gray-600 bg-white checked:border-amber-500 checked:bg--500 "
-          />
-          <span className="px-3">Show Progress</span>
-        </label>
         <div className="flex items-center justify-end gap-4 mt-8">
           <button
             type="submit"
-            className="bg-slate-700 hover:bg-slate-800 disabled:opacity-50 text-white text-sm font-medium px-6 py-2.5 rounded-lg transition-colors"
+            className="bg-slate-700 hover:bg-slate-800 disabled:opacity-50 text-white text-sm font-medium px-6 py-2.5 rounded-lg transition-colors cursor-pointer"
           >
-            Start Learning
+            {
+              loading?'Start Learning':'Registering...'
+            }
+            {/* Start Learning */}
           </button>
         </div>
       </form>

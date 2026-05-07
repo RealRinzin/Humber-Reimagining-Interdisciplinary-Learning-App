@@ -101,6 +101,7 @@ export default function OnboardingPage() {
   //Select Content
   const ref = useRef<HTMLDivElement>(null);
   const initVanta = () => {
+    
     if ((window as any).VANTA && ref.current) {
       (window as any).VANTA.NET({
         el: ref.current,
@@ -121,6 +122,7 @@ export default function OnboardingPage() {
       });
     }
   };
+
   // Return Div
   return (
     <>

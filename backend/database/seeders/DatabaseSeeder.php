@@ -33,6 +33,11 @@ class DatabaseSeeder extends Seeder
             UserVideoSettingSeeder::class,
             // Analytics 
             UserVideoAnalyticSeeder::class, // User Video Watch History for tracking for each video of the user
+            
+            // Team Member
+            ProjectSeeder::class,
+            TeamSeeder::class,
+            MultimediaSeeder::class,
         ]);
     }
 }

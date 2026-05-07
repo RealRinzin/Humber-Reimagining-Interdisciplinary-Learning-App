@@ -40,14 +40,14 @@ const OnBoardingLearningPath = ({ onSuccess, values }: Props) => {
             name="explore_mode"
             label="Explore Mode"
             register={register}
-            required={true}
+            required={false}
             error={errors.explore_mode?.message}
           />
           <ToggleCheckBox <OnboardLearningPathType>
             name="guide_path"
             label="Guide Path"
             register={register}
-            required={true}
+            required={false}
             error={errors.guide_path?.message}
           />
         </div>

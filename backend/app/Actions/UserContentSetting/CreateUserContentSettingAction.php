@@ -18,6 +18,7 @@ class CreateUserContentSettingAction
             'video' => $dto->video,
             'code' => $dto->code,
             'quiz' => $dto->quiz,
+            'interactive'=>$dto->interactive,
             'explore_mode' => $dto->explore_mode,
             'guide_path' => $dto->guide_path,
             'progress' => $dto->progress,
