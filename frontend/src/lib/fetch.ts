@@ -30,7 +30,7 @@ export async function serverFetch(path: string, options: RequestInit = {}) {
     const res = await fetch(`${process.env.API_BASE_URL}${path}`, fetchOptions);
     if (!res.ok) {
         if (res.status === 404) notFound();
-        if (res.status === 401) redirect('/login');
+        if (res.status === 401) redirect('/');
     }
 
     return res;
