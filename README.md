@@ -1,9 +1,11 @@
-# Humber-Reimagining-Interdisciplinary-Learning-App
+# Humber Gaming Department - Space Project
+# Deployment Documentation
 
-> # 1.SERVER - Nginx | Sites Available Config
+> ## 1. SERVER - Nginx | Sites Available Config
 
 ```nginx
 # /etc/nginx/sites-available/default
+
 # We should use this config setting to setup the backend and frontend with the same server
 # the API endpoint will be ip/api/...
 
@@ -44,7 +46,7 @@ server {
 }
 ```
 
-> # 2. FRONTEND .env file -config
+> ## 2. FRONTEND - .env file
 
 ```tsx
 // BASE API ENDPOINT -should be the server IP-Address
@@ -60,7 +62,7 @@ API_TOKEN=1|btWt4uywiRfEts6EuARl6QBK642z9ymoVXQNcdeY48f0dd29
 // frontend URL - should be the server IP-Address
 FRONTEND_URL=http://200.301.402.503:3000
 ```
-> # 3. BACKEND .env file - config
+> ## 3. BACKEND .env file - config
 
 ```tsx
 
@@ -112,7 +114,7 @@ VITE_APP_NAME="${APP_NAME}"
 ```
 >## 3.1  BACKEND - config/sanctum.php
 
-# Include or update these setting for sanctum session authentication
+## Include or update these setting for sanctum session authentication
 ```php
 # > /backend/config/santcum.php
 
