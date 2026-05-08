@@ -32,6 +32,6 @@ class CreateOrUpdateUserTopicRequest extends FormRequest
         return [
             'topic_id.required' =>'topic id is required',
             'started.required' => 'starte status id required'
-        ]
-    }
+        ];
+ }
 }

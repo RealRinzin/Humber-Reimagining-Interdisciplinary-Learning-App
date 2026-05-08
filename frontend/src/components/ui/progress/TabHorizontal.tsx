@@ -4,15 +4,37 @@
 import { HorizontalTabTypes } from "@/types/progress/horizontalTab.types";
 import RingProgressBar from "./Ring";
 import { useToggle } from "@/hooks/common/useToggle";
+import { clientFetch, clientPost } from "@/lib/clientFetch";
 
+/**
+ *
+ * @param topic_id
+ * Async Function to post or create new record for the user topic
+ */
+async function postUserTopic(topic_id: number) {
+  // Post method
+  const res = await clientPost("/user-topics/users/me/topics", {
+    topic_id: topic_id,
+    started: true,
+  });
+}
+/**
+ *
+ *  MAIN PAGE RETURN
+ */
 export default function TabHorizontal({
+  id, // Topic Id
   name,
   color,
   slug,
+  description,
 }: HorizontalTabTypes) {
   // Calling the state and toggle function for the hook
   const { isOn: isOpen, toggle } = useToggle(false);
-  // Client component return page function
+  /**
+   * POST Method to create new User Topic
+   */
+
   return (
     <div
       className="flex bg-white items-center border-3 rounded-2xl border-gray-400/80 my-2 cursor-pointer "
@@ -39,16 +61,21 @@ export default function TabHorizontal({
           <a
             href={`/video/${slug}`}
             className="bg-gray-400 rounded-xl px-3 py-1 text-gray-600 text-sm"
+            onClick={() => postUserTopic(id)}
           >
             Start
           </a>
         </div>
-        {isOpen && (
-          <p className="text-gray-700 py-2 transition-all delay-300 ease-in-out">
-            The camera is always at the origin looking down the -z axis, dammit!
-            (Scott probably wrote this).
-          </p>
-        )}
+
+        {/* {isOpen && ( */}
+        <p
+          className={`overflow-hidden transition-all duration-500 ease-in-out ${
+            isOpen ? "max-h-40 opacity-100 pt-2" : "max-h-0 opacity-0"
+          }`}
+        >
+          {description}
+        </p>
+        {/* )} */}
       </div>
     </div>
   );

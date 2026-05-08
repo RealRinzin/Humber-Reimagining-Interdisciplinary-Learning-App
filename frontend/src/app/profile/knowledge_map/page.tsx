@@ -37,14 +37,14 @@ export default  async function KnowledgeMapPage() {
           <div className="my-4">
             {
               data.map((topic:any,index:number)=>(
-                <TabHorizontal name={topic.title} color={topic.node_color} slug={topic.slug} key={index}/>
+                <TabHorizontal id={topic.id} name={topic.title} color={topic.node_color} slug={topic.slug} description={topic.description} key={index} />
               ))
             }
           </div>
         </div>
         {/* Progress */}
         <div className="col-span-4 bg-blue-950">
-          <CourseNodeLink />
+          {/* <CourseNodeLink /> */}
         </div>
       </main>
       {/* <TabProgressBar name="Coming up " completed={4} incomplete={10} /> */}

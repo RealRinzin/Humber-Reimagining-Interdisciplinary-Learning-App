@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\API\v1;
 
+use App\Actions\UserTopic\CreateUserTopicAction;
+use App\DTOs\UserTopic\CreateOrUpdateUserTopicDTO;
+use App\Http\Requests\UserTopic\CreateOrUpdateUserTopicRequest;
 use App\Http\Resources\Topic\TopicResource;
 use App\Models\Topic;
 use App\Models\User;
@@ -35,11 +38,18 @@ class UserTopicController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, User $user)
+    public function store(CreateOrUpdateUserTopicRequest $request, CreateUserTopicAction $action)
     {
+
+        $userTopic = $action->execute(CreateOrUpdateUserTopicDTO::fromRequest($request));
+        return $userTopic;
+
+        return "rinzin";
         if (auth()->id() !== $user->id) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
+
+        return "rinzin";
 
         // UserTopic::updateOrCreate(
         //     ['user_id' => $user->id, 'topic_id' => $topic->id],  // match condition

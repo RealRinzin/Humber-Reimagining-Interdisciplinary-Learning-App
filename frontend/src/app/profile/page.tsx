@@ -27,8 +27,8 @@ export default async function ProfilePage() {
             <ul>
               <TabProgressBar
                 name={"Lectures Watched"}
-                completed={10}
-                incomplete={2}
+                completed={3}
+                incomplete={9}
               />
               <TabProgressBar
                 name={"Code Tested"}

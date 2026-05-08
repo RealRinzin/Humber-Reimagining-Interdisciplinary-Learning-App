@@ -2,6 +2,8 @@
 
 namespace App\DTOs\UserTopic;
 
+use App\Http\Requests\UserTopic\CreateOrUpdateUserTopicRequest;
+
 class CreateOrUpdateUserTopicDTO
 {
     /**
@@ -17,7 +19,7 @@ class CreateOrUpdateUserTopicDTO
      * @param CreateUpdateRequest $request
      * @return self
      */
-    public static function fromRequest(CreateOrUpdateUserTopicDTO $request): self
+    public static function fromRequest(CreateOrUpdateUserTopicRequest $request): self
     {
         return new self(
             user_id: auth()->id(),

@@ -150,11 +150,11 @@ Route::prefix('v1')
          * /api/v1/user-topics/users/{user}/topics // This API will add a topic to the user
          * /api/v1/user-topics/users/{user}/topics/{topic:id} // This API will remove a topic from the user 
          */
-        Route::controller(UserTopicController::class)->prefix('user-topics/users/{user}')->group(function () {
-            Route::get('/topics', 'index')->name('user-topics.index');
+        Route::controller(UserTopicController::class)->prefix('user-topics/users/me/topics')->group(function () {
+            Route::get('/', 'index')->name('user-topics.index');
             // Route::get('/topics/{topic:id}', 'show')->name('user-topics.show');
-            Route::post('/topics', 'store')->name('user-topics.store');
-            Route::delete('/topics/{topic:id}', 'destroy')->name('user-topics.destroy');
+            Route::post('/', 'store')->name('user-topics.store');
+            Route::delete('/{topic:id}', 'destroy')->name('user-topics.destroy');
         });
         // User Videos API
         // This API will be used to get the videos of the user and also to add or remove videos from the user

@@ -106,15 +106,15 @@ export default async function Page({
     const res = await serverPatch(
       `/user-video-setting/users/me/videos/${video.id}`,
       {
-        code: true,
-        interactive: true,
-        rambling: true,
-        quiz: true,
-        quiz_checked_with_all: true,
-        code_checked_with_all: true,
-        interactive_checked_with_all: true,
-        rambling_checked_with_all: true,
-        all_checked: true,
+        code: false,
+        interactive: false,
+        rambling: false,
+        quiz: false,
+        quiz_checked_with_all: false,
+        code_checked_with_all: false,
+        interactive_checked_with_all: false,
+        rambling_checked_with_all: false,
+        all_checked: false,
       },
     );
   }
