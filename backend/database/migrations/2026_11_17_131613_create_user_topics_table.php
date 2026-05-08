@@ -23,6 +23,7 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             // Add timestamps for when the user followed the topic node
+            $table->boolean('start')->default(false);
             $table->timestamps();
             // Set the primary key to be a combination of user_id and topic
             $table->primary(['user_id', 'topic_id']);

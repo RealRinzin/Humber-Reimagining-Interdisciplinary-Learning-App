@@ -26,6 +26,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
+            $table->string('description');
             $table->string('node_color')->default('blue'); // 'blue' | 'pink'
             $table->integer('x_axis');
             $table->integer('y_axis');

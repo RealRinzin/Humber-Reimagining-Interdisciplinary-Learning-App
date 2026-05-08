@@ -14,24 +14,24 @@ class TopicSeeder extends Seeder
      * 'connections' => [ connected_topic_id => line_style ]
      */
     private array $topics = [
-        1  => ['title' => 'Intro to Space',      'node_color' => '#378ADD','x_axis' => 400,  'y_axis' => 0, 'connections' => [2 => 'dashed']],
-        2  => ['title' => 'Model Space',          'node_color' => '#F72585','x_axis' => 430,  'y_axis' => 150, 'connections' => [1 => 'dashed', 3 => 'dashed', 4 => 'dashed', 5 => 'dashed', 6 => 'dashed', 7 => 'dashed', 9 => 'dashed', 10 => 'solid']],
-        3  => ['title' => 'Vertex Position',      'node_color' => '#378ADD','x_axis' => 100,  'y_axis' => 170, 'connections' => [2 => 'dashed', 4 => 'dashed', 6 => 'dashed', 13 => 'dashed', 14 => 'dashed']],
-        4  => ['title' => 'Normals',              'node_color' => '#378ADD','x_axis' => 100,  'y_axis' => 210, 'connections' => [2 => 'dashed', 3 => 'dashed', 6 => 'dashed']],
-        5  => ['title' => 'Scale',                'node_color' => '#378ADD','x_axis' => 250,  'y_axis' => 200, 'connections' => [2 => 'dashed', 6 => 'dashed', 8 => 'dashed', 9 => 'dashed']],
-        6  => ['title' => 'Translation',          'node_color' => '#378ADD','x_axis' => 400,  'y_axis' => 250, 'connections' => [2 => 'dashed', 3 => 'dashed', 4 => 'dashed', 5 => 'dashed', 7 => 'dashed', 8 => 'dashed', 9 => 'dashed', 11 => 'dashed']],
-        7  => ['title' => 'Rotation',             'node_color' => '#378ADD','x_axis' => 550,  'y_axis' => 280, 'connections' => [2 => 'dashed', 6 => 'dashed', 8 => 'dashed', 9 => 'dashed', 11 => 'dashed']],
-        8  => ['title' => 'Quaternions',          'node_color' => '#378ADD','x_axis' => 550,  'y_axis' => 460, 'connections' => [5 => 'dashed', 6 => 'dashed', 7 => 'dashed', 9 => 'dashed']],
-        9  => ['title' => 'Model Matrix',         'node_color' => '#378ADD','x_axis' => 480,  'y_axis' => 430, 'connections' => [2 => 'dashed', 5 => 'dashed', 6 => 'dashed', 7 => 'dashed', 8 => 'dashed', 10 => 'dashed']],
-        10 => ['title' => 'World Space',          'node_color' => '#F72585','x_axis' => 450,  'y_axis' => 550,'connections' => [2 => 'solid', 9 => 'dashed', 11 => 'dashed', 12 => 'solid']],
-        11 => ['title' => 'View Matrix',          'node_color' => '#378ADD', 'x_axis' => 600,  'y_axis' => 550, 'connections' => [6 => 'dashed', 7 => 'dashed', 10 => 'dashed', 12 => 'dashed']],
-        12 => ['title' => 'Camera Space',         'node_color' => '#F72585','x_axis' => 460,  'y_axis' => 730, 'connections' => [10 => 'solid', 11 => 'dashed', 13 => 'dashed', 14 => 'dashed', 15 => 'solid']],
-        13 => ['title' => 'Projection Matrix',    'node_color' => '#378ADD','x_axis' => 200,  'y_axis' => 780, 'connections' => [3 => 'dashed', 12 => 'dashed', 15 => 'dashed']],
-        14 => ['title' => 'Perspective Divide',   'node_color' => '#378ADD','x_axis' => 200,  'y_axis' => 820, 'connections' => [3 => 'dashed', 12 => 'dashed', 15 => 'dashed']],
-        15 => ['title' => 'NDC Space',            'node_color' => '#F72585','x_axis' => 400,  'y_axis' => 850, 'connections' => [12 => 'solid', 13 => 'dashed', 14 => 'dashed', 16 => 'dashed', 17 => 'dashed']],
-        16 => ['title' => 'Viewport Matrix',      'node_color' => '#378ADD','x_axis' => 600,  'y_axis' => 850, 'connections' => [15 => 'dashed', 17 => 'dashed']],
-        17 => ['title' => 'Pixel Space',          'node_color' => '#378ADD','x_axis' => 420,  'y_axis' => 1000, 'connections' => [15 => 'dashed', 16 => 'dashed']],
-        18 => ['title' => 'Bonus',                'node_color' => '#8B9CB5', 'x_axis' => 750,  'y_axis' => 150,'connections' => []],
+        1  => ['title' => 'Intro to Space',      'description' => 'A foundational overview of coordinate spaces and why they matter in 3D graphics pipelines.', 'node_color' => '#378ADD', 'x_axis' => 400,  'y_axis' => 0, 'connections' => [2 => 'dashed']],
+        2  => ['title' => 'Model Space',          'description' => 'The local coordinate system of a 3D object, defined relative to its own origin before any transformations are applied.', 'node_color' => '#F72585', 'x_axis' => 430,  'y_axis' => 150, 'connections' => [1 => 'dashed', 3 => 'dashed', 4 => 'dashed', 5 => 'dashed', 6 => 'dashed', 7 => 'dashed', 9 => 'dashed', 10 => 'solid']],
+        3  => ['title' => 'Vertex Position',      'description' => 'The 3D coordinates of each point on a mesh, expressed in model space and used as the basis for all geometric transformations.', 'node_color' => '#378ADD', 'x_axis' => 100,  'y_axis' => 170, 'connections' => [2 => 'dashed', 4 => 'dashed', 6 => 'dashed', 13 => 'dashed', 14 => 'dashed']],
+        4  => ['title' => 'Normals',              'description' => 'Perpendicular vectors at each vertex surface that define orientation, used in lighting calculations to determine how light interacts with geometry.', 'node_color' => '#378ADD', 'x_axis' => 100,  'y_axis' => 210, 'connections' => [2 => 'dashed', 3 => 'dashed', 6 => 'dashed']],
+        5  => ['title' => 'Scale',                'description' => 'A transformation that resizes an object along one or more axes, applied as a diagonal matrix in model space.', 'node_color' => '#378ADD', 'x_axis' => 250,  'y_axis' => 200, 'connections' => [2 => 'dashed', 6 => 'dashed', 8 => 'dashed', 9 => 'dashed']],
+        6  => ['title' => 'Translation',          'description' => 'A transformation that moves an object from one position to another by adding an offset vector to each vertex position.', 'node_color' => '#378ADD', 'x_axis' => 400,  'y_axis' => 250, 'connections' => [2 => 'dashed', 3 => 'dashed', 4 => 'dashed', 5 => 'dashed', 7 => 'dashed', 8 => 'dashed', 9 => 'dashed', 11 => 'dashed']],
+        7  => ['title' => 'Rotation',             'description' => 'A transformation that orients an object around an axis by a given angle, typically represented with matrices or quaternions.', 'node_color' => '#378ADD', 'x_axis' => 550,  'y_axis' => 280, 'connections' => [2 => 'dashed', 6 => 'dashed', 8 => 'dashed', 9 => 'dashed', 11 => 'dashed']],
+        8  => ['title' => 'Quaternions',          'description' => 'A compact 4-component mathematical representation of rotations that avoids gimbal lock and enables smooth interpolation between orientations.', 'node_color' => '#378ADD', 'x_axis' => 550,  'y_axis' => 460, 'connections' => [5 => 'dashed', 6 => 'dashed', 7 => 'dashed', 9 => 'dashed']],
+        9  => ['title' => 'Model Matrix',         'description' => 'A 4x4 matrix combining scale, rotation, and translation that transforms vertices from model space into world space.', 'node_color' => '#378ADD', 'x_axis' => 480,  'y_axis' => 430, 'connections' => [2 => 'dashed', 5 => 'dashed', 6 => 'dashed', 7 => 'dashed', 8 => 'dashed', 10 => 'dashed']],
+        10 => ['title' => 'World Space',          'description' => 'A shared global coordinate system where all objects are positioned relative to a common origin after the model matrix is applied.', 'node_color' => '#F72585', 'x_axis' => 450,  'y_axis' => 550, 'connections' => [2 => 'solid', 9 => 'dashed', 11 => 'dashed', 12 => 'solid']],
+        11 => ['title' => 'View Matrix',          'description' => 'A matrix that transforms world space coordinates into camera space by simulating the position and orientation of the viewer.', 'node_color' => '#378ADD', 'x_axis' => 600,  'y_axis' => 550, 'connections' => [6 => 'dashed', 7 => 'dashed', 10 => 'dashed', 12 => 'dashed']],
+        12 => ['title' => 'Camera Space',         'description' => 'The coordinate system relative to the camera where the viewer is at the origin, used as an intermediate step before projection.', 'node_color' => '#F72585', 'x_axis' => 460,  'y_axis' => 730, 'connections' => [10 => 'solid', 11 => 'dashed', 13 => 'dashed', 14 => 'dashed', 15 => 'solid']],
+        13 => ['title' => 'Projection Matrix',    'description' => 'A matrix that maps camera space coordinates onto a 2D projection plane, applying either perspective or orthographic projection.', 'node_color' => '#378ADD', 'x_axis' => 200,  'y_axis' => 780, 'connections' => [3 => 'dashed', 12 => 'dashed', 15 => 'dashed']],
+        14 => ['title' => 'Perspective Divide',   'description' => 'The step that divides x, y, and z components by the w component after projection, converting clip space coordinates into NDC.', 'node_color' => '#378ADD', 'x_axis' => 200,  'y_axis' => 820, 'connections' => [3 => 'dashed', 12 => 'dashed', 15 => 'dashed']],
+        15 => ['title' => 'NDC Space',            'description' => 'Normalized Device Coordinates — a device-independent coordinate system where all visible geometry falls within a -1 to 1 cube after the perspective divide.', 'node_color' => '#F72585', 'x_axis' => 400,  'y_axis' => 850, 'connections' => [12 => 'solid', 13 => 'dashed', 14 => 'dashed', 16 => 'dashed', 17 => 'dashed']],
+        16 => ['title' => 'Viewport Matrix',      'description' => 'A matrix that maps NDC coordinates to screen-space pixel coordinates based on the defined viewport dimensions.', 'node_color' => '#378ADD', 'x_axis' => 600,  'y_axis' => 850, 'connections' => [15 => 'dashed', 17 => 'dashed']],
+        17 => ['title' => 'Pixel Space',          'description' => 'The final 2D screen coordinate system where each unit corresponds to a pixel on the display, produced after the viewport transformation.', 'node_color' => '#378ADD', 'x_axis' => 420,  'y_axis' => 1000, 'connections' => [15 => 'dashed', 16 => 'dashed']],
+        18 => ['title' => 'Bonus',                'description' => 'Additional supplementary topics and extended concepts beyond the core graphics pipeline for further exploration.', 'node_color' => '#8B9CB5', 'x_axis' => 750,  'y_axis' => 150, 'connections' => []],
     ];
 
     public function run(): void
@@ -43,9 +43,10 @@ class TopicSeeder extends Seeder
             $created[$spreadsheetId] = Topic::create([
                 'title'      => $data['title'],
                 'slug'       => Str::slug($data['title']),
+                'description' => $data['description'],
                 'node_color' => $data['node_color'],
                 'x_axis' => $data['x_axis'],
-                'y_axis' => $data['y_axis'], 
+                'y_axis' => $data['y_axis'],
             ]);
         }
 

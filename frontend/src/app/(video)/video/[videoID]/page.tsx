@@ -2,41 +2,63 @@ import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
 import CourseTabs from "@/components/features/course/CourseTabs";
 import CourseTitle from "@/components/features/course/CourseTitle";
 import MoreCourses from "@/components/features/course/MoreCourses";
-import NodeTest from "@/components/features/course/NodeConnection-Orginal";
 import { MyPlayer } from "@/components/ui/video/VideoPlayer";
-import { serverFetch, serverPost } from "@/lib/fetch";
-import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { serverFetch, serverPatch, serverPost } from "@/lib/fetch";
 import type { Metadata } from "next";
 import Image from "next/image";
 
-export const metadata: Metadata = {
-  title: "Courses",
-  description: "Browse all courses",
-};
-// Main Page
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ videoID: string }>;
+}){
+  const { videoID:videoSlug } = await params;
+  const res = await serverFetch(`/videos/${videoSlug}`);
+  const { data: video } = await res.json();
+  return {
+    title: `${video.title} - ${video.description}`,
+    description: video.description,
+  };
+}
+
+/**
+ * The Main Page Return 
+ */
 export default async function Page({
   params,
 }: {
   params: Promise<{ videoID: string }>;
 }) {
   // Get the Current Video Slug or ID to make api call
-  const { videoID } = await params; // Get the video params
-  const res = await serverFetch(`/videos/${videoID}`); // call the video details
+  const { videoID:videoSlug } = await params; // Get the video params
+  /**
+   * Fetch the detail records for this video
+   * codes,quiz,documents etc
+   */
+  const res = await serverFetch(`/videos/${videoSlug}`); // call the video details
+  // destructure the return into video for better understand of data while assigining
   const { data: video } = await res.json(); // destructure the data
   // Get me the the current logged user
   // so that we can pass the user id in api
+  /**
+   * Fetch the detail of the Logged User 
+   * helpful while passing the user ID 
+   */
   const user = await serverFetch(`/me`);
   const me = await user.json();
-  // With this:
+  // 
   let lastPaused = 0;
   let userVideoID;
-  // Try to read the user_video record for the current user on this video
+  /**
+   * Fetch the last pause record for this video
+   * Return NULL if record does not exits
+   */
   try {
     const last_pause = await serverFetch(
       `/user-videos/users/${me.id}/videos/${video.id}`,
     );
-    // Check if response is ok
+    // if the response is OK or 200 but the record is NULl
+    // Then create a new record for this video 
     if (last_pause.ok) {
       // Read the await responst
       const content = await last_pause.json();
@@ -68,11 +90,32 @@ export default async function Page({
   } catch (e) {
     // No record yet, default to 0
   }
-  // Complete Mark status check
+  /**
+   * Fetch the checkbox status of this video  - User Video Setting Model
+   * Return NULL if the record doesn't exist for this video 
+   */
   const completeStatusRes = await serverFetch(
     `/user-video-setting/users/me/videos/${video.id}`,
   );
   const { data: completeStatus } = await completeStatusRes.json();
+  // Check if the response is NULL
+  // if so then create and new row for this video with all checkbox true
+  if (completeStatus === null || completeStatus === undefined) {
+    const res = await serverPatch(
+      `/user-video-setting/users/me/videos/${video.id}`,
+      {
+        code: true,
+        interactive: true,
+        rambling: true,
+        quiz: true,
+        quiz_checked_with_all: true,
+        code_checked_with_all: true,
+        interactive_checked_with_all: true,
+        rambling_checked_with_all: true,
+        all_checked: true,
+      },
+    );
+  }
   return (
     <main className="px-1 md:px-20 py-5">
       <section className="flex flex-col md:flex-row gap-4">
@@ -172,8 +215,7 @@ export default async function Page({
           className="md:flex-2 bg-slate-900 rounded-xl"
           style={{ backgroundColor: "#000033" }}
         >
-          {/* <NodeTest/> */}
-          <CourseNodeLink />
+          {/* <CourseNodeLink /> */}
         </aside>
       </section>
     </main>

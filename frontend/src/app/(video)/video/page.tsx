@@ -14,7 +14,6 @@ export default function ModelSpaceSkeleton() {
                 <div className="h-7 w-40 bg-gray-200 rounded animate-pulse" />
                 <div className="h-9 w-44 bg-gray-300 rounded-md animate-pulse" />
               </div>
-
               {/* Video section */}
               <div className="space-y-3">
                 {/* Section title */}
