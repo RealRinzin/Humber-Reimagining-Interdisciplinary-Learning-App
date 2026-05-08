@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\v1;
 use App\Http\Resources\Topic\TopicResource;
 use App\Models\Topic;
 use App\Models\User;
+use App\Models\UserTopic;
 use Illuminate\Http\Request;
 
 class UserTopicController
@@ -36,6 +37,16 @@ class UserTopicController
      */
     public function store(Request $request, User $user)
     {
+        if (auth()->id() !== $user->id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        // UserTopic::updateOrCreate(
+        //     ['user_id' => $user->id, 'topic_id' => $topic->id],  // match condition
+        //     ['started' => false]                                   // values to set
+        // );
+
+        // Original Code
         // return "testting";
         $request->validate([
             'topic_ids'   => 'required|array',

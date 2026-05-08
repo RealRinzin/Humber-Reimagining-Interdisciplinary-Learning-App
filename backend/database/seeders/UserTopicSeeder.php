@@ -23,7 +23,7 @@ class UserTopicSeeder extends Seeder
         foreach ($users as $user) {
             $randomTopics = $topics->random(3);
             foreach ($randomTopics as $topic) {
-                $user->topics()->syncWithoutDetaching([$topic->id => ['start' => false]]);
+                $user->topics()->syncWithoutDetaching([$topic->id => ['started' => false]]);
             }
 
         }

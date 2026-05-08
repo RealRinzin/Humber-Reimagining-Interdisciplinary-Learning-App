@@ -16,7 +16,6 @@ class CreateUpdateUserVideoDTO
         public readonly string $last_paused,
         public readonly bool $completed,
     ) {}
-
     /**
      * @param CreateUpdateRequest $request
      * @return self

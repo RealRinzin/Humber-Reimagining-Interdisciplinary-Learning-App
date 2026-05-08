@@ -6,6 +6,7 @@ use App\Http\Resources\Code\CodeResource;
 use App\Http\Resources\Document\DocumentResource;
 use App\Http\Resources\LessonDocument\LessonDocumentResource;
 use App\Http\Resources\Quiz\QuizResource;
+use App\Http\Resources\Topic\TopicResource;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\UserVideo\UserVideoResource;
 use App\Http\Resources\UserVideoProgress\UserVideoProgressResource;
@@ -44,15 +45,13 @@ class VideoResource extends JsonResource
              * For example, when we are loading the videos with their associated codes and documents in the video details page, we can use the with() method to load the codes and documents, and we can use the withCount() method to get the count of codes and documents, so that we can return the count of codes and documents in the response without having to load all the codes and documents just to get the count
              * In the video details page, we can show the count of codes and documents, and we can also show the list of codes and documents when the user clicks on the count, so that we can provide a better user experience without compromising the performance of the application
              */
+            'topic'=> new TopicResource($this->whenLoaded("topic")),
+            'codes' => CodeResource::collection($this->whenLoaded("codes")),
+            'documents' => LessonDocumentResource::collection($this->whenLoaded('documents')),
             'count' => [
                 'codes' => $this->codes_count,
                 'documents' => $this->documents_count,
             ],
-            'codes' => CodeResource::collection($this->whenLoaded("codes")),
-            'documents' => LessonDocumentResource::collection(
-                $this->whenLoaded('documents')
-            ),
-
         ];
     }
 }

@@ -38,6 +38,7 @@ export default async function Page({
   const res = await serverFetch(`/videos/${videoSlug}`); // call the video details
   // destructure the return into video for better understand of data while assigining
   const { data: video } = await res.json(); // destructure the data
+  console.log(video)
   // Get me the the current logged user
   // so that we can pass the user id in api
   /**
@@ -97,6 +98,7 @@ export default async function Page({
   const completeStatusRes = await serverFetch(
     `/user-video-setting/users/me/videos/${video.id}`,
   );
+  // destructure the return data into completeStatus for better understanding and assigning
   const { data: completeStatus } = await completeStatusRes.json();
   // Check if the response is NULL
   // if so then create and new row for this video with all checkbox true
