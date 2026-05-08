@@ -30,7 +30,6 @@ export default function CourseNodeLink() {
       {
         selector: "node",
         style: {
-          // ← align to top∂∂
           width: 80,
           height: 80,
           // Label Text
@@ -38,7 +37,6 @@ export default function CourseNodeLink() {
           cursor: "pointer",
           "text-valign": "center",
           "text-halign": "center",
-          // Font
           // "font-family": "Arial, sans-serif", // any valid CSS font
           "font-size": 14, // in pixels
           "font-weight": "bold", // normal | bold | 100..900
