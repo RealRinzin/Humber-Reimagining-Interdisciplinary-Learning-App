@@ -1,33 +1,17 @@
 "use client";
+import Image from "next/image";
 import {
   faAngleDown,
   faAngleUp,
   faCheck,
-  faVial,
   faCopy,
 } from "@fortawesome/free-solid-svg-icons";
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import {
-  dark,
-  solarizedlight,
-  solarizedDarkAtom,
-} from "react-syntax-highlighter/dist/esm/styles/prism";
+import { solarizedDarkAtom } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { useEffect, useState } from "react";
 import { clientFetch } from "@/lib/clientFetch";
 import { useToggle } from "@/hooks/common/useToggle";
-import PivotScene from "@/components/ui/interactive/PivotScene";
-// Content Type
-interface contentProps {
-  title: string;
-  content: string;
-  videoID: number;
-  icon: IconDefinition;
-  type: string;
-  status: boolean;
-  all_complete: boolean;
-}
 //
 export default function CourseTabs({
   title,
@@ -37,7 +21,7 @@ export default function CourseTabs({
   type,
   status,
   all_complete,
-}: contentProps) {
+}: courseTabsTypes) {
   const [drop, setDrop] = useState(false);
   const [isChecked, setIsChecked] = useState(status);
   const { isOn: isOpen, toggle } = useToggle(status);
@@ -55,8 +39,15 @@ export default function CourseTabs({
   return (
     <section className="my-5">
       <div className="flex justify-between bg-slate-100 p-3 rounded-md">
-        <h2 className="text-xl font-bold text-gray-600">
-          <FontAwesomeIcon icon={icon} size="1x" /> {title}
+        <h2 className="flex items-center gap-2 text-xl font-bold text-gray-600">
+          <Image
+            src={`/img/${icon}`}
+            height={20}
+            width={20}
+            alt="Home Icon"
+            className="h-5 w-5"
+          />
+          {title}
           <FontAwesomeIcon
             icon={drop ? faAngleUp : faAngleDown}
             size="1x"
@@ -64,28 +55,38 @@ export default function CourseTabs({
             className="cursor-pointer text-gray-600 px-2"
           />
         </h2>
-        <div
-          className={`h-8 w-8 rounded-full border-6  ${
-            all_complete || isOpen
-              ? "bg-green-600 border-green-600 hover:cursor-pointer"
-              : status
+        {type !== "faq" && (
+          <div
+            className={`h-8 w-8 rounded-full border-6  ${
+              all_complete || isOpen
                 ? "bg-green-600 border-green-600 hover:cursor-pointer"
-                : "bg-slate-400 border-slate-600 hover:border-green-600 hover:cursor-pointer hover:bg-white transition duration-300 ease-in-out"
-          } hover:shadow-[0_0_10px_3px_rgba(34,197,94,0.6)]`}
-          onClick={() => {
-            setIsChecked((prev) => !prev);
-            toggle();
-            updateTheStatus();
-          }}
-        >
-          {all_complete || isOpen? (
-            <FontAwesomeIcon icon={faCheck} size="1x" className="text-white" />
-          ) : status ? (
-            <FontAwesomeIcon icon={faCheck} size="1x" className="text-white" />
-          ) : (
-            ""
-          )}
-        </div>
+                : status
+                  ? "bg-green-600 border-green-600 hover:cursor-pointer"
+                  : "bg-slate-400 border-slate-600 hover:border-green-600 hover:cursor-pointer hover:bg-white transition duration-300 ease-in-out"
+            } hover:shadow-[0_0_10px_3px_rgba(34,197,94,0.6)]`}
+            onClick={() => {
+              setIsChecked((prev) => !prev);
+              toggle();
+              updateTheStatus();
+            }}
+          >
+            {all_complete || isOpen ? (
+              <FontAwesomeIcon
+                icon={faCheck}
+                size="1x"
+                className="text-white"
+              />
+            ) : status ? (
+              <FontAwesomeIcon
+                icon={faCheck}
+                size="1x"
+                className="text-white"
+              />
+            ) : (
+              ""
+            )}
+          </div>
+        )}
       </div>
       <div className={`relative p-3 ${drop ? "block" : "hidden"}`}>
         {/* <div className={`relative p-3`}> */}
@@ -109,9 +110,9 @@ export default function CourseTabs({
         ) : type === "tldnw" ? (
           "Later watch"
         ) : type === "interactive" ? (
-          'Interactive'
-          // <PivotScene/>
-        ) : type === "resources" ? (
+          "Interactive"
+        ) : // <PivotScene/>
+        type === "resources" ? (
           "Documents"
         ) : (
           content

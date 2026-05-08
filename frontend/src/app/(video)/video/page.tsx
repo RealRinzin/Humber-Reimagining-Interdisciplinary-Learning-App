@@ -111,7 +111,6 @@ export default function ModelSpaceSkeleton() {
                 </div>
               </div>
             </div>
-
             {/* Right panel — knowledge graph */}
             <div className="w-95 bg-[#060d1f] relative shrink-0 min-h-full">
               {/* Tracking toggle */}

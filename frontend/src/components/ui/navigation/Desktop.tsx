@@ -3,11 +3,7 @@ import { useRouter } from "next/navigation";
 import Image from 'next/image'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faAtom,
-  faCircleUser,
-  faHouse,
   faMagnifyingGlass,
-  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 export default function DesktopNavigation() {
   const router = useRouter();

@@ -5,15 +5,10 @@ import MoreCourses from "@/components/features/course/MoreCourses";
 import NodeTest from "@/components/features/course/NodeConnection-Orginal";
 import { MyPlayer } from "@/components/ui/video/VideoPlayer";
 import { serverFetch, serverPost } from "@/lib/fetch";
-import {
-  faHexagonNodes,
-  faClipboardQuestion,
-  faCode,
-  faBook,
-  faCirclePlay,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Courses",
@@ -33,7 +28,6 @@ export default async function Page({
   // so that we can pass the user id in api
   const user = await serverFetch(`/me`);
   const me = await user.json();
-
   // With this:
   let lastPaused = 0;
   let userVideoID;
@@ -79,7 +73,7 @@ export default async function Page({
     `/user-video-setting/users/me/videos/${video.id}`,
   );
   const { data: completeStatus } = await completeStatusRes.json();
-  console.log(completeStatus)
+  console.log(completeStatus);
   return (
     <main className="px-1 md:px-20 py-5">
       <section className="flex flex-col md:flex-row gap-4">
@@ -89,18 +83,18 @@ export default async function Page({
             videoID={video.id}
             status={completeStatus}
           />
-          {/* <div className="flex justify-between items-center-safe bg-gray-200 p-8 rounded-xl">
-            <h1 className="text-3xl font-bold">{video.title}</h1>
-            <button className="rounded-2xl  p-3 text-white cursor-pointer">
-              "Mark All Content Complete
-            </button>
-          </div> */}
           <div className="px-1 py-8">
-            <h1 className="text-2xl font-semibold">
-              {" "}
-              <FontAwesomeIcon icon={faCirclePlay} size="1x" /> Video
-            </h1>
-            <p className="py-2 px-10 text-gray-800 text-md">{video.tldw}</p>
+            <div className="flex items-center gap-2">
+              <Image
+                src={`/img/nextIcon.png`}
+                height={20}
+                width={20}
+                alt="Course Next Information"
+                className="h-5 w-5"
+              />
+              <h1 className="text-2xl font-semibold">Video</h1>
+            </div>
+            <p className="py-2 px-1 text-gray-800 text-md">{video.tldw}</p>
           </div>
           {/* Video section */}
           <section className="flex flex-col md:flex-row gap-3 py-3">
@@ -116,7 +110,7 @@ export default async function Page({
             <CourseTabs
               type="code"
               title={"Code"}
-              icon={faCode}
+              icon="codeIcon.png"
               content={video?.codes[0]?.code}
               videoID={video?.id}
               status={completeStatus?.code}
@@ -126,20 +120,20 @@ export default async function Page({
             ""
           )}
           {/* Interactive */}
-          <CourseTabs
+          {/* <CourseTabs
             type="interactive"
             title={"Interactive Mode"}
-            icon={faBook}
+            icon="ramblingsIcon.png"
             content={"demo"}
             videoID={video?.id}
             status={completeStatus?.interactive}
             all_complete={completeStatus?.all_checked}
-          />
+          /> */}
           {/* Quiz Tab */}
           <CourseTabs
             type="tyk"
             title={"Test Your Knowledge"}
-            icon={faClipboardQuestion}
+            icon="QuizIcon.png"
             content={video.title}
             status={completeStatus?.quiz}
             videoID={video?.id}
@@ -149,11 +143,21 @@ export default async function Page({
           <CourseTabs
             type="rambling"
             title={"Umer's Rambling"}
-            icon={faHexagonNodes}
+            icon="ramblingsIcon.png"
             content={video.title}
             videoID={video?.id}
             status={completeStatus?.rambling}
             all_complete={completeStatus?.all_checked}
+          />
+          {/* Rambling Tab */}
+          <CourseTabs
+            type="faq"
+            title={"Frequently Asked Questions"}
+            icon="FAQIcon.png"
+            content={video.title}
+            videoID={video?.id}
+            status={completeStatus?.nan}
+            all_complete={completeStatus?.nan}
           />
 
           {/* <iframe
