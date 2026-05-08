@@ -22,17 +22,32 @@ export default function CourseTabs({
   status,
   all_complete,
 }: courseTabsTypes) {
+  const { isOn: isOpen, toggle } = useToggle(status);
   const [drop, setDrop] = useState(false);
   const [isChecked, setIsChecked] = useState(status);
-  const { isOn: isOpen, toggle } = useToggle(status);
   // Async function to update individual status
   async function updateTheStatus() {
+    // Get the all status of this video
     const completeStatusRes = await clientFetch(
       `/user-video-setting/users/me/videos/${videoID}`,
     );
-    const data = await completeStatusRes.json();
+    const { data } = await completeStatusRes.json();
+    // reverse the status
     status = !status;
+    // Update the latest status of this tab
+    data[type] = !isOpen;
+    // Update individual checkbox
+    const res = await clientFetch(
+      `/user-video-setting/users/me/videos/${videoID}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      },
+    );
+    //     // console.log(type)
   }
+
   useEffect(() => {
     setIsChecked(status);
   }, [status]);
@@ -58,11 +73,9 @@ export default function CourseTabs({
         {type !== "faq" && (
           <div
             className={`h-8 w-8 rounded-full border-6  ${
-              all_complete || isOpen
+              (all_complete || isOpen || status)
                 ? "bg-green-600 border-green-600 hover:cursor-pointer"
-                : status
-                  ? "bg-green-600 border-green-600 hover:cursor-pointer"
-                  : "bg-slate-400 border-slate-600 hover:border-green-600 hover:cursor-pointer hover:bg-white transition duration-300 ease-in-out"
+                : "bg-slate-400 border-slate-600 hover:border-green-600 hover:cursor-pointer hover:bg-white transition duration-300 ease-in-out"
             } hover:shadow-[0_0_10px_3px_rgba(34,197,94,0.6)]`}
             onClick={() => {
               setIsChecked((prev) => !prev);
@@ -70,20 +83,12 @@ export default function CourseTabs({
               updateTheStatus();
             }}
           >
-            {all_complete || isOpen ? (
+            {(all_complete || isOpen || status) && (
               <FontAwesomeIcon
                 icon={faCheck}
                 size="1x"
                 className="text-white"
               />
-            ) : status ? (
-              <FontAwesomeIcon
-                icon={faCheck}
-                size="1x"
-                className="text-white"
-              />
-            ) : (
-              ""
             )}
           </div>
         )}

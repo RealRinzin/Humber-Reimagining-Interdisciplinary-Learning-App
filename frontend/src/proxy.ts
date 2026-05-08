@@ -32,7 +32,6 @@ import type { NextRequest } from 'next/server' // to type the request object in 
  */
 async function isAuthenticated(request: NextRequest): Promise<boolean> {
     const cookieHeader = request.headers.get('cookie') ?? '';
-    console.log(cookieHeader)
     // const cookieStore = await cookies(); // get the cookies from the request using Next.js's cookies function, which returns a cookie store object that we can use to access the cookies in the request
     // We convert the cookie store to a string and include it in the headers of the fetch request to the backend API.
     //  This allows the backend to identify the user based on their session cookie and determine if they are authenticated.

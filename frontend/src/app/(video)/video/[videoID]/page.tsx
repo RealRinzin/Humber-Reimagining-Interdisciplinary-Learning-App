@@ -73,7 +73,6 @@ export default async function Page({
     `/user-video-setting/users/me/videos/${video.id}`,
   );
   const { data: completeStatus } = await completeStatusRes.json();
-  console.log(completeStatus);
   return (
     <main className="px-1 md:px-20 py-5">
       <section className="flex flex-col md:flex-row gap-4">
@@ -131,7 +130,7 @@ export default async function Page({
           /> */}
           {/* Quiz Tab */}
           <CourseTabs
-            type="tyk"
+            type="quiz"
             title={"Test Your Knowledge"}
             icon="QuizIcon.png"
             content={video.title}
