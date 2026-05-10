@@ -102,6 +102,7 @@ export async function clientPost(path: string, body: unknown, options: RequestIn
         // Try to catch the error here
     } catch (error) {
         console.log(error)
+        // throw error; // re-throw so the caller can handle it
     }
 }
 

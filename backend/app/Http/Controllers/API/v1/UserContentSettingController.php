@@ -7,6 +7,7 @@ use App\DTOs\UserContentSetting\CreateUserContentSettingDTO;
 use App\Http\Requests\UserContentSetting\StoreUserContentSettingRequest;
 use App\Models\User;
 use App\Models\UserContentSetting;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 class UserContentSettingController
@@ -29,11 +30,14 @@ class UserContentSettingController
     public function store(StoreUserContentSettingRequest $request, CreateUserContentSettingAction $action, User $user)
     {
 
-        // if (auth()->id() !== $user->id) {
-        //     return response()->json(['message' => 'Unauthorized'], 403);
-        // }
-
-        $userContentSetting = $action->execute(CreateUserContentSettingDTO::fromRequest($request));
-        return response()->json($userContentSetting, $userContentSetting->wasRecentlyCreated ? 201 : 200);
+        try {
+            $userContentSetting = $action->execute(CreateUserContentSettingDTO::fromRequest($request));
+            return response()->json($userContentSetting, $userContentSetting->wasRecentlyCreated ? 201 : 200);
+        } catch (AuthorizationException $e) {
+            return response()->json(
+                ['message' => 'Something is wrong. Please try again'],
+                409
+            );
+        }
     }
 }

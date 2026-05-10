@@ -9,8 +9,12 @@ use App\Http\Resources\Topic\TopicResource;
 use App\Models\Topic;
 use App\Models\User;
 use App\Models\UserTopic;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
+use Nette\Schema\ValidationException;
 
 class UserTopicController
 {
@@ -43,7 +47,8 @@ class UserTopicController
     {
         try {
             $userTopic = $action->execute(CreateOrUpdateUserTopicDTO::fromRequest($request));
-            return $userTopic;
+            return response()->json($userTopic, $userTopic->wasRecentlyCreated ? 201 : 200);
+            // catch the error
         } catch (UniqueConstraintViolationException $e) {
             return response()->json(
                 ['message' => 'Something is wrong. Please try again'],
