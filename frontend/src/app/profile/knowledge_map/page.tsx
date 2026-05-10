@@ -44,7 +44,7 @@ export default  async function KnowledgeMapPage() {
         </div>
         {/* Progress */}
         <div className="col-span-4 bg-blue-950">
-          {/* <CourseNodeLink /> */}
+          <CourseNodeLink />
         </div>
       </main>
       {/* <TabProgressBar name="Coming up " completed={4} incomplete={10} /> */}

@@ -18,7 +18,7 @@ import DesktopNavigation from "@/components/ui/navigation/Desktop";
 import Footer from "@/components/layout/Footer"
 // SEO meta description
 export const metadata: Metadata = {
-  title: "Humber Learning APP",
+  title: "Humber Space Project - Gaming Department",
   description: "Learning through the online educational tech",
   // viewport: "width=device-width, initial-scale=1.0",
 };

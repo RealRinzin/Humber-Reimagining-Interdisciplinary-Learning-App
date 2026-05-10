@@ -9,6 +9,7 @@ use App\Http\Resources\Topic\TopicResource;
 use App\Models\Topic;
 use App\Models\User;
 use App\Models\UserTopic;
+use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
 
 class UserTopicController
@@ -40,33 +41,15 @@ class UserTopicController
      */
     public function store(CreateOrUpdateUserTopicRequest $request, CreateUserTopicAction $action)
     {
-
-        $userTopic = $action->execute(CreateOrUpdateUserTopicDTO::fromRequest($request));
-        return $userTopic;
-
-        return "rinzin";
-        if (auth()->id() !== $user->id) {
-            return response()->json(['message' => 'Unauthorized'], 403);
+        try {
+            $userTopic = $action->execute(CreateOrUpdateUserTopicDTO::fromRequest($request));
+            return $userTopic;
+        } catch (UniqueConstraintViolationException $e) {
+            return response()->json(
+                ['message' => 'Something is wrong. Please try again'],
+                409
+            );
         }
-
-        return "rinzin";
-
-        // UserTopic::updateOrCreate(
-        //     ['user_id' => $user->id, 'topic_id' => $topic->id],  // match condition
-        //     ['started' => false]                                   // values to set
-        // );
-
-        // Original Code
-        // return "testting";
-        $request->validate([
-            'topic_ids'   => 'required|array',
-            'topic_ids.*' => 'exists:topics,id',
-        ]);
-
-        // syncWithoutDetaching = attach only NEW ones, skip duplicates
-        $user->topics()->syncWithoutDetaching($request->topic_ids);
-
-        return TopicResource::collection($user->topics()->get());
     }
 
     /**

@@ -41,7 +41,10 @@ export default function TabHorizontal({
       onMouseEnter={toggle}
       onMouseLeave={toggle}
     >
-      <div className="flex flex-col items-center justify-center border-r-3 border-gray-400/80 p-3">
+      <div
+        className="flex flex-col items-center justify-center border-r-3 border-gray-400/80 p-3"
+        onClick={() => postUserTopic(id)}
+      >
         <RingProgressBar
           id={2}
           color={color}

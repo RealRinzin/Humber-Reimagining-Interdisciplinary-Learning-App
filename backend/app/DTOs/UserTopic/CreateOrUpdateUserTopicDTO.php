@@ -16,7 +16,7 @@ class CreateOrUpdateUserTopicDTO
     ) {}
 
     /**
-     * @param CreateUpdateRequest $request
+     * @param CreateOrUpdateUserTopicRequest $request
      * @return self
      */
     public static function fromRequest(CreateOrUpdateUserTopicRequest $request): self
