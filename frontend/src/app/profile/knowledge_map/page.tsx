@@ -69,18 +69,20 @@ export default function KnowledgeMapPage() {
             one.
           </p>
           {/* Progres Tabs */}
-          <div className="my-4">
-            {topics.map((topic: any, index: number) => (
-              <TabHorizontal
-                key={index}
-                id={topic.id}
-                name={topic.title}
-                color={topic.node_color}
-                slug={topic.slug}
-                description={topic.description}
-                is_started={topic.is_following}
-              />
-            ))}
+          <div className="my-4 h-screen flex flex-col">
+            <div className="flex-1 overflow-y-auto">
+              {topics.map((topic: any, index: number) => (
+                <TabHorizontal
+                  key={index}
+                  id={topic.id}
+                  name={topic.title}
+                  color={topic.node_color}
+                  slug={topic.slug}
+                  description={topic.description}
+                  is_started={topic.is_following}
+                />
+              ))}
+            </div>
           </div>
         </div>
         {/* Progress */}
