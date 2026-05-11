@@ -82,6 +82,7 @@ class User extends Authenticatable
     public function topics()
     {
         return $this->belongsToMany(Topic::class, 'user_topics', 'user_id', 'topic_id') // User belongs to many Topic through user_topics pivot table
+            ->withPivot('started')
             ->withTimestamps(); // Include timestamps from the pivot table
         // ->withPivot('created_at'); // Include timestamps from the pivot table
     }

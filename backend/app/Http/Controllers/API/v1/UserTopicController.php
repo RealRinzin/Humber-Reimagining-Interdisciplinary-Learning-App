@@ -24,12 +24,15 @@ class UserTopicController
     // This API will return the list of topics for a specific user
     // GET /api/v1/user-topics/users/{user}/topics
     // The API will return the user data and the topic data
-    public function index(User $user)
-    {
+    // public function index(User $user)
+    // {
 
-        if (auth()->id() !== $user->id) {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
+    //     if (auth()->id() !== $user->id) {
+    //         return response()->json(['message' => 'Unauthorized'], 403);
+    //     }
+    public function index()
+    {
+        return "Rinzin";
         // return $user->topics; // return the topics of the user
         /** Eager Loading
          * Eager loading is a powerful technique in Laravel that allows you to load related models along with the main model in a single query. This can significantly improve performance by reducing the number of database queries needed to retrieve related data.
@@ -54,6 +57,21 @@ class UserTopicController
                 ['message' => 'Something is wrong. Please try again'],
                 409
             );
+        } catch (ModelNotFoundException $e) {
+            // Model::findOrFail() found nothing
+            return response()->json(['message' => 'Not found'], 404);
+        } catch (ValidationException $e) {
+            // Manual validator::make() failed (not FormRequest)
+            return response()->json(['message' => "Something is wrong. Please try again"], 422);
+        } catch (AuthorizationException $e) {
+            // Policy or Gate check failed
+            return response()->json(['message' => 'Unauthorized'], 403);
+        } catch (QueryException $e) {
+            // Generic DB query failure
+            return response()->json(['message' => 'Database error'], 500);
+        } catch (\Exception $e) {
+            // Catch-all for anything else
+            return response()->json(['message' => 'Something went wrong'], 500);
         }
     }
 

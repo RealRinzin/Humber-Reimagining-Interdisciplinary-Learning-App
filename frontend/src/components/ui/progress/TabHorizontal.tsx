@@ -28,6 +28,7 @@ export default function TabHorizontal({
   color,
   slug,
   description,
+  is_started,
 }: HorizontalTabTypes) {
   // Calling the state and toggle function for the hook
   const { isOn: isOpen, toggle } = useToggle(false);
@@ -37,14 +38,11 @@ export default function TabHorizontal({
 
   return (
     <div
-      className="flex bg-white items-center border-3 rounded-2xl border-gray-400/80 my-2 cursor-pointer "
+      className={`flex items-center border-2 rounded-2xl border-gray-500/80 my-4 cursor-pointer ${is_started ? "bg-white" : "bg-gray-400 "}`}
       onMouseEnter={toggle}
       onMouseLeave={toggle}
     >
-      <div
-        className="flex flex-col items-center justify-center border-r-3 border-gray-400/80 p-3"
-        onClick={() => postUserTopic(id)}
-      >
+      <div className="flex flex-col items-center justify-center border-r-2 border-gray-500/80 p-3">
         <RingProgressBar
           id={2}
           color={color}
@@ -61,13 +59,22 @@ export default function TabHorizontal({
       <div className="flex flex-col flex-1 px-3 py-2">
         <div className="flex flex-1 justify-between items-center">
           <h2 className="text-gray-600 font-bold">{name}</h2>
-          <a
-            href={`/video/${slug}`}
-            className="bg-gray-400 rounded-xl px-3 py-1 text-gray-600 text-sm"
-            onClick={() => postUserTopic(id)}
-          >
-            Start
-          </a>
+          {is_started ? (
+            <a
+              href={`/video/${slug}`}
+              className={`bg-gray-500 rounded-xl px-3 py-1 text-gray-400 text-sm `}
+            >
+              Continue
+            </a>
+          ) : (
+            <a
+              href={`/video/${slug}`}
+              className={`bg-gray-500 rounded-xl px-3 py-1 text-gray-400 text-sm `}
+              onClick={() => postUserTopic(id)}
+            >
+              Start
+            </a>
+          )}
         </div>
 
         {/* {isOpen && ( */}

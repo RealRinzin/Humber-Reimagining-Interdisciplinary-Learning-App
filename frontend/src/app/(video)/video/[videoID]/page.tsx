@@ -38,7 +38,6 @@ export default async function Page({
   const res = await serverFetch(`/videos/${videoSlug}`); // call the video details
   // destructure the return into video for better understand of data while assigining
   const { data: video } = await res.json(); // destructure the data
-  console.log(video)
   // Get me the the current logged user
   // so that we can pass the user id in api
   /**

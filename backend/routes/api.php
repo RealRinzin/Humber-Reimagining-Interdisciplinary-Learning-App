@@ -35,14 +35,6 @@ Route::prefix('v1')
     ->name('v1.')
     ->group(function () {
         Route::post('/login', [AuthController::class, 'login']);
-        // // Topic
-        Route::controller(TopicController::class)->prefix('topics')->group(function () {
-            Route::get('/', 'index')->name('topic.index');
-        });
-        // Topic Connection 
-        Route::controller(TopicConnectionController::class)->prefix('topic-connections')->group(function () {
-            Route::get('/', 'index')->name('topic-connection.index');
-        });
     });
 // Registeration API
 // This API is open to public but it will be rate limited by the throttle middleware
@@ -113,15 +105,29 @@ Route::prefix('v1')
          */
         Route::apiResource('codes', CodeController::class)->except(['create', 'edit']);
 
-        // === Video Controller ==
+        // === Topic Controller ==
         // This API will be used to get the videos and also to add or remove videos from the user
         // GET /api/v1/videos // This API will return all the videos
         // GET /api/v1/videos/{video:id} // This API will return the video data
         // POST /api/v1/videos // This API will add a video to the user
         // GET /api/v1/videos/{video}/users // This API will return the users who have added the video to their list
         // The API will return the video data and the user data
+        // // Topic
+        Route::controller(TopicController::class)->prefix('topics')->group(function () {
+            Route::get('/', 'index')->name('topic.index');
+        });
         /**
-         * IMPORTANT API
+         * IMPORTANT API - Topic Connection
+         * /api/v1/videos // This API will return all the videos
+         * /api/v1/videos/{video:id} // This API will return the video data
+         * /api/v1/videos // This API will add a video to the user
+         * /api/v1/videos/{video}/users // This API will return the users who have added the video to their list 
+         */
+        Route::controller(TopicConnectionController::class)->prefix('topic-connections')->group(function () {
+            Route::get('/', 'index')->name('topic-connection.index');
+        });
+        /**
+         * IMPORTANT API - Video Controller
          * /api/v1/videos // This API will return all the videos
          * /api/v1/videos/{video:id} // This API will return the video data
          * /api/v1/videos // This API will add a video to the user
@@ -210,9 +216,9 @@ Route::prefix('v1')
             });
 
 
-        Route::controller(UserContentSettingController::class)->prefix('users/me')
-            ->group(function () {
-                Route::get('/user-content-settings', 'index')->name('user-setting.index'); // This API will be used to create or update the user video record when the user watches a video
-                // Route::patch('/', 'store')->name('user-content-settings.store'); // This API will be used to create or update the user video record when the user watches a video
-            });
+        // Route::controller(UserContentSettingController::class)->prefix('users/me')
+        //     ->group(function () {
+        //         Route::get('/user-content-settings', 'index')->name('user-setting.index'); // This API will be used to create or update the user video record when the user watches a video
+        //         Route::patch('/', 'store')->name('user-content-settings.store'); // This API will be used to create or update the user video record when the user watches a video
+        //     });
     });

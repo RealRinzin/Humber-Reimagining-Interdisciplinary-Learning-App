@@ -7,7 +7,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 export default function DesktopNavigation() {
   const router = useRouter();
-
   async function logOut(): Promise<void> {
     const token = document.cookie
       .split("; ")
@@ -58,7 +57,7 @@ export default function DesktopNavigation() {
             </li>
             <li>
               <a
-                href="/"
+                href="/profile"
                 onClick={(e) => {
                   e.preventDefault();
                   logOut();

@@ -39,6 +39,7 @@ class Topic extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'user_topics', 'topic_id', 'user_id')
+            ->withPivot('started')
             ->withTimestamps();
         // ->withPivot('created_at'); // Include timestamps from the pivot table   
     }

@@ -11,12 +11,23 @@ class TopicController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         // $topics = Topic::with(['videos', 'codes', 'documents', 'quizees'])->paginate(2); 
         // return TopicResource::collection($topics);
-        return Topic::get();
+        // return Topic::get();
+        $topics = Topic::all();
+
+        $followedIds = $request->user()
+            ?->topics()
+            ->pluck('topics.id')
+            ->toArray() ?? [];
+
+        // Store on the request so the resource can access it
+        $request->merge(['followed_ids' => $followedIds]);
+
+        return TopicResource::collection($topics);
     }
 
     /**
@@ -50,5 +61,4 @@ class TopicController
     {
         //
     }
-
 }

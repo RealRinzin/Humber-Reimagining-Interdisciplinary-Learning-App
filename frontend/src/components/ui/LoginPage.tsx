@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAtom } from "@fortawesome/free-solid-svg-icons";
 import Script from "next/script";
+import Image from "next/image";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -70,7 +71,8 @@ export default function LoginPage() {
         <div className="w-full max-w-xl rounded-2xl bg-slate-300/60 backdrop-blur-md p-10 shadow-xl">
           {/* Step Indicator */}
           <div className="flex justify-center bg-slate-800 mx-auto p-5 rounded-full h-30 w-30 items-center-safe">
-            <FontAwesomeIcon icon={faAtom} size="4x" className="text-white" />
+            <Image src="/img/SpaceLogo.png" alt="Space Project" height={100} width={100}/>
+            {/* <FontAwesomeIcon icon={faAtom} size="4x" className="text-white" /> */}
           </div>
           <h1 className="text-2xl font-semibold text-center py-4 text-gray-900 tracking-widest">
             SPACES PROJECT

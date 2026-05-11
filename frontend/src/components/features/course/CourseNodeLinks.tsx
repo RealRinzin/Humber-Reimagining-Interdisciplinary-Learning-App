@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CytoscapeComponent from "react-cytoscapejs";
 import type { Core } from "cytoscape";
 import { useEffect, useRef, useState } from "react";
+import { clientFetch } from "@/lib/clientFetch";
 export default function CourseNodeLink() {
   const cyRef = useRef<Core | null>(null);
 
@@ -77,19 +78,22 @@ export default function CourseNodeLink() {
     // function
     async function getTopics() {
       // Topcis
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/topics`);
-      const data = await res.json();
+
+      // const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/topics`);
+      const res = await clientFetch(`/topics`);
+      const {data:topics} = await res.json();
 
       // Connection
-      const connection = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/topic-connections`,
-      );
-      const connect = await connection.json();
+      // const connection = await fetch(
+      //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/topic-connections`,
+      // );
+      const topicConnection = await clientFetch('/topic-connections')
+      const connect = await topicConnection.json();
       // const List: TopicType[] = [];
       const List: cytoscape.ElementDefinition[] = [];
       // const List: cytoscape.ElementDefinition[] = [];
       // Push the nodes into array
-      data.forEach((topic: any, index: number) => {
+      topics.forEach((topic: any, index: number) => {
         List.push({
           data: {
             id: String(topic.id),

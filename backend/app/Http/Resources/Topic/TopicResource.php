@@ -9,6 +9,7 @@ use App\Http\Resources\Code\CodeResource;
 use App\Http\Resources\LessonDocument\LessonDocumentResource;
 use App\Http\Resources\Quiz\QuizResource;
 use App\Http\Resources\Video\VideoResource;
+
 class TopicResource extends JsonResource
 {
     /**
@@ -18,13 +19,21 @@ class TopicResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        // $followedIds = $this->additional['meta']['followed_ids'] ?? [];
+        $followedIds = $request->input('followed_ids', []);
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'slug' => $this->slug,
+            'description'=>$this->description,
+            'node_color' => $this->node_color,
+            'x_axis' => $this->x_axis,
+            'y_axis' => $this->y_axis,
             'videos' => VideoResource::collection($this->whenLoaded('videos')),
             'codes' => CodeResource::collection($this->whenLoaded('codes')),
             'documents' => LessonDocumentResource::collection($this->whenLoaded('documents')),
-            'quizees' => QuizResource::collection($this->whenLoaded('quizees'))
+            'quizees' => QuizResource::collection($this->whenLoaded('quizees')),
+            'is_following' => in_array($this->id, $followedIds),
         ];
     }
 }
