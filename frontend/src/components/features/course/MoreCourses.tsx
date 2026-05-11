@@ -5,8 +5,8 @@ import { serverFetch } from "@/lib/fetch";
 import { VideoType } from "@/types/video";
 import Image from "next/image";
 export default async function MoreCourses() {
-  const res = await serverFetch(`/videos`);
-  const { data } = await res.json();
+  const res = await serverFetch(`/topics`);
+  const { data:topics } = await res.json();
   return (
     <>
       <div className="flex items-center gap-2">
@@ -23,7 +23,7 @@ export default async function MoreCourses() {
         Ready to learn more? Check out these suggested modules
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {data.slice(0, 4).map((video: VideoType, index: number) => (
+        {topics.slice(0, 3).map((video: VideoType, index: number) => (
           <div className="my-2" key={index}>
             <VideoCard video={video} />
           </div>

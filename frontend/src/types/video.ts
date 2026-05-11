@@ -9,5 +9,7 @@ export interface VideoType{
     thumbnail:string,
     video_url:string,
     duration:number,
-    description:string   
+    description:string,
+    is_following:boolean,
+    node_color:string,   
 }
