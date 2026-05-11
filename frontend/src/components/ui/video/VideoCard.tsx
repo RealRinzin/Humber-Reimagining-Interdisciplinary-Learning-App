@@ -9,8 +9,6 @@ export default function VideoCard({ video }: { video: VideoType }) {
         <div className="flex gap-2 items-center-safe">
           <RingProgressBar
             id={video.id}
-            // color={"#f6339a"}
-            // borderColor={"#D3D1C7"}
             color={video.node_color}
             borderColor={video.node_color}
 
