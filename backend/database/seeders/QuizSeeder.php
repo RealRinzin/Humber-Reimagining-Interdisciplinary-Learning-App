@@ -14,6 +14,6 @@ class QuizSeeder extends Seeder
     public function run(): void
     {
         // 
-        Quiz::factory(10)->create(); // Create 80 quiz records using the QuizFactory
+        Quiz::factory(50)->create(); // Create 80 quiz records using the QuizFactory
     }
 }

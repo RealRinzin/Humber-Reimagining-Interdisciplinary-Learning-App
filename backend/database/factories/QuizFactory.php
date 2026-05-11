@@ -23,12 +23,12 @@ class QuizFactory extends Factory
             //
             'video_id' => Video::inRandomOrder()->value('id'), // Randomly assign an existing video ID to the quiz
             'topic_id' => Topic::inRandomOrder()->value('id'), // Randomly assign an existing video ID to the quiz
-            'question' => fake()->sentence(), // Generate a random sentence for the quiz question
             'description' => fake()->sentence(), // Generate a random paragraph for the quiz description
             'time_limit' => gmdate('H:i:s', rand(30, 7200)), // Generate a random time limit between 30 seconds and 2 hours
             'type' => $this->faker->randomElement(['flip', 'mcs', 'tf']),
             'difficulty' => $this->faker->randomElement(['easy', 'medium', 'hard']),
-            'answer'=>Str::random(100),
+            'question' => fake()->sentence(), // Generate a random sentence for the quiz question
+            'answer'=>Str::random(20),
         ];
     }
 }

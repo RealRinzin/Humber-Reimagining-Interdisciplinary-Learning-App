@@ -56,6 +56,11 @@ class Video extends Model
     {
         return $this->hasMany(Code::class);
     }
+
+    // Quizzes
+    public function quizzes(){
+        return $this->hasMany(Quiz::class);
+    }
     // LessonDocument Relationship
     // A video can have many lesson documents
     // Video Table relationship with lesson_documents table

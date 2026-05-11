@@ -12,7 +12,7 @@ import { solarizedDarkAtom } from "react-syntax-highlighter/dist/esm/styles/pris
 import { useEffect, useState } from "react";
 import { clientFetch } from "@/lib/clientFetch";
 import { useToggle } from "@/hooks/common/useToggle";
-import FlipCard from "@/components/ui/quiz/FlipCard";
+import QuizWrapper from "@/components/ui/quiz/QuizWrapper";
 //
 export default function CourseTabs({
   title,
@@ -22,6 +22,7 @@ export default function CourseTabs({
   type,
   status,
   all_complete,
+  quizzes,
 }: courseTabsTypes) {
   const { isOn: isOpen, toggle } = useToggle(status);
   const [drop, setDrop] = useState(false);
@@ -32,9 +33,9 @@ export default function CourseTabs({
     const completeStatusRes = await clientFetch(
       `/user-video-setting/users/me/videos/${videoID}`,
     );
-    console.log(completeStatusRes)
+    console.log(completeStatusRes);
     const { data } = await completeStatusRes.json();
-    console.log(data)
+    console.log(data);
     // reverse the status
     status = !status;
     // Update the latest status of this tab
@@ -75,7 +76,7 @@ export default function CourseTabs({
         {type !== "faq" && (
           <div
             className={`h-8 w-8 rounded-full border-6  ${
-              (all_complete || isOpen || status)
+              all_complete || isOpen || status
                 ? "bg-green-600 border-green-600 hover:cursor-pointer"
                 : "bg-slate-400 border-slate-600 hover:border-green-600 hover:cursor-pointer hover:bg-white transition duration-300 ease-in-out"
             } hover:shadow-[0_0_10px_3px_rgba(34,197,94,0.6)]`}
@@ -97,23 +98,25 @@ export default function CourseTabs({
       </div>
       <div className={`relative p-3 ${drop ? "block" : "hidden"}`}>
         {/* <div className={`relative p-3`}> */}
-        <p className="absolute right-10 my-4">
-          <FontAwesomeIcon
-            icon={faCopy}
-            size="1x"
-            className="text-white hover:cursor-pointer"
-          />
-        </p>
+
         {/* Check the Type for the format */}
         {type === "code" ? (
-          <SyntaxHighlighter language="cpp" style={solarizedDarkAtom}>
-            {content}
-            rinzin
-          </SyntaxHighlighter>
+          <>
+            <p className="absolute right-10 my-4">
+              <FontAwesomeIcon
+                icon={faCopy}
+                size="1x"
+                className="text-white hover:cursor-pointer"
+              />
+            </p>
+            <SyntaxHighlighter language="cpp" style={solarizedDarkAtom}>
+              {content}
+            </SyntaxHighlighter>
+          </>
         ) : type === "rambling" ? (
           "Rambling"
         ) : type === "quiz" ? (
-          <FlipCard/>
+          <QuizWrapper quizzes={quizzes} />
         ) : type === "tldnw" ? (
           "Later watch"
         ) : type === "interactive" ? (

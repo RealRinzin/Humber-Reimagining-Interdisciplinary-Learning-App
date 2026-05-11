@@ -48,6 +48,7 @@ class VideoResource extends JsonResource
             'topic'=> new TopicResource($this->whenLoaded("topic")),
             'codes' => CodeResource::collection($this->whenLoaded("codes")),
             'documents' => LessonDocumentResource::collection($this->whenLoaded('documents')),
+            'quizzes' => QuizResource::collection($this->whenLoaded('quizzes')),
             'count' => [
                 'codes' => $this->codes_count,
                 'documents' => $this->documents_count,

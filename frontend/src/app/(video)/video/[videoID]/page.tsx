@@ -181,6 +181,7 @@ export default async function Page({
             status={completeStatus?.quiz}
             videoID={video?.id}
             all_complete={completeStatus?.all_checked}
+            quizzes={video.quizzes}
           />
           {/* Rambling Tab */}
           <CourseTabs

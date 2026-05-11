@@ -6,4 +6,5 @@ interface courseTabsTypes {
   type: string;
   status: boolean;
   all_complete: boolean;
+  quizzes?:[] | null;
 }
