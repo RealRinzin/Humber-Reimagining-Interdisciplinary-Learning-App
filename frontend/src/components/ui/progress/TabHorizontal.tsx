@@ -58,23 +58,19 @@ export default function TabHorizontal({
       </div>
       <div className="flex flex-col flex-1 px-3 py-2">
         <div className="flex flex-1 justify-between items-center">
-          <h2 className="text-gray-600 font-bold">{name}</h2>
-          {is_started ? (
-            <a
-              href={`/video/${slug}`}
-              className={`bg-gray-500 rounded-xl px-3 py-1 text-gray-400 text-sm `}
-            >
-              Continue
-            </a>
-          ) : (
-            <a
-              href={`/video/${slug}`}
-              className={`bg-gray-500 rounded-xl px-3 py-1 text-gray-400 text-sm `}
-              onClick={() => postUserTopic(id)}
-            >
-              Start
-            </a>
-          )}
+          <h2 className="text-gray-600 font-bold" >{name}</h2>
+
+          <a
+            href={`/video/${slug}`}
+            className={`rounded-xl px-3 py-1 text-slate-400 text-sm bg-gray-500`}
+            onClick={is_started?undefined:()=>postUserTopic(id)}
+          >
+            {
+              is_started ?'Continue':'Start'
+            }
+            {/* Continue */}
+          </a>
+
         </div>
 
         {/* {isOpen && ( */}

@@ -15,6 +15,7 @@ import { VideoType } from "@/types/video";
 export default async function ProfilePage() {
   const res = await serverFetch(`/videos`);
   const { data } = await res.json();
+  console.log(data)
   // Return page
   return (
     <div className="grid grid-cols-3 gap-4 m-10">

@@ -28,10 +28,6 @@ export default function KnowledgeMapPage() {
       const res = await clientFetch(`/topics`);
       const { data: allTopics } = await res.json();
       setTopics(allTopics);
-
-      //  const test = await clientFetch(`/user-topics/users/me/topics`);
-      //     const rest = await res.json();
-      //     console.log(rest)
     }
     getTopics();
   }, []); // empty array = run once on mount

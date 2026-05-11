@@ -1,12 +1,19 @@
+"use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faGear } from "@fortawesome/free-solid-svg-icons";
 import { serverFetch } from "@/lib/fetch";
-
-export default async function ContentSetting() {
+import { clientFetch } from "@/lib/clientFetch";
+import Checkbox from "../form/Checkbox";
+async function getUserSetting() {
   // Content settin
-  const content_setting = await serverFetch(`/users/me/user-content-settings`);
-  const record = await content_setting.json();
-  console.log(record);
+  const content_setting = await clientFetch(`/users/me/user-content-settings`);
+  const { data: userSetting } = await content_setting.json();
+  console.log(userSetting);
+}
+/**
+ * Main Return Function
+ */
+export default function ContentSetting() {
   return (
     <>
       <div className="bg-gray-200 rounded-lg p-6">
@@ -22,35 +29,42 @@ export default async function ContentSetting() {
         <div className="flex gap-10 justify-start text-gray-600">
           <ul className="flex flex-col gap-4">
             <li>
-              <label htmlFor="videos">
+              <Checkbox name={"video"} />
+              {/* <label htmlFor="videos">
                 <input
                   type="radio"
                   className="accent-blue-500 w-4 h-4 text-blue-600 cursor-pointer"
                 />
                 <span className="px-2">Videos</span>
-              </label>
+              </label> */}
             </li>
             <li>
-              <label htmlFor="videos">
+              <Checkbox name={"interactive"} />
+
+              {/* <label htmlFor="videos">
                 <input
                   type="radio"
                   className="accent-blue-500 w-4 h-4 text-blue-600 cursor-pointer"
                 />
                 <span className="px-2">Interactive Demos</span>
-              </label>
+              </label> */}
             </li>
             <li>
-              <label htmlFor="videos">
+              <Checkbox name={"code"} />
+
+              {/* <label htmlFor="videos">
                 <input
                   type="radio"
                   className="accent-blue-500 w-4 h-4 text-blue-600 cursor-pointer"
                 />
                 <span className="px-2">Codes</span>
-              </label>
+              </label> */}
             </li>
           </ul>
           <ul className="flex flex-col gap-4">
-            <li>
+            <Checkbox name={"quiz"} />
+
+            {/* <li>
               <label htmlFor="videos">
                 <input
                   type="radio"
@@ -58,19 +72,21 @@ export default async function ContentSetting() {
                 />
                 <span className="px-2">Quizes</span>
               </label>
-            </li>
+            </li> */}
             <li>
-              <label htmlFor="videos">
+              <Checkbox name={"rambling"} />
+              <span className="text-gray-500 text-sm">
+                {" "}
+                Extra thoughts and insights from your professor.
+              </span>
+              {/* <label htmlFor="videos">
                 <input
                   type="radio"
                   className="accent-blue-500 w-4 h-4 text-blue-600 cursor-pointer"
                 />
                 <span className="px-2">Ramblings</span>{" "}
-                <span className="text-gray-500 text-sm">
-                  {" "}
-                  Extra thoughts and insights from your professor.
-                </span>
-              </label>
+     
+              </label> */}
             </li>
           </ul>
         </div>

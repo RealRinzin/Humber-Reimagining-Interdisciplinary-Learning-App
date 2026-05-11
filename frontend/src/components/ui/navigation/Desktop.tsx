@@ -58,10 +58,10 @@ export default function DesktopNavigation() {
             <li>
               <a
                 href="/profile"
-                onClick={(e) => {
-                  e.preventDefault();
-                  logOut();
-                }}
+                // onClick={(e) => {
+                //   e.preventDefault();
+                //   logOut();
+                // }}
               >
                 <Image src="/img/AccountIcon.png" height={25} width={25} alt="User Icon"/>
               </a>
