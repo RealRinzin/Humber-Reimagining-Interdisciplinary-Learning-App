@@ -129,7 +129,7 @@ export default async function Page({
           <div className="px-1 py-8">
             <div className="flex items-center gap-2">
               <Image
-                src={`/img/nextIcon.png`}
+                src={`/img/NextIcon.png`}
                 height={20}
                 width={20}
                 alt="Course Next Information"
@@ -153,7 +153,7 @@ export default async function Page({
             <CourseTabs
               type="code"
               title={"Code"}
-              icon="codeIcon.png"
+              icon="CodeIcon.png"
               content={video?.codes[0]?.code}
               videoID={video?.id}
               status={completeStatus?.code}
@@ -186,7 +186,7 @@ export default async function Page({
           <CourseTabs
             type="rambling"
             title={"Umer's Rambling"}
-            icon="ramblingsIcon.png"
+            icon="RamblingsIcon.png"
             content={video.title}
             videoID={video?.id}
             status={completeStatus?.rambling}

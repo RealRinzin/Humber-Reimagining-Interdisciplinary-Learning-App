@@ -11,7 +11,7 @@ export default async function MoreCourses() {
     <>
       <div className="flex items-center gap-2">
         <Image
-          src={`/img/nextIcon.png`}
+          src={`/img/NextIcon.png`}
           height={20}
           width={20}
           alt="Course Next Information"

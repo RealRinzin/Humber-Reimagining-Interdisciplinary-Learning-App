@@ -81,13 +81,13 @@ export default function CourseNodeLink() {
 
       // const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/topics`);
       const res = await clientFetch(`/topics`);
-      const {data:topics} = await res.json();
+      const { data: topics } = await res.json();
 
       // Connection
       // const connection = await fetch(
       //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/topic-connections`,
       // );
-      const topicConnection = await clientFetch('/topic-connections')
+      const topicConnection = await clientFetch("/topic-connections");
       const connect = await topicConnection.json();
       // const List: TopicType[] = [];
       const List: cytoscape.ElementDefinition[] = [];
@@ -159,7 +159,8 @@ export default function CourseNodeLink() {
         // Node Connection dash | dotted
         newStyle.push({
           // selector: 'edge[source = "2"], edge[target = "3"]',
-          selector: `edge[source = "${element.topic_id}"], edge[target = "${element.connected_topic_id}"]`,
+          // selector: `edge[source = "${element.topic_id}"], edge[target = "${element.connected_topic_id}"]`,
+          selector: `edge[source = "${element.topic_id}"][target = "${element.connected_topic_id}"]`,
           style: {
             width: 2,
             "line-color": `${[15, 12, 10, 2].includes(element.topic_id) ? "#F72585" : "#4CC9F0"}`,

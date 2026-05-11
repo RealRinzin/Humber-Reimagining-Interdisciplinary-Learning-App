@@ -43,20 +43,20 @@ export default function KnowledgeMapPage() {
         <div className="bg-gray-300 p-6 col-span-2">
           <ul className="flex w-fulljustify-evenly gap-6 items-center-safe text-center">
             <li
-              className="w-full bg-gray-900 rounded-xl py-2 text-white"
+              className="w-full bg-gray-900 rounded-xl py-2 text-white cursor-pointer"
               onClick={() => selectProfileType("topics")}
             >
               Step-by-Step
             </li>
             <li
               className="w-full bg-gray-400 rounded-xl py-2 text-gray-600"
-              onClick={() => selectProfileType("topic-connections")}
+              // onClick={() => selectProfileType("topic-connections")}
             >
               Foundation First
             </li>
             <li
               className="w-full bg-gray-400 rounded-xl py-2 text-gray-600"
-              onClick={() => selectProfileType("users")}
+              // onClick={() => selectProfileType("users")}
             >
               Explore Mode
             </li>
