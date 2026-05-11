@@ -12,6 +12,7 @@ import { solarizedDarkAtom } from "react-syntax-highlighter/dist/esm/styles/pris
 import { useEffect, useState } from "react";
 import { clientFetch } from "@/lib/clientFetch";
 import { useToggle } from "@/hooks/common/useToggle";
+import FlipCard from "@/components/ui/quiz/FlipCard";
 //
 export default function CourseTabs({
   title,
@@ -111,8 +112,8 @@ export default function CourseTabs({
           </SyntaxHighlighter>
         ) : type === "rambling" ? (
           "Rambling"
-        ) : type === "tyk" ? (
-          "Testing Your knowledge"
+        ) : type === "quiz" ? (
+          <FlipCard/>
         ) : type === "tldnw" ? (
           "Later watch"
         ) : type === "interactive" ? (
