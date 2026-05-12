@@ -9,4 +9,11 @@ class Team extends Model
 {
     /** @use HasFactory<\Database\Factories\TeamFactory> */
     use HasFactory;
+
+
+    // Relationship
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
 }

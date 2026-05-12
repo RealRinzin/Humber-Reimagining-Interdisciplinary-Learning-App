@@ -19,11 +19,12 @@ class TeamFactory extends Factory
     public function definition(): array
     {
         return [
+            
             //
             'project_id' => Project::inRandomOrder()->value('id'), // Create a new Quiz and associate it with the Question
-            'first_name' => fake()->firstName(), // Generate a random name for the topic title
+            'first_name' => 'fake()->firstName()', // Generate a random name for the topic title
             'last_name' => fake()->lastName(), // Generate a random name for the topic title
-            'role'=>fake()->jobTitle(),
+            'role'=>'fake()->jobTitle()',
             'mugshot'=>fake()->imageUrl(),
             'email'=>fake()->email(),
             'background'=>fake()->text(),

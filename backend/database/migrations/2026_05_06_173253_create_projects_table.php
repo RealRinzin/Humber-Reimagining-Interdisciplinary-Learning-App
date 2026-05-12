@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->date('start_date');
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->string('sponsor');
+            $table->string('thumbnail');
             $table->date('end_date');
-
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\v1\AuthController;
 use App\Http\Controllers\API\v1\CodeController;
+use App\Http\Controllers\API\v1\ProjectController;
 use App\Http\Controllers\API\v1\TopicConnectionController;
 use App\Http\Controllers\API\v1\TopicController;
 use App\Http\Controllers\API\v1\UserController;
@@ -36,6 +37,7 @@ Route::prefix('v1')
     ->group(function () {
         Route::post('/login', [AuthController::class, 'login']);
     });
+
 // Registeration API
 // This API is open to public but it will be rate limited by the throttle middleware
 Route::post('/register', [AuthController::class, 'register']);
@@ -46,6 +48,7 @@ Route::post('/postmanRegister', [AuthController::class, 'postmanRegister']);
 Route::middleware(['web', 'auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
+
 // =============== Authorized Protected API | Session Token ===============================| 
 
 // Route::prefix('v1')->name('v1.')->middleware('auth:sanctum')->group(function () {
@@ -220,5 +223,17 @@ Route::prefix('v1')
             ->group(function () {
                 Route::get('/user-content-settings', 'index')->name('user-setting.index'); // This API will be used to create or update the user video record when the user watches a video
                 Route::patch('/', 'store')->name('user-content-settings.store'); // This API will be used to create or update the user video record when the user watches a video
+            });
+    });
+
+
+// ================= TEST API =====================
+Route::prefix('v1')
+    ->name('v1.')
+    ->group(function () {
+
+        Route::controller(ProjectController::class)->prefix('projects')
+            ->group(function () {
+                Route::get('/', 'index')->name('project.index');
             });
     });

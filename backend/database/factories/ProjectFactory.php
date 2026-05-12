@@ -19,9 +19,16 @@ class ProjectFactory extends Factory
     {
         return [
             //
-            'title' => fake()->title(), 
-            'description'=>fake()->paragraph(),
-            'sponsor' => fake()->text(),
+            'title' => 'The Space Project',
+            'description' => "Our project responds to this opportunity and aims to develop an
+            online platform that combines a branching knowledge map with rich
+            multimedia resources. Unlike traditional textbooks or linear
+            e-learning modules, this platform encourages exploration and
+            contextual understanding. By giving students agency to choose their
+            path and weaving together mathematics, physics, and programming
+            through multimedia.",
+            'sponsor' => 'The funding partner',
+            'thumbnail' => 'team.png',
             'start_date' => fake()->date(),
             'end_date' => fake()->date()
         ];
