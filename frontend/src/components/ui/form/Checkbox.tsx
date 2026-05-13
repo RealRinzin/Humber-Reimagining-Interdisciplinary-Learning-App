@@ -1,13 +1,8 @@
-'use client'
-
-import { useEffect } from "react";
-
 interface checkBox {
   name: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value:boolean,
 }
-
 export default function Checkbox({ name,value, onChange }: checkBox) {
   return (
     <label

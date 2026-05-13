@@ -1,7 +1,8 @@
 "use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faGear } from "@fortawesome/free-solid-svg-icons";
-import { clientFetch, clientPatch } from "@/lib/clientFetch";
+import { serverFetch } from "@/lib/fetch";
+import { clientFetch } from "@/lib/clientFetch";
 import Checkbox from "../form/Checkbox";
 import { useEffect, useState } from "react";
 
@@ -22,16 +23,15 @@ export default function ContentSetting() {
   }
 
   // Update the setting
+
   const updateSetting =
-    (field:string) =>
-    async (e: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
-      const res = await clientPatch(`/user-content-settings/1`, {
-        [field]: e.target.checked, // dynamic field instead of hardcoded
-      });
-      console.log(res);
+    (setting: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+
     };
 
-  // Use Effect
+
+
+    // Use Effect
   useEffect(() => {
     getUserSetting();
   }, []);
@@ -53,7 +53,7 @@ export default function ContentSetting() {
               <Checkbox
                 name={"video"}
                 value={userSettings?.video ?? false}
-                onChange={updateSetting('video')}
+                onChange={updateSetting(!userSettings?.video )}
               />
             </li>
             <li>
