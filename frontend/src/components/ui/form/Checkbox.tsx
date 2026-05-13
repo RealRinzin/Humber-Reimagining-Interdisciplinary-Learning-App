@@ -1,9 +1,21 @@
+import { useState } from "react";
+
 interface checkBox {
   name: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  value:boolean,
+  // onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value: boolean;
 }
-export default function Checkbox({ name,value, onChange }: checkBox) {
+export default function Checkbox({ name, value }: checkBox) {
+  const [status,setStatus] = useState(value)
+  /**
+   * Handle the onChange update
+   */
+
+  const updateSetting = (currentValu:boolean) =>(e: React.ChangeEvent<HTMLInputElement>)=> {
+    setStatus(!status);
+    console.log(!status)
+  };
+
   return (
     <label
       className="flex items-center gap-3 cursor-pointer mt-4"
@@ -13,8 +25,8 @@ export default function Checkbox({ name,value, onChange }: checkBox) {
         <input
           id={name} // connect id to htmlFor
           type="checkbox"
-          checked={value}
-          onChange={onChange}
+          checked={status}
+          onChange={updateSetting(value)}
           className="sr-only peer"
         />
         <div className="w-14 h-7 bg-red-500 peer-checked:bg-green-500 rounded-full transition-colors duration-300" />

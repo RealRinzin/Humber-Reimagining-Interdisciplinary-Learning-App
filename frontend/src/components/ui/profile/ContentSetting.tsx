@@ -24,10 +24,10 @@ export default function ContentSetting() {
 
   // Update the setting
 
-  const updateSetting =
-    (setting: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+  // const updateSetting =
+  //   (setting: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    };
+  //   };
 
 
 
@@ -53,21 +53,21 @@ export default function ContentSetting() {
               <Checkbox
                 name={"video"}
                 value={userSettings?.video ?? false}
-                onChange={updateSetting(!userSettings?.video )}
+                // onChange={updateSetting(!userSettings?.video )}
               />
             </li>
             <li>
               <Checkbox
                 name={"interactive"}
                 value={userSettings?.interactive ?? false}
-                onChange={updateSetting("status")}
+                // onChange={updateSetting("status")}
               />
             </li>
             <li>
               <Checkbox
                 name={"code"}
                 value={userSettings?.code ?? false}
-                onChange={updateSetting("status")}
+                // onChange={updateSetting("status")}
               />
             </li>
           </ul>
@@ -75,13 +75,13 @@ export default function ContentSetting() {
             <Checkbox
               name={"quiz"}
               value={userSettings?.quiz ?? false}
-              onChange={updateSetting("status")}
+              // onChange={updateSetting("status")}
             />
             <li>
               <Checkbox
                 name={"rambling"}
                 value={userSettings?.rambling ?? false}
-                onChange={updateSetting("status")}
+                // onChange={updateSetting("status")}
               />
               <span className="text-gray-500 text-sm">
                 {" "}
