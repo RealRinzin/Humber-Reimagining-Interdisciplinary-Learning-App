@@ -5,7 +5,9 @@ namespace App\Http\Resources\User;
 use App\Http\Resources\Topic\TopicResource;
 use App\Http\Resources\TopicNode\TopicNodeResource;
 use App\Http\Resources\UserTopic\UserTopicResource;
+use App\Http\Resources\UserVideo\UserVideoResource;
 use App\Http\Resources\UserVideoProgress\UserVideoProgressResource;
+use App\Http\Resources\UserVideoSetting\UserVideoSettingResource;
 use App\Http\Resources\Video\VideoResource;
 use App\Http\Resources\VideoWatchHistory\VideoWatchHistoryResource;
 use App\Models\UserTopic;
@@ -28,7 +30,9 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'username' => $this->username,
             'topics' => TopicResource::collection($this->whenLoaded('topics')),
-            'count' => $this->topics->count(),
+            'user_videos' => UserVideoResource::collection($this->whenLoaded('userVideos')),
+            'user_video_settings' => UserVideoSettingResource::collection($this->whenLoaded('userVideoSetting')),
+            'count' => $this->whenLoaded('topics', fn() => $this->topics->count(), 0),
         ];
     }
 }

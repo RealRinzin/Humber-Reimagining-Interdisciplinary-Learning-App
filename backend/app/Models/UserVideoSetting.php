@@ -4,16 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class UserVideoSetting extends Model
+class UserVideoSetting extends Pivot
 {
     /** @use HasFactory<\Database\Factories\UserVideoSettingFactory> */
     use HasFactory;
-
+    protected $table = 'user_video_settings'; // force the correct table name
+    public $incrementing = true;
     // tell Laravel there's no single id column
     // public $incrementing = false;
     // protected $primaryKey = null; // composite key, no single primary key
-
 
     protected $fillable = [
         'user_id',
@@ -44,11 +45,11 @@ class UserVideoSetting extends Model
     ];
 
     // Model Relationship
-    public function users()
-    {
-        return $this->belongsToMany(Video::class, 'user_video_settings')
-            ->using(UserVideoSetting::class)
-            ->withPivot('code', 'interactive', 'rambling', 'quiz')
-            ->withTimestamps();
-    }
+    // public function users()
+    // {
+    //     return $this->belongsToMany(Video::class, 'user_video_settings')
+    //         ->using(UserVideoSetting::class)
+    //         ->withPivot('code', 'interactive', 'rambling', 'quiz')
+    //         ->withTimestamps();
+    // }
 }

@@ -78,7 +78,7 @@ export default async function ProfilePage() {
       </div>
       {/* Node Links */}
       <div className="bg-blue-950 rounded-lg">
-        <CourseNodeLink />
+        {/* <CourseNodeLink /> */}
       </div>
     </div>
   );

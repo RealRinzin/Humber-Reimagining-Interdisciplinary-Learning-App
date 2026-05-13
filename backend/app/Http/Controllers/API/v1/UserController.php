@@ -15,6 +15,9 @@ class UserController
     public function index()
     {
 
+    return User::with(['user_topics'])->get();
+
+
         $users = User::with(['topics', 'videos.topic'])->get();
         return UserResource::collection($users);
     }
@@ -35,7 +38,7 @@ class UserController
     public function show(User $user, Request $request)
     {
 
-        $user = User::with(['topics'])->findOrFail($user->id);
+        $user = User::with(['userVideoSetting'])->findOrFail($user->id);
         return new UserResource($user);
     }
 

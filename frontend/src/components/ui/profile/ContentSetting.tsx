@@ -1,19 +1,40 @@
 "use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faGear } from "@fortawesome/free-solid-svg-icons";
-import { serverFetch } from "@/lib/fetch";
-import { clientFetch } from "@/lib/clientFetch";
+import { clientFetch, clientPatch } from "@/lib/clientFetch";
 import Checkbox from "../form/Checkbox";
-async function getUserSetting() {
-  // Content settin
-  const content_setting = await clientFetch(`/users/me/user-content-settings`);
-  const { data: userSetting } = await content_setting.json();
-  console.log(userSetting);
-}
+import { useEffect, useState } from "react";
+
 /**
  * Main Return Function
  */
 export default function ContentSetting() {
+  const [userSettings, setUserSettings] = useState([]);
+  // getUserSetting();
+  async function getUserSetting() {
+    // Content settin
+    const content_setting = await clientFetch(
+      `/users/me/user-content-settings`,
+    );
+    const { data: settings } = await content_setting.json();
+    setUserSettings(settings);
+    console.log(settings);
+  }
+
+  // Update the setting
+  const updateSetting =
+    (field:string) =>
+    async (e: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
+      const res = await clientPatch(`/user-content-settings/1`, {
+        [field]: e.target.checked, // dynamic field instead of hardcoded
+      });
+      console.log(res);
+    };
+
+  // Use Effect
+  useEffect(() => {
+    getUserSetting();
+  }, []);
   return (
     <>
       <div className="bg-gray-200 rounded-lg p-6">
@@ -29,64 +50,43 @@ export default function ContentSetting() {
         <div className="flex gap-10 justify-start text-gray-600">
           <ul className="flex flex-col gap-4">
             <li>
-              <Checkbox name={"video"} />
-              {/* <label htmlFor="videos">
-                <input
-                  type="radio"
-                  className="accent-blue-500 w-4 h-4 text-blue-600 cursor-pointer"
-                />
-                <span className="px-2">Videos</span>
-              </label> */}
+              <Checkbox
+                name={"video"}
+                value={userSettings?.video ?? false}
+                onChange={updateSetting('video')}
+              />
             </li>
             <li>
-              <Checkbox name={"interactive"} />
-
-              {/* <label htmlFor="videos">
-                <input
-                  type="radio"
-                  className="accent-blue-500 w-4 h-4 text-blue-600 cursor-pointer"
-                />
-                <span className="px-2">Interactive Demos</span>
-              </label> */}
+              <Checkbox
+                name={"interactive"}
+                value={userSettings?.interactive ?? false}
+                onChange={updateSetting("status")}
+              />
             </li>
             <li>
-              <Checkbox name={"code"} />
-
-              {/* <label htmlFor="videos">
-                <input
-                  type="radio"
-                  className="accent-blue-500 w-4 h-4 text-blue-600 cursor-pointer"
-                />
-                <span className="px-2">Codes</span>
-              </label> */}
+              <Checkbox
+                name={"code"}
+                value={userSettings?.code ?? false}
+                onChange={updateSetting("status")}
+              />
             </li>
           </ul>
           <ul className="flex flex-col gap-4">
-            <Checkbox name={"quiz"} />
-
-            {/* <li>
-              <label htmlFor="videos">
-                <input
-                  type="radio"
-                  className="accent-blue-500 w-4 h-4 text-blue-600 cursor-pointer"
-                />
-                <span className="px-2">Quizes</span>
-              </label>
-            </li> */}
+            <Checkbox
+              name={"quiz"}
+              value={userSettings?.quiz ?? false}
+              onChange={updateSetting("status")}
+            />
             <li>
-              <Checkbox name={"rambling"} />
+              <Checkbox
+                name={"rambling"}
+                value={userSettings?.rambling ?? false}
+                onChange={updateSetting("status")}
+              />
               <span className="text-gray-500 text-sm">
                 {" "}
                 Extra thoughts and insights from your professor.
               </span>
-              {/* <label htmlFor="videos">
-                <input
-                  type="radio"
-                  className="accent-blue-500 w-4 h-4 text-blue-600 cursor-pointer"
-                />
-                <span className="px-2">Ramblings</span>{" "}
-     
-              </label> */}
             </li>
           </ul>
         </div>

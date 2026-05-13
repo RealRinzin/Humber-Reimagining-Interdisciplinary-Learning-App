@@ -152,4 +152,5 @@ class AuthController
             'token' => $token  // assign the generate token of the new user
         ]);
     }
+
 }

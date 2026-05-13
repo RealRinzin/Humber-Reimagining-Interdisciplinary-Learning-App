@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('code')->default(false);
             $table->boolean('quiz')->default(false);
             $table->boolean('interactive')->default(false);
+            $table->boolean('rambling')->default(false);
             // Learning Path
             $table->boolean('explore_mode')->default(false);
             $table->boolean('guide_path')->default(false);

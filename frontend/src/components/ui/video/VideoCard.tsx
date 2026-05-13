@@ -2,7 +2,6 @@ import RingProgressBar from "@/components/ui/progress/Ring";
 import { VideoType } from "@/types/video";
 
 export default function VideoCard({ video }: { video: VideoType }) {
-  console.log(video)
   return (
     <>
       <div className="rounded-3xl border-2 border-slate-400 bg-slate-100 p-3 text-sm">
