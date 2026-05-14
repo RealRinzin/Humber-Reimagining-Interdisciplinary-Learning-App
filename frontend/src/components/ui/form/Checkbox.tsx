@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 
 interface checkBox {
   name: string;
-  // onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value: boolean;
   id:number
 }
