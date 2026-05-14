@@ -14,6 +14,7 @@ class UserContentSetting extends Model
         'video',
         'code',
         'quiz',
+        'rambling',
         'interactive',
         'explore_mode',
         'guide_path',

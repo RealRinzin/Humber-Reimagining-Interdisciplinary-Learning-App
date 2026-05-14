@@ -1,21 +1,25 @@
-import { useState } from "react";
+import { clientFetch, clientPatch } from "@/lib/clientFetch";
+import { useEffect, useState } from "react";
 
 interface checkBox {
   name: string;
   // onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value: boolean;
+  id:number
 }
-export default function Checkbox({ name, value }: checkBox) {
-  const [status,setStatus] = useState(value)
+export default function Checkbox({ name, value,id }: checkBox) {
+  const [status, setStatus] = useState(value);
   /**
    * Handle the onChange update
    */
-
-  const updateSetting = (currentValu:boolean) =>(e: React.ChangeEvent<HTMLInputElement>)=> {
-    setStatus(!status);
-    console.log(!status)
+  const updateSetting = () => {
+    const res = clientPatch(`/users/me/user-content-settings/${id}`, {[name]:!status})
+    setStatus(!status)
   };
 
+  useEffect(() => {
+    setStatus(value);
+  }, [value]);
   return (
     <label
       className="flex items-center gap-3 cursor-pointer mt-4"
@@ -26,7 +30,7 @@ export default function Checkbox({ name, value }: checkBox) {
           id={name} // connect id to htmlFor
           type="checkbox"
           checked={status}
-          onChange={updateSetting(value)}
+          onChange={updateSetting}
           className="sr-only peer"
         />
         <div className="w-14 h-7 bg-red-500 peer-checked:bg-green-500 rounded-full transition-colors duration-300" />

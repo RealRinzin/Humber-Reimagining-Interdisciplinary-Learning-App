@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\v1;
 
 use App\Actions\UserContentSetting\CreateUserContentSettingAction;
+use App\Actions\UserContentSetting\UpdateUserContentSettingAction;
 use App\DTOs\UserContentSetting\CreateUserContentSettingDTO;
 use App\Http\Requests\UserContentSetting\StoreUserContentSettingRequest;
 use App\Models\User;
@@ -43,8 +44,18 @@ class UserContentSettingController
 
     /** Update */
 
-    public function update(Request $request)
+    public function update(StoreUserContentSettingRequest $request, UpdateUserContentSettingAction $action)
     {
-        return $request->all();
+        try {
+            $userContentSetting = $action->execute(CreateUserContentSettingDTO::fromRequest($request));
+            return response()->json($userContentSetting, $userContentSetting->wasRecentlyCreated ? 201 : 200);
+            // $dto = CreateUserContentSettingDTO::fromRequest($request);
+            // $setting = $action->execute($dto);
+        } catch (AuthorizationException $e) {
+            return response()->json(
+                ['message' => 'Something is wrong. Please try again'],
+                409
+            );
+        }
     }
 }

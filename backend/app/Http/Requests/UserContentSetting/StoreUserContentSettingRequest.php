@@ -23,13 +23,14 @@ class StoreUserContentSettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'video' => ['required','boolean'],
-            'code' => ['required','boolean'],
-            'quiz' => ['required','boolean'],
-            'interactive' => ['required','boolean'],
-            'explore_mode' => ['required','boolean'],
-            'guide_path' => ['required','boolean'],
-            'progress' => ['required','boolean'],
+            'video' => ['sometimes','boolean'],
+            'code' => ['sometimes','boolean'],
+            'quiz' => ['sometimes','boolean'],
+            'rambling' => ['sometimes','boolean'],
+            'interactive' => ['sometimes','boolean'],
+            'explore_mode' => ['sometimes','boolean'],
+            'guide_path' => ['sometimes','boolean'],
+            'progress' => ['sometimes','boolean'],
         ];
     }
 
@@ -39,6 +40,7 @@ class StoreUserContentSettingRequest extends FormRequest
             'video.required'     => 'Video status is required.',
             'code.required'     => 'Code status is required.',
             'quiz.required'     => 'Quiz status is required.',
+            'rambling.required'     => 'Rambling status is required.',
             'interactive.required'     => 'interactive status is required.',
             'explore_mode.required'     => 'Explore Mode status is required.',
             'guide_path.required'     => 'Guided Path status is required.',

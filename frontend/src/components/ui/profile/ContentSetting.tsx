@@ -1,7 +1,6 @@
 "use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faGear } from "@fortawesome/free-solid-svg-icons";
-import { serverFetch } from "@/lib/fetch";
 import { clientFetch } from "@/lib/clientFetch";
 import Checkbox from "../form/Checkbox";
 import { useEffect, useState } from "react";
@@ -19,20 +18,10 @@ export default function ContentSetting() {
     );
     const { data: settings } = await content_setting.json();
     setUserSettings(settings);
-    console.log(settings);
   }
-
-  // Update the setting
-
-  // const updateSetting =
-  //   (setting: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-
-  //   };
-
-
-
-    // Use Effect
+  // Use Effect
   useEffect(() => {
+    const data = clientFetch("/users/me/user-content-settings");
     getUserSetting();
   }, []);
   return (
@@ -53,21 +42,21 @@ export default function ContentSetting() {
               <Checkbox
                 name={"video"}
                 value={userSettings?.video ?? false}
-                // onChange={updateSetting(!userSettings?.video )}
+                id={userSettings?.id}
               />
             </li>
             <li>
               <Checkbox
                 name={"interactive"}
                 value={userSettings?.interactive ?? false}
-                // onChange={updateSetting("status")}
+                id={userSettings?.id}
               />
             </li>
             <li>
               <Checkbox
                 name={"code"}
                 value={userSettings?.code ?? false}
-                // onChange={updateSetting("status")}
+                id={userSettings?.id}
               />
             </li>
           </ul>
@@ -75,13 +64,13 @@ export default function ContentSetting() {
             <Checkbox
               name={"quiz"}
               value={userSettings?.quiz ?? false}
-              // onChange={updateSetting("status")}
+              id={userSettings?.id}
             />
             <li>
               <Checkbox
                 name={"rambling"}
                 value={userSettings?.rambling ?? false}
-                // onChange={updateSetting("status")}
+                id={userSettings?.id}
               />
               <span className="text-gray-500 text-sm">
                 {" "}
