@@ -99,7 +99,7 @@ const OnBoardingShowProgress = ({
     const settingRes = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/user-content-settings`,
       {
-        method: "PATCH",
+        method: "POST",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
@@ -124,7 +124,7 @@ const OnBoardingShowProgress = ({
       setLoading(false)
       await onBoardCall();
       onSuccess(data);
-      router.push("/profile/knowledge_map");
+      // router.push("/profile/knowledge_map");
     } catch (err) {
       console.error("error", err);
     }

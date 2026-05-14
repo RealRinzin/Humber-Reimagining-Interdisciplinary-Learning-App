@@ -4,24 +4,33 @@ import { faCaretDown, faGear } from "@fortawesome/free-solid-svg-icons";
 import { clientFetch } from "@/lib/clientFetch";
 import Checkbox from "../form/Checkbox";
 import { useEffect, useState } from "react";
-
+interface UserSettings {
+  id: number;
+  video: boolean;
+  code: boolean;
+  quiz: boolean;
+  interactive: boolean;
+  explore_mode: boolean;
+  guide_path: boolean;
+  progress: boolean;
+  rambling: boolean;
+}
 /**
  * Main Return Function
  */
 export default function ContentSetting() {
-  const [userSettings, setUserSettings] = useState([]);
+  const [userSettings, setUserSettings] = useState<UserSettings | null>(null);
   // getUserSetting();
   async function getUserSetting() {
     // Content settin
     const content_setting = await clientFetch(
-      `/users/me/user-content-settings`,
+      `/user-content-settings/users/me`,
     );
     const { data: settings } = await content_setting.json();
     setUserSettings(settings);
   }
   // Use Effect
   useEffect(() => {
-    const data = clientFetch("/users/me/user-content-settings");
     getUserSetting();
   }, []);
   return (

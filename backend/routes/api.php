@@ -219,11 +219,11 @@ Route::prefix('v1')
         //     });
 
 
-        Route::controller(UserContentSettingController::class)->prefix('users/me/user-content-settings')
+        Route::controller(UserContentSettingController::class)->prefix('user-content-settings')
             ->group(function () {
-                Route::get('/', 'index')->name('user-setting.index'); // This API will be used to create or update the user video record when the user watches a video
+                Route::get('/users/me/', 'index')->name('user-setting.index'); // This API will be used to create or update the user video record when the user watches a video
                 Route::post('/', 'store')->name('user-content-settings.store'); // This API will be used to create or update the user video record when the user watches a video
-                Route::patch('/{id}', 'update')->name('user-content-settings.update'); // This API will be used to create or update the user video record when the user watches a video
+                Route::patch('/users/me/{id}', 'update')->name('user-content-settings.update'); // This API will be used to create or update the user video record when the user watches a video
             });
     });
 

@@ -13,7 +13,7 @@ export default function Checkbox({ name, value,id }: checkBox) {
    * Handle the onChange update
    */
   const updateSetting = () => {
-    const res = clientPatch(`/users/me/user-content-settings/${id}`, {[name]:!status})
+    const res = clientPatch(`/user-content-settings/users/me/${id}`, {[name]:!status})
     setStatus(!status)
   };
 
