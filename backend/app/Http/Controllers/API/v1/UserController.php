@@ -38,7 +38,7 @@ class UserController
     public function show(User $user, Request $request)
     {
 
-        $user = User::with(['userVideoSetting'])->findOrFail($user->id);
+        $user = User::with(['userVideoSetting','userVideos','topics'])->findOrFail($user->id);
         return new UserResource($user);
     }
 

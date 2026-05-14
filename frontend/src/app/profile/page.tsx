@@ -4,8 +4,6 @@ import ContentSetting from "@/components/ui/profile/ContentSetting";
 import ProfileCirleRing from "@/components/ui/profile/ProfileRing";
 import TabProgressBar from "@/components/ui/progress/Tab";
 // import HeaderCookie from "@/lib/httpHeaderCookie";
-import { cookies } from "next/headers";
-import { notFound } from "next/navigation";
 import { serverFetch } from "@/lib/fetch";
 import { VideoType } from "@/types/video";
 /**
@@ -14,7 +12,13 @@ import { VideoType } from "@/types/video";
  */
 export default async function ProfilePage() {
   const res = await serverFetch(`/topics`);
-  const { data } = await res.json();
+  const { data: topics } = await res.json();
+
+  // Get the User Record for the tables
+
+  const getUserRecords = await serverFetch('/users/2')
+  const {data:userData} = await getUserRecords.json()
+  console.log(userData);
   // Return page
   return (
     <div className="grid grid-cols-3 gap-4 m-10">
@@ -27,18 +31,18 @@ export default async function ProfilePage() {
             <ul>
               <TabProgressBar
                 name={"Lectures Watched"}
-                completed={3}
-                incomplete={9}
+                completed={userData?.user_video_settings.length??0}
+                total={topics.length}
               />
               <TabProgressBar
                 name={"Code Tested"}
-                completed={1}
-                incomplete={11}
+                completed={userData?.topics.lenght??0}
+                total={topics.length}
               />
               <TabProgressBar
                 name={"Flashcards Completed"}
-                completed={2}
-                incomplete={10}
+                completed={userData?.user_videos.length??0}
+                total={topics.length}
               />
             </ul>
           </div>
@@ -47,17 +51,17 @@ export default async function ProfilePage() {
               <TabProgressBar
                 name={"Demos Completed"}
                 completed={1}
-                incomplete={11}
+                total={topics.length}
               />
               <TabProgressBar
                 name={"Ramblings Read"}
                 completed={5}
-                incomplete={7}
+                total={topics.length}
               />
               <TabProgressBar
                 name={"Resources Reviewed"}
                 completed={6}
-                incomplete={6}
+                total={topics.length}
               />
             </ul>
           </div>
@@ -65,8 +69,8 @@ export default async function ProfilePage() {
         {/* Continue Learning section */}
 
         <div className="flex gap-10 my-10">
-          {data.slice(0, 3).map((video: VideoType, index: number) => (
-            <div key={index}> 
+          {topics.slice(0, 3).map((video: VideoType, index: number) => (
+            <div key={index}>
               <VideoCard video={video} />
             </div>
           ))}
@@ -78,8 +82,8 @@ export default async function ProfilePage() {
       </div>
       {/* Node Links */}
       <div className="bg-blue-950 rounded-lg">
-        {/* <CourseNodeLink /> */}
-      </div>
+        <CourseNodeLink />
+        </div>
     </div>
   );
 }

@@ -53,7 +53,7 @@ class TeamSeeder extends Seeder
                 'project_id'  => 1,
                 'first_name'  => 'Paul',
                 'last_name'   => 'Neale',
-                'role'        => 'Profesor',
+                'role'        => 'Professor',
                 'mugshot'     => 'Paul-Neale.png',
                 'email'       => 'jane@example.com',
                 'background'  => 'UI/UX designer specialising in...',

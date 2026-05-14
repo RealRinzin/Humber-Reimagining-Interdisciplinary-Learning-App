@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 interface checkBox {
   name: string;
   value: boolean;
-  id:number
+  id?:number
 }
 export default function Checkbox({ name, value,id }: checkBox) {
   const [status, setStatus] = useState(value);

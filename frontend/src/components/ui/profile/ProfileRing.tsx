@@ -1,24 +1,6 @@
-import { cookies } from "next/headers";
 
-// import { useEffect, useState } from "react";
 export default async function ProfileCirleRing() {
-  const cookieStore = await cookies();
 
-  const cookieHeader = cookieStore
-    .getAll()
-    .map((c) => `${c.name}=${c.value}`)
-    .join("; ");
-
-  const res = await fetch(`${process.env.API_BASE_URL}/users`, {
-    headers: {
-      Cookie: cookieHeader,
-      Referer: 'http://localhost:3000', // required for Sanctum stateful check
-    },
-    cache: 'no-store',
-  });
-
-  const user = await res.json();
-  // console.log(user)
   return (
     <div className="flex flex-col gap-y-3 py-2">
       <h1 className="font-semibold text-gray-700">Your Progress</h1>

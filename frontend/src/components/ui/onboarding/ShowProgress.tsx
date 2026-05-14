@@ -124,7 +124,7 @@ const OnBoardingShowProgress = ({
       setLoading(false)
       await onBoardCall();
       onSuccess(data);
-      // router.push("/profile/knowledge_map");
+      router.push("/profile/knowledge_map");
     } catch (err) {
       console.error("error", err);
     }
