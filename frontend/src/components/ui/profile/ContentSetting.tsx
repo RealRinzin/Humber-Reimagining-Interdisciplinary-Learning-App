@@ -33,6 +33,8 @@ export default function ContentSetting() {
   useEffect(() => {
     getUserSetting();
   }, []);
+
+  if (!userSettings) return <p>Loading...</p>;
   return (
     <>
       <div className="bg-gray-200 rounded-lg p-6">
