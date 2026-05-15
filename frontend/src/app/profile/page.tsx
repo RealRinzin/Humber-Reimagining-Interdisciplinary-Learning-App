@@ -63,8 +63,8 @@ export default async function ProfilePage() {
               />
             </ul>
           </div>
-          {/* <div> */}
-            {/* <ul>
+          <div>
+            <ul>
               <TabProgressBar
                 name={"Ramblings Read"}
                 completed={checkedMarkCount?.ramblng ?? 0}
@@ -76,8 +76,8 @@ export default async function ProfilePage() {
                 completed={6}
                 total={topics.length}
               />
-            </ul> */}
-          {/* </div> */}
+            </ul>
+          </div>
         </div>
         {/* Continue Learning section */}
 
@@ -94,7 +94,10 @@ export default async function ProfilePage() {
         </div>
       </div>
       {/* Node Links */}
-      <div className="bg-blue-950 rounded-lg">{/* <CourseNodeLink /> */}</div>
+      <div className="bg-blue-950 rounded-lg">
+        <CourseNodeLink />
+
+      </div>
     </div>
   );
 }
