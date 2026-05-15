@@ -65,7 +65,6 @@ Route::prefix('v1')
         // =============== User Logout | Registeration ===============================| 
         // This API is protected by sanctum middleware and it will be used for user logout
         // This API will revoke the token of the user and it will return a success message
-
         Route::post('/logout', [AuthController::class, 'logout']);
      // User Controller
         // This API will be used to get the user data and also to update the user data
@@ -77,7 +76,10 @@ Route::prefix('v1')
          * /api/v1/users/{user} // This API will return the user data
          * /api/v1/users/{user} // This API will update the user data 
          */
-        Route::apiResource('users', UserController::class)->except(['create', 'edit']);
+        Route::controller(UserController::class)->prefix('users/me')->group(function () {
+            Route::get('/profile', 'profile')->name('users.profile');
+        });
+        // Route::apiResource('users', UserController::class)->except(['create', 'edit']);
         // === Topic Controller ==
         // This API will be used to get the codes of the user and also to add or remove codes from the user
         // GET /api/v1/codes/users/{user}/codes // This API will return the codes of the user

@@ -45,11 +45,4 @@ class UserVideoSetting extends Pivot
     ];
 
     // Model Relationship
-    // public function users()
-    // {
-    //     return $this->belongsToMany(Video::class, 'user_video_settings')
-    //         ->using(UserVideoSetting::class)
-    //         ->withPivot('code', 'interactive', 'rambling', 'quiz')
-    //         ->withTimestamps();
-    // }
 }

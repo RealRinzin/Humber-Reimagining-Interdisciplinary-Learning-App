@@ -15,8 +15,7 @@ class UserController
     public function index()
     {
 
-    return User::with(['user_topics'])->get();
-
+        return User::with(['user_topics'])->get();
 
         $users = User::with(['topics', 'videos.topic'])->get();
         return UserResource::collection($users);
@@ -37,8 +36,8 @@ class UserController
      */
     public function show(User $user, Request $request)
     {
-
-        $user = User::with(['userVideoSetting','userVideos','topics'])->findOrFail($user->id);
+        // return $request->user()->id;
+        $user = User::with(['userVideoSetting', 'userVideos', 'topics'])->findOrFail($request->user()->id);
         return new UserResource($user);
     }
 
@@ -58,35 +57,13 @@ class UserController
         //
     }
 
-    // More Controllers
-    public function videos(Request $request)
+    // Profile
+    public function profile(Request $request)
     {
-
-
-        // return UserVideo::
-        // return $request->user();
-
-        // return "working";
-        // $video->load('videoWatchHistory','userVideoProgress'); // eager load relationship on the model instance
-        // return new VideoResource(Video::get()); // return as a resource
-        // $user->load('userVideoProgress'); // eager load relationship on the model instance
-        // return new User($user); // return as a resource
-
-        // return Video::with(['document', 'code', 'userVideoProgress'])->get();
-        // return VideoResource::collection(
-        //     Video::with('videoWatchHistory')->get()
-        // );
-        // $video->load('videoWatchHistory', 'userVideoProgress'); // eager load relationship on the model instance
-        // return new VideoResource($video); // return as a resource
-        // return UserVideoResource::collection(
-        //     $request->user()
-        //         ->videoWatchHistory()
-        //         ->with('video')  // eager load parent video
-        //         ->get()
-        // );
+        return new UserResource(
+            $request->user()->load(['userVideoSetting', 'userVideos', 'topics'])
+        );
     }
-
-
 
     // User Video Controller
 

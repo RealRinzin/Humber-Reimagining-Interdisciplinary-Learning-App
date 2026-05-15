@@ -6,6 +6,14 @@ import TabProgressBar from "@/components/ui/progress/Tab";
 // import HeaderCookie from "@/lib/httpHeaderCookie";
 import { serverFetch } from "@/lib/fetch";
 import { VideoType } from "@/types/video";
+
+interface CheckedMarkCount {
+  code: number;
+  quiz: number;
+  rambling: number;
+  interactive: number;
+}
+
 /**
  *
  * @returns
@@ -15,10 +23,19 @@ export default async function ProfilePage() {
   const { data: topics } = await res.json();
 
   // Get the User Record for the tables
+  const getUserRecords = await serverFetch("/users/me/profile");
+  const { data: userData } = await getUserRecords.json();
 
-  const getUserRecords = await serverFetch('/users/2')
-  const {data:userData} = await getUserRecords.json()
-  console.log(userData);
+  const checkedMarkCount =
+    userData?.user_video_settings.reduce<CheckedMarkCount>(
+      (acc, data) => ({
+        code: acc.code + (data?.pivot?.code ? 1 : 0),
+        quiz: acc.quiz + (data?.pivot?.quiz ? 1 : 0),
+        rambling: acc.rambling + (data?.pivot?.rambling ? 1 : 0),
+        interactive: acc.interactive + (data?.pivot?.interactive ? 1 : 0),
+      }),
+      { code: 0, quiz: 0, rambling: 0, interactive: 0 },
+    );
   // Return page
   return (
     <div className="grid grid-cols-3 gap-4 m-10">
@@ -31,31 +48,33 @@ export default async function ProfilePage() {
             <ul>
               <TabProgressBar
                 name={"Lectures Watched"}
-                completed={userData?.user_video_settings.length??0}
-                total={topics.length}
+                completed={userData?.topics?.length ?? 0}
+                total={topics?.length}
               />
               <TabProgressBar
                 name={"Code Tested"}
-                completed={userData?.topics.lenght??0}
-                total={topics.length}
+                completed={checkedMarkCount?.code ?? 0}
+                total={topics?.length}
               />
               <TabProgressBar
                 name={"Flashcards Completed"}
-                completed={userData?.user_videos.length??0}
+                completed={checkedMarkCount?.quiz ?? 0}
+
                 total={topics.length}
               />
             </ul>
           </div>
           <div>
             <ul>
-              <TabProgressBar
+              {/* <TabProgressBar
                 name={"Demos Completed"}
                 completed={1}
                 total={topics.length}
-              />
+              /> */}
               <TabProgressBar
                 name={"Ramblings Read"}
-                completed={5}
+                completed={checkedMarkCount?.ramblng ?? 0}
+
                 total={topics.length}
               />
               <TabProgressBar
@@ -81,9 +100,7 @@ export default async function ProfilePage() {
         </div>
       </div>
       {/* Node Links */}
-      <div className="bg-blue-950 rounded-lg">
-        <CourseNodeLink />
-        </div>
+      <div className="bg-blue-950 rounded-lg">{/* <CourseNodeLink /> */}</div>
     </div>
   );
 }
