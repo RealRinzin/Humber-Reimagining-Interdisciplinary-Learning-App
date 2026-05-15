@@ -25,7 +25,6 @@ export default async function ProfilePage() {
   // Get the User Record for the tables
   const getUserRecords = await serverFetch("/users/me/profile");
   const { data: userData } = await getUserRecords.json();
-
   const checkedMarkCount =
     userData?.user_video_settings.reduce<CheckedMarkCount>(
       (acc, data) => ({
@@ -57,20 +56,15 @@ export default async function ProfilePage() {
                 total={topics?.length}
               />
               <TabProgressBar
-                name={"Flashcards Completed"}
+                name={"Quiz Completed"}
                 completed={checkedMarkCount?.quiz ?? 0}
 
                 total={topics.length}
               />
             </ul>
           </div>
-          <div>
-            <ul>
-              {/* <TabProgressBar
-                name={"Demos Completed"}
-                completed={1}
-                total={topics.length}
-              /> */}
+          {/* <div> */}
+            {/* <ul>
               <TabProgressBar
                 name={"Ramblings Read"}
                 completed={checkedMarkCount?.ramblng ?? 0}
@@ -82,8 +76,8 @@ export default async function ProfilePage() {
                 completed={6}
                 total={topics.length}
               />
-            </ul>
-          </div>
+            </ul> */}
+          {/* </div> */}
         </div>
         {/* Continue Learning section */}
 
