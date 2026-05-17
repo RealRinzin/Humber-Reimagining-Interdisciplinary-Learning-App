@@ -6,6 +6,13 @@ import RingProgressBar from "./Ring";
 import { useToggle } from "@/hooks/common/useToggle";
 import { clientFetch, clientPost } from "@/lib/clientFetch";
 
+interface CheckedMarkCount {
+  code: number;
+  quiz: number;
+  rambling: number;
+  interactive: number;
+}
+
 /**
  *
  * @param topic_id
@@ -29,12 +36,16 @@ export default function TabHorizontal({
   slug,
   description,
   is_started,
+  ringInformation,
 }: HorizontalTabTypes) {
   // Calling the state and toggle function for the hook
   const { isOn: isOpen, toggle } = useToggle(false);
-  /**
-   * POST Method to create new User Topic
-   */
+  // Calculate the Ring circle detail from the incoming information
+
+  const fields = ["code", "rambling", "quiz", "interactive"] as const;
+  const total = fields.filter(
+    (field) => ringInformation[0]?.user_video_setting?.[field],
+  ).length;
 
   return (
     <div
@@ -47,11 +58,11 @@ export default function TabHorizontal({
           id={2}
           color={color}
           borderColor={color}
-          percentage={90}
+          progress={total}
         />
         {isOpen && (
           <div className="pt-2 transition-all delay-300 ease-in-out">
-            <p className="text-center text-xs font-semibold">4/8</p>
+            <p className="text-center text-xs font-semibold">{total}/4</p>
             <p className="text-gray-600 text-xs font-semibold">Complete</p>
           </div>
         )}

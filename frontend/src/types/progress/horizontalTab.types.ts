@@ -5,4 +5,5 @@ export interface HorizontalTabTypes{
     slug:string,
     description:string,
     is_started:boolean,
+    ringInformation:any
 }

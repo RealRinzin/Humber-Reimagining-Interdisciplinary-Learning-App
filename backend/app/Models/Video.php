@@ -99,7 +99,7 @@ class Video extends Model
 
 
     // Video Setting
-    public function userVideoSetting()
+    public function user_video_setting()
     {
         return $this->hasOne(UserVideoSetting::class, 'video_id')
             ->where('user_id', auth()->id());

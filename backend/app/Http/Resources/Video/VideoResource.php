@@ -56,7 +56,7 @@ class VideoResource extends JsonResource
                 'documents' => $this->documents_count,
             ],
 
-            'userVideoSetting' => new UserVideoSettingResource($this->whenLoaded('userVideoSetting')),
+            'user_video_setting' => new UserVideoSettingResource($this->whenLoaded('user_video_setting')),
 
         ];
     }

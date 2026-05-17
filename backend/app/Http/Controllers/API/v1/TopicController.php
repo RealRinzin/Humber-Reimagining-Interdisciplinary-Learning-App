@@ -13,9 +13,9 @@ class TopicController
      */
     public function index(Request $request)
     {
-        $userId = $request->user()?->id;
+        // $userId = $request->user()?->id;
 
-        $topics = Topic::with(['videos.userVideoSetting'])->get();
+        $topics = Topic::with(['videos.user_video_setting'])->get();
 
         $followedIds = $request->user()
             ?->topics()

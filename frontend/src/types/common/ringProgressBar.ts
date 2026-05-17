@@ -1,7 +1,8 @@
+
 // Audio Type Interface
 export interface RingProgressBarType {
     id:number,
-    percentage: number,
+    progress: number,
     color: string,
     borderColor: string,
 }

@@ -27,7 +27,6 @@ export default function KnowledgeMapPage() {
     async function getTopics() {
       const res = await clientFetch(`/topics`);
       const { data: allTopics } = await res.json();
-      console.log(allTopics)
       setTopics(allTopics);
     }
     getTopics();
@@ -81,6 +80,7 @@ export default function KnowledgeMapPage() {
                   slug={topic.slug}
                   description={topic.description}
                   is_started={topic.is_following}
+                  ringInformation={topic?.videos}
                 />
               ))}
             </div>
