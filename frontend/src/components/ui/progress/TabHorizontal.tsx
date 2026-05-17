@@ -43,9 +43,10 @@ export default function TabHorizontal({
   // Calculate the Ring circle detail from the incoming information
 
   const fields = ["code", "rambling", "quiz", "interactive"] as const;
-  const total = fields.filter(
-    (field) => ringInformation[0]?.user_video_setting?.[field],
-  ).length;
+  const total = ringInformation[0]?.user_video_setting?.all_checked
+    ? fields.length
+    : fields.filter((field) => ringInformation[0]?.user_video_setting?.[field])
+        .length;
 
   return (
     <div

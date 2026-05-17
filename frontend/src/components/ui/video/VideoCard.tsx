@@ -2,12 +2,13 @@ import RingProgressBar from "@/components/ui/progress/Ring";
 import { VideoType } from "@/types/video";
 
 export default function VideoCard({ video }: { video: VideoType }) {
-  console.log(video?.videos[0]?.user_video_setting);
-
+  // Calculate the ring percentage
   const fields = ["code", "rambling", "quiz", "interactive"] as const;
-  const total = fields.filter(
-    (field) => video?.videos[0]?.user_video_setting?.[field],
-  ).length;
+  const total = video?.videos[0]?.user_video_setting?.all_checked
+    ? fields.length
+    : fields.filter((field) => video?.videos[0]?.user_video_setting?.[field])
+        .length;
+  total;
 
   console.log(total);
   return (
