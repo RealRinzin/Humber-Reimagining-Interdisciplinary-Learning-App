@@ -13,23 +13,19 @@ class TopicController
      */
     public function index(Request $request)
     {
-        //
-        // $topics = Topic::with(['videos', 'codes', 'documents', 'quizees'])->paginate(2); 
-        // return TopicResource::collection($topics);
-        // return Topic::get();
-        $topics = Topic::all();
+        $userId = $request->user()?->id;
+
+        $topics = Topic::with(['videos.userVideoSetting'])->get();
 
         $followedIds = $request->user()
             ?->topics()
             ->pluck('topics.id')
             ->toArray() ?? [];
 
-        // Store on the request so the resource can access it
         $request->merge(['followed_ids' => $followedIds]);
 
         return TopicResource::collection($topics);
     }
-
     /**
      * Store a newly created resource in storage.
      */

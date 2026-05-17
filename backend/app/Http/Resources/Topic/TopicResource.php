@@ -34,6 +34,7 @@ class TopicResource extends JsonResource
             'documents' => LessonDocumentResource::collection($this->whenLoaded('documents')),
             'quizees' => QuizResource::collection($this->whenLoaded('quizees')),
             'is_following' => in_array($this->id, $followedIds),
+            
         ];
     }
 }

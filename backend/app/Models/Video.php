@@ -58,7 +58,8 @@ class Video extends Model
     }
 
     // Quizzes
-    public function quizzes(){
+    public function quizzes()
+    {
         return $this->hasMany(Quiz::class);
     }
     // LessonDocument Relationship
@@ -94,5 +95,13 @@ class Video extends Model
     public function userVideoAnalytics()
     {
         return $this->hasManyThrough(UserVideoAnalytic::class, UserVideo::class);
+    }
+
+
+    // Video Setting
+    public function userVideoSetting()
+    {
+        return $this->hasOne(UserVideoSetting::class, 'video_id')
+            ->where('user_id', auth()->id());
     }
 }

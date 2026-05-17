@@ -27,6 +27,7 @@ export default function KnowledgeMapPage() {
     async function getTopics() {
       const res = await clientFetch(`/topics`);
       const { data: allTopics } = await res.json();
+      console.log(allTopics)
       setTopics(allTopics);
     }
     getTopics();
@@ -87,7 +88,7 @@ export default function KnowledgeMapPage() {
         </div>
         {/* Progress */}
         <div className="col-span-4 bg-blue-950">
-          <CourseNodeLink />
+          {/* <CourseNodeLink /> */}
         </div>
       </main>
       {/* <TabProgressBar name="Coming up " completed={4} incomplete={10} /> */}

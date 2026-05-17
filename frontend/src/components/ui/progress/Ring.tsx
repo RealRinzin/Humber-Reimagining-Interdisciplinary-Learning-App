@@ -11,7 +11,8 @@ export default function RingProgressBar({ color }: RingProgressBarType) {
           <div
             className="h-8 w-8 m-1 rounded-full"
             style={{ backgroundColor: color }}
-          ></div>
+          >
+          </div>
         </div>
       </div>
   );
