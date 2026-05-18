@@ -110,7 +110,6 @@ export default function NodeTest() {
         // Increment count for this source
         edgeCountBySource[source] = (edgeCountBySource[source] ?? 0) + 1;
         const edgeIndex = edgeCountBySource[source];
-
         // Alternate direction: 1st → +50, 2nd → -50, 3rd → +100, 4th → -100
         const sign = edgeIndex % 2 === 0 ? -1 : 1;
         const magnitude = Math.ceil(edgeIndex / 2) * 50;

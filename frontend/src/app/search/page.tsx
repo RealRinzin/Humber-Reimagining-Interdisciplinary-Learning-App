@@ -1,10 +1,14 @@
 'use client'
 
+import NodeAnimations from "@/components/features/course/NodeAnimations";
 import { useState } from "react";
 export default function SearchPage() {
     const [isOn,setIsOn] = useState(true);
   return (
     <>
+     <div className="bg-black">
+      <NodeAnimations/>
+    </div>
       <div className="h-screen">
         <button onClick={() => setIsOn((prev) => !prev)} className="bg-red-700 p-4">Click</button>
         {isOn?'true':'false'}

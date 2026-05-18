@@ -10,7 +10,6 @@ export default function VideoCard({ video }: { video: VideoType }) {
         .length;
   total;
 
-  console.log(total);
   return (
     <>
       <div className="rounded-3xl border-2 border-slate-400 bg-slate-100 p-3 text-sm">

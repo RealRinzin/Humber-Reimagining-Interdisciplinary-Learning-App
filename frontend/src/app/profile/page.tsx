@@ -25,16 +25,15 @@ export default async function ProfilePage() {
   // Get the User Record for the tables
   const getUserRecords = await serverFetch("/users/me/profile");
   const { data: userData } = await getUserRecords.json();
-  const checkedMarkCount =
-    userData?.user_video_settings.reduce<CheckedMarkCount>(
-      (acc, data) => ({
-        code: acc.code + (data?.pivot?.code ? 1 : 0),
-        quiz: acc.quiz + (data?.pivot?.quiz ? 1 : 0),
-        rambling: acc.rambling + (data?.pivot?.rambling ? 1 : 0),
-        interactive: acc.interactive + (data?.pivot?.interactive ? 1 : 0),
-      }),
-      { code: 0, quiz: 0, rambling: 0, interactive: 0 },
-    );
+const checkedMarkCount = (userData?.user_video_settings as any[]).reduce(
+  (acc, data) => ({
+    code: acc.code + (data?.pivot?.code ? 1 : 0),
+    quiz: acc.quiz + (data?.pivot?.quiz ? 1 : 0),
+    rambling: acc.rambling + (data?.pivot?.rambling ? 1 : 0),
+    interactive: acc.interactive + (data?.pivot?.interactive ? 1 : 0),
+  }),
+  { code: 0, quiz: 0, rambling: 0, interactive: 0 }
+);
   // Return page
   return (
     <div className="grid grid-cols-3 gap-4 m-10">
