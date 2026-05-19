@@ -8,10 +8,6 @@ import { useEffect, useState } from "react";
  *
  * Main Page Return
  */
-// export default  async function KnowledgeMapPage() {
-//   const res = await serverFetch(`/topics`)
-//   const data = await res.json();
-
 export default function KnowledgeMapPage() {
   // topics
   const [topics, setTopics] = useState<any[]>([]);
@@ -27,7 +23,9 @@ export default function KnowledgeMapPage() {
     async function getTopics() {
       const res = await clientFetch(`/topics`);
       const { data: allTopics } = await res.json();
-      setTopics(allTopics);
+      // console.log(allTopics)
+      // console.log(allTopics.sort((a:any, b:any) => b.is_following - a.is_following));
+      setTopics(allTopics.sort((a:any, b:any) => b.is_following - a.is_following));
     }
     getTopics();
   }, []); // empty array = run once on mount
@@ -88,7 +86,7 @@ export default function KnowledgeMapPage() {
         </div>
         {/* Progress */}
         <div className="col-span-4 bg-blue-950">
-          {/* <CourseNodeLink /> */}
+          <CourseNodeLink />
         </div>
       </main>
       {/* <TabProgressBar name="Coming up " completed={4} incomplete={10} /> */}
