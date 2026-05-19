@@ -5,7 +5,6 @@ import TabHorizontal from "@/components/ui/progress/TabHorizontal";
 import { clientFetch } from "@/lib/clientFetch";
 import { useEffect, useState } from "react";
 /**
- *
  * Main Page Return
  */
 export default function KnowledgeMapPage() {
@@ -23,8 +22,8 @@ export default function KnowledgeMapPage() {
     async function getTopics() {
       const res = await clientFetch(`/topics`);
       const { data: allTopics } = await res.json();
-      // console.log(allTopics)
-      // console.log(allTopics.sort((a:any, b:any) => b.is_following - a.is_following));
+      // We will sort the sequence of the response output data with respect
+      // to whether the user has started the topic or not 
       setTopics(allTopics.sort((a:any, b:any) => b.is_following - a.is_following));
     }
     getTopics();

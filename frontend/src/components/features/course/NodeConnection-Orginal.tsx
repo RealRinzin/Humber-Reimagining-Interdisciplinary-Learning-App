@@ -7,6 +7,8 @@ import type { Core, StylesheetCSS } from 'cytoscape';
 import { useRef } from "react";
 export default function NodeOriginal() {
     const cyRef = useRef<Core | null>(null);
+
+
     const elements = [
         { data: { id: "1", label: "Intro to Space", url: "https://example.com/intro" } },
         { data: { id: "2", label: "Model Space", url: "https://example.com/intro" } },
