@@ -6,6 +6,7 @@ import TabProgressBar from "@/components/ui/progress/Tab";
 // import HeaderCookie from "@/lib/httpHeaderCookie";
 import { serverFetch } from "@/lib/fetch";
 import { VideoType } from "@/types/video";
+import AnimatedCourseNode from "@/components/features/course/AnimatedCourseNode";
 
 interface CheckedMarkCount {
   code: number;
@@ -13,7 +14,6 @@ interface CheckedMarkCount {
   rambling: number;
   interactive: number;
 }
-
 /**
  *
  * @returns
@@ -95,7 +95,8 @@ export default async function ProfilePage() {
         </div>
         {/* Node Links */}
         <div className="bg-blue-950 rounded-lg">
-          <CourseNodeLink />
+          {/* <CourseNodeLink /> */}
+          <AnimatedCourseNode/>
         </div>
       </div>
     </>

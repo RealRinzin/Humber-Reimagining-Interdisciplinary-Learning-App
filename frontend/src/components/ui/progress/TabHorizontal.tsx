@@ -37,6 +37,8 @@ export default function TabHorizontal({
   description,
   is_started,
   ringInformation,
+  onHover,
+  onLeave,
 }: HorizontalTabTypes) {
   // Calling the state and toggle function for the hook
   const { isOn: isOpen, toggle } = useToggle(false);
@@ -51,8 +53,11 @@ export default function TabHorizontal({
   return (
     <div
       className={`flex items-center border-2 rounded-2xl border-gray-500/80 my-4 cursor-pointer ${is_started ? "bg-white" : "bg-gray-400 "}`}
-      onMouseEnter={toggle}
-      onMouseLeave={toggle}
+      // onMouseEnter={toggle}
+      // onMouseLeave={toggle}
+      onMouseEnter={() => { toggle(); onHover?.(); }} 
+      onMouseLeave={() => { toggle(); onLeave?.(); }}  
+      onClick={() => alert("This is good")}
     >
       <div className="flex flex-col items-center justify-center border-r-2 border-gray-500/80 p-3">
         <RingProgressBar

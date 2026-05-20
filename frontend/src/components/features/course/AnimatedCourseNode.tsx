@@ -11,9 +11,13 @@ import type { Core } from "cytoscape";
 import { useEffect, useRef, useState } from "react";
 import { clientFetch } from "@/lib/clientFetch";
 
-export default function AnimatedCourseNode() {
+interface Props {
+  hoveredTopicId?: string | null;
+}
+
+export default function AnimatedCourseNode({ hoveredTopicId }: Props) {
   const cyRef = useRef<Core | null>(null);
-  const animFrameRef = useRef<number | null>(null); // for animation cleanup
+  const animFrameRef = useRef<number | null>(null);
 
   const [topics, setTopics] = useState<cytoscape.ElementDefinition[]>([]);
   const [styles, setStyles] = useState([]);
@@ -22,10 +26,11 @@ export default function AnimatedCourseNode() {
     x: 0,
     y: 0,
     label: "",
+    description: "",
   });
 
+  // ✅ Effect 1: Fetch data ONCE on mount
   useEffect(() => {
-    const List = [];
     const newStyle: any = [
       {
         selector: "node",
@@ -50,8 +55,8 @@ export default function AnimatedCourseNode() {
           "shadow-blur": 40,
           "shadow-color": "#ff0080",
           "shadow-opacity": 0.7,
-          // Smooth CSS transitions for hover animations
-          "transition-property": "background-color width height opacity shadow-blur shadow-color border-color",
+          "transition-property":
+            "background-color width height opacity shadow-blur shadow-color border-color",
           "transition-duration": 250,
         },
       },
@@ -70,8 +75,6 @@ export default function AnimatedCourseNode() {
           "transition-duration": 250,
         },
       },
-
-      // --- Hover classes (from file 2) ---
       {
         selector: ".hovered",
         style: {
@@ -123,6 +126,7 @@ export default function AnimatedCourseNode() {
             target: null,
             node_color: null,
             url: `/video/${topic.slug}`,
+            description: topic.description,
             controlPointDistance:
               (Math.floor(index / 2) + 1) * 40 * (index % 2 === 0 ? 1 : -1),
           },
@@ -186,7 +190,40 @@ export default function AnimatedCourseNode() {
     }
 
     getTopics();
-  }, []);
+  }, []); 
+
+  //  React to hoveredTopicId changes from the sidebar
+  useEffect(() => {
+    const cy = cyRef.current;
+    if (!cy) return;
+
+    // Always clear first
+    cy.elements().removeClass("faded hovered connected activeEdge");
+    if (animFrameRef.current) {
+      cancelAnimationFrame(animFrameRef.current);
+      animFrameRef.current = null;
+    }
+
+    if (!hoveredTopicId) return;
+
+    const node = cy.getElementById(hoveredTopicId);
+    if (!node || node.empty()) return;
+
+    cy.elements().addClass("faded");
+    node.removeClass("faded").addClass("hovered");
+
+    const edges = node.connectedEdges();
+    edges.removeClass("faded").addClass("activeEdge");
+    edges.connectedNodes().removeClass("faded").addClass("connected");
+
+    let offset = 0;
+    const animate = () => {
+      offset -= 1;
+      cy.edges(".activeEdge").style("line-dash-offset", offset);
+      animFrameRef.current = requestAnimationFrame(animate);
+    };
+    animate();
+  }, [hoveredTopicId]); // 👈 only this effect watches the prop
 
   const handleZoomIn = () => {
     if (cyRef.current) {
@@ -240,7 +277,10 @@ export default function AnimatedCourseNode() {
           />
         </div>
       </div>
-      <div style={{ width: "100%", height: "100vh" }} className="h-full relative">
+      <div
+        style={{ width: "100%", height: "100vh" }}
+        className="h-full relative"
+      >
         <CytoscapeComponent
           elements={topics}
           autoungrabify={true}
@@ -255,37 +295,29 @@ export default function AnimatedCourseNode() {
           cy={(cy) => {
             cyRef.current = cy;
 
-            // Tap to open
             cy.on("tap", "node", (event) => {
               const node = event.target;
               const url = node.data("url");
               if (url) window.open(url, "_blank");
             });
 
-            // --- Hover ON: fade everything, highlight node + neighbors + edges ---
             cy.on("mouseover", "node", (e) => {
               const container = cy.container();
               const node = e.target;
               const pos = e.renderedPosition;
               const label = node.data("label");
+              const description = node.data("description");
 
               if (container) container.style.cursor = "pointer";
-              setTooltip({ visible: true, x: pos.x, y: pos.y, label });
+              setTooltip({ visible: true, x: pos.x, y: pos.y, label, description });
 
-              // Fade all elements
               cy.elements().addClass("faded");
-
-              // Highlight hovered node
               node.removeClass("faded").addClass("hovered");
 
-              // Highlight connected edges
               const edges = node.connectedEdges();
               edges.removeClass("faded").addClass("activeEdge");
-
-              // Highlight neighbor nodes
               edges.connectedNodes().removeClass("faded").addClass("connected");
 
-              // Start animated dash offset
               let offset = 0;
               const animate = () => {
                 offset -= 1;
@@ -296,11 +328,10 @@ export default function AnimatedCourseNode() {
               animate();
             });
 
-            // --- Hover OFF: restore everything ---
             cy.on("mouseout", "node", () => {
               const container = cy.container();
               if (container) container.style.cursor = "default";
-              setTooltip({ visible: false, x: 0, y: 0, label: "" });
+              setTooltip({ visible: false, x: 0, y: 0, label: "", description: "" });
 
               cy.elements().removeClass("faded hovered connected activeEdge");
 
@@ -312,16 +343,20 @@ export default function AnimatedCourseNode() {
           }}
         />
 
-        {/* Tooltip */}
         {tooltip.visible && (
           <div
             className="absolute z-30 pointer-events-none"
             style={{ left: tooltip.x + 16, top: tooltip.y - 60 }}
           >
-            <div className="bg-white border border-pink-500/40 rounded-xl px-4 py-3 shadow-xl shadow-pink-900/20 min-w-45">
+            <div className="bg-white border border-pink-500/40 rounded-xl px-4 py-3 shadow-xl shadow-pink-900/20 w-3/6">
               <p className="text-black font-bold text-sm uppercase tracking-wide mb-1">
                 {tooltip.label}
               </p>
+              {tooltip.description && (
+                <p className="text-gray-500 text-xs mb-1">
+                  {tooltip.description}
+                </p>
+              )}
               <div className="flex items-center gap-1.5 text-pink-400 text-xs mt-2">
                 <FontAwesomeIcon icon={faPlayCircle} size="sm" />
                 <span>Click to watch</span>

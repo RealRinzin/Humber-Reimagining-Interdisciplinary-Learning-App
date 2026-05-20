@@ -1,4 +1,5 @@
 "use client";
+import AnimatedCourseNode from "@/components/features/course/AnimatedCourseNode";
 import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
 // import TabProgressBar from "@/components/ui/progress/Tab";
 import TabHorizontal from "@/components/ui/progress/TabHorizontal";
@@ -10,6 +11,8 @@ import { useEffect, useState } from "react";
 export default function KnowledgeMapPage() {
   // topics
   const [topics, setTopics] = useState<any[]>([]);
+  const [hoveredTopicId, setHoveredTopicId] = useState<string | null>(null);
+
   // On Click Function Call for the individual accordons
   async function selectProfileType(link: string) {
     const res = await clientFetch(`/${link}`);
@@ -23,8 +26,10 @@ export default function KnowledgeMapPage() {
       const res = await clientFetch(`/topics`);
       const { data: allTopics } = await res.json();
       // We will sort the sequence of the response output data with respect
-      // to whether the user has started the topic or not 
-      setTopics(allTopics.sort((a:any, b:any) => b.is_following - a.is_following));
+      // to whether the user has started the topic or not
+      setTopics(
+        allTopics.sort((a: any, b: any) => b.is_following - a.is_following),
+      );
     }
     getTopics();
   }, []); // empty array = run once on mount
@@ -78,6 +83,8 @@ export default function KnowledgeMapPage() {
                   description={topic.description}
                   is_started={topic.is_following}
                   ringInformation={topic?.videos}
+                  onHover={() => setHoveredTopicId(String(topic.id))} 
+                  onLeave={() => setHoveredTopicId(null)}
                 />
               ))}
             </div>
@@ -85,7 +92,8 @@ export default function KnowledgeMapPage() {
         </div>
         {/* Progress */}
         <div className="col-span-4 bg-blue-950">
-          <CourseNodeLink />
+          {/* <CourseNodeLink /> */}
+          <AnimatedCourseNode  hoveredTopicId={hoveredTopicId}/>
         </div>
       </main>
       {/* <TabProgressBar name="Coming up " completed={4} incomplete={10} /> */}

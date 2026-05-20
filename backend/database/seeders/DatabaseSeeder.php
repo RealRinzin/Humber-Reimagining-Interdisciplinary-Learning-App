@@ -27,12 +27,12 @@ class DatabaseSeeder extends Seeder
             SubtitleSeeder::class, // Subtitles for the videos
             LessonDocumentSeeder::class, // Documents
             CodeSeeder::class, // Code for the topics or videos
-            UserTopicSeeder::class, // User Topics
-            UserVideoSeeder::class, // User last Watch tracking record
-            UserContentSettingSeeder::class,
-            UserVideoSettingSeeder::class,
             // Analytics 
-            UserVideoAnalyticSeeder::class, // User Video Watch History for tracking for each video of the user
+            // UserTopicSeeder::class, 
+            // UserVideoSeeder::class, 
+            // UserContentSettingSeeder::class,
+            // UserVideoSettingSeeder::class,
+            // UserVideoAnalyticSeeder::class, 
             
             // Team Member
             ProjectSeeder::class,

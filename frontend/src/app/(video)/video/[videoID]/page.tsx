@@ -1,3 +1,4 @@
+import AnimatedCourseNode from "@/components/features/course/AnimatedCourseNode";
 import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
 import CourseTabs from "@/components/features/course/CourseTabs";
 import CourseTitle from "@/components/features/course/CourseTitle";
@@ -217,7 +218,8 @@ export default async function Page({
           className="md:flex-2 bg-slate-900 rounded-xl"
           style={{ backgroundColor: "#000033" }}
         >
-          <CourseNodeLink />
+          <AnimatedCourseNode/>
+          {/* <CourseNodeLink /> */}
         </aside>
       </section>
     </main>
