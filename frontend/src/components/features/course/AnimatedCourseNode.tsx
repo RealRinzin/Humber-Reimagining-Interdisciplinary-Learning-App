@@ -37,6 +37,7 @@ export default function AnimatedCourseNode({ hoveredTopicId }: Props) {
         style: {
           width: 80,
           height: 80,
+          
           label: "data(label)",
           cursor: "pointer",
           "text-valign": "center",
@@ -157,6 +158,7 @@ export default function AnimatedCourseNode({ hoveredTopicId }: Props) {
             "shadow-blur": 80,
             "shadow-color": "#00ff88",
             "shadow-opacity": 0.7,
+            
           },
         });
       });
