@@ -1,6 +1,29 @@
 # Humber Gaming Department - Space Project
 # Deployment Documentation
 
+> # 1. Installation
+> ### Git Clone
+```php
+# clone from git repo
+git clone https://github.com/RealRinzin/Humber-Reimagining-Interdisciplinary-Learning-App.git
+```
+```php
+# BACKEND
+# app/backend
+
+composer update
+
+sudo chown -R www-data:www-data /app/backend
+sudo chmod -R 775 /app/backendstorage
+sudo chmod -R 775 app/backend/bootstrap/cache
+
+# 
+touch .env
+# 3
+php artisan key:generate
+```
+
+
 > ## 1. SERVER - Nginx | Sites Available Config
 
 ```nginx
