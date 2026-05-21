@@ -35,7 +35,7 @@ const OnBoardingSelectContent = ({ onSuccess, values }: Props) => {
             {/* Video Checkbox */}
             <ToggleCheckBox<OnboardSelectContentType>
               name="video"
-              label="video"
+              label="Video"
               register={register}
               required={false}
               error={errors.video?.message}
@@ -43,7 +43,7 @@ const OnBoardingSelectContent = ({ onSuccess, values }: Props) => {
             {/* Interactive Checkbox */}
             <ToggleCheckBox<OnboardSelectContentType>
               name="interactive"
-              label="interactive"
+              label="Interactive Simulation"
               register={register}
               required={false}
               error={errors.interactive?.message}
@@ -51,7 +51,7 @@ const OnBoardingSelectContent = ({ onSuccess, values }: Props) => {
             {/* Code Checkbox */}
             <ToggleCheckBox<OnboardSelectContentType>
               name="code"
-              label="Code"
+              label="Code Snippet"
               register={register}
               required={false}
               error={errors.code?.message}
@@ -68,7 +68,7 @@ const OnBoardingSelectContent = ({ onSuccess, values }: Props) => {
 
             <ToggleCheckBox<OnboardSelectContentType>
               name="rambling"
-              label="Rambling"
+              label="Rampling (extra content to read)"
               register={register}
               required={false}
               error={errors.rambling?.message}

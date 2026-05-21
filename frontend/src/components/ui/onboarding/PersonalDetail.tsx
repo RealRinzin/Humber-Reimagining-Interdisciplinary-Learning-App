@@ -27,7 +27,7 @@ const OnBoardingPersonalDetail = ({ onSuccess, values }: Props) => {
       </div>
       {/* Fields */}
       <div className="space-y-5">
-        <div className="space-y-1.5">
+        {/* <div className="space-y-1.5">
           <label className="text-sm font-medium text-slate-700">
             Name <span className="text-red-700">*</span>
           </label>
@@ -44,7 +44,7 @@ const OnBoardingPersonalDetail = ({ onSuccess, values }: Props) => {
           {errors.name && (
             <p className="text-xs text-red-700">{errors.name.message}</p>
           )}
-        </div>
+        </div> */}
 
         <div className="space-y-1.5">
           <label className="text-sm font-medium text-slate-700">

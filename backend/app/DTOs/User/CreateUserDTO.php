@@ -18,7 +18,7 @@ class CreateUserDTO
      * The properties are readonly, which means they can only be assigned once and cannot be changed afterwards
      */
     public function __construct(
-        public readonly ?string $name,
+        // public readonly ?string $name,
         public readonly ?string $username,
         public readonly ?string $password,
         public readonly ?int $role_id,

@@ -153,7 +153,7 @@ export default async function Page({
           {video?.codes ? (
             <CourseTabs
               type="code"
-              title={"Code"}
+              title={"Code Snippet"}
               icon="CodeIcon.png"
               content={video?.codes[0]?.code}
               videoID={video?.id}
@@ -186,7 +186,7 @@ export default async function Page({
           />
           <CourseTabs
             type="interactive"
-            title={"Interactive"}
+            title={"Interactive Simulation"}
             icon="QuizIcon.png"
             content={video.title}
             status={completeStatus?.quiz}
@@ -197,7 +197,7 @@ export default async function Page({
           {/* Rambling Tab */}
           <CourseTabs
             type="rambling"
-            title={"Umer's Rambling"}
+            title={"Umer's Rampling"}
             icon="RamblingsIcon.png"
             content={video.title}
             videoID={video?.id}
@@ -205,7 +205,7 @@ export default async function Page({
             all_complete={completeStatus?.all_checked}
           />
           {/* Rambling Tab */}
-          <CourseTabs
+          {/* <CourseTabs
             type="faq"
             title={"Frequently Asked Questions"}
             icon="FAQIcon.png"
@@ -213,13 +213,7 @@ export default async function Page({
             videoID={video?.id}
             status={completeStatus?.nan}
             all_complete={completeStatus?.nan}
-          />
-
-          {/* <iframe
-                        src="http://localhost:3001"
-                        className="w-full h-screen border-0"
-                        allow="accelerometer; gyroscope"
-                    /> */}
+          /> */}
           <section className="my-10">
             <MoreCourses />
           </section>

@@ -12,7 +12,7 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'     => ['required', 'string', 'max:255'],
+            // 'name'     => ['required', 'string', 'max:255'],
             // 'email'    => ['required', 'email', 'unique:users,email'],
             'username'    => ['required', 'string','unique:users'],
             // 'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -24,7 +24,7 @@ class StoreUserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required'      => 'Name is required.',
+            // 'name.required'      => 'Name is required.',
             'email.required'     => 'Email is required.',
             'email.unique'       => 'This email is already taken.',
             'password.required'  => 'Password is required.',

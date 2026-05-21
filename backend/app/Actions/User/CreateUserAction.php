@@ -11,7 +11,7 @@ class CreateUserAction
     public function execute(CreateUserDTO $dto): User
     {
         return User::create([
-            'name'     => $dto->name,
+            // 'name'     => $dto->name,
             // 'email'    => $dto->email,
             'username' => $dto->username,
             'password' => Hash::make($dto->password),

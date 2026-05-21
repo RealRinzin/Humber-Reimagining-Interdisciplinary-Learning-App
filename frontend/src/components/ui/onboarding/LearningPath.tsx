@@ -18,7 +18,6 @@ const OnBoardingLearningPath = ({ onSuccess, values }: Props) => {
   const onSubmit = (data: OnboardLearningPathType) => {
     let user: any = [];
     user["user"] = data;
-    console.log(data);
     onSuccess(data);
   };
   return (
