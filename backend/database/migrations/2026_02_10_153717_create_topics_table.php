@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('node_color')->default('blue'); // 'blue' | 'pink'
             $table->integer('x_axis');
             $table->integer('y_axis');
+            $table->string('interactive_path')->default('space');
             $table->timestamps();
         });
     }

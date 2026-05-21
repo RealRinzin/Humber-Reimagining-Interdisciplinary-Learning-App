@@ -23,7 +23,9 @@ class Video extends Model
         'thumbnail',
         'video_url',
         'duration',
-        'description'
+        'description',
+        'tldw',
+        'interactive_path'
     ];
 
     public function getRouteKeyName()

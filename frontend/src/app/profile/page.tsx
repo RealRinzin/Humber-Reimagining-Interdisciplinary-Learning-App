@@ -38,7 +38,7 @@ export default async function ProfilePage() {
   // Return page
   return (
     <>
-      <div className="grid grid-cols-3 gap-4 m-10 ">
+      <div className="grid grid-cols-3 gap-4 m-10">
         <div className="col-span-3 md:col-span-2">
           <div className="grid grid-cols-1 md:grid-cols-7 col-span-2 bg-gray-200  gap-10 p-6 rounded-lg">
             <div className="col-span-1">

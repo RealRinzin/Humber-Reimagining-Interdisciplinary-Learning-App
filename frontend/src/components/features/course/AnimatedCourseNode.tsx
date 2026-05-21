@@ -14,7 +14,6 @@ import { clientFetch } from "@/lib/clientFetch";
 interface Props {
   hoveredTopicId?: string | null;
 }
-
 export default function AnimatedCourseNode({ hoveredTopicId }: Props) {
   const cyRef = useRef<Core | null>(null);
   const animFrameRef = useRef<number | null>(null);
@@ -37,7 +36,7 @@ export default function AnimatedCourseNode({ hoveredTopicId }: Props) {
         style: {
           width: 80,
           height: 80,
-          
+
           label: "data(label)",
           cursor: "pointer",
           "text-valign": "center",
@@ -158,7 +157,6 @@ export default function AnimatedCourseNode({ hoveredTopicId }: Props) {
             "shadow-blur": 80,
             "shadow-color": "#00ff88",
             "shadow-opacity": 0.7,
-            
           },
         });
       });
@@ -192,7 +190,7 @@ export default function AnimatedCourseNode({ hoveredTopicId }: Props) {
     }
 
     getTopics();
-  }, []); 
+  }, []);
 
   //  React to hoveredTopicId changes from the sidebar
   useEffect(() => {
@@ -249,41 +247,42 @@ export default function AnimatedCourseNode({ hoveredTopicId }: Props) {
 
   return (
     <>
-      <div className="p-2 text-white">
-        <div className="flex justify-end items-center">
-          <div className="flex gap-3 items-center justify-center bg-slate-700 rounded px-3 py-1">
-            <span className="text-sm">Tracking</span>
-            <span>
-              <input type="checkbox" className="" />
-            </span>
-          </div>
-        </div>
-        <div className="flex flex-col justify-end items-end gap-2 my-2">
-          <FontAwesomeIcon
-            icon={faMagnifyingGlassPlus}
-            onClick={handleZoomIn}
-            size="1x"
-            className="text-white bg-slate-700 p-1 rounded hover:cursor-pointer"
-          />
-          <FontAwesomeIcon
-            icon={faMagnifyingGlassMinus}
-            size="1x"
-            onClick={handleZoomOut}
-            className="text-white bg-slate-700 p-1 rounded hover:cursor-pointer"
-          />
-          <FontAwesomeIcon
-            icon={faHand}
-            size="1x"
-            onClick={handleFitAll}
-            className="text-white bg-slate-700 p-1 rounded hover:cursor-pointer"
-          />
-        </div>
-      </div>
       <div
         style={{ width: "100%", height: "100vh" }}
         className="h-full relative"
       >
+        <div className="p-2 text-white absolute right-0 z-10">
+          <div className="flex justify-end items-center">
+            <div className="flex gap-3 items-center justify-center bg-slate-700 rounded px-3 py-1">
+              <span className="text-sm">Tracking</span>
+              <span>
+                <input type="checkbox" className="" />
+              </span>
+            </div>
+          </div>
+          <div className="flex flex-col justify-end items-end gap-2 my-2">
+            <FontAwesomeIcon
+              icon={faMagnifyingGlassPlus}
+              onClick={handleZoomIn}
+              size="1x"
+              className="text-white bg-slate-700 p-1 rounded hover:cursor-pointer"
+            />
+            <FontAwesomeIcon
+              icon={faMagnifyingGlassMinus}
+              size="1x"
+              onClick={handleZoomOut}
+              className="text-white bg-slate-700 p-1 rounded hover:cursor-pointer"
+            />
+            <FontAwesomeIcon
+              icon={faHand}
+              size="1x"
+              onClick={handleFitAll}
+              className="text-white bg-slate-700 p-1 rounded hover:cursor-pointer"
+            />
+          </div>
+        </div>
         <CytoscapeComponent
+        className="z-0"
           elements={topics}
           autoungrabify={true}
           stylesheet={styles}
@@ -311,7 +310,13 @@ export default function AnimatedCourseNode({ hoveredTopicId }: Props) {
               const description = node.data("description");
 
               if (container) container.style.cursor = "pointer";
-              setTooltip({ visible: true, x: pos.x, y: pos.y, label, description });
+              setTooltip({
+                visible: true,
+                x: pos.x,
+                y: pos.y,
+                label,
+                description,
+              });
 
               cy.elements().addClass("faded");
               node.removeClass("faded").addClass("hovered");
@@ -326,14 +331,21 @@ export default function AnimatedCourseNode({ hoveredTopicId }: Props) {
                 cy.edges(".activeEdge").style("line-dash-offset", offset);
                 animFrameRef.current = requestAnimationFrame(animate);
               };
-              if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+              if (animFrameRef.current)
+                cancelAnimationFrame(animFrameRef.current);
               animate();
             });
 
             cy.on("mouseout", "node", () => {
               const container = cy.container();
               if (container) container.style.cursor = "default";
-              setTooltip({ visible: false, x: 0, y: 0, label: "", description: "" });
+              setTooltip({
+                visible: false,
+                x: 0,
+                y: 0,
+                label: "",
+                description: "",
+              });
 
               cy.elements().removeClass("faded hovered connected activeEdge");
 

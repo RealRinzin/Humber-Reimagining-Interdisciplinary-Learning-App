@@ -17,18 +17,19 @@ return new class extends Migration
             $table->string('slug')->unique(); // Add this line for the slug column
             // Foreign key to topics table
             $table->foreignId('topic_id')
-            ->constrained('topics')
-            ->cascadeOnDelete()
-            ->cascadeOnUpdate();   
+                ->constrained('topics')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->unsignedBigInteger('parent_id')->nullable(); // nullable = root items
             $table->foreign('parent_id')
                 ->references('id')
                 ->on('videos');
-            $table->string('thumbnail');// Add this line for the thumbnail column
+            $table->string('thumbnail'); // Add this line for the thumbnail column
             $table->string('video_url'); // Add this line for the video_url column
             $table->integer('duration'); // Add this line for the duration column
             $table->text('description'); // Add this line for the description column
             $table->text('tldw');
+            $table->string('interactive_path')->default('space');
             // Timestamp
             $table->timestamps();
         });

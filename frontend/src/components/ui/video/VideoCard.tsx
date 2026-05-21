@@ -1,6 +1,13 @@
 import RingProgressBar from "@/components/ui/progress/Ring";
+import { clientPost } from "@/lib/clientFetch";
 import { VideoType } from "@/types/video";
-
+// async function postUserTopic(topic_id: number) {
+//   // Post method
+//   const res = await clientPost("/user-topics/users/me/topics", {
+//     topic_id: topic_id,
+//     started: true,
+//   });
+// }
 export default function VideoCard({ video }: { video: VideoType }) {
   // Calculate the ring percentage
   const fields = ["code", "rambling", "quiz", "interactive"] as const;
@@ -30,6 +37,7 @@ export default function VideoCard({ video }: { video: VideoType }) {
           <a
             href={`/video/${video.slug}`}
             className="rounded-md bg-slate-950 px-2 py-0.5 text-sm font-medium text-white"
+            // onClick={is_started ? undefined : () => postUserTopic(video.id)}
           >
             {video.is_following ? "Continue" : "Start"}
           </a>

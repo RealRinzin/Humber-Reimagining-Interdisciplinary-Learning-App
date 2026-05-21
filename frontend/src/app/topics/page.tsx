@@ -1,124 +1,101 @@
-"use client";
+import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
+import VideoCard from "@/components/ui/video/VideoCard";
+import ContentSetting from "@/components/ui/profile/ContentSetting";
+import ProfileCirleRing from "@/components/ui/profile/ProfileRing";
+import TabProgressBar from "@/components/ui/progress/Tab";
+// import HeaderCookie from "@/lib/httpHeaderCookie";
+import { serverFetch } from "@/lib/fetch";
+import { VideoType } from "@/types/video";
+import AnimatedCourseNode from "@/components/features/course/AnimatedCourseNode";
+import { useToggle } from "@/hooks/common/useToggle";
 
-import SearchResultCard from "@/components/ui/search/ResultCard";
-import { clientFetch } from "@/lib/clientFetch";
-import { useRouter,useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-
-export default function SearchPage() {
-  const router = useRouter();
-  const params = useSearchParams();
-  const q = params.get("q") ?? "";
-  //
-  const [results, setResults] = useState([]);
-  const [query, setQuery] = useState(q);
-  async function getSearchResults(query: string) {
-    try {
-      const res = await clientFetch(`/search?q=${query}`);
-      if (!res.ok) throw new Error(`Server error (${res.status})`);
-      const { data: data } = await res.json();
-      setResults(data);
-      console.log(data);
-      // return data ?? [];
-    } catch (error) {}
-  }
-
-function handleSearch() {
-  router.push(`?q=${encodeURIComponent(query)}`);
-  getSearchResults(query);
+interface CheckedMarkCount {
+  code: number;
+  quiz: number;
+  rambling: number;
+  interactive: number;
 }
-  useEffect(() => {
-    // Call the function
-    getSearchResults(query);
-  }, [q]);
+/**
+ *
+ * @returns
+ */
+export default async function ProfilePage() {
+  const { isOn, toggle } = useToggle(false);
+
+  const res = await serverFetch(`/topics`);
+  const { data: topics } = await res.json();
+
+  // Get the User Record for the tables
+  const getUserRecords = await serverFetch("/users/me/profile");
+  const { data: userData } = await getUserRecords.json();
+  console.log(userData);
+  const checkedMarkCount = (userData?.user_video_settings as any[]).reduce(
+    (acc, data) => ({
+      code: acc.code + (data?.pivot?.code ? 1 : 0),
+      quiz: acc.quiz + (data?.pivot?.quiz ? 1 : 0),
+      rambling: acc.rambling + (data?.pivot?.rambling ? 1 : 0),
+      interactive: acc.interactive + (data?.pivot?.interactive ? 1 : 0),
+    }),
+    { code: 0, quiz: 0, rambling: 0, interactive: 0 },
+  );
+  // Return page
   return (
-    <div className="min-h-screen bg-[#f0f2f5] font-sans">
-      {/* Search */}
-      <div className="bg-[#4a5568] px-6 py-3 sticky top-0 z-10">
-        <div className="max-w-5xl mx-auto relative">
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-            className="w-full bg-white/10 text-white placeholder-white/50 rounded-lg px-4 py-2.5 pr-10 text-sm outline-none focus:ring-2 focus:ring-pink-400 transition"
-            placeholder="Search… (press Enter)"
-          />
-          <svg
-            className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/60"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"
-            />
-          </svg>
-        </div>
-      </div>
-      {/* sidebar */}
-      <div className="max-w-5xl mx-auto px-6 py-8 flex gap-6">
-        <aside className="w-56 shrink-0">
-          <aside className="w-56 shrink-0">
-            <div className="bg-white rounded-xl border border-gray-200 p-4">
-              <span className="text-sm font-semibold text-gray-700 block mb-3">
-                Filters
-              </span>
-              <div className="space-y-2">
-                <label className="flex items-center gap-2.5 cursor-pointer group">
-                  <div className="w-4 h-4 rounded border-2 flex items-center justify-center shrink-0 transition-colors border-gray-300 group-hover:border-pink-300"></div>
-                  <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">
-                    Modules
-                  </span>
-                </label>
-                <label className="flex items-center gap-2.5 cursor-pointer group">
-                  <div className="w-4 h-4 rounded border-2 flex items-center justify-center shrink-0 transition-colors border-gray-300 group-hover:border-pink-300"></div>
-                  <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">
-                    Videos
-                  </span>
-                </label>
-                <label className="flex items-center gap-2.5 cursor-pointer group">
-                  <div className="w-4 h-4 rounded border-2 flex items-center justify-center shrink-0 transition-colors border-gray-300 group-hover:border-pink-300"></div>
-                  <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">
-                    Code
-                  </span>
-                </label>
-                <label className="flex items-center gap-2.5 cursor-pointer group">
-                  <div className="w-4 h-4 rounded border-2 flex items-center justify-center shrink-0 transition-colors border-gray-300 group-hover:border-pink-300"></div>
-                  <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">
-                    Interactive Demos
-                  </span>
-                </label>
-                <label className="flex items-center gap-2.5 cursor-pointer group">
-                  <div className="w-4 h-4 rounded border-2 flex items-center justify-center shrink-0 transition-colors border-gray-300 group-hover:border-pink-300"></div>
-                  <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">
-                    Ramblings
-                  </span>
-                </label>
-                <label className="flex items-center gap-2.5 cursor-pointer group">
-                  <div className="w-4 h-4 rounded border-2 flex items-center justify-center shrink-0 transition-colors border-gray-300 group-hover:border-pink-300"></div>
-                  <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">
-                    Resources
-                  </span>
-                </label>
-              </div>
+    <>
+      <div className="grid grid-cols-3 gap-4 m-10">
+        <div className="col-span-3 md:col-span-2">
+          <div className="grid grid-cols-1 md:grid-cols-7 col-span-2 bg-gray-200  gap-10 p-6 rounded-lg">
+            <div className="col-span-1">
+              <ProfileCirleRing />
             </div>
-          </aside>
-        </aside>
-        <main className="flex-1 min-w-0">
-          <div className="space-y-4">
-            <p className="text-sm text-gray-500 mb-4">
-              {results.length} results for{" "}
-              <span className="font-semibold text-gray-800">"{query}"</span>
-            </p>
-            {results.map((result, index) => (
-              <SearchResultCard searched={result} query="red" key={index} />
+            <div className="col-span-3">
+              <TabProgressBar
+                name={"Lectures Watched"}
+                completed={userData?.topics?.length ?? 0}
+                total={topics?.length}
+              />
+              <TabProgressBar
+                name={"Code Tested"}
+                completed={checkedMarkCount?.code ?? 0}
+                total={topics?.length}
+              />
+              <TabProgressBar
+                name={"Quiz Completed"}
+                completed={checkedMarkCount?.quiz ?? 0}
+                total={topics.length}
+              />
+            </div>
+            <div className="col-span-3">
+              <TabProgressBar
+                name={"Ramblings Read"}
+                completed={checkedMarkCount?.rambling ?? 0}
+                total={topics.length}
+              />
+              <TabProgressBar
+                name={"Interactive"}
+                completed={6}
+                total={topics.length}
+              />
+            </div>
+          </div>
+          {/* Continue Learning section */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 my-10">
+            {topics.slice(0, 3).map((video: VideoType, index: number) => (
+              <div className="flex" key={index}>
+                <VideoCard video={video} />
+              </div>
             ))}
           </div>
-        </main>
+          {/* Content Setting */}
+          <div>
+            <ContentSetting />
+          </div>
+        </div>
+        {/* Node Links */}
+        <div className="bg-blue-950 rounded-lg col-span-3 md:col-span-1">
+          {/* <CourseNodeLink /> */}
+          <AnimatedCourseNode />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

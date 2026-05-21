@@ -39,6 +39,7 @@ class VideoResource extends JsonResource
             'video_url' => $this->video_url,
             'duration' => $this->duration,
             'tldw' => $this->tldw,
+            'interactive_path' => $this->interactive_path,
             // We will return the count of codes and documents, and the list of codes and documents that are associated with the video
             // The count of codes and documents will be returned in the 'count' key, and the list of codes and documents will be returned in the 'codes' and 'documents' keys respectively
             /**
