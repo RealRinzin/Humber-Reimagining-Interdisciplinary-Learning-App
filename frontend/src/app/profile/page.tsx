@@ -38,52 +38,46 @@ export default async function ProfilePage() {
   // Return page
   return (
     <>
-    
-      <div className="grid grid-cols-3 gap-4 m-10">
-        <div className="col-span-2">
-          {/* Progress Session */}
-          <div className="flex flex-row justify-around gap-10 bg-gray-200 rounded-lg p-6 ">
-            <ProfileCirleRing />
-            {/* Tab Progress UI */}
-            <div>
-              <ul>
-                <TabProgressBar
-                  name={"Lectures Watched"}
-                  completed={userData?.topics?.length ?? 0}
-                  total={topics?.length}
-                />
-                <TabProgressBar
-                  name={"Code Tested"}
-                  completed={checkedMarkCount?.code ?? 0}
-                  total={topics?.length}
-                />
-                <TabProgressBar
-                  name={"Quiz Completed"}
-                  completed={checkedMarkCount?.quiz ?? 0}
-                  total={topics.length}
-                />
-              </ul>
+      <div className="grid grid-cols-3 gap-4 m-10 ">
+        <div className="col-span-3 md:col-span-2">
+          <div className="grid grid-cols-1 md:grid-cols-7 col-span-2 bg-gray-200  gap-10 p-6 rounded-lg">
+            <div className="col-span-1">
+              <ProfileCirleRing />
             </div>
-            <div>
-              <ul>
-                <TabProgressBar
-                  name={"Ramblings Read"}
-                  completed={checkedMarkCount?.rambling ?? 0}
-                  total={topics.length}
-                />
-                <TabProgressBar
-                  name={"Resources Reviewed"}
-                  completed={6}
-                  total={topics.length}
-                />
-              </ul>
+            <div className="col-span-3">
+              <TabProgressBar
+                name={"Lectures Watched"}
+                completed={userData?.topics?.length ?? 0}
+                total={topics?.length}
+              />
+              <TabProgressBar
+                name={"Code Tested"}
+                completed={checkedMarkCount?.code ?? 0}
+                total={topics?.length}
+              />
+              <TabProgressBar
+                name={"Quiz Completed"}
+                completed={checkedMarkCount?.quiz ?? 0}
+                total={topics.length}
+              />
+            </div>
+            <div className="col-span-3">
+              <TabProgressBar
+                name={"Ramblings Read"}
+                completed={checkedMarkCount?.rambling ?? 0}
+                total={topics.length}
+              />
+              <TabProgressBar
+                name={"Interactive"}
+                completed={6}
+                total={topics.length}
+              />
             </div>
           </div>
           {/* Continue Learning section */}
-
-          <div className="flex gap-10 my-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 my-10">
             {topics.slice(0, 3).map((video: VideoType, index: number) => (
-              <div key={index}>
+              <div className="flex" key={index}>
                 <VideoCard video={video} />
               </div>
             ))}
@@ -94,9 +88,9 @@ export default async function ProfilePage() {
           </div>
         </div>
         {/* Node Links */}
-        <div className="bg-blue-950 rounded-lg">
+        <div className="bg-blue-950 rounded-lg col-span-3 md:col-span-1">
           {/* <CourseNodeLink /> */}
-          <AnimatedCourseNode/>
+          <AnimatedCourseNode />
         </div>
       </div>
     </>

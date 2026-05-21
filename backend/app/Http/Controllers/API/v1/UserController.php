@@ -4,8 +4,10 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Http\Resources\Topic\TopicResource;
 use App\Http\Resources\User\UserResource;
+use App\Models\Quiz;
 use App\Models\Topic;
 use App\Models\User;
+use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -82,7 +84,34 @@ class UserController
     public function search(Request $request)
     {
         // return $request;
-        $topics = Topic::where('title', 'like', '%' . $request->q . '%')->get();
-        return TopicResource::collection($topics);
+        // $topics = Topic::where('title', 'like', '%' . $request->q . '%')->get();
+        // return TopicResource::collection($topics);
+
+        $q = $request->q;
+
+        $perPage = $request->per_page ?? 40;
+
+        $topics = Topic::where('title', 'like', '%' . $q . '%')->get()
+            ->map(fn($item) => ['type' => 'topic', 'id' => $item->id, 'title' => $item->title, 'slug' => $item->slug, 'description' => $item->description, 'node_color' => $item->node_color, 'x_axis' => $item->x_axis, 'y_axis' => $item->y_axis]);
+
+        $videos = Video::where('title', 'like', '%' . $q . '%')->get()
+            ->map(fn($item) => ['type' => 'video', 'id' => $item->id, 'title' => $item->title, 'slug' => $item->slug, 'description' => $item->description, 'node_color' => $item->node_color,]);
+
+        $quizzes = Quiz::where('question', 'like', '%' . $q . '%')->get()
+            ->map(fn($item) => ['type' => 'quiz', 'id' => $item->id, 'title' => $item->description, 'question' => $item->question, 'node_color' => $item->node_color]);
+
+        $merged = $topics->concat($videos)->concat($quizzes);
+
+        $page    = $request->page ?? 1;
+        $total   = $merged->count();
+        $items   = $merged->forPage($page, $perPage)->values();
+
+        return response()->json([
+            'data'          => $items,
+            'total'         => $total,
+            'per_page'      => $perPage,
+            'current_page'  => (int) $page,
+            'last_page'     => (int) ceil($total / $perPage),
+        ]);
     }
 }

@@ -16,9 +16,8 @@ export default function SearchPage() {
     try {
       const res = await clientFetch(`/search?q=${query}`);
       if (!res.ok) throw new Error(`Server error (${res.status})`);
-      const { data: data } = await res.json();
+      const {data:data} = await res.json();
       setResults(data);
-      console.log(data);
       // return data ?? [];
     } catch (error) {}
   }

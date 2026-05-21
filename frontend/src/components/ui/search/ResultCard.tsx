@@ -29,11 +29,17 @@ export default function SearchResultCard({ searched: result, query }: SearchResu
 
   return (
     <div className="bg-white border border-gray-200 rounded-xl p-5 hover:border-pink-200 hover:shadow-md transition-all duration-200 group">
-      <span className="text-xs font-medium text-gray-400 uppercase tracking-widest mb-3 block">
-        {result.slug}
+      <span className={`inline-flex items-center rounded-full uppercase  px-2.5 py-0.5 text-xs font-semibold my-2
+         ${
+          result.type === 'topic' ? 'text-blue-800 bg-blue-100':
+          result.type ==='quiz'?'text-red-800 bg-red-100':'text-gray-800 bg-gray-100 '
+
+         }
+         `}>
+        {result.type}
       </span>
       <div className="flex items-start gap-3 mb-3">
-        <NodeIcon color={result.node_color} />
+        <NodeIcon color={result?.node_color ?? 'red'} />
         <h3 className="text-lg font-semibold text-gray-800 leading-tight pt-1.5">
           <span className="font-black text-bold">
             {result.title}
