@@ -1,0 +1,242 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Movable Rotation Center (Pivot) – Three.js</title>
+  <style>
+    body { margin: 0; background: #0b0e12; color: #e5e7eb; font-family: system-ui, sans-serif; }
+    .hint { position: fixed; left: 10px; bottom: 10px; font-size: 12px;
+            background: rgba(0,0,0,.4); padding: 8px 10px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+<div class="hint">Drag to orbit, wheel to zoom. Red sphere = center of rotation.</div>
+
+<script type="module">
+import * as THREE from "https://esm.sh/three@0.160.0";
+import { OrbitControls } from "https://esm.sh/three@0.160.0/examples/jsm/controls/OrbitControls.js";
+import GUI from "https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm";
+
+// ---- Scene / Camera / Renderer ----
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0b0e12);
+
+const camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 200);
+camera.position.set(6, 4, 9);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+
+scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+const dl = new THREE.DirectionalLight(0xffffff, 0.8);
+dl.position.set(5, 6, 4);
+scene.add(dl);
+
+// ---- Axes + Axis Labels ----
+const AXIS_LEN = 3;
+const axes = new THREE.AxesHelper(AXIS_LEN);
+scene.add(axes);
+
+function makeTextSprite(text, color = "#ffffff") {
+  const padding = 8, font = "bold 28px system-ui";
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+  ctx.font = font;
+  const w = Math.ceil(ctx.measureText(text).width) + padding * 2;
+  const h = 40 + padding * 2;
+  canvas.width = w; canvas.height = h;
+
+  ctx.fillStyle = "rgba(0,0,0,0.5)";
+  ctx.fillRect(0, 0, w, h);
+  ctx.font = font;
+  ctx.fillStyle = color;
+  ctx.textBaseline = "middle";
+  ctx.fillText(text, padding, h / 2);
+
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.minFilter = THREE.LinearFilter;
+  tex.magFilter = THREE.LinearFilter;
+
+  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true }));
+  const worldH = 0.6, aspect = w / h;
+  sprite.scale.set(worldH * aspect, worldH, 1);
+  return sprite;
+}
+
+const labelX = makeTextSprite("X", "#ff6666"); labelX.position.set(AXIS_LEN + 0.2, 0, 0);
+const labelY = makeTextSprite("Y", "#66ff66"); labelY.position.set(0, AXIS_LEN + 0.2, 0);
+const labelZ = makeTextSprite("Z", "#66a3ff"); labelZ.position.set(0, 0, AXIS_LEN + 0.2);
+scene.add(labelX, labelY, labelZ);
+
+// ---- Pivot (center of rotation) ----
+const pivot = new THREE.Object3D(); // world-space point
+pivot.position.set(0, 0, 0);
+scene.add(pivot);
+
+const pivotMarker = new THREE.Mesh(
+  new THREE.SphereGeometry(0.08, 16, 16),
+  new THREE.MeshBasicMaterial({ color: 0xff3333 })
+);
+pivot.add(pivotMarker);
+
+// ---- Cube (free to move) + its center marker ----
+const cube = new THREE.Mesh(
+  new THREE.BoxGeometry(1, 1, 1),
+  new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
+);
+cube.position.set(2, 0, 0);
+scene.add(cube);
+
+const cubeCenterMarker = new THREE.Mesh(
+  new THREE.SphereGeometry(0.06, 16, 16),
+  new THREE.MeshBasicMaterial({ color: 0x3399ff })
+);
+cube.add(cubeCenterMarker);
+
+// ---- GUI ----
+const params = {
+  // positions (world)
+  pivotX: 0, pivotY: 0, pivotZ: 0,
+  cubeX: 2,  cubeY: 0,  cubeZ: 0,
+
+  // orbit around pivot
+  enableOrbit: true,
+  orbitAxis: "Y",     // X | Y | Z | Custom
+  axisX: 0, axisY: 1, axisZ: 0,
+  orbitSpeed: 0.6,    // rad/s
+
+  // orientation
+  rotateOrientationWithOrbit: true, // also rotate cube orientation by orbit rotation
+  spinX: 0.0, spinY: 0.0, spinZ: 0.0, // extra local spin (rad/s)
+
+  // visuals
+  wireframe: true,
+  showAxes: true,
+
+  reset() {
+    Object.assign(params, {
+      pivotX: 0, pivotY: 0, pivotZ: 0,
+      cubeX: 2,  cubeY: 0,  cubeZ: 0,
+      enableOrbit: true, orbitAxis: "Y", axisX: 0, axisY: 1, axisZ: 0,
+      orbitSpeed: 0.6, rotateOrientationWithOrbit: true,
+      spinX: 0.0, spinY: 0.0, spinZ: 0.0,
+      wireframe: true, showAxes: true
+    });
+    applyParams(); gui.updateDisplay();
+  }
+};
+
+const gui = new GUI({ title: "Arbitrary Pivot Rotation" });
+const fPiv = gui.addFolder("Pivot (center)");
+fPiv.add(params, "pivotX", -5, 5, 0.01).name("X").onChange(applyParams);
+fPiv.add(params, "pivotY", -5, 5, 0.01).name("Y").onChange(applyParams);
+fPiv.add(params, "pivotZ", -5, 5, 0.01).name("Z").onChange(applyParams);
+
+const fCube = gui.addFolder("Cube position");
+fCube.add(params, "cubeX", -5, 5, 0.01).name("X").onChange(applyParams);
+fCube.add(params, "cubeY", -5, 5, 0.01).name("Y").onChange(applyParams);
+fCube.add(params, "cubeZ", -5, 5, 0.01).name("Z").onChange(applyParams);
+
+const fOrb = gui.addFolder("Orbit (around pivot)");
+fOrb.add(params, "enableOrbit").name("Enable orbit");
+fOrb.add(params, "orbitAxis", ["X", "Y", "Z", "Custom"]).name("Axis");
+fOrb.add(params, "axisX", -1, 1, 0.01).name("Custom X");
+fOrb.add(params, "axisY", -1, 1, 0.01).name("Custom Y");
+fOrb.add(params, "axisZ", -1, 1, 0.01).name("Custom Z");
+fOrb.add(params, "orbitSpeed", -5, 5, 0.01).name("Speed (rad/s)");
+
+const fOri = gui.addFolder("Orientation");
+fOri.add(params, "rotateOrientationWithOrbit").name("Rotate with orbit");
+fOri.add(params, "spinX", -5, 5, 0.01).name("Local spin X");
+fOri.add(params, "spinY", -5, 5, 0.01).name("Local spin Y");
+fOri.add(params, "spinZ", -5, 5, 0.01).name("Local spin Z");
+
+gui.add(params, "wireframe").name("Wireframe").onChange(v => cube.material.wireframe = v);
+gui.add(params, "showAxes").name("Show Axes/Labels").onChange(v => {
+  axes.visible = v; labelX.visible = v; labelY.visible = v; labelZ.visible = v;
+});
+gui.add(params, "reset").name("Reset");
+
+function applyParams() {
+  pivot.position.set(params.pivotX, params.pivotY, params.pivotZ);
+  cube.position.set(params.cubeX, params.cubeY, params.cubeZ);
+  cube.material.wireframe = params.wireframe;
+  axes.visible = params.showAxes;
+  labelX.visible = params.showAxes; labelY.visible = params.showAxes; labelZ.visible = params.showAxes;
+}
+applyParams();
+
+// ---- Math helpers for orbiting around an arbitrary point (no parenting) ----
+const clock = new THREE.Clock();
+const axis = new THREE.Vector3();
+const qStep = new THREE.Quaternion();
+const tmp = new THREE.Vector3();
+
+function getOrbitAxis() {
+  switch (params.orbitAxis) {
+    case "X": axis.set(1, 0, 0); break;
+    case "Y": axis.set(0, 1, 0); break;
+    case "Z": axis.set(0, 0, 1); break;
+    default:
+      axis.set(params.axisX, params.axisY, params.axisZ);
+      if (axis.lengthSq() < 1e-6) axis.set(0, 1, 0);
+  }
+  axis.normalize();
+  return axis;
+}
+
+function orbitAroundPivot(object, pivotPos, angleRad, axisVec, rotateOrientation) {
+  // position' = P + R * (pos - P)
+  tmp.copy(object.position).sub(pivotPos);
+  qStep.setFromAxisAngle(axisVec, angleRad);
+  tmp.applyQuaternion(qStep);
+  object.position.copy(pivotPos).add(tmp);
+  if (rotateOrientation) object.quaternion.premultiply(qStep);
+}
+
+// ---- Animation loop ----
+function animate() {
+  const dt = clock.getDelta();
+  requestAnimationFrame(animate);
+
+  // Revolve cube around pivot (world) if enabled
+  if (params.enableOrbit && Math.abs(params.orbitSpeed) > 1e-6) {
+    orbitAroundPivot(
+      cube,
+      pivot.position,
+      params.orbitSpeed * dt,
+      getOrbitAxis(),
+      params.rotateOrientationWithOrbit
+    );
+    // If you want GUI fields to track the moving cube, uncomment:
+    // params.cubeX = cube.position.x; params.cubeY = cube.position.y; params.cubeZ = cube.position.z; gui.updateDisplay();
+  }
+
+  // Additional local spins (orientation only)
+  if (params.spinX || params.spinY || params.spinZ) {
+    cube.rotation.x += params.spinX * dt;
+    cube.rotation.y += params.spinY * dt;
+    cube.rotation.z += params.spinZ * dt;
+  }
+
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+
+// ---- Resize ----
+addEventListener("resize", () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+
+
+</body>
+</html>

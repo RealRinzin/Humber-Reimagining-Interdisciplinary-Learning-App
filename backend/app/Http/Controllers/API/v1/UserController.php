@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\API\v1;
 
+use App\Http\Resources\Topic\TopicResource;
 use App\Http\Resources\User\UserResource;
+use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -70,5 +72,17 @@ class UserController
     public function userVideo()
     {
         return User::get();
+    }
+
+    /**
+     * Search for topics
+     */
+
+
+    public function search(Request $request)
+    {
+        // return $request;
+        $topics = Topic::where('title', 'like', '%' . $request->q . '%')->get();
+        return TopicResource::collection($topics);
     }
 }

@@ -120,8 +120,8 @@ export default function CourseTabs({
         ) : type === "tldnw" ? (
           "Later watch"
         ) : type === "interactive" ? (
-          "Interactive"
-        ) : // <PivotScene/>
+          <iframe src="/interactive/space.html" className="w-full h-screen border-0" />
+        ) : 
         type === "resources" ? (
           "Documents"
         ) : (

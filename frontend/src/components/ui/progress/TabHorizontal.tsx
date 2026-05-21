@@ -57,7 +57,6 @@ export default function TabHorizontal({
       // onMouseLeave={toggle}
       onMouseEnter={() => { toggle(); onHover?.(); }} 
       onMouseLeave={() => { toggle(); onLeave?.(); }}  
-      onClick={() => alert("This is good")}
     >
       <div className="flex flex-col items-center justify-center border-r-2 border-gray-500/80 p-3">
         <RingProgressBar

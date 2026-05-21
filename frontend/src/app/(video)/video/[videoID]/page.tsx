@@ -184,6 +184,16 @@ export default async function Page({
             all_complete={completeStatus?.all_checked}
             quizzes={video.quizzes}
           />
+          <CourseTabs
+            type="interactive"
+            title={"Interactive"}
+            icon="QuizIcon.png"
+            content={video.title}
+            status={completeStatus?.quiz}
+            videoID={video?.id}
+            all_complete={completeStatus?.all_checked}
+            quizzes={video.quizzes}
+          />
           {/* Rambling Tab */}
           <CourseTabs
             type="rambling"

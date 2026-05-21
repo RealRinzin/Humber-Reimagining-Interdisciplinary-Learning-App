@@ -24,22 +24,6 @@ export default function DesktopNavigation() {
 
   async function logOut(): Promise<void> {
     const res = await clientPost("/logout", {});
-    console.log(res);
-    // const token = document.cookie
-    //   .split("; ")
-    //   .find((row) => row.startsWith("XSRF-TOKEN="))
-    //   ?.split("=")[1];
-
-    // await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/logout`, {
-    //   method: "POST",
-    //   credentials: "include",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Accept: "application/json",
-    //     "X-XSRF-TOKEN": token ? decodeURIComponent(token) : "",
-    //   },
-    // });
-
     router.push("/");
   }
   return (

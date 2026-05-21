@@ -79,6 +79,7 @@ Route::prefix('v1')
         Route::controller(UserController::class)->prefix('users/me')->group(function () {
             Route::get('/profile', 'profile')->name('users.profile');
         });
+        Route::get('/search', [UserController::class, 'search'])->name('users.search');
         // Route::apiResource('users', UserController::class)->except(['create', 'edit']);
         // === Topic Controller ==
         // This API will be used to get the codes of the user and also to add or remove codes from the user
