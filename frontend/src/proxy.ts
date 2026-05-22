@@ -35,7 +35,7 @@ async function isAuthenticated(request: NextRequest): Promise<boolean> {
     // const cookieStore = await cookies(); // get the cookies from the request using Next.js's cookies function, which returns a cookie store object that we can use to access the cookies in the request
     // We convert the cookie store to a string and include it in the headers of the fetch request to the backend API.
     //  This allows the backend to identify the user based on their session cookie and determine if they are authenticated.
-    try { 
+    try {
         const res = await fetch(`${process.env.BASE_END_POINT}/api/user`, { // Default
             method: "GET",
             // credentials: "include",
@@ -67,10 +67,13 @@ export async function proxy(request: NextRequest) {
     const isAuthPage = request.nextUrl.pathname === '/'
     const isOnBoardingPage = request.nextUrl.pathname === '/onboarding';
     // If not logged in and trying to access protected page → redirect to login
-    if (!loggedIn && !isAuthPage) {
+    if (!loggedIn && !isAuthPage && !isOnBoardingPage) {
         return NextResponse.redirect(new URL('/', request.url))
     }
-
+    // If already logged in and trying to access onboarding → redirect to profile
+    if (loggedIn && isOnBoardingPage) {
+        return NextResponse.redirect(new URL('/profile', request.url))
+    }
     // If already logged in and trying to access login page → redirect to dashboard
     if (loggedIn && isAuthPage) {
         return NextResponse.redirect(new URL('/profile/knowledge_map', request.url))
@@ -80,5 +83,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/', '/topics/:path*', '/profile/:path*','/video/:path*','/team/:path*'],
+    matcher: ['/', '/topics/:path*', '/profile/:path*', '/video/:path*', '/team/:path*', '/onboarding'],
 }
