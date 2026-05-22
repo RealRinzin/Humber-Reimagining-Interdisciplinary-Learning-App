@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('codes', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('language');
+            // $table->string('language');
             $table->foreignId('topic_id')
                 // ->unique()
                 ->constrained('topics')
@@ -25,6 +24,7 @@ return new class extends Migration
                 ->constrained('videos')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
+            $table->text('description');
             $table->text('code');
             $table->timestamps();
         });

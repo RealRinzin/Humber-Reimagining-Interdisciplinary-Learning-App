@@ -22,10 +22,10 @@ class CodeFactory extends Factory
     {
         return [
             //
-            'title' => Str::random(100),
-            'language' => 'Python',
             'video_id' => Video::inRandomOrder()->value('id'),
             'topic_id' => Topic::inRandomOrder()->value('id'),
+            'description' => Str::random(300),
+            // 'language' => 'Python',
             'code' => "// Grab a 3D vertex from Paul Neale's model and turn it into 4D
 
 Vec4 vertexPos = Vec4(vertex.x, vertex.y, vertex.z, 1);

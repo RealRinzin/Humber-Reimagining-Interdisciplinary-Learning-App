@@ -69,7 +69,7 @@ export default async function ProfilePage() {
               />
               <TabProgressBar
                 name={"Interactive"}
-                completed={6}
+                completed={checkedMarkCount?.interactive ?? 0}
                 total={topics.length}
               />
             </div>
