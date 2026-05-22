@@ -146,7 +146,7 @@ const OnBoardingShowProgress = ({
 
         <ToggleCheckBox <OnboardShowProgressType>
             name="progress"
-            label="progress"
+            label="Progress"
             register={register}
             required={false}
             error={errors.progress?.message}

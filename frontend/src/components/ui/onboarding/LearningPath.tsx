@@ -1,13 +1,12 @@
-
 import { OnboardLearningPathType } from "@/types/onboard/onboard-types";
 import { useForm } from "react-hook-form";
-import ToggleCheckBox from "../form/ToggleCheckbox";
+import ToggleRadio from "../form/Radio";
 
 type Props = {
   onSuccess: (data: OnboardLearningPathType) => void;
   values: OnboardLearningPathType;
 };
-// const OnBoardingLearningPath = ({ onSuccess }: { onSuccess: () => void }) => {
+
 const OnBoardingLearningPath = ({ onSuccess, values }: Props) => {
   const {
     register,
@@ -16,10 +15,19 @@ const OnBoardingLearningPath = ({ onSuccess, values }: Props) => {
   } = useForm<OnboardLearningPathType>({ values });
 
   const onSubmit = (data: OnboardLearningPathType) => {
-    let user: any = [];
-    user["user"] = data;
-    onSuccess(data);
+  const selected = data.explore_mode; // "explore_mode" | "guide_path"
+
+
+
+  let user: any = [];
+  const payload = {
+    explore_mode: data.learning_path === "explore_mode",
+    guide_path: data.learning_path === "guide_path",
   };
+  user["user"] = payload;
+  onSuccess(payload as any);
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -34,20 +42,21 @@ const OnBoardingLearningPath = ({ onSuccess, values }: Props) => {
           at any time
         </p>
         <div className="flex flex-col gap-5">
-          {/* <ToggleCheckBox name="explore_mode" label="Explore Mode" register={register} /> */}
-          <ToggleCheckBox <OnboardLearningPathType>
-            name="explore_mode"
+          <ToggleRadio<OnboardLearningPathType>
+            name="learning_path"
+            value="explore_mode"
             label="Explore Mode"
             register={register}
             required={false}
             error={errors.explore_mode?.message}
           />
-          <ToggleCheckBox <OnboardLearningPathType>
-            name="guide_path"
+          <ToggleRadio<OnboardLearningPathType>
+            name="learning_path"
+            value="guide_path"
             label="Guide Path"
             register={register}
             required={false}
-            error={errors.guide_path?.message}
+            error={errors.explore_mode?.message}
           />
         </div>
         <div className="flex items-center justify-end gap-4 mt-8">

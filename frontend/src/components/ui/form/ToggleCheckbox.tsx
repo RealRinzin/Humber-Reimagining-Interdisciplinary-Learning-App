@@ -14,8 +14,6 @@ export default function ToggleCheckBox<T extends FieldValues>({
   required = false,
   error,
 }: ToggleInterface<T>) {
-console.log(name)
-
   return (
     <>
       <label className="flex items-center gap-3 cursor-pointer mt-4" htmlFor={name}>
