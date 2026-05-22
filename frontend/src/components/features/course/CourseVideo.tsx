@@ -21,9 +21,6 @@ export default function VideoPlayer({ options, tracks, videoLink, last_watch }: 
   const playerRef = useRef<VideoJsPlayer | null>(null);
 
   useEffect(() => {
-    console.log('loadded')
-    console.log('last_watch received:', last_watch);
-
     if (!videoRef.current || playerRef.current) return;
 
     // Initialize player

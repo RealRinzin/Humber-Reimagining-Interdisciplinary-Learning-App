@@ -141,7 +141,6 @@ function ResultCard({ result }: ResultCardProps) {
 export default function SearchPage() {
     const router = useRouter();
   const params = useSearchParams();
-  console.log(params)
   const [query, setQuery] = useState<string>("Camera");
   const [activeFilters, setActiveFilters] = useState<FilterName[]>([]);
 

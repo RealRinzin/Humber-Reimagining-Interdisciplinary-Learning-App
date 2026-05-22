@@ -7,7 +7,6 @@ import Image from "next/image";
 export default async function MoreCourses() {
   const res = await serverFetch(`/topics`);
   const { data:topics } = await res.json();
-  console.log(topics)
   return (
     <>
       <div className="flex items-center gap-2">

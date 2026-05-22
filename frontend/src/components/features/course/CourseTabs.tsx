@@ -33,9 +33,7 @@ export default function CourseTabs({
     const completeStatusRes = await clientFetch(
       `/user-video-setting/users/me/videos/${videoID}`,
     );
-    console.log(completeStatusRes);
     const { data } = await completeStatusRes.json();
-    console.log(data);
     // reverse the status
     status = !status;
     // Update the latest status of this tab

@@ -115,7 +115,6 @@ const OnBoardingShowProgress = ({
       },
     );
     if (!settingRes.ok) {
-      console.log("error");
     }
   }
   const onSubmit = async (data: OnboardShowProgressType) => {

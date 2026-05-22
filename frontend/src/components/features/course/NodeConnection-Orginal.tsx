@@ -32,7 +32,6 @@ export default function NodeOriginal() {
         { data: { source: "9", target: "7" } },
         { data: { source: "1", target: "5" } },
     ];
-    // console.log(elements)
     const stylesheet: any = [
         {
             selector: "node",

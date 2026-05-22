@@ -5,7 +5,6 @@ import Image from "next/image";
 export default async function TeamPage() {
   const res = await serverFetch("/projects");
   const { data: project } = await res.json();
-  console.log(project.title);
   return (
     <main className="">
       <h1 className="bg-gray-800 text-white py-8 px-30 text-2xl ">
