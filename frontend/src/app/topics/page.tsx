@@ -7,7 +7,6 @@ import TabProgressBar from "@/components/ui/progress/Tab";
 import { serverFetch } from "@/lib/fetch";
 import { VideoType } from "@/types/video";
 import AnimatedCourseNode from "@/components/features/course/AnimatedCourseNode";
-import { useToggle } from "@/hooks/common/useToggle";
 
 interface CheckedMarkCount {
   code: number;
@@ -20,15 +19,12 @@ interface CheckedMarkCount {
  * @returns
  */
 export default async function ProfilePage() {
-  const { isOn, toggle } = useToggle(false);
-
   const res = await serverFetch(`/topics`);
   const { data: topics } = await res.json();
 
   // Get the User Record for the tables
   const getUserRecords = await serverFetch("/users/me/profile");
   const { data: userData } = await getUserRecords.json();
-  console.log(userData);
   const checkedMarkCount = (userData?.user_video_settings as any[]).reduce(
     (acc, data) => ({
       code: acc.code + (data?.pivot?.code ? 1 : 0),
