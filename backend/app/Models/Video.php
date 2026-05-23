@@ -64,6 +64,19 @@ class Video extends Model
     {
         return $this->hasMany(Quiz::class);
     }
+        // Ramblings
+    // A video can have many ramblings
+    // Video Table relationship with ramblings table
+    // Rambling belongs to one Video
+    /**
+     * Video has many Rambling
+     * Video Table relationship with ramblings table
+     * Rambling belongs to one Video
+     * */
+    public function ramblings()
+    {
+        return $this->hasMany(Rambling::class);
+    }
     // LessonDocument Relationship
     // A video can have many lesson documents
     // Video Table relationship with lesson_documents table
@@ -77,6 +90,8 @@ class Video extends Model
     {
         return $this->hasMany(LessonDocument::class);
     }
+
+
     // UserVideo Relationship
     /**
      * Video has many UserVideo

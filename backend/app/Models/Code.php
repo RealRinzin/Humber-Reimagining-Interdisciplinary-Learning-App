@@ -19,7 +19,9 @@ class Code extends Model
     {
         return $this->belongsTo(Topic::class);
     }
-
+    // Video belongs to one Topic
+    // Video Table relationship with topics table
+    // Topic has many videos
     public function video()
     {
         return $this->belongsTo(Video::class);

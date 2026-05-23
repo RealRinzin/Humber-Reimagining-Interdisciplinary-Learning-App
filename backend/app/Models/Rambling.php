@@ -9,4 +9,15 @@ class Rambling extends Model
 {
     /** @use HasFactory<\Database\Factories\RamblingFactory> */
     use HasFactory;
+    // protected $table = 'ramblings';
+
+    public function topic()
+    {
+        return $this->belongsTo(Topic::class);
+    }
+    // A rambling belongs to one video 
+    public function video()
+    {
+        return $this->belongsTo(Video::class);
+    }
 }

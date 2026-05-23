@@ -6,6 +6,7 @@ use App\Http\Resources\Code\CodeResource;
 use App\Http\Resources\Document\DocumentResource;
 use App\Http\Resources\LessonDocument\LessonDocumentResource;
 use App\Http\Resources\Quiz\QuizResource;
+use App\Http\Resources\Rambling\RamblingResource;
 use App\Http\Resources\Topic\TopicResource;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\UserVideo\UserVideoResource;
@@ -52,6 +53,7 @@ class VideoResource extends JsonResource
             'codes' => CodeResource::collection($this->whenLoaded("codes")),
             'documents' => LessonDocumentResource::collection($this->whenLoaded('documents')),
             'quizzes' => QuizResource::collection($this->whenLoaded('quizzes')),
+            'ramblings' => RamblingResource::collection($this->whenLoaded('ramblings')),
             'count' => [
                 'codes' => $this->codes_count,
                 'documents' => $this->documents_count,
