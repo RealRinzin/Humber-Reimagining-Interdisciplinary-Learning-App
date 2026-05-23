@@ -21,9 +21,9 @@ return new class extends Migration
                 ->constrained('videos')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('description');
-            $table->time('time_limit');
-            $table->string("type");
+            // $table->string('description');
+            // $table->time('time_limit');
+            // $table->string("type");
             $table->string("difficulty");
             $table->string("question");
             $table->string("answer");

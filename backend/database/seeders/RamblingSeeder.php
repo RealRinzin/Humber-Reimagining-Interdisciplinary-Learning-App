@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Rambling;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,5 +14,8 @@ class RamblingSeeder extends Seeder
     public function run(): void
     {
         //
+        $json = file_get_contents(database_path('data/ramblings-fixed.json'));
+        $codes = json_decode($json, true); // pass true for associative array
+        Rambling::insert($codes);
     }
 }

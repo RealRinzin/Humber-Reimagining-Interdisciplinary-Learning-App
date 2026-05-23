@@ -4,19 +4,21 @@ import SearchResultCard from "@/components/ui/search/ResultCard";
 import { clientFetch } from "@/lib/clientFetch";
 import { useRouter,useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-// Main Function Page return
+/**
+ * @returns 
+ */
+
 export default function SearchPage() {
-  const router = useRouter();
-  const params = useSearchParams();
+  const router = useRouter(); // router
+  const params = useSearchParams(); // params
   const q = params.get("q") ?? "";
-  //
   const [results, setResults] = useState([]);
   const [query, setQuery] = useState(q);
   async function getSearchResults(query: string) {
     try {
       const res = await clientFetch(`/search?q=${query}`);
-      if (!res.ok) throw new Error(`Server error (${res.status})`);
-      const {data:data} = await res.json();
+      if (!res?.ok) throw new Error(`Server error (${res.status})`);
+      const {data} = await res.json();
       setResults(data);
       // return data ?? [];
     } catch (error) {}

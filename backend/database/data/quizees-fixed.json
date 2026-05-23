@@ -1,0 +1,212 @@
+[
+  {
+    "topic_id": 1,
+    "video_id": 1,
+    "difficulty": "easy",
+    "question": "The space between model space and camera space is called:",
+    "answer": "world space"
+  },
+  {
+    "topic_id": 1,
+    "video_id": 1,
+    "difficulty": "hard",
+    "question": "Umer forgot there is a space in between camera and NDC space. It’s called:",
+    "answer": "clip space"
+  },
+  {
+    "topic_id": 2,
+    "video_id": 2,
+    "difficulty": "easy",
+    "question": "How many triangles do you need to make a quad?",
+    "answer": "2"
+  },
+  {
+    "topic_id": 3,
+    "video_id": 3,
+    "difficulty": "easy",
+    "question": "The 4th component of a vertex position, known as \"w\", is always set to:",
+    "answer": "1"
+  },
+  {
+    "topic_id": 4,
+    "video_id": 4,
+    "difficulty": "easy",
+    "question": "The normal vector [0, 1, 0] is pointing:",
+    "answer": "Up"
+  },
+  {
+    "topic_id": 5,
+    "video_id": 5,
+    "difficulty": "easy",
+    "question": "To make a model bigger along all three dimensions, the scale factors in the scale matrix need to be all larger than:",
+    "answer": "1"
+  },
+  {
+    "topic_id": 5,
+    "video_id": 5,
+    "difficulty": "hard",
+    "question": "A scale matrix with all three scale factors set to 1 is more commonly known as:",
+    "answer": "The identity matrix"
+  },
+  {
+    "topic_id": 6,
+    "video_id": 6,
+    "difficulty": "easy",
+    "question": "The position (1, 2, 3, 1) translated by 1 along x, -2 along y, and 3 along z gives you the final position:",
+    "answer": "(2, 0, 6, 1)"
+  },
+  {
+    "topic_id": 6,
+    "video_id": 6,
+    "difficulty": "hard",
+    "question": "Say you are using a 4x4 translation matrix, but you want to switch off translations for a particular vector. You should set the vector’s \"w\" component to:",
+    "answer": "zero"
+  },
+  {
+    "topic_id": 7,
+    "video_id": 7,
+    "difficulty": "easy",
+    "question": "The biggest problem with Euler angles is:",
+    "answer": "Gimbal lock"
+  },
+  {
+    "topic_id": 7,
+    "video_id": 7,
+    "difficulty": "hard",
+    "question": "The inverse of a rotation matrix is also the following operation on the matrix:",
+    "answer": "Transpose"
+  },
+  {
+    "topic_id": 8,
+    "video_id": 8,
+    "difficulty": "easy",
+    "question": "The quaternion k is used to rotate an object 180 degrees about the:",
+    "answer": "z axis"
+  },
+  {
+    "topic_id": 8,
+    "video_id": 8,
+    "difficulty": "hard",
+    "question": "Add quaternions to get the average between them, but afterwards don't forget to:",
+    "answer": "normalize"
+  },
+  {
+    "topic_id": 8,
+    "video_id": 8,
+    "difficulty": "hard",
+    "question": "Invert a quaternion by flipping the sign on the:",
+    "answer": "i, j, and k parts"
+  },
+  {
+    "topic_id": 9,
+    "video_id": 9,
+    "difficulty": "easy",
+    "question": "If the matrices for translation (T), rotation (R), and scale (S), are multiplied in the order T * R * S, what transformation occurs first for a position in column vector format:",
+    "answer": "Scale (S)"
+  },
+  {
+    "topic_id": 9,
+    "video_id": 9,
+    "difficulty": "hard",
+    "question": "When using the model matrix to transform normals, you need to invert it, transpose it, then remove the fourth column and row. This is important when the scale matrix is:",
+    "answer": "Non-uniform (or if you are using a shear matrix)"
+  },
+  {
+    "topic_id": 10,
+    "video_id": 10,
+    "difficulty": "easy",
+    "question": "Each model brought into world space needs its own scale, rotation, and:",
+    "answer": "translation (or you might say position)"
+  },
+  {
+    "topic_id": 10,
+    "video_id": 10,
+    "difficulty": "hard",
+    "question": "Say you apply a non-uniform scale and a translation to your model when bringing it into world space. What do you need to do to the model matrix to transform the model’s normals correctly?",
+    "answer": "inverse transpose it and cast it down to a 3x3 matrix"
+  },
+  {
+    "topic_id": 11,
+    "video_id": 11,
+    "difficulty": "easy",
+    "question": "If your camera is looking to the left, the view matrix moves the world:",
+    "answer": "Right"
+  },
+  {
+    "topic_id": 11,
+    "video_id": 11,
+    "difficulty": "hard",
+    "question": "What’s a quick way of inverting a camera’s rotation matrix?",
+    "answer": "Transpose it"
+  },
+  {
+    "topic_id": 12,
+    "video_id": 12,
+    "difficulty": "easy",
+    "question": "If your silly make-believe camera in world space is at position (0, 0, 5), then in camera space the world is translated by:",
+    "answer": "(0, 0, -5)"
+  },
+  {
+    "topic_id": 13,
+    "video_id": 13,
+    "difficulty": "easy",
+    "question": "The viewing frustum set up by the projection matrix is shaped like a:",
+    "answer": "Truncated pyramid (the chopped off apex being the camera position)"
+  },
+  {
+    "topic_id": 13,
+    "video_id": 13,
+    "difficulty": "hard",
+    "question": "The projection matrix takes vertices from camera space to:",
+    "answer": "Clip space"
+  },
+  {
+    "topic_id": 14,
+    "video_id": 14,
+    "difficulty": "easy",
+    "question": "After using the perspective projection matrix, the w component is smallest near the:",
+    "answer": "Camera's front clipping plane"
+  },
+  {
+    "topic_id": 14,
+    "video_id": 14,
+    "difficulty": "hard",
+    "question": "After using the perspective projection matrix, the w component is used by the GPU to:",
+    "answer": "Discard geometry outside the view frustum"
+  },
+  {
+    "topic_id": 15,
+    "video_id": 15,
+    "difficulty": "easy",
+    "question": "The width of the NDC box is:",
+    "answer": "2 units"
+  },
+  {
+    "topic_id": 15,
+    "video_id": 15,
+    "difficulty": "hard",
+    "question": "Vulkan uses a right-handed coordinate system for NDC space with positive y going down and x increasing to the right. That means positive z goes:",
+    "answer": "Away from you"
+  },
+  {
+    "topic_id": 16,
+    "video_id": 16,
+    "difficulty": "easy",
+    "question": "The viewport matrix stretches the normalized device coordinate box by this much along x:",
+    "answer": "Half the width of the screen in pixels"
+  },
+  {
+    "topic_id": 16,
+    "video_id": 16,
+    "difficulty": "hard",
+    "question": "It’s useful to constrain the z coordinate to be between 0.0 and 1.0 rather than -1.0 and 1.0 when going from NDC to pixel space to increase the precision of:",
+    "answer": "The floating-point distribution"
+  },
+  {
+    "topic_id": 17,
+    "video_id": 17,
+    "difficulty": "easy",
+    "question": "The origin (0, 0) in pixel space is located at:",
+    "answer": "The top left corner of the screen"
+  }
+]

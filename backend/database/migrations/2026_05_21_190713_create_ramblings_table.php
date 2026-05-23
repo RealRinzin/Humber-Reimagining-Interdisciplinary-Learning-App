@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('video_id')->constrained();
             $table->foreignId('topic_id')->constrained();
-            $table->string('content');
+            $table->text('content');
             $table->timestamps();
         });
     }

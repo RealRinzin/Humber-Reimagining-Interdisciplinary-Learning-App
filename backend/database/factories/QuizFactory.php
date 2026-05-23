@@ -2,11 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\Quiz;
 use App\Models\Topic;
 use App\Models\Video;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 use Illuminate\Support\Str;
+
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Quiz>
  */
@@ -28,7 +30,7 @@ class QuizFactory extends Factory
             'type' => $this->faker->randomElement(['flip', 'mcs', 'tf']),
             'difficulty' => $this->faker->randomElement(['easy', 'medium', 'hard']),
             'question' => fake()->sentence(), // Generate a random sentence for the quiz question
-            'answer'=>Str::random(20),
+            'answer' => Str::random(20),
         ];
     }
 }

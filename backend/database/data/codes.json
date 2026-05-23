@@ -1,0 +1,589 @@
+[
+    {
+        "topic_id": 1,
+        "video_id": 1,
+        "description": "Seriously, you want code already? OK, this won't make sense but here you go:",
+        "code":"// Grab a 3D vertex from Paul Neale's model and turn it into 4D
+Vec4 vertexPos = Vec4(vertex.x, vertex.y, vertex.z, 1.0f);
+// Pretend we already have the 4x4 matrices in the following steps built
+// modelMatrix takes you from model to world space
+Vec4 vertexPosWorldSpace   = modelMatrix * vertexPos;
+// viewMatrix takes you from world to camera space
+Vec4 vertexPosCameraSpace = viewMatrix * vertexPosWorldSpace;
+// projectionMatrix takes you from camera to NDC space (after dividing out the w)
+Vec4 vertexPosNdcSpace = projectionMatrix * vertexPosCameraSpace;
+vertexPosNdcSpace.x /= vertexPosNdcSpace.w;
+vertexPosNdcSpace.y /= vertexPosNdcSpace.w;
+vertexPosNdcSpace.z /= vertexPosNdcSpace.w;
+vertexPosNdcSpace.w = 1.0f;
+// Lastly the viewportMatrix takes you from NDC to screen space
+Vec4 vertexPosScreenSpace = viewportMatrix * vertexPosNdcSpace;
+"
+    },
+    {
+        "topic_id": 2,
+        "video_id": 2,
+        "description": "Here's how Scott reads an OBJ file using the tinyobjloader library in his Mesh class:",
+        "code":"void Mesh::LoadModel(const char* filename) {
+    tinyobj::attrib_t attrib;
+    std::vector<tinyobj::shape_t> shapes;
+    std::vector<tinyobj::material_t> materials;
+    std::string warn, err;
+
+    vertices.clear();
+    normals.clear();
+    uvCoords.clear();
+
+    if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, filename)) {
+        throw std::runtime_error(warn + err);
+    }
+    for (const auto& shape : shapes) {
+        for (const auto& index : shape.mesh.indices) {
+            Vec3 vertex{};
+            vertex.x = attrib.vertices[3 * index.vertex_index + 0];
+            vertex.y = attrib.vertices[3 * index.vertex_index + 1];
+            vertex.z = attrib.vertices[3 * index.vertex_index + 2];
+            
+            Vec3 normal{};
+            normal.x = attrib.normals[3 * index.normal_index + 0];
+            normal.y = attrib.normals[3 * index.normal_index + 1];
+            normal.z = attrib.normals[3 * index.normal_index + 2];
+
+            Vec2 uvCoord{};
+            uvCoord.x = attrib.texcoords[2 * index.texcoord_index + 0];
+            uvCoord.y = attrib.texcoords[2 * index.texcoord_index + 1];
+
+            vertices.push_back(vertex);
+            normals.push_back(normal);
+            uvCoords.push_back(uvCoord);
+        }
+    } 
+}
+"
+    },
+    {
+        "topic_id": 3,
+        "video_id": 3,
+        "description": "To transform a vertex position from model space to world space:",
+        "code":"// Grab a 3D vertex from Paul Neale's model and turn it into 4D
+// Notice I have set w = 1 for positions so that we can translate them
+Vec4 vertexPos = Vec4(vertex.x, vertex.y, vertex.z, 1.0f);
+// modelMatrix takes you from model to world space
+Vec4 vertexPosWorldSpace = modelMatrix * vertexPos;
+"
+    },
+    {
+        "topic_id": 4,
+        "video_id": 4,
+        "description": "Here's Scott's vertex shader code to transform the vertex normal vector from model space (called vNormal in code) to world space. Note that he is using the glsl language and its implementation of matrices, vectors, and their operations.",
+        "code":"mat3 normalMatrix = mat3(transpose(inverse(modelMatrix)));
+vec3 vertNormal = normalize(normalMatrix * vNormal); /// Rotate the normal to the correct orientation 
+"
+    },
+    {
+        "topic_id": 4,
+        "video_id": 4,
+        "description": "Here's Scott's fragment shader written in glsl that implements the Phong model of lighting:",
+        "code":"#version 450
+#extension GL_ARB_separate_shader_objects : enable
+
+layout(location = 0) out vec4 fragColor;
+
+layout(location = 0) in vec3 vertNormal;
+layout(location = 1) in vec3 lightDir;
+layout(location = 2) in vec3 eyeDir; 
+
+void main() {
+    vec4 ks = vec4(0.3, 0.3, 0.3, 0.0); // specular color
+    vec4 kd = vec4(0.6, 0.6, 0.3, 0.0); // diffuse color
+    vec4 ka = 0.1 * kd; // ambient color
+    float diff = max(dot(vertNormal, lightDir), 0.0);
+
+    /// Reflection is based on the incident direction which means a vector from the light source
+    /// not the direction to the light source
+    vec3 reflection = normalize(reflect(-lightDir, vertNormal));
+    float spec = max(dot(eyeDir, reflection), 0.0);
+    spec = pow(spec,14.0); // using a shininess constant of 14
+    fragColor =  ka + (diff * kd) + (spec * ks); // final color is the sum of ambient, diffuse, and specular
+}
+"
+    },
+    {
+        "topic_id": 5,
+        "video_id": 5,
+        "description": "Here's Scott's scale matrix inside his MMath class:",
+        "code":"static Matrix4 scale(float x_, float y_, float z_) {
+  return Matrix4(
+    x_, 0.0f, 0.0f, 0.0f,
+    0.0f, y_, 0.0f, 0.0f,
+    0.0f, 0.0f, z_, 0.0f,
+    0.0f, 0.0f, 0.0f, 1.0f);
+}
+
+static Matrix4 scale(const Vec3& scale) {
+    return MMath::scale(scale.x, scale.y, scale.z);
+}
+"
+    },
+    {
+        "topic_id": 6,
+        "video_id": 6,
+        "description": "To move a vertex position:",
+        "code":"// Grab a 3D vertex from Paul Neale's model and turn it into 4D
+// Notice I have set w = 1 for positions (we like to translate those)
+Vec4 vertexPos = Vec4(vertex.x, vertex.y, vertex.z, 1.0f);
+// Make a translation matrix that moves a position 1 along x, 2 along y, and 3 along z
+Matrix4 T = MMath::translate(Vec3(1.0f, 2.0f, 3.0f));
+// Use matrix multiplication to move the vertex position
+Vec4 newVertexPos = T * vertexPos;
+// Want to go back to where you started? Use the inverse
+// Or we could use MMath::translate(-Vec3(1, 2, 3));
+Matrix4 T_inverse = MMath::inverse(T);
+Vec4 originalVertexPos = T_inverse * newVertexPos;
+"
+    },
+    {
+        "topic_id": 7,
+        "video_id": 7,
+        "description": "Here's how Scott build's the rotation matrix from angle and axis, or Euler angles, or a quaternion:",
+        "code":"static Matrix4 rotate(float degrees_, float x_, float y_, float z_) {
+    float cosang, sinang, cosm;
+    Vec3 rotAxis(x_, y_, z_);
+    rotAxis = VMath::normalize(rotAxis);
+
+    cosang = cos(degrees_ * DEGREES_TO_RADIANS);
+    sinang = sin(degrees_ * DEGREES_TO_RADIANS);
+    cosm = (1.0f - cosang);
+
+    Matrix4 m;
+
+    m[0] = (rotAxis.x * rotAxis.x * cosm) + cosang;
+    m[1] = (rotAxis.x * rotAxis.y * cosm) + (rotAxis.z * sinang);
+    m[2] = (rotAxis.x * rotAxis.z * cosm) - (rotAxis.y * sinang);
+    m[3] = 0.0f;
+    m[4] = (rotAxis.x * rotAxis.y * cosm) - (rotAxis.z * sinang);
+    m[5] = (rotAxis.y * rotAxis.y * cosm) + cosang;
+    m[6] = (rotAxis.y * rotAxis.z * cosm) + (rotAxis.x * sinang);
+    m[7] = 0.0f;
+    m[8] = (rotAxis.x * rotAxis.z * cosm) + (rotAxis.y * sinang);
+    m[9] = (rotAxis.y * rotAxis.z * cosm) - (rotAxis.x * sinang);
+    m[10] = (rotAxis.z * rotAxis.z * cosm) + cosang;
+    m[11] = 0.0f;
+    m[12] = 0.0f;
+    m[13] = 0.0f;
+    m[14] = 0.0f;
+    m[15] = 1.0f;
+    return m;
+}
+
+static Matrix4 rotate(const float degrees_, const Vec3& axis_) {
+    return MMath::rotate(degrees_, axis_.x, axis_.y, axis_.z);
+}
+
+static Matrix4 toMatrix4(const AxisAngle& axisAngle_) {
+    return MMath::rotate(axisAngle_.angle, axisAngle_.axis.x, axisAngle_.axis.y, axisAngle_.axis.z);
+}
+
+/// Convert Euler [CO1.1][UN1.2]angles to a 3x3 rotation matrix
+static Matrix3 toMatrix3(const Euler& e) {
+    /// Note: If you want to multiply xaxis, yaxis,zaxis in that order. I think
+    /// it should be m = x * z * y <- reading right to left. .
+    Matrix3 m = Matrix3(MMath::rotate(e.xAxis, Vec3(1.0f, 0.0f, 0.0f)) *
+        MMath::rotate(e.zAxis, Vec3(0.0f, 0.0f, 1.0f)) *
+        MMath::rotate(e.yAxis, Vec3(0.0f, 1.0f, 0.0f)));
+    return m;
+}
+
+static Matrix4 toMatrix4(const Quaternion& q) {
+    /// This is the fastest way I know...
+    return Matrix4((1.0f - 2.0f * q.j * q.j - 2.0f * q.k * q.k), (2.0f * q.i * q.j + 2.0f * q.k * q.w), (2.0f * q.i * q.k - 2.0f * q.j * q.w), 0.0f,
+        (2.0f * q.i * q.j - 2.0f * q.k * q.w), (1.0f - 2.0f * q.i * q.i - 2.0f * q.k * q.k), (2.0f * q.j * q.k + 2.0f * q.i * q.w), 0.0f,
+        (2.0f * q.i * q.k + 2.0f * q.j * q.w), (2.0f * q.j * q.k - 2.0f * q.i * q.w), (1.0f - 2.0f * q.i * q.i - 2.0f * q.j * q.j), 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f);
+
+    /// ... but this is the coolest. My way is just a bit faster on single processor machines,
+    /// this method is faster on parallel multicore machines. Multicore can calculate m1 and m2
+    /// on separate threads. Just saying. 
+
+    //Matrix4 m1( q.w,  q.k,  -q.j,  q.i,
+    //      -q.k,   q.w,   q.i,  q.j,
+    //      q.j,  -q.i,   q.w,  q.k,
+    //      -q.i,  -q.j,  -q.k,  q.w);
+    //
+    //Matrix4 m2( q.w,   q.k,  -q.j,  -q.i,
+    //          -q.k,   q.w,   q.i,  -q.j,
+    //          q.j,  -q.i,   q.w,  -q.k,
+    //          -q.i,   q.j,   q.k,   q.w);
+    //return m1 * m2;
+}
+
+static Matrix3 toMatrix3(const Quaternion& q) {
+    return Matrix3((1.0f - 2.0f * q.j * q.j - 2.0f * q.k * q.k), (2.0f * q.i * q.j + 2.0f * q.k * q.w), (2.0f * q.i * q.k - 2.0f * q.j * q.w),
+        (2.0f * q.i * q.j - 2.0f * q.k * q.w), (1.0f - 2.0f * q.i * q.i - 2.0f * q.k * q.k), (2.0f * q.j * q.k + 2.0f * q.i * q.w),
+        (2.0f * q.i * q.k + 2.0f * q.j * q.w), (2.0f * q.j * q.k - 2.0f * q.i * q.w), (1.0f - 2.0f * q.i * q.i - 2.0f * q.j * q.j));
+}
+"
+    },
+    {
+        "topic_id": 8,
+        "video_id": 8,
+        "description": "Here's Scott's Quaternion class:",
+        "code":"union Quaternion {
+public:
+  struct {
+    float i;
+    float j;
+    float k;
+    float w;
+  };
+    // This union is Umer's fault. To have quaternions map exactly to dual quaternions
+    // he wanted to have the components also available as the intersection of the planes e1, e2 and e3.
+    // Read up on projective geometric algebra if you are curious
+  struct {
+    float e32;  // i is -e23 
+    float e13;  // j is -e31
+    float e21;  // k is -e12
+    float real;
+  };
+
+  /// Just a little utility to populate a quaternion
+  void set(float w_, float x_, float y_, float z_) {
+    w = w_; i = x_; j = y_; k = z_;
+  }
+
+  /// Another little utility to populate a quaternion
+  void set(float w_, Vec3 ijk_) {
+    w = w_; i = ijk_.x; j = ijk_.y; k = ijk_.z;
+  }
+
+  /// This is the unit quaternion by definition 
+  Quaternion() {
+    set(1.0f, 0.0f, 0.0f, 0.0f);
+  }
+
+  Quaternion(float w_, const Vec3& ijk_) {
+    set(w_, ijk_.x, ijk_.y, ijk_.z);
+  }
+
+  /// A copy constructor
+  Quaternion(const Quaternion& q) {
+    set(q.w, q.i, q.j, q.k);
+  }
+
+  /// An assignment operator   
+  Quaternion& operator = (const Quaternion& q) {
+    set(q.w, q.i, q.j, q.k);
+    return *this;
+  }
+
+  /// Take the negative of a Quaternion
+  // Interestingly, this new quaternion will produce the same rotation as the original
+  // If you want to rotate in the opposite way, use the conjugate instead
+  Quaternion operator - () const {
+    return Quaternion(-w, Vec3(-i, -j, -k));
+  }
+
+  /// Multiply two quaternions - using the right-hand rule 
+  /// 2022-02-12 Scott edit. Worried that Umer uncovered a bug in my code,
+  /// I derived the multiply over again (this time less sexy) and it seems to work 
+  /// correctly.
+  Quaternion operator * (const Quaternion& q) const {
+    Quaternion result;
+    result.w = (w * q.w) - (i * q.i) - (j * q.j) - (k * q.k);
+    result.i = (w * q.i) + (i * q.w) - (k * q.j) + (j * q.k);
+    result.j = (w * q.j) + (j * q.w) - (i * q.k) + (k * q.i);
+    result.k = (w * q.k) + (k * q.w) - (j * q.i) + (i * q.j);
+    return result;      
+  }
+
+  Quaternion& operator *= (const Quaternion& q) {
+    *this = q * *this;
+    return *this;
+  }
+
+  Quaternion operator + (const Quaternion q) const {
+    return Quaternion(w + q.w, Vec3(i + q.i, j + q.j, k + q.k));
+  }
+
+  Quaternion operator - (const Quaternion q) const {
+    return Quaternion(w - q.w, Vec3(i - q.i, j - q.j, k - q.k));
+  }
+
+  Quaternion operator * (const float scalar) const {
+    return Quaternion(w * scalar, Vec3(i * scalar, j * scalar, k * scalar));
+  }
+
+  Quaternion operator / (const float scalar) const {
+    return Quaternion(w / scalar, Vec3(i / scalar, j / scalar, k / scalar));
+  }
+
+  /// Now we can use the Quaternion like an array but we'll need two overloads
+  float operator [] (int index) const {  /// This one is for reading the Quaternion as if it where an array
+    return *((float*)this + index);
+  }
+
+  float& operator [] (int index) {  /// This one is for writing to the Quaternion as if it where an array.  
+    return *((float*)this + index);
+  }
+
+  void print(const char* comment = nullptr) const {
+    if (comment) printf("%s\n", comment);
+    printf("%1.4f %1.4f %1.4f %1.4f\n", i, j, k, w);
+  }
+
+  /////////////////////////////////////////////////////////////////////////
+  /// This is just for teaching purposes - Caution, I'm getting out of control
+  /////////////////////////////////////////////////////////////////////////
+  /// Multiply a quaternion by a Vec3 (Quaternion * Vec3) 
+  const Vec3 operator * (const Vec3& v_) const {
+    /// Promote the Vec3 to a Quaternion and set w to be 0.0
+    Quaternion p(0.0f, v_);
+    /// Now just call the Quaternion * Quaternion operator
+    Quaternion result = *this * p;
+    return Vec3(result.i, result.j, result.k);
+  }
+  /// Multiply a Vec3 by a Quaternion (Vec3 * Quaternion) 
+  friend Vec3 operator * (const Vec3 v, const Quaternion& q) {
+    Quaternion qv(0.0f, v);
+    Quaternion result = qv * q;
+    return Vec3(result.i, result.j, result.k);
+  }
+
+  /// Seriously, the tilde ~ is the complement operator not the 
+  ///  conjugate - but it was for fun. 
+  Quaternion operator~() { return Quaternion(w, Vec3(-i, -j, -k)); }
+  /////////////////////////////////////////////////////////////////////////
+};
+"
+    },
+    {
+        "topic_id": 9,
+        "video_id": 9,
+        "description": "Here's Umer's model matrix call for his physics class. Assume the Body object has a position called pos, a quaternion for orientation, and it's a sphere with a given radius.",
+        "code":"Matrix4 Body::GetModelMatrix() const {
+  Matrix4 T = MMath::translate(pos); // Translate matrix
+  Matrix4 S = MMath::scale(radius, radius, radius); // Uniform scale matrix (assuming Body objects are spheres)
+  Matrix4 R = MMath::toMatrix4(orientation); // Rotation matrix built from orientation quaternion
+  // Scale first, then rotate, and lastly translate
+  return T * R * S;
+}"
+    },
+    {
+        "topic_id": 9,
+        "video_id": 9,
+        "description": "Here's Scott's vertex shader code to transform the vertex normal vector from model space (called vNormal in code) to world space. Note that he is using the glsl language and its implementation of matrices, vectors, and their operations.",
+        "code":"mat3 normalMatrix = mat3(transpose(inverse(modelMatrix)));
+vec3 vertNormal = normalize(normalMatrix * vNormal); /// Rotate the normal to the correct orientation 
+"
+    },
+    {
+        "topic_id": 10,
+        "video_id": 10,
+        "description": "To get to world space from model space:",
+        "code":"// Grab a 3D vertex from Paul Neale's model and turn it into 4D
+Vec4 vertexPos = Vec4(vertex.x, vertex.y, vertex.z, 1);
+// modelMatrix takes you from model to world space
+Vec4 vertexPosWorldSpace = modelMatrix * vertexPos;
+// Grab a 3D normal from Paul Neale's model and turn it into 4D
+// Set the w component to zero to switch off any translations
+Vec4 vertexNormal = Vec4(normal.x, normal.y, normal.z, 0);
+// As long as the modelMatrix doesn't have any non-uniform scaling, this should do the trick:
+Vec4 vertexNormalWorldSpace = modelMatrix * vertexNormal;
+// If your modelMatrix did have a non-uniform scale, then you'd need to 
+// take the inverse transpose and floor it to a 3x3 matrix. I'll leave that for you!
+
+// We want our normals to be normalized usually. 
+// Our normalize method is hidden behind VMath
+vertexNormalWorldSpace = VMath::normalize(vertexNormalWorldSpace);
+"
+    },
+    {
+        "topic_id": 10,
+        "video_id": 10,
+        "description": "To get to world space from camera space:",
+        "code":"// viewMatrix takes you from world to camera space
+// So inverse it to go the other way
+// Our inverse matrix method is hidden behind MMath
+Vec4 vertexPosWorldSpace   = MMath::inverse(viewMatrix) * vertexPosCameraSpace;
+// The viewMatrix only has translation and rotation, no scaling. 
+// So this should do the trick for the normal
+Vec4 vertexNormalWorldSpace   = MMath::inverse(viewMatrix) * vertexNormalCameraSpace;
+"
+    },
+    {
+        "topic_id": 11,
+        "video_id": 11,
+        "description": "Here's how Umer builds the view matrix based on the camera's position expressed as a 3D vector and the camera's orientation expressed as a quaternion:",
+        "code":"Matrix4 inverseRotation = MMath::toMatrix4(QMath::conjugate(camOrientation));
+Matrix4 inverseTranslation = MMath::translate(-camPosition);
+viewMatrix = inverseRotation * inverseTranslation;
+"
+    },
+    {
+        "topic_id": 11,
+        "video_id": 11,
+        "description": "Here's how Umer orbits a camera around a target object:",
+        "code":"// Orbit the camera around a sphere
+// First move camera such that the sphere appears to be at the origin
+camPosition -= sphere->pos;
+// Calculate the change in orientation since last frame using change = new orientation / old orientation
+Quaternion camChangeInOrientation = camOrientation * QMath::inverse(camPreviousOrientation);
+// Update the previous orientation for next frame
+camPreviousOrientation = camOrientation;
+// Rotate the camera's position using the change in orientation
+camPosition = QMath::rotate(camPosition, camChangeInOrientation);
+// Move camera back using the sphere's position
+camPosition += sphere->pos;
+// Then build the view matrix
+"
+    },
+    {
+        "topic_id": 12,
+        "video_id": 12,
+        "description": "To get to camera space from world space:",
+        "code":"// Grab a 3D vertex from world space, turn it into 4D. Set w = 1, as we want to translate
+Vec4 vertexPosWorldSpace = Vec4(vertex.x, vertex.y, vertex.z, 1.0f);
+// viewMatrix takes you from world space to camera space
+Vec4 vertexPosCameraSpace = viewMatrix * vertexPosWorldSpace;
+// Grab a 3D normal from world space and turn it into 4D
+// Set the w component to zero, as the normal is a direction not a position
+Vec4 normalWorldSpace = Vec4(normal.x, normal.y, normal.z, 0.0f);
+Vec4 normalCameraSpace = viewMatrix * normalWorldSpace;
+"
+    },
+    {
+        "topic_id": 12,
+        "video_id": 12,
+        "description": "To get to camera space from NDC space:",
+        "code":"// projection matrix and a perspective divide takes you from camera space to NDC space
+// So inverse the projection matrix and do a perspective divide to go the other way
+// Our inverse matrix method is hidden behind MMath
+Vec4 vertexPosClipSpace   = MMath::inverse(projectionMatrix) * vertexPosNDCSpace;
+// Divide out the w component to get to camera space
+// Our perspective divide method is hidden behind VMath
+Vec4 vertexPosCamera = VMath::perspectiveDivide(vertexPosClipSpace);
+
+// We don't usually use normals in NDC space, so I won't bother thinking
+// about how to transfer those over to Camera space
+"
+    },
+    {
+        "topic_id": 13,
+        "video_id": 13,
+        "description": "Here is Scott's perspective projection matrix code:",
+        "code":"static Matrix4 perspective(const float fovy_, const float aspect_, const float zNear_, const float zFar_) {
+    float cot = 1.0f / tan(fovy_ * 0.5f * DEGREES_TO_RADIANS);
+    /// Don't forget, this looks row centric but it really is a column matrix - right-hand rule rules
+    Matrix4 result(cot / aspect_, 0.0f, 0.0f, 0.0f,
+        0.0f, cot, 0.0f, 0.0f,
+        0.0f, 0.0f, (zNear_ + zFar_) / (zNear_ - zFar_), -1.0f,
+        0.0f, 0.0f, (2.0f * zNear_ * zFar_) / (zNear_ - zFar_), 0.0f);
+    return result;
+}
+"
+    },
+    {
+        "topic_id": 13,
+        "video_id": 13,
+        "description": "Here is Scott's orthographic projection matrix code:",
+        "code":"static Matrix4 orthographic(float xMin_, float xMax_, float yMin_, float yMax_, float zMin_, float zMax_) {
+    Matrix4 m;
+    Matrix4 m1 = MMath::scale(2.0f / (xMax_ - xMin_), 2.0f / (yMax_ - yMin_), -2.0f / (zMax_ - zMin_));
+    Matrix4 m2 = MMath::translate(-(xMax_ + xMin_) / (xMax_ - xMin_), -(yMax_ + yMin_) / (yMax_ - yMin_), -(zMax_ + zMin_) / (zMax_ - zMin_));
+    m = m2 * m1;
+    /*** Here's another way to do it
+    m[0] = 2.0f / (xMax - xMin);
+    m[5] = 2.0f / (yMax - yMin);
+    m[10] = -2.0f / (zMax - zMin);
+    m[12] = -((xMax + xMin) / (xMax - xMin));
+    m[13] = -((yMax + yMin) / (yMax - yMin));
+    m[14] = -((zMax + zMin) / (zMax - zMin));
+    m[15] = 1.0f;
+    ***/
+    return m;
+}
+"
+    },
+    {
+        "topic_id": 14,
+        "video_id": 14,
+        "description": "Here’s Scott’s perspective divide code:",
+        "code":"static Vec4 perspectiveDivide(const Vec4& v) {
+  if (fabs(v.w) < VERY_SMALL) {
+    throw errorMsg.append(": Divide by nearly zero! ");
+  }
+  return Vec4(v.x / v.w, v.y / v.w, v.z / v.w, 1.0f);
+}
+"
+    },
+    {
+        "topic_id": 15,
+        "video_id": 15,
+        "description": "To get to NDC space from camera space:",
+        "code":"// The perspective projection matrix takes you from camera to clip space
+Vec4 vertexPosClipSpace = projectionMatrix * vertexPosCameraSpace;
+// Clip space is very strange with w not equal to 1, 
+// but it's used to "clip" out things from view by the GPU 
+// Return safely to 3D land by dividing out the w
+Vec4 vertexPosNDCSpace = VMath::perspectiveDivide(vertexPosClipSpace);
+// We don't typically need normals in NDC space, so we are done!
+"
+    },
+    {
+        "topic_id": 15,
+        "video_id": 15,
+        "description": "To get to NDC space from pixel space:",
+        "code":"// Imagine you have the mouse x & y position in pixel coordinates
+// Set z to zero and w to one so that we can translate it
+Vec4 mousePosPixelSpace = Vec4(mousePos.x, mousePos.y, 0.0f, 1.0f);
+// viewportMatrix takes you from NDC to pixel space. 
+// So inverse it to go the other way
+Vec4 mousePosNDCSpace = MMath::inverse(viewportMatrix) * mousePosPixelSpace;
+// I like clicking on the front of the NDC box, closest to the camera
+// That is a z value of -1 in OpenGL
+mousePosNDCSpace.z = -1.0f;
+// We don't typically think about normals in pixel space, so we are done!
+"
+    },
+    {
+        "topic_id": 16,
+        "video_id": 16,
+        "description": "Here's Scott's viewport matrix:",
+        "code":"static Matrix4 NDCtoViewport(int width_, int height_) {
+  float near = 0.0f;
+  float far = 1.0f;
+
+  Matrix4 m;
+  Matrix4 m1 = scale(1.0f, -1.0f, 1.0f);
+  Matrix4 m2 = scale(float(width_) / 2.0f, float(height_) / 2.0f, (far - near) / 2.0f);
+  Matrix4 m3 = translate(float(width_) / 2.0f, float(height_) / 2.0f, (far + near) / 2.0f);
+  m = m3 * m2 * m1;
+  return m;
+}
+"
+    },
+    {
+        "topic_id": 17,
+        "video_id": 17,
+        "description": "To get to Pixel space from NDC space:",
+        "code":"// Grab a 3D vertex from NDC space, turn it into 4D. Set w = 1, as we want to translate it
+Vec4 vertexPosNDCSpace = Vec4(vertex.x, vertex.y, vertex.z, 1.0f);
+// viewportMatrix takes you from NDC space to Pixel space
+Vec4 vertexPosPixelSpace = viewportMatrix * vertexPosNDCSpace;
+// We only need the x and y component for the pixel position, but z is handy for depth testing
+"
+    },
+    {
+        "topic_id": 17,
+        "video_id": 17,
+        "description": "To get to the mouse position in Pixel space:",
+        "code":"// This really depends on the libraries you are using to make your game or simulation 
+// The following works for SDL3 (https://wiki.libsdl.org)
+// Best to have this in a "HandleEvents" type function that takes in const SDL_Event& sdlEvent
+// A position has a w value of 1
+Vec4 mousePosPixelSpace(static_cast<float>(sdlEvent.button.x), static_cast<float>(sdlEvent.button.y), 0.0f, 1.0f);
+// If you want the mouse position in NDC space, use the inverse of the viewport matrix
+Vec4 mousePosNDCSpace = MMath::inverse(viewportMatrix) * mousePosPixelSpace;
+"
+    },
+]

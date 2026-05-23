@@ -14,6 +14,9 @@ class QuizSeeder extends Seeder
     public function run(): void
     {
         // 
-        Quiz::factory(50)->create(); // Create 80 quiz records using the QuizFactory
+        $json = file_get_contents(database_path('data/quizees-fixed.json'));
+        $quizes = json_decode($json, true); // pass true for associative array
+        Quiz::insert($quizes);
+        // Quiz::factory(50)->create(); // Create 80 quiz records using the QuizFactory
     }
 }

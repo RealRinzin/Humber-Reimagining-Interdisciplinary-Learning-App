@@ -1,0 +1,200 @@
+[
+    {
+        "title": "Intro to Space",
+        "slug": "intro-to-space",
+        "topic_id": 1,
+        "parent_id": null,
+        "thumbnail": "https://images.pexels.com/photos/239548/pexels-photo-239548.jpeg",
+        "video_url": "https://www.pexels.com/download/video/35828342",
+        "duration": 12,
+        "description": "An introduction to coordinate spaces in 3D graphics. We explore why different spaces exist and how objects move through them during rendering.",
+        "tldw": "This video series steps through all the spaces and math needed to get your artist's model onto the screen."
+    },
+    {
+        "title": "Model Space",
+        "slug": "model-space",
+        "topic_id": 2,
+        "parent_id": 1,
+        "thumbnail": "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg",
+        "video_url": "https://www.pexels.com/download/video/1422633",
+        "duration": 44,
+        "description": "Model space is the local coordinate system of a 3D object. Every vertex is defined relative to the object's own origin before any transformations are applied.",
+        "tldw": "The rendering pipeline all starts with the artist, in our case Professor Paul Neale! He creates the vertices, normals, and texture coordinates which all reside in model space."
+    },
+    {
+        "title": "Vertex Position",
+        "slug": "vertex-position",
+        "topic_id": 3,
+        "parent_id": 1,
+        "thumbnail": "https://images.pexels.com/photos/1089438/pexels-photo-1089438.jpeg",
+        "video_url": "https://www.pexels.com/download/video/3130284",
+        "duration": 18,
+        "description": "Vertex positions define the geometry of a 3D mesh. Each vertex holds an XYZ coordinate in model space that gets transformed through the graphics pipeline.",
+        "tldw": "See all those tiny triangles that make up an artist's model? Each triangle has three sides which meet at three locations. Those corner positions are called vertices."
+    },
+    {
+        "title": "Normals",
+        "slug": "normals",
+        "topic_id": 4,
+        "parent_id": 1,
+        "thumbnail": "https://images.pexels.com/photos/3862132/pexels-photo-3862132.jpeg",
+        "video_url": "https://www.pexels.com/download/video/4625540",
+        "duration": 22,
+        "description": "Normal vectors are perpendicular to a surface and are critical for lighting calculations. They must be transformed carefully to remain correct after non-uniform scaling.",
+        "tldw": "The normal vector points perpendicular to the model's surface and is used for lighting."
+    },
+    {
+        "title": "Scale",
+        "slug": "scale",
+        "topic_id": 5,
+        "parent_id": 1,
+        "thumbnail": "https://images.pexels.com/photos/256381/pexels-photo-256381.jpeg",
+        "video_url": "https://www.pexels.com/download/video/2516159",
+        "duration": 15,
+        "description": "Scaling transforms change the size of an object along one or more axes. Uniform scaling preserves shape while non-uniform scaling can distort normals.",
+        "tldw": "The scale matrix can make your model bigger, smaller, or even squished and stretched."
+    },
+    {
+        "title": "Translation",
+        "slug": "translation",
+        "topic_id": 6,
+        "parent_id": 1,
+        "thumbnail": "https://images.pexels.com/photos/4144923/pexels-photo-4144923.jpeg",
+        "video_url": "https://www.pexels.com/download/video/6209572",
+        "duration": 34,
+        "description": "Translation moves an object from one position to another in 3D space. In matrix form, translation is encoded in the last column of a 4x4 matrix using homogeneous coordinates.",
+        "tldw": "When we say translation, we mean moving something from A to B. It's just an addition or subtraction along the x, y, and/or z directions."
+    },
+    {
+        "title": "Rotation",
+        "slug": "rotation",
+        "topic_id": 7,
+        "parent_id": 1,
+        "thumbnail": "https://images.pexels.com/photos/924824/pexels-photo-924824.jpeg",
+        "video_url": "https://www.pexels.com/download/video/3045163",
+        "duration": 28,
+        "description": "Rotation transforms orient an object in 3D space. Rotations can be represented as Euler angles, rotation matrices, or quaternions, each with trade-offs in interpolation and gimbal lock.",
+        "tldw": "In 3D we need two things to define a rotation; the angle and the axis of rotation. We can use these to represent rotations using Euler angles, rotation matrices or quaternions."
+    },
+    {
+        "title": "Quaternions",
+        "slug": "quaternions",
+        "topic_id": 8,
+        "parent_id": 7,
+        "thumbnail": "https://images.pexels.com/photos/3862601/pexels-photo-3862601.jpeg",
+        "video_url": "https://www.pexels.com/download/video/4167964",
+        "duration": 38,
+        "description": "Quaternions are a mathematical system used to represent 3D rotations. They avoid gimbal lock and allow smooth interpolation between orientations using SLERP.",
+        "tldw": "Quaternions are made up of four numbers, but they can only do one thing. Rotate!"
+    },
+    {
+        "title": "Model Matrix",
+        "slug": "model-matrix",
+        "topic_id": 9,
+        "parent_id": 1,
+        "thumbnail": "https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg",
+        "video_url": "https://www.pexels.com/download/video/3130297",
+        "duration": 30,
+        "description": "The model matrix combines scale, rotation, and translation into a single 4x4 matrix. Multiplying a vertex by the model matrix transforms it from model space into world space.",
+        "tldw": "You need to scale, rotate and translate the models into world space to set up your scene. Those three transformation matrices are multiplied together to make the model matrix. Just be careful with the order you multiply them!"
+    },
+    {
+        "title": "World Space",
+        "slug": "world-space",
+        "topic_id": 10,
+        "parent_id": 1,
+        "thumbnail": "https://images.pexels.com/photos/1209978/pexels-photo-1209978.jpeg",
+        "video_url": "https://www.pexels.com/download/video/2835494",
+        "duration": 20,
+        "description": "World space is the global coordinate system where all objects are placed relative to a shared origin. After applying the model matrix, vertices exist in world space.",
+        "tldw": "Welcome to Cassidy's World Space! Just like The Sims, you get to dress up your own building. Each model has been made by a 3D artist but Cassidy decides the size, orientation and position. Also, we get to place a camera and light up the world."
+    },
+    {
+        "title": "View Matrix",
+        "slug": "view-matrix",
+        "topic_id": 11,
+        "parent_id": 10,
+        "thumbnail": "https://images.pexels.com/photos/1914428/pexels-photo-1914428.jpeg",
+        "video_url": "https://www.pexels.com/download/video/3045551",
+        "duration": 25,
+        "description": "The view matrix transforms world space coordinates into camera space. It is essentially the inverse of the camera's own model matrix, repositioning the world relative to the camera.",
+        "tldw": "Scott is not happy. Umer's pesky camera in world space is in the wrong place and looking along the wrong direction. Let's get the camera back at the origin looking down the -z axis using the view matrix."
+    },
+    {
+        "title": "Camera Space",
+        "slug": "camera-space",
+        "topic_id": 12,
+        "parent_id": 10,
+        "thumbnail": "https://images.pexels.com/photos/225157/pexels-photo-225157.jpeg",
+        "video_url": "https://www.pexels.com/download/video/2516164",
+        "duration": 22,
+        "description": "Camera space, also called view space or eye space, positions vertices relative to the camera. The camera sits at the origin looking down the negative Z axis.",
+        "tldw": "The camera is always at the origin looking down the -z axis, dammit! (Scott probably wrote this)."
+    },
+    {
+        "title": "Projection Matrix",
+        "slug": "projection-matrix",
+        "topic_id": 13,
+        "parent_id": 12,
+        "thumbnail": "https://images.pexels.com/photos/3938023/pexels-photo-3938023.jpeg",
+        "video_url": "https://www.pexels.com/download/video/3196425",
+        "duration": 23,
+        "description": "The projection matrix transforms camera space into clip space. Perspective projection creates a realistic sense of depth while orthographic projection preserves parallel lines.",
+        "tldw": "The projection matrix sets up the volume of space that the camera can \"see\". Any models outside the viewing frustum can be ignored (sorry Cassidy!). Once that pesky geometry is discarded, divide out the w component of the position vector to provide perspective and you are in normalized device coordinate space."
+    },
+    {
+        "title": "Perspective Divide",
+        "slug": "perspective-divide",
+        "topic_id": 14,
+        "parent_id": 12,
+        "thumbnail": "https://images.pexels.com/photos/2156/sky-earth-space-working.jpg",
+        "video_url": "https://www.pexels.com/download/video/1580509",
+        "duration": 23,
+        "description": "The perspective divide divides the X, Y, and Z clip coordinates by the W component to produce normalized device coordinates. This step creates the foreshortening effect of perspective.",
+        "tldw": "We want objects closer to the camera to appear much larger than things far in the distance. The illusion of perspective is encoded in the w component of the vertex position vector after you have used the perspective projection matrix. Just divide it out."
+    },
+    {
+        "title": "NDC Space",
+        "slug": "ndc-space",
+        "topic_id": 15,
+        "parent_id": 12,
+        "thumbnail": "https://images.pexels.com/photos/924824/pexels-photo-924824.jpeg",
+        "video_url": "https://www.pexels.com/download/video/3045163",
+        "duration": 18,
+        "description": "Normalized Device Coordinates (NDC) map the visible scene into a cube from -1 to 1 on each axis. Everything outside this range is clipped and not rendered.",
+        "tldw": "Imagine a tiny version of your computer screen, but it's a 3D cube. All the objects visible on your screen are in the box, with things closer to the front of the box much bigger than the ones at the back. That box is called Normalized Device Coordinate (NDC) space."
+    },
+    {
+        "title": "Viewport Matrix",
+        "slug": "viewport-matrix",
+        "topic_id": 16,
+        "parent_id": 15,
+        "thumbnail": "https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg",
+        "video_url": "https://www.pexels.com/download/video/3130280",
+        "duration": 16,
+        "description": "The viewport transform maps NDC coordinates to pixel coordinates on the screen. It scales and offsets the NDC cube to match the dimensions and position of the render target.",
+        "tldw": "The viewport matrix stretches out the normalized device coordinate (NDC) cube so that it fits the screen's pixel resolution."
+    },
+    {
+        "title": "Pixel Space",
+        "slug": "pixel-space",
+        "topic_id": 17,
+        "parent_id": 15,
+        "thumbnail": "https://images.pexels.com/photos/8471930/pexels-photo-8471930.jpeg",
+        "video_url": "https://www.pexels.com/download/video/5198159",
+        "duration": 23,
+        "description": "Pixel space, or screen space, is the final destination of the graphics pipeline. Vertices are now 2D pixel coordinates ready for rasterization and fragment shading.",
+        "tldw": "We've come to the end of the rendering pipeline, and finally have the beautiful 3D models on the screen."
+    },
+    {
+        "title": "Bonus",
+        "slug": "bonus",
+        "topic_id": 18,
+        "parent_id": null,
+        "thumbnail": "https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg",
+        "video_url": "https://www.pexels.com/download/video/3130284",
+        "duration": 10,
+        "description": "Bonus content covering extra tips and tricks related to the graphics pipeline. Includes practical shader examples and common mistakes to avoid when working with coordinate spaces.",
+        "tldw": "Our farewell and thanks for watching videos, *sniff, sniff*"
+    }
+]
