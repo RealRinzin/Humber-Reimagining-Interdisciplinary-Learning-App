@@ -192,17 +192,18 @@ export default async function Page({
             status={completeStatus?.quiz}
             videoID={video?.id}
             all_complete={completeStatus?.all_checked}
-            quizzes={video.quizzes}
+            quizzes={video?.quizzes}
           />
           {/* Rambling Tab */}
           <CourseTabs
             type="rambling"
             title={"Umer's Rampling"}
             icon="RamblingsIcon.png"
-            content={video.title}
+            content={video?.ramblings}
             videoID={video?.id}
             status={completeStatus?.rambling}
             all_complete={completeStatus?.all_checked}
+            ramblings={video?.ramblings}
           />
           {/* Rambling Tab */}
           {/* <CourseTabs

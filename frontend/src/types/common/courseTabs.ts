@@ -7,4 +7,5 @@ interface courseTabsTypes {
   status: boolean;
   all_complete: boolean;
   quizzes?:[] | null;
+  ramblings?:[] | null;
 }

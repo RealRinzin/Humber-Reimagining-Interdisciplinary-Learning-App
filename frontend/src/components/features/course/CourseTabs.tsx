@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { clientFetch } from "@/lib/clientFetch";
 import { useToggle } from "@/hooks/common/useToggle";
 import QuizWrapper from "@/components/ui/quiz/QuizWrapper";
+import RamblingCard from "@/components/ui/rambling/RamblingCard";
 //
 export default function CourseTabs({
   title,
@@ -23,6 +24,7 @@ export default function CourseTabs({
   status,
   all_complete,
   quizzes,
+  ramblings
 }: courseTabsTypes) {
   const { isOn: isOpen, toggle } = useToggle(status);
   const [drop, setDrop] = useState(false);
@@ -112,7 +114,7 @@ export default function CourseTabs({
             </SyntaxHighlighter>
           </>
         ) : type === "rambling" ? (
-          "Rambling"
+          <RamblingCard ramblings={ramblings}/>
         ) : type === "quiz" ? (
           <QuizWrapper quizzes={quizzes} />
         ) : type === "tldnw" ? (
