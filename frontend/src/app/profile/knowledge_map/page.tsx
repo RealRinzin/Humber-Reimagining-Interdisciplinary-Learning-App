@@ -1,18 +1,39 @@
 "use client";
 import AnimatedCourseNode from "@/components/features/course/AnimatedCourseNode";
 import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
+import ExploreMode from "@/components/ui/profile/knowledgeMap/ExploreMode";
+import FoundationFirst from "@/components/ui/profile/knowledgeMap/FoundationFirst";
+import StepByStep from "@/components/ui/profile/knowledgeMap/StepByStep";
 // import TabProgressBar from "@/components/ui/progress/Tab";
 import TabHorizontal from "@/components/ui/progress/TabHorizontal";
 import { clientFetch } from "@/lib/clientFetch";
 import { useEffect, useState } from "react";
+import Component from "video.js/dist/types/component";
 /**
  * Main Page Return
  */
-export default function KnowledgeMapPage() {
+export default function KnowledgeMap() {
   // topics
   const [topics, setTopics] = useState<any[]>([]);
   const [hoveredTopicId, setHoveredTopicId] = useState<string | null>(null);
+  // Initialization of the sidebar title options
+  const [sideBarOptions, setSideBarOptions] = useState([
+    { id: 1, name: "Step by Step", status: false, component: StepByStep },
+    {
+      id: 2,
+      name: "Foundation First",
+      status: false,
+      component: FoundationFirst,
+    },
+    { id: 3, name: "Explore Mode ", status: true, component: ExploreMode },
+  ]);
 
+  //   Function to active and deactive the tab options
+  const switchTab = (id: number) => {
+    setSideBarOptions((prev) =>
+      prev.map((option) => ({ ...option, status: option.id === id })),
+    );
+  };
   // On Click Function Call for the individual accordons
   async function selectProfileType(link: string) {
     const res = await clientFetch(`/${link}`);
@@ -20,6 +41,16 @@ export default function KnowledgeMapPage() {
     setTopics(allTopics);
   }
 
+  // Count the total watched topic or started
+  const countTotalTopicStarted = () => {
+    let count = 0;
+    topics.forEach((topic) => {
+      if (topic.is_following) {
+        count += 1;
+      }
+    });
+    return count;
+  };
   // Use Effect Mounted during rendering
   useEffect(() => {
     async function getTopics() {
@@ -39,64 +70,45 @@ export default function KnowledgeMapPage() {
       <main className="grid grid-cols-6">
         {/* Sidebar */}
         <div className="bg-gray-300 p-6 col-span-2">
-          <ul className="flex w-fulljustify-evenly gap-6 items-center-safe text-center">
-            <li
-              className="w-full bg-gray-900 rounded-xl py-2 text-white cursor-pointer"
-              onClick={() => selectProfileType("topics")}
-            >
-              Step-by-Step
-            </li>
-            <li
-              className="w-full bg-gray-400 rounded-xl py-2 text-gray-600"
-              // onClick={() => selectProfileType("topic-connections")}
-            >
-              Foundation First
-            </li>
-            <li
-              className="w-full bg-gray-400 rounded-xl py-2 text-gray-600"
-              // onClick={() => selectProfileType("users")}
-            >
-              Explore Mode
-            </li>
+          <ul className="flex w-full justify-evenly gap-6 items-center-safe text-center">
+            {sideBarOptions.map((title, index) => (
+              <li
+                className={`w-full ${title.status ? "bg-gray-900 text-white" : "bg-gray-400 text-gray-600"} font-medium  rounded-xl py-2  cursor-pointer`}
+                onClick={() => {
+                  selectProfileType("topics");
+                  switchTab(title.id);
+                }}
+                key={index}
+              >
+                {title.name}
+              </li>
+            ))}
           </ul>
-          <div className="h-2 w-full bg-gray-400 rounded-lg mt-4 relative">
-            <div className="h-2 w-1/3 bg-gray-700 rounded-lg mt-2 relative"></div>
-          </div>
-          <p className="py-2 text-sm font-normal text-gray-600">
-            10% Completed
-          </p>
-          <p className="text-gray-600">
-            A little overview of how this path is structured. Study by covering
-            the key concepts first then devlving deeper into each topic one by
-            one.
-          </p>
-          {/* Progres Tabs */}
+
           <div className="my-4 h-screen flex flex-col">
-            <div className="flex-1 overflow-y-auto">
-              {topics.map((topic: any, index: number) => (
-                <TabHorizontal
-                  key={index}
-                  id={topic.id}
-                  name={topic.title}
-                  color={topic.node_color}
-                  slug={topic.slug}
-                  description={topic.description}
-                  is_started={topic.is_following}
-                  ringInformation={topic?.videos}
-                  onHover={() => setHoveredTopicId(String(topic.id))} 
-                  onLeave={() => setHoveredTopicId(null)}
-                />
-              ))}
-            </div>
+            {(() => {
+              const active = sideBarOptions.find((t) => t.status);
+              if (!active) return null;
+              return (
+                <div className="flex-1 overflow-y-auto">
+                  <active.component
+                    topics={topics}
+                    hoveredTopicId={hoveredTopicId}
+                    onHover={(id: string) => setHoveredTopicId(id)}
+                    onLeave={() => setHoveredTopicId(null)}
+                    totalCount={() => countTotalTopicStarted()}
+                  />
+                </div>
+              );
+            })()}
           </div>
         </div>
         {/* Progress */}
         <div className="col-span-4 bg-blue-950">
           {/* <CourseNodeLink /> */}
-          <AnimatedCourseNode  hoveredTopicId={hoveredTopicId}/>
+          <AnimatedCourseNode hoveredTopicId={hoveredTopicId} />
         </div>
       </main>
-      {/* <TabProgressBar name="Coming up " completed={4} incomplete={10} /> */}
     </>
   );
 }

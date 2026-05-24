@@ -94,13 +94,14 @@ class UserController
         $topics = Topic::where('title', 'like', '%' . $q . '%')->get()
             ->map(fn($item) => ['type' => 'topic', 'id' => $item->id, 'title' => $item->title, 'slug' => $item->slug, 'description' => $item->description, 'node_color' => $item->node_color, 'x_axis' => $item->x_axis, 'y_axis' => $item->y_axis]);
 
-        $videos = Video::where('title', 'like', '%' . $q . '%')->get()
-            ->map(fn($item) => ['type' => 'video', 'id' => $item->id, 'title' => $item->title, 'slug' => $item->slug, 'description' => $item->description, 'node_color' => $item->node_color,]);
+        // $videos = Video::where('title', 'like', '%' . $q . '%')->get()
+        //     ->map(fn($item) => ['type' => 'video', 'id' => $item->id, 'title' => $item->title, 'slug' => $item->slug, 'description' => $item->description, 'node_color' => $item->node_color,]);
 
-        $quizzes = Quiz::where('question', 'like', '%' . $q . '%')->get()
-            ->map(fn($item) => ['type' => 'quiz', 'id' => $item->id, 'title' => $item->description, 'question' => $item->question, 'node_color' => $item->node_color]);
+        // $quizzes = Quiz::where('question', 'like', '%' . $q . '%')->get()
+        //     ->map(fn($item) => ['type' => 'quiz', 'id' => $item->id, 'title' => $item->description, 'question' => $item->question, 'node_color' => $item->node_color]);
 
-        $merged = $topics->concat($videos)->concat($quizzes);
+        // $merged = $topics->concat($videos)->concat($quizzes);
+        $merged = $topics;
 
         $page    = $request->page ?? 1;
         $total   = $merged->count();

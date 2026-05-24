@@ -14,6 +14,7 @@ import { clientFetch } from "@/lib/clientFetch";
 import { useToggle } from "@/hooks/common/useToggle";
 import QuizWrapper from "@/components/ui/quiz/QuizWrapper";
 import RamblingCard from "@/components/ui/rambling/RamblingCard";
+import { copyToClipboard } from "@/lib/common";
 //
 export default function CourseTabs({
   title,
@@ -107,7 +108,9 @@ export default function CourseTabs({
                 icon={faCopy}
                 size="1x"
                 className="text-white hover:cursor-pointer"
+                onClick={()=>copyToClipboard(content)}
               />
+              
             </p>
             <SyntaxHighlighter language="cpp" style={solarizedDarkAtom}>
               {content}

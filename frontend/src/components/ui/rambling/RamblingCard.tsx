@@ -14,6 +14,7 @@ export default function RamblingCard({ ramblings }: any) {
       `}</style>
       {ramblings.map((rambling: any, index: number) => (
         <div
+        id="rambling-section"
           key={index}
           className="px-1 py-4 rambling-card"
           dangerouslySetInnerHTML={{ __html: rambling.content }}

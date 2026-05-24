@@ -115,7 +115,7 @@ function handleSearch() {
               <span className="font-semibold text-gray-800">"{query}"</span>
             </p>
             {results.map((result, index) => (
-              <SearchResultCard searched={result} query="red" key={index} />
+              <SearchResultCard searched={result} query={query} key={index} />
             ))}
           </div>
         </main>
