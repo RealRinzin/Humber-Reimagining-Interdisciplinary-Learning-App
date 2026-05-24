@@ -21,8 +21,8 @@ export default function FoundationFirst({topics,
         {totalCount()}/18 Completed
       </p>
       <p className="text-gray-600">
-        A little overview of how this path is structured. Study by covering the
-        key concepts first then devlving deeper into each topic one by one.
+        Start with the main ideas, then explore how everything connects.
+        You're alawys free to explore beyoung the path.
       </p>
         </>
     )

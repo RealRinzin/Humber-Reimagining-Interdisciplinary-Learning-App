@@ -1,9 +1,13 @@
 "use client";
 import AnimatedCourseNode from "@/components/features/course/AnimatedCourseNode";
 import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
+import CommonSideBarNode from "@/components/ui/nodeAnimation/CommonSideBarNode";
+import ExploreModeNode from "@/components/ui/nodeAnimation/ExploreModeNode";
+import FoundationFirstNode from "@/components/ui/nodeAnimation/FoundationFirstNode";
 import ExploreMode from "@/components/ui/profile/knowledgeMap/ExploreMode";
 import FoundationFirst from "@/components/ui/profile/knowledgeMap/FoundationFirst";
 import StepByStep from "@/components/ui/profile/knowledgeMap/StepByStep";
+
 // import TabProgressBar from "@/components/ui/progress/Tab";
 import TabHorizontal from "@/components/ui/progress/TabHorizontal";
 import { clientFetch } from "@/lib/clientFetch";
@@ -18,14 +22,27 @@ export default function KnowledgeMap() {
   const [hoveredTopicId, setHoveredTopicId] = useState<string | null>(null);
   // Initialization of the sidebar title options
   const [sideBarOptions, setSideBarOptions] = useState([
-    { id: 1, name: "Step by Step", status: false, component: StepByStep },
+    {
+      id: 1,
+      name: "Step by Step",
+      status: false,
+      component: StepByStep,
+      sidebarNode: CommonSideBarNode,
+    },
     {
       id: 2,
       name: "Foundation First",
       status: false,
       component: FoundationFirst,
+      sidebarNode: FoundationFirstNode,
     },
-    { id: 3, name: "Explore Mode ", status: true, component: ExploreMode },
+    {
+      id: 3,
+      name: "Explore Mode ",
+      status: true,
+      component: ExploreMode,
+      sidebarNode: ExploreModeNode,
+    },
   ]);
 
   //   Function to active and deactive the tab options
@@ -105,8 +122,24 @@ export default function KnowledgeMap() {
         </div>
         {/* Progress */}
         <div className="col-span-4 bg-blue-950">
+          {(() => {
+            const active = sideBarOptions.find((t) => t.status);
+            if (!active) return null;
+            return (
+              <div className="flex-1 overflow-y-auto">
+                <active.sidebarNode
+                  hoveredTopicId={hoveredTopicId}
+                  // topics={topics}
+                  // hoveredTopicId={hoveredTopicId}
+                  // onHover={(id: string) => setHoveredTopicId(id)}
+                  // onLeave={() => setHoveredTopicId(null)}
+                  // totalCount={() => countTotalTopicStarted()}
+                />
+              </div>
+            );
+          })()}
           {/* <CourseNodeLink /> */}
-          <AnimatedCourseNode hoveredTopicId={hoveredTopicId} />
+          {/* <CommonSideBarNode hoveredTopicId={hoveredTopicId} /> */}
         </div>
       </main>
     </>
