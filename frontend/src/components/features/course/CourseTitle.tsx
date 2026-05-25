@@ -17,9 +17,8 @@ export default function CourseTitle({
 }) {
   const router = useRouter();
 
-  const [markCompleteAll, setMarkCompleteAll] = useState(
-    status?.all_checked ? true : false,
-  );
+  const [markCompleteAll, setMarkCompleteAll] = useState(status?.all_checked);
+
   // Update all check
   async function handleMarkAllComplete() {
     const res = await clientFetch(

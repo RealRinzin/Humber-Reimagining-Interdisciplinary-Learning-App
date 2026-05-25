@@ -3,6 +3,7 @@ import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
 import CourseTabs from "@/components/features/course/CourseTabs";
 import CourseTitle from "@/components/features/course/CourseTitle";
 import MoreCourses from "@/components/features/course/MoreCourses";
+import CommonSideBarNode from "@/components/ui/nodeAnimation/CommonSideBarNode";
 import { MyPlayer } from "@/components/ui/video/VideoPlayer";
 import { serverFetch, serverPatch, serverPost } from "@/lib/fetch";
 import type { Metadata } from "next";
@@ -122,6 +123,7 @@ export default async function Page({
     <main className="px-1 md:px-20 py-5">
       <section className="flex flex-col md:flex-row gap-4">
         <div className="md:flex-4">
+          {completeStatus.all_checked?'TRUE':"False"}
           <CourseTitle
             title={video.title}
             videoID={video.id}
@@ -163,16 +165,6 @@ export default async function Page({
           ) : (
             ""
           )}
-          {/* Interactive */}
-          {/* <CourseTabs
-            type="interactive"
-            title={"Interactive Mode"}
-            icon="ramblingsIcon.png"
-            content={"demo"}
-            videoID={video?.id}
-            status={completeStatus?.interactive}
-            all_complete={completeStatus?.all_checked}
-          /> */}
           {/* Quiz Tab */}
           <CourseTabs
             type="quiz"
@@ -205,16 +197,6 @@ export default async function Page({
             all_complete={completeStatus?.all_checked}
             ramblings={video?.ramblings}
           />
-          {/* Rambling Tab */}
-          {/* <CourseTabs
-            type="faq"
-            title={"Frequently Asked Questions"}
-            icon="FAQIcon.png"
-            content={video.title}
-            videoID={video?.id}
-            status={completeStatus?.nan}
-            all_complete={completeStatus?.nan}
-          /> */}
           <section className="my-10">
             <MoreCourses />
           </section>
@@ -223,8 +205,7 @@ export default async function Page({
           className="md:flex-2 bg-slate-900 rounded-xl"
           style={{ backgroundColor: "#000033" }}
         >
-          <AnimatedCourseNode/>
-          {/* <CourseNodeLink /> */}
+          {/* <CommonSideBarNode/> */}
         </aside>
       </section>
     </main>

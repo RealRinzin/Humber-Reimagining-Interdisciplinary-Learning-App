@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import {
   faAngleDown,
@@ -25,13 +26,17 @@ export default function CourseTabs({
   status,
   all_complete,
   quizzes,
-  ramblings
+  ramblings,
 }: courseTabsTypes) {
   const { isOn: isOpen, toggle } = useToggle(status);
+  const router = useRouter();
+
   const [drop, setDrop] = useState(false);
   const [isChecked, setIsChecked] = useState(status);
+  const [allChecked, setAllChecked] = useState(false);
   // Async function to update individual status
   async function updateTheStatus() {
+    router.refresh();
     // Get the all status of this video
     const completeStatusRes = await clientFetch(
       `/user-video-setting/users/me/videos/${videoID}`,
@@ -39,6 +44,7 @@ export default function CourseTabs({
     const { data } = await completeStatusRes.json();
     // reverse the status
     status = !status;
+    data.all_checked = false;
     // Update the latest status of this tab
     data[type] = !isOpen;
     // Update individual checkbox
@@ -70,7 +76,9 @@ export default function CourseTabs({
           <FontAwesomeIcon
             icon={drop ? faAngleUp : faAngleDown}
             size="1x"
-            onClick={() => setDrop((prev) => !prev)}
+            onClick={() => {
+              setDrop((prev) => !prev);
+            }}
             className="cursor-pointer text-gray-600 px-2"
           />
         </h2>
@@ -108,24 +116,25 @@ export default function CourseTabs({
                 icon={faCopy}
                 size="1x"
                 className="text-white hover:cursor-pointer"
-                onClick={()=>copyToClipboard(content)}
+                onClick={() => copyToClipboard(content)}
               />
-              
             </p>
             <SyntaxHighlighter language="cpp" style={solarizedDarkAtom}>
               {content}
             </SyntaxHighlighter>
           </>
         ) : type === "rambling" ? (
-          <RamblingCard ramblings={ramblings}/>
+          <RamblingCard ramblings={ramblings} />
         ) : type === "quiz" ? (
           <QuizWrapper quizzes={quizzes} />
         ) : type === "tldnw" ? (
           "Later watch"
         ) : type === "interactive" ? (
-          <iframe src="/interactive/space.html" className="w-full h-screen border-0" />
-        ) : 
-        type === "resources" ? (
+          <iframe
+            src="/interactive/space.html"
+            className="w-full h-screen border-0"
+          />
+        ) : type === "resources" ? (
           "Documents"
         ) : (
           content
