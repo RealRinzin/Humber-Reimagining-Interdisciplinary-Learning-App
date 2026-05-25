@@ -5,6 +5,7 @@ interface courseTabsTypes {
   icon: string;
   type: string;
   status: boolean;
+  interactive_path?:string,
   all_complete: boolean;
   quizzes?:[] | null;
   ramblings?:[] | null;

@@ -123,7 +123,6 @@ export default async function Page({
     <main className="px-1 md:px-20 py-5">
       <section className="flex flex-col md:flex-row gap-4">
         <div className="md:flex-4">
-          {completeStatus.all_checked?'TRUE':"False"}
           <CourseTitle
             title={video.title}
             videoID={video.id}
@@ -176,6 +175,7 @@ export default async function Page({
             all_complete={completeStatus?.all_checked}
             quizzes={video.quizzes}
           />
+          {/* Interactive */}
           <CourseTabs
             type="interactive"
             title={"Interactive Simulation"}
@@ -185,6 +185,7 @@ export default async function Page({
             videoID={video?.id}
             all_complete={completeStatus?.all_checked}
             quizzes={video?.quizzes}
+            interactive_path={video?.interactive_path}
           />
           {/* Rambling Tab */}
           <CourseTabs

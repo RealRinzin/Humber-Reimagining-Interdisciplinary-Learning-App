@@ -27,6 +27,7 @@ export default function CourseTabs({
   all_complete,
   quizzes,
   ramblings,
+  interactive_path
 }: courseTabsTypes) {
   const { isOn: isOpen, toggle } = useToggle(status);
   const router = useRouter();
@@ -130,10 +131,12 @@ export default function CourseTabs({
         ) : type === "tldnw" ? (
           "Later watch"
         ) : type === "interactive" ? (
+          <>
           <iframe
-            src="/interactive/space.html"
+            src={`/interactive/${interactive_path}.html`}
             className="w-full h-screen border-0"
           />
+          </>
         ) : type === "resources" ? (
           "Documents"
         ) : (
