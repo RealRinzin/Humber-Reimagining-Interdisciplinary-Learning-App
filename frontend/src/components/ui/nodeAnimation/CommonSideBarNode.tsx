@@ -254,7 +254,7 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
         <div className="p-2 text-white absolute right-0 z-10">
           <div className="flex justify-end items-center">
             <div className="flex gap-3 items-center justify-center bg-slate-700 rounded px-3 py-1">
-              <span className="text-sm">Tracking</span>
+              <span className="text-sm">Show Progress</span>
               <span>
                 <input type="checkbox" className="" />
               </span>
