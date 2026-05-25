@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CytoscapeComponent from "react-cytoscapejs";
 import type { Core } from "cytoscape";
 import { useEffect, useRef, useState } from "react";
-import { clientFetch } from "@/lib/clientFetch";
+import { clientFetch, clientPost } from "@/lib/clientFetch";
 
 interface Props {
   hoveredTopicId?: string | null;
@@ -27,8 +27,14 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
     label: "",
     description: "",
   });
-
-  // ✅ Effect 1: Fetch data ONCE on mount
+  async function postUserTopic(topic_id: number) {
+    await clientPost("/user-topics/users/me/topics", {
+      topic_id: topic_id,
+      started: true,
+    });
+    // no router.refresh() or window.location here
+  }
+  // Use Effect to mount the data during page loading
   useEffect(() => {
     const newStyle: any = [
       {
@@ -282,7 +288,7 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
           </div>
         </div>
         <CytoscapeComponent
-        className="z-0"
+          className="z-0"
           elements={topics}
           autoungrabify={true}
           stylesheet={styles}
@@ -299,7 +305,14 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
             cy.on("tap", "node", (event) => {
               const node = event.target;
               const url = node.data("url");
-              if (url) window.open(url, "_blank");
+              const isStarted = node.data("is_following");
+              if (!isStarted) {
+                postUserTopic(Number(node.data("id")));
+                window.location.reload();
+                return;
+              }
+              return;
+              // if (url) window.open(url, "_blank");
             });
 
             cy.on("mouseover", "node", (e) => {

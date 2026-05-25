@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CytoscapeComponent from "react-cytoscapejs";
 import type { Core } from "cytoscape";
 import { useEffect, useRef, useState } from "react";
-import { clientFetch } from "@/lib/clientFetch";
+import { clientFetch, clientPost } from "@/lib/clientFetch";
 
 interface Props {
   hoveredTopicId?: string | null;
@@ -27,7 +27,13 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
     description: "",
     is_following: false,
   });
-
+  async function postUserTopic(topic_id: number) {
+    await clientPost("/user-topics/users/me/topics", {
+      topic_id: topic_id,
+      started: true,
+    });
+    // no router.refresh() or window.location here
+  }
   useEffect(() => {
     const newStyle: any = [
       {
@@ -105,7 +111,10 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
         },
       },
     ];
-
+    // Function to check the started Topic ID
+    const startedTopicIds = new Set(
+      topics.filter((t: any) => t.is_started).map((t: any) => t.id),
+    );
     async function getTopics() {
       const res = await clientFetch(`/topics`);
       const { data: topics } = await res.json();
@@ -113,7 +122,7 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
       const connect = await topicConnection.json();
 
       const List: cytoscape.ElementDefinition[] = [];
-
+      topics[0].is_following = true;
       topics.forEach((topic: any, index: number) => {
         List.push({
           data: {
@@ -121,6 +130,7 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
             label: topic.title,
             source: null,
             target: null,
+            is_started: topic.is_following,
             node_color: null,
             url: `/video/${topic.slug}`,
             description: topic.description,
@@ -147,9 +157,9 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
             "text-background-opacity": 0.7,
             "text-background-padding": 4,
             "text-background-shape": "roundrectangle",
-            "background-color": `${topic.is_following ?topic.node_color:'#999999'}`,
+            "background-color": `${topic.is_following ? topic.node_color : "#999999"}`,
             "border-width": 20,
-            "border-color": `${topic.is_following ?topic.node_color:'#999999'}`,
+            "border-color": `${topic.is_following ? topic.node_color : "#999999"}`,
             "border-opacity": 0.5,
             "shadow-blur": 80,
             "shadow-color": "#00ff88",
@@ -291,10 +301,15 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
           style={{ width: "100%", height: "100%" }}
           cy={(cy) => {
             cyRef.current = cy;
-
             cy.on("tap", "node", (event) => {
               const node = event.target;
               const url = node.data("url");
+              const isStarted = node.data("is_following");
+              if (!isStarted) {
+                postUserTopic(Number(node.data("id")));
+                window.location.reload();
+                return;
+              }
               if (url) window.open(url, "_blank");
             });
 

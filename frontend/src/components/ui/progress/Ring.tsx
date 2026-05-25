@@ -14,8 +14,8 @@ export default function RingProgressBar({
       style={{
         background: `conic-gradient(${color} 0% ${progressRateCalculation}%, #99a1af ${progressRateCalculation}% 100%)`,
       }}
-      onClick={(e) => {        // 👈 add this
-        e.stopPropagation();   // 👈 prevent parent hover handlers interfering
+      onClick={(e) => {      
+        e.stopPropagation();  
         onClick?.();
       }}
     >

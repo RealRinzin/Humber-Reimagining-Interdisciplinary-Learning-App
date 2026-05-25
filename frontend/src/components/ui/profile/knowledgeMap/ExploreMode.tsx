@@ -13,7 +13,6 @@ export default function ExploreMode({
   const [topics, setTopics] = useState<any[]>([]);
   useEffect(() => {
     async function getTopics() {
-    
       const res = await clientFetch(`/topics`);
       const { data: allTopics } = await res.json();
       // We will sort the sequence of the response output data with respect
@@ -50,6 +49,7 @@ export default function ExploreMode({
           name={topic.title}
           color={topic.node_color}
           slug={topic.slug}
+          total_started={topics?.length}
           description={topic.description}
           is_started={topic.is_following}
           ringInformation={topic?.videos}

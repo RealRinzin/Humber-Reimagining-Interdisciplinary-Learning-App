@@ -7,12 +7,6 @@ import { useToggle } from "@/hooks/common/useToggle";
 import { clientFetch, clientPost } from "@/lib/clientFetch";
 import RingProgressBar from "@/components/ui/progress/Ring";
 
-interface CheckedMarkCount {
-  code: number;
-  quiz: number;
-  rambling: number;
-  interactive: number;
-}
 /**
  *
  * @param topic_id
@@ -31,12 +25,13 @@ export default function ExploreHorizontalTab({
   description,
   is_started,
   ringInformation,
+  total_started,
   onHover,
   onLeave,
 }: HorizontalTabTypes) {
   // Calling the state and toggle function for the hook
   const { isOn: isOpen, toggle } = useToggle(false);
-  const router = useRouter();
+  // Update the topic
   async function postUserTopic(topic_id: number) {
     // Post method
     const res = await clientPost("/user-topics/users/me/topics", {
@@ -44,7 +39,6 @@ export default function ExploreHorizontalTab({
       started: true,
     });
     window.location.reload();
-    // router.refresh();
   }
   // Calculate the Ring circle detail from the incoming information
 
@@ -70,11 +64,11 @@ export default function ExploreHorizontalTab({
     >
       <div className="flex flex-col items-center justify-center border-r-2 border-gray-500/80 p-3">
         <RingProgressBar
-          id={2}
+          id={id}
           color={color}
           borderColor={color}
           progress={total}
-          onClick={() => postUserTopic(id + 1)}
+          onClick={total_started !== 18 ? () => postUserTopic(id + 1) : undefined}
         />
         {isOpen && (
           <div className="pt-2 transition-all delay-300 ease-in-out">

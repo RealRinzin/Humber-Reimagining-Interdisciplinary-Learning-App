@@ -4,6 +4,7 @@ export interface HorizontalTabTypes {
     color: string,
     slug: string,
     description: string,
+    total_started?: number,
     is_started: boolean,
     ringInformation: any,
     onHover?: () => void;
