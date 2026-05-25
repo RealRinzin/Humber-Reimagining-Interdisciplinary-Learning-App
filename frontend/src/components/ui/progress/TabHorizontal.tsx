@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 // We are using this tab basically for the Knowledge Map
 // Horizontal Tab Progress bar
 import { HorizontalTabTypes } from "@/types/progress/horizontalTab.types";
@@ -18,13 +19,7 @@ interface CheckedMarkCount {
  * @param topic_id
  * Async Function to post or create new record for the user topic
  */
-async function postUserTopic(topic_id: number) {
-  // Post method
-  const res = await clientPost("/user-topics/users/me/topics", {
-    topic_id: topic_id,
-    started: true,
-  });
-}
+
 /**
  *
  *  MAIN PAGE RETURN
@@ -42,6 +37,15 @@ export default function TabHorizontal({
 }: HorizontalTabTypes) {
   // Calling the state and toggle function for the hook
   const { isOn: isOpen, toggle } = useToggle(false);
+  const router = useRouter();
+  async function postUserTopic(topic_id: number) {
+    // Post method
+    const res = await clientPost("/user-topics/users/me/topics", {
+      topic_id: topic_id,
+      started: true,
+    });
+    router.refresh();
+  }
   // Calculate the Ring circle detail from the incoming information
 
   const fields = ["code", "rambling", "quiz", "interactive"] as const;
@@ -55,8 +59,14 @@ export default function TabHorizontal({
       className={`flex items-center border-2 rounded-2xl border-gray-500/80 my-4 cursor-pointer ${is_started ? "bg-white" : "bg-gray-400 "}`}
       // onMouseEnter={toggle}
       // onMouseLeave={toggle}
-      onMouseEnter={() => { toggle(); onHover?.(); }} 
-      onMouseLeave={() => { toggle(); onLeave?.(); }}  
+      onMouseEnter={() => {
+        toggle();
+        onHover?.();
+      }}
+      onMouseLeave={() => {
+        toggle();
+        onLeave?.();
+      }}
     >
       <div className="flex flex-col items-center justify-center border-r-2 border-gray-500/80 p-3">
         <RingProgressBar

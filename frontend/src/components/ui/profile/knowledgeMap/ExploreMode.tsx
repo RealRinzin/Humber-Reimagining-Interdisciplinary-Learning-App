@@ -1,10 +1,9 @@
 "use client";
 
 import { StepByStepDtypes } from "@/types/profile/step-by-step.types";
-import TabHorizontal from "../../progress/TabHorizontal";
 import { useEffect, useState } from "react";
 import { clientFetch } from "@/lib/clientFetch";
-
+import ExploreHorizontalTab from "./Tabs/ExploreHorizontalTab";
 export default function ExploreMode({
   // topics,
   onHover,
@@ -12,20 +11,17 @@ export default function ExploreMode({
   totalCount,
 }: StepByStepDtypes) {
   const [topics, setTopics] = useState<any[]>([]);
-
-
   useEffect(() => {
     async function getTopics() {
+    
       const res = await clientFetch(`/topics`);
       const { data: allTopics } = await res.json();
       // We will sort the sequence of the response output data with respect
       // to whether the user has started the topic or not
       setTopics(
         // allTopics.sort((a: any, b: any) => b.is_following - a.is_following),
-        allTopics.filter((n:any)=>n.is_following === true)
+        allTopics.filter((n: any) => n.is_following === true),
       );
-      console.log(allTopics.filter((n:any)=>n.is_following))
-// const evens = nums.filter(n => n % 2 === 0);
     }
     getTopics();
   }, []); // empty array = run once on mount
@@ -48,7 +44,7 @@ export default function ExploreMode({
         set path!
       </p>
       {topics.map((topic: any, index: number) => (
-        <TabHorizontal
+        <ExploreHorizontalTab
           key={index}
           id={topic.id}
           name={topic.title}
