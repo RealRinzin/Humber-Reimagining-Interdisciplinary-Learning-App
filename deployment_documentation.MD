@@ -81,6 +81,13 @@ API_TOKEN=1|btWt4uywiRfEts6EuARl6QBK642z9ymoVXQNcdeY48f0dd29
 // frontend URL - should be the server IP-Address
 FRONTEND_URL=http://200.301.402.503:3000
 ```
+
+>## PM2 CONFIGURATION
+```sql
+pm2 start npm --name frontend --cwd frontend -- start
+pm2 start artisan --name backend --cwd backend
+pm2 save
+```
 >## 2.
 ```tsx
 // This file is responsible for handling the authentication and authorization of the user. 

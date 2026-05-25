@@ -206,7 +206,7 @@ export default async function Page({
           className="md:flex-2 bg-slate-900 rounded-xl"
           style={{ backgroundColor: "#000033" }}
         >
-          {/* <CommonSideBarNode/> */}
+          <CommonSideBarNode/>
         </aside>
       </section>
     </main>
