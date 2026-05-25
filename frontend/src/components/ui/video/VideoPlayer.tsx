@@ -42,7 +42,7 @@ async function postInteraction({ type, sec, videoID,userVideoID }: InteractionPa
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        "X-XSRF-TOKEN": xsrfToken, // ✅ add this
+        "X-XSRF-TOKEN": xsrfToken, 
       },
     });
 
@@ -88,7 +88,7 @@ async function postInteraction({ type, sec, videoID,userVideoID }: InteractionPa
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          "X-XSRF-TOKEN": xsrfToken, // ✅ add this
+          "X-XSRF-TOKEN": xsrfToken
         },
         body: JSON.stringify({
           video_id: videoID,
@@ -106,7 +106,7 @@ async function postInteraction({ type, sec, videoID,userVideoID }: InteractionPa
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          "X-XSRF-TOKEN": xsrfToken, // ✅ add this
+          "X-XSRF-TOKEN": xsrfToken, 
         },
         body: JSON.stringify({
           video_id: videoID,
@@ -170,7 +170,7 @@ export const MyPlayer = ({ src, last_stop, videoID,userVideoID }: MyPlayerProps)
 
             });
           }}
-          // ✅ Video finished
+          // Video finished
           onEnded={(e) => {
             const video = e.target as HTMLVideoElement;
             postInteraction({

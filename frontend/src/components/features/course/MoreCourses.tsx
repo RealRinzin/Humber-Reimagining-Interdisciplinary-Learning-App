@@ -1,12 +1,24 @@
+'use client'
 import { faCircleArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import VideoCard from "../../ui/video/VideoCard";
 import { serverFetch } from "@/lib/fetch";
 import { VideoType } from "@/types/video";
 import Image from "next/image";
-export default async function MoreCourses() {
-  const res = await serverFetch(`/topics`);
-  const { data:topics } = await res.json();
+import { useEffect, useState } from "react";
+import { clientFetch } from "@/lib/clientFetch";
+export default  function MoreCourses() {
+const [topics, setTopics] = useState<VideoType[]>([]);
+  useEffect(()=>{
+    async function getTopics(){
+      const res = await clientFetch(`/topics`);
+      const { data:topics } = await res.json();
+      setTopics(topics)
+    }
+
+    getTopics();
+
+  },[])
   return (
     <>
       <div className="flex items-center gap-2">

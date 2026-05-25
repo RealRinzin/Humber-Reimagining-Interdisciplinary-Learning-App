@@ -77,7 +77,7 @@ export async function clientPost(path: string, body: unknown, options: RequestIn
             // Throw the error message and error status
             throw new Error(error.message ?? `Request failed: ${res.status}`);
         }
-
+        return res
     } catch (error) {
         console.log(error);
     }

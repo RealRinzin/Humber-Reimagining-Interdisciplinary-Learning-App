@@ -37,7 +37,6 @@ export default function CourseTabs({
   const [allChecked, setAllChecked] = useState(false);
   // Async function to update individual status
   async function updateTheStatus() {
-    router.refresh();
     // Get the all status of this video
     const completeStatusRes = await clientFetch(
       `/user-video-setting/users/me/videos/${videoID}`,
@@ -58,7 +57,7 @@ export default function CourseTabs({
       },
     );
   }
-
+    // router.refresh();
   useEffect(() => {
     setIsChecked(status);
   }, [status]);
