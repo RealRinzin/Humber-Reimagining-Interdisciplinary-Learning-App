@@ -1,18 +1,13 @@
 "use client";
-import AnimatedCourseNode from "@/components/features/course/AnimatedCourseNode";
-import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
+
 import CommonSideBarNode from "@/components/ui/nodeAnimation/CommonSideBarNode";
 import ExploreModeNode from "@/components/ui/nodeAnimation/ExploreModeNode";
-import FoundationFirstNode from "@/components/ui/nodeAnimation/FoundationFirstNode";
 import ExploreMode from "@/components/ui/profile/knowledgeMap/ExploreMode";
-import FoundationFirst from "@/components/ui/profile/knowledgeMap/FoundationFirst";
 import StepByStep from "@/components/ui/profile/knowledgeMap/StepByStep";
 
 // import TabProgressBar from "@/components/ui/progress/Tab";
-import TabHorizontal from "@/components/ui/progress/TabHorizontal";
 import { clientFetch } from "@/lib/clientFetch";
 import { useEffect, useState } from "react";
-import Component from "video.js/dist/types/component";
 /**
  * Main Page Return
  */
@@ -24,25 +19,25 @@ export default function KnowledgeMap() {
   const [sideBarOptions, setSideBarOptions] = useState([
     {
       id: 1,
-      name: "Step by Step",
-      status: false,
-      component: StepByStep,
-      sidebarNode: CommonSideBarNode,
-    },
-    {
-      id: 2,
-      name: "Foundation First",
-      status: false,
-      component: FoundationFirst,
-      sidebarNode: FoundationFirstNode,
-    },
-    {
-      id: 3,
       name: "Explore Mode ",
       status: true,
       component: ExploreMode,
       sidebarNode: ExploreModeNode,
     },
+    {
+      id: 2,
+      name: "Suggested Path",
+      status: false,
+      component: StepByStep,
+      sidebarNode: CommonSideBarNode,
+    },
+    // {
+    //   id: 2,
+    //   name: "Foundation First",
+    //   status: false,
+    //   component: FoundationFirst,
+    //   sidebarNode: FoundationFirstNode,
+    // },
   ]);
 
   //   Function to active and deactive the tab options

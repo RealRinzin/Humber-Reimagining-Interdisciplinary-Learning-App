@@ -1,5 +1,4 @@
 export default function RamblingCard({ ramblings }: any) {
-  const style = {};
   return (
     <>
       <style>{`

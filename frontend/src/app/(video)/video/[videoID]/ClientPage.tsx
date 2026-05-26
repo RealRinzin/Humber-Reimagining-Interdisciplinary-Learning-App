@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 
 export default function ClientPage({ children }: any) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);

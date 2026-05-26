@@ -144,21 +144,25 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
         quizzes={video.quizzes}
       />
       {/* Interactive */}
-      <CourseTabs
-        type="interactive"
-        title={"Interactive Simulation"}
-        icon="QuizIcon.png"
-        content={video.title}
-        status={completeStatus?.quiz}
-        videoID={video?.id}
-        all_complete={completeStatus?.all_checked}
-        quizzes={video?.quizzes}
-        interactive_path={video?.interactive_path}
-      />
+      {
+        video?.interactive_path && (
+          <CourseTabs
+            type="interactive"
+            title={"Interactive Simulation"}
+            icon="QuizIcon.png"
+            content={video.title}
+            status={completeStatus?.quiz}
+            videoID={video?.id}
+            all_complete={completeStatus?.all_checked}
+            quizzes={video?.quizzes}
+            interactive_path={video?.interactive_path}
+          />
+        )
+      }
       {/* Rambling Tab */}
       <CourseTabs
         type="rambling"
-        title={"Umer's Rampling"}
+        title={"Umer's Rambling"}
         icon="RamblingsIcon.png"
         content={video?.ramblings}
         videoID={video?.id}

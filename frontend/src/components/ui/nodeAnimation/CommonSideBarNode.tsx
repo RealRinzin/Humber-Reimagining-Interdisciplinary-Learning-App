@@ -305,14 +305,16 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
             cy.on("tap", "node", (event) => {
               const node = event.target;
               const url = node.data("url");
+
               const isStarted = node.data("is_following");
+              if (url) window.open(url, "_blank");
               if (!isStarted) {
                 postUserTopic(Number(node.data("id")));
-                window.location.reload();
+                // window.location.reload();
                 return;
               }
+
               return;
-              // if (url) window.open(url, "_blank");
             });
 
             cy.on("mouseover", "node", (e) => {

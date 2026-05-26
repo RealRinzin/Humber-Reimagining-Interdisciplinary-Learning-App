@@ -50,7 +50,7 @@ export default function ExploreHorizontalTab({
 
   return (
     <div
-      className={`flex items-center border-2 rounded-2xl border-gray-500/80 my-4 cursor-pointer ${is_started ? "bg-white" : "bg-gray-400 "}`}
+      className={`flex items-center border-2 rounded-2xl border-gray-500/80 my-4  ${is_started ? "bg-white" : "bg-gray-400 "}`}
       // onMouseEnter={toggle}
       // onMouseLeave={toggle}
       onMouseEnter={() => {
