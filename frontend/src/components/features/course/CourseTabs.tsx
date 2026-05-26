@@ -139,7 +139,6 @@ export default function CourseTabs({
               src={`/interactive/${interactive_path}.html`}
               className="w-full h-screen border-0"
             />
-
           )}
           </>
         ) : type === "resources" ? (

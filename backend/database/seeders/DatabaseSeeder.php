@@ -29,12 +29,12 @@ class DatabaseSeeder extends Seeder
             CodeSeeder::class, // Code for the topics or videos
             RamblingSeeder::class, // Rambling
             // Analytics 
+            UserContentSettingSeeder::class,
             // UserTopicSeeder::class, 
             // UserVideoSeeder::class, 
-            // UserContentSettingSeeder::class,
             // UserVideoSettingSeeder::class,
             // UserVideoAnalyticSeeder::class, 
-            
+
             // Team Member
             ProjectSeeder::class,
             TeamSeeder::class,

@@ -30,6 +30,7 @@ export default function DesktopNavigation() {
     <>
       <header className="flex flex-col md:flex-row justify-between place-items-center py-3 gap-2 md:py-6 md:px-20 text-white">
         <h2 className="text-xl">
+          <a href="/">
           SPA
           <Image
             src="/img/SpaceLogo.png"
@@ -39,7 +40,9 @@ export default function DesktopNavigation() {
             className="inline"
           />
           CES PROJECT
+          </a>
         </h2>
+
         <nav className="flex flex-col md:flex-row  place-items-center justify-end gap-5">
           <div id="hb_search" className="rounded-xl relative">
             <input
