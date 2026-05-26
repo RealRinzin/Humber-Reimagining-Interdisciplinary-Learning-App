@@ -27,74 +27,66 @@ export default function Page() {
   const { videoID: videoSlug } = useParams();
 
   // UseEffect for the page
-  useEffect(() => {
-    async function getTheVideoDetails() {
-      const res = await clientFetch(`/videos/${videoSlug}`);
-      const { data: videoData } = await res.json();
-      setCompleteStatus(videoData);
-      setVideo(videoData);
-      console.log(videoData);
-      //  Current User Detail Fetch
-      const user = await clientFetch(`/me`);
-      const me = await user.json();
-      try {
-        const last_pause = await clientFetch(
-          `/user-videos/users/${me.id}/videos/${videoData.id}`,
-        );
-        if (last_pause.ok) {
-          const content = await last_pause.json();
-          console.log(content);
-
-          if (content.data === null || content.data.completed) {
-            const addNewUserVideo = await clientPost(
-              `/user-videos/users/${me.id}/videos`,
-              {
-                user_id: me.id,
-                video_id: videoData.id,
-                last_paused: 0,
-                completed: false,
-              },
-            );
-            if (!addNewUserVideo) return;
-            const newUserVideo = await addNewUserVideo.json();
-            setUserVideoID(newUserVideo.id);
-          } else {
-            setUserVideoID(content.data.id);
-            setLastPaused(content?.data?.last_paused ?? 0);
-          }
-        }
-      } catch (e) {
-        // No record yet, default to 0
-      }
-
-      const completeStatusRes = await clientFetch(
-        `/user-video-setting/users/me/videos/${videoData.id}`,
+  async function getTheVideoDetails() {
+    const res = await clientFetch(`/videos/${videoSlug}`);
+    const { data: videoData } = await res.json();
+    setCompleteStatus(videoData);
+    setVideo(videoData);
+    //  Current User Detail Fetch
+    const user = await clientFetch(`/me`);
+    const me = await user.json();
+    try {
+      const last_pause = await clientFetch(
+        `/user-videos/users/${me.id}/videos/${videoData.id}`,
       );
-      const { data: fetchedCompleteStatus } = await completeStatusRes.json();
-      setCompleteStatus(fetchedCompleteStatus);
-
-      if (
-        fetchedCompleteStatus === null ||
-        fetchedCompleteStatus === undefined
-      ) {
-        await clientPatch(
-          `/user-video-setting/users/me/videos/${videoData.id}`,
-          {
-            code: false,
-            interactive: false,
-            rambling: false,
-            quiz: false,
-            quiz_checked_with_all: false,
-            code_checked_with_all: false,
-            interactive_checked_with_all: false,
-            rambling_checked_with_all: false,
-            all_checked: false,
-          },
-        );
+      if (last_pause.ok) {
+        const content = await last_pause.json();
+        if (content.data === null || content.data.completed) {
+          const addNewUserVideo = await clientPost(
+            `/user-videos/users/${me.id}/videos`,
+            {
+              user_id: me.id,
+              video_id: videoData.id,
+              last_paused: 0,
+              completed: false,
+            },
+          );
+          if (!addNewUserVideo) return;
+          const newUserVideo = await addNewUserVideo.json();
+          setUserVideoID(newUserVideo.id);
+        } else {
+          setUserVideoID(content.data.id);
+          setLastPaused(content?.data?.last_paused ?? 0);
+        }
       }
+    } catch (e) {
+      // No record yet, default to 0
     }
 
+    const completeStatusRes = await clientFetch(
+      `/user-video-setting/users/me/videos/${videoData.id}`,
+    );
+    const { data: fetchedCompleteStatus } = await completeStatusRes.json();
+    setCompleteStatus(fetchedCompleteStatus);
+
+    if (fetchedCompleteStatus === null || fetchedCompleteStatus === undefined) {
+      await clientPatch(`/user-video-setting/users/me/videos/${videoData.id}`, {
+        code: false,
+        interactive: false,
+        rambling: false,
+        quiz: false,
+        quiz_checked_with_all: false,
+        code_checked_with_all: false,
+        interactive_checked_with_all: false,
+        rambling_checked_with_all: false,
+        all_checked: false,
+      });
+    }
+  }
+  // Use Effect
+  useEffect(() => {
     if (videoSlug) getTheVideoDetails();
+    // Reload the page after markAllComplete Click from the Title Child component
   }, [videoSlug]);
 
   if (!video) return <VideoPageSkeleton />;
@@ -106,6 +98,7 @@ export default function Page() {
             title={video?.title}
             videoID={video?.id}
             status={completeStatus}
+            onStatusUpdate={getTheVideoDetails}
           />
           <div className="px-1 py-8">
             <div className="flex items-center gap-2">
@@ -139,6 +132,7 @@ export default function Page() {
               videoID={video?.id}
               status={completeStatus?.code}
               all_complete={completeStatus?.all_checked}
+              onStatusUpdate={getTheVideoDetails}
             />
           )}
 
@@ -150,6 +144,7 @@ export default function Page() {
             status={completeStatus?.quiz}
             videoID={video?.id}
             all_complete={completeStatus?.all_checked}
+            onStatusUpdate={getTheVideoDetails}
           />
 
           <CourseTabs
@@ -161,6 +156,7 @@ export default function Page() {
             videoID={video?.id}
             all_complete={completeStatus?.all_checked}
             interactive_path={video?.interactive_path}
+            onStatusUpdate={getTheVideoDetails}
           />
 
           <CourseTabs
@@ -172,6 +168,7 @@ export default function Page() {
             status={completeStatus?.rambling}
             all_complete={completeStatus?.all_checked}
             ramblings={video?.ramblings}
+            onStatusUpdate={getTheVideoDetails}
           />
           {!isOpen && (
             <div

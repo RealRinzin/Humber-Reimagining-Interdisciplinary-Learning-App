@@ -52,11 +52,13 @@ export default function SearchResultCard({
           <span className="font-black text-bold">{result.title}</span>
         </h3>
       </div>
-      {query}
       <p
         className="font-light text-gray-500"
         dangerouslySetInnerHTML={{
-          __html: highlightKeyword(query, result.description),
+          __html: result.type==='quiz'?
+          highlightKeyword(query, result.question):
+          result.type === 'code' ? highlightKeyword(query, result.code)
+          :highlightKeyword(query, result.description)
         }}
       />
       <div className="flex justify-end">

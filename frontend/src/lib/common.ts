@@ -21,7 +21,7 @@ export function highlightKeyword(keyword: string, text: string) {
   const regex = new RegExp(keyword, "gi");
   const highlighted = text.replace(
     regex,
-    match => `<strong>${match}</strong>`
+    match => `<strong class="text-pink-600">${match}</strong>`
   );
   return highlighted;
 }

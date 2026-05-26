@@ -61,7 +61,7 @@ function handleSearch() {
       </div>
       {/* sidebar */}
       <div className="max-w-5xl mx-auto px-6 py-8 flex gap-6">
-        <aside className="w-56 shrink-0">
+        {/* <aside className="w-56 shrink-0">
           <aside className="w-56 shrink-0">
             <div className="bg-white rounded-xl border border-gray-200 p-4">
               <span className="text-sm font-semibold text-gray-700 block mb-3">
@@ -107,7 +107,7 @@ function handleSearch() {
               </div>
             </div>
           </aside>
-        </aside>
+        </aside> */}
         <main className="flex-1 min-w-0">
           <div className="space-y-4">
             <p className="text-sm text-gray-500 mb-4">

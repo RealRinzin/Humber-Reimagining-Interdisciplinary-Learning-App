@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Http\Resources\Topic\TopicResource;
 use App\Http\Resources\User\UserResource;
+use App\Models\Code;
 use App\Models\Quiz;
 use App\Models\Topic;
 use App\Models\User;
@@ -83,26 +84,24 @@ class UserController
 
     public function search(Request $request)
     {
-        // return $request;
-        // $topics = Topic::where('title', 'like', '%' . $request->q . '%')->get();
-        // return TopicResource::collection($topics);
-
         $q = $request->q;
 
         $perPage = $request->per_page ?? 40;
 
-        $topics = Topic::where('title', 'like', '%' . $q . '%')->get()
+        $topics = Topic::where('description', 'like', '%' . $q . '%')->get()
             ->map(fn($item) => ['type' => 'topic', 'id' => $item->id, 'title' => $item->title, 'slug' => $item->slug, 'description' => $item->description, 'node_color' => $item->node_color, 'x_axis' => $item->x_axis, 'y_axis' => $item->y_axis]);
 
-        // $videos = Video::where('title', 'like', '%' . $q . '%')->get()
-        //     ->map(fn($item) => ['type' => 'video', 'id' => $item->id, 'title' => $item->title, 'slug' => $item->slug, 'description' => $item->description, 'node_color' => $item->node_color,]);
+        $videos = Video::where('title', 'like', '%' . $q . '%')->get()
+            ->map(fn($item) => ['type' => 'video', 'id' => $item->id, 'title' => $item->title, 'slug' => $item->slug, 'description' => $item->description, 'node_color' => $item->node_color,]);
 
-        // $quizzes = Quiz::where('question', 'like', '%' . $q . '%')->get()
-        //     ->map(fn($item) => ['type' => 'quiz', 'id' => $item->id, 'title' => $item->description, 'question' => $item->question, 'node_color' => $item->node_color]);
+        $quizzes = Quiz::where('question', 'like', '%' . $q . '%')->get()
+            ->map(fn($item) => ['type' => 'quiz', 'id' => $item->id, 'title' => $item->description, 'question' => $item->question, 'node_color' => $item->node_color]);
+        $codes = Code::where('code', 'like', '%' . $q . '%')->get()
+            ->map(fn($item) => ['type' => 'code', 'id' => $item->id, 'title' => $item->description, 'code' => $item->code, 'node_color' => $item->node_color]);
 
-        // $merged = $topics->concat($videos)->concat($quizzes);
-        $merged = $topics;
 
+        $merged = $topics->concat($codes)->concat($videos)->concat($quizzes);
+        // $merged = $topics;
         $page    = $request->page ?? 1;
         $total   = $merged->count();
         $items   = $merged->forPage($page, $perPage)->values();

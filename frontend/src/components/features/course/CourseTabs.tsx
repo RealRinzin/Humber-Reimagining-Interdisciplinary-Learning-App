@@ -27,7 +27,8 @@ export default function CourseTabs({
   all_complete,
   quizzes,
   ramblings,
-  interactive_path
+  interactive_path,
+  onStatusUpdate,
 }: courseTabsTypes) {
   const { isOn: isOpen, toggle } = useToggle(status);
   const router = useRouter();
@@ -56,8 +57,10 @@ export default function CourseTabs({
         body: JSON.stringify(data),
       },
     );
+    // Update and soft fresh the page
+    // onStatusUpdate();
   }
-    // router.refresh();
+  // router.refresh();
   useEffect(() => {
     setIsChecked(status);
   }, [status]);
@@ -131,10 +134,10 @@ export default function CourseTabs({
           "Later watch"
         ) : type === "interactive" ? (
           <>
-          <iframe
-            src={`/interactive/${interactive_path}.html`}
-            className="w-full h-screen border-0"
-          />
+            <iframe
+              src={`/interactive/${interactive_path}.html`}
+              className="w-full h-screen border-0"
+            />
           </>
         ) : type === "resources" ? (
           "Documents"

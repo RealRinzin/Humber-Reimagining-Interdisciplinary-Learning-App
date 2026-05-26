@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { clientFetch } from "@/lib/clientFetch";
 import { userVideoSettingTypes } from "@/types/user-video-setting.types";
 
@@ -10,16 +9,14 @@ export default function CourseTitle({
   title,
   videoID,
   status,
+  onStatusUpdate,
 }: {
   title: string;
   videoID: number;
   status: userVideoSettingTypes;
+  onStatusUpdate?: () => void;
 }) {
-  const router = useRouter();
-
-  const [markCompleteAll, setMarkCompleteAll] = useState(status?.all_checked);
-
-  // Update all check
+  const [markCompleteAll, setMarkCompleteAll] = useState(false);
   async function handleMarkAllComplete() {
     const res = await clientFetch(
       `/user-video-setting/users/me/videos/${videoID}`,
@@ -40,8 +37,12 @@ export default function CourseTitle({
       },
     );
     // Refresh once its updated
-    router.refresh();
+    // onStatusUpdate();
   }
+  // Update all check
+  useEffect(() => {
+    setMarkCompleteAll(status?.all_checked ?? false);
+  }, [status?.all_checked]);
   return (
     <div className="flex justify-between items-center-safe bg-gray-200 p-8 rounded-xl">
       <h1 className="text-3xl font-bold">{title}</h1>
