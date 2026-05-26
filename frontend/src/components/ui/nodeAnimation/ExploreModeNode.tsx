@@ -139,7 +139,6 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
           },
           position: { x: topic.x_axis, y: topic.y_axis },
         });
-
         newStyle.push({
           selector: `#${topic.id}`,
           style: {
@@ -190,7 +189,6 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
           },
         });
       });
-
       setTopics(List);
       setStyles(newStyle);
     }
@@ -304,13 +302,15 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
             cy.on("tap", "node", (event) => {
               const node = event.target;
               const url = node.data("url");
-              const isStarted = node.data("is_following");
+              const isStarted = node.data("is_started");
               if (!isStarted) {
                 postUserTopic(Number(node.data("id")));
                 window.location.reload();
                 return;
+              } else {
+                window.open(url, "_blank");
+                return;
               }
-              if (url) window.open(url, "_blank");
             });
 
             cy.on("mouseover", "node", (e) => {

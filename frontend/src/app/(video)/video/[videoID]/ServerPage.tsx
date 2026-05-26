@@ -20,7 +20,6 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
   // variable to hold the values
   let lastPaused = 0;
   let userVideoID;
-  console.log(me);
   /**
    * Fetch the last pause record for this video
    * Return NULL if record does not exits

@@ -28,7 +28,6 @@ export default function CourseTabs({
   quizzes,
   ramblings,
   interactive_path,
-  onStatusUpdate,
 }: courseTabsTypes) {
   const { isOn: isOpen, toggle } = useToggle(status);
   const router = useRouter();
@@ -58,9 +57,8 @@ export default function CourseTabs({
       },
     );
     // Update and soft fresh the page
-    // onStatusUpdate();
+    router.refresh();
   }
-  // router.refresh();
   useEffect(() => {
     setIsChecked(status);
   }, [status]);

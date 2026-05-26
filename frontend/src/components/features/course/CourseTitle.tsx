@@ -3,19 +3,18 @@
 import { useEffect, useState } from "react";
 import { clientFetch } from "@/lib/clientFetch";
 import { userVideoSettingTypes } from "@/types/user-video-setting.types";
-
+import { useRouter } from "next/navigation";
 // const CourseTitle = ({ title }: { title: string }) => {
 export default function CourseTitle({
   title,
   videoID,
   status,
-  onStatusUpdate,
 }: {
   title: string;
   videoID: number;
   status: userVideoSettingTypes;
-  onStatusUpdate?: () => void;
 }) {
+  const router = useRouter();
   const [markCompleteAll, setMarkCompleteAll] = useState(false);
   async function handleMarkAllComplete() {
     const res = await clientFetch(
@@ -37,7 +36,7 @@ export default function CourseTitle({
       },
     );
     // Refresh once its updated
-    // onStatusUpdate();
+    router.refresh();
   }
   // Update all check
   useEffect(() => {

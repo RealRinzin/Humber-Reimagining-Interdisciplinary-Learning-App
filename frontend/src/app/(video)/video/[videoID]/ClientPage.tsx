@@ -39,7 +39,7 @@ export default function ClientPage({ children }: any) {
         </div>
         {open && (
           <div className={`col-span-2 bg-slate-900 rounded-xl`}>
-            {mounted && <CommonSideBarNode />}
+            {/* {mounted && <CommonSideBarNode />} */}
           </div>
         )}
       </div>

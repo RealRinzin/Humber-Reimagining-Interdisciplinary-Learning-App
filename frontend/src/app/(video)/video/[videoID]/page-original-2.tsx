@@ -98,7 +98,6 @@ export default function Page() {
             title={video?.title}
             videoID={video?.id}
             status={completeStatus}
-            onStatusUpdate={getTheVideoDetails}
           />
           <div className="px-1 py-8">
             <div className="flex items-center gap-2">
