@@ -134,10 +134,13 @@ export default function CourseTabs({
           "Later watch"
         ) : type === "interactive" ? (
           <>
+          {interactive_path && (
             <iframe
               src={`/interactive/${interactive_path}.html`}
               className="w-full h-screen border-0"
             />
+
+          )}
           </>
         ) : type === "resources" ? (
           "Documents"

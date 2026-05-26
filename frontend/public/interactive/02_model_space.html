@@ -1,0 +1,682 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Model Space</title>
+  <link rel="stylesheet" href="./common/styles.css" />
+</head>
+<body>
+
+<script type="module">
+
+import { addHint } from "./common/hint.js";
+addHint(
+  "Drag to orbit, wheel to zoom. Samples are from https://github.com/songho/webgl/tree/master.")
+
+import * as THREE from "https://esm.sh/three@0.160.0";
+import GUI from "https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm";
+import { STLLoader } from "https://esm.sh/three@0.160.0/examples/jsm/loaders/STLLoader.js";
+import { VertexNormalsHelper }
+  from "https://esm.sh/three@0.160.0/examples/jsm/helpers/VertexNormalsHelper.js";
+
+// ----- Common modules -----
+import { createSceneShell } from "./common/sceneShell.js";
+import { addAxes } from "./common/axes.js";
+import { createOriginMarker } from "./common/originMarker.js";
+import { createRenderable, setWireframeMode } from "./common/renderModes.js";
+import { colorizeController } from "./common/uiLayout.js";
+import { COLORS } from "./common/colors.js";
+
+// ======================================================
+// Scene shell
+// ======================================================
+const { scene, camera, renderer, controls } = createSceneShell();
+
+// ======================================================
+// World axes
+// ======================================================
+//addAxes(scene, 3);
+
+const worldAxes = new THREE.Group();
+addAxes(worldAxes, 3);  // initial placeholder size
+scene.add(worldAxes);
+
+function updateAxesScale(geometry) {
+  const box = geometry.boundingBox;
+  const size = new THREE.Vector3();
+  box.getSize(size);
+
+  const radius = size.length() * 0.5;
+
+  // Scale axes to be comfortably larger than the model
+  const axisScale = radius*0.3;
+  worldAxes.scale.set(axisScale, axisScale, axisScale);
+}
+
+
+// ======================================================
+// Origin marker (world origin)
+// ======================================================
+createOriginMarker(scene);
+
+// ======================================================
+// STL Loader
+// ======================================================
+const loader = new STLLoader();
+
+let stlMesh = null;
+
+// fetch("./models/cube_ascii.stl")
+//   .then(r => r.arrayBuffer())
+//   .then(buffer => {
+//     const geometry = loader.parse(buffer);
+//     onSTLLoaded(geometry, "cube_ascii.stl");
+//   });
+
+  fetch("./models/cube_ascii.stl")
+      .then(r => r.arrayBuffer())
+      .then(buffer => loadSTLFromArrayBuffer(buffer,  "cube_ascii.stl"));
+
+// ======================================================
+// Lighting (simple, neutral)
+// ======================================================
+scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+
+const light = new THREE.DirectionalLight(0xffffff, 0.8);
+light.position.set(3, 4, 5);
+scene.add(light);
+
+// ======================================================
+// model information
+// ======================================================
+const infoPanel = document.createElement("div");
+
+const infoTextDiv = document.createElement("div");
+const controlsDiv = document.createElement("div");
+
+
+infoPanel.appendChild(infoTextDiv);
+infoPanel.appendChild(document.createElement("hr"));
+infoPanel.appendChild(controlsDiv);
+
+infoPanel.style.position = "absolute";
+infoPanel.style.top = "10px";
+infoPanel.style.right = "10px";
+infoPanel.style.padding = "10px";
+infoPanel.style.background = "rgba(0,0,0,0.6)";
+infoPanel.style.color = "#fff";
+infoPanel.style.fontFamily = "monospace";
+infoPanel.style.fontSize = "12px";
+infoPanel.style.lineHeight = "1.4";
+infoPanel.style.minWidth = "220px";
+
+document.body.appendChild(infoPanel);
+
+// ======================================================
+// Vertex Normals 
+// ======================================================
+let normalsHelper = null;
+let normalScale = 0.3;
+const viewParams = {
+  showNormals: false
+};
+
+const normalsToggle = document.createElement("label");
+normalsToggle.style.display = "block";
+normalsToggle.style.marginTop = "6px";
+normalsToggle.style.cursor = "pointer";
+
+const checkbox = document.createElement("input");
+checkbox.type = "checkbox";
+
+checkbox.addEventListener("change", () => {
+  viewParams.showNormals = checkbox.checked;
+  updateNormalsVisibility();
+});
+
+normalsToggle.appendChild(checkbox);
+normalsToggle.append("Show vertex normals");
+
+controlsDiv.appendChild(normalsToggle);
+
+// ======================================================
+// Triangles
+// ======================================================
+let wireframeHelper = null;
+
+viewParams.showTriangles = false;
+
+const trianglesToggle = document.createElement("label");
+trianglesToggle.style.display = "block";
+trianglesToggle.style.marginTop = "6px";
+trianglesToggle.style.cursor = "pointer";
+
+const triCheckbox = document.createElement("input");
+triCheckbox.type = "checkbox";
+
+triCheckbox.addEventListener("change", () => {
+  viewParams.showTriangles = triCheckbox.checked;
+  updateTriangleVisibility();
+});
+
+trianglesToggle.appendChild(triCheckbox);
+trianglesToggle.append("Show triangles");
+
+controlsDiv.appendChild(trianglesToggle);
+
+// ======================================================
+// Surface Normals 
+// ======================================================
+let faceNormalsHelper = null;
+viewParams.showFaceNormals = false;
+
+const faceNormalsToggle = document.createElement("label");
+faceNormalsToggle.style.display = "block";
+faceNormalsToggle.style.marginTop = "6px";
+faceNormalsToggle.style.cursor = "pointer";
+
+const faceCheckbox = document.createElement("input");
+faceCheckbox.type = "checkbox";
+
+faceCheckbox.addEventListener("change", () => {
+  viewParams.showFaceNormals = faceCheckbox.checked;
+  updateFaceNormalsVisibility();
+});
+
+faceNormalsToggle.appendChild(faceCheckbox);
+faceNormalsToggle.append("Show (triangle) surface normals");
+
+controlsDiv.appendChild(faceNormalsToggle);
+
+// ======================================================
+// Load panel 
+// ======================================================
+const stlListDiv = document.createElement("div");
+stlListDiv.style.marginTop = "10px";
+stlListDiv.style.fontFamily = "monospace";
+stlListDiv.style.fontSize = "12px";
+
+infoPanel.appendChild(document.createElement("hr"));
+//infoPanel.appendChild(stlListDiv);
+controlsDiv.appendChild(stlListDiv);
+
+const PRESET_STLS = [
+  { name: "Cube (ASCII)", file: "./models/cube_ascii.stl" },
+  { name: "Duck",       file: "./models/duck_ascii.stl" },
+  { name: "Teapot",       file: "./models/teapot_solid.stl" },
+];
+
+stlListDiv.innerHTML = "<b>Sample STLs (choose one): </b><br>";
+
+PRESET_STLS.forEach(stl => {
+  const item = document.createElement("div");
+  item.textContent = stl.name;
+  item.style.cursor = "pointer";
+  item.style.padding = "2px 0";
+
+  item.addEventListener("click", () => {
+    fetch(stl.file)
+      .then(r => r.arrayBuffer())
+      .then(buffer => loadSTLFromArrayBuffer(buffer, stl.name));
+  });
+
+  // Highlihgt the file when hovering over it
+  item.addEventListener("mouseenter", () => {
+  item.style.background = "rgba(255,255,255,0.15)";
+  });
+
+  item.addEventListener("mouseleave", () => {
+    item.style.background = "transparent";
+  });
+
+  stlListDiv.appendChild(item);
+});
+
+const fileInput = document.createElement("input");
+fileInput.type = "file";
+fileInput.accept = ".stl";
+fileInput.style.width = "100%";
+fileInput.style.marginTop = "8px";
+
+//infoPanel.appendChild(fileInput);
+controlsDiv.appendChild(fileInput);
+
+// file listener
+fileInput.addEventListener("change", () => {
+  const file = fileInput.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = e => {
+    loadSTLFromArrayBuffer(e.target.result, file.name);
+  };
+  reader.readAsArrayBuffer(file);
+});
+
+
+// ======================================================
+// Functions 
+// ======================================================
+
+
+function loadSTLFromArrayBuffer(buffer, name) {
+  const geometry = loader.parse(buffer);
+
+  geometry.computeBoundingBox();
+  geometry.center();
+  geometry.computeVertexNormals();
+
+  if (stlMesh) scene.remove(stlMesh);
+
+  const material = new THREE.MeshStandardMaterial({
+    color: 0xaaaaaa,
+    roughness: 0.6,
+    metalness: 0.1
+  });
+
+  stlMesh = new THREE.Mesh(geometry, material);
+  scene.add(stlMesh);
+
+  updateInfoPanel(geometry, name);
+  fitCameraToGeometry(geometry);
+
+  viewParams.showNormals = false;
+  checkbox.checked = false;
+  //const normalScale = radius * 0.05;
+  updateNormalsVisibility();
+
+  updateAxesScale(geometry);
+
+  // reset helpers
+viewParams.showTriangles = false;
+viewParams.showFaceNormals = false;
+
+triCheckbox.checked = false;
+faceCheckbox.checked = false;
+
+updateTriangleVisibility();
+updateFaceNormalsVisibility();
+
+}
+
+// camera looking down at XY  plane
+function fitCameraToGeometryFlat(geometry) {
+  const box = geometry.boundingBox;
+  const size = new THREE.Vector3();
+  box.getSize(size);
+
+  const radius = size.length() * 0.5;
+  camera.position.set(0, 0, radius * 2.5);
+  controls.target.set(0, 0, 0);
+  controls.update();
+}
+
+// Camera at angle
+function fitCameraToGeometry(geometry) {
+  const box = geometry.boundingBox;
+  const size = new THREE.Vector3();
+  box.getSize(size);
+
+  const radius = size.length() * 0.5;
+
+  // Three-quarter view (classic CAD / demo angle)
+  camera.position.set(
+    radius * 1.5,
+    radius * 1.2,
+    radius * 1.5
+  );
+
+  controls.target.set(0, 0, 0);
+  controls.zoomSpeed = 4.0;        // default is 1.0
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;  // smoother feel
+controls.minDistance = radius * 0.3;
+controls.maxDistance = radius * 6.0;
+  controls.update();
+
+}
+
+function updateInfoPanel(geometry, name) {
+  const pos = geometry.attributes.position;
+  const vertexCount = pos.count;
+  const triangleCount = geometry.index
+    ? geometry.index.count / 3
+    : pos.count / 3;
+
+  const size = new THREE.Vector3();
+  geometry.boundingBox.getSize(size);
+  const radius = size.length() * 0.5;
+  const normalCount = geometry.attributes.normal.count;
+
+
+  // set up normal
+  normalScale = radius * 0.1;
+  infoTextDiv.innerHTML = `
+<b>${name}</b><br>
+----------------------<br>
+Vertices:   ${vertexCount}<br>
+Triangles:  ${triangleCount}<br>
+Vertex Normals:    ${normalCount}<br>
+<br>
+BBox size:<br>
+  <span style="color:${COLORS.X}">X: ${size.x.toFixed(3)}</span><br>
+  <span style="color:${COLORS.Y}">Y: ${size.y.toFixed(3)}</span><br>
+  <span style="color:${COLORS.Z}">Z: ${size.z.toFixed(3)}</span><br>
+<br>
+Radius: ${radius.toFixed(3)}
+`;
+}
+
+
+function updateNormalsVisibility() {
+  if (!stlMesh) return;
+
+  if (viewParams.showNormals) {
+    if (!normalsHelper) {
+      normalsHelper = createNormalLines(stlMesh, normalScale);
+      scene.add(normalsHelper);
+    }
+  } else {
+    if (normalsHelper) {
+      scene.remove(normalsHelper);
+      normalsHelper.geometry.dispose();
+      normalsHelper.material.dispose();
+      normalsHelper = null;
+    }
+  }
+}
+
+
+let vertexNormalsHelper = null;
+
+function updateNormalsVisibilityArrows() {
+  if (!stlMesh) return;
+
+  if (viewParams.showNormals) {
+    if (!vertexNormalsHelper) {
+      vertexNormalsHelper = createVertexNormalArrows(
+        stlMesh,
+        normalScale
+      );
+      vertexNormalsHelper.renderOrder = 7;
+      scene.add(vertexNormalsHelper);
+    }
+  } else {
+    if (vertexNormalsHelper) {
+      scene.remove(vertexNormalsHelper);
+      vertexNormalsHelper = null;
+    }
+  }
+}
+
+// function updateNormalsVisibility() {
+//   if (!stlMesh) return;
+
+//   if (viewParams.showNormals) {
+//     if (!normalsHelper) {
+//       normalsHelper = new VertexNormalsHelper(
+//         stlMesh,
+//         0.2,
+//         0xff0000
+//       );
+//       scene.add(normalsHelper);
+//     }
+//   } else {
+//     if (normalsHelper) {
+//       scene.remove(normalsHelper);
+//       normalsHelper.dispose?.();
+//       normalsHelper = null;
+//     }
+//   }
+// }
+
+function createNormalLines(mesh, scale = 0.2) {
+  const geometry = mesh.geometry;
+  const pos = geometry.attributes.position;
+  const norm = geometry.attributes.normal;
+
+  const lines = [];
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i);
+    const y = pos.getY(i);
+    const z = pos.getZ(i);
+
+    const nx = norm.getX(i);
+    const ny = norm.getY(i);
+    const nz = norm.getZ(i);
+
+    lines.push(x, y, z);
+    lines.push(
+      x + nx * scale,
+      y + ny * scale,
+      z + nz * scale
+    );
+  }
+
+  const lineGeom = new THREE.BufferGeometry();
+  lineGeom.setAttribute(
+    "position",
+    new THREE.Float32BufferAttribute(lines, 3)
+  );
+
+  const material = new THREE.LineBasicMaterial({
+    color: 0xff4444
+  });
+
+  return new THREE.LineSegments(lineGeom, material);
+}
+
+function createVertexNormalArrows(mesh, scale) {
+  const geometry = mesh.geometry;
+  const pos = geometry.attributes.position;
+  const norm = geometry.attributes.normal;
+
+  const arrows = new THREE.Group();
+
+  // Make arrowhead smaller than shaft (important)
+  const headLength = scale * 0.25;
+  const headWidth  = scale * 0.15;
+
+  for (let i = 0; i < pos.count; i++) {
+    const origin = new THREE.Vector3(
+      pos.getX(i),
+      pos.getY(i),
+      pos.getZ(i)
+    );
+
+    const direction = new THREE.Vector3(
+      norm.getX(i),
+      norm.getY(i),
+      norm.getZ(i)
+    ).normalize();
+
+    const arrow = new THREE.ArrowHelper(
+      direction,
+      origin,
+      scale,
+      0xff4444,     // red = vertex normals
+      headLength,
+      headWidth
+    );
+
+    arrows.add(arrow);
+  }
+
+  return arrows;
+}
+
+
+function updateTriangleVisibility() {
+  if (!stlMesh) return;
+
+  if (viewParams.showTriangles) {
+    if (!wireframeHelper) {
+      const geo = new THREE.WireframeGeometry(stlMesh.geometry);
+      const mat = new THREE.LineBasicMaterial({
+        color: 0xffffff,
+        depthTest: false,
+        transparent: true,
+        opacity: 0.4
+      });
+
+      wireframeHelper = new THREE.LineSegments(geo, mat);
+      wireframeHelper.renderOrder = 5;
+      scene.add(wireframeHelper);
+    }
+  } else {
+    if (wireframeHelper) {
+      scene.remove(wireframeHelper);
+      wireframeHelper.geometry.dispose();
+      wireframeHelper.material.dispose();
+      wireframeHelper = null;
+    }
+  }
+}
+
+function createFaceNormalArrows(mesh, scale) {
+  const geom = mesh.geometry;
+  const pos = geom.attributes.position;
+
+  const arrows = new THREE.Group();
+
+  const headLength = scale * 0.25;  // small arrowhead
+  const headWidth  = scale * 0.15;  // thin arrowhead
+
+  for (let i = 0; i < pos.count; i += 3) {
+
+    const v0 = new THREE.Vector3(
+      pos.getX(i),
+      pos.getY(i),
+      pos.getZ(i)
+    );
+    const v1 = new THREE.Vector3(
+      pos.getX(i + 1),
+      pos.getY(i + 1),
+      pos.getZ(i + 1)
+    );
+    const v2 = new THREE.Vector3(
+      pos.getX(i + 2),
+      pos.getY(i + 2),
+      pos.getZ(i + 2)
+    );
+
+    // --- triangle center ---
+    const center = v0.clone()
+      .add(v1)
+      .add(v2)
+      .multiplyScalar(1 / 3);
+
+    // --- face normal ---
+    const normal = v1.clone()
+      .sub(v0)
+      .cross(v2.clone().sub(v0))
+      .normalize();
+
+    // --- arrow ---
+    const arrow = new THREE.ArrowHelper(
+      normal,
+      center,
+      scale,
+      0x00ff00,
+      headLength,
+      headWidth
+    );
+
+    arrows.add(arrow);
+  }
+
+  return arrows;
+}
+function createFaceNormalLines(mesh, scale) {
+  const geom = mesh.geometry;
+  const pos = geom.attributes.position;
+  const index = geom.index;
+
+  const lines = [];
+
+  // iterate triangles
+  for (let i = 0; i < pos.count; i += 3) {
+    const v0 = new THREE.Vector3(
+      pos.getX(i),
+      pos.getY(i),
+      pos.getZ(i)
+    );
+    const v1 = new THREE.Vector3(
+      pos.getX(i + 1),
+      pos.getY(i + 1),
+      pos.getZ(i + 1)
+    );
+    const v2 = new THREE.Vector3(
+      pos.getX(i + 2),
+      pos.getY(i + 2),
+      pos.getZ(i + 2)
+    );
+
+    // triangle center
+    const center = v0.clone().add(v1).add(v2).multiplyScalar(1 / 3);
+
+    // face normal
+    const normal = v1.clone()
+      .sub(v0)
+      .cross(v2.clone().sub(v0))
+      .normalize();
+
+    lines.push(
+      center.x, center.y, center.z,
+      center.x + normal.x * scale,
+      center.y + normal.y * scale,
+      center.z + normal.z * scale
+    );
+  }
+
+  const lineGeom = new THREE.BufferGeometry();
+  lineGeom.setAttribute(
+    "position",
+    new THREE.Float32BufferAttribute(lines, 3)
+  );
+
+  const mat = new THREE.LineBasicMaterial({
+    color: 0x00ff00,
+    depthTest: false
+  });
+
+  return new THREE.LineSegments(lineGeom, mat);
+}
+
+
+
+function updateFaceNormalsVisibility() {
+  if (!stlMesh) return;
+
+  if (viewParams.showFaceNormals) {
+    if (!faceNormalsHelper) {
+      faceNormalsHelper = createFaceNormalArrows(
+        stlMesh,
+        normalScale
+      );
+      faceNormalsHelper.renderOrder = 6;
+      scene.add(faceNormalsHelper);
+    }
+  } else {
+    if (faceNormalsHelper) {
+      scene.remove(faceNormalsHelper);
+      faceNormalsHelper = null;
+    }
+  }
+}
+
+// ======================================================
+// Animation loop 
+// ======================================================
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+
+
+animate();
+
+</script>
+</body>
+</html>

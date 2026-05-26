@@ -40,8 +40,8 @@ class TopicSeeder extends Seeder
             'node_color' => '#378ADD',
             'x_axis' => 690,
             'y_axis' => 90,
-            'interactive_path' => 'space',
-            'connections' => [2 => 'dashed']
+            'interactive_path' => '',
+            'connections' => [2 => 'dashed'],
         ],
 
         2  => [
@@ -50,7 +50,7 @@ class TopicSeeder extends Seeder
             'node_color' => '#F72585',
             'x_axis' => 520,
             'y_axis' => 190,
-            'interactive_path' => 'space',
+            'interactive_path' => '02_model_space',
             'connections' => [
                 1 => 'dashed',
                 3 => 'dashed',
@@ -69,7 +69,7 @@ class TopicSeeder extends Seeder
             'node_color' => '#378ADD',
             'x_axis' => 95,
             'y_axis' => 285,
-            'interactive_path' => 'space',
+            'interactive_path' => '03_09_vertex_pos_model_matrix',
             'connections' => [
                 2 => 'dashed',
                 4 => 'dashed',
@@ -85,7 +85,7 @@ class TopicSeeder extends Seeder
             'node_color' => '#378ADD',
             'x_axis' => 430,
             'y_axis' => 760,
-            'interactive_path' => 'space',
+            'interactive_path' => '4_normal',
             'connections' => [
                 2 => 'dashed',
                 3 => 'dashed',
@@ -99,7 +99,7 @@ class TopicSeeder extends Seeder
             'node_color' => '#378ADD',
             'x_axis' => 385,
             'y_axis' => 400,
-            'interactive_path' => 'space',
+            'interactive_path' => '05_scale',
             'connections' => [
                 2 => 'dashed',
                 6 => 'dashed',
@@ -114,7 +114,7 @@ class TopicSeeder extends Seeder
             'node_color' => '#378ADD',
             'x_axis' => 285,
             'y_axis' => 260,
-            'interactive_path' => 'space',
+            'interactive_path' => '06_translation',
 
             'connections' => [
                 2 => 'dashed',
@@ -134,7 +134,7 @@ class TopicSeeder extends Seeder
             'node_color' => '#378ADD',
             'x_axis' => 190,
             'y_axis' => 450,
-            'interactive_path' => 'space',
+            'interactive_path' => '07_rotation',
 
             'connections' => [
                 2 => 'dashed',
@@ -151,7 +151,7 @@ class TopicSeeder extends Seeder
             'node_color' => '#378ADD',
             'x_axis' => 365,
             'y_axis' => 530,
-            'interactive_path' => 'space',
+            'interactive_path' => '08_quaternions',
 
             'connections' => [
                 5 => 'dashed',
@@ -201,7 +201,7 @@ class TopicSeeder extends Seeder
             'node_color' => '#378ADD',
             'x_axis' => 930,
             'y_axis' => 520,
-            'interactive_path' => 'space',
+            'interactive_path' => '11_view_matrix',
 
             'connections' => [
                 6 => 'dashed',
@@ -234,7 +234,7 @@ class TopicSeeder extends Seeder
             'node_color' => '#378ADD',
             'x_axis' => 1060,
             'y_axis' => 810,
-            'interactive_path' => 'space',
+            'interactive_path' => '13_projection_matrix',
 
             'connections' => [
                 3 => 'dashed',
@@ -249,7 +249,7 @@ class TopicSeeder extends Seeder
             'node_color' => '#378ADD',
             'x_axis' => 345,
             'y_axis' => 915,
-            'interactive_path' => 'space',
+            'interactive_path' => '14_perspective_divide',
 
             'connections' => [
                 3 => 'dashed',
@@ -281,7 +281,7 @@ class TopicSeeder extends Seeder
             'node_color' => '#378ADD',
             'x_axis' => 940,
             'y_axis' => 965,
-            'interactive_path' => 'space',
+            'interactive_path' => '16_viewport_matrix',
 
             'connections' => [
                 15 => 'dashed',

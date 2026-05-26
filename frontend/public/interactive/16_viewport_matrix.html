@@ -1,0 +1,337 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Viewport Matrix</title>
+  <link rel="stylesheet" href="./common/styles.css" />
+</head>
+<!-- <div class="cameraFrameBottom"></div>
+<div class="cameraLabelBottom">Camera View</div> -->
+
+<body>
+
+<script type="module">
+
+import { addHint } from "./common/hint.js";
+addHint(
+  "Blue box is NDC matrix. Red box is screen space")
+
+import * as THREE from "https://esm.sh/three@0.160.0";
+import GUI from "https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm";
+
+import { createSceneShell } from "./common/sceneShell.js";
+import { addAxes } from "./common/axes.js";
+import { createMatrix4UI,   
+  createViewportMatrixFormulaUI
+ } from "./common/matrixUI.js";
+
+// ======================================================
+// Scene
+// ======================================================
+const { scene, camera, renderer, controls } = createSceneShell();
+camera.position.set(3,3,5);
+
+addAxes(scene, 2);
+
+// ======================================================
+// NDC cube (input)
+// ======================================================
+function createNDCCube() {
+  const geo = new THREE.BoxGeometry(2,2,2);
+
+  const mesh = new THREE.Mesh(
+    geo,
+    new THREE.MeshBasicMaterial({
+      color: 0x44aa88,
+      transparent: true,
+      opacity: 0.15
+    })
+  );
+
+  const edges = new THREE.LineSegments(
+    new THREE.EdgesGeometry(geo),
+    new THREE.LineBasicMaterial({color: 0x66ffcc})
+  );
+
+  const group = new THREE.Group();
+  group.add(mesh);
+  group.add(edges);
+
+  return group;
+}
+
+const ndcCube = createNDCCube();
+scene.add(ndcCube);
+
+// ======================================================
+// Viewport box (output)
+// ======================================================
+
+const DISPLAY_OFFSET = 0; // for visulaization 
+
+let viewportBox = null;
+
+function updateViewportBox() {
+
+  if (viewportBox) scene.remove(viewportBox);
+
+  const geo = new THREE.BoxGeometry(
+    params.width,
+    params.height,
+    2
+  );
+
+  const mesh = new THREE.Mesh(
+    geo,
+    new THREE.MeshBasicMaterial({
+      color: 0xff6666,
+      transparent: true,
+      opacity: 0.15
+    })
+  );
+
+  mesh.position.set(
+    params.offsetX + params.width / 2,
+    params.offsetY + params.height / 2,
+    0 + DISPLAY_OFFSET
+  );
+
+  const edges = new THREE.LineSegments(
+    new THREE.EdgesGeometry(geo),
+    new THREE.LineBasicMaterial({color: 0xff6666})
+  );
+
+  edges.position.copy(mesh.position);
+
+  viewportBox = new THREE.Group();
+  viewportBox.add(mesh);
+  viewportBox.add(edges);
+
+  scene.add(viewportBox);
+}
+
+// local axes for the window box
+const viewportAxes = new THREE.AxesHelper(1);
+//scene.add(viewportAxes);
+
+
+// ======================================================
+// Sample points
+// ======================================================
+const points = [];
+const mappedPoints = [];
+const lines = [];
+
+function createPoint(color) {
+  return new THREE.Mesh(
+    new THREE.SphereGeometry(0.07),
+    new THREE.MeshBasicMaterial({color})
+  );
+}
+
+// Sample NDC points
+
+const ndcSamples = [
+  new THREE.Vector3(-0.5, 0.5, -1),
+  new THREE.Vector3(0.7, 0.2, 0),
+  new THREE.Vector3(-0.2, -0.6, 1)
+];
+
+
+ndcSamples.forEach((p, i) => {
+  const pt = createPoint(0xffff00);
+  pt.position.copy(p);
+  scene.add(pt);
+  points.push(pt);
+
+  const mapped = createPoint(0xff0000);
+  scene.add(mapped);
+  mappedPoints.push(mapped);
+
+  const line = new THREE.Line(
+    new THREE.BufferGeometry().setFromPoints([p, p]),
+    new THREE.LineBasicMaterial({color: 0xffffff})
+  );
+  scene.add(line);
+  lines.push(line);
+});
+
+
+// ======================================================
+// Viewport Matrix
+// ======================================================
+const Vp = new THREE.Matrix4();
+
+function updateViewportMatrix() {
+
+  const w = params.width;
+  const h = params.height;
+  const x = params.offsetX;
+  const y = params.offsetY;
+
+  const n = params.minDepth;
+  const f = params.maxDepth;
+
+  Vp.set(
+    w/2, 0,   0,   x + w/2,
+    0,   h/2, 0,   y + h/2,
+    0,   0,   (f-n)/2, (f+n)/2,
+    0,   0,   0,   1
+  );
+
+  updateMatrixUI(Vp);
+
+  // apply mapping
+  points.forEach((p, i) => {
+
+    const ndc = p.position.clone();
+
+    const mapped = ndc.clone().applyMatrix4(Vp);
+    mapped.z += DISPLAY_OFFSET; // to account for the visual shift to the back
+    mappedPoints[i].position.copy(mapped);
+
+    lines[i].geometry.setFromPoints([
+      ndc,
+      mapped
+    ]);
+  });
+
+  // move local axes
+  viewportAxes.position.set(
+  params.offsetX,
+  params.offsetY,
+  0 + DISPLAY_OFFSET
+);
+}
+
+// ======================================================
+// GUI
+// ======================================================
+const guiRight = new GUI({ title: "Screen Window Controls" });
+guiRight.$title.style.pointerEvents = "none";
+guiRight.$title.style.opacity = "0.0";
+guiRight.$title.style.height = "0.0";
+
+const params = {
+  width: 4,
+  height: 3,
+  offsetX: 0,
+  offsetY: 0,
+
+
+  minDepth: 0,   // n
+  maxDepth: 1    // f
+
+};
+
+// ======================================================
+// Coords display (top of GUI)
+// ======================================================
+const pointsCoordsDiv = document.createElement("div");
+pointsCoordsDiv.style.fontFamily = "monospace";
+pointsCoordsDiv.style.fontSize = "12px";
+pointsCoordsDiv.style.marginBottom = "6px";
+pointsCoordsDiv.style.paddingBottom = "6px";
+pointsCoordsDiv.style.borderBottom = "1px solid rgba(255,255,255,0.2)";
+guiRight.domElement.prepend(pointsCoordsDiv);
+
+const screenFolder = guiRight.addFolder("Screen Window Controls");
+
+screenFolder.add(params,"width",1,10).name("Width of viewport (W)").onChange(update);
+screenFolder.add(params,"height",1,10).name("Height of viewport (H)").onChange(update);
+screenFolder.add(params,"offsetX",-5,5).name("Left corner of viewport (X)").onChange(update);
+screenFolder.add(params,"offsetY",-5,5).name("Bottom corner of viewport (Y)").onChange(update);
+screenFolder.add(params,"minDepth",0,1).name("Near clipping value (N)").onChange(update);
+screenFolder.add(params,"maxDepth",0,1).name("Far clipping value (F)").onChange(update);
+
+guiRight.add({ reset }, "reset").name("Reset");
+// ======================================================
+// LEFT GUI (matrix)
+// ======================================================
+const guiLeft = new GUI({ title: "Matrices" });
+guiLeft.$title.style.pointerEvents = "none";
+
+// Left only
+guiLeft.domElement.style.right = "auto";
+guiLeft.domElement.style.left = "0";
+
+guiLeft.$title.style.opacity = "0.0";
+guiLeft.$title.style.height = "0.0";
+
+guiLeft.domElement.style.background = "transparent";
+
+const dummy = guiLeft.add({ _: 0 }, "_");
+dummy.domElement.style.display = "none";
+
+const viewportFormula  = createViewportMatrixFormulaUI(guiLeft);
+const updateMatrixUI = createMatrix4UI(guiLeft,"Viewport Matrix (Vp)");
+
+// ======================================================
+// Update
+// ======================================================
+function update() {
+  updateViewportBox();
+  updateViewportMatrix();
+
+
+  viewportFormula.div.style.display = "block";
+  viewportFormula.update();
+
+  // updating the points coords
+  let html = "<br><b>Point Mapping (NDC → Screen)</b><br>";
+
+points.forEach((p, i) => {
+  const ndc = p.position;
+  const mapped = mappedPoints[i].position;
+
+  html += `
+    <div style="margin-top:4px;">
+      <span style="color:#ffff88">NDC:</span>
+      (${ndc.x.toFixed(2)}, ${ndc.y.toFixed(2)}, ${ndc.z.toFixed(2)})
+      <br>
+      <span style="color:#ff8888">Screen:</span>
+      (${mapped.x.toFixed(2)}, ${mapped.y.toFixed(2)}, ${mapped.z.toFixed(2)})
+    </div>
+  `;
+});
+
+pointsCoordsDiv.innerHTML = html;
+
+}
+
+// ======================================================
+// Reset
+// ======================================================
+function reset() {
+
+  params.width = 4;
+  params.height = 3;
+  params.offsetX = 0;
+  params.offsetY = 0;
+  params.minDepth = 0;
+  params.maxDepth = 1;
+
+  guiRight.controllersRecursive().forEach(c => c.updateDisplay());
+  //updateProjection();
+  update();
+}
+
+
+// Init
+update();
+
+// ======================================================
+// Render loop
+// ======================================================
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+
+  renderer.render(scene,camera);
+}
+animate();
+
+</script>
+
+</body>
+</html>

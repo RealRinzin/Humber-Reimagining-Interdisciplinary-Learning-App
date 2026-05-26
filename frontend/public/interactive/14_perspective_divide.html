@@ -1,0 +1,282 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Perspective Divide</title>
+  <link rel="stylesheet" href="./common/styles.css" />
+</head>
+<!-- <div class="cameraFrameBottom"></div>
+<div class="cameraLabelBottom">Camera View</div> -->
+
+<body>
+
+<script type="module">
+    import { addHint } from "./common/hint.js";
+addHint(
+  "Green object is in clip space. The red is the object after perspective divide.")
+
+import * as THREE from "https://esm.sh/three@0.160.0";
+import GUI from "https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm";
+
+import { createSceneShell } from "./common/sceneShell.js";
+
+// ======================================================
+// Scene (simple)
+// ======================================================
+const { scene, c, renderer, controls } = createSceneShell();
+
+
+const camera = new THREE.OrthographicCamera(
+  
+-8, 8,
+   5, -5,
+  -10, 10
+
+);
+
+camera.position.set(0, 0, 5);
+camera.lookAt(0, 0, 0);
+
+
+// ======================================================
+// Parameters
+// ======================================================
+const params = {
+  w: 1,
+  applyDivide: true
+};
+
+// ======================================================
+// LEFT: clip space square
+// ======================================================
+const clipGeo = new THREE.PlaneGeometry(2, 2);
+const clipMat = new THREE.MeshBasicMaterial({
+  color: 0x00FF00,
+  opacity: 0.25,
+  transparent: true
+});
+const clipSquare = new THREE.Mesh(clipGeo, clipMat);
+clipSquare.position.set(-2, 0, 0);
+
+
+// edges
+const clipEdges = new THREE.LineSegments(
+  new THREE.EdgesGeometry(clipGeo),
+  new THREE.LineBasicMaterial({ color: 0x00FF00 })
+);
+
+clipEdges.position.copy(clipSquare.position);
+
+scene.add(clipSquare);
+scene.add(clipEdges);
+
+
+// ======================================================
+// RIGHT: divided square
+// ======================================================
+const ndcGeo = new THREE.PlaneGeometry(2, 2);
+const ndcMat = new THREE.MeshBasicMaterial({
+  color: 0xff0000,
+  opacity: 0.75,
+  transparent: true
+});
+const ndcSquare = new THREE.Mesh(ndcGeo, ndcMat);
+
+// edges
+const ndcEdges = new THREE.LineSegments(
+  new THREE.EdgesGeometry(ndcGeo),
+  new THREE.LineBasicMaterial({ color: 0xff0000 })
+);
+ndcEdges.position.copy(ndcSquare.position);
+
+scene.add(ndcSquare);
+scene.add(ndcEdges);
+
+// ======================================================
+// Divider
+// ======================================================
+// const divider = new THREE.Line(
+//   new THREE.BufferGeometry().setFromPoints([
+//     new THREE.Vector3(0, -5, 0),
+//     new THREE.Vector3(0, 5, 0)
+//   ]),
+//   new THREE.LineBasicMaterial({ color: 0xffffff })
+// );
+
+// scene.add(divider);
+
+// ======================================================
+// Mapping lines (corners)
+// ======================================================
+// const lines = [];
+
+// function createLine() {
+//   const line = new THREE.Line(
+//     new THREE.BufferGeometry().setFromPoints([
+//       new THREE.Vector3(),
+//       new THREE.Vector3()
+//     ]),
+//     new THREE.LineBasicMaterial({ color: 0xffffff })
+//   );
+//   scene.add(line);
+//   return line;
+// }
+
+// // 4 corners
+// for (let i = 0; i < 4; i++) {
+//   lines.push(createLine());
+// }
+
+// ======================================================
+// Mapping corner points 
+// ======================================================
+const cornerColors = [
+  0xff4444, // bottom-left
+  0x44ff44, // bottom-right
+  0x4444ff, // top-right
+  0xffff44  // top-left
+];
+const clipPoints = [];
+const ndcPoints = [];
+
+function createCornerPoint(color) {
+  return new THREE.Mesh(
+    new THREE.CircleGeometry(0.08, 16),
+    new THREE.MeshBasicMaterial({ color })
+  );
+}
+
+// create 4 matching points
+for (let i = 0; i < 4; i++) {
+  const p1 = createCornerPoint(cornerColors[i]);
+  const p2 = createCornerPoint(cornerColors[i]);
+
+  scene.add(p1);
+  scene.add(p2);
+
+  clipPoints.push(p1);
+  ndcPoints.push(p2);
+}
+// ======================================================
+// Update logic
+// ======================================================
+function update() {
+
+  const w = Math.max(params.w, 0.0001); // avoid divide by zero
+
+  if (params.applyDivide) {
+    ndcSquare.scale.set(1 / w, 1 / w, 1);
+  } else {
+    ndcSquare.scale.set(1, 1, 1);
+  }
+
+  ndcSquare.position.set(2, 0, 0);
+
+  // move edges to match the square
+  
+ndcEdges.position.copy(ndcSquare.position);
+ndcEdges.scale.copy(ndcSquare.scale);
+
+
+//   // corners of left square
+//   const corners = [
+//     new THREE.Vector3(-1, -1, 0),
+//     new THREE.Vector3( 1, -1, 0),
+//     new THREE.Vector3( 1,  1, 0),
+//     new THREE.Vector3(-1,  1, 0)
+//   ];
+
+//   corners.forEach((c, i) => {
+
+//     const clip = c.clone().add(new THREE.Vector3(-2, 0, 0));
+
+//     let mapped = c.clone();
+
+//     if (params.applyDivide) {
+//       mapped.x /= w;
+//       mapped.y /= w;
+//     }
+
+//     mapped.add(new THREE.Vector3(2, 0, 0));
+
+//     lines[i].geometry.setFromPoints([clip, mapped]);
+//   });
+
+
+// Corner points
+const corners = [
+  new THREE.Vector3(-1, -1, 0),
+  new THREE.Vector3( 1, -1, 0),
+  new THREE.Vector3( 1,  1, 0),
+  new THREE.Vector3(-1,  1, 0)
+];
+
+corners.forEach((c, i) => {
+
+  const clip = c.clone().add(new THREE.Vector3(-2, 0, 0));
+
+  let mapped = c.clone();
+
+  if (params.applyDivide) {
+    mapped.x /= w;
+    mapped.y /= w;
+  }
+
+  mapped.add(new THREE.Vector3(2, 0, 0));
+
+  // set corner markers
+  clipPoints[i].position.copy(clip);
+  ndcPoints[i].position.copy(mapped);
+
+});
+}
+
+// ======================================================
+// GUI
+// ======================================================
+const guiRight = new GUI({ title: "Perspective Divide" });
+
+guiRight.add(params, "w", 0.1, 5, 0.01)
+  .name("Depth factor (w)")
+  .onChange(update);
+
+guiRight.add(params, "applyDivide")
+  .name("Apply Divide")
+  .onChange(update);
+
+// LEFT GUI (formula)
+const guiLeft = new GUI({ title: "Formula" });
+guiLeft.domElement.style.left = "0";
+guiLeft.domElement.style.right = "auto";
+guiLeft.domElement.style.background = "transparent";
+guiLeft.$title.style.opacity = "0.0";
+
+const dummy = guiLeft.add({ _: 0 }, "_");
+dummy.domElement.style.display = "none";
+
+const formulaDiv = document.createElement("div");
+formulaDiv.style.fontFamily = "monospace";
+formulaDiv.style.fontSize = "12px";
+formulaDiv.innerHTML = `
+<b>Perspective Divide Formula</b><br>
+x' = x / w<br>
+y' = y / w
+`;
+
+guiLeft.domElement.appendChild(formulaDiv);
+
+// ======================================================
+// Render loop
+// ======================================================
+function animate() {
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
+}
+
+// Init
+update();
+animate();
+
+</script>
+</body>
+</html>

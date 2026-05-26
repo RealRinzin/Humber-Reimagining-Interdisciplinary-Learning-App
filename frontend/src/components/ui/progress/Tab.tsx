@@ -15,7 +15,7 @@ export default async function TabProgressBar({
     <>
       <div className="flex w-auto flex-col gap-y-2">
         <p className="text-gray-800 text-sm font-bold pt-2">{name}</p>
-        <ul className="flex gap-1 items-center-safe">
+        <ul className="flex gap-1 items-center-safe justify-between">
           {Array.from({ length: completed }).map((_, index) => (
             <li className={`first:rounded-l-md  bg-gray-800 w-6 h-4`} key={index}> </li>
           ))}

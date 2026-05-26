@@ -28,7 +28,7 @@ export default function DesktopNavigation() {
   }
   return (
     <>
-      <header className="flex flex-col md:flex-row justify-between place-items-center px-20 md:py-6 md:px-20 text-white">
+      <header className="flex flex-col md:flex-row justify-between place-items-center py-3 gap-2 md:py-6 md:px-20 text-white">
         <h2 className="text-xl">
           SPA
           <Image

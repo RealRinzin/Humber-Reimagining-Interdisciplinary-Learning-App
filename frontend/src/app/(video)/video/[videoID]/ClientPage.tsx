@@ -23,13 +23,13 @@ export default function ClientPage({ children }: any) {
           <FontAwesomeIcon
             icon={faChevronRight}
             size="2x"
-            className="text-white bg-gray-400 rounded-xs py-2"
+            className="text-white bg-slate-800 rounded-xs py-2"
           />
         ) : (
           <FontAwesomeIcon
             icon={faChevronLeft}
             size="2x"
-            className="text-white bg-gray-400 rounded-xs py-2"
+            className="text-white bg-slate-800 rounded-xs py-2"
           />
         )}
       </div>
