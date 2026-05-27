@@ -168,7 +168,7 @@ export default function AnimatedCourseNode({ hoveredTopicId }: Props) {
             color: "#000",
             "background-image": (ele: any) => {
               return progressTracking
-                ? makeRing(20, topic.node_color, topic.node_color)
+                ? makeRing(Math.floor((Math.random()*100)), topic.node_color, topic.node_color)
                 : makeRingZero(20, topic.node_color, topic.node_color);
             },
             "text-background-color": "#fff",
