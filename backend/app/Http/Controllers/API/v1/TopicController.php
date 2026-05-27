@@ -13,15 +13,13 @@ class TopicController
      */
     public function index(Request $request)
     {
-        // $userId = $request->user()?->id;
-
+        $tabs = ['code', 'quiz', 'interactive', 'rambling', 'all_checked'];
         $topics = Topic::with(['videos.user_video_setting'])->get();
 
         $followedIds = $request->user()
             ?->topics()
             ->pluck('topics.id')
             ->toArray() ?? [];
-
         $request->merge(['followed_ids' => $followedIds]);
 
         return TopicResource::collection($topics);

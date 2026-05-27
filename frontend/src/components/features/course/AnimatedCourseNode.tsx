@@ -10,6 +10,7 @@ import CytoscapeComponent from "react-cytoscapejs";
 import type { Core } from "cytoscape";
 import { useEffect, useRef, useState } from "react";
 import { clientFetch } from "@/lib/clientFetch";
+import { RingProgressPerCalculator } from "@/utils/RingProgressPerCalculator";
 
 interface Props {
   hoveredTopicId?: string | null;
@@ -56,7 +57,7 @@ export default function AnimatedCourseNode({ hoveredTopicId }: Props) {
     description: "",
   });
 
-  // ✅ Effect 1: Fetch data ONCE on mount
+// UseEffect to mount the topic node when page/ component inital loads
   useEffect(() => {
     const newStyle: any = [
       {
@@ -156,8 +157,8 @@ export default function AnimatedCourseNode({ hoveredTopicId }: Props) {
             width: 100,
             height: 100,
             "border-width": 0, // ← add
-            "border-color": "transparent", // ← add
-            "border-opacity": 0, // ← add
+            "border-color": "transparent", 
+            "border-opacity": 0,
             label: "data(label)",
             cursor: "pointer",
             "text-valign": "center",
@@ -168,7 +169,8 @@ export default function AnimatedCourseNode({ hoveredTopicId }: Props) {
             color: "#000",
             "background-image": (ele: any) => {
               return progressTracking
-                ? makeRing(Math.floor((Math.random()*100)), topic.node_color, topic.node_color)
+                ? makeRing(RingProgressPerCalculator(topic?.videos?.[0]?.user_video_setting), topic.node_color, topic.node_color)
+                // ? makeRing(34, topic.node_color, topic.node_color)
                 : makeRingZero(20, topic.node_color, topic.node_color);
             },
             "text-background-color": "#fff",

@@ -180,7 +180,7 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
         newStyle.push({
           selector: `edge[source = "${element.topic_id}"][target = "${element.connected_topic_id}"]`,
           style: {
-            width: 3,
+            width: 2,
             "line-color": `${[15, 12, 10, 2].includes(element.topic_id) ? "#F72585" : "#4CC9F0"}`,
             "curve-style": "straight",
             "target-arrow-shape": "none",

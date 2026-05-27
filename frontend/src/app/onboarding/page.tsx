@@ -69,7 +69,6 @@ export default function OnboardingPage() {
 
     />,
   ];
-
   // Page Return Layout
   const [onBoardingForm, setOnBoardingForm] = useState<OnboardStepsType[]>([
     {

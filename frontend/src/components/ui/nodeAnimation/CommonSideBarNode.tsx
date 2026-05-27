@@ -9,10 +9,37 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CytoscapeComponent from "react-cytoscapejs";
 import type { Core } from "cytoscape";
 import { useEffect, useRef, useState } from "react";
-import { clientFetch, clientPost } from "@/lib/clientFetch";
+import { clientFetch } from "@/lib/clientFetch";
+import { RingProgressPerCalculator } from "@/utils/RingProgressPerCalculator";
 
 interface Props {
   hoveredTopicId?: string | null;
+}
+
+function makeRing(progress: any, color: any, innerColor: any) {
+  const r = 40,
+    cx = 50,
+    cy = 50,
+    sw = 20;
+  const circ = 2 * Math.PI * r;
+  const dash = (progress / 100) * circ;
+  const gap = circ - dash;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+    <circle cx="${cx}" cy="${cy}" r="50" fill="#1a1a2e"/>
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#d0d0d8" stroke-width="${sw}"/>
+    ${progress > 0 ? `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${innerColor}" stroke-width="${sw}" stroke-dasharray="${dash.toFixed(1)} ${gap.toFixed(1)}" stroke-linecap="round" transform="rotate(-90 ${cx} ${cy})"/>` : ""}
+    <circle cx="${cx}" cy="${cy}" r="24" fill="${innerColor}"/>
+  </svg>`;
+  return "data:image/svg+xml," + encodeURIComponent(svg);
+}
+function makeRingZero(progress: any, color: any, innerColor: any) {
+  const cx = 50,
+    cy = 50;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+    <circle cx="${cx}" cy="${cy}" r="50" fill="${innerColor}"/>
+    <circle cx="${cx}" cy="${cy}" r="46" fill="${innerColor}" stroke="#fff" stroke-width="10" stroke-opacity="0.4"/>
+  </svg>`;
+  return "data:image/svg+xml," + encodeURIComponent(svg);
 }
 export default function CommonSideBarNode({ hoveredTopicId }: Props) {
   const cyRef = useRef<Core | null>(null);
@@ -20,6 +47,8 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
 
   const [topics, setTopics] = useState<cytoscape.ElementDefinition[]>([]);
   const [styles, setStyles] = useState([]);
+  const [progressTracking, setProgressTracking] = useState(true);
+  //
   const [tooltip, setTooltip] = useState({
     visible: false,
     x: 0,
@@ -27,43 +56,26 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
     label: "",
     description: "",
   });
-  async function postUserTopic(topic_id: number) {
-    await clientPost("/user-topics/users/me/topics", {
-      topic_id: topic_id,
-      started: true,
-    });
-    // no router.refresh() or window.location here
-  }
-  // Use Effect to mount the data during page loading
+
+// UseEffect to mount the topic node when page/ component inital loads
   useEffect(() => {
     const newStyle: any = [
       {
         selector: "node",
         style: {
-          width: 80,
-          height: 80,
-
+          width: 100,
+          height: 100,
+          "background-color": "transparent",
+          "background-fit": "cover",
+          "border-width": 0,
+          "border-color": "transparent",
+          "border-opacity": 0,
           label: "data(label)",
-          cursor: "pointer",
+          "font-size": 13,
+          color: "white",
           "text-valign": "center",
           "text-halign": "center",
-          "font-size": 14,
-          "font-weight": "bold",
-          "text-transform": "uppercase",
-          color: "#000",
-          "text-background-color": "#fff",
-          "text-background-opacity": 0.7,
-          "text-background-padding": 4,
-          "text-background-shape": "roundrectangle",
-          "background-color": "#ff0080",
-          "border-width": 20,
-          "border-color": "#b0005a",
-          "shadow-blur": 40,
-          "shadow-color": "#ff0080",
-          "shadow-opacity": 0.7,
-          "transition-property":
-            "background-color width height opacity shadow-blur shadow-color border-color",
-          "transition-duration": 250,
+          "font-weight": "500",
         },
       },
       {
@@ -142,8 +154,11 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
         newStyle.push({
           selector: `#${topic.id}`,
           style: {
-            width: 80,
-            height: 80,
+            width: 100,
+            height: 100,
+            "border-width": 0, // ← add
+            "border-color": "transparent", 
+            "border-opacity": 0,
             label: "data(label)",
             cursor: "pointer",
             "text-valign": "center",
@@ -152,17 +167,21 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
             "font-weight": "bold",
             "text-transform": "uppercase",
             color: "#000",
+            "background-image": (ele: any) => {
+              return progressTracking
+                ? makeRing(RingProgressPerCalculator(topic?.videos?.[0]?.user_video_setting), topic.node_color, topic.node_color)
+                // ? makeRing(34, topic.node_color, topic.node_color)
+                : makeRingZero(20, topic.node_color, topic.node_color);
+            },
             "text-background-color": "#fff",
             "text-background-opacity": 0.7,
             "text-background-padding": 4,
             "text-background-shape": "roundrectangle",
-            "background-color": `${topic.node_color}`,
-            "border-width": 20,
-            "border-color": `${topic.node_color}`,
-            "border-opacity": 0.5,
             "shadow-blur": 80,
-            "shadow-color": "#00ff88",
             "shadow-opacity": 0.7,
+            "shadow-color": topic.node_color || "#FF2D8A", // ← matches the ring color
+            "shadow-offset-x": 0,
+            "shadow-offset-y": 0,
           },
         });
       });
@@ -172,7 +191,7 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
           data: {
             url: null,
             label: null,
-            node_color: null,
+            node_color: element.node_color,
             source: element.topic_id,
             target: element.connected_topic_id,
           },
@@ -196,7 +215,7 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
     }
 
     getTopics();
-  }, []);
+  }, [progressTracking]);
 
   //  React to hoveredTopicId changes from the sidebar
   useEffect(() => {
@@ -229,7 +248,7 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
       animFrameRef.current = requestAnimationFrame(animate);
     };
     animate();
-  }, [hoveredTopicId]); // 👈 only this effect watches the prop
+  }, [hoveredTopicId, progressTracking]); // 👈 only this effect watches the prop
 
   const handleZoomIn = () => {
     if (cyRef.current) {
@@ -260,9 +279,14 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
         <div className="p-2 text-white absolute right-0 z-10">
           <div className="flex justify-end items-center">
             <div className="flex gap-3 items-center justify-center bg-slate-700 rounded px-3 py-1">
-              <span className="text-sm">Show Progress</span>
+              <span className="text-sm">Tracking</span>
               <span>
-                <input type="checkbox" className="" />
+                <input
+                  type="checkbox"
+                  className=""
+                  checked={progressTracking}
+                  onChange={() => setProgressTracking((prev) => !prev)}
+                />
               </span>
             </div>
           </div>
@@ -305,16 +329,7 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
             cy.on("tap", "node", (event) => {
               const node = event.target;
               const url = node.data("url");
-
-              const isStarted = node.data("is_following");
               if (url) window.open(url, "_blank");
-              if (!isStarted) {
-                postUserTopic(Number(node.data("id")));
-                // window.location.reload();
-                return;
-              }
-
-              return;
             });
 
             cy.on("mouseover", "node", (e) => {
