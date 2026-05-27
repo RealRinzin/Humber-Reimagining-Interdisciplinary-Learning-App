@@ -11,6 +11,8 @@ import type { Core } from "cytoscape";
 import { useEffect, useRef, useState } from "react";
 import { clientFetch } from "@/lib/clientFetch";
 function makeRing(progress: any, color: any, innerColor: any) {
+  const safeColor = color || "#FF2D8A"; // ← fallback if null
+  const safeInner = innerColor || "#FF2D8A"; // ← fallback if null
   const r = 36,
     cx = 50,
     cy = 50,
@@ -18,14 +20,27 @@ function makeRing(progress: any, color: any, innerColor: any) {
   const circ = 2 * Math.PI * r;
   const dash = (progress / 100) * circ;
   const gap = circ - dash;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
-    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#d0d0d8" stroke-width="${sw}"/>
-    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="${sw}"
+  // ← only render the arc if progress > 0
+  const progressArc =
+    progress > 0
+      ? `
+    <circle cx="${cx}" cy="${cy}" r="${r}"
+      fill="none"
+      stroke="${safeColor}"
+      stroke-width="${sw}"
       stroke-dasharray="${dash.toFixed(1)} ${gap.toFixed(1)}"
       stroke-linecap="round"
       transform="rotate(-90 ${cx} ${cy})"/>
-    <circle cx="${cx}" cy="${cy}" r="24" fill="${innerColor}"/>
+  `
+      : "";
+
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+    <circle cx="${cx}" cy="${cy}" r="50" fill="#1a1a2e"/>
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#d0d0d8" stroke-width="${sw}"/>
+    ${progressArc}
+    <circle cx="${cx}" cy="${cy}" r="24" fill="${safeInner}"/>
   </svg>`;
+
   return "data:image/svg+xml," + encodeURIComponent(svg);
 }
 export default function CourseNodeLink() {
@@ -50,11 +65,13 @@ export default function CourseNodeLink() {
         style: {
           width: 100,
           height: 100,
+          shape: "ellipse",
           "background-color": "transparent",
           "background-fit": "cover",
           "border-width": 0,
           "border-color": "transparent",
           "border-opacity": 0,
+          "background-clip": "none", // ← stops SVG being clipped to circle
           label: "data(label)",
           "font-size": 13,
           color: "white",
@@ -95,13 +112,14 @@ export default function CourseNodeLink() {
       // const List: cytoscape.ElementDefinition[] = [];
       // Push the nodes into array
       topics.forEach((topic: any, index: number) => {
+        console.log("topic.node_color:", topic.node_color);
         List.push({
           data: {
             id: String(topic.id),
             label: topic.title,
             source: null, // add this
             target: null, // add this
-            node_color: null,
+            node_color: topic.node_color,
             url: `/video/${topic.slug}`,
             controlPointDistance:
               (Math.floor(index / 2) + 1) * 40 * (index % 2 === 0 ? 1 : -1),
@@ -114,11 +132,14 @@ export default function CourseNodeLink() {
           style: {
             width: 100,
             height: 100,
+            shape: "ellipse",
             "border-width": 0, // ← add
             "border-color": "transparent", // ← add
             "border-opacity": 0, // ← add
             label: "data(label)",
             cursor: "pointer",
+            "background-color": "transparent", // ← this is the inner black ring fix
+            "background-clip": "none",
             "text-valign": "center",
             "text-halign": "center",
             "font-size": 14,
@@ -128,17 +149,19 @@ export default function CourseNodeLink() {
             "background-image": (ele: any) => {
               return makeRing(
                 Math.floor(Math.random() * 100),
-                topic.node_color,
-                topic.node_color,
+                topic.node_color || "#FF2D8A", // ← fallback
+                topic.node_color || "#FF2D8A", // ← fallback
               );
             },
             "text-background-color": "#fff",
             "text-background-opacity": 0.7,
             "text-background-padding": 4,
             "text-background-shape": "roundrectangle",
-            "shadow-blur": 80,
-            "shadow-color": "#00ff88",
-            "shadow-opacity": 0.7,
+            "shadow-opacity": 0.9,
+            "shadow-blur": 25,
+            "shadow-color": topic.node_color || "#FF2D8A", // ← matches the ring color
+            "shadow-offset-x": 0,
+            "shadow-offset-y": 0,
           },
         });
       });
