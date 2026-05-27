@@ -1,0 +1,900 @@
+WEBVTT
+
+1
+00:00:00.080 --> 00:00:02.560
+-You're so far away.
+
+2
+00:00:02.560 --> 00:00:05.040
+That's because we've
+got such a big screen.
+
+3
+00:00:05.040 --> 00:00:07.920
+This is pixel space.
+
+4
+00:00:07.920 --> 00:00:10.840
+Well, people call it screen
+space as well because it's
+
+5
+00:00:10.840 --> 00:00:13.760
+literally a screen 
+we're looking at.
+
+6
+00:00:13.760 --> 00:00:16.515
+Finally, we're in two d.
+
+7
+00:00:16.515 --> 00:00:20.435
+Every space we've talked about,
+model space, world space, camera
+
+8
+00:00:20.435 --> 00:00:24.435
+space, this is the only one
+that's in two dimensions.
+
+9
+00:00:24.435 --> 00:00:26.355
+Though, Paul is probably
+going to get upset with me.
+
+10
+00:00:26.355 --> 00:00:30.280
+There's UV space as well
+that's in two dimensions.
+
+11
+00:00:30.280 --> 00:00:32.960
+But, yes, this is in two d
+because you can only go left and
+
+12
+00:00:32.960 --> 00:00:35.640
+right, up and down.
+
+13
+00:00:35.640 --> 00:00:37.320
+You can't go in
+and out, can you?
+
+14
+00:00:37.320 --> 00:00:39.485
+-Well, we record in and out.
+
+15
+00:00:39.485 --> 00:00:42.805
+We do save that information as
+it's being generated and
+
+16
+00:00:42.805 --> 00:00:46.125
+calculated, and that's for the
+depth buffer.
+
+17
+00:00:46.125 --> 00:00:47.165
+-So this is so okay.
+
+18
+00:00:47.165 --> 00:00:50.205
+So z comes in and out,
+but why would you need that?
+
+19
+00:00:50.205 --> 00:00:56.030
+I mean, what we're looking
+at is just a flat x y plane.
+
+20
+00:00:56.030 --> 00:00:58.830
+-I want to keep track of how 
+deep each pixel is because of a
+
+21
+00:00:58.830 --> 00:01:02.030
+rendering issue.
+
+22
+00:01:02.030 --> 00:01:04.390
+One of the problems I
+have is do I render something
+
+23
+00:01:04.390 --> 00:01:06.750
+like a light bulb up there?
+
+24
+00:01:06.750 --> 00:01:08.835
+Do I render that in the
+foreground or in the background?
+
+25
+00:01:08.835 --> 00:01:10.635
+How am I
+going to tell if it's in the
+
+26
+00:01:10.635 --> 00:01:12.595
+foreground or in the background?
+
+27
+00:01:12.595 --> 00:01:15.231
+If I know where it is in z,
+
+28
+00:01:15.231 --> 00:01:17.866
+if I know where it is, then
+
+29
+00:01:17.866 --> 00:01:19.492
+I can find out whether or not 
+I should be drawing that
+
+30
+00:01:19.492 --> 00:01:20.835
+particular pixel.
+
+31
+00:01:20.835 --> 00:01:23.420
+Or is there a pixel
+in front of it?
+
+32
+00:01:23.420 --> 00:01:25.580
+-So maybe we should
+talk about pixels.
+
+33
+00:01:25.580 --> 00:01:26.940
+What is a pixel?
+
+34
+00:01:26.940 --> 00:01:29.020
+-A little dot.
+
+35
+00:01:29.020 --> 00:01:30.940
+A lot of
+little dots here.
+
+36
+00:01:30.940 --> 00:01:32.780
+-Yeah, I see a dot right there.
+
+37
+00:01:32.780 --> 00:01:34.460
+-There's a dot right there.
+
+38
+00:01:34.460 --> 00:01:36.285
+The thousands of them,
+millions of them.
+
+39
+00:01:36.285 --> 00:01:39.266
+And each one of those
+dots is a red,
+
+40
+00:01:39.266 --> 00:01:40.525
+green, or a blue.
+
+41
+00:01:40.525 --> 00:01:42.045
+-Red, green, or blue.
+
+42
+00:01:42.045 --> 00:01:43.885
+So they switch which colour?
+
+43
+00:01:43.885 --> 00:01:46.445
+-Depends on how the monitors
+are all being manufactured.
+
+44
+00:01:46.445 --> 00:01:49.277
+But usually there's three little
+dots or three little rectangles
+
+45
+00:01:49.277 --> 00:01:52.108
+or little tiny ones that are in
+there that are all kind of
+
+46
+00:01:52.108 --> 00:01:55.420
+combined together 
+to form a pixel.
+
+47
+00:01:55.420 --> 00:01:57.020
+-Pixel. Yes.
+And I did
+
+48
+00:01:57.020 --> 00:01:58.460
+some reading before this.
+
+49
+00:01:58.460 --> 00:02:00.780
+Pixel stands for
+picture element.
+
+50
+00:02:00.780 --> 00:02:02.555
+-Yeah.
+-Yes!
+
+51
+00:02:02.555 --> 00:02:04.563
+I also read that the origin
+
+52
+00:02:04.563 --> 00:02:09.084
+in screen space 
+is the top left corner.
+
+53
+00:02:09.084 --> 00:02:11.345
+That's zero zero.
+
+54
+00:02:11.345 --> 00:02:12.865
+-That's kind of legacy stuff.
+
+55
+00:02:12.865 --> 00:02:16.310
+That was back in the days
+of the cathode ray tube.
+
+56
+00:02:16.310 --> 00:02:18.790
+Remember televisions
+of the old days?
+
+57
+00:02:18.790 --> 00:02:21.430
+Or the oscilloscopes
+that would scan by.
+
+58
+00:02:21.430 --> 00:02:23.950
+So the scan would start up on
+that corner, scan across, then
+
+59
+00:02:23.950 --> 00:02:26.790
+jump down one and scan again.
+
+60
+00:02:26.790 --> 00:02:28.790
+And we've left it
+that way ever since.
+
+61
+00:02:28.790 --> 00:02:32.032
+So one of the things I have
+to do in all the mathematics we
+
+62
+00:02:32.032 --> 00:02:35.273
+do is flip everything around and
+put it into a world space that
+
+63
+00:02:35.273 --> 00:02:38.515
+makes sense to you.
+
+64
+00:02:38.515 --> 00:02:40.955
+-Yes. Because I think 
+of Y as going up,
+
+65
+00:02:40.955 --> 00:02:43.395
+but guess what you're saying?
+
+66
+00:02:43.395 --> 00:02:46.840
+Y goes down in screen space.
+-Yes.
+
+67
+00:02:46.840 --> 00:02:49.400
+-I've got
+a question for you.
+
+68
+00:02:49.400 --> 00:02:53.000
+Why are screens, they
+tend to be rectangular.
+
+69
+00:02:53.000 --> 00:02:55.240
+Why isn't it on a, like,
+a nice little square?
+
+70
+00:02:55.240 --> 00:02:58.440
+-It's based on the,
+on our field of view.
+
+71
+00:02:58.440 --> 00:03:00.952
+So, the field of view 
+is how do I
+
+72
+00:03:00.952 --> 00:03:03.465
+perceive the world 
+out like this?
+
+73
+00:03:03.465 --> 00:03:05.918
+In fact, if you think about a
+farmyard animal, something that
+
+74
+00:03:05.918 --> 00:03:08.120
+might be prey, they have eyes
+
+75
+00:03:08.120 --> 00:03:10.552
+kind of on the sides 
+of their head.
+
+76
+00:03:10.552 --> 00:03:13.240
+You'll notice like
+go check out a cow.
+
+77
+00:03:13.240 --> 00:03:15.000
+They got eyes over here.
+
+78
+00:03:15.000 --> 00:03:19.400
+They have a field of view
+of almost 180 degrees.
+
+79
+00:03:19.400 --> 00:03:25.080
+Whereas people, the hawks,
+prey animals, right?
+
+80
+00:03:25.080 --> 00:03:28.455
+Those, the predators then have
+their eyes closer together.
+
+81
+00:03:28.455 --> 00:03:32.375
+And we have a field of view
+of around 40 to 45 degrees.
+
+82
+00:03:32.375 --> 00:03:35.095
+It's not as much
+going up and down.
+
+83
+00:03:35.095 --> 00:03:38.615
+So we don't see up and down as
+clearly as we see side to side.
+
+84
+00:03:38.615 --> 00:03:41.500
+So we make the monitors
+nice and rectangular.
+
+85
+00:03:41.500 --> 00:03:43.740
+-Nice. So you mentioned
+field of view.
+
+86
+00:03:43.740 --> 00:03:46.940
+So that's like an angle?
+You mentioned like 40.
+
+87
+00:03:46.940 --> 00:03:47.980
+-It's a 45 degree angle.
+
+88
+00:03:47.980 --> 00:03:51.340
+And that's what we're
+looking at in this way.
+
+89
+00:03:51.340 --> 00:03:54.687
+So when I'm looking at as we go
+deeper into z space, it's kind
+
+90
+00:03:54.687 --> 00:03:58.035
+of like a truncated pyramid that
+I'm looking into.
+
+91
+00:03:58.035 --> 00:04:00.435
+We call that the
+viewing frustum.
+
+92
+00:04:00.435 --> 00:04:04.155
+And as I'm looking into the
+viewing frustum, the angle at
+
+93
+00:04:04.155 --> 00:04:08.340
+which it's diverging away would
+be 45 degrees.
+
+94
+00:04:08.340 --> 00:04:12.524
+Now on the y axis, we have to
+work out, what that angle would
+
+95
+00:04:12.524 --> 00:04:16.141
+be based on the aspect ratio,
+and that would be the ratio of
+
+96
+00:04:16.141 --> 00:04:18.580
+the width divided by its height.
+
+97
+00:04:18.580 --> 00:04:22.420
+-Right. And is there like
+a go-to aspect ratio?
+
+98
+00:04:22.420 --> 00:04:25.975
+-The current one is
+16 divided by nine.
+
+99
+00:04:25.975 --> 00:04:28.935
+-So, 16 wide, nine tall,
+right.
+
+100
+00:04:28.935 --> 00:04:32.735
+And then Cassidy, when you set
+up this shot, was there a
+
+101
+00:04:32.735 --> 00:04:36.695
+certain aspect ratio or field of
+view that you had to set up?
+
+102
+00:04:36.695 --> 00:04:40.960
+CASSIDY MURRAY:
+Yes, depending on the lens
+of the camera,
+
+103
+00:04:40.960 --> 00:04:44.000
+the camera in Unreal has
+to match that.
+
+104
+00:04:44.000 --> 00:04:47.040
+So I think this is, 
+it's sixteen nine,
+
+105
+00:04:47.040 --> 00:04:50.080
+and I think we're using
+a 50 millimeter lens.
+
+106
+00:04:50.080 --> 00:04:52.007
+-Right. So I guess, yeah,
+
+107
+00:04:52.007 --> 00:04:54.235
+even in
+Unreal, I guess it makes sense.
+
+108
+00:04:54.235 --> 00:04:55.435
+I'm saying even in Unreal.
+
+109
+00:04:55.435 --> 00:04:58.951
+Of course, they have to specify
+the field of view,
+
+110
+00:04:58.951 --> 00:05:00.875
+the aspect ratio.
+
+111
+00:05:00.875 --> 00:05:03.942
+Another thing about screen space
+is interesting is that you don't
+
+112
+00:05:03.942 --> 00:05:07.170
+see things that are 
+off the screen.
+
+113
+00:05:07.170 --> 00:05:09.530
+I guess there's no point,
+Cassidy rendering
+
+114
+00:05:09.530 --> 00:05:11.970
+if there was a taper
+off to the left.
+
+115
+00:05:11.970 --> 00:05:15.890
+Like, why waste CPU GPU
+time rendering that?
+
+116
+00:05:15.890 --> 00:05:18.865
+-Exactly. So we'll just
+cut those off and clip it.
+
+117
+00:05:18.865 --> 00:05:20.305
+They call that part clipping.
+
+118
+00:05:20.305 --> 00:05:22.465
+So we'll go into 
+a little clip zone,
+
+119
+00:05:22.465 --> 00:05:24.625
+and then just don't bother
+drawing it.
+
+120
+00:05:24.625 --> 00:05:28.276
+Unfortunately, you have to be
+very careful if you're building
+
+121
+00:05:28.276 --> 00:05:31.927
+something, from scratch in
+the programming world
+
+122
+00:05:31.927 --> 00:05:33.753
+that if it's not visible,
+
+123
+00:05:33.753 --> 00:05:35.578
+don't do all
+the mathematics of trying to
+
+124
+00:05:35.578 --> 00:05:39.172
+render it because the clipping
+aspect
+
+125
+00:05:39.172 --> 00:05:42.880
+happens almost at the end
+of the entire process.
+
+126
+00:05:42.880 --> 00:05:44.692
+So then at the very end, 
+we say,
+
+127
+00:05:44.692 --> 00:05:47.065
+oh, I'm going to draw
+a pixel way over there.
+
+128
+00:05:47.065 --> 00:05:48.025
+You can't.
+
+129
+00:05:48.025 --> 00:05:50.665
+So it clips it off, but now
+you've done all the work.
+
+130
+00:05:50.665 --> 00:05:54.825
+So we'll have to find some 
+way of cutting that all out.
+
+131
+00:05:54.825 --> 00:05:56.025
+-Yep. 
+-Hiding that.
+
+132
+00:05:56.025 --> 00:05:57.705
+-Making that more efficient.
+-Yeah.
+
+133
+00:05:57.705 --> 00:06:00.240
+And there's some
+cool tricks to do that.
+
+134
+00:06:00.240 --> 00:06:02.240
+-Okay. We've been
+talking about pixels.
+
+135
+00:06:02.240 --> 00:06:04.960
+We did a bit of
+mathematics, Cassidy and I.
+
+136
+00:06:04.960 --> 00:06:07.680
+We figured out this huge screen
+
+137
+00:06:07.680 --> 00:06:10.400
+is actually a bunch 
+of smaller screens.
+
+138
+00:06:10.400 --> 00:06:14.375
+We counted 30 individual
+screens in total.
+
+139
+00:06:14.375 --> 00:06:19.175
+There are one, two, three, four,
+five columns of screens, and
+
+140
+00:06:19.175 --> 00:06:24.135
+one, two, three, four, 
+five, six rows.
+
+141
+00:06:24.135 --> 00:06:29.280
+Each of the individual screens
+is 320 by 180.
+
+142
+00:06:29.280 --> 00:06:32.960
+So if my math is right, 
+this entire LED screen
+
+143
+00:06:32.960 --> 00:06:36.640
+is 1,600 by 1080.
+
+144
+00:06:36.640 --> 00:06:38.640
+And I was actually
+a bit surprised.
+
+145
+00:06:38.640 --> 00:06:41.744
+I was like, I thought
+there'd be more pixels on this.
+
+146
+00:06:41.744 --> 00:06:43.154
+-So this has got the same
+
+147
+00:06:43.154 --> 00:06:44.565
+resolution as my
+monitor at home?
+
+148
+00:06:44.565 --> 00:06:46.005
+How about that?
+
+149
+00:06:46.005 --> 00:06:47.765
+-Look at that.
+Yeah. And that's true.
+
+150
+00:06:47.765 --> 00:06:49.762
+If you do look closely,
+
+151
+00:06:49.762 --> 00:06:52.405
+you kind of see the gaps 
+between the pixels.
+
+152
+00:06:52.405 --> 00:06:54.725
+So is that called pixel density?
+
+153
+00:06:54.725 --> 00:06:58.930
+Like, how many
+pixels per little zone.
+
+154
+00:06:58.930 --> 00:07:01.570
+Yeah. I did want to
+mention the eyeball.
+
+155
+00:07:01.570 --> 00:07:03.490
+You were talking
+about this before.
+
+156
+00:07:03.490 --> 00:07:06.290
+Every pixel you said can be red,
+green, or blue,
+
+157
+00:07:06.290 --> 00:07:09.090
+and this has 
+something to do with our eyes.
+
+158
+00:07:09.090 --> 00:07:14.195
+-The receptors in your eyes
+only see red, green, and blue.
+
+159
+00:07:14.195 --> 00:07:17.075
+And so every colour that we
+perceive is a combination of
+
+160
+00:07:17.075 --> 00:07:20.195
+those red, green, and blue.
+
+161
+00:07:20.195 --> 00:07:24.195
+In most monitors, we have 256
+
+162
+00:07:24.195 --> 00:07:28.140
+levels of brightness for the
+red, the green, and the blue.
+
+163
+00:07:28.140 --> 00:07:29.652
+That would be one bite each.
+
+164
+00:07:29.652 --> 00:07:32.060
+-I did want to talk
+about the mouse.
+
+165
+00:07:32.060 --> 00:07:35.768
+Like, I know, Cassidy, you
+probably haven't coded this up,
+
+166
+00:07:35.768 --> 00:07:39.475
+but imagine like you were able
+to click on the till.
+
+167
+00:07:39.475 --> 00:07:44.315
+When you're using your mouse,
+your mouse is in this space,
+
+168
+00:07:44.315 --> 00:07:47.955
+your mouse position 
+is in screen space.
+
+169
+00:07:47.955 --> 00:07:53.075
+You know how many pixels the
+location is along y and along x.
+
+170
+00:07:53.075 --> 00:07:57.780
+Sometimes I feel like pixel
+space is the last part of the
+
+171
+00:07:57.780 --> 00:08:01.020
+rendering, and it is to get
+something on the screen.
+
+172
+00:08:01.020 --> 00:08:04.860
+But it's cool to think you could
+start in screen space and then
+
+173
+00:08:04.860 --> 00:08:08.935
+work out all the way which model
+did I click on.
+
+174
+00:08:08.935 --> 00:08:12.055
+I drew all the spaces backwards.
+
+175
+00:08:12.055 --> 00:08:16.055
+-It's just the inverse of all
+the different spaces we did.
+
+176
+00:08:16.055 --> 00:08:17.655
+Just do it the other way.
+
+177
+00:08:17.655 --> 00:08:19.335
+-Matrices, they're amazing.
+
+178
+00:08:19.335 --> 00:08:20.519
+-They are.
+
+179
+00:08:20.519 --> 00:08:24.535
+-So if I can summarize,
+this is pixel space.
+
+180
+00:08:24.535 --> 00:08:28.110
+Though people like to say screen
+space, I like pixel space
+
+181
+00:08:28.110 --> 00:08:30.990
+because each one of these little
+dots is a pixel, and that helps
+
+182
+00:08:30.990 --> 00:08:34.270
+me, like, understand what's
+going on.
+
+183
+00:08:34.270 --> 00:08:38.850
+It's all in two d, though,
+Scott, you did mention that that
+
+184
+00:08:38.850 --> 00:08:43.430
+Z is helpful to know if one
+pixel should be a certain colour
+
+185
+00:08:43.430 --> 00:08:45.720
+depending on the model.
+It's a bit odd
+
+186
+00:08:45.720 --> 00:08:48.010
+that the origin, where zero zero
+
+187
+00:08:48.010 --> 00:08:52.590
+happens to be, is the top left
+corner of the screen.
+
+188
+00:08:52.590 --> 00:08:56.510
+And y goes down.
+
+189
+00:08:56.510 --> 00:09:00.190
+Y goes down, but thankfully,
+x does still go to the right.
+
+190
+00:09:00.190 --> 00:09:02.030
+-Very good.

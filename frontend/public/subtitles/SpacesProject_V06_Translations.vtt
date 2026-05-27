@@ -1,0 +1,1215 @@
+WEBVTT
+
+00:00:00.220 --> 00:00:02.324
+- Okay, so today,
+ we are talking about
+
+00:00:02.324 --> 00:00:04.240
+translations.
+
+00:00:04.240 --> 00:00:07.057
+Now, translations
+is moving stuff,
+
+00:00:07.057 --> 00:00:10.175
+but we use the word translation,
+like, day to day
+
+00:00:10.175 --> 00:00:13.342
+to mean, like, translating
+between languages.
+
+00:00:13.342 --> 00:00:15.880
+But we are talking
+about moving things.
+
+00:00:15.880 --> 00:00:18.996
+We only want to move
+vertex positions,
+
+00:00:18.996 --> 00:00:21.040
+not the normals.
+
+00:00:21.040 --> 00:00:23.960
+So we'll swing back
+to that later in the video.
+
+00:00:23.960 --> 00:00:26.051
+You might wonder
+what this object is.
+
+00:00:26.051 --> 00:00:27.577
+It's basically three
+
+00:00:27.577 --> 00:00:30.092
+cat wands stuck into a block.
+
+00:00:30.092 --> 00:00:32.640
+These wands have been
+placed in the block
+
+00:00:32.640 --> 00:00:35.240
+at a very specific orientation.
+
+00:00:35.240 --> 00:00:37.700
+You'll notice that
+they're at 90 degrees
+
+00:00:37.700 --> 00:00:40.408
+to each other, and they
+represent things.
+
+00:00:40.408 --> 00:00:42.330
+Paul's not going to be happy
+about this, but I think
+
+00:00:42.330 --> 00:00:44.164
+this one going up should be Y.
+
+00:00:44.164 --> 00:00:46.140
+- The Y axis.
+- The Y axis, okay.
+
+00:00:46.140 --> 00:00:47.647
+That's Y.
+
+00:00:47.647 --> 00:00:49.862
+We've got X going across,
+
+00:00:49.862 --> 00:00:52.200
+and Z towards the camera,
+
+00:00:52.200 --> 00:00:54.760
+and you'll notice these
+little things on top.
+
+00:00:54.760 --> 00:00:57.040
+This is the genius of Cassidy.
+
+00:00:57.040 --> 00:00:59.072
+She's hooked this up
+
+00:00:59.072 --> 00:01:01.660
+with motion capture markers.
+
+00:01:01.660 --> 00:01:03.397
+We have cameras
+all the way around us.
+
+00:01:03.397 --> 00:01:05.551
+So if I pull on this wand,
+
+00:01:05.551 --> 00:01:07.552
+if I pull it up,
+
+00:01:07.552 --> 00:01:09.536
+you'll see, as if by magic,
+
+00:01:09.536 --> 00:01:11.820
+the sandwich
+behind me is going up.
+
+00:01:11.820 --> 00:01:13.404
+- Oh, that's crazy.
+- That is so cool.
+
+00:01:13.404 --> 00:01:14.920
+- Yeah.
+
+00:01:14.920 --> 00:01:16.500
+- And it really shows
+what's happening.
+
+00:01:16.500 --> 00:01:18.888
+So as I pull this wand up,
+
+00:01:18.888 --> 00:01:22.224
+I'm adding to the Y's position
+
+00:01:22.224 --> 00:01:24.570
+so that the Y is going up.
+
+00:01:24.570 --> 00:01:27.493
+Up, up, up, up.
+
+00:01:27.493 --> 00:01:29.005
+We've got the X.
+
+00:01:29.005 --> 00:01:30.978
+So as I pull this X wand,
+
+00:01:30.978 --> 00:01:34.260
+I'm adding to the X position.
+
+00:01:34.260 --> 00:01:37.380
+Off it goes.
+
+00:01:37.380 --> 00:01:39.472
+Yeah, sliding across.
+
+00:01:39.472 --> 00:01:41.241
+And the last one
+I'm going to try
+
+00:01:41.241 --> 00:01:43.160
+is the Z.
+
+00:01:43.160 --> 00:01:45.233
+So as I pull that out,
+I'm adding to
+
+00:01:45.233 --> 00:01:48.260
+the Z position coordinate.
+
+00:01:48.260 --> 00:01:50.345
+Uh-oh, it's going to
+fall off
+
+00:01:50.345 --> 00:01:52.760
+the counter.
+
+00:01:52.760 --> 00:01:54.615
+Oh, no, I think the customer's
+
+00:01:54.615 --> 00:01:56.115
+going to want
+their money back.
+
+00:01:56.115 --> 00:01:58.968
+So what I love about this
+motion capture demo
+
+00:01:58.968 --> 00:02:01.860
+is that you can really
+see it's, like, adding.
+
+00:02:01.860 --> 00:02:03.757
+Like, that's what
+translation is.
+
+00:02:03.757 --> 00:02:06.220
+You're either
+adding along X...
+
+00:02:06.220 --> 00:02:08.600
+You could also
+subtract along X.
+
+00:02:08.600 --> 00:02:10.620
+This wand only goes one way.
+
+00:02:10.620 --> 00:02:12.662
+If I could pull it back
+ the other way,
+
+00:02:12.662 --> 00:02:15.060
+then the sandwich would
+go off to the left.
+
+00:02:15.060 --> 00:02:16.772
+But really, we're just adding.
+
+00:02:16.772 --> 00:02:18.300
+- Yeah, it's all it is.
+
+00:02:18.300 --> 00:02:21.140
+- Yeah.
+- It's just a displacement.
+
+00:02:21.140 --> 00:02:23.633
+- A displacement.
+Yeah, what does that mean?
+
+00:02:23.633 --> 00:02:25.190
+- Well, wherever this thing is,
+
+00:02:25.190 --> 00:02:27.062
+I'm going to
+move it some amount.
+
+00:02:27.062 --> 00:02:28.578
+Like you say, just add.
+
+00:02:28.578 --> 00:02:31.304
+Just add some offset or
+a displacement of where it was.
+
+00:02:31.304 --> 00:02:33.012
+In fact, you could do
+
+00:02:33.012 --> 00:02:35.337
+X, Y, and Z
+ all at the same time.
+
+00:02:35.337 --> 00:02:37.820
+- Oh, that's true.
+I didn't try doing that.
+
+00:02:37.820 --> 00:02:39.440
+- So have it go to the side.
+
+00:02:39.440 --> 00:02:41.000
+Have it go up.
+
+00:02:41.000 --> 00:02:42.886
+How about we do it together?
+- Oh, yeah.
+
+00:02:42.886 --> 00:02:44.380
+Whoa, look at that.
+
+00:02:44.380 --> 00:02:46.020
+Looks like projectile motion.
+
+00:02:46.020 --> 00:02:48.660
+We are launching the sandwich.
+
+00:02:48.660 --> 00:02:50.418
+And let's say it's
+
+00:02:50.418 --> 00:02:52.024
+moving along Z as well.
+
+00:02:52.024 --> 00:02:53.889
+The great thing
+ about these cat wands being
+
+00:02:53.889 --> 00:02:56.069
+at 90 degrees
+to each other is that
+
+00:02:56.069 --> 00:02:58.040
+they are independent.
+
+00:02:58.040 --> 00:03:00.881
+So yeah, as you move
+X left and right,
+
+00:03:00.881 --> 00:03:03.673
+that doesn't adjust
+the Y position.
+
+00:03:03.673 --> 00:03:05.279
+So yeah, translations.
+
+00:03:05.279 --> 00:03:07.880
+It's all about
+adding or subtracting.
+
+00:03:07.880 --> 00:03:10.304
+But when you look at
+
+00:03:10.304 --> 00:03:12.766
+the process for getting
+something on the screen,
+
+00:03:12.766 --> 00:03:14.390
+it's not usually just add
+
+00:03:14.390 --> 00:03:15.960
+or subtract
+for translation.
+
+00:03:15.960 --> 00:03:17.867
+It's usually something
+called a matrix.
+
+00:03:17.867 --> 00:03:19.460
+- Yeah, it's a
+translation matrix.
+
+00:03:19.460 --> 00:03:20.969
+- Oh, okay.
+
+00:03:20.969 --> 00:03:23.716
+- And translation matrix
+is kind of overkill
+
+00:03:23.716 --> 00:03:25.854
+because we are working in
+
+00:03:25.854 --> 00:03:28.454
+what are referred to as
+homogeneous coordinates,
+
+00:03:28.454 --> 00:03:31.272
+fancy word for we're doing it
+in four dimensions.
+
+00:03:31.272 --> 00:03:33.527
+Now, I only need
+the four dimensions when
+
+00:03:33.527 --> 00:03:35.340
+in perspective mode.
+
+00:03:35.340 --> 00:03:37.583
+So if I'm looking at
+a scene in perspective
+
+00:03:37.583 --> 00:03:39.441
+where objects up close
+are large
+
+00:03:39.441 --> 00:03:41.575
+and objects off in
+the distance get smaller,
+
+00:03:41.575 --> 00:03:43.228
+I'm going to need
+to work with
+
+00:03:43.228 --> 00:03:46.232
+a four-by-four matrix.
+
+00:03:46.232 --> 00:03:49.382
+However, you can play
+a mechanical game with the idea
+
+00:03:49.382 --> 00:03:51.230
+of matrix multiplication,
+
+00:03:51.230 --> 00:03:53.005
+and if I take a matrix,
+
+00:03:53.005 --> 00:03:55.299
+set it to its identity,
+
+00:03:55.299 --> 00:03:57.494
+so that means one's
+going down the diagonal,
+
+00:03:57.494 --> 00:04:00.267
+on the fourth column,
+the W column,
+
+00:04:00.267 --> 00:04:02.274
+if I put
+
+00:04:02.274 --> 00:04:05.767
+an offset in there for
+the X, the Y, and the Z,
+
+00:04:05.767 --> 00:04:07.358
+the mechanics of
+
+00:04:07.358 --> 00:04:09.988
+multiplying two
+four-by-four matrices
+
+00:04:09.988 --> 00:04:12.231
+would add those offsets
+
+00:04:12.231 --> 00:04:14.266
+to the position
+of the vertex.
+
+00:04:14.266 --> 00:04:15.788
+- Right, yeah.
+
+00:04:15.788 --> 00:04:17.510
+- So, more or less,
+a trick instead of
+
+00:04:17.510 --> 00:04:19.999
+pure mathematics.
+It's just a really nice trick.
+
+00:04:19.999 --> 00:04:22.851
+And since we're in
+four-dimensional space anyway,
+
+00:04:22.851 --> 00:04:25.324
+and having to work with
+ a four-by-four matrix,
+
+00:04:25.324 --> 00:04:27.976
+we can get away
+with just making
+
+00:04:27.976 --> 00:04:30.604
+a translate matrix,
+again, just the identity
+
+00:04:30.604 --> 00:04:33.173
+with three offsets,
+X, Y, and Z in it.
+
+00:04:33.173 --> 00:04:35.827
+- Yeah, and actually, yeah,
+as I'm pulling these cat wands,
+
+00:04:35.827 --> 00:04:38.596
+like, I'm offsetting
+ this sandwich,
+
+00:04:38.596 --> 00:04:41.140
+and you're seeing
+these three numbers.
+
+00:04:41.140 --> 00:04:43.432
+I think about the distance
+
+00:04:43.432 --> 00:04:45.416
+these wands have traveled,
+
+00:04:45.416 --> 00:04:47.000
+or extended.
+
+00:04:47.000 --> 00:04:48.674
+That's that last column.
+
+00:04:48.674 --> 00:04:51.203
+- Some people like to complain
+ to me about that and say,
+
+00:04:51.203 --> 00:04:52.940
+"Well, Scott,
+a four-by-four matrix
+
+00:04:52.940 --> 00:04:54.727
+is 16 numbers,
+
+00:04:54.727 --> 00:04:56.740
+and of those 16 numbers,
+you only need three.
+
+00:04:56.740 --> 00:04:58.423
+Isn't that a lot of waste?"
+
+00:04:58.423 --> 00:05:00.531
+And I'm thinking,
+
+00:05:00.531 --> 00:05:02.735
+uh, no, not really,
+in the scheme of things
+
+00:05:02.735 --> 00:05:05.223
+Nowadays, we have a lot of
+memory on these machines,
+
+00:05:05.223 --> 00:05:06.989
+so it is a little bit wasteful,
+
+00:05:06.989 --> 00:05:09.361
+but boy, it saves
+a lot of thinking time
+
+00:05:09.361 --> 00:05:11.605
+when I just have to
+multiply, say,
+
+00:05:11.605 --> 00:05:13.705
+a scale by a translate
+
+00:05:13.705 --> 00:05:15.674
+by a rotation,
+
+00:05:15.674 --> 00:05:18.094
+then do a perspective multiply,
+
+00:05:18.094 --> 00:05:21.681
+and I can compress all that
+at one big moment
+
+00:05:21.681 --> 00:05:24.880
+and then get the projection
+onto the computer screen.
+
+00:05:24.880 --> 00:05:26.640
+Hey, that saves me a lot
+of time and thinking.
+
+00:05:26.640 --> 00:05:29.115
+It's worth the extra
+couple of floats.
+
+00:05:29.115 --> 00:05:32.025
+- So when you're doing
+not just a translation
+
+00:05:32.025 --> 00:05:34.260
+but also a rotation, a scale,
+
+00:05:34.260 --> 00:05:36.720
+you can combine those
+matrices by multiplying.
+
+00:05:36.720 --> 00:05:38.868
+- That's the beauty
+ of the matrices is
+
+00:05:38.868 --> 00:05:41.193
+you can get all of these
+different components
+
+00:05:41.193 --> 00:05:44.160
+all, if you will, kind of
+summed up together.
+
+00:05:44.160 --> 00:05:46.080
+Odd phrase, mathematically.
+
+00:05:46.080 --> 00:05:47.917
+We can sum up all those motions
+
+00:05:47.917 --> 00:05:49.938
+by multiplying them
+all together.
+
+00:05:49.938 --> 00:05:52.232
+(laughing)
+
+00:05:52.232 --> 00:05:54.136
+- Yeah, you know what?
+I did read about that,
+
+00:05:54.136 --> 00:05:56.676
+in the way that
+you combine numbers.
+
+00:05:56.676 --> 00:05:59.786
+If you add five and three,
+you're combining them.
+
+00:05:59.786 --> 00:06:02.341
+But when you're dealing
+with matrices and quaternions,
+
+00:06:02.341 --> 00:06:04.236
+you think of them
+as a multiplier.
+
+00:06:04.236 --> 00:06:06.651
+Now, the nice thing about
+the four-by-four matrices
+
+00:06:06.651 --> 00:06:08.663
+is that, I guess inherently,
+
+00:06:08.663 --> 00:06:10.903
+it distinguishes between
+
+00:06:10.903 --> 00:06:13.225
+positions and normals.
+
+00:06:13.225 --> 00:06:16.200
+You'll notice, as I'm
+ moving this sandwich
+
+00:06:16.200 --> 00:06:18.688
+up and down,
+that the light isn't
+
+00:06:18.688 --> 00:06:21.024
+bouncing off the sandwich
+in weird ways.
+
+00:06:21.024 --> 00:06:23.554
+Like, you don't want
+the normal direction
+
+00:06:23.554 --> 00:06:26.108
+to get influenced by
+
+00:06:26.108 --> 00:06:28.575
+where you are
+as I move around.
+
+00:06:28.575 --> 00:06:30.893
+If this is a normal
+on the top of my head,
+
+00:06:30.893 --> 00:06:33.196
+as I'm moving around,
+
+00:06:33.196 --> 00:06:35.088
+the normal is still
+pointing up.
+
+00:06:35.088 --> 00:06:37.302
+You don't want
+that translating as I go.
+
+00:06:37.302 --> 00:06:40.264
+You'll get really weird,
+like, lighting effects.
+
+00:06:40.264 --> 00:06:43.069
+- Well, you know,
+ the normal doesn't really
+
+00:06:43.069 --> 00:06:44.672
+come off the top of your head.
+
+00:06:44.672 --> 00:06:47.408
+The normal is positioned
+at the origin,
+
+00:06:47.408 --> 00:06:49.201
+and is only
+indicating a direction,
+
+00:06:49.201 --> 00:06:50.821
+so it's just a direction.
+
+00:06:50.821 --> 00:06:53.144
+And if I take and
+translate that direction,
+
+00:06:53.144 --> 00:06:55.338
+it's a whole new direction,
+on top of which
+
+00:06:55.338 --> 00:06:56.868
+it's no longer normal.
+
+00:06:56.868 --> 00:06:59.380
+Normal means it has
+a magnitude of one.
+
+00:06:59.380 --> 00:07:02.201
+And if I stretch it all out,
+ it no longer has
+
+00:07:02.201 --> 00:07:03.768
+a magnitude of one,
+
+00:07:03.768 --> 00:07:06.007
+and it points in
+the wrong direction.
+
+00:07:06.007 --> 00:07:08.925
+Yeah, so I guess we can
+get around that in 4D
+
+00:07:08.925 --> 00:07:11.262
+using that W component.
+
+00:07:11.262 --> 00:07:14.082
+From what I understand,
+if the W component is one,
+
+00:07:14.082 --> 00:07:17.412
+then yes, you can translate.
+
+00:07:17.412 --> 00:07:20.190
+But if we set the W,
+the fourth component, to zero,
+
+00:07:20.190 --> 00:07:21.852
+that just kind of
+switches it off.
+
+00:07:21.862 --> 00:07:24.331
+- It throws everything off.
+- Right. Can't translate.
+
+00:07:24.331 --> 00:07:27.209
+The annoying thing
+ about translations
+
+00:07:27.209 --> 00:07:29.291
+and rotations is how different
+
+00:07:29.291 --> 00:07:31.439
+they appear.
+
+00:07:31.439 --> 00:07:33.725
+Like, as I'm moving these
+cat wands around,
+
+00:07:33.725 --> 00:07:35.815
+like, the sandwich is going
+up, down, left, right,
+
+00:07:35.815 --> 00:07:37.901
+and it, it feels very different
+
+00:07:37.901 --> 00:07:40.212
+to rotations.
+
+00:07:40.212 --> 00:07:42.542
+Wouldn't it be cool
+if there was a way to combine
+
+00:07:42.542 --> 00:07:44.912
+translations and rotations?
+
+00:07:44.912 --> 00:07:47.647
+And what if I said there
+is a way to do this?
+
+00:07:47.647 --> 00:07:49.480
+- You'd have to explain it,
+probably.
+
+00:07:49.480 --> 00:07:51.239
+- Okay, yes.
+This is the idea behind
+
+00:07:51.239 --> 00:07:53.272
+dual quaternions.
+
+00:07:53.272 --> 00:07:56.343
+A lot of people freak out
+ by the word quaternion itself,
+
+00:07:56.343 --> 00:07:58.434
+so when I say dual quaternion,
+
+00:07:58.434 --> 00:07:59.992
+major freak-out.
+
+00:07:59.992 --> 00:08:01.545
+So why don't we think about...
+
+00:08:01.545 --> 00:08:03.433
+Okay, this is
+just the origin.
+
+00:08:03.433 --> 00:08:05.392
+This is the 3D system,
+I could say,
+
+00:08:05.392 --> 00:08:09.334
+and you're holding
+two planes in your hand.
+
+00:08:09.334 --> 00:08:11.338
+Now, if you don't mind
+doing this,
+
+00:08:11.338 --> 00:08:14.188
+if you could put
+a plane right here,
+
+00:08:14.188 --> 00:08:16.812
+going along the X axis.
+
+00:08:16.812 --> 00:08:18.712
+Now,
+
+00:08:18.712 --> 00:08:21.681
+I'm going to try and rotate
+this cup using a quaternion,
+
+00:08:21.681 --> 00:08:24.628
+and the idea of
+quaternions is that it's
+
+00:08:24.628 --> 00:08:27.660
+one, two reflections.
+
+00:08:27.660 --> 00:08:29.792
+So if you don't mind
+putting another plane
+
+00:08:29.792 --> 00:08:31.932
+along the Y axis.
+
+00:08:31.932 --> 00:08:34.492
+So my cup starts
+over here, close to me.
+
+00:08:34.492 --> 00:08:37.572
+If I do one reflection
+through this plane...
+
+00:08:37.572 --> 00:08:39.763
+Imagine this plane
+is infinitely big,
+
+00:08:39.763 --> 00:08:42.712
+but goes through the origin.
+
+00:08:42.712 --> 00:08:45.151
+One reflection,
+I end up over here,
+
+00:08:45.151 --> 00:08:46.745
+and the second reflection,
+
+00:08:46.745 --> 00:08:48.912
+I end up closer to Scott.
+
+00:08:48.912 --> 00:08:50.995
+And if, if you think
+ about what just happened
+
+00:08:50.995 --> 00:08:54.316
+for this cup,
+it's actually rotated
+
+00:08:54.316 --> 00:08:57.952
+180 degrees.
+
+00:08:57.952 --> 00:09:00.552
+One reflection,
+two reflection.
+
+00:09:00.552 --> 00:09:02.647
+And the idea of a quaternion,
+
+00:09:02.647 --> 00:09:05.552
+it's where these
+two planes meet.
+
+00:09:05.552 --> 00:09:08.027
+These two planes meet
+at a line,
+
+00:09:08.027 --> 00:09:10.394
+and this line is precisely
+
+00:09:10.394 --> 00:09:13.035
+the Y axis, isn't it?
+
+00:09:13.035 --> 00:09:15.732
+So that makes you kind
+of realize what a rotation is.
+
+00:09:15.732 --> 00:09:18.789
+It's a rotation about a line,
+
+00:09:18.789 --> 00:09:20.833
+and a quaternion is just
+
+00:09:20.833 --> 00:09:22.664
+the lines through
+the origin.
+
+00:09:22.664 --> 00:09:24.618
+This specific one
+Scott set up for me
+
+00:09:24.618 --> 00:09:27.092
+is the quaternion J.
+
+00:09:27.092 --> 00:09:29.002
+It's a 180 about
+
+00:09:29.002 --> 00:09:30.560
+the Y axis.
+
+00:09:30.560 --> 00:09:33.851
+Now, the beauty of
+the dual quaternion
+
+00:09:33.851 --> 00:09:36.089
+is that these planes
+don't have to
+
+00:09:36.089 --> 00:09:37.750
+go through the origin.
+
+00:09:37.750 --> 00:09:39.664
+If you don't mind,
+if I grab this plane...
+
+00:09:39.664 --> 00:09:41.272
+You can keep that one
+through the origin, though.
+
+00:09:41.272 --> 00:09:42.872
+You keep that one there.
+
+00:09:42.872 --> 00:09:44.423
+Now, this plane,
+
+00:09:44.423 --> 00:09:46.341
+with dual quaternions,
+you can move them.
+
+00:09:46.341 --> 00:09:48.155
+What if I say I moved it
+
+00:09:48.155 --> 00:09:50.372
+further and further away
+from the origin?
+
+00:09:50.372 --> 00:09:52.756
+What if I passed it to you,
+the dear viewer?
+
+00:09:52.756 --> 00:09:54.256
+Here you go.
+
+00:09:54.256 --> 00:09:57.093
+You grab the plane for me,
+and put it behind you,
+
+00:09:57.093 --> 00:09:58.732
+far behind you.
+
+00:09:58.732 --> 00:10:01.412
+Actually, could you put
+it infinitely far behind you?
+
+00:10:01.412 --> 00:10:03.621
+We'll just wait here.
+
+00:10:03.621 --> 00:10:05.122
+(laughing)
+
+00:10:05.122 --> 00:10:07.212
+- It'll take a while.
+- It might take a while.
+
+00:10:07.212 --> 00:10:09.945
+Okay, so this plane
+that was through the origin
+
+00:10:09.945 --> 00:10:12.346
+now is infinitely far away,
+
+00:10:12.346 --> 00:10:15.452
+so far in the distance
+that it's hard to imagine.
+
+00:10:15.452 --> 00:10:17.450
+It's infinitely far away.
+
+00:10:17.450 --> 00:10:19.692
+If we intersect this plane...
+
+00:10:19.692 --> 00:10:21.192
+This plane is still going
+through the origin,
+
+00:10:21.192 --> 00:10:22.701
+the one Scott's holding.
+
+00:10:22.701 --> 00:10:24.472
+That's along the Z axis.
+
+00:10:24.472 --> 00:10:26.953
+If that intersects
+ with the plane
+
+00:10:26.953 --> 00:10:28.814
+infinitely far away,
+
+00:10:28.814 --> 00:10:30.634
+you still end up
+with a line, yes.
+
+00:10:30.634 --> 00:10:32.152
+- Yes.
+
+00:10:32.152 --> 00:10:34.507
+- And this line is infinitely
+
+00:10:34.507 --> 00:10:37.112
+far away, behind you.
+
+00:10:37.112 --> 00:10:39.766
+Now, if you think about
+what a rotation is,
+
+00:10:39.766 --> 00:10:41.927
+if we're rotating about a line
+
+00:10:41.927 --> 00:10:43.928
+that's infinitely
+far away,
+
+00:10:43.928 --> 00:10:47.103
+what this cup is going to do
+
+00:10:47.103 --> 00:10:50.016
+is translate.
+
+00:10:50.016 --> 00:10:51.666
+You can imagine this is
+
+00:10:51.666 --> 00:10:53.528
+an immensely large sphere,
+
+00:10:53.528 --> 00:10:56.398
+an infinitely
+large sphere.
+
+00:10:56.398 --> 00:10:58.951
+And if it was that big,
+
+00:10:58.951 --> 00:11:00.833
+the very edge of the sphere
+
+00:11:00.833 --> 00:11:03.352
+would be a straight line.
+
+00:11:03.352 --> 00:11:05.592
+- Of course.
+
+00:11:05.592 --> 00:11:07.094
+- Wow.
+I know.
+
+00:11:07.094 --> 00:11:08.612
+It's still amazing just
+to say it out loud, but...
+
+00:11:08.612 --> 00:11:10.547
+- A sphere infinitely
+far away
+
+00:11:10.547 --> 00:11:12.171
+would be a flat surface.
+
+00:11:12.171 --> 00:11:14.132
+- So that's what
+a dual quaternion is.
+
+00:11:14.132 --> 00:11:16.152
+It can actually encode
+
+00:11:16.152 --> 00:11:18.032
+not only a regular quaternion,
+
+00:11:18.032 --> 00:11:19.536
+a rotation about
+the origin,
+
+00:11:19.536 --> 00:11:21.218
+but you can rotate about
+
+00:11:21.218 --> 00:11:22.732
+a line infinitely far away,
+
+00:11:22.732 --> 00:11:25.784
+and that kind of rotation
+
+00:11:25.784 --> 00:11:28.452
+is called a translation.
+
+00:11:28.452 --> 00:11:30.299
+Yeah, so it kind of
+combines them together.
+
+00:11:30.299 --> 00:11:31.816
+- Brilliant.
+
+00:11:31.816 --> 00:11:33.675
+- If I can summarize,
+ what we've been
+
+00:11:33.675 --> 00:11:36.617
+talking about today
+is translations.
+
+00:11:36.617 --> 00:11:38.398
+Translations is all about
+
+00:11:38.398 --> 00:11:40.632
+moving things,
+
+00:11:40.632 --> 00:11:43.353
+and what you'll see
+ in this beautiful demo
+
+00:11:43.353 --> 00:11:45.334
+Cassidy has set up
+for us is that
+
+00:11:45.334 --> 00:11:47.375
+a translation is just
+
+00:11:47.375 --> 00:11:50.032
+adding along
+a certain axis.
+
+00:11:50.032 --> 00:11:52.222
+Adding along Y.
+
+00:11:52.222 --> 00:11:56.192
+You can add along X.
+
+00:11:56.192 --> 00:11:59.601
+And finally, in this demo,
+you can add along Z.
+
+00:11:59.601 --> 00:12:01.392
+Falling off the counter there.
+
+00:12:01.392 --> 00:12:02.888
+You can also subtract as well,
+
+00:12:02.888 --> 00:12:04.681
+but typically, you don't just
+
+00:12:04.681 --> 00:12:06.736
+add vectors
+
+00:12:06.736 --> 00:12:08.672
+to create these translations.
+
+00:12:08.672 --> 00:12:11.341
+We do so much in this pipeline
+
+00:12:11.341 --> 00:12:13.428
+to get the sandwich
+on the screen,
+
+00:12:13.428 --> 00:12:15.251
+so many different
+transformations,
+
+00:12:15.251 --> 00:12:17.664
+that a four-by-four matrix
+
+00:12:17.664 --> 00:12:20.752
+is usually how you represent...
+- It just seems easier.
+
+00:12:20.752 --> 00:12:23.601
+Yes, and because I'm obsessed
+with quaternions,
+
+00:12:23.601 --> 00:12:26.952
+I've also dug pretty deep
+into dual quaternions.
+
+00:12:26.952 --> 00:12:29.581
+It's another way to translate,
+
+00:12:29.581 --> 00:12:31.702
+and I like that
+it kind of combines
+
+00:12:31.702 --> 00:12:34.992
+what a rotation
+is versus a translation.
+
+00:12:34.992 --> 00:12:38.072
+But I got to be honest,
+end of the day,
+
+00:12:38.072 --> 00:12:41.192
+we do need a matrix to...
+
+00:12:41.192 --> 00:12:43.445
+- Yes, unfortunately,
+that's what you'd get me to do,
+
+00:12:43.445 --> 00:12:45.811
+is to take your dual trans...
+ or your dual quaternion
+
+00:12:45.811 --> 00:12:48.032
+and convert it to
+a set of matrices.
+
+00:12:48.032 --> 00:12:49.652
+- Yes, that's true.
+
+00:12:49.652 --> 00:12:51.790
+So I guess, again,
+ we are translating
+
+00:12:51.790 --> 00:12:54.028
+between different
+mathematical concepts.
+
+00:12:54.028 --> 00:12:56.033
+- Very good.

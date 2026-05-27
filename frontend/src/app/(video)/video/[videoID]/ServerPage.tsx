@@ -9,17 +9,18 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
   const res = await serverFetch(`/videos/${videoSlug}`); // call the video details
   //   // destructure the return into video for better understand of data while assigining
   const { data: video } = await res.json(); // destructure the data
+  console.log(video)
   // Get me the the current logged user
   // so that we can pass the user id in api
   /**
    * Fetch the detail of the Logged User
-   * helpful while passing the user ID
+   * helpful while passing the user ID for the user video detail rows in the user_videos table
    */
   const user = await serverFetch(`/me`);
   const me = await user.json();
-  // variable to hold the values
-  let lastPaused = 0;
-  let userVideoID;
+  // variable to hold the dynamic variables
+  let lastPaused = 0; // This will hold the value of the last watch time of the video
+  let userVideoID; // This will hold the ID of the user_video (id) once we created the row on page load
   /**
    * Fetch the last pause record for this video
    * Return NULL if record does not exits
@@ -48,6 +49,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
             completed: false,
           },
         );
+        // new user_video for this video with the logged in user
         const newUserVideo = await post_user_video_record.json();
         userVideoID = newUserVideo.id;
         // other wise read the exist for the time stame
@@ -111,10 +113,11 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
       {/* Video section */}
       <section className="flex flex-col md:flex-row gap-3 py-3">
         <MyPlayer
-          src={video.video_url}
+          src={video?.video_url}
           last_stop={lastPaused}
-          videoID={video.id}
+          videoID={video?.id}
           userVideoID={userVideoID}
+          subtitle={video?.subtitle?.subtitle_url}
         />
       </section>
       {/* Code Tabe */}

@@ -1,0 +1,57 @@
+[
+    {
+        "video_id": 1,
+        "subtitle_url": "SPACESProj_V01_Introduction.vtt",
+        "language": "en"
+    },
+    {
+        "video_id": 2,
+        "subtitle_url": "SpacesProject_V02_ModelSpace_xtra.vtt",
+        "language": "en"
+    },
+    {
+        "video_id": 3,
+        "subtitle_url": "SpacesProject_V03_VertexPositions_1.vtt",
+        "language": "en"
+    },
+    {
+        "video_id": 5,
+        "subtitle_url": "SpacesProject_V05_Scale.vtt",
+        "language": "en"
+    },
+    {
+        "video_id": 6,
+        "subtitle_url": "SpacesProject_V06_Translations.vtt",
+        "language": "en"
+    },
+    {
+        "video_id": 8,
+        "subtitle_url": "SpacesProject_V08_Quaternions.vtt",
+        "language": "en"
+    },
+    {
+        "video_id": 10,
+        "subtitle_url": "SpaceProject_V10_WorldSpace.vtt",
+        "language": "en"
+    },
+    {
+        "video_id": 12,
+        "subtitle_url": "SpaceProject_V12_CameraSpace.vtt",
+        "language": "en"
+    },
+    {
+        "video_id": 13,
+        "subtitle_url": "SpaceProject_V13_ProjectionMatrix.vtt",
+        "language": "en"
+    },
+    {
+        "video_id": 15,
+        "subtitle_url": "SpacesProject_V15_NDC Spce.vtt",
+        "language": "en"
+    },
+    {
+        "video_id": 17,
+        "subtitle_url": "SpaceProject_V17_PixelSpace.vtt",
+        "language": "en"
+    }
+]

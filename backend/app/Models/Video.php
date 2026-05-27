@@ -32,6 +32,14 @@ class Video extends Model
     {
         return 'slug';
     }
+    /**
+     * Model Relationship
+     * Children   
+     * */       
+    public function subVideos() 
+{
+    return $this->hasMany(Video::class, 'parent_id');
+}
     // Topic Relationship
     // A video belongs to one topic
     // Video Table relationship with topics table
@@ -58,7 +66,13 @@ class Video extends Model
     {
         return $this->hasMany(Code::class);
     }
-
+    /**
+     * Model Relationship
+     * Subtitle
+     */
+    public function subtitle(){
+        return $this->hasOne(Subtitle::class);
+    }
     // Quizzes
     public function quizzes()
     {

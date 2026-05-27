@@ -1,0 +1,1343 @@
+WEBVTT
+
+1
+00:00:00.164 --> 00:00:01.936
+- Okay, so,
+
+2
+00:00:01.936 --> 00:00:05.840
+we are talking
+about quaternions today.
+
+3
+00:00:05.840 --> 00:00:08.925
+You were just saying what?
+-What are quaternions?
+
+4
+00:00:08.925 --> 00:00:11.332
+-Quaternions. 
+-What are they really?
+
+5
+00:00:11.332 --> 00:00:13.195
+I know they're four numbers.
+-Yes.
+
+6
+00:00:13.195 --> 00:00:15.633
+Well, I brought some
+quaternions with us today.
+
+7
+00:00:15.633 --> 00:00:18.856
+-Of course. 
+-So what a quaternion does,
+
+8
+00:00:18.856 --> 00:00:22.432
+is rotates. 
+They rotate about an axis,
+
+9
+00:00:22.432 --> 00:00:24.543
+and I see you brought
+some axes with you today.
+
+10
+00:00:24.543 --> 00:00:26.327
+-Just to remind
+everybody that,
+
+11
+00:00:26.327 --> 00:00:29.409
+you have the Y axis
+going up and down.
+
+12
+00:00:29.409 --> 00:00:32.912
+The X axis is going to go
+back and forth, and going
+
+13
+00:00:32.912 --> 00:00:36.278
+towards the camera is going
+to be the Z axis.
+
+14
+00:00:36.278 --> 00:00:39.521
+-Right. So yeah, that's
+what these quaternions do.
+
+15
+00:00:39.521 --> 00:00:42.206
+And quaternions, quarter,
+
+16
+00:00:42.206 --> 00:00:44.936
+it sounds like 
+the word quarter,
+
+17
+00:00:44.936 --> 00:00:48.068
+which makes you
+think of four parts.
+
+18
+00:00:48.068 --> 00:00:49.746
+-Yeah, or a quartet.
+
+19
+00:00:49.746 --> 00:00:51.425
+-A quartet.
+What is a quartet?
+
+20
+00:00:51.425 --> 00:00:52.954
+-Like four violins.
+
+21
+00:00:52.954 --> 00:00:54.493
+-Oh, there we go.
+-Four instruments.
+
+22
+00:00:54.493 --> 00:00:58.228
+-And you'll notice
+I have these cups,
+
+23
+00:00:58.228 --> 00:01:02.513
+which represent the four parts
+of a quaternion.
+
+24
+00:01:02.513 --> 00:01:06.430
+So, I'm going to focus
+on these parts individually.
+
+25
+00:01:06.430 --> 00:01:09.261
+I'll start with my
+favourite quaternion,
+
+26
+00:01:09.261 --> 00:01:11.890
+which is
+
+27
+00:01:11.890 --> 00:01:14.042
+the number one.
+
+28
+00:01:14.042 --> 00:01:16.302
+-Just one?
+-Yes, the number one.
+
+29
+00:01:16.302 --> 00:01:19.025
+-It does nothing. Ah.
+-What are the other ones then?
+
+30
+00:01:19.025 --> 00:01:21.248
+-Oh yes, I'll get to
+them in a second.
+
+31
+00:01:21.248 --> 00:01:24.945
+But I guess it's good
+to have a default
+
+32
+00:01:24.945 --> 00:01:27.326
+quaternion, a rotation
+that does nothing.
+
+33
+00:01:27.326 --> 00:01:29.159
+Zero degrees.
+
+34
+00:01:29.159 --> 00:01:31.580
+-So kind of like an
+identity matrix?
+
+35
+00:01:31.580 --> 00:01:33.104
+-Right. 
+-Right?
+
+36
+00:01:33.104 --> 00:01:35.040
+-Yes. True. 
+-Okay, I'm with you.
+
+37
+00:01:35.040 --> 00:01:38.245
+-Yeah. I do have students that
+freak out about quaternions, and
+
+38
+00:01:38.245 --> 00:01:41.870
+maybe because the word is so
+weird, quaternions,
+
+39
+00:01:41.870 --> 00:01:45.495
+but we all know a quaternion, 
+the number one.
+
+40
+00:01:45.495 --> 00:01:48.286
+So even since elementary school,
+
+41
+00:01:48.286 --> 00:01:50.295
+we know what a quaternion is.
+
+42
+00:01:50.295 --> 00:01:52.695
+So yeah, this
+quaternion does nothing.
+
+43
+00:01:52.695 --> 00:01:54.221
+Stay right there.
+
+44
+00:01:54.221 --> 00:01:56.920
+Onto the next quaternion.
+
+45
+00:01:56.920 --> 00:01:59.591
+This one is...
+
+46
+00:01:59.591 --> 00:02:02.134
+I. Now what I does,
+
+47
+00:02:02.134 --> 00:02:05.355
+it's a one eighty
+degree rotation,
+
+48
+00:02:05.355 --> 00:02:07.400
+about the X axis.
+
+49
+00:02:07.400 --> 00:02:11.273
+So what this would do, if I'm
+using my right-hand grip rule,
+
+50
+00:02:11.273 --> 00:02:15.089
+it'll be a one eighty 
+just like this.
+
+51
+00:02:15.089 --> 00:02:16.694
+That's what I does.
+
+52
+00:02:16.695 --> 00:02:18.361
+So I wonder if, Cassidy,
+
+53
+00:02:18.361 --> 00:02:20.779
+you want to demonstrate
+the quaternion
+
+54
+00:02:20.780 --> 00:02:23.895
+I on that potted plant over
+there?
+
+55
+00:02:27.000 --> 00:02:29.106
+Beautiful. It's upside down.
+
+56
+00:02:29.106 --> 00:02:30.600
+And that's what I does.
+
+57
+00:02:30.600 --> 00:02:32.944
+It just does a rotation,
+
+58
+00:02:32.944 --> 00:02:36.816
+one eighty degrees
+about the X axis.
+
+59
+00:02:36.816 --> 00:02:40.035
+Okay, on to the next one.
+
+60
+00:02:40.035 --> 00:02:43.395
+I have a j.
+
+61
+00:02:43.395 --> 00:02:46.672
+The j quaternion, all it does is
+
+62
+00:02:46.672 --> 00:02:50.012
+a 180 degree rotation 
+about the Y axis.
+
+63
+00:02:50.012 --> 00:02:51.600
+-Okay. 
+-So the axis going.
+
+64
+00:02:51.600 --> 00:02:53.225
+So what it does is this.
+
+65
+00:02:53.225 --> 00:02:54.639
+One eighty.
+
+66
+00:02:54.639 --> 00:02:56.631
+So Cassidy, 
+why don't you try--
+
+67
+00:02:56.631 --> 00:02:58.303
+Oh, there's a sandwich there.
+
+68
+00:02:58.303 --> 00:03:00.160
+There we go.
+
+69
+00:03:00.160 --> 00:03:01.680
+Yeah. I see the back
+of the sandwich.
+
+70
+00:03:01.680 --> 00:03:05.310
+Nice. And I'm really glad you
+used the sandwich for this
+
+71
+00:03:05.310 --> 00:03:07.237
+because one thing 
+we won't get into
+
+72
+00:03:07.237 --> 00:03:10.085
+in the videos, but how do
+you apply a quaternion?
+
+73
+00:03:10.095 --> 00:03:13.535
+It's an operation
+called the sandwich.
+
+74
+00:03:13.535 --> 00:03:16.109
+So perfect.
+Couldn't be better.
+
+75
+00:03:16.109 --> 00:03:19.960
+Okay. And then onto the
+last part of a quaternion.
+
+76
+00:03:19.960 --> 00:03:22.461
+The fourth part is called K.
+
+77
+00:03:22.462 --> 00:03:24.072
+Now what does a K do?
+
+78
+00:03:24.072 --> 00:03:26.120
+You might have figured
+this out by now.
+
+79
+00:03:26.120 --> 00:03:30.120
+It's one eighty degrees
+about the Z axis.
+
+80
+00:03:30.120 --> 00:03:33.695
+So if I use my thumb going
+towards the camera,
+
+81
+00:03:33.695 --> 00:03:37.581
+it rotates this way.
+
+82
+00:03:37.581 --> 00:03:40.535
+My K is upside down,
+but you get the idea.
+
+83
+00:03:40.535 --> 00:03:43.095
+It's a one eighty
+
+84
+00:03:43.095 --> 00:03:45.246
+about the Z axis.
+
+85
+00:03:45.246 --> 00:03:48.420
+We're going to demonstrate
+this on this box of napkins.
+
+86
+00:03:49.940 --> 00:03:51.620
+The K quaternion.
+
+87
+00:03:53.587 --> 00:03:56.857
+Oh, there we go.
+Yes. It's upside down.
+
+88
+00:03:56.857 --> 00:03:59.301
+I love how rigid
+these things are.
+
+89
+00:03:59.301 --> 00:04:02.635
+Like it's, it's standing
+on the napkin itself.
+
+90
+00:04:02.635 --> 00:04:05.675
+Okay. So that's what
+a quaternion is.
+
+91
+00:04:05.675 --> 00:04:07.205
+-That's it?
+-Yeah. That's it.
+
+92
+00:04:07.205 --> 00:04:09.595
+It either does nothing.
+
+93
+00:04:09.595 --> 00:04:11.613
+That's my favourite one.
+
+94
+00:04:11.613 --> 00:04:13.515
+It does nothing.
+
+95
+00:04:13.515 --> 00:04:17.073
+Great. Then you got 
+the quaternion I,
+
+96
+00:04:17.073 --> 00:04:20.836
+which is a one 
+eighty about the X axis.
+
+97
+00:04:20.836 --> 00:04:22.419
+We got a j,
+
+98
+00:04:22.419 --> 00:04:25.430
+which is a one
+eighty about the Y axis.
+
+99
+00:04:25.430 --> 00:04:27.754
+And the last one is a k,
+
+100
+00:04:27.754 --> 00:04:30.889
+a one eighty about z.
+
+101
+00:04:30.889 --> 00:04:33.165
+-How would you rotate
+ninety degrees?
+
+102
+00:04:33.165 --> 00:04:36.405
+-I'm glad you asked that 
+because, I mean,
+
+103
+00:04:36.405 --> 00:04:39.645
+you might not want to
+rotate by one eighty degrees.
+
+104
+00:04:39.645 --> 00:04:42.565
+What if you wanted to do,
+say,
+
+105
+00:04:42.565 --> 00:04:46.043
+90 degrees about X?
+
+106
+00:04:46.043 --> 00:04:48.857
+Now the thing with quaternions,
+
+107
+00:04:48.857 --> 00:04:51.965
+is that you can 
+actually add them.
+
+108
+00:04:55.060 --> 00:04:57.279
+So here I'm adding the number
+one,
+
+109
+00:04:57.279 --> 00:04:59.271
+with the quaternion I.
+
+110
+00:04:59.271 --> 00:05:03.115
+And when you add quaternions,
+it's like averaging them.
+
+111
+00:05:03.115 --> 00:05:06.912
+So 90 degrees is the average
+between doing nothing,
+
+112
+00:05:06.912 --> 00:05:08.886
+number one,
+
+113
+00:05:08.886 --> 00:05:11.221
+and doing a 180 about X,
+
+114
+00:05:11.221 --> 00:05:14.250
+which is the quaternion I.
+
+115
+00:05:14.250 --> 00:05:17.587
+So you just add them.
+-Okay.
+
+116
+00:05:17.587 --> 00:05:20.041
+-One thing to be careful of, 
+though,
+
+117
+00:05:20.041 --> 00:05:22.633
+is your quaternions, 
+if...
+
+118
+00:05:22.633 --> 00:05:24.877
+They have a certain
+magnitude.
+
+119
+00:05:24.877 --> 00:05:26.591
+I'll show you what I mean.
+
+120
+00:05:26.591 --> 00:05:29.675
+The number one has
+a magnitude of one.
+
+121
+00:05:29.675 --> 00:05:31.355
+That's how big
+the number one is.
+
+122
+00:05:31.355 --> 00:05:32.883
+-Yeah.
+
+123
+00:05:32.883 --> 00:05:34.410
+-I has a magnitude of one
+as well,
+
+124
+00:05:34.410 --> 00:05:36.483
+if it's just I by itself.
+
+125
+00:05:36.483 --> 00:05:38.795
+But when you add them together,
+you want to make sure
+
+126
+00:05:38.795 --> 00:05:41.790
+the magnitude is still one.
+
+127
+00:05:41.790 --> 00:05:44.290
+So not only do you have 
+to add them,
+
+128
+00:05:44.290 --> 00:05:46.294
+to get that 90 degrees,
+
+129
+00:05:46.294 --> 00:05:49.324
+you have to make sure the 
+magnitude of the entire
+
+130
+00:05:49.324 --> 00:05:51.340
+quaternion is one.
+
+131
+00:05:51.340 --> 00:05:54.764
+And there's something that
+Pythagoras came up with
+
+132
+00:05:54.764 --> 00:05:58.218
+thousands of years ago,
+Pythagorean theory, in that you
+
+133
+00:05:58.218 --> 00:06:01.671
+can work out the magnitude or
+the length of the hypotenuse
+
+134
+00:06:01.671 --> 00:06:05.125
+based on the length 
+of the other two sides
+
+135
+00:06:05.125 --> 00:06:06.677
+of a right triangle.
+
+136
+00:06:06.677 --> 00:06:10.045
+And that gives you the
+length of that longest side.
+
+137
+00:06:10.045 --> 00:06:13.009
+So you have to do something
+similar with a quaternion.
+
+138
+00:06:13.009 --> 00:06:16.260
+It's not as simple as 
+making sure
+
+139
+00:06:16.260 --> 00:06:18.832
+that these two numbers 
+add to one.
+
+140
+00:06:18.832 --> 00:06:21.117
+If you add a half for
+
+141
+00:06:21.117 --> 00:06:23.500
+the real part of the quaternion
+and half of
+
+142
+00:06:23.500 --> 00:06:26.054
+I for this part of
+the quaternion you think,
+
+143
+00:06:26.054 --> 00:06:28.643
+yeah, half plus a half is one.
+That should work.
+
+144
+00:06:28.643 --> 00:06:31.225
+But these are
+geometrical things.
+
+145
+00:06:31.225 --> 00:06:33.617
+So we got to use geometry.
+
+146
+00:06:33.617 --> 00:06:36.185
+Pythagoras' theory
+is what you got to do.
+
+147
+00:06:36.185 --> 00:06:39.780
+Yes. So why don't
+you try that, Cassidy?
+
+148
+00:06:39.780 --> 00:06:43.454
+We're going to do a ninety
+degree turn about the X--
+
+149
+00:06:43.454 --> 00:06:45.540
+Oh, you did it 
+for the,
+
+150
+00:06:45.540 --> 00:06:47.540
+for the potted plant over there.
+
+151
+00:06:47.540 --> 00:06:49.095
+It's looking right at us.
+Yeah.
+
+152
+00:06:49.095 --> 00:06:51.355
+It works for the
+other axes as well.
+
+153
+00:06:51.355 --> 00:06:54.134
+Say you want to do a ninety
+degree
+
+154
+00:06:54.134 --> 00:06:56.949
+turn about the Y axis.
+
+155
+00:06:56.949 --> 00:06:59.515
+Oh, yeah. I have to make sure 
+I rotate the right way.
+
+156
+00:06:59.515 --> 00:07:01.943
+We're using the right-hand rule,
+so it should
+
+157
+00:07:01.943 --> 00:07:04.370
+rotate ninety degrees to look
+
+158
+00:07:04.370 --> 00:07:07.730
+towards my left.
+
+159
+00:07:07.730 --> 00:07:09.410
+So let's see if that,
+oh, yeah.
+
+160
+00:07:09.410 --> 00:07:11.089
+That works for the sandwich.
+
+161
+00:07:11.090 --> 00:07:13.994
+Sandwich is looking left.
+Thank you.
+
+162
+00:07:13.994 --> 00:07:16.446
+And then the last one I'll
+demonstrate here,
+
+163
+00:07:16.446 --> 00:07:18.963
+is one plus k.
+
+164
+00:07:18.963 --> 00:07:22.342
+Now if this is normalized,
+that's the jargon for making
+
+165
+00:07:22.342 --> 00:07:25.728
+sure the quaternion's not too
+big, not too small, this should
+
+166
+00:07:25.728 --> 00:07:29.115
+do a ninety
+degree turn about z.
+
+167
+00:07:29.115 --> 00:07:31.644
+And if I use my thumb going in,
+
+168
+00:07:31.644 --> 00:07:35.538
+it should rotate ninety degree
+that way.
+
+169
+00:07:35.538 --> 00:07:38.526
+Look at that.
+ninety degree turn.
+
+170
+00:07:38.526 --> 00:07:42.403
+Thank you so much, Cassidy.
+So you can get different angles.
+
+171
+00:07:42.403 --> 00:07:45.425
+Say you wanted not 
+ninety degrees.
+
+172
+00:07:45.425 --> 00:07:47.353
+Say you wanted,
+I don't know, forty five.
+
+173
+00:07:47.353 --> 00:07:49.052
+-Five. 
+-Five degrees?
+
+174
+00:07:49.052 --> 00:07:50.883
+-No. forty five. 
+-Okay, forty five.
+
+175
+00:07:50.883 --> 00:07:53.905
+-Forty five.
+-It's still an average.
+
+176
+00:07:53.905 --> 00:07:56.515
+You just need you need to do
+more of nothing,
+
+177
+00:07:56.515 --> 00:07:58.621
+than of the one eighty.
+
+178
+00:07:58.621 --> 00:08:00.211
+Yeah. Isn't it weird to think
+of that?
+
+179
+00:08:00.211 --> 00:08:01.801
+-This is where you
+
+180
+00:08:01.801 --> 00:08:05.180
+get the reputation of these
+things being confusing.
+
+181
+00:08:05.180 --> 00:08:07.400
+The average of nothing.
+-Yes.
+
+182
+00:08:07.400 --> 00:08:09.180
+-You want to
+explain that better?
+
+183
+00:08:09.180 --> 00:08:10.873
+-Oh, yeah. Of course.
+I'll try.
+
+184
+00:08:10.873 --> 00:08:14.827
+So if you just do a regular
+addition between
+
+185
+00:08:14.827 --> 00:08:16.946
+two parts of a quaternion.
+
+186
+00:08:16.946 --> 00:08:19.265
+Here I've got one and k.
+
+187
+00:08:19.265 --> 00:08:22.909
+If you average them perfectly,
+you'll get ninety degrees.
+
+188
+00:08:22.909 --> 00:08:26.000
+Scott over here doesn't
+want ninety degrees.
+
+189
+00:08:26.000 --> 00:08:28.490
+You wanted five degrees?
+-Forty Five.
+
+190
+00:08:28.490 --> 00:08:30.264
+-Oh, sorry. Forty five degrees.
+
+191
+00:08:30.264 --> 00:08:33.667
+So that means you're doing
+more of nothing,
+
+192
+00:08:33.667 --> 00:08:35.891
+than one eighty.
+
+193
+00:08:35.891 --> 00:08:38.193
+So this number one is called
+
+194
+00:08:38.193 --> 00:08:40.152
+the real part of the quaternion.
+
+195
+00:08:40.152 --> 00:08:43.569
+So that has a bigger value than
+the...
+
+196
+00:08:43.569 --> 00:08:46.465
+This is called the imaginary
+part of the quaternion.
+
+197
+00:08:46.465 --> 00:08:48.298
+This will have a smaller value.
+
+198
+00:08:48.298 --> 00:08:50.625
+And you can kind of tune them.
+
+199
+00:08:50.625 --> 00:08:53.163
+There is a precise way to do
+this, and you've coded it up
+
+200
+00:08:53.163 --> 00:08:55.700
+in the Quaternion Math Library.
+
+201
+00:08:55.700 --> 00:08:58.100
+What have you called
+that function?
+
+202
+00:08:58.100 --> 00:09:00.445
+-Wasn't it just normalize?
+
+203
+00:09:00.445 --> 00:09:02.740
+-Yeah, I was thinking 
+angle axis.
+
+204
+00:09:02.740 --> 00:09:05.008
+-Oh, the angle axis rotation?
+-Yes.
+
+205
+00:09:05.008 --> 00:09:08.281
+-Yeah, that's all
+I know of quaternions.
+
+206
+00:09:08.281 --> 00:09:12.045
+-Yes, there is a much more
+precise way of doing this using
+
+207
+00:09:12.045 --> 00:09:15.977
+sines and cosines, but it's
+basically the same idea.
+
+208
+00:09:15.977 --> 00:09:19.765
+If you want to rotate just a 
+small angle, make sure this
+
+209
+00:09:19.765 --> 00:09:24.009
+real part is much bigger than 
+the part that does the rotation.
+
+210
+00:09:24.009 --> 00:09:26.385
+-What did you mean
+by imaginary part?
+
+211
+00:09:26.385 --> 00:09:27.960
+-Oh yes, imaginary.
+
+212
+00:09:27.960 --> 00:09:30.840
+This is why people freak
+out about quaternions.
+
+213
+00:09:30.840 --> 00:09:34.838
+The thing with this k is that if
+
+214
+00:09:34.838 --> 00:09:38.835
+you multiply it with itself, 
+it turns into negative one.
+
+215
+00:09:38.835 --> 00:09:43.155
+So, k times k.
+-Is that why it's I, j and k?
+
+216
+00:09:43.155 --> 00:09:46.024
+-You're right. Yes.
+-I, the imaginary number.
+
+217
+00:09:46.025 --> 00:09:48.915
+-Yes, you're right.
+-I times I is negative one.
+
+218
+00:09:48.915 --> 00:09:51.133
+-You're right. That's where 
+the I comes from. Yeah.
+
+219
+00:09:51.133 --> 00:09:54.126
+-So we've got
+three imaginary numbers?
+
+220
+00:09:54.126 --> 00:09:56.647
+There's three of them.
+This was the huge,
+
+221
+00:09:56.647 --> 00:10:00.368
+like, discovery
+by William Rowan Hamilton
+
+222
+00:10:00.368 --> 00:10:02.610
+in the 1800s.
+
+223
+00:10:02.610 --> 00:10:05.198
+He's wrapped his mind on,
+like, how many
+
+224
+00:10:05.198 --> 00:10:07.605
+imaginary numbers do I 
+need to rotate?
+
+225
+00:10:07.605 --> 00:10:10.985
+Because if you just have one
+imaginary number, you can do,
+
+226
+00:10:10.985 --> 00:10:14.185
+like, two d rotations just with
+one of them.
+
+227
+00:10:14.185 --> 00:10:16.207
+And he's like, okay.
+If we're going to do 3D,
+
+228
+00:10:16.207 --> 00:10:19.168
+surely, we need two.
+
+229
+00:10:19.168 --> 00:10:20.771
+It turns out, no.
+
+230
+00:10:20.771 --> 00:10:23.210
+You need three of these 
+to do a...
+
+231
+00:10:23.210 --> 00:10:25.690
+You need three of these
+imaginary numbers.
+
+232
+00:10:25.690 --> 00:10:27.770
+-Three imaginary numbers
+and one real number.
+
+233
+00:10:27.770 --> 00:10:31.370
+-Yes. And one real number,
+which does nothing.
+
+234
+00:10:31.370 --> 00:10:34.372
+Yes. I guess the question is,
+
+235
+00:10:34.372 --> 00:10:36.488
+what are these quaternions?
+
+236
+00:10:36.488 --> 00:10:38.310
+What is it doing?
+
+237
+00:10:38.310 --> 00:10:41.839
+I was watching a game
+developer conference video a few
+
+238
+00:10:41.839 --> 00:10:45.122
+years ago, and when the speaker,
+Hamish Todd,
+
+239
+00:10:45.122 --> 00:10:48.535
+explained what a quaternion
+is, my mind was blown.
+
+240
+00:10:48.535 --> 00:10:51.690
+Because he speaks about planes.
+
+241
+00:10:51.690 --> 00:10:53.883
+So, a plane is just 
+a flat sheet,
+
+242
+00:10:53.883 --> 00:10:55.778
+that extends forever.
+-Forever.
+
+243
+00:10:55.778 --> 00:10:58.730
+-It extends
+forever, but it's
+
+244
+00:10:58.730 --> 00:11:02.105
+infinitely thin.
+
+245
+00:11:02.105 --> 00:11:05.658
+Now, what he was explaining,
+if I can explain what K is,
+
+246
+00:11:05.658 --> 00:11:09.219
+K is a one eighty 
+about Z.
+
+247
+00:11:09.219 --> 00:11:11.127
+Oops, sorry, it goes that way.
+
+248
+00:11:11.127 --> 00:11:12.838
+One eighty about Z.
+
+249
+00:11:12.838 --> 00:11:14.152
+-Can I hold your plane
+for you?
+
+250
+00:11:14.152 --> 00:11:15.465
+-Oh yes, please.
+
+251
+00:11:15.465 --> 00:11:17.992
+Now, what he was explaining
+is that this K,
+
+252
+00:11:17.992 --> 00:11:21.160
+is not just one 
+reflection, it's two.
+
+253
+00:11:21.160 --> 00:11:23.484
+So if I do a reflection 
+in this plane,
+
+254
+00:11:23.484 --> 00:11:25.420
+imagine this was a mirror,
+
+255
+00:11:25.420 --> 00:11:28.513
+I reflect it, this cup
+ends up over here.
+
+256
+00:11:28.513 --> 00:11:30.120
+And that's not what we want.
+
+257
+00:11:30.120 --> 00:11:33.305
+We wanted a one eighty
+about the Z axis.
+
+258
+00:11:33.305 --> 00:11:36.825
+So what you've got to
+do is have two planes.
+
+259
+00:11:36.825 --> 00:11:39.749
+Oh, thank you. You're good
+at holding that.
+
+260
+00:11:39.749 --> 00:11:42.825
+-Uh-oh. My plane is sagging.
+
+261
+00:11:42.825 --> 00:11:45.305
+-Now the idea is, what is k?
+
+262
+00:11:45.305 --> 00:11:47.653
+It's two reflections
+in these planes.
+
+263
+00:11:47.653 --> 00:11:50.999
+If I do one reflection 
+and up here,
+
+264
+00:11:50.999 --> 00:11:53.377
+and then the last reflection,
+
+265
+00:11:53.377 --> 00:11:55.920
+the cup ends up on
+the other side.
+
+266
+00:11:55.920 --> 00:11:58.228
+And if you imagine what's just
+happened,
+
+267
+00:11:58.228 --> 00:12:01.330
+one reflection, two reflection,
+
+268
+00:12:01.330 --> 00:12:04.672
+this is the same thing 
+as a one eighty degree
+
+269
+00:12:04.672 --> 00:12:08.375
+turn about the Z axis.
+
+270
+00:12:09.895 --> 00:12:12.561
+So that's what a quaternion is.
+-I think I finally see that.
+
+271
+00:12:15.204 --> 00:12:16.790
+-So, quaternions, yeah.
+
+272
+00:12:16.790 --> 00:12:19.350
+They are just a
+pair of reflections,
+
+273
+00:12:19.350 --> 00:12:22.159
+which is wild.
+And it really,
+
+274
+00:12:22.159 --> 00:12:24.350
+it helps me
+personally anyway to,
+
+275
+00:12:24.350 --> 00:12:27.290
+to feel a bit better about
+these things.
+
+276
+00:12:27.290 --> 00:12:30.935
+Quaternions. They're
+made up of four parts.
+
+277
+00:12:30.935 --> 00:12:34.721
+That's what the word
+quater means or quarter.
+
+278
+00:12:34.721 --> 00:12:37.592
+So here are my four
+parts of the quaternion.
+
+279
+00:12:37.592 --> 00:12:41.095
+We've got the number one.
+It does nothing.
+
+280
+00:12:41.095 --> 00:12:45.300
+The I does a one eighty
+about the X axis.
+
+281
+00:12:45.300 --> 00:12:48.642
+The J a one eighty
+about the Y axis,
+
+282
+00:12:48.647 --> 00:12:52.583
+and finally K a one
+eighty about Z.
+
+283
+00:12:52.583 --> 00:12:56.087
+So it's just four numbers
+and all they do is rotate.
+
+284
+00:12:56.087 --> 00:12:59.031
+-I thought they reflect.
+-Oh, yes!
+
+285
+00:12:59.031 --> 00:13:02.293
+And if you want to dive deeper
+into what is a quaternion,
+
+286
+00:13:02.293 --> 00:13:05.365
+yes, we need to talk about
+reflections and planes.
+
+287
+00:13:05.365 --> 00:13:09.204
+-Okay. How about another time?
+-Yes.

@@ -1,0 +1,988 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:02.720
+-Yes. So today, 
+we are talking about
+
+00:00:02.720 --> 00:00:05.440
+normalized device
+coordinate space.
+
+00:00:05.440 --> 00:00:07.260
+-That sounds cool.
+
+00:00:07.260 --> 00:00:08.760
+-I know.
+
+00:00:08.760 --> 00:00:10.640
+I just call it NDC
+space because I'm lazy.
+
+00:00:10.640 --> 00:00:13.640
+-I think we all 
+call it just NDC.
+
+00:00:13.640 --> 00:00:16.640
+-Yes. But it's made up
+these three long words.
+
+00:00:16.640 --> 00:00:18.140
+Let's start with the first one.
+
+00:00:18.140 --> 00:00:19.640
+Normalized.
+
+00:00:19.640 --> 00:00:21.140
+-Means it's has a length of one.
+
+00:00:21.140 --> 00:00:22.640
+-A length of one.
+
+00:00:22.640 --> 00:00:24.963
+Yeah. Because we normalize
+vectors and things.
+
+00:00:24.963 --> 00:00:27.140
+Device.
+
+00:00:27.140 --> 00:00:27.890
+-This is the actual
+memory in the
+
+00:00:27.890 --> 00:00:28.640
+GPU that's going 
+to end up on the
+
+00:00:28.640 --> 00:00:30.140
+computer screen.
+
+00:00:30.140 --> 00:00:31.867
+And we're going to 
+normalize that
+
+00:00:31.867 --> 00:00:34.984
+space, that region of memory, 
+so
+
+00:00:34.984 --> 00:00:37.461
+that it is one in the X
+dimension
+
+00:00:37.461 --> 00:00:38.697
+and negative one back
+
+00:00:38.697 --> 00:00:40.830
+in the negative X dimension.
+
+00:00:40.830 --> 00:00:44.670
+It's going to be positive
+up or Y is going to be up.
+
+00:00:44.670 --> 00:00:46.435
+That's going to be positive one.
+
+00:00:46.435 --> 00:00:47.495
+And then down it'll go negative
+
+00:00:47.495 --> 00:00:48.555
+one, and then there's 
+going to be
+
+00:00:48.555 --> 00:00:50.675
+the in and out 
+on the z axis.
+
+00:00:50.675 --> 00:00:53.155
+Same thing, so it
+sort of makes a cube.
+
+00:00:53.155 --> 00:00:54.995
+-Oh, and we have a cube.
+
+00:00:54.995 --> 00:00:56.515
+Thank you to Cassidy.
+
+00:00:56.515 --> 00:00:59.900
+Look at this beautiful
+NDC cube we have here.
+
+00:00:59.900 --> 00:01:02.740
+Yeah. And you'll notice it kind 
+of looks like the scene that
+
+00:01:02.740 --> 00:01:05.580
+Cassidy has set up for us.
+
+00:01:05.580 --> 00:01:07.580
+At the front, there's
+this huge croissant.
+
+00:01:07.580 --> 00:01:09.500
+So much bigger than what
+you have at the back.
+
+00:01:09.500 --> 00:01:11.580
+You've got this tiny looking
+chair, and it's kind of
+
+00:01:11.580 --> 00:01:13.420
+like what we have here.
+
+00:01:13.420 --> 00:01:14.920
+Look at that croissant.
+
+00:01:14.920 --> 00:01:16.695
+It looks the size of the
+
+00:01:16.695 --> 00:01:18.195
+couch.
+
+00:01:18.195 --> 00:01:19.695
+-Yeah, that's perspective.
+
+00:01:19.695 --> 00:01:21.425
+So the way we're
+going to make the
+
+00:01:21.425 --> 00:01:23.155
+perspective view 
+work is to take
+
+00:01:23.155 --> 00:01:25.475
+a space that we're going to
+
+00:01:25.475 --> 00:01:28.915
+be drawing into and
+then distort that space.
+
+00:01:28.915 --> 00:01:32.890
+So I'm going to draw this
+thing into a truncated pyramid.
+
+00:01:32.890 --> 00:01:35.970
+To do that I can expand the
+outer part of this thing, shrink
+
+00:01:35.970 --> 00:01:39.050
+the inner part of it just
+mathematically.
+
+00:01:39.050 --> 00:01:40.641
+Of course it's not really
+
+00:01:40.641 --> 00:01:42.232
+changing but just 
+mathematically.
+
+00:01:42.232 --> 00:01:45.415
+Make that look smaller and the
+other part look bigger.
+
+00:01:45.415 --> 00:01:47.975
+So we'll make a little
+front window here.
+
+00:01:47.975 --> 00:01:50.535
+This part back here, it
+gets expanded all out.
+
+00:01:50.535 --> 00:01:52.435
+All right.
+
+00:01:52.435 --> 00:01:55.302
+And then when I render
+objects into the cube, things
+
+00:01:55.302 --> 00:01:59.270
+that are in the back look like
+they're in a huge, big volume.
+
+00:01:59.270 --> 00:02:01.250
+Follow that?
+
+00:02:01.250 --> 00:02:02.750
+So they're in a big volume.
+
+00:02:02.750 --> 00:02:04.630
+And so they look very
+small in that big volume.
+
+00:02:04.630 --> 00:02:06.130
+-Yes. Yeah.
+
+00:02:06.130 --> 00:02:07.630
+That couch looks very small now.
+
+00:02:07.630 --> 00:02:09.167
+-Right. And then objects up
+
+00:02:09.167 --> 00:02:12.055
+close are rendered into what
+looks like a small volume.
+
+00:02:12.055 --> 00:02:13.975
+So they look much larger.
+
+00:02:13.975 --> 00:02:16.935
+And that's the role
+of the projection matrix.
+
+00:02:16.935 --> 00:02:18.615
+So then the projection matrix,
+
+00:02:18.615 --> 00:02:20.295
+we're going to go 
+into perspective.
+
+00:02:20.295 --> 00:02:23.723
+-Yes. So this is NDC space and
+you're right to get here, we
+
+00:02:23.723 --> 00:02:27.150
+hopped over from camera space.
+
+00:02:27.150 --> 00:02:30.910
+And in camera space, yeah, you
+need the projection matrix.
+
+00:02:30.910 --> 00:02:33.870
+And we did a perspective divide
+to make sure things look bigger
+
+00:02:33.870 --> 00:02:36.350
+at the front.
+
+00:02:36.350 --> 00:02:39.001
+-Well, that's, yeah, the
+perspective divide is because
+
+00:02:39.001 --> 00:02:41.653
+we've got to get back into
+three-dimensional space because
+
+00:02:41.653 --> 00:02:44.304
+the projection matrix is going
+to take us into a four
+
+00:02:44.304 --> 00:02:47.275
+dimensional distorted space.
+
+00:02:47.275 --> 00:02:50.853
+So dividing by the W component
+is going to go from four
+
+00:02:50.853 --> 00:02:54.395
+dimensions back down to three
+dimensions.
+
+00:02:54.395 --> 00:02:57.710
+Because then as we've discussed
+before,
+
+00:02:57.710 --> 00:03:00.350
+the W needs to be one.
+
+00:03:00.350 --> 00:03:02.830
+-Yes. My brain can
+only cope in three d.
+
+00:03:02.830 --> 00:03:05.075
+When you start talking about
+four d,
+
+00:03:05.075 --> 00:03:06.835
+I feel like I'm losing
+my mind.
+
+00:03:06.835 --> 00:03:10.755
+-Well, it's just 
+four d for fun.
+
+00:03:10.755 --> 00:03:12.835
+We're just so we can just
+distort things, but the
+
+00:03:12.835 --> 00:03:15.750
+distortion will occur in the
+fourth dimension.
+
+00:03:15.750 --> 00:03:18.310
+And dividing through by the w,
+
+00:03:18.310 --> 00:03:20.870
+the w divided by w is a one.
+
+00:03:20.870 --> 00:03:23.110
+So now you're satisfied
+because it's one.
+
+00:03:23.110 --> 00:03:24.647
+And now that the 
+x and y and z
+
+00:03:24.647 --> 00:03:26.036
+coordinates are all 
+going to look
+
+00:03:26.036 --> 00:03:28.396
+like we're looking into a
+perspective view like Cassidy
+
+00:03:28.396 --> 00:03:30.310
+set up for us.
+
+00:03:30.310 --> 00:03:31.810
+-Oh, thank you.
+
+00:03:31.810 --> 00:03:35.515
+And also, Cassidy set up the
+camera view here in Unreal.
+
+00:03:35.515 --> 00:03:37.835
+Looks a little different to the
+usual seat we're at
+
+00:03:37.835 --> 00:03:40.155
+in Cassidy's coffee shop.
+
+00:03:40.155 --> 00:03:42.475
+We're off a little
+bit to the side.
+
+00:03:42.475 --> 00:03:45.127
+And you'll notice the box that
+Cassidy made, that's the stuff
+
+00:03:45.127 --> 00:03:47.780
+that's rendered.
+
+00:03:47.780 --> 00:03:50.420
+So you only render
+things are in the box.
+
+00:03:50.420 --> 00:03:52.340
+I mean, there could be
+stuff outside the box, just like
+
+00:03:52.340 --> 00:03:54.500
+in the screen.
+
+00:03:54.500 --> 00:03:56.763
+There could be stuff on the
+left, right, top, down, but you
+
+00:03:56.763 --> 00:03:59.025
+don't want to render that stuff.
+
+00:03:59.025 --> 00:04:00.985
+-Everything that you see in a
+video game is occurring inside
+
+00:04:00.985 --> 00:04:02.945
+your little box.
+
+00:04:02.945 --> 00:04:04.845
+-Wow. Yeah.
+
+00:04:04.845 --> 00:04:06.625
+So this box, let's see.
+
+00:04:06.625 --> 00:04:08.125
+How big is it?
+
+00:04:08.125 --> 00:04:09.625
+-The origin's in
+
+00:04:09.625 --> 00:04:11.125
+the centre of the box,
+right in the middle,
+
+00:04:11.125 --> 00:04:12.847
+in OpenGL.
+
+00:04:12.847 --> 00:04:14.360
+-Hold on, what's OpenGL?
+
+00:04:14.360 --> 00:04:16.650
+-OpenGL is a graphics
+
+00:04:16.650 --> 00:04:18.670
+API, very popular.
+
+00:04:18.670 --> 00:04:21.830
+In the OpenGL and Vulkan world,
+the origin is at the centre in
+
+00:04:21.830 --> 00:04:25.735
+there of the normalized device
+coordinate box.
+
+00:04:25.735 --> 00:04:29.055
+And it goes one off to the
+right, one off to the left, one
+
+00:04:29.055 --> 00:04:32.375
+up, one down, one in, one out.
+
+00:04:32.375 --> 00:04:33.895
+Another one is DirectX.
+
+00:04:33.895 --> 00:04:36.215
+And of course Microsoft had
+to do it a little different.
+
+00:04:36.215 --> 00:04:39.530
+The origin is at the
+bottom left hand corner.
+
+00:04:39.530 --> 00:04:43.370
+And then the far diagonal
+corner is a one by one by one.
+
+00:04:43.370 --> 00:04:45.050
+They don't go into
+any negative numbers.
+
+00:04:45.050 --> 00:04:48.628
+And so that just means that
+the perspective matrix has to be
+
+00:04:48.628 --> 00:04:52.205
+completely re-derived for that
+math to work.
+
+00:04:52.205 --> 00:04:54.658
+It ends up being the same thing,
+but it just it's a lot more work
+
+00:04:54.658 --> 00:04:57.112
+in DirectX, unless you're a
+DirectX fan, in which case
+
+00:04:57.112 --> 00:04:59.565
+OpenGL is being the bother.
+
+00:04:59.565 --> 00:05:02.373
+-I like OpenGL because it cross
+platform works
+
+00:05:02.373 --> 00:05:05.180
+with any device you have.
+
+00:05:05.180 --> 00:05:06.680
+-Everybody. 
+-Yeah.
+
+00:05:06.680 --> 00:05:08.180
+I love OpenGL.
+
+00:05:08.180 --> 00:05:10.940
+So yes, the OpenGL NDC box.
+
+00:05:10.940 --> 00:05:13.500
+Yeah. It has a width of two, a
+
+00:05:13.500 --> 00:05:16.060
+height of two, 
+and a depth of two.
+
+00:05:16.060 --> 00:05:18.425
+And the number two always throws
+me off because this is supposed
+
+00:05:18.425 --> 00:05:20.185
+to be normalized, right?
+
+00:05:20.185 --> 00:05:21.785
+And I think of the number one.
+
+00:05:21.785 --> 00:05:25.225
+-See, that's why I kept
+not saying it's too wide.
+
+00:05:25.225 --> 00:05:28.433
+The origin's at the centre,
+and
+
+00:05:28.433 --> 00:05:31.640
+it's a one by one by one 
+by one box.
+
+00:05:31.640 --> 00:05:33.880
+It is normalized.
+
+00:05:33.880 --> 00:05:35.380
+-Yes. Okay.
+
+00:05:35.380 --> 00:05:38.280
+So if I think about the planes
+of this box, so the top plane,
+
+00:05:38.280 --> 00:05:41.421
+that is the Y equal to one.
+
+00:05:41.421 --> 00:05:43.400
+That's at the top.
+
+00:05:43.400 --> 00:05:46.505
+And on the bottom of the
+box, Y equal to negative one.
+
+00:05:46.505 --> 00:05:50.185
+Okay. The left and
+right. Okay, let's see.
+
+00:05:50.185 --> 00:05:53.145
+So the right would be
+positive one for x.
+
+00:05:53.145 --> 00:05:56.105
+The left would be
+negative one for x.
+
+00:05:56.105 --> 00:05:58.345
+The thing that gets me is the z.
+
+00:05:58.345 --> 00:06:00.441
+-We're looking into the computer
+
+00:06:00.441 --> 00:06:02.537
+screen down the negative Z axis,
+
+00:06:02.537 --> 00:06:04.634
+positive Z then is
+
+00:06:04.634 --> 00:06:06.730
+coming out at you.
+
+00:06:06.730 --> 00:06:08.330
+-Yes, yes.
+
+00:06:08.330 --> 00:06:10.330
+I'm thinking about the
+right hand rule right now.
+
+00:06:10.330 --> 00:06:13.797
+Whenever you see me doing this,
+I'm thinking, okay, there's my
+
+00:06:13.797 --> 00:06:17.265
+X, there's my y, z.
+
+00:06:17.265 --> 00:06:18.765
+Okay, yes.
+
+00:06:18.765 --> 00:06:20.465
+Z goes towards you.
+
+00:06:20.465 --> 00:06:22.065
+Now for some reason,
+and I want to
+
+00:06:22.065 --> 00:06:23.665
+blame you for this, 
+the NDC box
+
+00:06:23.665 --> 00:06:26.865
+is left handed.
+
+00:06:26.865 --> 00:06:29.040
+Like this.
+
+00:06:29.040 --> 00:06:31.360
+Yeah. So do it like this.
+
+00:06:31.360 --> 00:06:35.120
+So X still goes to the
+right, Y still goes up.
+
+00:06:35.120 --> 00:06:38.240
+But Z is pointing
+towards my nose now.
+
+00:06:38.240 --> 00:06:41.920
+So negative Z is
+the front plane.
+
+00:06:41.920 --> 00:06:43.965
+-Oops.
+
+00:06:43.965 --> 00:06:47.085
+So that occurred a long time ago
+and we've just been living with
+
+00:06:47.085 --> 00:06:50.205
+it until the latest release of,
+well it's not called OpenGL
+
+00:06:50.205 --> 00:06:53.325
+anymore, now it's called Vulkan.
+
+00:06:53.325 --> 00:06:55.499
+And then Vulkan fixed it by
+
+00:06:55.499 --> 00:06:57.673
+making, see if you can do this
+
+00:06:57.673 --> 00:06:59.688
+one with your fingers, 
+they made
+
+00:06:59.688 --> 00:07:01.702
+the y, instead of y going up
+
+00:07:01.702 --> 00:07:05.433
+positive, y goes up 
+negative now.
+
+00:07:05.433 --> 00:07:08.625
+-Oh. That kind of reminds
+me of pixel space.
+
+00:07:08.625 --> 00:07:10.585
+Eventually,
+we're going to get to
+
+00:07:10.585 --> 00:07:12.545
+the screen, 
+and there y is going down.
+
+00:07:12.545 --> 00:07:15.025
+So you think that's what
+Vulkan was thinking?
+
+00:07:15.025 --> 00:07:17.345
+-No. I think they just corrected
+it, and they're right hand rule
+
+00:07:17.345 --> 00:07:19.665
+for the normalized device
+coordinate box.
+
+00:07:19.665 --> 00:07:22.292
+And then what a lot of us
+do that's crazy, we flip it back
+
+00:07:22.292 --> 00:07:26.120
+around in the shader.
+
+00:07:26.120 --> 00:07:29.560
+So, you know, Paul mentioned
+this in one of our conversations
+
+00:07:29.560 --> 00:07:33.000
+that it's kind of arbitrary how
+we set all this stuff up.
+
+00:07:33.000 --> 00:07:34.500
+We just need to be consistent.
+
+00:07:34.500 --> 00:07:37.240
+-Thank you for fixing all the
+mess that we make.
+
+00:07:37.240 --> 00:07:39.135
+-It's what I do.
+
+00:07:39.135 --> 00:07:42.735
+-Personally, I really need to
+know what the Z is because a lot
+
+00:07:42.735 --> 00:07:46.415
+of times I'm not going from NDC
+space to pixel space.
+
+00:07:46.415 --> 00:07:50.415
+In my courses, I have like
+a mouse click on the screen.
+
+00:07:50.415 --> 00:07:53.293
+So I got the mouse click in
+pixel space and I want to get it
+
+00:07:53.293 --> 00:07:56.170
+into NDC space.
+
+00:07:56.170 --> 00:07:58.730
+And I like to click on the
+
+00:07:58.730 --> 00:08:01.210
+front of the...
+ What is it?
+
+00:08:01.210 --> 00:08:02.710
+Like, front plane?
+
+00:08:02.710 --> 00:08:04.210
+-Front clipping plane.
+
+00:08:04.210 --> 00:08:05.710
+-Front clipping plane.
+
+00:08:05.710 --> 00:08:07.210
+-So the front clipping plane.
+
+00:08:07.210 --> 00:08:09.628
+So I have to set the NDC's Z
+coordinate to negative one, just
+
+00:08:09.628 --> 00:08:13.056
+so that my little mouse
+position
+
+00:08:13.056 --> 00:08:16.767
+is at the front of my scene.
+
+00:08:16.767 --> 00:08:20.251
+So we get here
+from camera space.
+
+00:08:20.251 --> 00:08:22.980
+So there's a bunch
+of moves to get here.
+
+00:08:22.980 --> 00:08:25.500
+There's the perspective
+transformation, or we call it
+
+00:08:25.500 --> 00:08:28.260
+projection matrix.
+
+00:08:28.260 --> 00:08:31.678
+There's the perspective
+divide to make things bigger
+
+00:08:31.678 --> 00:08:35.095
+front, smaller back, and then
+you're the NDC box.
+
+00:08:35.095 --> 00:08:38.775
+But the next stage over is the
+one we're looking at behind us.
+
+00:08:38.775 --> 00:08:42.295
+So I really feel like the NDC
+box looks the most similar to
+
+00:08:42.295 --> 00:08:45.495
+what we actually want on the
+screen.
+
+00:08:45.495 --> 00:08:46.995
+-This is what we want.
+
+00:08:46.995 --> 00:08:48.495
+That is what you're
+seeing on the screen.
+
+00:08:48.495 --> 00:08:50.589
+-Wow. So when you're 
+setting up
+
+00:08:50.589 --> 00:08:52.683
+the NDC box, 
+I imagine from the
+
+00:08:52.683 --> 00:08:55.229
+projection matrix, 
+you need to
+
+00:08:55.229 --> 00:08:58.710
+know the aspect ratio 
+of your window.
+
+00:08:58.710 --> 00:09:01.030
+-And I'm going to pull that up
+from what's called the viewport.
+
+00:09:01.030 --> 00:09:03.965
+The viewport is the window
+that I'm looking at.
+
+00:09:03.965 --> 00:09:06.645
+And this will be flattened one
+more time by dividing through by
+
+00:09:06.645 --> 00:09:09.085
+z this time.
+
+00:09:09.085 --> 00:09:10.685
+And then that divides by z.
+
+00:09:10.685 --> 00:09:12.685
+That brings you to a
+two dimensional space.
+
+00:09:12.685 --> 00:09:15.777
+And that's what we're
+looking at because these things
+
+00:09:15.777 --> 00:09:18.870
+are computer screens and they're
+necessarily two dimensional.
+
+00:09:18.870 --> 00:09:22.550
+-Yeah. So do we use the
+Z information at all?
+
+00:09:22.550 --> 00:09:23.803
+-Yeah. I save that 
+just so I know
+
+00:09:23.803 --> 00:09:25.057
+how deep something is, 
+rendering
+
+00:09:25.057 --> 00:09:27.563
+things so that the objects in
+the back
+
+00:09:27.563 --> 00:09:30.070
+are obscured by objects
+up front.
+
+00:09:30.070 --> 00:09:31.570
+And how do I know
+how to do that?
+
+00:09:31.570 --> 00:09:33.725
+Well, we keep track
+of how deep it was.
+
+00:09:33.725 --> 00:09:36.245
+-Oh, because 
+I see this croissant
+
+00:09:36.245 --> 00:09:38.765
+is in front of the 
+back wall there.
+
+00:09:38.765 --> 00:09:42.285
+-If I didn't keep track of that
+in what's called a depth buffer,
+
+00:09:42.285 --> 00:09:45.805
+then the back wall might be in
+front of the croissant.
+
+00:09:45.805 --> 00:09:48.708
+And that would look bad.
+
+00:09:48.708 --> 00:09:51.140
+-Yeah. That would be weird.
+
+00:09:51.140 --> 00:09:53.220
+-So we just keep track of it, 
+but in order to
+
+00:09:53.220 --> 00:09:54.720
+project it onto the
+computer screen,
+
+00:09:54.720 --> 00:09:56.240
+I got to lose
+that third dimension.
+
+00:09:56.240 --> 00:09:57.740
+-Right. Okay.
+
+00:09:57.740 --> 00:10:00.000
+So maybe we could
+summarize this box.
+
+00:10:00.000 --> 00:10:01.625
+Thank you, Cassidy.
+
+00:10:01.625 --> 00:10:03.125
+This is great.
+
+00:10:03.125 --> 00:10:04.625
+I don't usually get to see an
+NDC box, because doesn't this
+
+00:10:04.625 --> 00:10:07.085
+happen on the GPU?
+
+00:10:07.085 --> 00:10:08.605
+-Yeah. This is inside the GPU.
+
+00:10:08.605 --> 00:10:09.965
+This is the memory that's
+
+00:10:09.965 --> 00:10:11.325
+actually going to end up 
+on the screen.
+
+00:10:11.325 --> 00:10:13.565
+-Wow. And it's a tiny box.
+
+00:10:13.565 --> 00:10:17.540
+It only has a width, a height,
+and a depth of two units.
+
+00:10:17.540 --> 00:10:19.940
+-So it's one by
+one by one by one.
+
+00:10:19.940 --> 00:10:21.440
+-If you start middle.
+
+00:10:21.440 --> 00:10:23.240
+Yes. The origin's in the middle.
+
+00:10:23.240 --> 00:10:24.740
+It's left handed.
+
+00:10:24.740 --> 00:10:26.580
+-Sorry. 
+-That's okay.
+
+00:10:26.580 --> 00:10:28.080
+We can figure it out.
+
+00:10:28.080 --> 00:10:31.995
+But to get to NDC space, you
+start over in camera space.
+
+00:10:31.995 --> 00:10:34.855
+You do a projection matrix, a
+perspective divide, you end up
+
+00:10:34.855 --> 00:10:37.715
+here, and then this is pretty
+much the final jump of the
+
+00:10:37.715 --> 00:10:40.575
+rendering process, the pipeline,
+I like to say,
+
+00:10:40.575 --> 00:10:43.435
+to jump over to
+the screen.
+
+00:10:43.435 --> 00:10:45.515
+And you can kind of
+see it coming together.
+
+00:10:45.515 --> 00:10:47.180
+Like it's ready to go.
+
+00:10:47.180 --> 00:10:48.680
+It's just too small.
+
+00:10:48.680 --> 00:10:51.500
+Just need to like scale it
+up, move it a little bit.
+
+00:10:51.500 --> 00:10:53.420
+Maybe in the next video, we'll
+talk about how we can get this
+
+00:10:53.420 --> 00:10:55.340
+to the screen.
+
+00:10:55.340 --> 00:10:56.840
+-Oh dear, okay.
+
+00:10:56.840 --> 00:10:58.340
+That's hardware.

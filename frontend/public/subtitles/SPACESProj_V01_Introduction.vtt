@@ -1,0 +1,704 @@
+WEBVTT
+
+1
+00:00:00.069 --> 00:00:02.200
+- So Paul, Scott.
+- Hey, guys.
+
+2
+00:00:02.200 --> 00:00:04.099
+- How are your
+classes going?
+
+3
+00:00:04.099 --> 00:00:05.633
+- They're going really well.
+
+4
+00:00:05.633 --> 00:00:07.786
+We're working on a massive
+game project, Scott and I,
+
+5
+00:00:07.786 --> 00:00:10.696
+with about 100 students from two
+campuses and three programs,
+
+6
+00:00:10.696 --> 00:00:13.599
+so it's been pretty cool.
+- What do you think, Scott?
+
+7
+00:00:13.599 --> 00:00:16.600
+- I think it's a fun disaster.
+
+8
+00:00:16.600 --> 00:00:18.660
+Oh, Umer, you'd really enjoy
+working with us.
+
+9
+00:00:18.660 --> 00:00:20.539
+It's all emotion,
+it's all fun.
+
+10
+00:00:20.539 --> 00:00:23.320
+Everybody's having a ball.
+It's really great. I love it.
+
+11
+00:00:23.320 --> 00:00:25.200
+- I feel like you were just
+about to say the word sadistic.
+
+12
+00:00:25.200 --> 00:00:26.760
+- A little bit.
+
+13
+00:00:26.760 --> 00:00:28.700
+[laughing]
+
+14
+00:00:28.700 --> 00:00:30.259
+That's what education's
+all about,
+
+15
+00:00:30.259 --> 00:00:31.949
+learning things,
+learning new things.
+
+16
+00:00:31.949 --> 00:00:34.659
+- And whose idea was it
+to come to this coffee shop?
+
+17
+00:00:34.659 --> 00:00:36.280
+Not been here before.
+
+18
+00:00:36.280 --> 00:00:38.439
+- Well, I think it
+was Cassidy's idea.
+
+19
+00:00:38.439 --> 00:00:40.322
+She's the one that
+made it in 3D,
+
+20
+00:00:40.322 --> 00:00:42.600
+so this is actually
+a virtual production.
+
+21
+00:00:42.600 --> 00:00:44.100
+- What?
+
+22
+00:00:44.100 --> 00:00:46.560
+- It's all fake, Umer.
+
+23
+00:00:46.560 --> 00:00:48.539
+It's all fake.
+It's all phony.
+
+24
+00:00:48.539 --> 00:00:50.475
+Nothing's real,
+and that's what we
+
+25
+00:00:50.475 --> 00:00:52.986
+want to talk a lot
+about in this series,
+
+26
+00:00:52.986 --> 00:00:55.469
+how the math makes
+all this stuff come about,
+
+27
+00:00:55.469 --> 00:00:57.954
+how all the math
+makes this stuff
+
+28
+00:00:57.954 --> 00:01:00.822
+appear to be real.
+
+29
+00:01:00.822 --> 00:01:03.072
+- You know, when we're building
+models in 3D as artists,
+
+30
+00:01:03.072 --> 00:01:04.600
+we want to be able to place the
+pivot usually at the bottom
+
+31
+00:01:04.600 --> 00:01:06.133
+of something like this.
+
+32
+00:01:06.133 --> 00:01:07.869
+Part of the reason being
+is, is that, you know,
+
+33
+00:01:07.869 --> 00:01:10.070
+in a application
+like Unreal Engine,
+
+34
+00:01:10.070 --> 00:01:12.594
+when we put it down, it'll
+actually snap to surfaces
+
+35
+00:01:12.594 --> 00:01:14.420
+and be in the right place.
+
+36
+00:01:14.420 --> 00:01:16.959
+If it passes halfway into
+the table, it's a pain.
+
+37
+00:01:16.959 --> 00:01:19.219
+We're now moving
+everything back up.
+
+38
+00:01:19.219 --> 00:01:22.252
+- You get kind of an offset.
+What you really want...
+
+39
+00:01:22.252 --> 00:01:24.471
+What we want is for
+the centre of mass
+
+40
+00:01:24.471 --> 00:01:26.219
+to be the origin.
+
+41
+00:01:26.219 --> 00:01:28.859
+That way if it spins, rotates,
+and all that, it's not...
+
+42
+00:01:28.859 --> 00:01:30.867
+If we use your origin,
+
+43
+00:01:30.867 --> 00:01:33.950
+then it's going to flip around
+in some goofy-looking way,
+
+44
+00:01:33.950 --> 00:01:36.363
+and that's not going to work, so
+we actually need two origins.
+
+45
+00:01:36.363 --> 00:01:39.255
+- That's why we actually rig
+things for animation, because
+
+46
+00:01:39.255 --> 00:01:42.719
+what we'd do is we'd have the
+cup, and it would have a base
+
+47
+00:01:42.719 --> 00:01:46.099
+here, and we'd usually have
+sort of a main control object
+
+48
+00:01:46.099 --> 00:01:48.393
+that represents where
+the base of it is.
+
+49
+00:01:48.393 --> 00:01:50.033
+And then we would put pivots.
+
+50
+00:01:50.033 --> 00:01:51.983
+For instance, you want to
+be able to pivot
+
+51
+00:01:51.983 --> 00:01:53.694
+where the handle is, 
+you want to be able to have
+
+52
+00:01:53.694 --> 00:01:56.792
+some other pivot point,
+and we'd have multiple
+
+53
+00:01:56.792 --> 00:01:59.079
+control spots on it 
+to be able to get
+
+54
+00:01:59.079 --> 00:02:01.299
+the types of animation we're
+looking for, because we're not
+
+55
+00:02:01.299 --> 00:02:03.540
+doing it mathematically.
+
+56
+00:02:03.540 --> 00:02:06.480
+- Yeah, now, I know you argue
+with Paul about his decision to
+
+57
+00:02:06.480 --> 00:02:09.648
+put the origin there, but I
+don't mind, because my space
+
+58
+00:02:09.648 --> 00:02:11.460
+is world space.
+
+59
+00:02:11.460 --> 00:02:15.150
+I decide where the coffee cup
+goes, how it's oriented,
+
+60
+00:02:15.150 --> 00:02:16.719
+how big it is.
+
+61
+00:02:16.719 --> 00:02:19.395
+Also, in world space, you
+have a camera,
+
+62
+00:02:19.395 --> 00:02:21.699
+a camera that's
+looking at the cup.
+
+63
+00:02:21.699 --> 00:02:23.740
+Now, I know, Scott, you...
+- No, you don't have a camera.
+
+64
+00:02:23.740 --> 00:02:26.483
+Your eyeball is the camera
+looking at the object.
+
+65
+00:02:26.483 --> 00:02:28.532
+If you're going to say,
+"Move the object around,"
+
+66
+00:02:28.532 --> 00:02:30.060
+well, you're not moving
+the object around,
+
+67
+00:02:30.060 --> 00:02:31.831
+you're moving the
+universe around.
+
+68
+00:02:31.831 --> 00:02:33.333
+That's what you're
+really moving.
+
+69
+00:02:33.333 --> 00:02:36.075
+So there is no camera.
+We just make that up.
+
+70
+00:02:36.075 --> 00:02:38.348
+- As artists, we have a
+physical camera,
+
+71
+00:02:38.348 --> 00:02:39.872
+but I guess mathematically,
+
+72
+00:02:39.872 --> 00:02:41.739
+that gets translated
+into that...
+
+73
+00:02:41.739 --> 00:02:44.370
+- I love picking on your artist
+people, because they show me,
+
+74
+00:02:44.370 --> 00:02:45.900
+"Hey, this is where
+the camera is."
+
+75
+00:02:45.900 --> 00:02:48.719
+So what are you looking
+at the camera with?
+
+76
+00:02:48.719 --> 00:02:50.520
+- Another camera.
+- Another camera, yeah.
+
+77
+00:02:50.520 --> 00:02:52.780
+Oh, you guys,
+there is no camera.
+
+78
+00:02:52.780 --> 00:02:55.259
+You're looking at a computer
+screen with your eyeballs.
+
+79
+00:02:55.259 --> 00:02:56.800
+- Fair enough.
+
+80
+00:02:56.800 --> 00:02:58.800
+- So your eyes are the origin,
+we're looking at the front
+
+81
+00:02:58.800 --> 00:03:00.834
+clipping plane, that is the
+monitor,
+
+82
+00:03:00.834 --> 00:03:02.400
+and it goes off
+into space from there.
+
+83
+00:03:02.400 --> 00:03:05.039
+That's as simple as it goes.
+- Let me interrupt you there.
+
+84
+00:03:05.039 --> 00:03:06.680
+You mentioned clipping space.
+
+85
+00:03:06.680 --> 00:03:08.979
+Now, the important thing with
+a camera is that,
+
+86
+00:03:08.979 --> 00:03:11.034
+say you were looking at
+these two cups,
+
+87
+00:03:11.034 --> 00:03:13.000
+and this one is off-camera.
+
+88
+00:03:13.000 --> 00:03:14.520
+You don't want to see this one,
+
+89
+00:03:14.520 --> 00:03:17.099
+so the next space on from
+
+90
+00:03:17.099 --> 00:03:19.128
+camera space, where the camera
+doesn't exist,
+
+91
+00:03:19.128 --> 00:03:21.285
+is to put this cup
+in a box,
+
+92
+00:03:21.285 --> 00:03:23.300
+the NDC box.
+
+93
+00:03:23.300 --> 00:03:26.025
+Anything outside
+the box, don't render.
+
+94
+00:03:26.025 --> 00:03:28.939
+- The normalized
+device coordinates.
+
+95
+00:03:28.939 --> 00:03:31.709
+That's what NDC stands for.
+- I'm glad you said that.
+
+96
+00:03:31.709 --> 00:03:34.474
+And then the final space, where
+finally we get to
+
+97
+00:03:34.474 --> 00:03:36.475
+see your beautiful arts,
+
+98
+00:03:36.475 --> 00:03:39.689
+is screen space.
+
+99
+00:03:39.689 --> 00:03:41.434
+- Very good.
+
+100
+00:03:41.434 --> 00:03:43.764
+- Now, your idea for these
+
+101
+00:03:43.764 --> 00:03:45.719
+set of
+videos is something about
+
+102
+00:03:45.719 --> 00:03:47.630
+a map from, like,
+
+103
+00:03:47.630 --> 00:03:50.033
+learners can
+see different parts
+
+104
+00:03:50.033 --> 00:03:51.600
+of this mathematics
+we're talking about.
+
+105
+00:03:51.600 --> 00:03:53.143
+Can you speak a
+little bit about that?
+
+106
+00:03:53.143 --> 00:03:55.789
+- Yeah, every part of all the
+math that we're doing,
+
+107
+00:03:55.789 --> 00:03:57.855
+every part of it,
+it doesn't have to be
+
+108
+00:03:57.855 --> 00:03:59.490
+learned from the very basics
+
+109
+00:03:59.490 --> 00:04:01.265
+of here's a point, here's a
+line,
+
+110
+00:04:01.265 --> 00:04:03.361
+a line makes a plane,
+and going on,
+
+111
+00:04:03.361 --> 00:04:05.039
+because no one
+wants to hear that anymore.
+
+112
+00:04:05.039 --> 00:04:07.602
+What you'd like to do is to be
+able to jump into the middle
+
+113
+00:04:07.602 --> 00:04:10.039
+of a web of knowledge
+and be able to
+
+114
+00:04:10.039 --> 00:04:12.240
+dig around and look at what
+you want.
+
+115
+00:04:12.240 --> 00:04:13.759
+Why are there imaginary numbers?
+
+116
+00:04:13.759 --> 00:04:15.266
+How do they help you rotate?
+
+117
+00:04:15.266 --> 00:04:17.000
+How do they help you
+shift things around?
+
+118
+00:04:17.000 --> 00:04:18.811
+There's a lot of information,
+
+119
+00:04:18.811 --> 00:04:20.501
+but doing it in
+a linear fashion,
+
+120
+00:04:20.501 --> 00:04:23.017
+there is no linear
+pathway to all this math,
+
+121
+00:04:23.017 --> 00:04:25.698
+and that's what makes this stuff
+so exciting to work with.
+
+122
+00:04:25.698 --> 00:04:28.315
+- And I'm glad you mentioned the
+word math, because to go
+
+123
+00:04:28.315 --> 00:04:31.020
+between these spaces
+is going to need matrices,
+
+124
+00:04:31.020 --> 00:04:33.270
+it's going to need vectors,
+
+125
+00:04:33.270 --> 00:04:36.240
+and my favorite, quaternion.
+- That's quaternions.
+
+126
+00:04:36.240 --> 00:04:38.109
+- Yeah, how else do you rotate
+your cup of coffee
+
+127
+00:04:38.109 --> 00:04:39.750
+so that you can drink it?
+
+128
+00:04:39.750 --> 00:04:41.860
+- With a rotation matrix.
+
+129
+00:04:41.860 --> 00:04:43.600
+- Well, yeah, I guess.
+
+130
+00:04:43.600 --> 00:04:45.462
+- Or an Euler, and then
+it gimbal locks on you,
+
+131
+00:04:45.462 --> 00:04:47.240
+and you spill it in your lap.
+
+132
+00:04:47.240 --> 00:04:49.306
+- Well, the gimbal lock then can
+be, you know,
+
+133
+00:04:49.306 --> 00:04:51.210
+fixed by his quaternions.
+
+134
+00:04:51.210 --> 00:04:53.120
+But ultimately,
+you're going to come back to me
+
+135
+00:04:53.120 --> 00:04:55.503
+with a rotation matrix.
+Just get over it.
+
+136
+00:04:55.503 --> 00:04:57.066
+- Well, what if you wanted to
+
+137
+00:04:57.066 --> 00:04:58.600
+rotate the cup
+towards your face?
+
+138
+00:04:58.600 --> 00:05:00.800
+Wouldn't that...
+Wouldn't a slurp help?
+
+139
+00:05:00.800 --> 00:05:04.500
+[laughing]
+
+140
+00:05:04.500 --> 00:05:05.620
+- Cut!
+
+141
+00:05:05.620 --> 00:05:07.170
+- Talking of slurp.
+
+142
+00:05:07.170 --> 00:05:09.395
+This is perfect.
+
+143
+00:05:09.395 --> 00:05:12.360
+- Everybody stop laughing.
+
+144
+00:05:12.360 --> 00:05:14.319
+- Oh, my God.
+
+145
+00:05:14.319 --> 00:05:17.139
+- Cory's going to kill you.
+His floor was clean.
+
+146
+00:05:17.139 --> 00:05:19.389
+You got a class, don't you?
+- I got a class.
+
+147
+00:05:19.389 --> 00:05:22.620
+I think this is a good
+cue for me to take off, guys.
+
+148
+00:05:22.620 --> 00:05:24.420
+Thank you very much.
+Thanks, great seeing you.
+
+149
+00:05:24.420 --> 00:05:26.360
+- Thank you.
+
+150
+00:05:26.360 --> 00:05:28.367
+- Oh, wow!

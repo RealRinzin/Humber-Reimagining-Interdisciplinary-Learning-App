@@ -1,11 +1,10 @@
-import Footer from "@/components/layout/Footer";
-import DesktopNavigation from "@/components/ui/navigation/Desktop";
+
 import Link from "next/link";
 
 export default function NotFound() {
   return (
     <>
-      <DesktopNavigation/>
+
       <main className="h-screen flex flex-col justify-center items-center">
           <div className="flex flex-col justify-center gap-y-4">
             <h1 className="text-9xl font-bold text-gray-400">404</h1>
@@ -13,7 +12,6 @@ export default function NotFound() {
             <Link href="/" className="bg-gray-600 text-white rounded-xl py-2 px-2 text-center w-fit ">Go Home</Link>
           </div>
       </main>
-      <Footer />
     </>
   );
 }

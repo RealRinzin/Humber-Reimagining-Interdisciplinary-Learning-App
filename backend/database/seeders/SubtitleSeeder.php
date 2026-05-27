@@ -14,7 +14,10 @@ class SubtitleSeeder extends Seeder
     public function run(): void
     {
         //
-        Subtitle::factory()->count(config('app.seeder_count'))->create();
+        // Subtitle::factory()->count(config('app.seeder_count'))->create();
 
+        $json = file_get_contents(database_path('data/subtitle.json'));
+        $subtitles = json_decode($json, true); // pass true for associative array
+        Subtitle::insert($subtitles);
     }
 }

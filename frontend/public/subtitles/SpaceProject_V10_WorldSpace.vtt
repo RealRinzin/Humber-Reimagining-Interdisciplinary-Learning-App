@@ -1,0 +1,961 @@
+WEBVTT
+
+1
+00:00:00.160 --> 00:00:03.440
+- So, yeah, you're in this
+space a lot, like this room.
+
+2
+00:00:03.446 --> 00:00:06.315
+- Yes, I've set up
+shop here for
+
+3
+00:00:06.315 --> 00:00:08.097
+my last semester at Humber.
+
+4
+00:00:08.097 --> 00:00:09.779
+- Yep, cool.
+
+5
+00:00:09.779 --> 00:00:11.390
+Well, the space
+we're talking about
+
+6
+00:00:11.390 --> 00:00:13.436
+today is your space, Cassidy.
+
+7
+00:00:13.436 --> 00:00:15.115
+World space.
+
+8
+00:00:15.115 --> 00:00:16.815
+So just like...
+
+9
+00:00:16.815 --> 00:00:18.395
+Was it like five days ago?
+
+10
+00:00:18.395 --> 00:00:21.274
+I said to you, can you
+make a coffee shop?
+
+11
+00:00:21.274 --> 00:00:23.030
+And then you made this.
+
+12
+00:00:23.030 --> 00:00:24.592
+- Yes.
+- How did you do this?
+
+13
+00:00:24.592 --> 00:00:26.820
+- Well, luckily,
+Unreal Engine
+
+14
+00:00:26.820 --> 00:00:29.286
+has a library
+
+15
+00:00:29.286 --> 00:00:32.144
+of a lot of assets
+that you can pull from.
+
+16
+00:00:32.144 --> 00:00:34.746
+There is no way that I would be
+able to model and texture
+
+17
+00:00:34.746 --> 00:00:37.111
+all of this in
+just five days.
+
+18
+00:00:37.111 --> 00:00:40.063
+Luckily, get to just play
+a little bit of Sims,
+
+19
+00:00:40.063 --> 00:00:43.199
+put some assets together,
+and make a nice environment,
+
+20
+00:00:43.199 --> 00:00:45.338
+and really focus in
+on the details
+
+21
+00:00:45.338 --> 00:00:47.099
+to sell the scene.
+
+22
+00:00:47.099 --> 00:00:50.055
+- Right. How many objects
+do you have in here?
+
+23
+00:00:50.055 --> 00:00:53.630
+- Well, that's a good question.
+There's...
+
+24
+00:00:53.630 --> 00:00:55.867
+Probably started out with
+
+25
+00:00:55.867 --> 00:00:58.576
+a pack of 20 assets that,
+from there,
+
+26
+00:00:58.576 --> 00:01:01.690
+I split them apart
+to make new things.
+
+27
+00:01:01.690 --> 00:01:03.633
+So right now,
+there's probably
+
+28
+00:01:03.633 --> 00:01:06.075
+about a 100 in there
+
+29
+00:01:06.075 --> 00:01:09.188
+that I've, you know,
+divided based off of
+
+30
+00:01:09.188 --> 00:01:12.534
+their vertex grouping
+or material IDs
+
+31
+00:01:12.534 --> 00:01:14.055
+and everything like that.
+
+32
+00:01:14.055 --> 00:01:15.568
+- And are you, like...
+
+33
+00:01:15.568 --> 00:01:17.255
+Like, say you've got
+one muffin.
+
+34
+00:01:17.255 --> 00:01:19.895
+Are you, like,
+multiplying the muffins
+
+35
+00:01:19.895 --> 00:01:22.535
+to set up the pastry part?
+
+36
+00:01:22.535 --> 00:01:24.571
+- Yes.
+Yeah, yeah.
+
+37
+00:01:24.571 --> 00:01:27.600
+Just copying, pasting,
+pretty much, yeah.
+
+38
+00:01:27.600 --> 00:01:30.147
+And just making sure, you know,
+little details,
+
+39
+00:01:30.147 --> 00:01:33.605
+like they're not all facing
+the exact same direction.
+
+40
+00:01:33.605 --> 00:01:35.288
+And, you know,
+want to scale them,
+
+41
+00:01:35.288 --> 00:01:37.658
+by just a little bit
+here and there to,
+
+42
+00:01:37.663 --> 00:01:39.541
+you know, make sure that
+
+43
+00:01:39.541 --> 00:01:42.723
+it's not just a copy
+right after another.
+
+44
+00:01:42.730 --> 00:01:44.605
+- And you mentioned Unreal.
+
+45
+00:01:44.605 --> 00:01:46.658
+This is the software
+
+46
+00:01:46.658 --> 00:01:48.797
+you're using to build this?
+
+47
+00:01:48.797 --> 00:01:51.785
+- Yes, Unreal Engine is
+the main software
+
+48
+00:01:51.785 --> 00:01:54.610
+that I used to build this.
+
+49
+00:01:54.610 --> 00:01:56.737
+If I was modelling all of this,
+we'd have to use
+
+50
+00:01:56.737 --> 00:01:59.310
+a secondary
+modelling software.
+
+51
+00:01:59.310 --> 00:02:02.301
+Usually, 3ds Max is my go-to,
+
+52
+00:02:02.301 --> 00:02:06.224
+or Maya as well, if I'm
+doing some rigging.
+
+53
+00:02:06.224 --> 00:02:08.651
+- Okay, so the whole thing about
+world space is that you have
+
+54
+00:02:08.651 --> 00:02:11.667
+these models that have been
+brought into your world,
+
+55
+00:02:11.667 --> 00:02:14.886
+and you've decided
+the size of the models,
+
+56
+00:02:14.886 --> 00:02:18.105
+their orientation,
+also where they are.
+
+57
+00:02:18.105 --> 00:02:20.065
+So how did you choose
+
+58
+00:02:20.065 --> 00:02:22.790
+where things go
+and how big they should be?
+
+59
+00:02:22.790 --> 00:02:25.431
+- It's always good
+to start with
+
+60
+00:02:25.431 --> 00:02:27.686
+a set scale.
+
+61
+00:02:27.686 --> 00:02:29.883
+So usually what I do
+is I kind of
+
+62
+00:02:29.883 --> 00:02:32.105
+pull out just
+a proxy object,
+
+63
+00:02:32.105 --> 00:02:34.640
+set it to the average
+height of a human,
+
+64
+00:02:34.640 --> 00:02:37.132
+and then I work off of that
+just to make sure
+
+65
+00:02:37.132 --> 00:02:40.596
+that everything is
+proper scale to,
+
+66
+00:02:40.596 --> 00:02:43.606
+you know, the world side,
+the world space.
+
+67
+00:02:43.606 --> 00:02:46.508
+And, you know, we're humans,
+
+68
+00:02:46.520 --> 00:02:49.118
+so we need it to be
+human sizes.
+
+69
+00:02:49.118 --> 00:02:51.830
+- And I remember you showing
+me the size of the muffin.
+
+70
+00:02:51.830 --> 00:02:53.677
+When you brought
+a muffin in here,
+
+71
+00:02:53.677 --> 00:02:55.910
+it looked like it was
+the size of the coffee shop.
+
+72
+00:02:55.910 --> 00:02:57.485
+- Yes. Yeah.
+
+73
+00:02:57.485 --> 00:02:59.338
+So sometimes,
+
+74
+00:02:59.338 --> 00:03:01.751
+people can model objects,
+
+75
+00:03:01.751 --> 00:03:04.202
+and their default size
+
+76
+00:03:04.202 --> 00:03:05.708
+can be different.
+
+77
+00:03:05.708 --> 00:03:08.309
+So if I bring in one object,
+
+78
+00:03:08.309 --> 00:03:10.878
+a one-to-one-to-one
+scale may
+
+79
+00:03:10.878 --> 00:03:13.378
+fill up the entire room,
+
+80
+00:03:13.378 --> 00:03:15.117
+whereas another object,
+
+81
+00:03:15.117 --> 00:03:18.495
+it'll be the correct
+size and scale to us.
+
+82
+00:03:18.495 --> 00:03:21.572
+- Now why would an artist
+make a muffin that big?
+
+83
+00:03:21.572 --> 00:03:23.272
+What what was going
+through their minds?
+
+84
+00:03:23.272 --> 00:03:26.113
+- If you're making a very
+highly detailed model
+
+85
+00:03:26.113 --> 00:03:28.898
+with a lot of, you know,
+faces and everything,
+
+86
+00:03:28.898 --> 00:03:30.403
+you probably want to
+scale it up.
+
+87
+00:03:30.403 --> 00:03:32.868
+If you get zoom in too close
+when you're modelling something,
+
+88
+00:03:32.868 --> 00:03:35.510
+you can't really see what
+you're working on anymore.
+
+89
+00:03:35.510 --> 00:03:38.165
+- Now, there's something very
+controversial in this scene.
+
+90
+00:03:38.165 --> 00:03:41.045
+You have something
+called a camera.
+
+91
+00:03:41.045 --> 00:03:43.135
+And I know you're
+not too happy, about it.
+
+92
+00:03:43.135 --> 00:03:45.845
+But you've decide...
+I can see your camera there.
+
+93
+00:03:45.845 --> 00:03:47.648
+So why did you choose
+
+94
+00:03:47.648 --> 00:03:50.459
+that location and orientation
+
+95
+00:03:50.459 --> 00:03:53.147
+for that camera?
+
+96
+00:03:53.147 --> 00:03:55.134
+- Well, first of all,
+you want to kind of decide
+
+97
+00:03:55.134 --> 00:03:57.484
+what your focal point of the
+background is going to be,
+
+98
+00:03:57.484 --> 00:03:59.204
+and work off of that.
+
+99
+00:03:59.204 --> 00:04:02.048
+So I knew that we really
+wanted to have these
+
+100
+00:04:02.048 --> 00:04:05.275
+blackboards in the back
+with the chalk.
+
+101
+00:04:05.275 --> 00:04:08.175
+So I had to set up a camera
+
+102
+00:04:08.175 --> 00:04:11.583
+that would, you know, 
+highlight that.
+
+103
+00:04:11.583 --> 00:04:14.395
+And then I built the rest
+of the world around it.
+
+104
+00:04:14.395 --> 00:04:16.764
+Because, you know, you don't
+want to build an entire world
+
+105
+00:04:16.764 --> 00:04:20.290
+only to see a portion of it.
+
+106
+00:04:20.290 --> 00:04:23.072
+It's a waste of time,
+a waste of,
+
+107
+00:04:23.072 --> 00:04:25.570
+you know,
+engine power as well.
+
+108
+00:04:25.570 --> 00:04:28.164
+- You can hear it right now.
+- Yeah, exactly
+
+109
+00:04:28.164 --> 00:04:29.919
+Yeah, so...
+
+110
+00:04:29.919 --> 00:04:31.812
+But, you know, you do want
+options as well.
+
+111
+00:04:31.812 --> 00:04:35.379
+- How do you move the camera?
+
+112
+00:04:35.379 --> 00:04:37.806
+- Left, right, up, down.
+
+113
+00:04:37.806 --> 00:04:39.445
+Yep.
+
+114
+00:04:39.445 --> 00:04:42.053
+Just the basic, you know,
+
+115
+00:04:42.053 --> 00:04:45.150
+axis that you usually use.
+
+116
+00:04:45.150 --> 00:04:48.364
+I'm sure you would
+have an explanation.
+
+117
+00:04:48.364 --> 00:04:50.914
+- So you have an image
+
+118
+00:04:50.914 --> 00:04:53.230
+of the camera behind us.
+
+119
+00:04:53.230 --> 00:04:55.070
+What are you looking
+at that camera with?
+
+120
+00:04:55.070 --> 00:04:56.912
+- My eyes.
+- Oh, okay.
+
+121
+00:04:56.912 --> 00:04:59.002
+- I know what you're
+going to say.
+
+122
+00:04:59.002 --> 00:05:01.402
+- Now, I sit in Scott's
+classes a lot.
+
+123
+00:05:01.402 --> 00:05:03.242
+You talk about lighting,
+
+124
+00:05:03.242 --> 00:05:05.255
+how light bounces off objects.
+
+125
+00:05:05.255 --> 00:05:06.927
+And I noticed in the scene,
+
+126
+00:05:06.927 --> 00:05:08.506
+I see all these light bulbs.
+
+127
+00:05:08.506 --> 00:05:11.495
+Like, could you explain a little
+bit what's going on with it?
+
+128
+00:05:11.495 --> 00:05:14.179
+- Yeah, so in Unreal Engine,
+you usually
+
+129
+00:05:14.179 --> 00:05:16.433
+have a main directional light
+that kind of
+
+130
+00:05:16.433 --> 00:05:18.730
+acts as your sun.
+
+131
+00:05:18.730 --> 00:05:21.240
+But that's not going to cover
+your entire scene
+
+132
+00:05:21.240 --> 00:05:23.880
+because all of these objects
+are casting shadows,
+
+133
+00:05:23.880 --> 00:05:26.387
+receiving light from
+others' reflections,
+
+134
+00:05:26.387 --> 00:05:28.082
+everything like that.
+
+135
+00:05:28.082 --> 00:05:30.874
+So all of these light bulbs
+are supplementary lights
+
+136
+00:05:30.874 --> 00:05:32.728
+that I've had to add in,
+
+137
+00:05:32.728 --> 00:05:35.675
+to fake realism.
+
+138
+00:05:35.675 --> 00:05:37.536
+You know, the engine is
+
+139
+00:05:37.536 --> 00:05:39.698
+calculating what all of
+
+140
+00:05:39.698 --> 00:05:41.898
+the lights, like, here and
+everything would look,
+
+141
+00:05:41.898 --> 00:05:44.480
+but sometimes it
+doesn't do it justice.
+
+142
+00:05:44.480 --> 00:05:47.030
+You need to add...
+
+143
+00:05:47.030 --> 00:05:48.870
+Like you see right here,
+
+144
+00:05:48.870 --> 00:05:51.249
+this little coffee machine,
+
+145
+00:05:51.249 --> 00:05:53.248
+there is a light right
+in front of that.
+
+146
+00:05:53.248 --> 00:05:54.788
+- Oh, wow.
+
+147
+00:05:54.788 --> 00:05:57.041
+- That you wouldn't
+really think...
+
+148
+00:05:57.041 --> 00:05:58.592
+You'd think, oh,
+that reflection's
+
+149
+00:05:58.592 --> 00:06:00.205
+coming from the
+light bulb up there.
+
+150
+00:06:00.205 --> 00:06:03.206
+But unfortunately,
+I can't...
+
+151
+00:06:03.206 --> 00:06:05.880
+I can't make that light source
+
+152
+00:06:05.880 --> 00:06:08.618
+large enough to reach down there
+
+153
+00:06:08.618 --> 00:06:10.830
+while also, you know,
+having to worry
+
+154
+00:06:10.830 --> 00:06:12.900
+about frames per second
+and everything like that.
+
+155
+00:06:12.900 --> 00:06:14.684
+- Oh, that's true.
+Frames per second.
+
+156
+00:06:14.684 --> 00:06:16.340
+Why is that a problem?
+
+157
+00:06:16.340 --> 00:06:18.820
+- Because we're filming
+
+158
+00:06:18.820 --> 00:06:20.542
+with cameras and everything.
+
+159
+00:06:20.542 --> 00:06:22.082
+- Yeah, I see one there.
+
+160
+00:06:22.082 --> 00:06:24.555
+- Luckily, it's a little bit
+
+161
+00:06:24.555 --> 00:06:26.672
+not as important
+that we have
+
+162
+00:06:26.672 --> 00:06:28.235
+a high frame rate.
+
+163
+00:06:28.235 --> 00:06:30.587
+It at least needs
+to be 24 frames
+
+164
+00:06:30.587 --> 00:06:32.560
+for this one here.
+
+165
+00:06:32.560 --> 00:06:34.684
+But in games and, you know,
+
+166
+00:06:34.684 --> 00:06:37.883
+high-production films,
+you probably
+
+167
+00:06:37.883 --> 00:06:40.433
+want something at least
+
+168
+00:06:40.433 --> 00:06:43.680
+60 frames per second.
+
+169
+00:06:43.680 --> 00:06:46.087
+That's after you've
+built everything.
+
+170
+00:06:46.087 --> 00:06:47.981
+So in editor,
+it's usually best
+
+171
+00:06:47.981 --> 00:06:50.175
+to keep it at 120.
+
+172
+00:06:50.175 --> 00:06:52.129
+90 to 120 is usually what
+
+173
+00:06:52.129 --> 00:06:54.255
+I'm aiming for
+for video games.
+
+174
+00:06:54.255 --> 00:06:55.782
+This here,
+
+175
+00:06:55.782 --> 00:06:57.903
+70 is what I need
+
+176
+00:06:57.903 --> 00:07:00.343
+to see in the viewport.
+
+177
+00:07:00.343 --> 00:07:04.070
+- How many lights
+are in total?
+
+178
+00:07:04.070 --> 00:07:07.241
+- 15, give or take.
+- Wow. 15.
+
+179
+00:07:07.241 --> 00:07:08.998
+- All of the lighting is also
+
+180
+00:07:08.998 --> 00:07:11.430
+baked on to all of the
+textures as well.
+
+181
+00:07:11.430 --> 00:07:14.002
+So, it's not really
+
+182
+00:07:14.002 --> 00:07:15.880
+calculating it anymore.
+
+183
+00:07:15.880 --> 00:07:17.753
+It's all been, you know,
+
+184
+00:07:17.753 --> 00:07:19.415
+painted on, basically.
+
+185
+00:07:19.415 --> 00:07:21.735
+I'm sure there's
+a better way to explain it.
+
+186
+00:07:21.735 --> 00:07:23.655
+- No, that's good enough.
+- Thank you.
+
+187
+00:07:23.655 --> 00:07:25.719
+- I'm just thinking about
+painting on light.
+
+188
+00:07:25.719 --> 00:07:28.170
+- Yeah.
+- Artists are so cool.
+
+189
+00:07:28.170 --> 00:07:29.909
+- Thank you, thank you.
+
+190
+00:07:29.909 --> 00:07:32.410
+Broke, but cool.
+
+191
+00:07:32.410 --> 00:07:34.330
+- Now you have an assignment.
+
+192
+00:07:34.330 --> 00:07:36.338
+One of your students was
+asking me about this,
+
+193
+00:07:36.338 --> 00:07:39.690
+where you need to light a scene
+with three lights.
+
+194
+00:07:39.690 --> 00:07:41.852
+How much harder
+would it be
+
+195
+00:07:41.852 --> 00:07:43.855
+to light with 15?
+
+196
+00:07:43.855 --> 00:07:45.451
+- Same process.
+I'm just not going to get
+
+197
+00:07:45.451 --> 00:07:47.214
+a frame rate that she wants.
+
+198
+00:07:47.214 --> 00:07:49.216
+And so when she says baking it
+on there, they're going to...
+
+199
+00:07:49.216 --> 00:07:51.264
+You can use the lighting model
+
+200
+00:07:51.264 --> 00:07:54.041
+that the student that
+I talked to you about is using.
+
+201
+00:07:54.041 --> 00:07:55.876
+We use that light model.
+
+202
+00:07:55.876 --> 00:07:57.729
+She'll use the same light model,
+but then take
+
+203
+00:07:57.729 --> 00:08:00.570
+a snapshot of what
+that model created.
+
+204
+00:08:00.570 --> 00:08:02.890
+And then that's what
+they call baking it in.
+
+205
+00:08:02.890 --> 00:08:04.727
+It's just we're going to
+paint the scene
+
+206
+00:08:04.727 --> 00:08:06.232
+in with the live model,
+
+207
+00:08:06.232 --> 00:08:08.172
+and then turn
+the live model off,
+
+208
+00:08:08.172 --> 00:08:10.631
+and now it looks lit.
+
+209
+00:08:10.631 --> 00:08:12.197
+Quicker.
+- Nice.
+
+210
+00:08:12.197 --> 00:08:14.826
+- There is lot of fun
+stuff you can do in Unreal.

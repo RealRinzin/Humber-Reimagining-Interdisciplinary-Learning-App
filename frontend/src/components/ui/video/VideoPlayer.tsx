@@ -1,20 +1,21 @@
 "use client";
 import "@videojs/react/video/skin.css";
 import { createPlayer } from "@videojs/react";
-import { getBrowser,getDevice,getOS,getUserAgent } from "@/utils/UserAgents";
+import { getBrowser, getDevice, getOS, getUserAgent } from "@/utils/UserAgents";
 import { VideoSkin, Video, videoFeatures } from "@videojs/react/video";
 interface InteractionPayload {
   type: string;
   sec: number;
   videoID: number;
-  userVideoID:number;
+  userVideoID: number;
 }
 const Player = createPlayer({ features: videoFeatures });
 interface MyPlayerProps {
   src: string;
   last_stop: number;
   videoID: number;
-userVideoID:number,
+  userVideoID: number;
+  subtitle:string,
   onPlay?: () => void;
   onPause?: () => void;
   onVolumeChange?: () => void;
@@ -34,17 +35,25 @@ async function getXsrfToken() {
   return decodeURIComponent(xsrfToken);
 }
 // Interaction
-async function postInteraction({ type, sec, videoID,userVideoID }: InteractionPayload) {
+async function postInteraction({
+  type,
+  sec,
+  videoID,
+  userVideoID,
+}: InteractionPayload) {
   // read XSRF token from cookie
   const xsrfToken = await getXsrfToken();
   try {
-    const currentUser = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/me`, {
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        "X-XSRF-TOKEN": xsrfToken, 
+    const currentUser = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/me`,
+      {
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "X-XSRF-TOKEN": xsrfToken,
+        },
       },
-    });
+    );
 
     // Current User Detail;
     const user = await currentUser.json();
@@ -58,7 +67,7 @@ async function postInteraction({ type, sec, videoID,userVideoID }: InteractionPa
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          "X-XSRF-TOKEN": xsrfToken, 
+          "X-XSRF-TOKEN": xsrfToken,
         },
         body: JSON.stringify({
           user_video_id: userVideoID,
@@ -88,7 +97,7 @@ async function postInteraction({ type, sec, videoID,userVideoID }: InteractionPa
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          "X-XSRF-TOKEN": xsrfToken
+          "X-XSRF-TOKEN": xsrfToken,
         },
         body: JSON.stringify({
           video_id: videoID,
@@ -106,7 +115,7 @@ async function postInteraction({ type, sec, videoID,userVideoID }: InteractionPa
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          "X-XSRF-TOKEN": xsrfToken, 
+          "X-XSRF-TOKEN": xsrfToken,
         },
         body: JSON.stringify({
           video_id: videoID,
@@ -118,7 +127,13 @@ async function postInteraction({ type, sec, videoID,userVideoID }: InteractionPa
   }
 }
 // Export
-export const MyPlayer = ({ src, last_stop, videoID,userVideoID }: MyPlayerProps) => {
+export const MyPlayer = ({
+  src,
+  last_stop,
+  videoID,
+  subtitle,
+  userVideoID,
+}: MyPlayerProps) => {
   return (
     <Player.Provider>
       <VideoSkin>
@@ -137,7 +152,7 @@ export const MyPlayer = ({ src, last_stop, videoID,userVideoID }: MyPlayerProps)
               type: "Played",
               sec: Math.floor(video.currentTime),
               videoID: videoID,
-              userVideoID:userVideoID
+              userVideoID: userVideoID,
             });
           }}
           onPause={(e) => {
@@ -146,8 +161,7 @@ export const MyPlayer = ({ src, last_stop, videoID,userVideoID }: MyPlayerProps)
               type: "Paused",
               sec: Math.floor(video.currentTime),
               videoID: videoID,
-              userVideoID:userVideoID
-
+              userVideoID: userVideoID,
             });
           }}
           onVolumeChange={(e) => {
@@ -156,8 +170,7 @@ export const MyPlayer = ({ src, last_stop, videoID,userVideoID }: MyPlayerProps)
               type: "Volume",
               sec: Math.floor(video.currentTime),
               videoID: videoID,
-              userVideoID:userVideoID
-
+              userVideoID: userVideoID,
             });
           }}
           onSeeked={(e) => {
@@ -166,8 +179,7 @@ export const MyPlayer = ({ src, last_stop, videoID,userVideoID }: MyPlayerProps)
               type: "Seeked",
               sec: Math.floor(video.currentTime),
               videoID: videoID,
-              userVideoID:userVideoID
-
+              userVideoID: userVideoID,
             });
           }}
           // Video finished
@@ -177,7 +189,7 @@ export const MyPlayer = ({ src, last_stop, videoID,userVideoID }: MyPlayerProps)
               type: "Completed",
               sec: Math.floor(video.duration),
               videoID: videoID,
-              userVideoID:userVideoID
+              userVideoID: userVideoID,
             });
           }}
         >
@@ -186,7 +198,10 @@ export const MyPlayer = ({ src, last_stop, videoID,userVideoID }: MyPlayerProps)
             kind="captions"
             label="English"
             srcLang="en"
-            src="http://localhost:3000/subtitles/caption.vtt"
+            // src="http://localhost:3000/subtitles/caption.vtt"
+            // src="http://localhost:3000/subtitles/SPACESProj_V01_Introduction.vtt"
+            src={`/subtitles/${subtitle}`}
+            
             default
           />
         </Video>

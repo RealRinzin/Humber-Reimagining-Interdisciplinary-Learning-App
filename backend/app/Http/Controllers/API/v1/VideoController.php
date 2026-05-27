@@ -25,7 +25,7 @@ class VideoController
          * Additionally, we are using the withCount method to count the number of related codes and documents for each video. This will add a 'codes_count' and 'documents_count' attribute to each video, which we can then use in our VideoResource to include the count of related resources in the API response.
          * By using eager loading and counting related models, we can optimize our API responses and provide more comprehensive data to the client without incurring the overhead of multiple database queries.
          */
-        $videos = Video::with(['codes', 'documents'])
+        $videos = Video::with(['codes', 'documents','subtitle'])
             ->withCount(['codes', 'documents']) // Count each resources
             ->paginate();
         // return $videos;
@@ -70,7 +70,7 @@ class VideoController
          * In the show method of the VideoController, we are displaying a specific video resource. We are accepting a Video model instance as a parameter, which is automatically injected by Laravel's route model binding. To optimize the performance of our API response, we are eager loading the related 'codes' and 'documents' for the video using the load method. This allows us to retrieve all related codes and documents in a single query, rather than executing separate queries for each relationship.
          * Additionally, we are using the loadCount method to count the number of related codes and documents for the video. This will add 'codes_count' and 'documents_count' attributes to the video model, which we can then use in our VideoResource to include the count of related resources in the API response.
          */
-        $video->load(['topic','codes','quizzes','ramblings']) // Eager load the relationships
+        $video->load(['topic','subVideos','codes','quizzes','ramblings','subtitle']) // Eager load the relationships
             ->loadCount(['codes', 'documents']); // Count each resources
         // return $video;
         return new VideoResource($video);

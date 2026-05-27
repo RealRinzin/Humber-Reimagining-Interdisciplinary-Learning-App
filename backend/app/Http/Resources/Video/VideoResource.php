@@ -7,6 +7,7 @@ use App\Http\Resources\Document\DocumentResource;
 use App\Http\Resources\LessonDocument\LessonDocumentResource;
 use App\Http\Resources\Quiz\QuizResource;
 use App\Http\Resources\Rambling\RamblingResource;
+use App\Http\Resources\Subtitle\SubtitleResource;
 use App\Http\Resources\Topic\TopicResource;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\UserVideo\UserVideoResource;
@@ -50,7 +51,9 @@ class VideoResource extends JsonResource
              * In the video details page, we can show the count of codes and documents, and we can also show the list of codes and documents when the user clicks on the count, so that we can provide a better user experience without compromising the performance of the application
              */
             'topic' => new TopicResource($this->whenLoaded("topic")),
+            'subVideos' => VideoResource::collection($this->whenLoaded('subVideos')),
             'codes' => CodeResource::collection($this->whenLoaded("codes")),
+            'subtitle' => new SubtitleResource($this->whenLoaded('subtitle')),
             'documents' => LessonDocumentResource::collection($this->whenLoaded('documents')),
             'quizzes' => QuizResource::collection($this->whenLoaded('quizzes')),
             'ramblings' => RamblingResource::collection($this->whenLoaded('ramblings')),
