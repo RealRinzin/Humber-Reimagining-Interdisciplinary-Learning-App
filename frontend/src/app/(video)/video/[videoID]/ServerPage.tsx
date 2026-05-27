@@ -1,3 +1,4 @@
+import CourseRelatedVideo from "@/components/features/course/CourseRelatedVideo";
 import CourseTabs from "@/components/features/course/CourseTabs";
 import CourseTitle from "@/components/features/course/CourseTitle";
 import MoreCourses from "@/components/features/course/MoreCourses";
@@ -9,7 +10,6 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
   const res = await serverFetch(`/videos/${videoSlug}`); // call the video details
   //   // destructure the return into video for better understand of data while assigining
   const { data: video } = await res.json(); // destructure the data
-  console.log(video)
   // Get me the the current logged user
   // so that we can pass the user id in api
   /**
@@ -120,8 +120,13 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
           subtitle={video?.subtitle?.subtitle_url}
         />
       </section>
+      {!!video?.subVideos?.length && (
+        <div>
+          <CourseRelatedVideo subVideos={video?.subVideos}/>
+        </div>
+      )}
       {/* Code Tabe */}
-      {video?.codes ? (
+      {video?.codes && (
         <CourseTabs
           type="code"
           title={"Code Snippet"}
@@ -131,8 +136,6 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
           status={completeStatus?.code}
           all_complete={completeStatus?.all_checked}
         />
-      ) : (
-        ""
       )}
       {/* Quiz Tab */}
       <CourseTabs
@@ -146,21 +149,19 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
         quizzes={video.quizzes}
       />
       {/* Interactive */}
-      {
-        video?.interactive_path && (
-          <CourseTabs
-            type="interactive"
-            title={"Interactive Simulation"}
-            icon="QuizIcon.png"
-            content={video.title}
-            status={completeStatus?.quiz}
-            videoID={video?.id}
-            all_complete={completeStatus?.all_checked}
-            quizzes={video?.quizzes}
-            interactive_path={video?.interactive_path}
-          />
-        )
-      }
+      {video?.interactive_path && (
+        <CourseTabs
+          type="interactive"
+          title={"Interactive Simulation"}
+          icon="QuizIcon.png"
+          content={video.title}
+          status={completeStatus?.quiz}
+          videoID={video?.id}
+          all_complete={completeStatus?.all_checked}
+          quizzes={video?.quizzes}
+          interactive_path={video?.interactive_path}
+        />
+      )}
       {/* Rambling Tab */}
       <CourseTabs
         type="rambling"
