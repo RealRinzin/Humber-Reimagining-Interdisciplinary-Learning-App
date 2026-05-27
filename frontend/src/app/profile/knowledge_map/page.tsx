@@ -81,7 +81,7 @@ export default function KnowledgeMap() {
     <>
       <main className="grid grid-cols-6">
         {/* Sidebar */}
-        <div className="bg-gray-300 p-6 col-span-2">
+        <div className="bg-gray-300 p-6 col-span-6 md:col-span-2">
           <ul className="flex w-full justify-evenly gap-6 items-center-safe text-center">
             {sideBarOptions.map((title, index) => (
               <li
@@ -116,7 +116,7 @@ export default function KnowledgeMap() {
           </div>
         </div>
         {/* Progress */}
-        <div className="col-span-4 bg-blue-950">
+        <div className="col-span-6 md:col-span-4 bg-blue-950">
           {(() => {
             const active = sideBarOptions.find((t) => t.status);
             if (!active) return null;
@@ -124,11 +124,6 @@ export default function KnowledgeMap() {
               <div className="flex-1 overflow-y-auto">
                 <active.sidebarNode
                   hoveredTopicId={hoveredTopicId}
-                  // topics={topics}
-                  // hoveredTopicId={hoveredTopicId}
-                  // onHover={(id: string) => setHoveredTopicId(id)}
-                  // onLeave={() => setHoveredTopicId(null)}
-                  // totalCount={() => countTotalTopicStarted()}
                 />
               </div>
             );

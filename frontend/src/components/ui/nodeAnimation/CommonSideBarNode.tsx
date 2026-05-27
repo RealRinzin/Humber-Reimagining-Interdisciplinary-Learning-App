@@ -329,7 +329,7 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
             cy.on("tap", "node", (event) => {
               const node = event.target;
               const url = node.data("url");
-              if (url) window.open(url, "_blank");
+              if (url) window.open(url, "_self");
             });
 
             cy.on("mouseover", "node", (e) => {

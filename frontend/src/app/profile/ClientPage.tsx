@@ -16,7 +16,7 @@ export default function ClientPage({ children }: any) {
   return (
     <main className="px-1 md:px-20 py-5">
       <div className="grid grid-cols-6 gap-4">
-        <div className={` relative ${open ? "col-span-4" : "col-span-6"}`}>
+        <div className={` relative col-span-6 ${open ? "md:col-span-4" : "md:col-span-6"}`}>
                     <div
             className="absolute top-1/2 -translate-y-1/2 -right-4 z-10 cursor-pointer"
             onClick={() => setOpen((prev) => !prev)}
@@ -38,7 +38,7 @@ export default function ClientPage({ children }: any) {
           {children}
         </div>
         {open && (
-          <div className={`col-span-2 bg-slate-900 rounded-xl`}>
+          <div className={`col-span-6 md:col-span-2 bg-slate-900 rounded-xl`}>
             {mounted && <CommonSideBarNode />}
           </div>
         )}

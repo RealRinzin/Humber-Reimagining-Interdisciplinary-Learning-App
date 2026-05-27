@@ -308,7 +308,7 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
                 window.location.reload();
                 return;
               } else {
-                window.open(url, "_blank");
+                window.open(url, "_self");
                 return;
               }
             });

@@ -36,7 +36,7 @@ export default function CourseRelatedVideo({ subVideos }: any) {
               {
                 subVideos.map((video:any,index:number)=>{
                   return(
-                    <li key={index} className="bg-slate-200 rounded-md py-2 md:w-1/6 px-3 hover:text-pink-600">
+                    <li key={index} className="bg-slate-200 rounded-md py-2 md:w-1/6 px-3 hover:text-blue-600">
                       <a href={`/video/${video.slug}`}>
                       {video.title} 
 
