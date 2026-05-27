@@ -23,14 +23,22 @@ function makeRing(progress: any, color: any, innerColor: any) {
   const circ = 2 * Math.PI * r;
   const dash = (progress / 100) * circ;
   const gap = circ - dash;
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
     <circle cx="${cx}" cy="${cy}" r="50" fill="#1a1a2e"/>
     <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#d0d0d8" stroke-width="${sw}"/>
-    ${progress > 0 ? `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${innerColor}" stroke-width="${sw}" stroke-dasharray="${dash.toFixed(1)} ${gap.toFixed(1)}" stroke-linecap="round" transform="rotate(-90 ${cx} ${cy})"/>` : ''}
+    ${progress > 0 ? `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${innerColor}" stroke-width="${sw}" stroke-dasharray="${dash.toFixed(1)} ${gap.toFixed(1)}" stroke-linecap="round" transform="rotate(-90 ${cx} ${cy})"/>` : ""}
     <circle cx="${cx}" cy="${cy}" r="24" fill="${innerColor}"/>
   </svg>`;
   return "data:image/svg+xml," + encodeURIComponent(svg);
-
+}
+function makeRingZero(progress: any, color: any, innerColor: any) {
+  const cx = 50,
+    cy = 50;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+    <circle cx="${cx}" cy="${cy}" r="50" fill="${innerColor}"/>
+    <circle cx="${cx}" cy="${cy}" r="46" fill="${innerColor}" stroke="#fff" stroke-width="10" stroke-opacity="0.4"/>
+  </svg>`;
+  return "data:image/svg+xml," + encodeURIComponent(svg);
 }
 export default function AnimatedCourseNode({ hoveredTopicId }: Props) {
   const cyRef = useRef<Core | null>(null);
@@ -38,6 +46,8 @@ export default function AnimatedCourseNode({ hoveredTopicId }: Props) {
 
   const [topics, setTopics] = useState<cytoscape.ElementDefinition[]>([]);
   const [styles, setStyles] = useState([]);
+  const [progressTracking, setProgressTracking] = useState(true);
+  //
   const [tooltip, setTooltip] = useState({
     visible: false,
     x: 0,
@@ -157,12 +167,9 @@ export default function AnimatedCourseNode({ hoveredTopicId }: Props) {
             "text-transform": "uppercase",
             color: "#000",
             "background-image": (ele: any) => {
-              return makeRing(
-                // Math.floor(Math.random() * 100),
-                20,
-                topic.node_color,
-                topic.node_color,
-              );
+              return progressTracking
+                ? makeRing(20, topic.node_color, topic.node_color)
+                : makeRingZero(20, topic.node_color, topic.node_color);
             },
             "text-background-color": "#fff",
             "text-background-opacity": 0.7,
@@ -206,7 +213,7 @@ export default function AnimatedCourseNode({ hoveredTopicId }: Props) {
     }
 
     getTopics();
-  }, []);
+  }, [progressTracking]);
 
   //  React to hoveredTopicId changes from the sidebar
   useEffect(() => {
@@ -239,7 +246,7 @@ export default function AnimatedCourseNode({ hoveredTopicId }: Props) {
       animFrameRef.current = requestAnimationFrame(animate);
     };
     animate();
-  }, [hoveredTopicId]); // 👈 only this effect watches the prop
+  }, [hoveredTopicId, progressTracking]); // 👈 only this effect watches the prop
 
   const handleZoomIn = () => {
     if (cyRef.current) {
@@ -272,7 +279,12 @@ export default function AnimatedCourseNode({ hoveredTopicId }: Props) {
             <div className="flex gap-3 items-center justify-center bg-slate-700 rounded px-3 py-1">
               <span className="text-sm">Tracking</span>
               <span>
-                <input type="checkbox" className="" />
+                <input
+                  type="checkbox"
+                  className=""
+                  checked={progressTracking}
+                  onChange={() => setProgressTracking((prev) => !prev)}
+                />
               </span>
             </div>
           </div>

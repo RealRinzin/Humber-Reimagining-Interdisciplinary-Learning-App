@@ -20,27 +20,15 @@ function makeRing(progress: any, color: any, innerColor: any) {
   const circ = 2 * Math.PI * r;
   const dash = (progress / 100) * circ;
   const gap = circ - dash;
-  // ← only render the arc if progress > 0
-  const progressArc =
-    progress > 0
-      ? `
-    <circle cx="${cx}" cy="${cy}" r="${r}"
-      fill="none"
-      stroke="${safeColor}"
-      stroke-width="${sw}"
-      stroke-dasharray="${dash.toFixed(1)} ${gap.toFixed(1)}"
-      stroke-linecap="round"
-      transform="rotate(-90 ${cx} ${cy})"/>
-  `
-      : "";
-
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
     <circle cx="${cx}" cy="${cy}" r="50" fill="#1a1a2e"/>
     <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#d0d0d8" stroke-width="${sw}"/>
-    ${progressArc}
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${safeColor}" stroke-width="${sw}"
+      stroke-dasharray="${dash.toFixed(1)} ${gap.toFixed(1)}"
+      stroke-linecap="round"
+      transform="rotate(-90 ${cx} ${cy})"/>
     <circle cx="${cx}" cy="${cy}" r="24" fill="${safeInner}"/>
   </svg>`;
-
   return "data:image/svg+xml," + encodeURIComponent(svg);
 }
 export default function CourseNodeLink() {
