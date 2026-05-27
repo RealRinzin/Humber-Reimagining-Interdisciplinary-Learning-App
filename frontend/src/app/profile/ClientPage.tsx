@@ -15,26 +15,26 @@ export default function ClientPage({ children }: any) {
   }, []);
   return (
     <main className="px-1 md:px-20 py-5">
-      <div
-        onClick={() => setOpen((prev) => !prev)}
-        className="fixed top-1/2 right-0 cursor-pointer"
-      >
-        {open ? (
-          <FontAwesomeIcon
-            icon={faChevronRight}
-            size="2x"
-            className="text-white bg-slate-800 rounded-xs py-2"
-          />
-        ) : (
-          <FontAwesomeIcon
-            icon={faChevronLeft}
-            size="2x"
-            className="text-white bg-slate-800 rounded-xs py-2"
-          />
-        )}
-      </div>
       <div className="grid grid-cols-6 gap-4">
-        <div className={` ${open ? "col-span-4" : "col-span-6"}`}>
+        <div className={` relative ${open ? "col-span-4" : "col-span-6"}`}>
+                    <div
+            className="absolute top-1/2 -translate-y-1/2 -right-4 z-10 cursor-pointer"
+            onClick={() => setOpen((prev) => !prev)}
+          >
+            {open ? (
+              <FontAwesomeIcon
+                icon={faChevronRight}
+                size="2x"
+                className="text-white bg-slate-600 rounded-lg py-2"
+              />
+            ) : (
+              <FontAwesomeIcon
+                icon={faChevronLeft}
+                size="2x"
+                className="text-white bg-slate-600 rounded-lg py-2"
+              />
+            )}
+          </div>
           {children}
         </div>
         {open && (
