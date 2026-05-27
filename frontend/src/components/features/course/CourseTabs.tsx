@@ -112,12 +112,15 @@ export default function CourseTabs({
         {/* Check the Type for the format */}
         {type === "code" ? (
           <>
-            <p className="absolute right-10 my-4">
+            <p className="absolute right-10 my-4" >
               <FontAwesomeIcon
                 icon={faCopy}
                 size="1x"
                 className="text-white hover:cursor-pointer"
-                onClick={() => copyToClipboard(content)}
+                onClick={(e) => (
+                  (e.currentTarget.style.color = "green"),
+                  copyToClipboard(content)
+                )}
               />
             </p>
             <SyntaxHighlighter language="cpp" style={solarizedDarkAtom}>
@@ -132,12 +135,12 @@ export default function CourseTabs({
           "Later watch"
         ) : type === "interactive" ? (
           <>
-          {interactive_path && (
-            <iframe
-              src={`/interactive/${interactive_path}.html`}
-              className="w-full h-screen border-0"
-            />
-          )}
+            {interactive_path && (
+              <iframe
+                src={`/interactive/${interactive_path}.html`}
+                className="w-full h-screen border-0"
+              />
+            )}
           </>
         ) : type === "resources" ? (
           "Documents"
