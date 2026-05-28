@@ -2,7 +2,7 @@ import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
 import { serverFetch } from "@/lib/fetch";
 import Image from "next/image";
 export default async function TeamPage() {
-  function toHtmlTag(content:string){
+  function toHtmlTag(content: string) {
     return content;
   }
   const res = await serverFetch("/projects");
@@ -26,11 +26,15 @@ export default async function TeamPage() {
 
         <div className="py-10">
           <h2 className="text-2xl font-bold py-5">The Sponsors</h2>
-          {/* <p>{project?.sponsor}</p> */}
-          <p dangerouslySetInnerHTML={{__html:toHtmlTag(project?.sponsor)}}/>
-          {
-            // toHtmlTag()
-          }
+          <p>
+            This project was funded through the 
+            <a href="https://humber.ca/about/vision/reimagining-learning/teaching-learning-innovation-fund"
+            className="text-blue-800 px-2 font-medium"
+            >
+             Builders of Brilliance Teaching & Learning Innovation Fund
+            </a>
+            at Humber Polytechnic.
+          </p>
         </div>
 
         {/* Member */}

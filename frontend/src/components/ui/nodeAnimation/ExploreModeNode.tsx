@@ -19,6 +19,7 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
   const animFrameRef = useRef<number | null>(null);
   const [topics, setTopics] = useState<cytoscape.ElementDefinition[]>([]);
   const [styles, setStyles] = useState([]);
+  const [progressTracking, setProgressTracking] = useState(true);
   const [tooltip, setTooltip] = useState({
     visible: false,
     x: 0,
@@ -259,9 +260,12 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
           <div className="flex justify-end items-center">
             <div className="flex gap-3 items-center justify-center bg-slate-700 rounded px-3 py-1">
               <span className="text-sm">Show Progress</span>
-              <span>
-                <input type="checkbox" className="" />
-              </span>
+              <input
+                type="checkbox"
+                className=""
+                checked={progressTracking}
+                onChange={() => setProgressTracking((prev) => !prev)}
+              />
             </div>
           </div>
           <div className="flex flex-col justify-end items-end gap-2 my-2">
