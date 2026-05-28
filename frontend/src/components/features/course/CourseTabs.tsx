@@ -16,6 +16,7 @@ import { useToggle } from "@/hooks/common/useToggle";
 import QuizWrapper from "@/components/ui/quiz/QuizWrapper";
 import RamblingCard from "@/components/ui/rambling/RamblingCard";
 import { copyToClipboard } from "@/lib/common";
+import { useRefreshNode } from "@/components/ui/video/PageRefresh";
 //
 export default function CourseTabs({
   title,
@@ -31,7 +32,7 @@ export default function CourseTabs({
 }: courseTabsTypes) {
   const { isOn: isOpen, toggle } = useToggle(status);
   const router = useRouter();
-
+  const triggerNodeRefresh = useRefreshNode();
   const [drop, setDrop] = useState(false);
   const [isChecked, setIsChecked] = useState(status);
   const [allChecked, setAllChecked] = useState(false);
@@ -58,6 +59,7 @@ export default function CourseTabs({
     );
     // Update and soft fresh the page
     router.refresh();
+    triggerNodeRefresh();
   }
   useEffect(() => {
     setIsChecked(status);
@@ -112,7 +114,7 @@ export default function CourseTabs({
         {/* Check the Type for the format */}
         {type === "code" ? (
           <>
-            <p className="absolute right-10 my-4" >
+            <p className="absolute right-10 my-4">
               <FontAwesomeIcon
                 icon={faCopy}
                 size="1x"

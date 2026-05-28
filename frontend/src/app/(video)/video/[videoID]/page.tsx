@@ -10,6 +10,7 @@ export async function generateMetadata({
   const { videoID: videoSlug } = await params;
   const res = await serverFetch(`/videos/${videoSlug}`);
   const { data: video } = await res.json();
+  
   return {
     title: `${video.title} - ${video.description}`,
     description: video.description,

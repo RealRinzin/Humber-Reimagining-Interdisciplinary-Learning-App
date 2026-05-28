@@ -122,7 +122,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
       </section>
       {!!video?.subVideos?.length && (
         <div>
-          <CourseRelatedVideo subVideos={video?.subVideos}/>
+          <CourseRelatedVideo subVideos={video?.subVideos} />
         </div>
       )}
       {/* Code Tabe */}
@@ -155,7 +155,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
           title={"Interactive Simulation"}
           icon="QuizIcon.png"
           content={video.title}
-          status={completeStatus?.quiz}
+          status={completeStatus?.interactive}
           videoID={video?.id}
           all_complete={completeStatus?.all_checked}
           quizzes={video?.quizzes}
@@ -174,7 +174,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
         ramblings={video?.ramblings}
       />
       <section className="my-10">
-        <MoreCourses />
+        <MoreCourses status={completeStatus} />
       </section>
     </>
   );

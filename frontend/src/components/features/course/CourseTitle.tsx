@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { clientFetch } from "@/lib/clientFetch";
 import { userVideoSettingTypes } from "@/types/user-video-setting.types";
 import { useRouter } from "next/navigation";
+import { useRefreshNode } from "@/components/ui/video/PageRefresh";
 // const CourseTitle = ({ title }: { title: string }) => {
 export default function CourseTitle({
   title,
@@ -14,6 +15,7 @@ export default function CourseTitle({
   videoID: number;
   status: userVideoSettingTypes;
 }) {
+  const triggerNodeRefresh = useRefreshNode();
   const router = useRouter();
   const [markCompleteAll, setMarkCompleteAll] = useState(false);
   async function handleMarkAllComplete() {
@@ -37,6 +39,7 @@ export default function CourseTitle({
     );
     // Refresh once its updated
     router.refresh();
+    triggerNodeRefresh();
   }
   // Update all check
   useEffect(() => {

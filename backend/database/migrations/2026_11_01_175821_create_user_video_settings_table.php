@@ -24,11 +24,13 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             // For individual check 
+            $table->boolean('video')->default(false);
             $table->boolean('code')->default(false);
             $table->boolean('interactive')->default(false);
             $table->boolean('rambling')->default(false);
             $table->boolean('quiz')->default(false);
             // For all complete check status fields
+            $table->boolean('video_checked_with_all')->default(false);
             $table->boolean('code_checked_with_all')->default(false);
             $table->boolean('interactive_checked_with_all')->default(false);
             $table->boolean('rambling_checked_with_all')->default(false);

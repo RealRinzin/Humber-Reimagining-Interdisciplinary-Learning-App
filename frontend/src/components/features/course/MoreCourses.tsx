@@ -7,7 +7,8 @@ import { VideoType } from "@/types/video";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { clientFetch } from "@/lib/clientFetch";
-export default  function MoreCourses() {
+export default  function MoreCourses({status}:any) {
+  console.log("reloaded Related page")
 const [topics, setTopics] = useState<VideoType[]>([]);
   useEffect(()=>{
     async function getTopics(){
@@ -15,10 +16,9 @@ const [topics, setTopics] = useState<VideoType[]>([]);
       const { data:topics } = await res.json();
       setTopics(topics)
     }
-
     getTopics();
 
-  },[])
+  },[status])
   return (
     <>
       <div className="flex items-center gap-2">

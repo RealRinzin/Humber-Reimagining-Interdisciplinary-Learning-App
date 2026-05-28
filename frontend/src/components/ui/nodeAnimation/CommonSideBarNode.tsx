@@ -14,6 +14,7 @@ import { RingProgressPerCalculator } from "@/utils/RingProgressPerCalculator";
 
 interface Props {
   hoveredTopicId?: string | null;
+  refreshKey?: number;  
 }
 async function postUserTopic(topic_id: number) {
   await clientPost("/user-topics/users/me/topics", {
@@ -47,10 +48,9 @@ function makeRingZero(progress: any, color: any, innerColor: any) {
   </svg>`;
   return "data:image/svg+xml," + encodeURIComponent(svg);
 }
-export default function CommonSideBarNode({ hoveredTopicId }: Props) {
+export default function CommonSideBarNode({ hoveredTopicId,refreshKey }: Props) {
   const cyRef = useRef<Core | null>(null);
   const animFrameRef = useRef<number | null>(null);
-
   const [topics, setTopics] = useState<cytoscape.ElementDefinition[]>([]);
   const [styles, setStyles] = useState([]);
   const [progressTracking, setProgressTracking] = useState(true);
@@ -226,9 +226,8 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
       setTopics(List);
       setStyles(newStyle);
     }
-
     getTopics();
-  }, [progressTracking]);
+  }, [progressTracking,refreshKey]);
 
   //  React to hoveredTopicId changes from the sidebar
   useEffect(() => {
@@ -249,11 +248,9 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
 
     cy.elements().addClass("faded");
     node.removeClass("faded").addClass("hovered");
-
     const edges = node.connectedEdges();
     edges.removeClass("faded").addClass("activeEdge");
     edges.connectedNodes().removeClass("faded").addClass("connected");
-
     let offset = 0;
     const animate = () => {
       offset -= 1;
@@ -261,7 +258,7 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
       animFrameRef.current = requestAnimationFrame(animate);
     };
     animate();
-  }, [hoveredTopicId, progressTracking]); // 👈 only this effect watches the prop
+  }, [hoveredTopicId]); 
 
   const handleZoomIn = () => {
     if (cyRef.current) {
