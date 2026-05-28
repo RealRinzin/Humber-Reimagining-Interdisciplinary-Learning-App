@@ -1,14 +1,16 @@
 import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
 import { serverFetch } from "@/lib/fetch";
 import Image from "next/image";
-
 export default async function TeamPage() {
+  function toHtmlTag(content:string){
+    return content;
+  }
   const res = await serverFetch("/projects");
   const { data: project } = await res.json();
   return (
     <main className="">
       <h1 className="bg-gray-800 text-white py-8 px-30 text-2xl ">
-        About Space Project
+        {project.title}
       </h1>
       <div className="px-1 md:px-30 py-5">
         <section
@@ -18,13 +20,17 @@ export default async function TeamPage() {
           }}
         ></section>
         <div className="py-10">
-          <h2 className="text-2xl font-bold py-5">{project?.title}</h2>
+          <h2 className="text-2xl font-bold py-5">{project?.heading}</h2>
           <p>{project?.description}</p>
         </div>
 
         <div className="py-10">
           <h2 className="text-2xl font-bold py-5">The Sponsors</h2>
-          <p>{project?.sponsor}</p>
+          {/* <p>{project?.sponsor}</p> */}
+          <p dangerouslySetInnerHTML={{__html:toHtmlTag(project?.sponsor)}}/>
+          {
+            // toHtmlTag()
+          }
         </div>
 
         {/* Member */}

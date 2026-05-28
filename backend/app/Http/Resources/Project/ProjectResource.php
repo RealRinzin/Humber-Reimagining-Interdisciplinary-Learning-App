@@ -19,10 +19,10 @@ class ProjectResource extends JsonResource
      return [
             'id' => $this->id,
             'title'=>$this->title,
+            'heading'=>$this->heading,
             "description" => $this->description,
             "sponsor" => $this->sponsor,
             "thumbnail" =>$this->thumbnail,
-
             "start_date" => $this->start_date,
             "end_date" => $this->end_date,
 
