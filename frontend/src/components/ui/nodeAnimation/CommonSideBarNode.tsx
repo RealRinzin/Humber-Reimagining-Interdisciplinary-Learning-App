@@ -15,13 +15,13 @@ import { RingProgressPerCalculator } from "@/utils/RingProgressPerCalculator";
 interface Props {
   hoveredTopicId?: string | null;
 }
-  async function postUserTopic(topic_id: number) {
-    await clientPost("/user-topics/users/me/topics", {
-      topic_id: topic_id,
-      started: true,
-    });
-    // no router.refresh() or window.location here
-  }
+async function postUserTopic(topic_id: number) {
+  await clientPost("/user-topics/users/me/topics", {
+    topic_id: topic_id,
+    started: true,
+  });
+  // no router.refresh() or window.location here
+}
 function makeRing(progress: any, color: any, innerColor: any) {
   const r = 40,
     cx = 50,
@@ -63,7 +63,7 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
     description: "",
   });
 
-// UseEffect to mount the topic node when page/ component inital loads
+  // UseEffect to mount the topic node when page/ component inital loads
   useEffect(() => {
     const newStyle: any = [
       {
@@ -164,7 +164,7 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
             width: 100,
             height: 100,
             "border-width": 0, // ← add
-            "border-color": "transparent", 
+            "border-color": "transparent",
             "border-opacity": 0,
             label: "data(label)",
             cursor: "pointer",
@@ -176,9 +176,15 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
             color: "#000",
             "background-image": (ele: any) => {
               return progressTracking
-                ? makeRing(RingProgressPerCalculator(topic?.videos?.[0]?.user_video_setting), topic.node_color, topic.node_color)
-                // ? makeRing(34, topic.node_color, topic.node_color)
-                : makeRingZero(0, topic.node_color, topic.node_color);
+                ? makeRing(
+                    RingProgressPerCalculator(
+                      topic?.videos?.[0]?.user_video_setting,
+                    ),
+                    topic.node_color,
+                    topic.node_color,
+                  )
+                : // ? makeRing(34, topic.node_color, topic.node_color)
+                  makeRingZero(0, topic.node_color, topic.node_color);
             },
             "text-background-color": "#fff",
             "text-background-opacity": 0.7,
@@ -404,7 +410,7 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
             className="absolute z-30 pointer-events-none"
             style={{ left: tooltip.x + 16, top: tooltip.y - 60 }}
           >
-            <div className="bg-white border border-pink-500/40 rounded-xl px-4 py-3 shadow-xl shadow-pink-900/20 w-3/6">
+            <div className="bg-white border border-900-500/40 rounded-xl px-4 py-3 shadow-xl shadow-pink-900/20 w-3/6">
               <p className="text-black font-bold text-sm uppercase tracking-wide mb-1">
                 {tooltip.label}
               </p>
@@ -413,12 +419,12 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
                   {tooltip.description}
                 </p>
               )}
-              <div className="flex items-center gap-1.5 text-pink-400 text-xs mt-2">
+              <div className="flex items-center gap-1.5 text-900-400 text-xs mt-2 font-medium">
                 <FontAwesomeIcon icon={faPlayCircle} size="sm" />
                 <span>Click to watch</span>
               </div>
             </div>
-            <div className="w-2 h-2 bg-white border-b border-r border-pink-500/40 rotate-45 ml-4 -mt-1" />
+            <div className="w-2 h-2 bg-white border-b border-r border-900-500/40 rotate-45 ml-4 -mt-1" />
           </div>
         )}
       </div>
