@@ -1,6 +1,4 @@
-import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
 import { serverFetch } from "@/lib/fetch";
-import toHtmlDangerous from "@/utils/toHtmlDangerous";
 import Image from "next/image";
 export default async function TeamPage() {
   const res = await serverFetch("/projects");

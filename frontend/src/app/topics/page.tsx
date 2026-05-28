@@ -1,4 +1,4 @@
-import CourseNodeLink from "@/components/features/course/CourseNodeLinks";
+
 import VideoCard from "@/components/ui/video/VideoCard";
 import ContentSetting from "@/components/ui/profile/ContentSetting";
 import ProfileCirleRing from "@/components/ui/profile/ProfileRing";
