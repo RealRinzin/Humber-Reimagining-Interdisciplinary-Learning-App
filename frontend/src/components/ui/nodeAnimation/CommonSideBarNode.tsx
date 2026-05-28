@@ -9,13 +9,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CytoscapeComponent from "react-cytoscapejs";
 import type { Core } from "cytoscape";
 import { useEffect, useRef, useState } from "react";
-import { clientFetch } from "@/lib/clientFetch";
+import { clientFetch, clientPost } from "@/lib/clientFetch";
 import { RingProgressPerCalculator } from "@/utils/RingProgressPerCalculator";
 
 interface Props {
   hoveredTopicId?: string | null;
 }
-
+  async function postUserTopic(topic_id: number) {
+    await clientPost("/user-topics/users/me/topics", {
+      topic_id: topic_id,
+      started: true,
+    });
+    // no router.refresh() or window.location here
+  }
 function makeRing(progress: any, color: any, innerColor: any) {
   const r = 40,
     cx = 50,
@@ -142,6 +148,7 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
             label: topic.title,
             source: null,
             target: null,
+            is_started: topic.is_following,
             node_color: null,
             url: `/video/${topic.slug}`,
             description: topic.description,
@@ -171,7 +178,7 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
               return progressTracking
                 ? makeRing(RingProgressPerCalculator(topic?.videos?.[0]?.user_video_setting), topic.node_color, topic.node_color)
                 // ? makeRing(34, topic.node_color, topic.node_color)
-                : makeRingZero(20, topic.node_color, topic.node_color);
+                : makeRingZero(0, topic.node_color, topic.node_color);
             },
             "text-background-color": "#fff",
             "text-background-opacity": 0.7,
@@ -329,6 +336,11 @@ export default function CommonSideBarNode({ hoveredTopicId }: Props) {
             cy.on("tap", "node", (event) => {
               const node = event.target;
               const url = node.data("url");
+              const isStarted = node.data("is_started");
+
+              if (!isStarted) {
+                postUserTopic(Number(node.data("id")));
+              }
               if (url) window.open(url, "_self");
             });
 

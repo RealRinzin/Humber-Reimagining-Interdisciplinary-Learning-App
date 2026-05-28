@@ -305,15 +305,16 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
             cyRef.current = cy;
             cy.on("tap", "node", (event) => {
               const node = event.target;
-              const url = node.data("url");
-              const isStarted = node.data("is_started");
+              const url = node.data("url"); // get the slug of the video
+
+              const isStarted = node.data("is_started"); // is following or is started
+              // If the topic is not started yet, the register one otherwise skip it
               if (!isStarted) {
                 postUserTopic(Number(node.data("id")));
                 window.location.reload();
                 return;
               } else {
                 window.open(url, "_self");
-                return;
               }
             });
 
