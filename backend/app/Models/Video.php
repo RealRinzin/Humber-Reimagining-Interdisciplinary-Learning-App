@@ -25,7 +25,11 @@ class Video extends Model
         'duration',
         'description',
         'tldw',
-        'interactive_path'
+        'interactive_path',
+        'rambling',
+        'quiz',
+        'code',
+        'interactive',
     ];
 
     public function getRouteKeyName()

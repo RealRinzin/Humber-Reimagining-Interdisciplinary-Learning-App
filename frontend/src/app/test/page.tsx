@@ -5,7 +5,10 @@ export default function Test() {
   const [onBoardState ,setOnBoardState] = useState(
     {
       userRegister:{
-        
+        username:'',
+        password:'',
+        component:"",
+        status:true,
       },
 
     }

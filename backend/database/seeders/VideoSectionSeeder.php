@@ -16,9 +16,9 @@ class VideoSectionSeeder extends Seeder
         //
         DB::table('video_sections')->insert([
             [
-                'video_id'         => rand(1, 10),
-                'title'            => 'Introduction to Variables',
-                'slug'             => 'introduction-to-variables',
+                'video_id'         => 2,
+                'title'            => 'Model Space Part -2',
+                'slug'             => 'model-space-part-2',
                 'description'      => 'Learn the basics of variables and data types.',
                 'thumbnail'        => 'thumbnails/section_1.jpg',
                 'video_url'        => 'https://example.com/videos/section_1.mp4',
