@@ -138,7 +138,7 @@ export const MyPlayer = ({
     <Player.Provider>
       <VideoSkin>
         <Video
-          src={src}
+          src={`/videos/${src}`}
           playsInline
           onLoadedMetadata={(e) => {
             const video = e.target as HTMLVideoElement;
@@ -198,10 +198,7 @@ export const MyPlayer = ({
             kind="captions"
             label="English"
             srcLang="en"
-            // src="http://localhost:3000/subtitles/caption.vtt"
-            // src="http://localhost:3000/subtitles/SPACESProj_V01_Introduction.vtt"
             src={`/subtitles/${subtitle}`}
-            
             default
           />
         </Video>
