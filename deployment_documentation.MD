@@ -84,9 +84,10 @@ FRONTEND_URL=http://200.301.402.503:3000
 
 >## PM2 CONFIGURATION
 ```sql
-pm2 start npm --name frontend --cwd frontend -- start
-pm2 start artisan --name backend --cwd backend
+pm2 start npm --name frontend -- start
+pm2 start artisan --interpreter php --name backend
 pm2 save
+pm2 startup
 ```
 >## 2.
 ```tsx

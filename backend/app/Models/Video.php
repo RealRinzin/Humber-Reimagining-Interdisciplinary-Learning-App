@@ -53,15 +53,19 @@ class Video extends Model
     {
         return $this->belongsTo(Topic::class, 'topic_id');
     }
+    /**
+     * Video sections
+     * Video Table relationship with codes table
+     * Code belongs to one Video
+     * */
+    public function videoSections(){
+        return $this->hasMany(VideoSection::class);
+    }
     // Code Relationship
     // A video can have many codes
     // Video Table relationship with codes table
     // Code belongs to one Video
-    /**
-     * Video has many Code
-     * Video Table relationship with codes table
-     * Code belongs to one Video
-     * */
+    
     public function codes()
     {
         return $this->hasMany(Code::class);

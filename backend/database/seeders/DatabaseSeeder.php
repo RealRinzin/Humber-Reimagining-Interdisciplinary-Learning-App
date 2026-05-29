@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             RamblingSeeder::class, // Rambling
             // Analytics 
             UserContentSettingSeeder::class,
+            VideoSectionSeeder::class,
             // UserTopicSeeder::class, 
             // UserVideoSeeder::class, 
             // UserVideoSettingSeeder::class,

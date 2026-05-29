@@ -120,9 +120,9 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
           subtitle={video?.subtitle?.subtitle_url}
         />
       </section>
-      {!!video?.subVideos?.length && (
+      {!!video?.video_sections?.length && (
         <div>
-          <CourseRelatedVideo subVideos={video?.subVideos} />
+          <CourseRelatedVideo video_sections={video?.video_sections} />
         </div>
       )}
       {/* Code Tabe */}

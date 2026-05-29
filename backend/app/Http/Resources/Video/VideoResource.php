@@ -13,6 +13,7 @@ use App\Http\Resources\User\UserResource;
 use App\Http\Resources\UserVideo\UserVideoResource;
 use App\Http\Resources\UserVideoProgress\UserVideoProgressResource;
 use App\Http\Resources\UserVideoSetting\UserVideoSettingResource;
+use App\Http\Resources\VideoSection\VideoSectionResource;
 use App\Http\Resources\VideoWatchHistory\VideoWatchHistoryResource;
 use App\Models\LessonDocument;
 use App\Models\UserVideo;
@@ -51,6 +52,7 @@ class VideoResource extends JsonResource
              * In the video details page, we can show the count of codes and documents, and we can also show the list of codes and documents when the user clicks on the count, so that we can provide a better user experience without compromising the performance of the application
              */
             'topic' => new TopicResource($this->whenLoaded("topic")),
+            'video_sections' => VideoSectionResource::collection($this->whenLoaded('videoSections')),   
             'subVideos' => VideoResource::collection($this->whenLoaded('subVideos')),
             'codes' => CodeResource::collection($this->whenLoaded("codes")),
             'subtitle' => new SubtitleResource($this->whenLoaded('subtitle')),

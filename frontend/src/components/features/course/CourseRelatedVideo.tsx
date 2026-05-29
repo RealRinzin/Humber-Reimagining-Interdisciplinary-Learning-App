@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function CourseRelatedVideo({ subVideos }: any) {
+export default function CourseRelatedVideo({ video_sections }: any) {
+  console.log(video_sections)
   const [drop, setDrop] = useState(false);
   return (
     <section className="my-5">
@@ -34,7 +35,7 @@ export default function CourseRelatedVideo({ subVideos }: any) {
           <div className="px-6 py-2">
             <ul className="flex flex-col md:flex-row  flex-wrap gap-4 py-2 font-bold">
               {
-                subVideos.map((video:any,index:number)=>{
+                video_sections.map((video:any,index:number)=>{
                   return(
                     <li key={index} className="bg-slate-200 rounded-md py-2 md:w-1/6 px-3 hover:text-blue-600">
                       <a href={`/video/${video.slug}`}>
