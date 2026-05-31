@@ -1,8 +1,10 @@
 "use client";
 import "@videojs/react/video/skin.css";
 import { createPlayer } from "@videojs/react";
+import { useRef, useEffect } from "react"; // ← ADD THIS
 import { getBrowser, getDevice, getOS, getUserAgent } from "@/utils/UserAgents";
 import { VideoSkin, Video, videoFeatures } from "@videojs/react/video";
+
 interface InteractionPayload {
   type: string;
   sec: number;
@@ -15,33 +17,28 @@ interface MyPlayerProps {
   last_stop: number;
   videoID: number;
   userVideoID: number;
-  subtitle:string,
+  subtitle: string;
   onPlay?: () => void;
   onPause?: () => void;
   onVolumeChange?: () => void;
 }
 let me: any = [];
 
-// ASYNC
 async function getXsrfToken() {
-  // read XSRF token from cookie
   const xsrfToken =
     document.cookie
       .split("; ")
       .find((row) => row.startsWith("XSRF-TOKEN="))
       ?.split("=")[1] ?? "";
-
-  // const decodedXsrf = decodeURIComponent(xsrfToken);
   return decodeURIComponent(xsrfToken);
 }
-// Interaction
+
 async function postInteraction({
   type,
   sec,
   videoID,
   userVideoID,
 }: InteractionPayload) {
-  // read XSRF token from cookie
   const xsrfToken = await getXsrfToken();
   try {
     const currentUser = await fetch(
@@ -54,12 +51,8 @@ async function postInteraction({
         },
       },
     );
-
-    // Current User Detail;
     const user = await currentUser.json();
     me = user;
-
-    // Update the interaction
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/user-video-analytics/users/${me.id}/userVideoAnalytics`,
       {
@@ -82,13 +75,11 @@ async function postInteraction({
         }),
       },
     );
-
     const data = await res.json();
   } catch (err) {
     console.error("API error:", err);
   }
 
-  // Only react or update
   if (type === "Paused") {
     const userVideo = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/user-videos/users/${me.id}/videos`,
@@ -126,7 +117,7 @@ async function postInteraction({
     );
   }
 }
-// Export
+
 export const MyPlayer = ({
   src,
   last_stop,
@@ -134,15 +125,55 @@ export const MyPlayer = ({
   subtitle,
   userVideoID,
 }: MyPlayerProps) => {
+  const videoRef = useRef<HTMLVideoElement>(null); // ← ADD THIS
+  const hasSeeked = useRef(false);                 // ← ADD THIS
+
+  // ← ADD THIS BLOCK
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || last_stop <= 0) return;
+
+    hasSeeked.current = false;
+
+    const attemptSeek = () => {
+      if (hasSeeked.current) return;
+      if (
+        video.seekable.length > 0 &&
+        video.seekable.end(0) >= last_stop &&
+        video.readyState >= 2
+      ) {
+        video.currentTime = last_stop;
+        hasSeeked.current = true;
+      }
+    };
+
+    const onTimeUpdate = () => {
+      if (!hasSeeked.current) attemptSeek();
+    };
+
+    video.addEventListener("canplay", attemptSeek);
+    video.addEventListener("timeupdate", onTimeUpdate);
+
+    return () => {
+      video.removeEventListener("canplay", attemptSeek);
+      video.removeEventListener("timeupdate", onTimeUpdate);
+    };
+  }, [last_stop, src]);
+
   return (
     <Player.Provider>
       <VideoSkin>
+        {last_stop}
         <Video
+          ref={videoRef} // ← ADD THIS
           src={`/videos/${src}`}
           playsInline
-          onLoadedMetadata={(e) => {
+          onCanPlay={(e) => {
             const video = e.target as HTMLVideoElement;
-            if (last_stop > 0) {
+            if (
+              last_stop > 0 &&
+              Math.abs(video.currentTime - last_stop) > 0.5
+            ) {
               video.currentTime = last_stop;
             }
           }}
@@ -182,7 +213,6 @@ export const MyPlayer = ({
               userVideoID: userVideoID,
             });
           }}
-          // Video finished
           onEnded={(e) => {
             const video = e.target as HTMLVideoElement;
             postInteraction({
@@ -193,7 +223,6 @@ export const MyPlayer = ({
             });
           }}
         >
-          {/* Closed Captions */}
           <track
             kind="captions"
             label="English"

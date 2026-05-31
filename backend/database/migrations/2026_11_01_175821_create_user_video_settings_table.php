@@ -36,6 +36,7 @@ return new class extends Migration
             $table->boolean('rambling_checked_with_all')->default(false);
             $table->boolean('quiz_checked_with_all')->default(false);
             $table->boolean('all_checked')->default(false);
+            $table->boolean('watched')->default(false);
             // Add timestamps for when the user followed the topic node
             $table->timestamps();
             // Set the primary key to be a combination of user_id and topic
