@@ -4,8 +4,8 @@ export default function Footer() {
   return (
     <footer className="py-6 px-20 text-white text-center">
       <ul className="flex justify-center gap-4 font-light text-xs ">
-        <li>&copy; Copyright Humber College - {currentYear}</li>
-        <li className="hover:text-gray-300">
+        <li>&copy; Copyright Humber Polytechnic - {currentYear}</li>
+        {/* <li className="hover:text-gray-300">
           <a href="/">Privacy & Policies</a>
         </li>
         <li className="hover:text-gray-300">
@@ -13,7 +13,7 @@ export default function Footer() {
         </li>
         <li className="hover:text-gray-300">
           <a href="">DMCA</a>
-        </li>
+        </li> */}
       </ul>
     </footer>
   );
