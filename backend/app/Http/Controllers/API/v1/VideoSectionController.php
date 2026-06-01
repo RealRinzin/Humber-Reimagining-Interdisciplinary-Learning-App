@@ -16,14 +16,6 @@ class VideoSectionController
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -36,15 +28,8 @@ class VideoSectionController
      */
     public function show(VideoSection $videoSection)
     {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(VideoSection $videoSection)
-    {
-        //
+    return $videoSection;
     }
 
     /**

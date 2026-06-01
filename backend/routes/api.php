@@ -12,6 +12,7 @@ use App\Http\Controllers\API\v1\UserVideoController;
 use App\Http\Controllers\API\v1\VideoController;
 use App\Http\Controllers\API\v1\UserContentSettingController;
 use App\Http\Controllers\API\v1\UserVideoSettingController;
+use App\Http\Controllers\API\v1\VideoSectionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 // 
@@ -145,7 +146,17 @@ Route::prefix('v1')
             Route::post('/', 'store')->name('video.store');
             Route::get('/{video}/users', 'users')->name('videos.users');
         });
+        /**
+         * IMPORTANT API - Video Parts Controller
+         * /api/v1/videos // This API will return all the videos
+         * /api/v1/videos/{video:id} // This API will return the video data
+         * /api/v1/videos // This API will add a video to the user
+         * /api/v1/videos/{video}/users // This API will return the users who have added the video to their list 
+         */
+        Route::controller(VideoSectionController::class)->prefix('video-parts')->group(function(){
+            Route::get('/{videoSection:slug}', 'show')->name('videos-parts.show');
 
+        });
         /**
          * USER TOPICS 
          */
@@ -231,7 +242,7 @@ Route::prefix('v1')
     });
 
 
-    // ***************************************************************************************************************************************
+// ***************************************************************************************************************************************
 // =================================================== TEST API =======================================================
 Route::prefix('v1')
     ->name('v1.')
