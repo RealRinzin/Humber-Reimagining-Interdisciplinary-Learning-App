@@ -21,9 +21,9 @@ class UserContentSettingController
         // Return the logged user content setting
         // Return null if it does not have the 
         $user = auth()->user();
+        // return $user;
         return response()->json(['data' => $user->userContentSetting]);
     }
-
 
     /**
      * Store a newly created resource in storage.

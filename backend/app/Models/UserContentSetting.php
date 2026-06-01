@@ -18,7 +18,6 @@ class UserContentSetting extends Model
         'interactive',
         'explore_mode',
         'guide_path',
-        'progress'
     ];
 
     // Relationship with the User

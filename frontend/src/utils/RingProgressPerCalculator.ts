@@ -5,3 +5,8 @@ export function RingProgressPerCalculator(data: any): number {
     const fields = ['code', 'rambling', 'quiz', 'interactive'] as const;
     return (fields.filter(field => data[field]).length)*25;
 }
+
+export function calculateRingProgress(){
+
+    return 45;
+}

@@ -37,7 +37,7 @@ class UserVideoSettingController
         $setting = UserVideoSetting::updateOrCreate(
             [
                 'user_id'  => auth()->id(),
-                'video_id' => (int) $videoID, // ← cast to int
+                'video_id' => (int) $videoID,
             ],
             [
                 'code'                        => $request->code,

@@ -27,6 +27,7 @@ export default function ContentSetting() {
       `/user-content-settings/users/me`,
     );
     const { data: settings } = await content_setting.json();
+    console.log(settings)
     setUserSettings(settings);
   }
   // Use Effect
