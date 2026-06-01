@@ -163,7 +163,6 @@ export const MyPlayer = ({
   return (
     <Player.Provider>
       <VideoSkin>
-        {last_stop}
         <Video
           ref={videoRef} // ← ADD THIS
           src={`/videos/${src}`}

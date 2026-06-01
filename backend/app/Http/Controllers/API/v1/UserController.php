@@ -20,7 +20,7 @@ class UserController
     public function index()
     {
 
-        return User::with(['user_topics'])->get();
+        // return User::with(['user_topics'])->get();
 
         $users = User::with(['topics', 'videos.topic'])->get();
         return UserResource::collection($users);
