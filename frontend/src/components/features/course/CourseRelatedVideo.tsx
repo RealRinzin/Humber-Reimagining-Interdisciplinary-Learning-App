@@ -19,7 +19,7 @@ export default function CourseRelatedVideo({ video_sections }: any) {
             alt="Home Icon"
             className="h-5 w-5"
           />
-          Related Videos
+          Video Parts - Continue
           <FontAwesomeIcon
             icon={drop ? faAngleUp : faAngleDown}
             size="1x"
