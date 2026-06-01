@@ -55,19 +55,23 @@ export default function SearchResultCard({
       <p
         className="font-light text-gray-500"
         dangerouslySetInnerHTML={{
-          __html: result.type==='quiz'?
-          highlightKeyword(query, result.question):
-          result.type === 'code' ? highlightKeyword(query, result.code)
-          :highlightKeyword(query, result.description)
+          __html:
+            result.type === "quiz"
+              ? highlightKeyword(query, result.question)
+              : result.type === "code"
+                ? highlightKeyword(query, result.code)
+                : highlightKeyword(query, result.description),
         }}
       />
       <div className="flex justify-end">
-        <a
-          href={`/video/${result.slug}`}
-          className="bg-gray-800 hover:bg-pink-500 text-white text-sm font-medium px-4 py-1.5 rounded-lg transition-colors duration-200"
-        >
-          View
-        </a>
+        {result.type === "topic" && (
+          <a
+            href={`/video/${result.slug}`}
+            className="bg-gray-800 hover:bg-pink-500 text-white text-sm font-medium px-4 py-1.5 rounded-lg transition-colors duration-200"
+          >
+            View
+          </a>
+        )}
       </div>
     </div>
   );
