@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { use } from "react";
-
 import CommonSideBarNode from "@/components/ui/nodeAnimation/CommonSideBarNode";
 import { clientFetch } from "@/lib/clientFetch";
 import {
@@ -9,17 +8,21 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { useParams } from "next/navigation";
-import CourseTitle from "@/components/features/course/CourseTitle";
 import { MyPlayer } from "@/components/ui/video/VideoPlayer";
+type videoType = {
+  src: string | null;
+  subtitle: string;
+  title: string;
+  video_url: string;
+};
 // Page
 export default function Page() {
   const params = useParams();
   const sectionID = params.sectionID as string;
-  const [video, setVideo] = useState([]);
+  const [video, setVideo] = useState<videoType | null>(null);
   const [open, setOpen] = useState(true);
-
+  // Async function call
   async function getTheVideo(slug: string) {
     const res = await clientFetch(`/video-parts/${slug}`);
     const data = await res.json();
@@ -58,13 +61,19 @@ export default function Page() {
           </div>
           {/* Video section */}
           <section className="flex flex-col md:flex-row gap-3 py-3">
-            <MyPlayer
-              src={video?.video_url}
-              // videoID={video?.id}
-              subtitle={video?.subtitle}
-            />
-          </section>
+            {video ? (
+              <MyPlayer 
+              src={video?.video_url} 
+              subtitle={video?.subtitle} 
+              last_stop={0}
+              videoID={0}
+              userVideoID={0}
 
+              />
+            ) : (
+              <p className="text-white">Loading...</p>
+            )}
+          </section>
         </div>
         {open && (
           <div className={`col-span-6 md:col-span-2 bg-slate-900 rounded-xl`}>
