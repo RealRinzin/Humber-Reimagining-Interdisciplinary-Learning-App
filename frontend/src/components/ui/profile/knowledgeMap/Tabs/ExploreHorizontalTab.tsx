@@ -69,11 +69,12 @@ export default function ExploreHorizontalTab({
           borderColor={color}
           progress={total}
           total={0}
+          
           onClick={total_started !== 18 ? () => postUserTopic(id + 1) : undefined}
         />
         {isOpen && (
           <div className="pt-2 transition-all delay-300 ease-in-out">
-            <p className="text-center text-xs font-semibold">{total}/4</p>
+            {/* <p className="text-center text-xs font-semibold">{total}/4</p> */}
             <p className="text-gray-600 text-xs font-semibold">Complete</p>
           </div>
         )}

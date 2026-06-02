@@ -6,6 +6,8 @@ import { HorizontalTabTypes } from "@/types/progress/horizontalTab.types";
 import RingProgressBar from "./Ring";
 import { useToggle } from "@/hooks/common/useToggle";
 import { clientFetch, clientPost } from "@/lib/clientFetch";
+import { useEffect, useState } from "react";
+import { calculateRingProgress } from "@/utils/RingProgressPerCalculator";
 
 interface CheckedMarkCount {
   code: number;
@@ -54,6 +56,29 @@ export default function TabHorizontal({
     : fields.filter((field) => ringInformation[0]?.user_video_setting?.[field])
         .length;
 
+  const [userContentSetting, setUserContentSetting] = useState(null);
+  const [userVideoSetting, setUserVideoSetting] = useState(null);
+  async function getUserSetting() {
+    const res = await clientFetch("/user-content-settings/users/me");
+    const { data: user_setting } = await res.json();
+    setUserContentSetting(user_setting);
+  }
+  async function getUserVideoSetting() {
+    const res = await clientFetch(`/user-video-setting/users/me/videos/${id}`);
+    const { data: video_setting } = await res.json();
+
+    setUserVideoSetting(video_setting);
+  }
+
+  const progressTotal = calculateRingProgress(
+    userContentSetting,
+    userVideoSetting,
+  );
+  useEffect(() => {
+    // destructure the content
+    getUserSetting();
+    getUserVideoSetting();
+  }, []);
   return (
     <div
       className={`flex items-center border-2 rounded-2xl border-gray-500/80 my-4 ${is_started ? "bg-white" : "bg-gray-400 "}`}
@@ -72,9 +97,9 @@ export default function TabHorizontal({
         <RingProgressBar
           id={2}
           color={color}
-          total={0}
           borderColor={color}
-          progress={total}
+          progress={progressTotal}
+          total={(userContentSetting as any)?.total_checked}
         />
         {isOpen && (
           <div className="pt-2 transition-all delay-300 ease-in-out">

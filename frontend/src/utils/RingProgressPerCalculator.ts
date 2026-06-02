@@ -19,7 +19,6 @@ export function RingProgressPerCalculator(data: any) {
 export function nodeProgressCalculator(data: any,user_setting:any,total_checked:number) {
 
     let count = 0;
-
     if (!data) return 0;
     if(data?.all_checked) return 100;
     
