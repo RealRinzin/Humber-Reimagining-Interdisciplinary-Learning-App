@@ -1,0 +1,533 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Rotation</title>
+  <link rel="stylesheet" href="./common/styles.css" />
+</head>
+<body>
+
+<script type="module">
+
+import { addHint } from "./common/hint.js";
+addHint("Drag to orbit, wheel to zoom. Blue sphere is model-space origin & center of rotation.");
+
+import * as THREE from "https://esm.sh/three@0.160.0";
+import GUI from "https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm";
+
+// ----- Common modules -----
+import { createSceneShell } from "./common/sceneShell.js";
+import { addAxes } from "./common/axes.js";
+import { createRenderable, setWireframeMode } from "./common/renderModes.js";
+import { createOriginMarker } from "./common/originMarker.js";
+import { createRotationMatrixUI } from "./common/matrixUI.js";
+import { colorizeController } from "./common/uiLayout.js";
+import { COLORS } from "./common/colors.js";
+
+// ======================================================
+// Scene shell
+// ======================================================
+const { scene, camera, renderer, controls } = createSceneShell();
+
+// Group the model and its gimbal rings
+const modelGroup = new THREE.Group();
+modelGroup.matrixAutoUpdate = false;
+scene.add(modelGroup);
+
+// ======================================================
+// Model axes (attached to pivot)
+// ======================================================
+const modelAxes = new THREE.Group();
+addAxes(modelAxes, 3);
+scene.add(modelAxes);
+
+// Gimpal Lock
+// Local object rings (rotate with object)
+function createRotationRing(radius, color, axis) {
+  const geom = new THREE.TorusGeometry(radius, 0.03, 16, 64);
+  const mat = new THREE.MeshBasicMaterial({ color });
+  const ring = new THREE.Mesh(geom, mat);
+
+  if (axis === "x") ring.rotation.y = Math.PI / 2;
+  if (axis === "y") ring.rotation.x = Math.PI / 2;
+  // z stays in XY plane
+
+  return ring;
+}
+
+const localRings = new THREE.Group();
+localRings.add(createRotationRing(1.4, COLORS.X, "x"));
+localRings.add(createRotationRing(1.4, COLORS.Y, "y"));
+localRings.add(createRotationRing(1.4, COLORS.Z, "z"));
+modelGroup.add(localRings);
+localRings.visible = false;
+
+localRings.children.forEach(ring => {
+  ring.userData.baseRotation = ring.rotation.clone();
+});
+
+
+
+// offset the rings for visulization
+// localRings.children[0].geometry = new THREE.TorusGeometry(1.30, 0.03, 16, 64);
+// localRings.children[1].geometry = new THREE.TorusGeometry(1.45, 0.03, 16, 64);
+// localRings.children[2].geometry = new THREE.TorusGeometry(1.60, 0.03, 16, 64);
+
+// ======================================================
+// Cube (2x2x2)
+// ======================================================
+const geometry = new THREE.BoxGeometry(2, 2, 2);
+const renderable = createRenderable(geometry);
+modelGroup.add(renderable.mesh);
+modelGroup.add(renderable.outline);
+
+// ======================================================
+// Pivot marker (model-space origin)
+// ======================================================
+const pivotMarker = createOriginMarker(scene);
+
+// ======================================================
+// Matrices
+// ======================================================
+const R = new THREE.Matrix4(); // rotation
+const M = new THREE.Matrix4(); // final model matrix
+const T_obj = new THREE.Matrix4(); // object translation
+
+// Gimpal
+const Rx = new THREE.Matrix4();
+const Ry = new THREE.Matrix4();
+const Rz = new THREE.Matrix4();
+const Rxy = new THREE.Matrix4();
+
+// ======================================================
+// GUI parameters
+// ======================================================
+const params = {
+  rx: 0,
+  ry: 0,
+  rz: 0,
+
+  tx: 0,
+  ty: 0,
+  tz: 0,
+
+  // Vertex positions
+  vx: 0.0,   // 0 = left, 1 = right
+vy: 1.0,   // 0 = bottom, 1 = top
+vz: 1.0,   // 0 = back, 1 = front
+
+  wireframe: true,
+  gimbalLockDemo: false,
+  showLocalRings: false
+
+};
+
+const guiRight = new GUI({ title: "Controllers" });
+guiRight.$title.style.pointerEvents = "none";
+guiRight.$title.style.opacity = "0.0";
+guiRight.$title.style.height = "0.0";
+
+// ======================================================
+// Reference point (default: top-left-front corner)
+// ======================================================
+function createPointMarker(color = 0xffff00) {
+  return new THREE.Mesh(
+    new THREE.SphereGeometry(0.06, 16, 16),
+    new THREE.MeshBasicMaterial({ color })
+  );
+}
+const pointMarkers = {};
+
+pointMarkers.topLeftFront = createPointMarker(0xffaa00);
+scene.add(pointMarkers.topLeftFront);
+
+// ======================================================
+// Point coordinate display
+// ======================================================
+const pointInfoDiv = document.createElement("div");
+pointInfoDiv.style.fontFamily = "monospace";
+pointInfoDiv.style.fontSize = "12px";
+pointInfoDiv.style.marginBottom = "6px";
+pointInfoDiv.style.borderBottom = "1px solid rgba(255,255,255,0.2)";
+guiRight.domElement.prepend(pointInfoDiv);
+
+// ======================================================
+// Vertex position sliders (model space)
+// ======================================================
+const vertexFolder = guiRight.addFolder("Vertex Position");
+
+const vxCtrl = vertexFolder.add(params, "vx", 0, 1, 0.001)
+  .name("X Edge (0=Left, 1=Right)")
+  .onChange(update);
+
+const vyCtrl = vertexFolder.add(params, "vy", 0, 1, 0.001)
+  .name("Y Edge (0=Bottom, 1=Top)")
+  .onChange(update);
+
+const vzCtrl = vertexFolder.add(params, "vz", 0, 1, 0.001)
+  .name("Z Edge (0=Back, 1=Front)")
+  .onChange(update);
+
+colorizeController(vxCtrl, COLORS.X);
+colorizeController(vyCtrl, COLORS.Y);
+colorizeController(vzCtrl, COLORS.Z);
+
+vertexFolder.open();
+
+// ======================================================
+// Object moving folder
+// ======================================================
+const objectLocationFolder = guiRight.addFolder("Translation");
+
+const txCtrl = objectLocationFolder.add(params, "tx", -1, 1, 0.01).onChange(update);
+const tyCtrl = objectLocationFolder.add(params, "ty", -1, 1, 0.01).onChange(update);
+const tzCtrl = objectLocationFolder.add(params, "tz", -1, 1, 0.01).onChange(update);
+colorizeController(txCtrl, COLORS.X);
+colorizeController(tyCtrl, COLORS.Y);
+colorizeController(tzCtrl, COLORS.Z);
+
+
+// ======================================================
+// Rotation folder
+// ======================================================
+const rotFolder = guiRight.addFolder("Euler Angles (degrees)");
+
+const rxCtrl = rotFolder.add(params, "rx", -180, 180, 1).name("Rotate X").onChange(update);
+const ryCtrl = rotFolder.add(params, "ry", -180, 180, 1).name("Rotate Y").onChange(update);
+const rzCtrl = rotFolder.add(params, "rz", -180, 180, 1).name("Rotate Z").onChange(update);
+
+colorizeController(rxCtrl, COLORS.X);
+colorizeController(ryCtrl, COLORS.Y);
+colorizeController(rzCtrl, COLORS.Z);
+
+
+rotFolder.open();
+
+// ======================================================
+// Render mode
+// ======================================================
+guiRight.add(params, "wireframe")
+  .name("Wireframe")
+  .onChange(v => setWireframeMode(renderable, v));
+
+
+// ======================================================
+// Gimbal Lock
+// ======================================================
+
+rotFolder.add(params, "gimbalLockDemo")
+  .name("Snap Y to 90° (classic gimbal lock)")
+  .onChange(value => {
+    if (value) {
+      // Force Y rotation and disable slider
+      params.ry = 90;
+      ryCtrl.disable();
+    } else {
+      // Re-enable Y rotation
+      ryCtrl.enable();
+    }
+
+    // Ensure GUI reflects programmatic change
+    ryCtrl.updateDisplay();
+
+    update();
+  });
+
+const gimbalDiv = document.createElement("div");
+gimbalDiv.style.fontFamily = "monospace";
+gimbalDiv.style.fontSize = "12px";
+gimbalDiv.style.marginTop = "8px";
+gimbalDiv.style.color = "#ff8888";
+rotFolder.domElement.appendChild(gimbalDiv);
+
+params.showLocalRings = false;
+
+rotFolder.add(params, "showLocalRings")
+  .name("Show Orientation Rings")
+  .onChange(v => localRings.visible = v);
+  
+
+function axesAligned(a, b, epsilon = 0.999) {
+  return Math.abs(a.dot(b)) > epsilon;
+}
+
+function setAxisColor(axisIndex, color) {
+  localAxes.children[axisIndex].material.color.set(color);
+}
+
+function resetRing(ring) {
+  ring.position.set(0, 0, 0);
+  ring.scale.set(1, 1, 1);
+
+  // Restore base orientation via quaternion
+  ring.quaternion.setFromEuler(ring.userData.baseRotation);
+
+  ring.updateMatrixWorld(true);
+}
+
+// ======================================================
+// Reset Button
+// ======================================================
+guiRight.add({ resetValues }, "resetValues")
+  .name("Reset");
+
+function resetValues(){
+  // Reset params (DATA)
+  params.tx = params.ty = params.tz = 0;
+  params.rx = params.ry = params.rz = 0;
+
+  params.vx = 0; params.vy = params.vz = 1;
+
+  params.gimbalLockDemo = false;
+  ryCtrl.enable();
+  guiRight.controllersRecursive().forEach(c => c.updateDisplay());
+
+  // Force lil-gui to sync sliders
+  txCtrl.updateDisplay();
+  tyCtrl.updateDisplay();
+  tzCtrl.updateDisplay();
+
+  rxCtrl.updateDisplay();
+  ryCtrl.updateDisplay();
+  rzCtrl.updateDisplay();
+
+  vxCtrl.updateDisplay();
+  vyCtrl.updateDisplay();
+  vzCtrl.updateDisplay();
+
+
+  update();
+  
+  }
+
+// ======================================================
+// Left Panel
+// ======================================================
+const guiLeft = new GUI({ title: "Tranport Matrices" });
+guiLeft.$title.style.pointerEvents = "none";
+guiLeft.$title.style.opacity = "0.0"; // remove the word
+guiLeft.$title.style.height = "0.0"; // remove the word
+guiLeft.domElement.style.right = "auto";
+guiLeft.domElement.style.left = "0";
+guiLeft.domElement.style.background = "transparent";
+
+// Remove the 'empty' word
+const dummy = guiLeft.add({ _: 0 }, "_");
+dummy.domElement.style.display = "none";
+
+// ======================================================
+// Matrix UI
+// ======================================================
+const updateMatrixUI = createRotationMatrixUI(guiLeft, "Model Rotation Matrix (R)");
+
+
+
+
+
+
+// ======================================================
+// Update function
+// ======================================================
+function updateVertix(trasportMatrix){
+  // Build vertex in MODEL space from per-axis parameters
+const modelPoint = new THREE.Vector3(
+  THREE.MathUtils.lerp(-1, 1, params.vx),
+  THREE.MathUtils.lerp(-1, 1, params.vy),
+  THREE.MathUtils.lerp(-1, 1, params.vz)
+);
+
+// Apply translation (model → world)
+modelPoint.applyMatrix4(trasportMatrix);
+pointMarkers.topLeftFront.position.copy(modelPoint);
+
+const p = pointMarkers.topLeftFront.position;
+
+pointInfoDiv.innerHTML = `
+<br>
+<b>Vertex Coordinates (Yellow Dot)</b>
+<br>
+<span style="color:${COLORS.X}"> X: ${p.x.toFixed(2)}</span> &nbsp;
+<span style="color:${COLORS.Y}"> Y: ${p.y.toFixed(2)}</span> &nbsp;
+<span style="color:${COLORS.Z}"> Z: ${p.z.toFixed(2)}</span>
+`;
+
+}
+
+
+function update() {
+  // Object translation
+  T_obj.makeTranslation(params.tx, params.ty, params.tz);
+
+  // Rotation (Euler XYZ)
+  // const rx = THREE.MathUtils.degToRad(params.rx);
+  // const ry = THREE.MathUtils.degToRad(params.ry);
+  // const rz = THREE.MathUtils.degToRad(params.rz);
+
+  // R.makeRotationFromEuler(new THREE.Euler(rx, ry, rz, "XYZ"));
+
+  // Rotation (Euler XYZ)
+let ryDeg = params.ry;
+
+// Force gimbal lock condition
+if (params.gimbalLockDemo) {
+  params.ry = 90;
+  guiRight.controllersRecursive().forEach(c => c.updateDisplay());
+}
+
+
+const rx = THREE.MathUtils.degToRad(params.rx);
+const ry = THREE.MathUtils.degToRad(params.ry);
+const rz = THREE.MathUtils.degToRad(params.rz);
+
+//if (params.gimbalLockDemo){
+Rx.makeRotationX(rx);
+Ry.makeRotationY(ry);
+Rz.makeRotationZ(rz);
+
+// Full rotation (object orientation)
+R.identity();
+R.multiply(Rx);
+R.multiply(Ry);
+R.multiply(Rz);
+//}
+
+// else{
+
+//   const euler = new THREE.Euler(rx, ry, rz, "XYZ");
+//   R.makeRotationFromEuler(euler);
+// }
+
+
+  // M = T · R 
+  M.identity();
+  M.multiply(R);
+  M.multiply(T_obj);
+
+  updateVertix(M);
+
+
+  modelGroup.matrix.copy(M);
+  modelGroup.matrixWorldNeedsUpdate = true;
+
+  // renderable.mesh.matrix.copy(M);
+  // renderable.mesh.matrixWorldNeedsUpdate = true;
+
+  // renderable.outline.matrix.copy(M);
+  // renderable.outline.matrixWorldNeedsUpdate = true;
+
+  updateMatrixUI(R);
+
+  // ======================================================
+// Gimbal Lock
+// ======================================================
+
+
+  // Make local rings follow object orientation and translation
+// localRings.matrix.identity();
+// // localRings.applyMatrix4(T_obj);
+// // localRings.applyMatrix4(R);
+// localRings.position.set(params.ox, params.oy, params.oz);
+// localRings.matrixWorldNeedsUpdate = true;
+//localRings.position.set(params.ox, params.oy, params.oz);
+
+
+  // extract the rotated basis vectors from the rotation matrix
+const xAxis = new THREE.Vector3(1, 0, 0);
+const yAxis = new THREE.Vector3(0, 1, 0);
+const zAxis = new THREE.Vector3(0, 0, 1);
+
+const xAxisWorld = xAxis.clone();                // X gimbal
+const yAxisWorld = yAxis.clone().applyMatrix4(Rx);      // Y gimbal
+const zAxisWorld = zAxis.clone().applyMatrix4(Rx).applyMatrix4(Ry); // Z gimbal
+
+//modelGroup.position.set(params.ox, params.oy, params.oz);
+
+
+
+// --- X gimbal ring ---
+const ringX = localRings.children[0];
+resetRing(ringX);
+ringX.quaternion.setFromRotationMatrix(Rx);
+
+// --- Y gimbal ring ---
+const ringY = localRings.children[1];
+resetRing(ringY);
+Rxy.identity().multiply(Rx).multiply(Ry);
+ringY.quaternion.setFromRotationMatrix(Rxy);
+
+// --- Z gimbal ring ---
+const ringZ = localRings.children[2];
+resetRing(ringZ);
+ringZ.quaternion.setFromRotationMatrix(R);
+
+
+ringX.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1), xAxisWorld);
+ringY.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1), yAxisWorld);
+ringZ.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1), zAxisWorld);
+
+// Move ring system with the object
+//localRings.position.set(renderable.mesh.position.x, renderable.mesh.position.y, renderable.mesh.position.z);
+modelGroup.position.set(params.tx, params.ty, params.tz);
+
+// // Move rings with the object
+// localRings.position.set(params.ox, params.oy, params.oz);
+
+// // --- X gimbal ring ---
+// localRings.children[0].rotation.setFromRotationMatrix(Rx);
+
+// // --- Y gimbal ring ---
+// Rxy.identity();
+// Rxy.multiply(Rx);
+// Rxy.multiply(Ry);
+// localRings.children[1].rotation.setFromRotationMatrix(Rxy);
+
+// // --- Z gimbal ring ---
+// localRings.children[2].rotation.setFromRotationMatrix(R);
+
+// Reset colors
+// setAxisColor(0, COLORS.X);
+// setAxisColor(1, COLORS.Y);
+// setAxisColor(2, COLORS.Z);
+
+// if (xyLocked) {
+//   setAxisColor(0, 0xff4444);
+//   setAxisColor(1, 0xff4444);
+// }
+// if (yzLocked) {
+//   setAxisColor(1, 0xff4444);
+//   setAxisColor(2, 0xff4444);
+// }
+// if (xzLocked) {
+//   setAxisColor(0, 0xff4444);
+//   setAxisColor(2, 0xff4444);
+// }
+}
+
+// Initial state
+update();
+
+// ======================================================
+// Animation loop
+// ======================================================
+function animate() {
+  requestAnimationFrame(animate);
+
+  controls.update();
+  renderer.render(scene, camera);
+
+  let message = "<b>Rotation Order:</b> X → Y → Z";
+
+if (params.gimbalLockDemo) {
+  message = "<b>⚠ Gimbal Lock Detected</b><br>";
+
+  message += "X and Z rotation axes now point in the same direction. These two controls will rotate around the same axis.";
+}
+
+gimbalDiv.innerHTML = message;
+
+}
+animate();
+
+</script>
+</body>
+</html>

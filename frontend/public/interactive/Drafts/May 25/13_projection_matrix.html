@@ -1,0 +1,601 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Projection Matrix</title>
+  <link rel="stylesheet" href="./common/styles.css" />
+</head>
+<!-- <div class="cameraFrameBottom"></div>
+<div class="cameraLabelBottom">Camera View</div> -->
+
+<body>
+
+<script type="module">
+
+// import { addHint } from "./common/hint.js";
+// addHint(
+//   "Drag to orbit, wheel to zoom.")
+
+import * as THREE from "https://esm.sh/three@0.160.0";
+import GUI from "https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm";
+import { TeapotGeometry }
+  from "https://esm.sh/three@0.160.0/examples/jsm/geometries/TeapotGeometry.js";
+
+// ----- Common modules -----
+import { createSceneShell } from "./common/sceneShell.js";
+import { addAxes } from "./common/axes.js";
+import { createOriginMarker } from "./common/originMarker.js";
+import { createXZPlane, createRenderable, createRenderableLightable, setWireframeMode } from "./common/renderModes.js";
+import { colorizeController } from "./common/uiLayout.js";
+import { COLORS } from "./common/colors.js";
+import {
+  createTranslationMatrixUI,
+  createRotationMatrixUI,
+  createMatrix4UI,
+  createPerspectiveMatrixFormulaUI,
+  createOrthographicMatrixFormulaUI
+} from "./common/matrixUI.js";
+
+// ======================================================
+// Scene shell
+// ======================================================
+const { scene, camera, renderer, controls } = createSceneShell();
+
+controls.zoomSpeed = 4.0;  
+camera.position.set(2, 2, 5);  
+
+const worldCamera = camera;
+const projectionCamera = worldCamera.clone();
+//projectionCamera.layers.disable(DEBUG_LAYER); // hide helpers if needed
+
+
+// Projection camera: fixed, mathematical camera
+projectionCamera.position.set(0, 0, 0);
+projectionCamera.quaternion.identity();   // looking down -Z
+projectionCamera.updateMatrixWorld(true);
+
+
+
+// ======================================================
+// World axes
+// ======================================================
+addAxes(scene, 3);
+
+// ======================================================
+// Origin marker (world origin)
+// ======================================================
+createOriginMarker(scene);
+
+
+// ======================================================
+// Objects in the scene (different depths)
+// ======================================================
+const objects = [];
+
+function addBox(x, y, z, color) {
+  const mesh = new THREE.Mesh(
+    new THREE.BoxGeometry(1, 1, 1),
+    new THREE.MeshStandardMaterial({ color,
+        
+roughness: 0.0,   // ↓ smoother = shinier
+    metalness: 0.25    // small metal component → bright white highlight
+
+     })
+  );
+  mesh.position.set(x, y, z);
+  scene.add(mesh);
+  objects.push(mesh);
+}
+
+function addSphere(x, y, z, color) {
+  const mesh = new THREE.Mesh(
+    new THREE.SphereGeometry(0.5),
+    new THREE.MeshStandardMaterial({ color,
+
+    roughness: 0.0,
+    metalness: 0.25
+ })
+  );
+  mesh.position.set(x, y, z);
+  scene.add(mesh);
+  objects.push(mesh);
+}
+
+// Near objects
+addBox(-1.2, 0.25, -2, 0xff6666);
+addSphere(1.2, 0, -2, 0x66ff66);
+
+// Mid objects
+addBox(-0.6, 1, -4, 0x6666ff);
+addSphere(0.6, -0.75, -4, 0xffff66);
+
+// Far objects
+addBox(0, 0, -6, 0xff66ff);
+
+////////////// GRID /////////////////
+
+const gridPlane = new THREE.GridHelper(
+  5,
+  5,
+  0x888888,
+  0x444444
+);
+
+scene.add(gridPlane);
+
+// ======================================================
+// Phsyical Camera objects
+// ======================================================
+function createCameraModel() {
+  const group = new THREE.Group();
+
+  // Camera body
+  const body = new THREE.Mesh(
+    new THREE.BoxGeometry(0.4, 0.3, 0.2),
+    new THREE.MeshStandardMaterial({ color: 0xffffff })
+  );
+  //body.position.z = -0.05;
+  group.add(body);
+
+  // Lens / frustum hint
+  const lens = new THREE.Mesh(
+    new THREE.ConeGeometry(0.16, 0.4, 20),
+    new THREE.MeshStandardMaterial({ color: 0xffffff })
+  );
+  lens.rotation.x = -Math.PI / 2;
+  lens.position.z = -0.1;
+  group.add(lens);
+
+  return group;
+}
+
+const cameraVisual = createCameraModel();
+scene.add(cameraVisual);
+
+
+const cameraViewSize = 240; // px
+
+const DEBUG_LAYER = 1;
+
+
+
+gridPlane.layers.set(DEBUG_LAYER);
+cameraVisual.layers.set(DEBUG_LAYER);
+
+worldCamera.layers.enable(0);
+worldCamera.layers.enable(DEBUG_LAYER);
+projectionCamera.layers.enable(0);
+projectionCamera.layers.disable(DEBUG_LAYER);
+
+// ======================================================
+// Lighting (normals matter here)
+// ======================================================
+scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+
+const light = new THREE.DirectionalLight(0xffffff, 2);
+light.position.set(3, 4, 5);
+scene.add(light);
+
+
+// ======================================================
+// Matrices
+// ======================================================
+const P = new THREE.Matrix4();
+
+// ======================================================
+// Parameters
+// ======================================================
+const params = {
+  
+perspective: true,
+  orthographic: false,
+
+
+  left: -1,
+  right: 1,
+  bottom: -1,
+  top: 1,
+  near: 1,
+  far: 10
+};
+
+// ======================================================
+// GUI (right)
+// ======================================================
+const guiRight = new GUI({ title: "Projection Controls" });
+guiRight.$title.style.opacity = "0.0";
+guiRight.$title.style.height = "0px";
+
+const projectionFolder = guiRight.addFolder("Projection Type");
+
+const perspectiveCtrl = projectionFolder
+  .add(params, "perspective")
+  .name("Perspective")
+  .onChange(v => {
+    if (v) {
+      params.orthographic = false;
+      orthoCtrl.updateDisplay();
+      updateProjection();
+    }
+  });
+
+const orthoCtrl = projectionFolder
+  .add(params, "orthographic")
+  .name("Orthographic")
+  .onChange(v => {
+    if (v) {
+      params.perspective = false;
+      perspectiveCtrl.updateDisplay();
+      updateProjection();
+    }
+  });
+
+projectionFolder.open();
+
+const clipFolder = guiRight.addFolder("Clip Volume");
+
+clipFolder.add(params, "left", -5, 5, 0.01).name("Left (l)").onChange(updateProjection);
+clipFolder.add(params, "right", -5, 5, 0.01).name("Right (r)").onChange(updateProjection);
+clipFolder.add(params, "bottom", -5, 5, 0.01).name("Bottom (b)").onChange(updateProjection);
+clipFolder.add(params, "top", -5, 5, 0.01).name("Top (t)").onChange(updateProjection);
+clipFolder.add(params, "near", 0.1, 10, 0.01).name("Near (n)").onChange(updateProjection);
+clipFolder.add(params, "far", 0, 10, 0.01).name("Far (f)").onChange(updateProjection);
+
+clipFolder.open();
+
+guiRight.add({ reset }, "reset").name("Reset");
+// Left 
+
+const guiLeft = new GUI({ title: "Matrices" });
+guiLeft.$title.style.pointerEvents = "none";
+
+// Left only
+guiLeft.domElement.style.right = "auto";
+guiLeft.domElement.style.left = "0";
+
+guiLeft.$title.style.opacity = "0.0";
+guiLeft.$title.style.height = "0.0";
+
+guiLeft.domElement.style.background = "transparent";
+
+const dummy = guiLeft.add({ _: 0 }, "_");
+dummy.domElement.style.display = "none";
+
+// guiLeft.domElement.style.position = "fixed";
+// guiLeft.domElement.style.bottom = 0;
+
+
+
+// ======================================================
+// Projection volume visual
+// ======================================================
+
+// Wireframe
+// let volumeHelper = null;
+// function updateProjectionVolumeWireframe() {
+//   if (volumeHelper) scene.remove(volumeHelper);
+
+//   if (params.perspective) {
+//     const cam = new THREE.PerspectiveCamera(
+//       45, 1,
+//       params.near,
+//       params.far
+//     );
+//     volumeHelper = new THREE.CameraHelper(cam);
+//   } else {
+//     const cam = new THREE.OrthographicCamera(
+//       params.left,
+//       params.right,
+//       params.top,
+//       params.bottom,
+//       params.near,
+//       params.far
+//     );
+//     volumeHelper = new THREE.CameraHelper(cam);
+//   }
+
+//   scene.add(volumeHelper);
+// }
+
+function addEdges(mesh, color = 0xffffff) {
+  const edges = new THREE.EdgesGeometry(mesh.geometry);
+  const mat = new THREE.LineBasicMaterial({
+    color,
+    transparent: true,
+    opacity: 0.9
+  });
+
+  const lines = new THREE.LineSegments(edges, mat);
+  lines.position.copy(mesh.position);
+  lines.rotation.copy(mesh.rotation);
+  lines.scale.copy(mesh.scale);
+
+  return lines;
+}
+
+ // Mesh
+ let clipVolumeMesh = null;
+
+function updateProjectionVolumeMesh() {
+  if (clipVolumeMesh) scene.remove(clipVolumeMesh);
+
+  clipVolumeMesh = params.perspective
+    ? createPerspectiveVolume()
+    : createOrthoVolume();
+
+    
+
+clipVolumeMesh.traverse(obj => {
+  obj.layers.set(DEBUG_LAYER);
+});
+
+  scene.add(clipVolumeMesh);
+}
+
+function createOrthoVolume() {
+  const width  = params.right - params.left;
+  const height = params.top - params.bottom;
+  const depth  = params.far - params.near;
+
+  const geom = new THREE.BoxGeometry(width, height, depth);
+
+  const mat = new THREE.MeshBasicMaterial({
+    color: 0x808080,
+    opacity: 0.5,
+    transparent: true,
+    depthWrite: false
+  });
+
+  const box = new THREE.Mesh(geom, mat);
+  box.position.set(
+    (params.left + params.right) / 2,
+    (params.top + params.bottom) / 2,
+    -(params.near + params.far) / 2
+  );
+
+  const edges = addEdges(box, 0x99bbff);
+
+  const group = new THREE.Group();
+  group.add(box);
+  group.add(edges);
+
+  return group;
+}
+
+function createPerspectiveVolume() {
+  const geo = new THREE.BufferGeometry();
+
+  const l = params.left;
+  const r = params.right;
+  const b = params.bottom;
+  const t = params.top;
+  const n = params.near;
+  const f = params.far;
+
+  const scale = f / n;
+
+  const verts = new Float32Array([
+    // near plane
+    l, b, -n,
+    r, b, -n,
+    r, t, -n,
+    l, t, -n,
+
+    // far plane
+    l * scale, b * scale, -f,
+    r * scale, b * scale, -f,
+    r * scale, t * scale, -f,
+    l * scale, t * scale, -f,
+  ]);
+
+  geo.setAttribute("position", new THREE.BufferAttribute(verts, 3));
+  geo.setIndex([
+    0,1,2, 0,2,3,
+    4,5,6, 4,6,7,
+    0,1,5, 0,5,4,
+    1,2,6, 1,6,5,
+    2,3,7, 2,7,6,
+    3,0,4, 3,4,7
+  ]);
+
+  geo.computeVertexNormals();
+
+  const mat = new THREE.MeshBasicMaterial({
+    color: 0x808080,
+    opacity: 0.5,
+    transparent: true,
+    side: THREE.DoubleSide,
+    depthWrite: false
+  });
+
+  const frustumMesh = new THREE.Mesh(geo, mat);
+  const frustumEdges = addEdges(frustumMesh, 0xffaa66);
+
+  const group = new THREE.Group();
+  group.add(frustumMesh);
+  group.add(frustumEdges);
+
+  return group;
+}
+``
+// ======================================================
+// Projection update
+// ======================================================
+function updateProjection() {
+
+  if (params.perspective) {
+    projectionCamera.projectionMatrix.makePerspective(
+      params.left, params.right,
+      params.top, params.bottom,
+      params.near, params.far
+    );
+
+    // show only perspective formula
+    perspFormula.div.style.display = "block";
+    orthoFormula.div.style.display = "none";
+    perspFormula.update();
+  }
+
+  if (params.orthographic) {
+    projectionCamera.projectionMatrix.makeOrthographic(
+      params.left, params.right,
+      params.top, params.bottom,
+      params.near, params.far
+    );
+
+    // show only orthographic formula
+    orthoFormula.div.style.display = "block";
+    perspFormula.div.style.display = "none";
+    orthoFormula.update();
+  }
+
+  P.copy(projectionCamera.projectionMatrix);
+  updateProjectionUI(P);
+  updateProjectionVolumeMesh();
+  //updateProjectionVolumeWireframe();
+}
+
+// ======================================================
+// Reset
+// ======================================================
+function reset() {
+  
+  params.perspective = true;
+  params.orthographic = false;
+
+
+  params.left = -1;
+  params.right = 1;
+  params.bottom = -1;
+  params.top = 1;
+  params.near = 1;
+  params.far = 10;
+
+  guiRight.controllersRecursive().forEach(c => c.updateDisplay());
+  updateProjection();
+}
+
+
+
+//////// LEFT GUI components //////////
+
+const perspFormula  = createPerspectiveMatrixFormulaUI(guiLeft);
+const orthoFormula  = createOrthographicMatrixFormulaUI(guiLeft);
+const updateProjectionUI = createMatrix4UI(guiLeft, "Projection Matrix (P)");
+
+
+
+
+
+// FUNCTIONS
+
+function styleSymbol(el) {
+  el.style.fontSize = "20px";
+  el.style.fontWeight = "bold";
+  el.style.fontFamily = "monospace";
+  el.style.opacity = "0.9";
+}
+
+// Camera insert into the left GUI
+// Create camera view container inside left GUI
+const cameraPreview = document.createElement("div");
+cameraPreview.style.width = "220px";
+cameraPreview.style.height = "220px";
+cameraPreview.style.border = "2px solid #fff";
+//cameraPreview.style.marginBottom = "8px";
+cameraPreview.style.background = "#000";
+cameraPreview.style.position = "relative";
+cameraPreview.textContent = ""; // empty, WebGL will draw behind it
+cameraPreview.style.background = "transparent";
+
+cameraPreview.style.marginTop = "4px";
+
+// Insert at TOP of left GUI
+//guiLeft.domElement.prepend(cameraPreview);
+
+guiLeft.domElement.appendChild(cameraPreview);
+
+
+
+  
+// ======================================================
+// Update function
+// ======================================================
+function getElementViewportRect(el) {
+  const rect = el.getBoundingClientRect();
+  return {
+    x: rect.left,
+    y: window.innerHeight - rect.bottom, // 🔑 convert to WebGL coords
+    width: rect.width,
+    height: rect.height
+  };
+}
+
+
+
+
+// Initial state
+updateProjection();
+
+// Force correct camera inset setup BEFORE first frame
+// cameraObject.aspect = cameraPreview.clientWidth / cameraPreview.clientHeight;
+// cameraObject.updateProjectionMatrix();
+
+// ======================================================
+// Animation loop
+// ======================================================
+function animate() {
+
+
+// Sync visible camera object with projection camera
+// Sync camera model to projection camera
+cameraVisual.position.copy(projectionCamera.position);
+cameraVisual.quaternion.copy(projectionCamera.quaternion);
+cameraVisual.updateMatrixWorld();
+
+// Update helper to match
+//cameraHelper.update();
+
+  requestAnimationFrame(animate);
+  controls.update();
+
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+
+  renderer.setScissorTest(true);
+
+  // ==================================================
+  // MAIN VIEW (full screen, world view)
+  // ==================================================
+  renderer.setViewport(0, 0, w, h);
+  renderer.setScissor(0, 0, w, h);
+  renderer.setClearColor(0x222222, 1.0);
+  renderer.clear();
+  renderer.render(scene, worldCamera);
+
+  // =======================================
+// Camera preview inside left GUI
+// =======================================
+
+const r = getElementViewportRect(cameraPreview);
+
+renderer.setViewport(r.x, r.y, r.width, r.height);
+renderer.setScissor(r.x, r.y, r.width, r.height);
+renderer.setScissorTest(true);
+
+projectionCamera.aspect = r.width / r.height;
+//projectionCamera.updateProjectionMatrix();
+
+renderer.setClearColor(0x000000, 1.0);
+renderer.clear(true, true, false);
+
+renderer.render(scene, projectionCamera);
+
+
+  
+}
+animate();
+
+</script>
+</body>
+</html>

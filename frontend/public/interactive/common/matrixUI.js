@@ -1,15 +1,19 @@
 // common/matrixUI.js
-import { COLORS } from "./colors.js";
+import { COLORS, SIZE } from "./colors.js";
 
+const font_size = SIZE.font;
+const lineHeight_size = SIZE.lineHeight;
+const marginTop_size = SIZE.marginTop;
 // ======================================================
 // SCALE MATRIX UI
 // ======================================================
 export function createScaleMatrixUI(gui, title = "Scale Matrix") {
   const div = document.createElement("div");
   div.style.fontFamily = "monospace";
-  div.style.fontSize = "12px";
-  div.style.marginTop = "8px";
-  div.style.lineHeight = "1.4";
+  //div.style.fontSize = "12px";
+  div.style.fontSize = font_size;
+  div.style.marginTop = marginTop_size;
+  div.style.lineHeight = lineHeight_size;
   gui.domElement.appendChild(div);
 
   function c(value, color) {
@@ -33,9 +37,10 @@ ${c("0.00", COLORS.NEUTRAL)} &nbsp; ${c("0.00", COLORS.NEUTRAL)} &nbsp; ${c("0.0
 export function createTranslationMatrixUI(gui, title = "Translation Matrix") {
   const div = document.createElement("div");
   div.style.fontFamily = "monospace";
-  div.style.fontSize = "12px";
-  div.style.marginTop = "8px";
-  div.style.lineHeight = "1.4";
+  //div.style.fontSize = "12px";
+  div.style.fontSize = font_size;
+  div.style.marginTop = marginTop_size;
+  div.style.lineHeight = lineHeight_size;
   gui.domElement.appendChild(div);
 
   function c(value, color) {
@@ -59,9 +64,10 @@ ${c("0.00", COLORS.NEUTRAL)} &nbsp; ${c("0.00", COLORS.NEUTRAL)} &nbsp; ${c("0.0
 export function createRotationMatrixUI(gui, title = "Model Rotation Matrix") {
   const div = document.createElement("div");
   div.style.fontFamily = "monospace";
-  div.style.fontSize = "12px";
-  div.style.marginTop = "8px";
-  div.style.lineHeight = "1.4";
+  //div.style.fontSize = "12px";
+ div.style.fontSize = font_size;
+  div.style.marginTop = marginTop_size;
+  div.style.lineHeight = lineHeight_size;
   gui.domElement.appendChild(div);
 
   function c(value, color) {
@@ -87,9 +93,9 @@ export function createMatrix4UI(gui, title = "Matrix4") {
   const div = document.createElement("div");
   div.classList.add("matrix-ui");
   div.style.fontFamily = "monospace";
-  div.style.fontSize = "12px";
-  div.style.marginTop = "4px";
-  div.style.lineHeight = "1.4";
+ div.style.fontSize = font_size;
+  div.style.marginTop = marginTop_size;
+  div.style.lineHeight = lineHeight_size;
   gui.domElement.appendChild(div);
 
   function c(value, color) {
@@ -128,9 +134,10 @@ export function createPerspectiveMatrixFormulaUI(gui, title = "Perpective Matrix
   const div = document.createElement("div");
   div.classList.add("matrix-ui");
   div.style.fontFamily = "monospace";
-  div.style.fontSize = "10px";
-  div.style.marginTop = "4px";
-  div.style.lineHeight = "1.4";
+  //div.style.fontSize = "10px";
+  div.style.fontSize = font_size;
+  div.style.marginTop = marginTop_size;
+  div.style.lineHeight = lineHeight_size;
   
   div.style.display = "none"; // hidden by default
 
@@ -175,9 +182,10 @@ export function createOrthographicMatrixFormulaUI(gui, title = "Orthographic Mat
   const div = document.createElement("div");
   div.classList.add("matrix-ui");
   div.style.fontFamily = "monospace";
-  div.style.fontSize = "10px";
-  div.style.marginTop = "4px";
-  div.style.lineHeight = "1.4";
+  //div.style.fontSize = "10px";
+  div.style.fontSize = font_size;
+  div.style.marginTop = marginTop_size;
+  div.style.lineHeight = lineHeight_size;
 
   div.style.display = "none"; // hidden by default
 
@@ -222,10 +230,11 @@ export function createViewportMatrixFormulaUI(gui, title = "Viewport Matrix Form
   const div = document.createElement("div");
   div.classList.add("matrix-ui");
   div.style.fontFamily = "monospace";
-  div.style.fontSize = "10px";
-  div.style.marginTop = "4px";
-  div.style.lineHeight = "1.4";
-  
+ //div.style.fontSize = "10px";
+ div.style.fontSize = font_size;
+  div.style.marginTop = marginTop_size;
+  div.style.lineHeight = lineHeight_size;
+
   div.style.display = "none"; // hidden by default
 
   gui.domElement.appendChild(div);

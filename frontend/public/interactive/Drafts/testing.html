@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Pivot (Center of Rotation) Controls – Three.js</title>
+  <style>
+    body { margin: 0; background: #0b0e12; color: #e5e7eb; font-family: system-ui, sans-serif; }
+    .hint {
+      position: fixed; left: 10px; bottom: 10px; font-size: 12px;
+      background: rgba(0,0,0,0.4); padding: 8px 10px; border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="hint">
+  Drag to orbit, wheel to zoom. Red sphere = center of rotation (pivot).
+</div>
+
+<script type="module">
+import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
+import { OrbitControls } from "https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js";
+import GUI from "https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm";
+
+// --- Renderer / Scene / Camera ---
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0b0e12);
+
+const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
+camera.position.set(5, 3, 7);
+scene.add(camera);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// Controls (optional but useful to inspect)
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+
+// Lights (for non-Basic materials later, but keeps things ready)
+scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+const dir = new THREE.DirectionalLight(0xffffff, 0.8);
+dir.position.set(5,6,4);
+scene.add(dir);
+
+// --- Axes helper at world origin (helps visualize world space) ---
+const axes = new THREE.AxesHelper(2.5);
+scene.add(axes);
+
+// --- Pivot group: this is the CENTER OF ROTATION ---
+const pivot = new THREE.Group();
+pivot.position.set(0, 0, 0); // initial rotation center
+scene.add(pivot);
+
+// A small red sphere to mark the pivot
+const pivotMarker = new THREE.Mesh(
+  new THREE.SphereGeometry(0.08, 16, 16),
+  new THREE.MeshBasicMaterial({ color: 0xff3333 })
+);
+// Attach the marker as a child of the pivot, so it always stays at the pivot point
+pivot.add(pivotMarker);
+
+// --- Cube: child of the pivot ---
+// If the cube sits at (0,0,0) relative to the pivot, it would rotate in place
+// Move it along +X so you can see it orbit around the pivot when the pivot rotates.
+const cubeGeo = new THREE.BoxGeometry(1, 1, 1);
+const cubeMat = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+const cube = new THREE.Mesh(cubeGeo, cubeMat);
+cube.position.set(2, 0, 0); // offset from pivot so orbit is visible
+pivot.add(cube);
+
+// --- Parameters & GUI ---
+const params = {
+  // Pivot (center of rotation) world position
+  pivotX: 0,
+  pivotY: 0,
+  pivotZ: 0,
+
+  // Orbit: rotate the pivot group to make the cube circle around it
+  orbitSpeed: 0.01,
+
+  // Local spin: rotate the cube in its own local space
+  spinX: 0.02,
+  spinY: 0.02,
+  spinZ: 0.00,
+
+  // Visual toggles
+  wireframe: true,
+  showAxes: true,
+
+  // Reset to defaults
+  reset: () => {
+    params.pivotX = 0; params.pivotY = 0; params.pivotZ = 0;
+    params.orbitSpeed = 0.01;
+    params.spinX = 0.02; params.spinY = 0.02; params.spinZ = 0.00;
+    params.wireframe = true; params.showAxes = true;
+    applyParamsToScene();
+    gui.updateDisplay();
+  }
+};
+
+const gui = new GUI({ title: 'Center of Rotation Controls' });
+const fPivot = gui.addFolder('Pivot (Center of Rotation)');
+fPivot.add(params, 'pivotX', -5, 5, 0.01).name('Pivot X').onChange(applyParamsToScene);
+fPivot.add(params, 'pivotY', -5, 5, 0.01).name('Pivot Y').onChange(applyParamsToScene);
+fPivot.add(params, 'pivotZ', -5, 5, 0.01).name('Pivot Z').onChange(applyParamsToScene);
+
+const fOrbit = gui.addFolder('Orbit (rotate the pivot)');
+fOrbit.add(params, 'orbitSpeed', -0.2, 0.2, 0.001).name('Orbit Speed');
+
+const fSpin = gui.addFolder('Cube local spin');
+fSpin.add(params, 'spinX', -0.2, 0.2, 0.001).name('Spin X');
+fSpin.add(params, 'spinY', -0.2, 0.2, 0.001).name('Spin Y');
+fSpin.add(params, 'spinZ', -0.2, 0.2, 0.001).name('Spin Z');
+
+gui.add(params, 'wireframe').name('Wireframe').onChange(v => { cubeMat.wireframe = v; });
+gui.add(params, 'showAxes').name('Show World Axes').onChange(v => { axes.visible = v; });
+gui.add(params, 'reset').name('Reset');
+
+function applyParamsToScene() {
+  pivot.position.set(params.pivotX, params.pivotY, params.pivotZ);
+  cubeMat.wireframe = params.wireframe;
+  axes.visible = params.showAxes;
+}
+applyParamsToScene();
+
+// --- Animation loop ---
+function animate() {
+  requestAnimationFrame(animate);
+
+  // Orbit motion: rotate the pivot around its own origin
+  pivot.rotation.y += params.orbitSpeed;
+
+  // Local cube spin (about cube’s own local origin)
+  cube.rotation.x += params.spinX;
+  cube.rotation.y += params.spinY;
+  cube.rotation.z += params.spinZ;
+
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+
+// --- Handle resize ---
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>

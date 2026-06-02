@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Rotation</title>
+  <link rel="stylesheet" href="./common/styles.css" />
+</head>
+<body>
+
+<script type="module">
+
+import { addHint } from "./common/hint.js";
+addHint("Drag to orbit, wheel to zoom. Blue sphere is center of rotation.");
+
+import * as THREE from "https://esm.sh/three@0.160.0";
+import GUI from "https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm";
+
+// ----- Common modules -----
+import { createSceneShell } from "./common/sceneShell.js";
+import { addAxes } from "./common/axes.js";
+import { createRenderable, setWireframeMode } from "./common/renderModes.js";
+import { createOriginMarker } from "./common/originMarker.js";
+import { createRotationMatrixUI } from "./common/matrixUI.js";
+import { colorizeController } from "./common/uiLayout.js";
+import { COLORS } from "./common/colors.js";
+
+// ======================================================
+// Scene shell
+// ======================================================
+const { scene, camera, renderer, controls } = createSceneShell();
+
+// ======================================================
+// Model axes (attached to pivot)
+// ======================================================
+const modelAxes = new THREE.Group();
+addAxes(modelAxes, 3);
+scene.add(modelAxes);
+
+// ======================================================
+// Cube (2x2x2)
+// ======================================================
+const geometry = new THREE.BoxGeometry(2, 2, 2);
+const renderable = createRenderable(geometry);
+scene.add(renderable.mesh);
+scene.add(renderable.outline);
+
+// ======================================================
+// Pivot marker (model-space origin)
+// ======================================================
+const pivotMarker = createOriginMarker(scene);
+
+// ======================================================
+// Matrices
+// ======================================================
+const R = new THREE.Matrix4();
+const T_neg_p = new THREE.Matrix4();
+const T_pos_p = new THREE.Matrix4();
+const M = new THREE.Matrix4();
+
+// ======================================================
+// GUI parameters
+// ======================================================
+const params = {
+  rx: 0,
+  ry: 0,
+  rz: 0,
+
+  px: 0,
+  py: 0,
+  pz: 0,
+
+  wireframe: true
+};
+
+const gui = new GUI({ title: "Controllers" });
+gui.$title.style.pointerEvents = "none";
+gui.$title.style.opacity = "0.0";
+gui.$title.style.height = "0.0";
+
+// ======================================================
+// Pivot folder (can move outside the object)
+// ======================================================
+const pivotFolder = gui.addFolder("Model Space Pivot");
+
+pivotFolder.add(params, "px", -3, 3, 0.01).name("Pivot X").onChange(update);
+pivotFolder.add(params, "py", -3, 3, 0.01).name("Pivot Y").onChange(update);
+pivotFolder.add(params, "pz", -3, 3, 0.01).name("Pivot Z").onChange(update);
+
+pivotFolder.open();
+
+
+// ======================================================
+// Rotation folder
+// ======================================================
+const rotFolder = gui.addFolder("Euler Angles (degrees)");
+
+const rxCtrl = rotFolder.add(params, "rx", -180, 180, 1).name("Rotate X").onChange(update);
+const ryCtrl = rotFolder.add(params, "ry", -180, 180, 1).name("Rotate Y").onChange(update);
+const rzCtrl = rotFolder.add(params, "rz", -180, 180, 1).name("Rotate Z").onChange(update);
+
+colorizeController(rxCtrl, COLORS.X);
+colorizeController(ryCtrl, COLORS.Y);
+colorizeController(rzCtrl, COLORS.Z);
+
+rotFolder.open();
+
+// ======================================================
+// Render mode
+// ======================================================
+gui.add(params, "wireframe")
+  .name("Wireframe")
+  .onChange(v => setWireframeMode(renderable, v));
+
+// ======================================================
+// Matrix UI
+// ======================================================
+const updateMatrixUI = createRotationMatrixUI(gui, "Rotation Matrix");
+
+
+// ======================================================
+// Update function
+// ======================================================
+function update() {
+  // Translation to/from pivot
+  T_neg_p.makeTranslation(-params.px, -params.py, -params.pz);
+  T_pos_p.makeTranslation( params.px,  params.py,  params.pz);
+
+  // Rotation (Euler XYZ)
+  const rx = THREE.MathUtils.degToRad(params.rx);
+  const ry = THREE.MathUtils.degToRad(params.ry);
+  const rz = THREE.MathUtils.degToRad(params.rz);
+
+  R.makeRotationFromEuler(new THREE.Euler(rx, ry, rz, "XYZ"));
+
+  // M = T(p) · R · T(-p)
+  M.identity();
+  M.multiply(T_pos_p);
+  M.multiply(R);
+  M.multiply(T_neg_p);
+
+  renderable.mesh.matrix.copy(M);
+  renderable.outline.matrix.copy(M);
+
+  updateMatrixUI(R);
+}
+
+// Initial state
+update();
+
+// ======================================================
+// Animation loop
+// ======================================================
+function animate() {
+  requestAnimationFrame(animate);
+
+  // Pivot marker (model-space → world)
+  pivotMarker.position.set(params.px, params.py, params.pz).applyMatrix4(M);
+
+  // Axes follow pivot
+  modelAxes.position.copy(pivotMarker.position);
+
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+
+</script>
+</body>
+</html>

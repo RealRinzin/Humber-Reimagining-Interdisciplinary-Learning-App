@@ -7,19 +7,20 @@ html, body {
   font-family: system-ui, sans-serif;
 }
 
+
 /* ===== Fixed hint overlay ===== */
 body .hint {
   position: fixed !important;
-  left: 10px;
-  bottom: 10px;
+  left: 1vw;
+  bottom: 1vw;
   z-index: 1000;
 
-  font-size: 12px;
+  font-size: 1.1vw;
   background: rgba(0, 0, 0, 0.4);
   color: #e5e7eb;
 
-  padding: 8px 10px;
-  border-radius: 8px;
+  padding: 1vw 1vw;
+  border-radius: 1vw;
   pointer-events: none; /* optional, recommended */
 }
 

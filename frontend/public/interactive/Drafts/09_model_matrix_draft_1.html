@@ -1,0 +1,597 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Model Matrix</title>
+  <link rel="stylesheet" href="./common/styles.css" />
+</head>
+<body>
+
+<script type="module">
+
+import { addHint } from "./common/hint.js";
+addHint(
+  "Drag to orbit, wheel to zoom. Red arrows are surface normals. Blue sphere is model-space origin & center of scaling/rotation.")
+
+import * as THREE from "https://esm.sh/three@0.160.0";
+import GUI from "https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm";
+
+// ----- Common modules -----
+import { createSceneShell } from "./common/sceneShell.js";
+import { addAxes } from "./common/axes.js";
+import { createOriginMarker } from "./common/originMarker.js";
+import { createRenderable, setWireframeMode } from "./common/renderModes.js";
+import { colorizeController } from "./common/uiLayout.js";
+import { COLORS } from "./common/colors.js";
+import {
+  createTranslationMatrixUI,
+  createRotationMatrixUI,
+  createScaleMatrixUI,
+  createMatrix4UI
+} from "./common/matrixUI.js";
+
+// ======================================================
+// Scene shell
+// ======================================================
+const { scene, camera, renderer, controls } = createSceneShell();
+
+// ======================================================
+// World axes
+// ======================================================
+addAxes(scene, 3);
+
+// ======================================================
+// Origin marker (world origin)
+// ======================================================
+createOriginMarker(scene);
+
+// ======================================================
+// Model group (single transform)
+// ======================================================
+const modelGroup = new THREE.Group();
+modelGroup.matrixAutoUpdate = false;
+scene.add(modelGroup);
+
+// ======================================================
+// Geometry: unit sphere → ellipsoid via scaling
+// ======================================================
+// const geometry = new THREE.SphereGeometry(1, 32, 16);
+
+// const material = new THREE.MeshStandardMaterial({
+//   color: 0xcccccc,
+//   roughness: 0.3,
+//   metalness: 0.0
+// });
+
+// const mesh = new THREE.Mesh(geometry, material);
+// modelGroup.add(mesh);
+
+const geometry = new THREE.BoxGeometry(2, 2, 2);
+const renderable = createRenderable(geometry);
+modelGroup.add(renderable.mesh);
+modelGroup.add(renderable.outline);
+
+// ======================================================
+// Lighting (normals matter here)
+// ======================================================
+scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+
+const light = new THREE.DirectionalLight(0xffffff, 0.8);
+light.position.set(3, 4, 5);
+scene.add(light);
+
+// ======================================================
+// Sample surface directions (object space)
+// ======================================================
+/*
+const sampleDirs = [
+  new THREE.Vector3( 1,  0,  0),
+  new THREE.Vector3(-1,  0,  0),
+  new THREE.Vector3( 0,  1,  0),
+  new THREE.Vector3( 0, -1,  0),
+  new THREE.Vector3( 0,  0,  1),
+  new THREE.Vector3( 0,  0, -1),
+  new THREE.Vector3( 1,  1,  0).normalize(),
+  new THREE.Vector3( 1,  0,  1).normalize(),
+];
+
+// ======================================================
+// Normal helpers
+// ======================================================
+const normalHelpers = [];
+
+for (const dir of sampleDirs) {
+  const arrow = new THREE.ArrowHelper(
+  dir.clone(),
+  dir.clone(),
+  0.8,        // longer
+  0xff0000,   // bright red
+  0.15,       // cone length
+  0.08        // cone radius (thicker)
+);
+  scene.add(arrow);
+  normalHelpers.push(arrow);
+}
+*/
+// ======================================================
+// Matrices
+// ======================================================
+const S = new THREE.Matrix4(); // scale
+const R = new THREE.Matrix4(); // rotation
+const T = new THREE.Matrix4(); // translation
+const M = new THREE.Matrix4(); // model matrix
+
+// ======================================================
+// GUI parameters
+// ======================================================
+const params = {
+  // scale
+  sx: 1,
+  sy: 1,
+  sz: 1,
+
+  // rotation
+  rx: 0,
+  ry: 0,
+  rz: 0,
+
+  // translation
+  tx: 0,
+  ty: 0,
+  tz: 0,
+
+  
+  wireframe: true,
+  live: true
+};
+
+const guiRight = new GUI({ title: "Controllers" });
+guiRight.$title.style.pointerEvents = "none";
+guiRight.$title.style.opacity = "0.0";
+guiRight.$title.style.height = "0.0";
+
+
+// ======================================================
+// Matrix UI layout containers
+// ======================================================
+// const matrixLayout = document.createElement("div");
+// matrixLayout.style.display = "flex";
+// matrixLayout.style.gap = "12px";
+// matrixLayout.style.marginTop = "8px";
+
+// const leftMatrices = document.createElement("div");
+// const rightMatrices = document.createElement("div");
+
+// matrixLayout.appendChild(leftMatrices);
+// matrixLayout.appendChild(rightMatrices);
+// gui.domElement.appendChild(matrixLayout);
+
+
+
+// Left 
+
+const guiLeft = new GUI({ title: "Tranport Matrices" });
+guiLeft.$title.style.pointerEvents = "none";
+//guiLeft.$title.style.opacity = "0.0";
+//guiLeft.$title.style.height = "0.0";
+guiLeft.domElement.style.right = "auto";
+guiLeft.domElement.style.left = "0";
+
+const dummy = guiLeft.add({ _: 0 }, "_");
+dummy.domElement.style.display = "none";
+
+
+// const leftGUI = { domElement: leftMatrices };
+// // ======================================================
+// // Individual matrices (left panel)
+// // ======================================================
+// const updateTUI = createTranslationMatrixUI(
+//   leftGUI,
+//   "Translation Matrix"
+// );
+
+// const updateSUI = createScaleMatrixUI(
+//   leftGUI,
+//   "Scale Matrix"
+// );
+
+// const updateRUI = createRotationMatrixUI(
+//   leftGUI,
+//   "Rotation Matrix"
+// );
+
+// ======================================================
+// Individual matrices (left)
+// ======================================================
+// const updateTUI = createTranslationMatrixUI(
+//   { domElement: leftMatrices },
+//   "Translation Matrix"
+// );
+
+// const updateRUI = createRotationMatrixUI(
+//   { domElement: leftMatrices },
+//   "Rotation Matrix"
+// );
+
+// const updateSUI = createScaleMatrixUI(
+//   { domElement: leftMatrices },
+//   "Scale Matrix"
+// );
+// ======================================================
+// Translation folder
+// ======================================================
+const transFolder = guiRight.addFolder("Translation");
+
+const txCtrl = transFolder.add(params, "tx", -3, 3, 0.01).onChange(update);
+const tyCtrl = transFolder.add(params, "ty", -3, 3, 0.01).onChange(update);
+const tzCtrl = transFolder.add(params, "tz", -3, 3, 0.01).onChange(update);
+colorizeController(txCtrl, COLORS.X);
+colorizeController(tyCtrl, COLORS.Y);
+colorizeController(tzCtrl, COLORS.Z);
+
+// ======================================================
+// Scale folder
+// ======================================================
+const scaleFolder = guiRight.addFolder("Scale");
+
+const sxCtrl = scaleFolder.add(params, "sx", 0.3, 3, 0.01).onChange(update);
+const syCtrl = scaleFolder.add(params, "sy", 0.3, 3, 0.01).onChange(update);
+const szCtrl = scaleFolder.add(params, "sz", 0.3, 3, 0.01).onChange(update);
+
+colorizeController(sxCtrl, COLORS.X);
+colorizeController(syCtrl, COLORS.Y);
+colorizeController(szCtrl, COLORS.Z);
+
+scaleFolder.open();
+
+// ======================================================
+// Rotation folder
+// ======================================================
+const rotFolder = guiRight.addFolder("Rotation (degrees)");
+
+const rxCtrl = rotFolder.add(params, "rx", -180, 180, 1).onChange(update);
+const ryCtrl = rotFolder.add(params, "ry", -180, 180, 1).onChange(update);
+const rzCtrl = rotFolder.add(params, "rz", -180, 180, 1).onChange(update);
+
+colorizeController(rxCtrl, COLORS.X);
+colorizeController(ryCtrl, COLORS.Y);
+colorizeController(rzCtrl, COLORS.Z);
+
+rotFolder.open();
+
+// ======================================================
+// Render mode
+// ======================================================
+guiRight.add(params, "wireframe")
+  .name("Wireframe")
+  .onChange(v => setWireframeMode(renderable, v));
+
+
+// ======================================================
+// Matrix UI
+// ======================================================
+const updateModelMatrixUI = createMatrix4UI(guiRight, "Model Matrix");
+
+
+
+const updateTUI = createTranslationMatrixUI(guiLeft, "Model Translation Matrix");
+const updateSUI = createScaleMatrixUI(guiLeft, "Model Scale Matrix");
+const updateRUI = createRotationMatrixUI(guiLeft, "Model Rotation Matrix");
+
+
+
+// ======================================================
+// Tranport ordering
+// ======================================================
+// Live simulation check box
+guiLeft.add(params, "live")
+  .name("Live simulation (Default order)")
+  .onChange(v => {
+    resetValues(v);
+    updateOrderUI();
+  });
+
+
+// M =  T · S · R 
+const transformOrder = {
+  first: "R",
+  second: "S",
+  third: "T",
+};
+const orderFolder = guiLeft.addFolder("Custom Transform Order Simulation");
+
+
+// Order of transport text
+const orderText = document.createElement("div");
+orderText.style.marginTop = "8px";
+orderText.style.fontFamily = "monospace";
+orderText.style.fontSize = "13px";
+orderText.style.fontWeight = "bold";
+orderText.style.color = "#ff8888";
+
+orderText.innerHTML =
+    `M = ${transformOrder.third} · ` +
+    `${transformOrder.second} · ` +
+    `${transformOrder.first}`;
+
+orderFolder.domElement.appendChild(orderText);
+
+// Options drop down
+const ORDER_OPTIONS = {
+  Translation: "T",
+  Rotation: "R",
+  Scale: "S",
+};
+
+// selecting the order of the tranport
+const orderControllers = [];
+
+orderControllers.push(
+  orderFolder.add(transformOrder, "first", ORDER_OPTIONS).name("1st")
+    .onChange(updateOrderText)
+);
+
+orderControllers.push(
+  orderFolder.add(transformOrder, "second", ORDER_OPTIONS).name("2nd")
+    .onChange(updateOrderText)
+);
+
+orderControllers.push(
+  orderFolder.add(transformOrder, "third", ORDER_OPTIONS).name("3rd")
+    .onChange(updateOrderText)
+);
+
+
+orderFolder.open();
+
+
+
+function updateOrderText() {
+  const symbol = {
+    T: "T",
+    R: "R",
+    S: "S",
+  };
+
+  orderText.innerHTML =
+    `M = ${symbol[transformOrder.third]} · ` +
+    `${symbol[transformOrder.second]} · ` +
+    `${symbol[transformOrder.first]}`;
+}
+
+orderFolder.add({ simulate }, "simulate")
+  .name("Simulate");
+
+// Gray out the custom simulation of live simulation is on
+const orderChildren = orderFolder.domElement.querySelector(".children");
+function updateOrderUI() {
+  const disabled = params.live;
+
+  orderChildren.style.opacity = disabled ? "0.4" : "1.0";
+  orderChildren.style.pointerEvents = disabled ? "none" : "auto";
+}
+
+updateOrderUI();
+
+// FUNCTIONS
+
+function simulate() {
+  updateOrderText();
+  composeModelMatrix();
+
+  modelGroup.matrix.copy(M);
+  modelGroup.matrixWorldNeedsUpdate = true;
+
+  updateModelMatrixUI(M);
+}
+
+function composeModelMatrix() {
+  const map = {
+    T: T,
+    R: R,
+    S: S,
+  };
+
+  M.identity();
+  M.multiply(map[transformOrder.first]);
+  M.multiply(map[transformOrder.second]);
+  M.multiply(map[transformOrder.third]);
+}
+
+function resetValues(live) {
+  if (live) {
+
+   resetTransformOrder();
+    
+    return;
+  }
+
+  
+// --- Rebuild matrices explicitly ---
+  T.makeTranslation(0, 0, 0);
+
+  R.identity(); // zero rotation
+
+  S.makeScale(1, 1, 1);
+
+  // Reset model matrix
+  M.identity();
+  updateModelMatrixUI(M);
+
+  modelGroup.matrix.copy(M);
+  modelGroup.matrixWorldNeedsUpdate = true;
+
+  // Update matrices UI
+  updateTUI(0, 0, 0);
+  updateSUI(1, 1, 1);
+  updateRUI(R);
+  updateModelMatrixUI(M);
+
+
+  // Reset params (DATA)
+  params.tx = params.ty = params.tz = 0;
+  params.rx = params.ry = params.rz = 0;
+  params.sx = params.sy = params.sz = 1;
+
+  // Force lil-gui to sync sliders
+  txCtrl.updateDisplay();
+  tyCtrl.updateDisplay();
+  tzCtrl.updateDisplay();
+
+  rxCtrl.updateDisplay();
+  ryCtrl.updateDisplay();
+  rzCtrl.updateDisplay();
+
+  sxCtrl.updateDisplay();
+  syCtrl.updateDisplay();
+  szCtrl.updateDisplay();
+}
+
+
+// Reset the drop down menu when live simulation is live again
+
+
+const DEFAULT_ORDER = {
+  first: "T",
+  second: "R",
+  third: "S",
+};
+
+function resetTransformOrder() {
+  transformOrder.first = DEFAULT_ORDER.first;
+  transformOrder.second = DEFAULT_ORDER.second;
+  transformOrder.third = DEFAULT_ORDER.third;
+
+  // force lil-gui dropdowns to update
+  orderControllers.forEach(c => c.updateDisplay());
+
+  // update the text: M = S · R · T
+  updateOrderText();
+  update();
+}
+// ======================================================
+// Model matrix (right)
+// ======================================================
+// const updateModelMatrixUI = createRotationMatrixUI(
+//   { domElement: rightMatrices },
+//   "Model Matrix"
+// );
+
+// ======================================================
+// Update function
+// ======================================================
+function update() {
+
+  // --- Build matrices (ALWAYS) ---
+  S.makeScale(params.sx, params.sy, params.sz);
+
+  const rx = THREE.MathUtils.degToRad(params.rx);
+  const ry = THREE.MathUtils.degToRad(params.ry);
+  const rz = THREE.MathUtils.degToRad(params.rz);
+
+  R.identity();
+  R.makeRotationFromEuler(new THREE.Euler(rx, ry, rz, "XYZ"));
+
+  T.makeTranslation(params.tx, params.ty, params.tz);
+
+  // --- ALWAYS update individual matrix UIs ---
+  updateTUI(params.tx, params.ty, params.tz);
+  updateSUI(params.sx, params.sy, params.sz);
+  updateRUI(R);
+
+  // --- Only apply to the model if LIVE ---
+  if (!params.live) return;
+
+  composeModelMatrix();
+
+  modelGroup.matrix.copy(M);
+  modelGroup.matrixWorldNeedsUpdate = true;
+
+  updateModelMatrixUI(M);
+}
+// function update() {
+
+
+//   // --- Build matrices ---
+//   S.makeScale(params.sx, params.sy, params.sz);
+
+//   const rx = THREE.MathUtils.degToRad(params.rx);
+//   const ry = THREE.MathUtils.degToRad(params.ry);
+//   const rz = THREE.MathUtils.degToRad(params.rz);
+
+//   R.identity();
+//   R.makeRotationFromEuler(new THREE.Euler(rx, ry, rz, "XYZ"));
+
+//   T.makeTranslation(params.tx, params.ty, params.tz);
+
+//   // If it's live simulation
+  
+//   // 
+//   // M =  T · S · R 
+//     M.identity();
+//     M.multiply(R);
+//     M.multiply(S);
+//     M.multiply(T);
+
+//   modelGroup.matrix.copy(M);
+//   modelGroup.matrixWorldNeedsUpdate = true;
+
+
+//   // Update matrix UI 
+//    updateModelMatrixUI(M);
+  
+
+//    // Left
+//    // Update individual matrix UIs (left panel)
+// updateTUI(params.tx, params.ty, params.tz);
+// updateSUI(params.sx, params.sy, params.sz);
+// updateRUI(R);
+
+
+//   // --- Normal matrix ---
+//   /*const normalMatrix = new THREE.Matrix3().getNormalMatrix(M);
+
+//   // --- Update normal arrows ---
+//   normalHelpers.forEach((arrow, i) => {
+
+//     const dir = sampleDirs[i];
+
+//     // Object-space position (unit sphere)
+//     const pObj = dir.clone();
+
+//     // World-space position
+//     const pWorld = pObj.clone().applyMatrix4(M);
+
+//     // Transform normal
+//     const nWorld = dir.clone();
+
+//     if (params.correctNormals) {
+//       nWorld.applyMatrix3(normalMatrix);
+//     } else {
+//       nWorld.applyMatrix4(M);
+//     }
+
+//     nWorld.normalize();
+
+//     arrow.position.copy(pWorld);
+//     arrow.setDirection(nWorld);
+//     arrow.setLength(0.8, 0.15, 0.08);
+//   });*/
+// }
+
+// Initial state
+update();
+
+// ======================================================
+// Animation loop
+// ======================================================
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+
+</script>
+</body>
+</html>

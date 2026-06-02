@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Scale</title>
+  <link rel="stylesheet" href="./common/styles.css" />
+</head>
+<body>
+
+<script type="module">
+
+import { addHint } from "./common/hint.js";
+addHint("Drag to orbit, wheel to zoom. Blue sphere is model-space origin & center of scaling.");
+
+import * as THREE from "https://esm.sh/three@0.160.0";
+import GUI from "https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm";
+
+// ----- Common modules -----
+import { createSceneShell } from "./common/sceneShell.js";
+import { addAxes } from "./common/axes.js";
+import { createRenderable, setWireframeMode } from "./common/renderModes.js";
+import { createOriginMarker } from "./common/originMarker.js";
+import { createScaleMatrixUI } from "./common/matrixUI.js";
+import { colorizeController } from "./common/uiLayout.js";
+import { COLORS } from "./common/colors.js";
+
+// ======================================================
+// Scene shell
+// ======================================================
+const { scene, camera, renderer, controls } = createSceneShell();
+
+// ======================================================
+// Axes
+// ======================================================
+
+const modelAxes = new THREE.Group();
+addAxes(modelAxes, 3);
+scene.add(modelAxes)
+
+// ======================================================
+// Cube + outline (render modes)
+// ======================================================
+const geometry = new THREE.BoxGeometry(2, 2, 2);
+
+const renderable = createRenderable(geometry);
+scene.add(renderable.mesh);
+scene.add(renderable.outline);
+
+// ======================================================
+// Origin marker (non-scaling)
+// ======================================================
+const originMarker = createOriginMarker(scene);
+
+// ======================================================
+// Matrices
+// ======================================================
+const S = new THREE.Matrix4();      // Scale
+const M = new THREE.Matrix4();      // Final model matrix
+const T_obj = new THREE.Matrix4(); // object translation
+
+
+// ======================================================
+// GUI parameters
+// ======================================================
+const params = {
+  sx: 1,
+  sy: 1,
+  sz: 1,
+
+  tx: 0,
+  ty: 0,
+  tz: 0,
+
+  wireframe: true
+};
+
+const gui = new GUI({ title: "Controllers" });
+
+gui.$title.style.pointerEvents = "none";
+gui.$title.style.opacity = "0.0";
+gui.$title.style.height = "0.0";
+
+
+// ======================================================
+// Box size display (top of GUI)
+// ======================================================
+const boxSizeDiv = document.createElement("div");
+boxSizeDiv.style.fontFamily = "monospace";
+boxSizeDiv.style.fontSize = "12px";
+boxSizeDiv.style.marginBottom = "6px";
+boxSizeDiv.style.paddingBottom = "6px";
+boxSizeDiv.style.borderBottom = "1px solid rgba(255,255,255,0.2)";
+gui.domElement.prepend(boxSizeDiv);
+
+// ----- Objetc moving folder -----
+const objectLocationFolder = gui.addFolder("Model Translation");
+
+const txCtrl = objectLocationFolder.add(params, "tx", -1, 1, 0.01).onChange(update);
+const tyCtrl = objectLocationFolder.add(params, "ty", -1, 1, 0.01).onChange(update);
+const tzCtrl = objectLocationFolder.add(params, "tz", -1, 1, 0.01).onChange(update);
+colorizeController(txCtrl, COLORS.X);
+colorizeController(tyCtrl, COLORS.Y);
+colorizeController(tzCtrl, COLORS.Z);
+
+// ----- Scale folder -----
+const scaleFolder = gui.addFolder("Model Space Scale");
+
+const sxCtrl = scaleFolder.add(params, "sx", 0.1, 3, 0.01).name("Scale X").onChange(update);
+const syCtrl = scaleFolder.add(params, "sy", 0.1, 3, 0.01).name("Scale Y").onChange(update);
+const szCtrl = scaleFolder.add(params, "sz", 0.1, 3, 0.01).name("Scale Z").onChange(update);
+
+colorizeController(sxCtrl, COLORS.X);
+colorizeController(syCtrl, COLORS.Y);
+colorizeController(szCtrl, COLORS.Z);
+
+// Optional: start open
+scaleFolder.open();
+
+// ----- Wireframe toggle -----
+gui.add(params, "wireframe")
+  .name("Wireframe")
+  .onChange(v => setWireframeMode(renderable, v));
+
+// ======================================================
+// Matrix UI (shared)
+// ======================================================
+const updateMatrixUI = createScaleMatrixUI(gui, "Model Scale Matrix (S)");
+
+// ======================================================
+// Update function
+// ======================================================
+function update() {
+  // Object translation
+  T_obj.makeTranslation(params.tx, params.ty, params.tz);
+
+  // Scale about origin
+  S.set(
+    params.sx, 0, 0, 0,
+    0, params.sy, 0, 0,
+    0, 0, params.sz, 0,
+    0, 0, 0, 1
+  );
+
+  // M = S · T  (scale about origin)
+  M.identity();
+  M.multiply(S);
+  M.multiply(T_obj);
+
+  // Apply matrix to the mesh and outline
+  renderable.mesh.matrix.copy(M);
+  renderable.mesh.matrixWorldNeedsUpdate = true;
+
+  renderable.outline.matrix.copy(M);
+  renderable.outline.matrixWorldNeedsUpdate = true;
+
+  // UI updates
+  updateMatrixUI(params.sx, params.sy, params.sz);
+
+  const width  = (2 * params.sx).toFixed(2);
+  const height = (2 * params.sy).toFixed(2);
+  const depth  = (2 * params.sz).toFixed(2);
+
+  boxSizeDiv.innerHTML = `
+<br>
+<b>Box Size</b><br>
+<span style="color:${COLORS.X}">W: ${width}</span> &nbsp;
+<span style="color:${COLORS.Y}">H: ${height}</span> &nbsp;
+<span style="color:${COLORS.Z}">D: ${depth}</span>
+`;
+}
+
+// Initial state
+update();
+
+// ======================================================
+// Animation loop
+// ======================================================
+function animate() {
+  requestAnimationFrame(animate);
+
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+</script>
+</body>
+</html>

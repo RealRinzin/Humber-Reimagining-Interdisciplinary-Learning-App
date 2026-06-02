@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Spaces Demo – Model / World / View / Projection</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    html, body { margin:0; height:100%; background:#0b0e12; color:#e5e7eb; font-family:system-ui, sans-serif; }
+    #app { position:relative; width:100%; height:100%; }
+    .overlay {
+      position:absolute; left:12px; bottom:12px; font-size:12px; opacity:0.8;
+      background:rgba(0,0,0,0.4); padding:8px 10px; border-radius:8px;
+    }
+    canvas { display:block; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <div class="overlay">
+    <b>Controls</b>: drag to orbit, wheel to zoom, right‑drag to pan.
+  </div>
+
+  <!-- Three.js + controls + helpers via ESM -->
+  <script type="module">
+    import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
+    import { OrbitControls } from "https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js";
+    import { GUI } from "https://unpkg.com/lil-gui@0.19.2/dist/lil-gui.esm.js";
+
+    const container = document.querySelector('#app');
+
+    // Renderer
+    const renderer = new THREE.WebGLRenderer({ antialias:true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
+
+    // Scene
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0b0e12);
+
+    // Camera
+    const camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 50);
+    camera.position.set(3, 2, 5);
+    scene.add(camera);
+
+    // Controls
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+
+    // Lights
+    scene.add(new THREE.AmbientLight(0xffffff, 0.3));
+    const dir = new THREE.DirectionalLight(0xffffff, 0.9);
+    dir.position.set(5, 6, 4);
+    scene.add(dir);
+
+    // World axes helper
+    const worldAxes = new THREE.AxesHelper(2.5);
+    worldAxes.visible = true;
+    scene.add(worldAxes);
+
+    // Object (Model space)
+    const group = new THREE.Group(); // acts as "world transform" parent if needed
+    scene.add(group);
+
+    const geo = new THREE.BoxGeometry(1, 1, 1);
+    const mat = new THREE.MeshStandardMaterial({ color:0x5aa9e6, roughness:0.4, metalness:0.1 });
+    const mesh = new THREE.Mesh(geo, mat);
+    group.add(mesh);
+
+    // Simple frustum helper (lines)
+    const frustumGroup = new THREE.Group();
+    scene.add(frustumGroup);
+    function updateFrustumLines() {
+      frustumGroup.clear();
+      const fov = THREE.MathUtils.degToRad(camera.fov);
+      const aspect = camera.aspect;
+      const near = camera.near, far = camera.far;
+
+      // Compute near/far plane sizes
+      const hNear = 2 * Math.tan(fov/2) * near;
+      const wNear = hNear * aspect;
+      const hFar  = 2 * Math.tan(fov/2) * far;
+      const wFar  = hFar * aspect;
+
+      // Frustum corners in camera space
+      const points = {
+        nc: new THREE.Vector3(0,0,-near),
+        fc: new THREE.Vector3(0,0,-far),
+      };
+      const corners = {
+        ntl: new THREE.Vector3(-wNear/2,  hNear/2, -near),
+        ntr: new THREE.Vector3( wNear/2,  hNear/2, -near),
+        nbl: new THREE.Vector3(-wNear/2, -hNear/2, -near),
+        nbr: new THREE.Vector3( wNear/2, -hNear/2, -near),
+
+        ftl: new THREE.Vector3(-wFar/2,  hFar/2, -far),
+        ftr: new THREE.Vector3( wFar/2,  hFar/2, -far),
+        fbl: new THREE.Vector3(-wFar/2, -hFar/2, -far),
+        fbr: new THREE.Vector3( wFar/2, -hFar/2, -far),
+      };
+
+      // Transform to world space
+      const camMatrix = camera.matrixWorld;
+      Object.keys(corners).forEach(k => corners[k].applyMatrix4(camMatrix));
+
+      // Helper to add a line
+      function addLine(a, b, color=0xffaa00) {
+        const geo = new THREE.BufferGeometry().setFromPoints([a, b]);
+        const mat = new THREE.LineBasicMaterial({ color, linewidth:1 });
+        const line = new THREE.Line(geo, mat);
+        frustumGroup.add(line);
+      }
+      // Near rectangle
+      addLine(corners.ntl, corners.ntr);
+      addLine(corners.ntr, corners.nbr);
+      addLine(corners.nbr, corners.nbl);
+      addLine(corners.nbl, corners.ntl);
+      // Far rectangle
+      addLine(corners.ftl, corners.ftr, 0xff6600);
+      addLine(corners.ftr, corners.fbr, 0xff6600);
+      addLine(corners.fbr, corners.fbl, 0xff6600);
+      addLine(corners.fbl, corners.ftl, 0xff6600);
+      // Sides
+      addLine(corners.ntl, corners.ftl, 0xffffff);
+      addLine(corners.ntr, corners.ftr, 0xffffff);
+      addLine(corners.nbl, corners.fbl, 0xffffff);
+      addLine(corners.nbr, corners.fbr, 0xffffff);
+      frustumGroup.visible = params.showFrustum;
+    }
+
+    // GUI
+    const gui = new GUI({ title: 'Spaces Controls' });
+    const params = {
+      objectRotX: 0, objectRotY: 0, objectRotZ: 0,
+      groupPosX: 0, groupPosY: 0, groupPosZ: 0,
+      fov: camera.fov, near: camera.near, far: camera.far,
+      showAxes: true, showFrustum: true, resetView: () => {
+        camera.position.set(3,2,5);
+        camera.lookAt(0,0,0);
+        controls.target.set(0,0,0);
+        controls.update();
+        camera.fov = 50; camera.near = 0.1; camera.far = 50;
+        camera.updateProjectionMatrix();
+        params.fov = 50; params.near = 0.1; params.far = 50;
+        gui.updateDisplay();
+        updateFrustumLines();
+      }
+    };
+
+    const fObj = gui.addFolder('Model (Object) Space');
+    fObj.add(params, 'objectRotX', 0, Math.PI*2, 0.001).name('rotX (rad)');
+    fObj.add(params, 'objectRotY', 0, Math.PI*2, 0.001).name('rotY (rad)');
+    fObj.add(params, 'objectRotZ', 0, Math.PI*2, 0.001).name('rotZ (rad)');
+
+    const fWorld = gui.addFolder('World Space (Parent)');
+    fWorld.add(params, 'groupPosX', -3, 3, 0.01).name('translate X');
+    fWorld.add(params, 'groupPosY', -3, 3, 0.01).name('translate Y');
+    fWorld.add(params, 'groupPosZ', -3, 3, 0.01).name('translate Z');
+
+    const fViewProj = gui.addFolder('View / Projection');
+    fViewProj.add(params, 'fov', 20, 100, 0.1).name('FOV (deg)').onChange(v => {
+      camera.fov = v; camera.updateProjectionMatrix(); updateFrustumLines();
+    });
+    fViewProj.add(params, 'near', 0.01, 2, 0.01).name('near').onChange(v => {
+      camera.near = v; camera.updateProjectionMatrix(); updateFrustumLines();
+    });
+    fViewProj.add(params, 'far', 5, 200, 0.5).name('far').onChange(v => {
+      camera.far = v; camera.updateProjectionMatrix(); updateFrustumLines();
+    });
+
+    gui.add(params, 'showAxes').name('Show World Axes').onChange(v => worldAxes.visible = v);
+    gui.add(params, 'showFrustum').name('Show Frustum').onChange(() => updateFrustumLines());
+    gui.add(params, 'resetView').name('Reset View');
+
+    // Render loop
+    function onResize() {
+      const w = container.clientWidth, h = container.clientHeight;
+      renderer.setSize(w, h);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      updateFrustumLines();
+    }
+    window.addEventListener('resize', onResize);
+
+    function tick() {
+      // Apply transforms from GUI
+      mesh.rotation.set(params.objectRotX, params.objectRotY, params.objectRotZ);
+      group.position.set(params.groupPosX, params.groupPosY, params.groupPosZ);
+
+      controls.update();
+      renderer.render(scene, camera);
+      requestAnimationFrame(tick);
+    }
+
+    updateFrustumLines();
+    tick();
+    onResize();
+  </script>
+</body>
+</html>
+``

@@ -1,0 +1,344 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Projection Matrix</title>
+  <link rel="stylesheet" href="./common/styles.css" />
+</head>
+<!-- <div class="cameraFrameBottom"></div>
+<div class="cameraLabelBottom">Camera View</div> -->
+
+<body>
+
+<script type="module">
+
+import * as THREE from "https://esm.sh/three@0.160.0";
+import GUI from "https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm";
+
+import { createSceneShell } from "./common/sceneShell.js";
+import { addAxes } from "./common/axes.js";
+import { createOriginMarker } from "./common/originMarker.js";
+import { createMatrix4UI } from "./common/matrixUI.js";
+
+// ======================================================
+// Scene shell
+// ======================================================
+const { scene, camera, renderer, controls } = createSceneShell();
+
+
+// ======================================================
+// World reference
+// ======================================================
+addAxes(scene, 2);
+createOriginMarker(scene);
+
+// ======================================================
+// Fixed camera (view is constant)
+// ======================================================
+camera.position.set(0, 0, 6);
+camera.lookAt(0, 0, 0);
+
+// ======================================================
+// Objects in the scene (different depths)
+// ======================================================
+const objects = [];
+
+function addBox(x, y, z, color) {
+  const mesh = new THREE.Mesh(
+    new THREE.BoxGeometry(0.8, 0.8, 0.8),
+    new THREE.MeshStandardMaterial({ color })
+  );
+  mesh.position.set(x, y, z);
+  scene.add(mesh);
+  objects.push(mesh);
+}
+
+function addSphere(x, y, z, color) {
+  const mesh = new THREE.Mesh(
+    new THREE.SphereGeometry(0.45, 24, 16),
+    new THREE.MeshStandardMaterial({ color })
+  );
+  mesh.position.set(x, y, z);
+  scene.add(mesh);
+  objects.push(mesh);
+}
+
+// Near objects
+addBox(-1.2, 0, -2, 0xff6666);
+addSphere(1.2, 0, -2, 0x66ff66);
+
+// Mid objects
+addBox(-0.6, 1, -4, 0x6666ff);
+addSphere(0.6, -1, -4, 0xffff66);
+
+// Far objects
+addBox(0, 0, -6, 0xff66ff);
+
+// ======================================================
+// Lighting
+// ======================================================
+scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+const light = new THREE.DirectionalLight(0xffffff, 0.8);
+light.position.set(3, 4, 5);
+scene.add(light);
+
+
+
+// ======================================================
+// Matrices
+// ======================================================
+const P = new THREE.Matrix4();
+
+// ======================================================
+// Parameters
+// ======================================================
+const params = {
+  
+perspective: true,
+  orthographic: false,
+
+
+  left: -1,
+  right: 1,
+  bottom: -1,
+  top: 1,
+  near: 1,
+  far: 10
+};
+
+// ======================================================
+// GUI (right)
+// ======================================================
+const guiRight = new GUI({ title: "Projection Controls" });
+guiRight.$title.style.opacity = "0.0";
+guiRight.$title.style.height = "0px";
+
+const projectionFolder = guiRight.addFolder("Projection Type");
+
+const perspectiveCtrl = projectionFolder
+  .add(params, "perspective")
+  .name("Perspective")
+  .onChange(v => {
+    if (v) {
+      params.orthographic = false;
+      orthoCtrl.updateDisplay();
+      updateProjection();
+    }
+  });
+
+const orthoCtrl = projectionFolder
+  .add(params, "orthographic")
+  .name("Orthographic")
+  .onChange(v => {
+    if (v) {
+      params.perspective = false;
+      perspectiveCtrl.updateDisplay();
+      updateProjection();
+    }
+  });
+
+projectionFolder.open();
+
+const clipFolder = guiRight.addFolder("Clip Volume");
+
+clipFolder.add(params, "left", -2, 0.1, 0.01).onChange(updateProjection);
+clipFolder.add(params, "right", 0.1, 2, 0.01).onChange(updateProjection);
+clipFolder.add(params, "bottom", -2, 0.1, 0.01).onChange(updateProjection);
+clipFolder.add(params, "top", 0.1, 2, 0.01).onChange(updateProjection);
+clipFolder.add(params, "near", 0.1, 5, 0.01).onChange(updateProjection);
+clipFolder.add(params, "far", 2, 20, 0.01).onChange(updateProjection);
+
+clipFolder.open();
+
+guiRight.add({ reset }, "reset").name("Reset");
+
+// ======================================================
+// GUI (left) – Projection matrix
+// ======================================================
+const guiLeft = new GUI({ title: "Projection Matrix" });
+guiLeft.domElement.style.left = "0";
+guiLeft.domElement.style.right = "auto";
+guiLeft.$title.style.opacity = "0.0";
+guiLeft.$title.style.height = "0px";
+
+const updateProjectionUI = createMatrix4UI(guiLeft, "Projection Matrix (P)");
+
+// Camera insert into the left GUI
+// Create camera view container inside left GUI
+const cameraPreview = document.createElement("div");
+cameraPreview.style.width = "220px";
+cameraPreview.style.height = "160px";
+cameraPreview.style.border = "2px solid #fff";
+//cameraPreview.style.marginBottom = "8px";
+cameraPreview.style.background = "#000";
+cameraPreview.style.position = "relative";
+cameraPreview.textContent = ""; // empty, WebGL will draw behind it
+cameraPreview.style.background = "transparent";
+
+cameraPreview.style.marginTop = "4px";
+
+// Insert at TOP of left GUI
+//guiLeft.domElement.prepend(cameraPreview);
+
+guiLeft.domElement.appendChild(cameraPreview);
+
+// ======================================================
+// Projection volume visual
+// ======================================================
+let volumeHelper = null;
+
+function updateProjectionVolume() {
+  if (volumeHelper) {
+    scene.remove(volumeHelper);
+  }
+
+  if (params.perspective) {
+    const perspCam = new THREE.PerspectiveCamera(
+      45,
+      1,
+      params.near,
+      params.far
+    );
+    volumeHelper = new THREE.CameraHelper(perspCam);
+  } else {
+    const orthoCam = new THREE.OrthographicCamera(
+      params.left,
+      params.right,
+      params.top,
+      params.bottom,
+      params.near,
+      params.far
+    );
+    volumeHelper = new THREE.CameraHelper(orthoCam);
+  }
+
+  scene.add(volumeHelper);
+}
+
+// ======================================================
+// Projection update
+// ======================================================
+function updateProjection() {
+
+  if (params.perspective) {
+    camera.projectionMatrix.makePerspective(
+      params.left,
+      params.right,
+      params.top,
+      params.bottom,
+      params.near,
+      params.far
+    );
+  }
+
+  if (params.orthographic) {
+    camera.projectionMatrix.makeOrthographic(
+      params.left,
+      params.right,
+      params.top,
+      params.bottom,
+      params.near,
+      params.far
+    );
+  }
+
+  P.copy(camera.projectionMatrix);
+  updateProjectionUI(P);
+  updateProjectionVolume();
+}
+
+// ======================================================
+// Reset
+// ======================================================
+function reset() {
+  
+  params.perspective = true;
+  params.orthographic = false;
+
+
+  params.left = -1;
+  params.right = 1;
+  params.bottom = -1;
+  params.top = 1;
+  params.near = 1;
+  params.far = 10;
+
+  guiRight.controllersRecursive().forEach(c => c.updateDisplay());
+  updateProjection();
+}
+
+// ======================================================
+// Camera preview rendering
+// ======================================================
+function getViewportRect(el) {
+  const r = el.getBoundingClientRect();
+  return {
+    x: r.left,
+    y: window.innerHeight - r.bottom,
+    w: r.width,
+    h: r.height
+  };
+}
+
+// ======================================================
+// Animation loop
+// ======================================================
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+
+  renderer.setScissorTest(true);
+
+  // ==================================================
+  // MAIN VIEW (full screen, world view)
+  // ==================================================
+  renderer.setViewport(0, 0, w, h);
+  renderer.setScissor(0, 0, w, h);
+  renderer.setClearColor(0x222222, 1.0);
+  renderer.clear();
+  renderer.render(scene, camera);
+
+
+  // =========================================
+  // CAMERA INSERT VIEW — BOTTOM
+  // =========================================
+  const margin = 12;
+  const vw = 240;
+  const vh = 160;
+
+  renderer.setViewport(
+    margin,
+    margin,
+    vw,
+    vh
+  );
+
+  renderer.setScissor(
+    margin,
+    margin,
+    vw,
+    vh
+  );
+
+  // Update aspect ONLY for inset
+  camera.aspect = vw / vh;
+  camera.updateProjectionMatrix();
+
+  // Clear inset only
+  renderer.setClearColor(0x000000, 1.0);
+  renderer.clear(true, true, false);
+
+  renderer.render(scene, camera);
+}
+
+
+updateProjection();
+animate();
+
+</script>
+
+</body>
+</html>

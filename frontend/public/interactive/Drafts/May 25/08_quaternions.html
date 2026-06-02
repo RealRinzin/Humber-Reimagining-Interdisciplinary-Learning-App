@@ -1,0 +1,406 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Quaternion</title>
+  <link rel="stylesheet" href="./common/styles.css" />
+</head>
+<body>
+
+<script type="module">
+
+import { addHint } from "./common/hint.js";
+addHint("Drag to orbit, wheel to zoom. Blue sphere is model-space origin/center of rotation.");
+
+import * as THREE from "https://esm.sh/three@0.160.0";
+import GUI from "https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm";
+
+// ----- Common modules -----
+import { createSceneShell } from "./common/sceneShell.js";
+import { addAxes } from "./common/axes.js";
+import { createRenderable, setWireframeMode } from "./common/renderModes.js";
+import { createOriginMarker } from "./common/originMarker.js";
+import { createRotationMatrixUI } from "./common/matrixUI.js";
+import { colorizeController } from "./common/uiLayout.js";
+import { COLORS } from "./common/colors.js";
+
+// ======================================================
+// Scene shell
+// ======================================================
+const { scene, camera, renderer, controls } = createSceneShell();
+
+// ======================================================
+// Axes (fixed model space)
+// ======================================================
+addAxes(scene, 3);
+
+// ======================================================
+// Cube (2x2x2)
+// ======================================================
+const geometry = new THREE.BoxGeometry(2, 2, 2);
+const renderable = createRenderable(geometry);
+scene.add(renderable.mesh);
+scene.add(renderable.outline);
+
+// ======================================================
+// Origin marker
+// ======================================================
+createOriginMarker(scene);
+
+// ======================================================
+// Math objects
+// ======================================================
+const quat = new THREE.Quaternion();
+const axis = new THREE.Vector3(1, 0, 0);
+const R = new THREE.Matrix4();
+const M = new THREE.Matrix4();
+const T_obj = new THREE.Matrix4();
+
+// ======================================================
+// GUI parameters
+// ======================================================
+const params = {
+  axisX: 1,
+  axisY: 0,
+  axisZ: 0,
+  angle: 0,
+
+  tx: 0,
+  ty: 0,
+  tz: 0,
+
+  // Vertex positions
+  vx: 0.0,   // 0 = left, 1 = right
+vy: 1.0,   // 0 = bottom, 1 = top
+vz: 1.0,   // 0 = back, 1 = front
+
+  wireframe: true,
+
+  // quaternions
+  qx: 0,
+  qy: 0,
+  qz: 0,
+  qw: 1,
+  normalizeQuat: true,
+};
+
+const guiRight = new GUI({ title: "Controllers" });
+guiRight.$title.style.pointerEvents = "none";
+guiRight.$title.style.opacity = "0.0";
+guiRight.$title.style.height = "0.0";
+
+// ======================================================
+// Reference point (default: top-left-front corner)
+// ======================================================
+function createPointMarker(color = 0xffff00) {
+  return new THREE.Mesh(
+    new THREE.SphereGeometry(0.06, 16, 16),
+    new THREE.MeshBasicMaterial({ color })
+  );
+}
+const pointMarkers = {};
+
+pointMarkers.topLeftFront = createPointMarker(0xffaa00);
+scene.add(pointMarkers.topLeftFront);
+
+// ======================================================
+// Point coordinate display
+// ======================================================
+const pointInfoDiv = document.createElement("div");
+pointInfoDiv.style.fontFamily = "monospace";
+pointInfoDiv.style.fontSize = "12px";
+pointInfoDiv.style.marginBottom = "6px";
+pointInfoDiv.style.borderBottom = "1px solid rgba(255,255,255,0.2)";
+guiRight.domElement.prepend(pointInfoDiv);
+
+// ======================================================
+// Vertex position sliders (model space)
+// ======================================================
+const vertexFolder = guiRight.addFolder("Vertex Position");
+
+const vxCtrl = vertexFolder.add(params, "vx", 0, 1, 0.001)
+  .name("X Edge (0=Left, 1=Right)")
+  .onChange(update);
+
+const vyCtrl = vertexFolder.add(params, "vy", 0, 1, 0.001)
+  .name("Y Edge (0=Bottom, 1=Top)")
+  .onChange(update);
+
+const vzCtrl = vertexFolder.add(params, "vz", 0, 1, 0.001)
+  .name("Z Edge (0=Back, 1=Front)")
+  .onChange(update);
+
+colorizeController(vxCtrl, COLORS.X);
+colorizeController(vyCtrl, COLORS.Y);
+colorizeController(vzCtrl, COLORS.Z);
+
+vertexFolder.open();
+
+// ======================================================
+// Object translation
+// ======================================================
+const objectLocationFolder = guiRight.addFolder("Translation");
+
+const txCtrl = objectLocationFolder.add(params, "tx", -1, 1, 0.01).onChange(update);
+const tyCtrl = objectLocationFolder.add(params, "ty", -1, 1, 0.01).onChange(update);
+const tzCtrl = objectLocationFolder.add(params, "tz", -1, 1, 0.01).onChange(update);
+colorizeController(txCtrl, COLORS.X);
+colorizeController(tyCtrl, COLORS.Y);
+colorizeController(tzCtrl, COLORS.Z);
+
+objectLocationFolder.open();
+
+// ======================================================
+// Quaternion axis–angle controls
+// ======================================================
+const quatFolder = guiRight.addFolder("Quaternion (Axis–Angle)");
+
+const axCtrl = quatFolder.add(params, "axisX", -1, 1, 0.01).name("Axis X").onChange(update);
+const ayCtrl = quatFolder.add(params, "axisY", -1, 1, 0.01).name("Axis Y").onChange(update);
+const azCtrl = quatFolder.add(params, "axisZ", -1, 1, 0.01).name("Axis Z").onChange(update);
+const angleCtrl = quatFolder.add(params, "angle", -180, 180, 1).name("Angle (deg)").onChange(update);
+
+colorizeController(axCtrl, COLORS.X);
+colorizeController(ayCtrl, COLORS.Y);
+colorizeController(azCtrl, COLORS.Z);
+
+quatFolder.open();
+
+
+// ======================================================
+// axis of rotation
+// ======================================================
+const axisLineMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
+const axisLineGeometry = new THREE.BufferGeometry();
+const axisLine = new THREE.Line(axisLineGeometry, axisLineMaterial);
+scene.add(axisLine);
+
+// ======================================================
+// Render mode
+// ======================================================
+guiRight.add(params, "wireframe")
+  .name("Wireframe")
+  .onChange(v => setWireframeMode(renderable, v));
+
+
+  // ======================================================
+// Reset Button
+// ======================================================
+guiRight.add({ resetValues }, "resetValues")
+  .name("Reset");
+
+function resetValues(){
+  // Reset params (DATA)
+  params.tx = params.ty = params.tz = 0;
+  params.axisX = 1; params.axisY = params.axisZ = params.angle = 0;
+
+  params.vx = 0; params.vy = params.vz = 1;
+
+  // Force lil-gui to sync sliders
+  txCtrl.updateDisplay();
+  tyCtrl.updateDisplay();
+  tzCtrl.updateDisplay();
+
+  axCtrl.updateDisplay();
+  ayCtrl.updateDisplay();
+  azCtrl.updateDisplay();
+  angleCtrl.updateDisplay();
+
+  vxCtrl.updateDisplay();
+  vyCtrl.updateDisplay();
+  vzCtrl.updateDisplay();
+
+
+  update();
+  
+  }
+
+
+// ======================================================
+// Left Panel
+// ======================================================
+const guiLeft = new GUI({ title: "Tranport Matrices" });
+guiLeft.$title.style.pointerEvents = "none";
+guiLeft.$title.style.opacity = "0.0"; // remove the word
+guiLeft.$title.style.height = "0.0"; // remove the word
+guiLeft.domElement.style.right = "auto";
+guiLeft.domElement.style.left = "0";
+guiLeft.domElement.style.background = "transparent";
+
+// Remove the 'empty' word
+const dummy = guiLeft.add({ _: 0 }, "_");
+dummy.domElement.style.display = "none";
+
+// ======================================================
+// Matrix UI (reuse rotation matrix view)
+// ======================================================
+const updateMatrixUI = createRotationMatrixUI(guiLeft, "Rotation Matrix (R)");
+
+// ======================================================
+// Quaternion display
+// ======================================================
+const quatDiv = document.createElement("div");
+quatDiv.style.fontFamily = "monospace";
+quatDiv.style.fontSize = "12px";
+quatDiv.style.marginTop = "8px";
+quatDiv.style.borderTop = "1px solid rgba(255,255,255,0.2)";
+quatDiv.style.paddingTop = "6px";
+guiLeft.domElement.appendChild(quatDiv);
+
+
+
+
+
+
+
+// ======================================================
+// Update function
+// ======================================================
+
+function updateVertix(trasportMatrix){
+  // Build vertex in MODEL space from per-axis parameters
+const modelPoint = new THREE.Vector3(
+  THREE.MathUtils.lerp(-1, 1, params.vx),
+  THREE.MathUtils.lerp(-1, 1, params.vy),
+  THREE.MathUtils.lerp(-1, 1, params.vz)
+);
+// Apply translation (model → world)
+modelPoint.applyMatrix4(trasportMatrix);
+pointMarkers.topLeftFront.position.copy(modelPoint);
+
+const p = pointMarkers.topLeftFront.position;
+
+pointInfoDiv.innerHTML = `
+<br>
+<b>(Vertex Coordinates (Yellow Dot)</b>
+<br>
+<span style="color:${COLORS.X}"> X: ${p.x.toFixed(2)}</span> &nbsp;
+<span style="color:${COLORS.Y}"> Y: ${p.y.toFixed(2)}</span> &nbsp;
+<span style="color:${COLORS.Z}"> Z: ${p.z.toFixed(2)}</span>
+`;
+}
+
+function update() {
+
+  // =========================
+  // Build quaternion
+  // =========================
+
+    axis.set(params.axisX, params.axisY, params.axisZ);
+
+    if (axis.lengthSq() < 1e-6) {
+      // No axis → identity rotation
+      quat.set(0, 0, 0, 1);
+    } else {
+      axis.normalize();
+      const angleRad = THREE.MathUtils.degToRad(params.angle);
+      quat.setFromAxisAngle(axis, angleRad);
+    }
+
+// unit quaternion
+    const clampedW = THREE.MathUtils.clamp(quat.w, -1, 1);
+    const theta = 2 * Math.acos(clampedW);          // radians
+    const thetaDeg = THREE.MathUtils.radToDeg(theta);
+    const halfTheta = theta * 0.5;
+    const sinHalf = Math.sin(halfTheta);
+    const cosHalf = Math.cos(halfTheta);
+    let axisFromQuat = new THREE.Vector3(0, 0, 0);
+
+    if (sinHalf > 1e-6) {
+      axisFromQuat.set(quat.x, quat.y, quat.z).divideScalar(sinHalf);
+      axisFromQuat.normalize();
+    }
+
+
+  // =========================
+  // Quaternion → rotation matrix
+  // =========================
+
+  R.makeRotationFromQuaternion(quat);
+
+  // =========================
+  // Object translation
+  // =========================
+
+  T_obj.makeTranslation(params.tx, params.ty, params.tz);
+
+  // M = R · T
+  M.identity();
+  M.multiply(R);
+  M.multiply(T_obj);
+
+  renderable.mesh.matrix.copy(M);
+  renderable.mesh.matrixWorldNeedsUpdate = true;
+
+  renderable.outline.matrix.copy(M);
+  renderable.outline.matrixWorldNeedsUpdate = true;
+
+  updateVertix(M);
+
+  // =========================
+  // Matrix UI
+  // =========================
+
+  updateMatrixUI(R);
+
+  // =========================
+  // Quaternion UI
+  // =========================
+
+  
+
+  quatDiv.innerHTML = `
+  <span style="opacity:0.7">(unit quaternion → rotation)</span>
+<br><br>
+  <b>Quaternion</b><br>
+${quat.w.toFixed(4)}
++ <span style="color:${COLORS.X}">${quat.x.toFixed(4)}i</span>
++ <span style="color:${COLORS.Y}">${quat.y.toFixed(4)}j</span>
++ <span style="color:${COLORS.Z}">${quat.z.toFixed(4)}k</span>
+<br>
+<br>
+θ = ${thetaDeg.toFixed(2)}°<br>
+cos(θ/2) = ${cosHalf.toFixed(4)}<br>
+sin(θ/2) = ${sinHalf.toFixed(4)}
+
+<br>
+<br>
+axis =
+(
+<span style="color:${COLORS.X}">${axisFromQuat.x.toFixed(3)}</span>,
+<span style="color:${COLORS.Y}">${axisFromQuat.y.toFixed(3)}</span>,
+<span style="color:${COLORS.Z}">${axisFromQuat.z.toFixed(3)}</span>
+)
+`;
+
+  // =========================
+  // Axis-of-rotation visualization
+  // =========================
+
+  if (axis.lengthSq() < 1e-6) {
+    axisLine.visible = false;
+  } else {
+    axisLine.visible = true;
+    const L = 3;
+    const p0 = axis.clone().multiplyScalar(-L);
+    const p1 = axis.clone().multiplyScalar(L);
+    axisLineGeometry.setFromPoints([p0, p1]);
+  }
+}
+
+// Initial state
+update();
+
+// ======================================================
+// Animation loop
+// ======================================================
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+
+</script>
+</body>
+</html>

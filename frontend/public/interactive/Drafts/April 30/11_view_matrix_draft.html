@@ -1,0 +1,602 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>View Matrix</title>
+  <link rel="stylesheet" href="./common/styles.css" />
+</head>
+<!-- <div class="cameraFrameBottom"></div>
+<div class="cameraLabelBottom">Camera View</div> -->
+
+<body>
+
+<script type="module">
+
+// import { addHint } from "./common/hint.js";
+// addHint(
+//   "Drag to orbit, wheel to zoom.")
+
+import * as THREE from "https://esm.sh/three@0.160.0";
+import GUI from "https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm";
+import { TeapotGeometry }
+  from "https://esm.sh/three@0.160.0/examples/jsm/geometries/TeapotGeometry.js";
+
+// ----- Common modules -----
+import { createSceneShell } from "./common/sceneShell.js";
+import { addAxes } from "./common/axes.js";
+import { createOriginMarker } from "./common/originMarker.js";
+import { createXZPlane, createRenderable, createRenderableLightable, setWireframeMode } from "./common/renderModes.js";
+import { colorizeController } from "./common/uiLayout.js";
+import { COLORS } from "./common/colors.js";
+import {
+  createTranslationMatrixUI,
+  createRotationMatrixUI,
+  createMatrix4UI
+} from "./common/matrixUI.js";
+
+// ======================================================
+// Scene shell
+// ======================================================
+const { scene, camera, renderer, controls } = createSceneShell();
+
+controls.zoomSpeed = 4.0;  
+camera.position.set(5, 5, 10);  
+// ======================================================
+// World axes
+// ======================================================
+addAxes(scene, 3);
+
+// ======================================================
+// Origin marker (world origin)
+// ======================================================
+createOriginMarker(scene);
+
+// ======================================================
+// Model group (single transform)
+// ======================================================
+const modelGroup = new THREE.Group();
+modelGroup.matrixAutoUpdate = false;
+scene.add(modelGroup);
+
+// ======================================================
+// Model axes
+// ======================================================
+addAxes(modelGroup, 2);
+
+// ======================================================
+// Geometry: unit sphere → ellipsoid via scaling
+// ======================================================
+// const geometry = new THREE.SphereGeometry(1, 32, 16);
+
+// const material = new THREE.MeshStandardMaterial({
+//   color: 0xcccccc,
+//   roughness: 0.3,
+//   metalness: 0.0
+// });
+
+// const mesh = new THREE.Mesh(geometry, material);
+// modelGroup.add(mesh);
+
+// const geometry = new THREE.BoxGeometry(2, 2, 2);
+// const renderable = createRenderable(geometry);
+// modelGroup.add(renderable.mesh);
+// modelGroup.add(renderable.outline);
+
+const teapotSize = 1;
+let tess = - 1;	// force initialization
+let effectController = {
+					newTess: 15,
+					bottom: true,
+					lid: true,
+					body: true,
+					fitLid: false,
+					nonblinn: false,
+					newShading: 'glossy'
+				};
+
+const geometry = new TeapotGeometry( teapotSize,
+					tess,
+					effectController.bottom,
+					effectController.lid,
+					effectController.body,
+					effectController.fitLid,
+					! effectController.nonblinn );
+
+				const renderable = createRenderableLightable(geometry);
+
+
+modelGroup.add(renderable.mesh);
+modelGroup.add(renderable.outline);
+
+
+const gridPlane = new THREE.GridHelper(
+  5,
+  5,
+  0x888888,
+  0x444444
+);
+
+scene.add(gridPlane);
+// ======================================================
+// Lighting (normals matter here)
+// ======================================================
+scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+
+const light = new THREE.DirectionalLight(0xffffff, 0.8);
+light.position.set(3, 4, 5);
+scene.add(light);
+
+// ======================================================
+// Camera object (as a visible world object)
+// ======================================================
+const cameraObject = new THREE.PerspectiveCamera(
+  45,    // fov
+  1,     // aspect (doesn't matter for object)
+  0.1,
+  100
+);
+
+// Make it visible in the world
+const cameraHelper = new THREE.CameraHelper(cameraObject);
+scene.add(cameraHelper);
+
+// Add axes to the camera so orientation is obvious
+const cameraAxes = new THREE.AxesHelper(0.5);
+cameraObject.add(cameraAxes);
+
+// Start with a reasonable position
+cameraObject.position.set(3, 3, 3);
+cameraObject.lookAt(0, 0, 0);
+
+scene.add(cameraObject);
+
+const cameraViewSize = 240; // px
+
+const DEBUG_LAYER = 1;
+
+// Helpers only
+cameraHelper.layers.set(DEBUG_LAYER);
+cameraAxes.layers.set(DEBUG_LAYER);
+renderable.outline.layers.set(DEBUG_LAYER);
+
+// World-view camera sees everything
+camera.layers.enable(DEBUG_LAYER);
+
+// Camera preview should NOT see debug helpers
+cameraObject.layers.disable(DEBUG_LAYER);
+
+// ======================================================
+// Matrices
+// ======================================================
+const R = new THREE.Matrix4(); // rotation
+const T = new THREE.Matrix4(); // translation
+const M = new THREE.Matrix4(); // model matrix
+const V = new THREE.Matrix4(); // view matrix
+const MV = new THREE.Matrix4(); // model-view matrix
+
+// ======================================================
+// GUI parameters
+// ======================================================
+const params = {
+  
+
+  // model rotation
+  rx: 0,
+  ry: 0,
+  rz: 0,
+
+  // model translation
+  tx: 0,
+  ty: 0,
+  tz: 0,
+
+  // camera rotation
+  rxCamera: 0,
+  ryCamera: 0,
+  rzCamera: 0,
+
+  // camera translation
+  txCamera: 0,
+  tyCamera: 0,
+  tzCamera: 5,
+
+  
+  wireframe: true,
+  live: true
+};
+
+const guiRight = new GUI({ title: "Controllers" });
+guiRight.$title.style.pointerEvents = "none";
+guiRight.$title.style.opacity = "0.0";
+guiRight.$title.style.height = "0.0";
+
+
+
+// Left 
+
+const guiLeft = new GUI({ title: "Matrices" });
+guiLeft.$title.style.pointerEvents = "none";
+
+// Left only
+guiLeft.domElement.style.right = "auto";
+guiLeft.domElement.style.left = "0";
+
+//guiLeft.$title.style.opacity = "0.0";
+//guiLeft.$title.style.height = "0.0";
+// middleish
+// guiLeft.domElement.style.position = "fixed";
+// guiLeft.domElement.style.left = "50%";
+// guiLeft.domElement.style.bottom = "10px";
+// guiLeft.domElement.style.transform = "translateX(-50%)";
+// guiLeft.domElement.style.top = "auto";
+
+// guiLeft.domElement.style.display = "flex";
+// guiLeft.domElement.style.flexDirection = "row";
+// guiLeft.domElement.style.alignItems = "center";
+// guiLeft.domElement.style.gap = "12px";
+
+// guiLeft.domElement.style.padding = "8px 12px";
+// guiLeft.domElement.style.background = "rgba(0,0,0,0.65)";
+// guiLeft.domElement.style.borderRadius = "8px";
+// guiLeft.domElement.style.pointerEvents = "auto";
+guiLeft.domElement.style.background = "transparent";
+
+const dummy = guiLeft.add({ _: 0 }, "_");
+dummy.domElement.style.display = "none";
+
+// guiLeft.domElement.style.position = "fixed";
+// guiLeft.domElement.style.bottom = 0;
+
+// ======================================================
+// Model Translation folder
+// ======================================================
+const transFolder = guiRight.addFolder("Model Translation");
+
+const txCtrl = transFolder.add(params, "tx", -3, 3, 0.01).onChange(update);
+const tyCtrl = transFolder.add(params, "ty", -3, 3, 0.01).onChange(update);
+const tzCtrl = transFolder.add(params, "tz", -3, 3, 0.01).onChange(update);
+colorizeController(txCtrl, COLORS.X);
+colorizeController(tyCtrl, COLORS.Y);
+colorizeController(tzCtrl, COLORS.Z);
+
+// ======================================================
+// Model Rotation folder
+// ======================================================
+const rotFolder = guiRight.addFolder("Model Rotation (degrees)");
+
+const rxCtrl = rotFolder.add(params, "rx", -180, 180, 1).onChange(update);
+const ryCtrl = rotFolder.add(params, "ry", -180, 180, 1).onChange(update);
+const rzCtrl = rotFolder.add(params, "rz", -180, 180, 1).onChange(update);
+
+colorizeController(rxCtrl, COLORS.X);
+colorizeController(ryCtrl, COLORS.Y);
+colorizeController(rzCtrl, COLORS.Z);
+
+rotFolder.open();
+
+// ======================================================
+// Render mode
+// ======================================================
+// guiRight.add(params, "wireframe")
+//   .name("Wireframe")
+//   .onChange(v => setWireframeMode(renderable, v));
+
+
+// ======================================================
+// Camera Translation folder
+// ======================================================
+const transCameraFolder = guiRight.addFolder("Camera Translation");
+
+const txCameraCtrl = transCameraFolder.add(params, "txCamera", -3, 3, 0.01).onChange(update);
+const tyCameraCtrl = transCameraFolder.add(params, "tyCamera", -3, 3, 0.01).onChange(update);
+const tzCameraCtrl = transCameraFolder.add(params, "tzCamera", -5, 5, 0.01).onChange(update);
+colorizeController(txCameraCtrl, COLORS.X);
+colorizeController(tyCameraCtrl, COLORS.Y);
+colorizeController(tzCameraCtrl, COLORS.Z);
+
+// ======================================================
+// Model Rotation folder
+// ======================================================
+const rotCameraFolder = guiRight.addFolder("Camera Rotation (degrees)");
+
+const rxCameraCtrl = rotCameraFolder.add(params, "rxCamera", -180, 180, 1).name("Pitch (x)").onChange(update);
+const ryCameraCtrl = rotCameraFolder.add(params, "ryCamera", -180, 180, 1).name("Heading (y)").onChange(update);
+const rzCameraCtrl = rotCameraFolder.add(params, "rzCamera", -180, 180, 1).name("Roll (z)").onChange(update);
+
+colorizeController(rxCameraCtrl, COLORS.X);
+colorizeController(ryCameraCtrl, COLORS.Y);
+colorizeController(rzCameraCtrl, COLORS.Z);
+
+rotCameraFolder.open();
+
+// ======================================================
+// Reset Button
+// ======================================================
+guiRight.add({ resetValues }, "resetValues")
+  .name("Reset");
+
+function resetValues(){
+  // Reset params (DATA)
+  params.tx = params.ty = params.tz = 0;
+  params.rx = 1; params.ry = params.rz = 0;
+
+  params.rxCamera = params.ryCamera = params.rzCamera = 0;
+  params.txCamera = params.tyCamera = 0; params.tzCamera = 5; 
+
+  // Force lil-gui to sync sliders
+  txCtrl.updateDisplay();
+  tyCtrl.updateDisplay();
+  tzCtrl.updateDisplay();
+
+  rxCtrl.updateDisplay();
+  ryCtrl.updateDisplay();
+  rzCtrl.updateDisplay();
+
+  txCameraCtrl.updateDisplay();
+  tyCameraCtrl.updateDisplay();
+  tzCameraCtrl.updateDisplay();
+
+  rxCameraCtrl.updateDisplay();
+  ryCameraCtrl.updateDisplay();
+  rzCameraCtrl.updateDisplay();
+
+
+  update();
+  
+  }
+
+
+// ======================================================
+// Matrix UI
+// ======================================================
+
+// const updateViewMatrixUI = createMatrix4UI(guiLeft, "View Matrix");
+
+// const multiplySymbol = document.createElement("div");
+// multiplySymbol.textContent = "×";
+// styleSymbol(multiplySymbol);
+// guiLeft.domElement.appendChild(multiplySymbol);
+
+// const updateModelMatrixUI = createMatrix4UI(guiLeft, "Model Matrix");
+
+// const equalSymbol = document.createElement("div");
+// equalSymbol.textContent = "=";
+// styleSymbol(equalSymbol);
+// guiLeft.domElement.appendChild(equalSymbol);
+
+// const updateModelViewMatrixUI =
+//   createMatrix4UI(guiLeft, "Model View Matrix");
+
+// // Make each matrix UI compact
+// const matrixBlocks = guiLeft.domElement.querySelectorAll(".matrix-ui");
+// matrixBlocks.forEach(block => {
+//   block.style.fontSize = "11px";
+//   block.style.lineHeight = "1.2";
+// });
+
+// // Append to the LEFT gui
+// guiLeft.domElement.appendChild(equalSymbol);
+
+const updateViewMatrixUI = createMatrix4UI(guiLeft, "View Matrix");
+
+const multiplySymbol = document.createElement("div");
+multiplySymbol.textContent = "×";
+multiplySymbol.style.textAlign = "center";
+multiplySymbol.style.fontSize = "16px";
+//multiplySymbol.style.margin = "6px 0";
+multiplySymbol.style.fontFamily = "monospace";
+multiplySymbol.style.fontWeight = "bold";
+//multiplySymbol.style.opacity = "0.9";
+
+// Append to the LEFT gui
+guiLeft.domElement.appendChild(multiplySymbol);
+
+
+const updateModelMatrixUI = createMatrix4UI(guiLeft, "Model Matrix");
+
+const equalSymbol = document.createElement("div");
+equalSymbol.textContent = "=";
+equalSymbol.style.textAlign = "center";
+equalSymbol.style.fontSize = "16px";
+//equalSymbol.style.margin = "6px 0";
+equalSymbol.style.fontFamily = "monospace";
+equalSymbol.style.fontWeight = "bold";
+//equalSymbol.style.opacity = "0.9";
+
+// Append to the LEFT gui
+guiLeft.domElement.appendChild(equalSymbol);
+
+const updateModelViewMatrixUI = createMatrix4UI(guiLeft, "Model-View Matrix");
+
+
+
+
+// FUNCTIONS
+
+function styleSymbol(el) {
+  el.style.fontSize = "20px";
+  el.style.fontWeight = "bold";
+  el.style.fontFamily = "monospace";
+  el.style.opacity = "0.9";
+}
+
+// Camera insert into the left GUI
+// Create camera view container inside left GUI
+const cameraPreview = document.createElement("div");
+cameraPreview.style.width = "220px";
+cameraPreview.style.height = "160px";
+cameraPreview.style.border = "2px solid #fff";
+//cameraPreview.style.marginBottom = "8px";
+cameraPreview.style.background = "#000";
+cameraPreview.style.position = "relative";
+cameraPreview.textContent = ""; // empty, WebGL will draw behind it
+cameraPreview.style.background = "transparent";
+
+cameraPreview.style.marginTop = "4px";
+
+// Insert at TOP of left GUI
+//guiLeft.domElement.prepend(cameraPreview);
+
+guiLeft.domElement.appendChild(cameraPreview);
+
+
+
+  
+// ======================================================
+// Update function
+// ======================================================
+function getElementViewportRect(el) {
+  const rect = el.getBoundingClientRect();
+  return {
+    x: rect.left,
+    y: window.innerHeight - rect.bottom, // 🔑 convert to WebGL coords
+    width: rect.width,
+    height: rect.height
+  };
+}
+
+function update() {
+
+  // --- Build rotation ---
+  const rx = THREE.MathUtils.degToRad(params.rx);
+  const ry = THREE.MathUtils.degToRad(params.ry);
+  const rz = THREE.MathUtils.degToRad(params.rz);
+
+  R.identity();
+  R.makeRotationFromEuler(new THREE.Euler(rx, ry, rz, "XYZ"));
+
+  // --- Build translation ---
+  T.makeTranslation(params.tx, params.ty, params.tz);
+
+  // Compose model matrix
+  M.identity();
+  M.multiply(T);
+  M.multiply(R);
+
+
+  modelGroup.matrix.copy(M);
+  modelGroup.matrixWorldNeedsUpdate = true;
+  updateModelMatrixUI(M);
+
+  // ======================================================
+// Update camera object from sliders
+// ======================================================
+cameraObject.position.set(
+  params.txCamera,
+  params.tyCamera,
+  params.tzCamera
+);
+
+// Camera rotations (degrees → radians)
+cameraObject.rotation.set(
+  THREE.MathUtils.degToRad(params.rxCamera),
+  THREE.MathUtils.degToRad(params.ryCamera),
+  THREE.MathUtils.degToRad(params.rzCamera),
+  "XYZ"
+);
+
+// Update helper to match camera transform
+cameraHelper.update();
+
+// Camera View matrix
+cameraObject.updateMatrixWorld();
+
+// Compute the View Matrix (V)
+  
+V.copy(cameraObject.matrixWorld).invert();
+updateViewMatrixUI(V)
+
+// Calculate model view matrix
+MV.multiplyMatrices(V, M);
+updateModelViewMatrixUI(MV);  
+
+}
+
+
+// Initial state
+update();
+
+// Force correct camera inset setup BEFORE first frame
+cameraObject.aspect = cameraPreview.clientWidth / cameraPreview.clientHeight;
+cameraObject.updateProjectionMatrix();
+
+// ======================================================
+// Animation loop
+// ======================================================
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+
+  renderer.setScissorTest(true);
+
+  // ==================================================
+  // MAIN VIEW (full screen, world view)
+  // ==================================================
+  renderer.setViewport(0, 0, w, h);
+  renderer.setScissor(0, 0, w, h);
+  renderer.setClearColor(0x222222, 1.0);
+  renderer.clear();
+  renderer.render(scene, camera);
+
+  // =======================================
+// Camera preview inside left GUI
+// =======================================
+const r = getElementViewportRect(cameraPreview);
+
+renderer.setViewport(r.x, r.y, r.width, r.height);
+renderer.setScissor(r.x, r.y, r.width, r.height);
+renderer.setScissorTest(true);
+
+// Update aspect ratio
+cameraObject.aspect = r.width / r.height;
+cameraObject.updateProjectionMatrix();
+
+// ✅ Clear BOTH color + depth for the inset
+renderer.setClearColor(0x000000, 1.0);
+renderer.clear(true, true, false);
+
+// Render camera view
+renderer.render(scene, cameraObject);
+
+  // ==================================================
+  // CAMERA VIEW (bottom-left corner)
+  // ==================================================
+  
+//   const margin = 12;
+//   const vw = cameraViewSize;
+//   const vh = cameraViewSize;
+
+//   renderer.setViewport(
+//   margin,
+//   //h - vh - margin,
+//   margin,
+//   vw,
+//   vh
+// );
+
+// renderer.setScissor(
+//   margin,
+//   //h - vh - margin,
+//   margin,
+//   vw,
+//   vh
+// );
+
+
+//   // Important: update aspect ratio for the camera view
+//   cameraObject.aspect = vw / vh;
+//   cameraObject.updateProjectionMatrix();
+
+//   // Draw camera view
+//   renderer.setClearColor(0x000000, 1.0);
+//   renderer.clearDepth(); // 
+//   renderer.render(scene, cameraObject);
+}
+animate();
+
+</script>
+</body>
+</html>
