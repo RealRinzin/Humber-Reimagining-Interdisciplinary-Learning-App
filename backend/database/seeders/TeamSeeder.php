@@ -18,7 +18,7 @@ class TeamSeeder extends Seeder
         Team::insert([
             [
                 'project_id'  => 1,
-                'first_name'  => 'Dina',
+                'first_name'  => 'Dr. Dina',
                 'last_name'   => 'Sabie',
                 'role'        => 'Project Lead / Professor',
                 'mugshot'     => 'Dina-Sabie.png',

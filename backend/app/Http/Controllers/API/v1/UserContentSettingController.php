@@ -21,8 +21,19 @@ class UserContentSettingController
         // Return the logged user content setting
         // Return null if it does not have the 
         $user = auth()->user();
+        // 1. Fetch the setting and convert it to an array
+        $contentSetting = $user->userContentSetting->toArray();
+
+        // 2. Calculate the total and inject it directly into that array
+        $contentSetting['total_checked'] = $user->userContentSetting->quiz
+            + $user->userContentSetting->rambling
+            + $user->userContentSetting->code
+            + $user->userContentSetting->interactive;
         // return $user;
-        return response()->json(['data' => $user->userContentSetting]);
+        return response()->json([
+            'data' => $contentSetting,
+
+        ]);
     }
 
     /**

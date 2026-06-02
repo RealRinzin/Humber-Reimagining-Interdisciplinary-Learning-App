@@ -10,11 +10,14 @@ import CytoscapeComponent from "react-cytoscapejs";
 import type { Core } from "cytoscape";
 import { useEffect, useRef, useState } from "react";
 import { clientFetch, clientPost } from "@/lib/clientFetch";
-import { RingProgressPerCalculator } from "@/utils/RingProgressPerCalculator";
+import {
+  nodeProgressCalculator,
+  RingProgressPerCalculator,
+} from "@/utils/RingProgressPerCalculator";
 
 interface Props {
   hoveredTopicId?: string | null;
-  refreshKey?: number;  
+  refreshKey?: number;
 }
 async function postUserTopic(topic_id: number) {
   await clientPost("/user-topics/users/me/topics", {
@@ -24,6 +27,7 @@ async function postUserTopic(topic_id: number) {
   // no router.refresh() or window.location here
 }
 function makeRing(progress: any, color: any, innerColor: any) {
+  console.log(progress);
   const r = 40,
     cx = 50,
     cy = 50,
@@ -48,13 +52,17 @@ function makeRingZero(progress: any, color: any, innerColor: any) {
   </svg>`;
   return "data:image/svg+xml," + encodeURIComponent(svg);
 }
-export default function CommonSideBarNode({ hoveredTopicId,refreshKey }: Props) {
+export default function CommonSideBarNode({
+  hoveredTopicId,
+  refreshKey,
+}: Props) {
   const cyRef = useRef<Core | null>(null);
   const animFrameRef = useRef<number | null>(null);
   const [topics, setTopics] = useState<cytoscape.ElementDefinition[]>([]);
   const [styles, setStyles] = useState([]);
   const [progressTracking, setProgressTracking] = useState(true);
-  //
+  const [userSetting, setUserSetting] = useState<any>([]);
+  // get Detail
   const [tooltip, setTooltip] = useState({
     visible: false,
     x: 0,
@@ -133,12 +141,20 @@ export default function CommonSideBarNode({ hoveredTopicId,refreshKey }: Props) 
     ];
 
     async function getTopics() {
+      // Fetch user settings first
+      const user_content_setting = await clientFetch(
+        "/user-content-settings/users/me",
+      );
+      const { data: user_setting } = await user_content_setting.json();
+      setUserSetting(user_setting); // still set state for other uses
+      // Topic
       const res = await clientFetch(`/topics`);
       const { data: topics } = await res.json();
-
+// Topic Connections
       const topicConnection = await clientFetch("/topic-connections");
       const connect = await topicConnection.json();
 
+      // Get the
       const List: cytoscape.ElementDefinition[] = [];
 
       topics.forEach((topic: any, index: number) => {
@@ -157,7 +173,6 @@ export default function CommonSideBarNode({ hoveredTopicId,refreshKey }: Props) 
           },
           position: { x: topic.x_axis, y: topic.y_axis },
         });
-
         newStyle.push({
           selector: `#${topic.id}`,
           style: {
@@ -177,9 +192,16 @@ export default function CommonSideBarNode({ hoveredTopicId,refreshKey }: Props) 
             "background-image": (ele: any) => {
               return progressTracking
                 ? makeRing(
-                    RingProgressPerCalculator(
+                    nodeProgressCalculator(
                       topic?.videos?.[0]?.user_video_setting,
+                      user_setting,
+                      user_setting?.total_checked,
                     ),
+
+                    // RingProgressPerCalculator(
+                    //   topic?.videos?.[0]?.user_video_setting,
+
+                    // ),
                     topic.node_color,
                     topic.node_color,
                   )
@@ -227,8 +249,7 @@ export default function CommonSideBarNode({ hoveredTopicId,refreshKey }: Props) 
       setStyles(newStyle);
     }
     getTopics();
-  }, [progressTracking,refreshKey]);
-
+  }, [progressTracking, refreshKey]);
   //  React to hoveredTopicId changes from the sidebar
   useEffect(() => {
     const cy = cyRef.current;
@@ -258,7 +279,7 @@ export default function CommonSideBarNode({ hoveredTopicId,refreshKey }: Props) 
       animFrameRef.current = requestAnimationFrame(animate);
     };
     animate();
-  }, [hoveredTopicId]); 
+  }, [hoveredTopicId]);
 
   const handleZoomIn = () => {
     if (cyRef.current) {

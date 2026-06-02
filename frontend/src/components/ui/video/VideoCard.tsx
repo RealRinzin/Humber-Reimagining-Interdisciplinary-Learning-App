@@ -1,7 +1,9 @@
 "use client";
 import RingProgressBar from "@/components/ui/progress/Ring";
-import { clientPost } from "@/lib/clientFetch";
+import { clientFetch, clientPost } from "@/lib/clientFetch";
 import { VideoType } from "@/types/video";
+import { calculateRingProgress } from "@/utils/RingProgressPerCalculator";
+import { useEffect, useState } from "react";
 async function postUserTopic(topic_id: number) {
   // Post method
   const res = await clientPost("/user-topics/users/me/topics", {
@@ -10,24 +12,44 @@ async function postUserTopic(topic_id: number) {
   });
 }
 export default function VideoCard({ video }: { video: VideoType }) {
+  const [userContentSetting, setUserContentSetting] = useState(null);
+  const [userVideoSetting, setUserVideoSetting] = useState(null);
+  async function getUserSetting() {
+    const res = await clientFetch("/user-content-settings/users/me");
+    const { data: user_setting } = await res.json();
+    setUserContentSetting(user_setting);
+  }
+  async function getUserVideoSetting() {
+    const res = await clientFetch(
+      `/user-video-setting/users/me/videos/${video?.id}`,
+    );
+    const { data: video_setting } = await res.json();
+
+    setUserVideoSetting(video_setting);
+  }
   // Calculate the ring percentage
-  const fields = ["code", "rambling", "quiz", "interactive"] as const;
-  const total = video?.videos[0]?.user_video_setting?.all_checked
-    ? fields.length
-    : fields.filter((field) => video?.videos[0]?.user_video_setting?.[field])
-        .length;
-  total;
   // assign the start to the vidoe
   const is_started = video?.is_following;
+  const progressTotal = calculateRingProgress(
+    userContentSetting,
+    userVideoSetting,
+  );
+  useEffect(() => {
+    // destructure the content
+    getUserSetting();
+    getUserVideoSetting();
+  }, []);
   return (
     <>
       <div className="rounded-3xl border-2 border-slate-400 bg-slate-100 p-3 text-sm">
         <div className="flex gap-2 items-center-safe">
           <RingProgressBar
+            key={progressTotal}
             id={video.id}
             color={video.node_color}
             borderColor={video.node_color}
-            progress={total}
+            progress={progressTotal}
+            total={(userContentSetting as any)?.total_checked}
           />
           <h5 className="pb-3 text-lg font-medium items-center-safe">
             {video.title}

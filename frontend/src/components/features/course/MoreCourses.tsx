@@ -22,14 +22,14 @@ const [topics, setTopics] = useState<VideoType[]>([]);
   return (
     <>
       <div className="flex items-center gap-2">
-        <Image
-          src={`/img/NextIcon.png`}
+        {/* <Image
+          src="/img/NextIcon.png"
           height={20}
           width={20}
           alt="Course Next Information"
           className="h-5 w-5"
-        />
-        <h2 className="text-xl font-bold text-gray-600 ">What is next ?</h2>
+        /> */}
+        {/* <h2 className="text-xl font-bold text-gray-600 ">What is next ?</h2> */}
       </div>
       <p className="py-4 text-slate-500">
         Ready to learn more? Check out these suggested modules

@@ -55,7 +55,7 @@ Route::middleware(['web', 'auth:sanctum'])->get('/user', function (Request $requ
 // Route::prefix('v1')->name('v1.')->middleware('auth:sanctum')->group(function () {
 Route::prefix('v1')
     ->name('v1.')
-    ->middleware(['auth:sanctum', 'throttle:1000,1'])
+    ->middleware(['auth:sanctum', 'throttle:100000,1'])
     ->group(function () {
         // Proxy user return
         Route::get('/user', function (Request $request) {

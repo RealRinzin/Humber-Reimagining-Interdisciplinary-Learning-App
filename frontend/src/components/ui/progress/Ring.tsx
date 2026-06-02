@@ -1,20 +1,23 @@
 import { RingProgressBarType } from "@/types/common/ringProgressBar";
+import { useEffect } from "react";
 export default function RingProgressBar({
   color,
   progress,
-  onClick
+  total,
+  onClick,
 }: RingProgressBarType) {
+  const progressRateCalculation = total > 0 ? (progress / total) * 100 : 0;
+
   // Calculate the total check for the ring. percentage
-  // We are calculation the % share of each circle 
-  const progressRateCalculation = (progress/4)*100;
+  // We are calculation the % share of each circle
   return (
     <div
       className="w-13 h-13 rounded-full flex items-center justify-center"
       style={{
         background: `conic-gradient(${color} 0% ${progressRateCalculation}%, #99a1af ${progressRateCalculation}% 100%)`,
       }}
-      onClick={(e) => {      
-        e.stopPropagation();  
+      onClick={(e) => {
+        e.stopPropagation();
         onClick?.();
       }}
     >
