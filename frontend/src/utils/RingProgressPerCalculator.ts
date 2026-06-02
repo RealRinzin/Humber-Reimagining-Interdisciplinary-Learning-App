@@ -1,27 +1,27 @@
 import { clientFetch } from "@/lib/clientFetch";
 
 type ContentSetting = {
-    code: number;
-    rambling: number;
-    quiz: number;
-    interactive: number;
+    video:boolean,
+    code:  boolean;
+    rambling: boolean;
+    quiz: boolean;
+    interactive: boolean;
 };
 
 // export function RingProgressPerCalculator(data: any): number {
 
 export function RingProgressPerCalculator(data: any) {
     if (!data) return 0;
-    if (data.all_checked) return  100;
-    const fields = ['video','code', 'rambling', 'quiz', 'interactive'] as const;
+    if (data.all_checked) return 100;
+    const fields = ['video', 'code', 'rambling', 'quiz', 'interactive'] as const;
     return (fields.filter(field => data[field]).length) * 25;
 }
 
-export function nodeProgressCalculator(data: any,user_setting:any,total_checked:number) {
-
+export function nodeProgressCalculator(data: any, user_setting: any, total_checked: number) {
+    console.log(data)
     let count = 0;
     if (!data) return 0;
-    if(data?.all_checked) return 100;
-    
+    if (data?.all_checked) return 100;
     const user_content_setting = {
         video: user_setting?.video,
         code: user_setting?.code,
@@ -39,12 +39,21 @@ export function nodeProgressCalculator(data: any,user_setting:any,total_checked:
     for (const key of Object.keys(user_content_setting) as (keyof ContentSetting)[]) {
         if (user_content_setting[key] && user_video_setting[key]) count++;
     }
-    return (count/ total_checked) * 100;
-    // return count
+    return (count / total_checked) * 100;
 }
 
-export function calculateRingProgress(userContentSetting: any, UserVideoSetting: any) {
+export function exploreNodeCalculator(video: any, userContentSetting: any, UserVideoSetting: any) {
     let count = 0;
+
+    if (!video) return 0;
+    if (UserVideoSetting?.all_checked) return 100;
+    const video_setting = {
+        video: video?.video,
+        code: video?.code,
+        rambling: video?.rambling,
+        quiz: video?.quiz,
+        interactive: video?.interactive
+    }
     const user_content_setting = {
         video: userContentSetting?.video,
         code: userContentSetting?.code,
@@ -61,7 +70,41 @@ export function calculateRingProgress(userContentSetting: any, UserVideoSetting:
         interactive: UserVideoSetting?.interactive
     };
     for (const key of Object.keys(user_content_setting) as (keyof ContentSetting)[]) {
-        if (user_content_setting[key] && user_video_setting[key]) count++;
+        if (user_content_setting[key] && user_video_setting[key] && video_setting[key] ) count++;
+    }
+    const per =(count / userContentSetting?.total_checked) * 100;
+    // console.log(video?.title,'-',per)
+    return (count / userContentSetting?.total_checked) * 100;
+
+    return count;
+}
+
+export function calculateRingProgress(video: any, userContentSetting: any, UserVideoSetting: any) {
+    let count = 0;
+    const video_setting = {
+        video: video?.video,
+        code: video?.code,
+        rambling: video?.rambling,
+        quiz: video?.quiz,
+        interactive: video?.interactive
+    }
+    const user_content_setting = {
+        video: userContentSetting?.video,
+        code: userContentSetting?.code,
+        rambling: userContentSetting?.rambling,
+        quiz: userContentSetting?.quiz,
+        interactive: userContentSetting?.interactive
+    };
+
+    const user_video_setting = {
+        video: UserVideoSetting?.video,
+        code: UserVideoSetting?.code,
+        rambling: UserVideoSetting?.rambling,
+        quiz: UserVideoSetting?.quiz,
+        interactive: UserVideoSetting?.interactive
+    };
+    for (const key of Object.keys(user_content_setting) as (keyof ContentSetting)[]) {
+        if (user_content_setting[key] && user_video_setting[key] && video_setting[key] ) count++;
     }
     return count;
 }

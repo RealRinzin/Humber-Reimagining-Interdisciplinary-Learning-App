@@ -11,6 +11,7 @@ import type { Core } from "cytoscape";
 import { useEffect, useRef, useState } from "react";
 import { clientFetch, clientPost } from "@/lib/clientFetch";
 import {
+  exploreNodeCalculator,
   nodeProgressCalculator,
   RingProgressPerCalculator,
 } from "@/utils/RingProgressPerCalculator";
@@ -149,7 +150,7 @@ export default function CommonSideBarNode({
       // Topic
       const res = await clientFetch(`/topics`);
       const { data: topics } = await res.json();
-// Topic Connections
+      // Topic Connections
       const topicConnection = await clientFetch("/topic-connections");
       const connect = await topicConnection.json();
 
@@ -191,18 +192,23 @@ export default function CommonSideBarNode({
             "background-image": (ele: any) => {
               return progressTracking
                 ? makeRing(
-                    nodeProgressCalculator(
-                      topic?.videos?.[0]?.user_video_setting,
+                    // nodeProgressCalculator(
+                    //   topic?.videos?.[0]?.user_video_setting,
+                    //   user_setting,
+                    //   topic?.videos[0]?.total_tracking,
+                    // ),
+                    exploreNodeCalculator(
+                      topic?.videos?.[0],
                       user_setting,
-                      topic?.videos[0]?.total_tracking,
+                      topic?.videos?.[0]?.user_video_setting,
                     ),
+                    topic.node_color,
+                    topic.node_color,
 
                     // RingProgressPerCalculator(
                     //   topic?.videos?.[0]?.user_video_setting,
 
                     // ),
-                    topic.node_color,
-                    topic.node_color,
                   )
                 : // ? makeRing(34, topic.node_color, topic.node_color)
                   makeRingZero(0, topic.node_color, topic.node_color);

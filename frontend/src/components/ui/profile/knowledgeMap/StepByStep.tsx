@@ -46,6 +46,7 @@ export default function StepByStep({
           id={topic.id}
           name={topic.title}
           color={topic.node_color}
+          video={topic?.videos[0]}
           slug={topic.slug}
           description={topic.description}
           is_started={topic.is_following}

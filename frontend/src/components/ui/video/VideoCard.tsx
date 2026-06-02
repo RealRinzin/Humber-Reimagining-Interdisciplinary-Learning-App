@@ -12,8 +12,8 @@ async function postUserTopic(topic_id: number) {
   });
 }
 export default function VideoCard({ video }: { video: VideoType }) {
-  const [userContentSetting, setUserContentSetting] = useState(null);
-  const [userVideoSetting, setUserVideoSetting] = useState(null);
+  const [userContentSetting, setUserContentSetting] = useState<any>(null);
+  const [userVideoSetting, setUserVideoSetting] = useState<any>(null);
   async function getUserSetting() {
     const res = await clientFetch("/user-content-settings/users/me");
     const { data: user_setting } = await res.json();
@@ -30,6 +30,7 @@ export default function VideoCard({ video }: { video: VideoType }) {
   // assign the start to the vidoe
   const is_started = video?.is_following;
   const progressTotal = calculateRingProgress(
+    video?.videos[0],
     userContentSetting,
     userVideoSetting,
   );
@@ -47,7 +48,7 @@ export default function VideoCard({ video }: { video: VideoType }) {
             color={video.node_color}
             borderColor={video.node_color}
             progress={progressTotal}
-            total={(video?.videos[0] as any)?.total_tracking}
+            total={userContentSetting?.total_checked}
           />
           <h5 className="pb-3 text-lg font-medium items-center-safe">
             {video.title}

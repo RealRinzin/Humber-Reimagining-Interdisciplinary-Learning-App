@@ -33,6 +33,7 @@ export default function TabHorizontal({
   slug,
   description,
   is_started,
+  video,
   ringInformation,
   onHover,
   onLeave,
@@ -50,14 +51,14 @@ export default function TabHorizontal({
   }
   // Calculate the Ring circle detail from the incoming information
 
-  const fields = ["code", "rambling", "quiz", "interactive"] as const;
+  const fields = ["video", "code", "rambling", "quiz", "interactive"] as const;
   const total = ringInformation[0]?.user_video_setting?.all_checked
     ? fields.length
     : fields.filter((field) => ringInformation[0]?.user_video_setting?.[field])
         .length;
 
-  const [userContentSetting, setUserContentSetting] = useState(null);
-  const [userVideoSetting, setUserVideoSetting] = useState(null);
+  const [userContentSetting, setUserContentSetting] = useState<any>(null);
+  const [userVideoSetting, setUserVideoSetting] = useState<any>(null);
   async function getUserSetting() {
     const res = await clientFetch("/user-content-settings/users/me");
     const { data: user_setting } = await res.json();
@@ -71,6 +72,7 @@ export default function TabHorizontal({
   }
 
   const progressTotal = calculateRingProgress(
+    video,
     userContentSetting,
     userVideoSetting,
   );
@@ -103,7 +105,9 @@ export default function TabHorizontal({
         />
         {isOpen && (
           <div className="pt-2 transition-all delay-300 ease-in-out">
-            <p className="text-center text-xs font-semibold">{progressTotal}/{(userContentSetting as any)?.total_checked}</p>
+            <p className="text-center text-xs font-semibold">
+              {progressTotal}/{userContentSetting?.total_checked}
+            </p>
             <p className="text-gray-600 text-xs font-semibold">Complete</p>
           </div>
         )}

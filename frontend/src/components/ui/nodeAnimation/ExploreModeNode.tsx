@@ -10,13 +10,14 @@ import CytoscapeComponent from "react-cytoscapejs";
 import type { Core } from "cytoscape";
 import { useEffect, useRef, useState } from "react";
 import { clientFetch, clientPost } from "@/lib/clientFetch";
-import { nodeProgressCalculator } from "@/utils/RingProgressPerCalculator";
+import { exploreNodeCalculator, nodeProgressCalculator } from "@/utils/RingProgressPerCalculator";
 
 interface Props {
   hoveredTopicId?: string | null;
   refreshKey?: number;
 }
 function makeRing(progress: any, color: any, innerColor: any) {
+  console.log(progress)
   const r = 40,
     cx = 50,
     cy = 50,
@@ -195,11 +196,13 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
             "background-image": (ele: any) => {
               return progressTracking
                 ? makeRing(
-                    nodeProgressCalculator(
-                      topic?.videos?.[0]?.user_video_setting,
-                      user_setting,
-                      user_setting?.total_checked,
-                    ),
+                    // nodeProgressCalculator(
+                    //   topic?.videos?.[0]?.user_video_setting,
+                    //   user_setting,
+                    //   user_setting?.total_checked
+                    //   // topic?.videos?.[0]?.total_tracking
+                    // ),
+                    exploreNodeCalculator(topic?.videos?.[0],user_setting,topic?.videos?.[0]?.user_video_setting),
                     topic.node_color,
                     topic.node_color,
                   )

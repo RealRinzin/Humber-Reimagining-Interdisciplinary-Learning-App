@@ -9,7 +9,7 @@ const OnBoardingPersonalDetail = ({ onSuccess, values }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors},
+    formState: { errors },
   } = useForm<OnboardPersonalDetailType>({ values });
 
   const onSubmit = (data: OnboardPersonalDetailType) => {
@@ -57,6 +57,10 @@ const OnBoardingPersonalDetail = ({ onSuccess, values }: Props) => {
               required: "Username is required",
               minLength: { value: 4, message: "Min 8 characters" },
               maxLength: { value: 20, message: "Max 20 characters" },
+              pattern: {
+                value: /^[A-Za-z0-9]+$/,
+                message: "Only letters and numbers are allowed",
+              },
             })}
             className="w-full rounded-lg bg-white/70 border border-slate-300 px-4 py-2.5 text-sm text-slate-700 placeholder-slate-400 outline-none focus:ring-2 focus:ring-slate-400"
           />

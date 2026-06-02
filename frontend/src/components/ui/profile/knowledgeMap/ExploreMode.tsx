@@ -45,6 +45,7 @@ export default function ExploreMode({
       {topics.map((topic: any, index: number) => (
         <ExploreHorizontalTab
           key={index}
+          video={topic?.videos[0]}
           id={topic.id}
           name={topic.title}
           color={topic.node_color}

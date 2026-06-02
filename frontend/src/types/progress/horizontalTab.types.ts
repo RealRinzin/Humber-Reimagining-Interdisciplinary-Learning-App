@@ -7,6 +7,7 @@ export interface HorizontalTabTypes {
     total_started?: number,
     is_started: boolean,
     ringInformation: any,
+    video:any,
     onHover?: () => void;
     onLeave?: () => void;
 }
