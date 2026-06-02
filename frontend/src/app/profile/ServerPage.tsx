@@ -15,12 +15,13 @@ export default async function ServerPage() {
   const { data: userData } = await getUserRecords.json();
   const checkedMarkCount = (userData?.user_video_settings as any[]).reduce(
     (acc, data) => ({
+      video: acc.video + (data?.pivot?.vodep ? 1 : 0),
       code: acc.code + (data?.pivot?.code ? 1 : 0),
       quiz: acc.quiz + (data?.pivot?.quiz ? 1 : 0),
       rambling: acc.rambling + (data?.pivot?.rambling ? 1 : 0),
       interactive: acc.interactive + (data?.pivot?.interactive ? 1 : 0),
     }),
-    { code: 0, quiz: 0, rambling: 0, interactive: 0 },
+    { video:0,code: 0, quiz: 0, rambling: 0, interactive: 0 },
   );
   return (
     <div className="col-span-3 md:col-span-2 h-full">

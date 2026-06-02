@@ -1,6 +1,7 @@
 export interface userVideoSettingTypes {
     user_id: number,
     video_id: number,
+    video:boolean,
     code: boolean;
     interactive: boolean,
     rambling: boolean,
