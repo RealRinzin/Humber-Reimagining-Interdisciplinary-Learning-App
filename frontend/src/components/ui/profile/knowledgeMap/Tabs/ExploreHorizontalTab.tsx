@@ -6,6 +6,8 @@ import { HorizontalTabTypes } from "@/types/progress/horizontalTab.types";
 import { useToggle } from "@/hooks/common/useToggle";
 import { clientFetch, clientPost } from "@/lib/clientFetch";
 import RingProgressBar from "@/components/ui/progress/Ring";
+import { useEffect, useState } from "react";
+import { calculateRingProgress } from "@/utils/RingProgressPerCalculator";
 
 /**
  *
@@ -47,7 +49,29 @@ export default function ExploreHorizontalTab({
     ? fields.length
     : fields.filter((field) => ringInformation[0]?.user_video_setting?.[field])
         .length;
+  const [userContentSetting, setUserContentSetting] = useState(null);
+  const [userVideoSetting, setUserVideoSetting] = useState(null);
+  async function getUserSetting() {
+    const res = await clientFetch("/user-content-settings/users/me");
+    const { data: user_setting } = await res.json();
+    setUserContentSetting(user_setting);
+  }
+  async function getUserVideoSetting() {
+    const res = await clientFetch(`/user-video-setting/users/me/videos/${id}`);
+    const { data: video_setting } = await res.json();
 
+    setUserVideoSetting(video_setting);
+  }
+
+  const progressTotal = calculateRingProgress(
+    userContentSetting,
+    userVideoSetting,
+  );
+  useEffect(() => {
+    // destructure the content
+    getUserSetting();
+    getUserVideoSetting();
+  }, []);
   return (
     <div
       className={`flex items-center border-2 rounded-2xl border-gray-500/80 my-4  ${is_started ? "bg-white" : "bg-gray-400 "}`}
@@ -68,13 +92,20 @@ export default function ExploreHorizontalTab({
           color={color}
           borderColor={color}
           progress={total}
-          total={0}
-          
-          onClick={total_started !== 18 ? () => postUserTopic(id + 1) : undefined}
+          // total={0}
+          total={(userContentSetting as any)?.total_checked}
+          onClick={
+            total_started !== 18 ? () => postUserTopic(id + 1) : undefined
+          }
         />
         {isOpen && (
           <div className="pt-2 transition-all delay-300 ease-in-out">
-            {/* <p className="text-center text-xs font-semibold">{total}/4</p> */}
+            {/* <p className="text-center text-xs font-semibold">{total}/4</p>
+             */}
+            <p className="text-center text-xs font-semibold">
+              {progressTotal}/{(userContentSetting as any)?.total_checked}
+            </p>
+
             <p className="text-gray-600 text-xs font-semibold">Complete</p>
           </div>
         )}
