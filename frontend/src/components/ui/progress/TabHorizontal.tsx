@@ -72,6 +72,7 @@ export default function TabHorizontal({
         <RingProgressBar
           id={2}
           color={color}
+          total={0}
           borderColor={color}
           progress={total}
         />

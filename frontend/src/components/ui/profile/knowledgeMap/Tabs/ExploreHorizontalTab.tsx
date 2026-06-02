@@ -68,6 +68,7 @@ export default function ExploreHorizontalTab({
           color={color}
           borderColor={color}
           progress={total}
+          total={0}
           onClick={total_started !== 18 ? () => postUserTopic(id + 1) : undefined}
         />
         {isOpen && (
