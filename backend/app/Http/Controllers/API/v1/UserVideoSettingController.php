@@ -40,6 +40,7 @@ class UserVideoSettingController
                 'video_id' => (int) $videoID,
             ],
             [
+                'video'                       =>$request->video,
                 'code'                        => $request->code,
                 'interactive'                 => $request->interactive,
                 'rambling'                    => $request->rambling,

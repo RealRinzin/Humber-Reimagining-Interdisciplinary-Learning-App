@@ -19,12 +19,12 @@ export default function VideoCard({ video }: { video: VideoType }) {
     const { data: user_setting } = await res.json();
     setUserContentSetting(user_setting);
   }
+  console.log("video",video)
   async function getUserVideoSetting() {
     const res = await clientFetch(
       `/user-video-setting/users/me/videos/${video?.id}`,
     );
     const { data: video_setting } = await res.json();
-
     setUserVideoSetting(video_setting);
   }
   // Calculate the ring percentage

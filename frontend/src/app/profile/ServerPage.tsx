@@ -30,7 +30,7 @@ export default async function ServerPage() {
         </div>
         <div className="col-span-3">
           <TabProgressBar
-            name={"Lectures Watched"}
+            name={"Lectures Started"}
             completed={userData?.topics?.length ?? 0}
             total={topics?.length}
           />

@@ -27,7 +27,6 @@ async function postUserTopic(topic_id: number) {
   // no router.refresh() or window.location here
 }
 function makeRing(progress: any, color: any, innerColor: any) {
-  console.log(progress);
   const r = 40,
     cx = 50,
     cy = 50,

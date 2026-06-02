@@ -19,6 +19,7 @@ class UserVideoSetting extends Pivot
     protected $fillable = [
         'user_id',
         'video_id',
+        'video',
         'code',
         'interactive',
         'rambling',

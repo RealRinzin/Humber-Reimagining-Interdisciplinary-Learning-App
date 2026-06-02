@@ -25,7 +25,8 @@ class UserContentSettingController
         $contentSetting = $user->userContentSetting->toArray();
 
         // 2. Calculate the total and inject it directly into that array
-        $contentSetting['total_checked'] = $user->userContentSetting->quiz
+        $contentSetting['total_checked'] = $user->userContentSetting->video
+            + $user->userContentSetting->quiz
             + $user->userContentSetting->rambling
             + $user->userContentSetting->code
             + $user->userContentSetting->interactive;

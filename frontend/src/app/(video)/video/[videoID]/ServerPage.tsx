@@ -47,6 +47,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
             video_id: video.id,
             last_paused: 0,
             completed: false,
+
           },
         );
         // new user_video for this video with the logged in user
@@ -78,6 +79,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
     const res = await serverPatch(
       `/user-video-setting/users/me/videos/${video.id}`,
       {
+        video:true,
         code: false,
         interactive: false,
         rambling: false,
