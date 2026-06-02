@@ -103,7 +103,7 @@ export default function TabHorizontal({
         />
         {isOpen && (
           <div className="pt-2 transition-all delay-300 ease-in-out">
-            <p className="text-center text-xs font-semibold">{total}/4</p>
+            <p className="text-center text-xs font-semibold">{progressTotal}/{(userContentSetting as any)?.total_checked}</p>
             <p className="text-gray-600 text-xs font-semibold">Complete</p>
           </div>
         )}
