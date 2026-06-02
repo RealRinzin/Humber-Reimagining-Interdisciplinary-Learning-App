@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Normal Transformation</title>
+  <link rel="stylesheet" href="./common/styles.css" />
+</head>
+<body>
+
+<script type="module">
+
+import { addHint } from "./common/hint.js";
+addHint(
+  "Drag to orbit, wheel to zoom. Red arrows are surface normals. Blue sphere is model-space origin & center of scaling/rotation.")
+
+import * as THREE from "https://esm.sh/three@0.160.0";
+import GUI from "https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm";
+
+// ----- Common modules -----
+import { createSceneShell } from "./common/sceneShell.js";
+import { addAxes } from "./common/axes.js";
+import { createOriginMarker } from "./common/originMarker.js";
+import { colorizeController } from "./common/uiLayout.js";
+// Dina start
+import { COLORS, SIZE, scaleGUI } from "./common/colors.js";
+// Dina end
+
+// ======================================================
+// Scene shell
+// ======================================================
+const { scene, camera, renderer, controls } = createSceneShell();
+
+// ======================================================
+// World axes
+// ======================================================
+addAxes(scene, 3);
+
+// ======================================================
+// Origin marker (world origin)
+// ======================================================
+createOriginMarker(scene);
+
+// ======================================================
+// Model group (single transform)
+// ======================================================
+const modelGroup = new THREE.Group();
+modelGroup.matrixAutoUpdate = false;
+scene.add(modelGroup);
+
+// ======================================================
+// Geometry: unit sphere → ellipsoid via scaling
+// ======================================================
+const geometry = new THREE.SphereGeometry(1, 32, 16);
+
+const material = new THREE.MeshStandardMaterial({
+  color: 0xcccccc,
+  roughness: 0.3,
+  metalness: 0.0
+});
+
+const mesh = new THREE.Mesh(geometry, material);
+modelGroup.add(mesh);
+
+// ======================================================
+// Lighting (normals matter here)
+// ======================================================
+scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+
+const light = new THREE.DirectionalLight(0xffffff, 0.8);
+light.position.set(3, 4, 5);
+scene.add(light);
+
+// ======================================================
+// Sample surface directions (object space)
+// ======================================================
+const sampleDirs = [
+  new THREE.Vector3( 1,  0,  0),
+  new THREE.Vector3(-1,  0,  0),
+  new THREE.Vector3( 0,  1,  0),
+  new THREE.Vector3( 0, -1,  0),
+  new THREE.Vector3( 0,  0,  1),
+  new THREE.Vector3( 0,  0, -1),
+  new THREE.Vector3( 1,  1,  0).normalize(),
+  new THREE.Vector3( 1,  0,  1).normalize(),
+];
+
+// ======================================================
+// Normal helpers
+// ======================================================
+const normalHelpers = [];
+
+for (const dir of sampleDirs) {
+  const arrow = new THREE.ArrowHelper(
+  dir.clone(),
+  dir.clone(),
+  0.8,        // longer
+  0xff0000,   // bright red
+  0.15,       // cone length
+  0.08        // cone radius (thicker)
+);
+  scene.add(arrow);
+  normalHelpers.push(arrow);
+}
+
+// ======================================================
+// Matrices
+// ======================================================
+const S = new THREE.Matrix4(); // scale
+const R = new THREE.Matrix4(); // rotation
+const T = new THREE.Matrix4(); // translation
+const M = new THREE.Matrix4(); // model matrix
+
+// ======================================================
+// GUI parameters
+// ======================================================
+const params = {
+  // scale
+  sx: 1,
+  sy: 1,
+  sz: 1,
+
+  // rotation
+  rx: 0,
+  ry: 0,
+  rz: 0,
+
+  // translation
+  tx: 0,
+  ty: 0,
+  tz: 0,
+
+  correctNormals: true
+};
+
+const gui = new GUI({ title: "Controllers" });
+gui.$title.style.pointerEvents = "none";
+gui.$title.style.opacity = "0.0";
+gui.$title.style.height = "0.0";
+
+// Dina
+gui.domElement.style.right = "0px";
+gui.domElement.style.marginRight = "0px";
+gui.domElement.style.paddingRight = "0px";
+gui.domElement.style.boxSizing = "border-box";
+gui.domElement.style.width = SIZE.GUI_width;
+gui.domElement.style.marginLeft = "1vw";
+
+// Dina
+
+// ======================================================
+// Translation folder
+// ======================================================
+const transFolder = gui.addFolder("Translation");
+
+const txCtrl = transFolder.add(params, "tx", -3, 3, 0.01).onChange(update);
+const tyCtrl = transFolder.add(params, "ty", -3, 3, 0.01).onChange(update);
+const tzCtrl = transFolder.add(params, "tz", -3, 3, 0.01).onChange(update);
+colorizeController(txCtrl, COLORS.X);
+colorizeController(tyCtrl, COLORS.Y);
+colorizeController(tzCtrl, COLORS.Z);
+
+// ======================================================
+// Scale folder
+// ======================================================
+const scaleFolder = gui.addFolder("Scale");
+
+const sxCtrl = scaleFolder.add(params, "sx", 0.3, 3, 0.01).onChange(update);
+const syCtrl = scaleFolder.add(params, "sy", 0.3, 3, 0.01).onChange(update);
+const szCtrl = scaleFolder.add(params, "sz", 0.3, 3, 0.01).onChange(update);
+
+colorizeController(sxCtrl, COLORS.X);
+colorizeController(syCtrl, COLORS.Y);
+colorizeController(szCtrl, COLORS.Z);
+
+scaleFolder.open();
+
+// ======================================================
+// Rotation folder
+// ======================================================
+const rotFolder = gui.addFolder("Rotation (degrees)");
+
+const rxCtrl = rotFolder.add(params, "rx", -180, 180, 1).onChange(update);
+const ryCtrl = rotFolder.add(params, "ry", -180, 180, 1).onChange(update);
+const rzCtrl = rotFolder.add(params, "rz", -180, 180, 1).onChange(update);
+
+colorizeController(rxCtrl, COLORS.X);
+colorizeController(ryCtrl, COLORS.Y);
+colorizeController(rzCtrl, COLORS.Z);
+
+
+
+// ======================================================
+// Normal toggle
+// ======================================================
+gui.add(params, "correctNormals")
+  .name("Correct Normals (inv-transpose)")
+  .onChange(update);
+
+
+// Dina
+//guiRight.domElement.style.paddingRight = "0px";
+scaleGUI(gui);
+//guiRight.domElement.style.fontSize = "2vw";
+// Dina
+// ======================================================
+// Update function
+// ======================================================
+function update() {
+
+  // --- Build matrices ---
+  S.makeScale(params.sx, params.sy, params.sz);
+
+  const rx = THREE.MathUtils.degToRad(params.rx);
+  const ry = THREE.MathUtils.degToRad(params.ry);
+  const rz = THREE.MathUtils.degToRad(params.rz);
+
+  R.identity();
+  R.makeRotationFromEuler(new THREE.Euler(rx, ry, rz, "XYZ"));
+
+  T.makeTranslation(params.tx, params.ty, params.tz);
+
+  // M = R · S · T  (rotate & scale about origin, then translate)
+    M.identity();
+    M.multiply(R);
+    M.multiply(S);
+    M.multiply(T);
+
+  modelGroup.matrix.copy(M);
+  modelGroup.matrixWorldNeedsUpdate = true;
+
+  // --- Normal matrix ---
+  const normalMatrix = new THREE.Matrix3().getNormalMatrix(M);
+
+  // --- Update normal arrows ---
+  normalHelpers.forEach((arrow, i) => {
+
+    const dir = sampleDirs[i];
+
+    // Object-space position (unit sphere)
+    const pObj = dir.clone();
+
+    // World-space position
+    const pWorld = pObj.clone().applyMatrix4(M);
+
+    // Transform normal
+    const nWorld = dir.clone();
+
+    if (params.correctNormals) {
+      nWorld.applyMatrix3(normalMatrix);
+    } else {
+      nWorld.applyMatrix4(M);
+    }
+
+    nWorld.normalize();
+
+    arrow.position.copy(pWorld);
+    arrow.setDirection(nWorld);
+    arrow.setLength(0.8, 0.15, 0.08);
+  });
+}
+
+// Initial state
+update();
+
+// ======================================================
+// Animation loop
+// ======================================================
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+
+</script>
+</body>
+</html>

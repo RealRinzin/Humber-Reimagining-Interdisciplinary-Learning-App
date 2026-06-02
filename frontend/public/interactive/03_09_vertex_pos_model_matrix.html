@@ -22,7 +22,9 @@ import { addAxes } from "./common/axes.js";
 import { createOriginMarker } from "./common/originMarker.js";
 import { createRenderable, setWireframeMode } from "./common/renderModes.js";
 import { colorizeController } from "./common/uiLayout.js";
-import { COLORS } from "./common/colors.js";
+// Dina start
+import { COLORS, SIZE, scaleGUI } from "./common/colors.js";
+// Dina end
 import {
   createTranslationMatrixUI,
   createRotationMatrixUI,
@@ -155,6 +157,8 @@ guiRight.$title.style.opacity = "0.0";
 guiRight.$title.style.height = "0.0";
 
 
+
+
 // ======================================================
 // Reference point (default: top-left-front corner)
 // ======================================================
@@ -214,8 +218,9 @@ const orderFolder = guiRight.addFolder("Custom Transform Order Simulation");
 const orderRow = document.createElement("div");
 orderRow.style.display = "flex";
 orderRow.style.alignItems = "center";
-orderRow.style.gap = "6px";
-orderRow.style.marginTop = "6px";
+
+orderRow.style.gap = "0.3em";
+orderRow.style.flexWrap = "wrap";
 orderRow.style.fontFamily = "monospace";
 
 const childrenContainer =
@@ -235,7 +240,7 @@ function dot() {
   const d = document.createElement("span");
   d.textContent = "·";
   d.style.fontWeight = "bold"
-  d.style.margin = "0.4px";
+  d.style.margin = SIZE.marginSmall;
   return d;
 }
 
@@ -404,6 +409,12 @@ guiRight.add(params, "wireframe")
 guiRight.add({ resetValues }, "resetValues")
   .name("Reset");
 
+  // Dina
+//guiRight.domElement.style.paddingRight = "0px";
+scaleGUI(guiRight);
+//guiRight.domElement.style.fontSize = "2vw";
+// Dina
+
 // ======================================================
 // Left GUI
 // ======================================================// Left 
@@ -415,6 +426,19 @@ guiLeft.$title.style.height = "0.0"; // remove the word
 guiLeft.domElement.style.right = "auto";
 guiLeft.domElement.style.left = "0";
 guiLeft.domElement.style.background = "transparent";
+
+// Dina
+guiRight.domElement.style.right = "0px";
+guiRight.domElement.style.marginRight = "0px";
+guiRight.domElement.style.paddingRight = "0px";
+guiRight.domElement.style.boxSizing = "border-box";
+guiLeft.domElement.style.marginLeft = "1vw";
+
+guiLeft.domElement.style.width = SIZE.GUI_width;
+guiRight.domElement.style.width = SIZE.GUI_width;
+
+// Dina
+
 
 // Remove the 'empty' word
 const dummy = guiLeft.add({ _: 0 }, "_");

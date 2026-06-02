@@ -25,7 +25,10 @@ import { addAxes } from "./common/axes.js";
 import { createOriginMarker } from "./common/originMarker.js";
 import { createRenderable, setWireframeMode } from "./common/renderModes.js";
 import { colorizeController } from "./common/uiLayout.js";
-import { COLORS } from "./common/colors.js";
+// Dina start
+import { COLORS, SIZE, scaleGUI } from "./common/colors.js";
+// Dina end
+
 
 // ======================================================
 // Scene shell
@@ -100,15 +103,15 @@ infoPanel.appendChild(document.createElement("hr"));
 infoPanel.appendChild(controlsDiv);
 
 infoPanel.style.position = "absolute";
-infoPanel.style.top = "10px";
-infoPanel.style.right = "10px";
-infoPanel.style.padding = "10px";
+infoPanel.style.top = SIZE.marginTop;
+infoPanel.style.right = SIZE.marginTop;
+infoPanel.style.padding = SIZE.marginTop;
 infoPanel.style.background = "rgba(0,0,0,0.6)";
 infoPanel.style.color = "#fff";
 infoPanel.style.fontFamily = "monospace";
-infoPanel.style.fontSize = "12px";
-infoPanel.style.lineHeight = "1.4";
-infoPanel.style.minWidth = "220px";
+infoPanel.style.fontSize = SIZE.font_large;
+//infoPanel.style.lineHeight = "1.4";
+infoPanel.style.maxWidth = SIZE.GUI;
 
 document.body.appendChild(infoPanel);
 
@@ -123,11 +126,16 @@ const viewParams = {
 
 const normalsToggle = document.createElement("label");
 normalsToggle.style.display = "block";
-normalsToggle.style.marginTop = "6px";
+normalsToggle.style.marginTop = SIZE.marginTop;
 normalsToggle.style.cursor = "pointer";
 
 const checkbox = document.createElement("input");
 checkbox.type = "checkbox";
+// checkbox.style.width = "0.5em";
+// checkbox.style.height = "0.5em";
+// checkbox.style.marginRight = "0.4em";
+// checkbox.style.cursor = "pointer";
+
 
 checkbox.addEventListener("change", () => {
   viewParams.showNormals = checkbox.checked;
@@ -148,7 +156,7 @@ viewParams.showTriangles = false;
 
 const trianglesToggle = document.createElement("label");
 trianglesToggle.style.display = "block";
-trianglesToggle.style.marginTop = "6px";
+trianglesToggle.style.marginTop = SIZE.marginTop;
 trianglesToggle.style.cursor = "pointer";
 
 const triCheckbox = document.createElement("input");
@@ -172,7 +180,7 @@ viewParams.showFaceNormals = false;
 
 const faceNormalsToggle = document.createElement("label");
 faceNormalsToggle.style.display = "block";
-faceNormalsToggle.style.marginTop = "6px";
+faceNormalsToggle.style.marginTop = SIZE.marginTop;
 faceNormalsToggle.style.cursor = "pointer";
 
 const faceCheckbox = document.createElement("input");
@@ -187,16 +195,16 @@ faceNormalsToggle.appendChild(faceCheckbox);
 faceNormalsToggle.append("Show (triangle) surface normals");
 
 controlsDiv.appendChild(faceNormalsToggle);
-
+controlsDiv.appendChild(document.createElement("hr"));
 // ======================================================
 // Load panel 
 // ======================================================
 const stlListDiv = document.createElement("div");
-stlListDiv.style.marginTop = "10px";
+stlListDiv.style.marginTop = SIZE.marginTop;
 stlListDiv.style.fontFamily = "monospace";
-stlListDiv.style.fontSize = "12px";
+stlListDiv.style.fontSize = SIZE.font_large;
 
-infoPanel.appendChild(document.createElement("hr"));
+//infoPanel.appendChild(document.createElement("hr"));
 //infoPanel.appendChild(stlListDiv);
 controlsDiv.appendChild(stlListDiv);
 
@@ -212,7 +220,7 @@ PRESET_STLS.forEach(stl => {
   const item = document.createElement("div");
   item.textContent = stl.name;
   item.style.cursor = "pointer";
-  item.style.padding = "2px 0";
+  //item.style.padding = "2px 0";
 
   item.addEventListener("click", () => {
     fetch(stl.file)
@@ -236,7 +244,8 @@ const fileInput = document.createElement("input");
 fileInput.type = "file";
 fileInput.accept = ".stl";
 fileInput.style.width = "100%";
-fileInput.style.marginTop = "8px";
+fileInput.style.marginTop = SIZE.marginTop;
+fileInput.style.fontSize = SIZE.font_large;
 
 //infoPanel.appendChild(fileInput);
 controlsDiv.appendChild(fileInput);
@@ -253,6 +262,17 @@ fileInput.addEventListener("change", () => {
   reader.readAsArrayBuffer(file);
 });
 
+[checkbox, triCheckbox, faceCheckbox].forEach(c => {
+  c.style.width = "0.8em";
+c.style.height = "0.8em";
+//c.style.marginRight = "0.4em";
+c.style.cursor = "pointer";
+});
+
+// triCheckbox.style.width = "1.0em";
+// triCheckbox.style.height = "1.0em";
+// triCheckbox.style.marginRight = "0.4em";
+// triCheckbox.style.cursor = "pointer";
 
 // ======================================================
 // Functions 

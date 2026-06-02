@@ -25,6 +25,9 @@ import { createMatrix4UI,
   createViewportMatrixFormulaUI
  } from "./common/matrixUI.js";
 
+ // Dina start
+import { COLORS, SIZE, scaleGUI } from "./common/colors.js";
+// Dina end
 // ======================================================
 // Scene
 // ======================================================
@@ -266,6 +269,18 @@ dummy.domElement.style.display = "none";
 const viewportFormula  = createViewportMatrixFormulaUI(guiLeft);
 const updateMatrixUI = createMatrix4UI(guiLeft,"Viewport Matrix (Vp)");
 
+// Dina
+guiRight.domElement.style.right = "0px";
+guiRight.domElement.style.marginRight = "0px";
+guiRight.domElement.style.paddingRight = "0px";
+guiRight.domElement.style.boxSizing = "border-box";
+guiLeft.domElement.style.marginLeft = "1vw";
+
+guiLeft.domElement.style.width = SIZE.GUI_width;
+guiRight.domElement.style.width = SIZE.GUI_width;
+
+scaleGUI(guiRight);
+// Dina
 // ======================================================
 // Update
 // ======================================================
