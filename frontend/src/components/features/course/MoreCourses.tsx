@@ -31,9 +31,9 @@ const [topics, setTopics] = useState<VideoType[]>([]);
         /> */}
         {/* <h2 className="text-xl font-bold text-gray-600 ">What is next ?</h2> */}
       </div>
-      <p className="py-4 text-slate-500">
+      {/* <p className="py-4 text-slate-500">
         Ready to learn more? Check out these suggested modules
-      </p>
+      </p> */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {topics.slice(0, 3).map((video: VideoType, index: number) => (
           <div className="my-2" key={index}>

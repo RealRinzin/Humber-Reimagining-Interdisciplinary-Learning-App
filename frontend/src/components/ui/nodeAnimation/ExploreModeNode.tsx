@@ -10,15 +10,43 @@ import CytoscapeComponent from "react-cytoscapejs";
 import type { Core } from "cytoscape";
 import { useEffect, useRef, useState } from "react";
 import { clientFetch, clientPost } from "@/lib/clientFetch";
+import { nodeProgressCalculator } from "@/utils/RingProgressPerCalculator";
 
 interface Props {
   hoveredTopicId?: string | null;
+  refreshKey?: number;
+}
+function makeRing(progress: any, color: any, innerColor: any) {
+  const r = 40,
+    cx = 50,
+    cy = 50,
+    sw = 20;
+  const circ = 2 * Math.PI * r;
+  const dash = (progress / 100) * circ;
+  const gap = circ - dash;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+    <circle cx="${cx}" cy="${cy}" r="50" fill="#1a1a2e"/>
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#d0d0d8" stroke-width="${sw}"/>
+    ${progress > 0 ? `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${innerColor}" stroke-width="${sw}" stroke-dasharray="${dash.toFixed(1)} ${gap.toFixed(1)}" stroke-linecap="round" transform="rotate(-90 ${cx} ${cy})"/>` : ""}
+    <circle cx="${cx}" cy="${cy}" r="24" fill="${innerColor}"/>
+  </svg>`;
+  return "data:image/svg+xml," + encodeURIComponent(svg);
+}
+function makeRingZero(progress: any, color: any, innerColor: any) {
+  const cx = 50,
+    cy = 50;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+    <circle cx="${cx}" cy="${cy}" r="50" fill="${innerColor}"/>
+    <circle cx="${cx}" cy="${cy}" r="46" fill="${innerColor}" stroke="#fff" stroke-width="10" stroke-opacity="0.4"/>
+  </svg>`;
+  return "data:image/svg+xml," + encodeURIComponent(svg);
 }
 export default function ExploreModeNode({ hoveredTopicId }: Props) {
   const cyRef = useRef<Core | null>(null);
   const animFrameRef = useRef<number | null>(null);
   const [topics, setTopics] = useState<cytoscape.ElementDefinition[]>([]);
   const [styles, setStyles] = useState([]);
+  const [userSetting, setUserSetting] = useState<any>([]);
   const [progressTracking, setProgressTracking] = useState(true);
   const [tooltip, setTooltip] = useState({
     visible: false,
@@ -117,6 +145,14 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
       topics.filter((t: any) => t.is_started).map((t: any) => t.id),
     );
     async function getTopics() {
+      // Fetch user settings first
+      const user_content_setting = await clientFetch(
+        "/user-content-settings/users/me",
+      );
+      const { data: user_setting } = await user_content_setting.json();
+      setUserSetting(user_setting); // still set state for other uses
+      // Topic
+
       const res = await clientFetch(`/topics`);
       const { data: topics } = await res.json();
       const topicConnection = await clientFetch("/topic-connections");
@@ -143,8 +179,11 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
         newStyle.push({
           selector: `#${topic.id}`,
           style: {
-            width: 80,
-            height: 80,
+            width: 100,
+            height: 100,
+            "border-width": 0, // ← add
+            "border-color": "transparent",
+            "border-opacity": 0,
             label: "data(label)",
             cursor: "pointer",
             "text-valign": "center",
@@ -153,17 +192,29 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
             "font-weight": "bold",
             "text-transform": "uppercase",
             color: "#000",
+            "background-image": (ele: any) => {
+              return progressTracking
+                ? makeRing(
+                    nodeProgressCalculator(
+                      topic?.videos?.[0]?.user_video_setting,
+                      user_setting,
+                      user_setting?.total_checked,
+                    ),
+                    topic.node_color,
+                    topic.node_color,
+                  )
+                : // ? makeRing(34, topic.node_color, topic.node_color)
+                  makeRingZero(0, topic.node_color, topic.node_color);
+            },
             "text-background-color": "#fff",
             "text-background-opacity": 0.7,
             "text-background-padding": 4,
             "text-background-shape": "roundrectangle",
-            "background-color": `${topic.is_following ? topic.node_color : "#999999"}`,
-            "border-width": 20,
-            "border-color": `${topic.is_following ? topic.node_color : "#999999"}`,
-            "border-opacity": 0.5,
             "shadow-blur": 80,
-            "shadow-color": "#00ff88",
             "shadow-opacity": 0.7,
+            "shadow-color": topic.node_color || "#FF2D8A", // ← matches the ring color
+            "shadow-offset-x": 0,
+            "shadow-offset-y": 0,
           },
         });
       });
@@ -195,7 +246,7 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
     }
 
     getTopics();
-  }, []);
+  }, [progressTracking]);
 
   //  React to hoveredTopicId changes from the sidebar
   useEffect(() => {

@@ -19,7 +19,6 @@ export default function VideoCard({ video }: { video: VideoType }) {
     const { data: user_setting } = await res.json();
     setUserContentSetting(user_setting);
   }
-  console.log("video",video)
   async function getUserVideoSetting() {
     const res = await clientFetch(
       `/user-video-setting/users/me/videos/${video?.id}`,
@@ -48,7 +47,8 @@ export default function VideoCard({ video }: { video: VideoType }) {
             color={video.node_color}
             borderColor={video.node_color}
             progress={progressTotal}
-            total={(userContentSetting as any)?.total_checked}
+            // total={(userContentSetting as any)?.total_checked}
+            total={video?.videos[0]?.total_tracking}
           />
           <h5 className="pb-3 text-lg font-medium items-center-safe">
             {video.title}

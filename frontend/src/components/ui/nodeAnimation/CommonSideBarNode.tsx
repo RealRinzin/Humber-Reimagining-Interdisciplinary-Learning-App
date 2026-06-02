@@ -194,7 +194,7 @@ export default function CommonSideBarNode({
                     nodeProgressCalculator(
                       topic?.videos?.[0]?.user_video_setting,
                       user_setting,
-                      user_setting?.total_checked,
+                      topic?.videos[0]?.total_tracking,
                     ),
 
                     // RingProgressPerCalculator(

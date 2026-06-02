@@ -43,10 +43,11 @@ class VideoResource extends JsonResource
             'duration' => $this->duration,
             'tldw' => $this->tldw,
             'interactive_path' => $this->interactive_path,
-            'has_code' =>$this->code,
-            'has_interactive'=>$this->interactive,
-            'has_rambling'=>$this->rambling,
-            'has_quiz'=>$this->quiz,
+            'video' => $this->video,
+            'code' =>$this->code,
+            'interactive'=>$this->interactive,
+            'rambling'=>$this->rambling,
+            'quiz'=>$this->quiz,
             // We will return the count of codes and documents, and the list of codes and documents that are associated with the video
             // The count of codes and documents will be returned in the 'count' key, and the list of codes and documents will be returned in the 'codes' and 'documents' keys respectively
             /**
@@ -63,6 +64,7 @@ class VideoResource extends JsonResource
             'documents' => LessonDocumentResource::collection($this->whenLoaded('documents')),
             'quizzes' => QuizResource::collection($this->whenLoaded('quizzes')),
             'ramblings' => RamblingResource::collection($this->whenLoaded('ramblings')),
+            'total_tracking' => $this->video + $this->code+$this->quiz+$this->rambling+$this->interactive,
             'count' => [
                 'codes' => $this->codes_count,
                 'documents' => $this->documents_count,

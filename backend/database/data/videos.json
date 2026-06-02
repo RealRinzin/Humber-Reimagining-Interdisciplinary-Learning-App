@@ -9,7 +9,12 @@
         "duration": 12,
         "description": "An introduction to coordinate spaces in 3D graphics. We explore why different spaces exist and how objects move through them during rendering.",
         "tldw": "3D graphics use multiple coordinate spaces to transform objects from local mesh data all the way to pixels on screen.",
-        "interactive_path":""
+        "video": true,
+        "code": true,
+        "rambling": true,
+        "interactive": false,
+        "quiz": true,
+        "interactive_path": ""
     },
     {
         "title": "Model Space",
@@ -21,7 +26,12 @@
         "duration": 44,
         "description": "Model space is the local coordinate system of a 3D object. Every vertex is defined relative to the object's own origin before any transformations are applied.",
         "tldw": "Model space is where your mesh lives before it gets placed into the world — it's the object's own local coordinate system.",
-         "interactive_path":"02_model_space"
+        "video": true,
+        "code": true,
+        "rambling": true,
+        "interactive": true,
+        "quiz": true,
+        "interactive_path": "02_model_space"
     },
     {
         "title": "Vertex Position",
@@ -33,8 +43,12 @@
         "duration": 18,
         "description": "Vertex positions define the geometry of a 3D mesh. Each vertex holds an XYZ coordinate in model space that gets transformed through the graphics pipeline.",
         "tldw": "Vertices are the building blocks of 3D geometry — each one is a point in space that gets transformed through the pipeline.",
-        "interactive_path":"03_09_vertex_pos_model_matrix"
-
+        "video": true,
+        "code": true,
+        "rambling": true,
+        "interactive": true,
+        "quiz": true,
+        "interactive_path": "03_09_vertex_pos_model_matrix"
     },
     {
         "title": "Normals",
@@ -46,8 +60,12 @@
         "duration": 22,
         "description": "Normal vectors are perpendicular to a surface and are critical for lighting calculations. They must be transformed carefully to remain correct after non-uniform scaling.",
         "tldw": "Normals tell the GPU which way a surface is facing — essential for lighting to look correct.",
-        "interactive_path":"4_normal"
-
+        "video": true,
+        "code": true,
+        "rambling": true,
+        "interactive": true,
+        "quiz": true,
+        "interactive_path": "4_normal"
     },
     {
         "title": "Scale",
@@ -59,8 +77,12 @@
         "duration": 15,
         "description": "Scaling transforms change the size of an object along one or more axes. Uniform scaling preserves shape while non-uniform scaling can distort normals.",
         "tldw": "Scale transforms resize your object — uniform scale keeps the shape intact, non-uniform stretches it.",
-        "interactive_path":"05_scale"
-
+        "video": true,
+        "code": true,
+        "rambling": true,
+        "interactive": true,
+        "quiz": true,
+        "interactive_path": "05_scale"
     },
     {
         "title": "Translation",
@@ -72,8 +94,12 @@
         "duration": 34,
         "description": "Translation moves an object from one position to another in 3D space. In matrix form, translation is encoded in the last column of a 4x4 matrix using homogeneous coordinates.",
         "tldw": "Translation is how you move objects around the world — represented as the last column in a 4x4 transformation matrix.",
-        "interactive_path":"06_translation"
-
+        "video": true,
+        "code": true,
+        "rambling": true,
+        "interactive": true,
+        "quiz": true,
+        "interactive_path": "06_translation"
     },
     {
         "title": "Rotation",
@@ -85,8 +111,12 @@
         "duration": 28,
         "description": "Rotation transforms orient an object in 3D space. Rotations can be represented as Euler angles, rotation matrices, or quaternions, each with trade-offs in interpolation and gimbal lock.",
         "tldw": "Rotation spins your object in 3D space — Euler angles are intuitive but quaternions are safer for smooth interpolation.",
-        "interactive_path":"07_rotation"
-        
+        "video": true,
+        "code": true,
+        "rambling": true,
+        "interactive": true,
+        "quiz": true,
+        "interactive_path": "07_rotation"
     },
     {
         "title": "Quaternions",
@@ -98,7 +128,12 @@
         "duration": 38,
         "description": "Quaternions are a mathematical system used to represent 3D rotations. They avoid gimbal lock and allow smooth interpolation between orientations using SLERP.",
         "tldw": "Quaternions solve gimbal lock and enable smooth rotation interpolation — the preferred rotation method in game engines.",
-        "interactive_path":"08_quaternions"
+        "video": true,
+        "code": true,
+        "rambling": true,
+        "interactive": true,
+        "quiz": true,
+        "interactive_path": "08_quaternions"
     },
     {
         "title": "Model Matrix",
@@ -110,8 +145,12 @@
         "duration": 30,
         "description": "The model matrix combines scale, rotation, and translation into a single 4x4 matrix. Multiplying a vertex by the model matrix transforms it from model space into world space.",
         "tldw": "The model matrix bundles all your object transforms into one matrix — multiply a vertex by it to place it in the world.",
-        "interactive_path":"11_view_matrix"
-
+        "video": true,
+        "code": true,
+        "rambling": true,
+        "interactive": true,
+        "quiz": true,
+        "interactive_path": "11_view_matrix"
     },
     {
         "title": "World Space",
@@ -123,8 +162,12 @@
         "duration": 20,
         "description": "World space is the global coordinate system where all objects are placed relative to a shared origin. After applying the model matrix, vertices exist in world space.",
         "tldw": "World space is the shared stage where all objects coexist — every model matrix transforms into it.",
-        "interactive_path":""
-
+        "video": true,
+        "code": true,
+        "rambling": true,
+        "interactive": false,
+        "quiz": true,
+        "interactive_path": ""
     },
     {
         "title": "View Matrix",
@@ -136,8 +179,12 @@
         "duration": 25,
         "description": "The view matrix transforms world space coordinates into camera space. It is essentially the inverse of the camera's own model matrix, repositioning the world relative to the camera.",
         "tldw": "The view matrix repositions the entire world so the camera is at the origin looking down the Z axis.",
-        "interactive_path":""
-
+        "video": true,
+        "code": true,
+        "rambling": true,
+        "interactive": false,
+        "quiz": true,
+        "interactive_path": ""
     },
     {
         "title": "Camera Space",
@@ -149,8 +196,12 @@
         "duration": 22,
         "description": "Camera space, also called view space or eye space, positions vertices relative to the camera. The camera sits at the origin looking down the negative Z axis.",
         "tldw": "Camera space puts the viewer at the center — everything is now relative to where the camera is looking.",
-        "interactive_path":""
-
+        "video": true,
+        "code": true,
+        "rambling": true,
+        "interactive": false,
+        "quiz": true,
+        "interactive_path": ""
     },
     {
         "title": "Projection Matrix",
@@ -162,7 +213,12 @@
         "duration": 23,
         "description": "The projection matrix transforms camera space into clip space. Perspective projection creates a realistic sense of depth while orthographic projection preserves parallel lines.",
         "tldw": "The projection matrix flattens 3D camera space into 2D clip space — perspective adds depth, orthographic keeps lines parallel.",
-        "interactive_path":"13_projection_matrix"
+        "video": true,
+        "code": true,
+        "rambling": true,
+        "interactive": true,
+        "quiz": true,
+        "interactive_path": "13_projection_matrix"
     },
     {
         "title": "Perspective Divide",
@@ -174,8 +230,12 @@
         "duration": 23,
         "description": "The perspective divide divides the X, Y, and Z clip coordinates by the W component to produce normalized device coordinates. This step creates the foreshortening effect of perspective.",
         "tldw": "Dividing by W is what actually creates perspective — farther objects shrink because their W is larger.",
-        "interactive_path":"14_perspective_divide"
-
+        "video": true,
+        "code": true,
+        "rambling": true,
+        "interactive": true,
+        "quiz": true,
+        "interactive_path": "14_perspective_divide"
     },
     {
         "title": "NDC Space",
@@ -187,8 +247,12 @@
         "duration": 18,
         "description": "Normalized Device Coordinates (NDC) map the visible scene into a cube from -1 to 1 on each axis. Everything outside this range is clipped and not rendered.",
         "tldw": "NDC is a standardized cube from -1 to 1 — anything outside gets clipped before hitting the screen.",
-        "interactive_path":""
-
+        "video": true,
+        "code": true,
+        "rambling": true,
+        "interactive": false,
+        "quiz": true,
+        "interactive_path": ""
     },
     {
         "title": "Viewport Matrix",
@@ -200,8 +264,12 @@
         "duration": 16,
         "description": "The viewport transform maps NDC coordinates to pixel coordinates on the screen. It scales and offsets the NDC cube to match the dimensions and position of the render target.",
         "tldw": "The viewport matrix is the final step — it maps the NDC cube to actual pixel coordinates on your screen.",
-        "interactive_path":"16_viewport_matrix"
-
+        "video": true,
+        "code": true,
+        "rambling": true,
+        "interactive": true,
+        "quiz": true,
+        "interactive_path": "16_viewport_matrix"
     },
     {
         "title": "Pixel Space",
@@ -213,8 +281,12 @@
         "duration": 23,
         "description": "Pixel space, or screen space, is the final destination of the graphics pipeline. Vertices are now 2D pixel coordinates ready for rasterization and fragment shading.",
         "tldw": "Pixel space is the end of the pipeline — your 3D scene is now a grid of 2D pixels ready to be drawn.",
-        "interactive_path":""
-
+        "video": true,
+        "code": true,
+        "rambling": false,
+        "interactive": false,
+        "quiz": true,
+        "interactive_path": ""
     },
     {
         "title": "Bonus",
@@ -226,6 +298,11 @@
         "duration": 10,
         "description": "Bonus content covering extra tips and tricks related to the graphics pipeline. Includes practical shader examples and common mistakes to avoid when working with coordinate spaces.",
         "tldw": "Extra tips and real-world shader examples to solidify your understanding of the full graphics pipeline.",
-        "interactive_path":""
+        "video": true,
+        "code": false,
+        "rambling": false,
+        "interactive": false,
+        "quiz": false,
+        "interactive_path": ""
     }
 ]

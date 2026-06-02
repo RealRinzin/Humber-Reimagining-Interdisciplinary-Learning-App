@@ -15,7 +15,6 @@ export default function CourseTitle({
   videoID: number;
   status: userVideoSettingTypes;
 }) {
-  console.log(status?.video)
   const triggerNodeRefresh = useRefreshNode();
   const router = useRouter();
   const [markCompleteAll, setMarkCompleteAll] = useState(false);
