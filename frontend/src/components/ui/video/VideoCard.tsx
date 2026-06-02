@@ -47,8 +47,7 @@ export default function VideoCard({ video }: { video: VideoType }) {
             color={video.node_color}
             borderColor={video.node_color}
             progress={progressTotal}
-            // total={(userContentSetting as any)?.total_checked}
-            total={video?.videos[0]?.total_tracking}
+            total={(video?.videos[0] as any)?.total_tracking}
           />
           <h5 className="pb-3 text-lg font-medium items-center-safe">
             {video.title}
