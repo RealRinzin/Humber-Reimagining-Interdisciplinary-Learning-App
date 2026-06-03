@@ -96,7 +96,9 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
     "/user-content-settings/users/me",
   );
   const { data: user_setting } = await user_content_setting.json();
+  console.log(video)
   return (
+    
     <>
       <CourseTitle
         title={video.title}
@@ -135,7 +137,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
       )}
 
       {/* Code Snippet */}
-      {video?.codes && (
+      {video?.code && (
         <CourseTabs
           type="code"
           title={"Code Snippet"}
