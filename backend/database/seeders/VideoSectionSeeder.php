@@ -105,6 +105,32 @@ class VideoSectionSeeder extends Seeder
                 'subtitle'         => null,
                 'created_at'       => now(),
                 'updated_at'       => now(),
+            ],
+      [
+                'video_id'         => 18,
+                'title'            => 'Bonus - 3',
+                'slug'             => 'bonus-3',
+                'description'      => 'Building and consuming RESTful APIs.',
+                'thumbnail'        => 'thumbnails/section_3.jpg',
+                'video_url'        => 'SpacesProject_V18_Bonus_3_EXP2_HD.mp4',
+                'duration'         => 450,
+                'interactive_path' => null,
+                'subtitle'         => null,
+                'created_at'       => now(),
+                'updated_at'       => now(),
+            ],
+                  [
+                'video_id'         => 18,
+                'title'            => 'Bonus - 4',
+                'slug'             => 'bonus-4',
+                'description'      => 'Building and consuming RESTful APIs.',
+                'thumbnail'        => 'thumbnails/section_7.jpg',
+                'video_url'        => 'SpacesProject_V18_Bonus_4_EXP2_HD.mp4',
+                'duration'         => 450,
+                'interactive_path' => null,
+                'subtitle'         => null,
+                'created_at'       => now(),
+                'updated_at'       => now(),
             ]
         ]);
     }

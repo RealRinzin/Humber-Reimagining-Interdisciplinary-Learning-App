@@ -68,7 +68,7 @@ const OnBoardingSelectContent = ({ onSuccess, values }: Props) => {
 
             <ToggleCheckBox<OnboardSelectContentType>
               name="rambling"
-              label="Rampling (extra content to read)"
+              label="Ramblings (extra content to read)"
               register={register}
               required={false}
               error={errors.rambling?.message}

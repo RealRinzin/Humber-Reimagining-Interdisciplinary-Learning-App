@@ -15,7 +15,7 @@ export default function RamblingCard({ ramblings }: any) {
         <div
         id="rambling-section"
           key={index}
-          className="px-1 py-4 rambling-card"
+          className="px-1 py-4 rambling-card text-base/8"
           dangerouslySetInnerHTML={{ __html: rambling.content }}
         />
       ))}

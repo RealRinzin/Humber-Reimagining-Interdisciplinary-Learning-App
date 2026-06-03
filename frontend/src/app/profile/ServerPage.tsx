@@ -67,7 +67,7 @@ export default async function ServerPage() {
         ))}
       </div> */}
       {/* Content Setting */}
-      <div>
+      <div className="py-10">
         <ContentSetting />
       </div>
     </div>

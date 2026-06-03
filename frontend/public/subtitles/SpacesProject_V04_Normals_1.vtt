@@ -1,0 +1,1314 @@
+WEBVTT
+
+00:00:00.080 --> 00:00:02.480
+-We're talking about
+normals today.
+
+00:00:02.480 --> 00:00:04.720
+Normals. It's a bit of a weird
+
+00:00:04.720 --> 00:00:07.040
+word because you say day to day.
+
+00:00:07.040 --> 00:00:08.700
+That's normal.
+
+00:00:08.700 --> 00:00:11.200
+That looks like a normal
+looking muffin over there in
+
+00:00:11.200 --> 00:00:13.815
+the pastry section
+of the coffee shop.
+
+00:00:13.815 --> 00:00:15.315
+I was doing some reading.
+
+00:00:15.315 --> 00:00:17.655
+I'm like, what does normal
+normals have to do with the
+
+00:00:17.655 --> 00:00:19.495
+stuff we're talking about?
+
+00:00:19.495 --> 00:00:21.655
+Apparently, 
+it originates from
+
+00:00:21.655 --> 00:00:23.815
+the Latin word for a T ruler.
+
+00:00:23.815 --> 00:00:25.830
+So a T ruler, 
+like the one you bought.
+
+00:00:25.830 --> 00:00:27.330
+-The one I bought.
+-The one you got for T square.
+
+00:00:27.330 --> 00:00:28.830
+Yeah, a T square.
+
+00:00:28.830 --> 00:00:30.330
+Yeah. I have to brush up
+
+00:00:30.330 --> 00:00:31.830
+on my Latin.
+
+00:00:31.830 --> 00:00:33.330
+-So the word normal
+means T square?
+
+00:00:33.330 --> 00:00:36.230
+-Yeah. And it's
+signifying 90 degrees.
+
+00:00:36.230 --> 00:00:37.810
+-Got it.
+
+00:00:37.810 --> 00:00:40.475
+-Okay. So the normal, I've got a
+shape here, the normal on this
+
+00:00:40.475 --> 00:00:44.235
+ball is 90 degrees
+to the surface.
+
+00:00:44.235 --> 00:00:47.755
+And as you move around the
+surface, you always want that
+
+00:00:47.755 --> 00:00:49.255
+normal vector.
+
+00:00:49.255 --> 00:00:50.755
+It's a direction.
+
+00:00:50.755 --> 00:00:52.255
+Normal of this table
+
+00:00:52.255 --> 00:00:53.755
+pointing straight up.
+
+00:00:53.755 --> 00:00:55.300
+So, yeah, my students get a bit
+confused because the word
+
+00:00:55.300 --> 00:00:59.220
+normal means not, like,
+out of the ordinary.
+
+00:00:59.220 --> 00:01:01.300
+How do we represent
+these in math?
+
+00:01:01.300 --> 00:01:02.800
+But you know what?
+
+00:01:02.800 --> 00:01:04.740
+Before I talk about the math,
+maybe we should talk about why
+
+00:01:04.740 --> 00:01:06.735
+do we need normals?
+
+00:01:06.735 --> 00:01:08.415
+What are normals used for?
+
+00:01:08.415 --> 00:01:10.015
+-Don't look at me.
+
+00:01:12.015 --> 00:01:13.855
+We don't make them.
+
+00:01:13.855 --> 00:01:16.495
+You know, they
+come with the models that we
+
+00:01:16.495 --> 00:01:19.010
+create, but we can
+manipulate them.
+
+00:01:19.010 --> 00:01:21.410
+So you need to have normals
+because you need to know which
+
+00:01:21.410 --> 00:01:23.170
+way light's bouncing
+off the surface.
+
+00:01:23.170 --> 00:01:25.970
+But if we make something flat,
+generally all the normals point
+
+00:01:25.970 --> 00:01:29.650
+up like your pen does, and
+light bounces off it correctly.
+
+00:01:29.650 --> 00:01:32.530
+And with the sphere, it looks
+like it's a sphere because it's
+
+00:01:32.530 --> 00:01:35.135
+got normals on it, and light
+bounces off it correctly.
+
+00:01:35.135 --> 00:01:36.635
+-That's how I use it.
+
+00:01:36.635 --> 00:01:38.135
+It's just for lighting.
+
+00:01:38.135 --> 00:01:39.635
+-Just for lighting.
+
+00:01:39.635 --> 00:01:41.135
+Okay. So that's why
+we need normals.
+
+00:01:41.135 --> 00:01:44.655
+Mathematically speaking, I
+brought a vector with me today.
+
+00:01:44.655 --> 00:01:46.735
+I like to do that.
+
+00:01:46.735 --> 00:01:50.335
+The kind of confusing thing
+about a normal, which is
+
+00:01:50.335 --> 00:01:52.230
+direction, is that it's kind of
+
+00:01:52.230 --> 00:01:55.190
+similar mathematically
+to a position.
+
+00:01:55.190 --> 00:01:58.790
+If you have something in the
+world that has an x, a y, and a
+
+00:01:58.790 --> 00:02:00.550
+z position.
+
+00:02:00.550 --> 00:02:02.950
+But if you're pointing
+somewhere, you could think of
+
+00:02:02.950 --> 00:02:04.978
+as what I'm pointing at has
+
+00:02:04.978 --> 00:02:07.005
+acertain change in x, 
+change in
+
+00:02:07.005 --> 00:02:08.525
+y, change in z.
+
+00:02:08.525 --> 00:02:10.925
+So a lot of times when you're
+writing out normals and
+
+00:02:10.925 --> 00:02:14.525
+vectors, you could just use the
+first three numbers here, but
+
+00:02:14.525 --> 00:02:16.025
+then there's the confusion.
+
+00:02:16.025 --> 00:02:19.085
+Like, are you talking about
+a position or you're talking
+
+00:02:19.085 --> 00:02:21.140
+about a direction?
+
+00:02:21.140 --> 00:02:24.980
+And the way out of this bind
+is to have one more number.
+
+00:02:24.980 --> 00:02:27.660
+This is the w component, the
+
+00:02:27.660 --> 00:02:30.340
+fourth number for this vector.
+
+00:02:30.340 --> 00:02:33.435
+So for positions,
+
+00:02:33.435 --> 00:02:37.275
+we use a w equal to one.
+
+00:02:37.275 --> 00:02:40.715
+And that basically means
+that you start at the origin
+
+00:02:40.715 --> 00:02:43.275
+and then you move over x y z.
+
+00:02:43.275 --> 00:02:45.115
+But for normals, which are
+
+00:02:45.115 --> 00:02:48.400
+directions, they're
+not positions,
+
+00:02:48.400 --> 00:02:51.040
+what we end up doing is
+
+00:02:51.040 --> 00:02:53.680
+giving it a w of zero.
+
+00:02:53.680 --> 00:02:55.880
+And the reason zero is the
+
+00:02:55.880 --> 00:02:58.080
+right number to choose is
+
+00:02:58.080 --> 00:02:59.580
+something we'll talk about
+
+00:02:59.580 --> 00:03:01.520
+later is the perspective divide.
+
+00:03:01.520 --> 00:03:03.180
+-Oh, dear.
+
+00:03:03.180 --> 00:03:06.535
+-Okay. So I blame Scott for this
+because he makes a matrix that
+
+00:03:06.535 --> 00:03:08.055
+messes around with the w.
+
+00:03:08.055 --> 00:03:12.055
+We'll find out later that
+as this w gets smaller and
+
+00:03:12.055 --> 00:03:15.975
+smaller, to get it into the
+screen, to get it into three d
+
+00:03:15.975 --> 00:03:19.460
+space, you have to divide out
+that number, a small number,
+
+00:03:19.460 --> 00:03:22.900
+divide the x y z by the w.
+
+00:03:22.900 --> 00:03:26.740
+And as w gets smaller and
+smaller, you notice if you
+
+00:03:26.740 --> 00:03:28.980
+divide by a small number,
+
+00:03:28.980 --> 00:03:31.220
+the x y z get bigger 
+and bigger and
+
+00:03:31.220 --> 00:03:33.255
+bigger to the limit.
+
+00:03:33.255 --> 00:03:35.655
+The limit is if you divide by
+
+00:03:35.655 --> 00:03:37.975
+zero, x y z is
+
+00:03:37.975 --> 00:03:40.295
+infinitely far away.
+
+00:03:40.295 --> 00:03:43.575
+So that's one way to think
+about a normal is that it's
+
+00:03:43.575 --> 00:03:45.075
+something far away.
+
+00:03:45.075 --> 00:03:47.482
+And to demonstrate this, 
+maybe
+
+00:03:47.482 --> 00:03:49.890
+Paul and I can point at Scott.
+
+00:03:49.890 --> 00:03:52.210
+So Scott isn't
+infinitely far away.
+
+00:03:52.210 --> 00:03:54.150
+-Not yet. 
+-You're not in trouble.
+
+00:03:54.150 --> 00:03:55.650
+-Okay.
+
+00:03:55.650 --> 00:03:58.393
+-If you look at my hand
+
+00:03:58.393 --> 00:04:01.135
+and Paul's hand, 
+they're at
+
+00:04:01.135 --> 00:04:04.495
+different angles pointing
+at the same position.
+
+00:04:04.495 --> 00:04:07.775
+But as Scott moves away,
+imagine he's, oh yeah, imagine
+
+00:04:07.775 --> 00:04:11.135
+he's infinitely far away
+
+00:04:11.135 --> 00:04:15.130
+and Paul and I are still
+pointing at him, our arms are
+
+00:04:15.130 --> 00:04:16.890
+going to be parallel.
+
+00:04:16.890 --> 00:04:20.170
+So the idea is even though Paul
+and I have different positions,
+
+00:04:20.170 --> 00:04:22.410
+when an object is infinite
+
+00:04:22.410 --> 00:04:24.490
+sorry, you're a
+person, not an object.
+
+00:04:24.490 --> 00:04:25.990
+-It's alright.
+
+00:04:25.990 --> 00:04:29.805
+-When a valued colleague is
+infinitely far away, it doesn't
+
+00:04:29.805 --> 00:04:32.925
+matter that we've translate
+like, my position is different
+
+00:04:32.925 --> 00:04:34.425
+to Paul's.
+
+00:04:34.425 --> 00:04:36.445
+We have a different
+translation, but our direction
+
+00:04:36.445 --> 00:04:38.185
+is the same.
+
+00:04:38.185 --> 00:04:40.195
+-Now because 
+you set the w to
+
+00:04:40.195 --> 00:04:42.205
+zero, you're not reaching all
+
+00:04:42.205 --> 00:04:43.705
+the way to infinity.
+
+00:04:43.705 --> 00:04:45.205
+You're just setting the
+
+00:04:45.205 --> 00:04:46.970
+direction to be
+towards infinity.
+
+00:04:46.970 --> 00:04:48.470
+-Yes. Good point.
+
+00:04:48.470 --> 00:04:49.970
+Yeah. It's a direction.
+
+00:04:49.970 --> 00:04:51.470
+-Because the normal
+
+00:04:51.470 --> 00:04:52.970
+has a value or a
+length of just one.
+
+00:04:52.970 --> 00:04:54.470
+-They're normalized normals.
+
+00:04:54.470 --> 00:04:56.025
+-Normally.
+
+00:04:56.025 --> 00:04:57.785
+-This is how we write
+it mathematically.
+
+00:04:57.785 --> 00:05:00.425
+Now this, I'm blaming Paul for
+this because I always think
+
+00:05:00.425 --> 00:05:03.545
+of Paul making the
+normal in model space.
+
+00:05:03.545 --> 00:05:05.705
+But to get to Cassidy's coffee
+
+00:05:05.705 --> 00:05:08.790
+shop, we have to
+go to world space.
+
+00:05:08.790 --> 00:05:12.710
+Now the nice thing with w being
+zero is if you don't mind if
+
+00:05:12.710 --> 00:05:15.190
+I grab that, as I translate
+
+00:05:15.190 --> 00:05:17.670
+an object, the normal still
+
+00:05:17.670 --> 00:05:20.090
+points, in this
+case, straight up.
+
+00:05:20.090 --> 00:05:21.590
+So that's fine.
+
+00:05:21.590 --> 00:05:23.090
+That'll work.
+
+00:05:23.090 --> 00:05:24.590
+That'll switch off translations.
+
+00:05:24.590 --> 00:05:27.105
+Cassidy can also rotate
+things in the world.
+
+00:05:27.105 --> 00:05:29.505
+So you do want the
+normal to rotate.
+
+00:05:29.505 --> 00:05:31.825
+So definitely a rotation matrix
+
+00:05:31.825 --> 00:05:34.145
+can be used to go from model
+
+00:05:34.145 --> 00:05:36.560
+space to world space.
+
+00:05:36.560 --> 00:05:39.360
+The tricky thing is scaling.
+
+00:05:39.360 --> 00:05:43.360
+If this object has a
+uniform scale, you can imagine
+
+00:05:43.360 --> 00:05:45.480
+that the normals just uniformly
+
+00:05:45.480 --> 00:05:47.600
+go in the right direction.
+
+00:05:47.600 --> 00:05:49.100
+Just make sure
+they're normalized.
+
+00:05:49.100 --> 00:05:50.600
+Have a length of one.
+
+00:05:50.600 --> 00:05:52.365
+The tricky thing is if you,
+
+00:05:52.365 --> 00:05:54.765
+like, skew this or flatten less.
+
+00:05:54.765 --> 00:05:56.365
+-Or a non-uniform scale?
+
+00:05:56.365 --> 00:05:57.865
+-Or a non-uniform scale.
+
+00:05:57.865 --> 00:05:59.725
+Imagine I just slam this down
+
+00:05:59.725 --> 00:06:01.885
+and I turn it into
+a flat surface.
+
+00:06:01.885 --> 00:06:04.320
+-What you'll find--
+-They all have to go.
+
+00:06:04.320 --> 00:06:05.820
+-Exactly. Yeah.
+
+00:06:05.820 --> 00:06:07.320
+Can you demonstrate that you
+
+00:06:07.320 --> 00:06:08.820
+were doing something
+over there?
+
+00:06:08.820 --> 00:06:11.600
+-Well, if you flatten the ball,
+that curve becomes flattened.
+
+00:06:11.600 --> 00:06:15.200
+So the normals are
+literally slowly flattening out
+
+00:06:15.200 --> 00:06:16.700
+and pointing up more and more
+
+00:06:16.700 --> 00:06:18.200
+as it flattens down
+to the surface.
+
+00:06:18.200 --> 00:06:20.785
+And the very edge ones are
+slowly pointing out more.
+
+00:06:20.785 --> 00:06:22.285
+-Yeah.
+
+00:06:22.285 --> 00:06:23.785
+So that's something
+we've got to be careful of.
+
+00:06:23.785 --> 00:06:26.705
+The non-uniform scale that's
+why I was a bit scared when you
+
+00:06:26.705 --> 00:06:29.745
+wanted us to do a video
+on skews and shears.
+
+00:06:29.745 --> 00:06:31.245
+I was like, oh, man.
+
+00:06:31.245 --> 00:06:33.595
+This is not.
+
+00:06:33.595 --> 00:06:35.220
+You don't even have a shear
+
+00:06:35.220 --> 00:06:36.926
+matrix in your math library.
+
+00:06:36.926 --> 00:06:38.880
+-On purpose.
+
+00:06:38.880 --> 00:06:40.380
+But you can.
+
+00:06:40.380 --> 00:06:41.880
+You can.
+
+00:06:41.880 --> 00:06:45.306
+You can fake it by doing,
+a scale with the three, right?
+
+00:06:45.306 --> 00:06:48.405
+The three values, you can just
+make them non the same.
+
+00:06:48.405 --> 00:06:50.325
+And it will skew.
+
+00:06:50.325 --> 00:06:51.825
+-Skew the matrix.
+
+00:06:51.825 --> 00:06:55.285
+Yeah. See, I can literally show 
+you a matrix skewing just by
+
+00:06:55.285 --> 00:06:57.330
+parenting two objects
+together in the right order.
+
+00:06:57.330 --> 00:07:00.610
+And actually show you what
+happens when you rotate one and
+
+00:07:00.610 --> 00:07:02.110
+the object does this.
+
+00:07:02.110 --> 00:07:03.970
+It's just
+
+00:07:03.970 --> 00:07:05.490
+happens because of the way--
+
+00:07:05.490 --> 00:07:08.050
+-It inherits right first.
+
+00:07:08.050 --> 00:07:09.650
+-Yep. Just you'd have to...
+
+00:07:11.025 --> 00:07:13.505
+If you do it correctly,
+it doesn't do it.
+
+00:07:13.505 --> 00:07:15.985
+But the idea being, yeah, if
+you scale things, you can cause
+
+00:07:15.985 --> 00:07:17.485
+that problem.
+
+00:07:17.485 --> 00:07:19.025
+If you non-uniformly scale
+things and parent them together
+
+00:07:19.025 --> 00:07:20.785
+and whatnot, then you can
+run with that problem.
+
+00:07:20.785 --> 00:07:22.625
+-So the way we get out of this
+
+00:07:22.625 --> 00:07:25.597
+bind, it's called the
+inverse transpose.
+
+00:07:25.597 --> 00:07:28.240
+Yeah. It's a bit of
+
+00:07:28.240 --> 00:07:30.280
+jargon, but the idea, 
+just like
+
+00:07:30.280 --> 00:07:34.040
+Paul was saying, these normals
+on the side of this ball, as
+
+00:07:34.040 --> 00:07:36.440
+the ball gets flattened out,
+you want these normals to
+
+00:07:36.440 --> 00:07:38.600
+actually start pointing up.
+
+00:07:38.600 --> 00:07:41.855
+So as the ball gets as the
+vertices get stretched to the
+
+00:07:41.855 --> 00:07:44.775
+right, you want this normal to
+
+00:07:44.775 --> 00:07:47.695
+point more to my left so that
+
+00:07:47.695 --> 00:07:50.175
+they all in the end, you want
+them all pointing straight up.
+
+00:07:50.175 --> 00:07:51.675
+So, yeah, there's it's a move.
+
+00:07:51.675 --> 00:07:55.215
+It's called the inverse
+transpose, and then we hack
+
+00:07:55.215 --> 00:07:57.510
+the matrix down into
+a three by three.
+
+00:07:57.510 --> 00:07:59.270
+There's some cool 
+moves we do.
+
+00:07:59.270 --> 00:08:00.758
+-Yeah. It's easy.
+
+00:08:00.758 --> 00:08:02.957
+-There you go. Easy.
+
+00:08:02.957 --> 00:08:06.770
+-Yeah. Well, see, the rotations
+are all orthogonal moves.
+
+00:08:06.770 --> 00:08:10.390
+So a rotation along the x, the
+y, and the z are orthogonal,
+
+00:08:10.390 --> 00:08:13.735
+whereas your asymmetric scale
+is not, and the translation is
+
+00:08:13.735 --> 00:08:15.235
+not orthogonal.
+
+00:08:15.235 --> 00:08:17.895
+Now, if you take the inverse
+of a matrix, the inverse of an
+
+00:08:17.895 --> 00:08:21.095
+orthogonal matrix can also
+be done by the transpose.
+
+00:08:21.095 --> 00:08:24.935
+So if we take the inverse of
+the matrix, it'll only inverse
+
+00:08:24.935 --> 00:08:26.620
+the orthogonal parts.
+
+00:08:26.620 --> 00:08:28.120
+And then when you take the
+
+00:08:28.120 --> 00:08:29.620
+transpose, that's
+also the inverse.
+
+00:08:29.620 --> 00:08:31.340
+We've taken the inverse of the
+inverse, you come back to the
+
+00:08:31.340 --> 00:08:32.840
+same matrix you started with.
+
+00:08:32.840 --> 00:08:34.340
+See what I mean?
+
+00:08:34.340 --> 00:08:35.840
+It's easy.
+
+00:08:35.840 --> 00:08:37.880
+-Oh, yeah.
+
+00:08:37.880 --> 00:08:40.313
+I was thinking about that
+over breakfast this morning.
+
+00:08:40.313 --> 00:08:42.074
+-And the only parts that get
+thrown away are the parts that
+
+00:08:42.074 --> 00:08:43.556
+are not orthogonal.
+
+00:08:43.556 --> 00:08:45.380
+-My one problem with all
+
+00:08:45.380 --> 00:08:46.880
+this is what is orthogonal?
+
+00:08:46.880 --> 00:08:49.715
+-It means that if I rotate
+around the x, it's not messing
+
+00:08:49.715 --> 00:08:52.515
+with the y, and I'm
+not messing with the z.
+
+00:08:52.515 --> 00:08:54.960
+So they are decoupled
+from each other.
+
+00:08:54.960 --> 00:08:57.520
+And so they're all at
+right angles to each other.
+
+00:08:57.520 --> 00:09:01.040
+-Yeah. They're like
+this as opposed to yeah.
+
+00:09:01.040 --> 00:09:03.100
+That right?
+
+00:09:03.100 --> 00:09:04.880
+These two vectors are
+orthogonal to each other.
+
+00:09:04.960 --> 00:09:06.460
+You know?
+
+00:09:06.460 --> 00:09:08.160
+You do that, and they're no
+longer you're skewing the
+
+00:09:08.160 --> 00:09:09.660
+matrix as you do this.
+
+00:09:09.660 --> 00:09:11.160
+-Right.
+
+00:09:11.160 --> 00:09:12.660
+-You know, an easier way to do
+this, though, is just to write
+
+00:09:12.660 --> 00:09:14.855
+down the rotations that you're
+doing, and don't write down the
+
+00:09:14.855 --> 00:09:16.375
+scales and the translates.
+
+00:09:16.375 --> 00:09:18.295
+And now I can rotate
+to normals just plain.
+
+00:09:18.295 --> 00:09:19.795
+You don't have to get all fancy.
+
+00:09:19.795 --> 00:09:22.050
+-Makes my life a bit easier.
+
+00:09:22.050 --> 00:09:23.550
+Yeah. That's true.
+
+00:09:23.550 --> 00:09:26.130
+I'm going to move this
+vector out the way, and then
+
+00:09:26.130 --> 00:09:29.570
+Scott is going to talk 
+to us about lighting.
+
+00:09:29.570 --> 00:09:31.890
+Okay. So we have a torch here.
+
+00:09:31.890 --> 00:09:33.390
+Oh, yeah.
+
+00:09:33.390 --> 00:09:36.005
+I see some
+lighting and a bolt.
+
+00:09:36.005 --> 00:09:37.505
+Yes. Go ahead.
+
+00:09:37.505 --> 00:09:39.005
+What's going on here?
+
+00:09:39.005 --> 00:09:41.285
+-The way I'm going to
+mathematically pretend that
+
+00:09:41.285 --> 00:09:44.363
+there's a light source out here
+is first off,
+
+00:09:44.363 --> 00:09:46.385
+get the light a position.
+
+00:09:46.385 --> 00:09:48.620
+And hold it
+still for a second.
+
+00:09:48.620 --> 00:09:52.300
+And then I'm going to take the
+property of a material like
+
+00:09:52.300 --> 00:09:54.460
+this, where the light will,
+
+00:09:54.460 --> 00:09:56.620
+as the light comes down and
+
+00:09:56.620 --> 00:09:58.260
+strikes the surface, 
+it's going to
+
+00:09:58.260 --> 00:09:59.900
+scatter off the surface in all
+
+00:09:59.900 --> 00:10:01.515
+different directions.
+
+00:10:01.515 --> 00:10:04.555
+The guy that first made the
+math model of this is a fellow
+
+00:10:04.555 --> 00:10:07.915
+named Phong and a lot of our
+lighting models are based on
+
+00:10:07.915 --> 00:10:09.415
+his original work.
+
+00:10:09.415 --> 00:10:10.915
+All right.
+
+00:10:10.915 --> 00:10:13.275
+So light will scatter and the
+rougher the surface, the more
+
+00:10:13.275 --> 00:10:16.050
+the light scatters about.
+
+00:10:16.050 --> 00:10:19.650
+So now the way to calculate
+this is I need to find out
+
+00:10:19.650 --> 00:10:21.970
+where your light source is.
+
+00:10:21.970 --> 00:10:24.530
+And then if I know the normal,
+maybe if you can move the light
+
+00:10:24.530 --> 00:10:26.930
+source up to,
+yeah, there you go.
+
+00:10:26.930 --> 00:10:30.285
+So if I move the light source
+up to this normal, I can
+
+00:10:30.285 --> 00:10:33.485
+calculate a ray from
+here down to here.
+
+00:10:33.485 --> 00:10:36.685
+The brightness, 
+notice that the
+
+00:10:36.685 --> 00:10:39.885
+brightness fades 
+away as you go
+
+00:10:39.885 --> 00:10:42.040
+away from the light source.
+
+00:10:42.040 --> 00:10:45.640
+And so what Phong noticed was if
+the light source, now bring the
+
+00:10:45.640 --> 00:10:49.160
+light source directly on top
+or nearly on top, that that is
+
+00:10:49.160 --> 00:10:52.360
+right here at the normal or
+at that point, that is the
+
+00:10:52.360 --> 00:10:54.600
+brightest point that
+the light is going to be.
+
+00:10:54.600 --> 00:10:56.280
+And then as you fade down to
+
+00:10:56.280 --> 00:10:58.395
+here, it becomes
+less, less bright.
+
+00:10:58.395 --> 00:10:59.895
+You see that?
+
+00:10:59.895 --> 00:11:01.395
+-So if the normal is pointing
+
+00:11:01.395 --> 00:11:03.195
+directly back 
+at the light source.
+
+00:11:03.195 --> 00:11:06.955
+-Now, what you also found or
+noticed was that the rate at
+
+00:11:06.955 --> 00:11:10.560
+which it drops off can be done
+with a trigonometric function
+
+00:11:10.560 --> 00:11:12.060
+like a cosine.
+
+00:11:12.060 --> 00:11:15.840
+And so if I take the dot
+product of the light position
+
+00:11:15.840 --> 00:11:17.960
+with the normals
+ to the surface,
+
+00:11:17.960 --> 00:11:20.080
+that dot product ends up being
+
+00:11:20.080 --> 00:11:22.640
+the cosine of the
+angle between them.
+
+00:11:22.640 --> 00:11:26.605
+So if the angle between them
+is zero, so it's straight down.
+
+00:11:26.605 --> 00:11:29.165
+We'll make that
+maximum brightness.
+
+00:11:29.165 --> 00:11:32.845
+And then depending on what the
+angle is down to here, it'll
+
+00:11:32.845 --> 00:11:35.885
+become less and less and less
+as it drops off towards zero.
+
+00:11:35.885 --> 00:11:37.907
+-Right. So if my light is at
+
+00:11:37.907 --> 00:11:39.930
+90 degrees?
+
+00:11:39.930 --> 00:11:41.450
+-Yeah. It's at 90 degrees.
+
+00:11:41.450 --> 00:11:42.950
+It's not being lit.
+
+00:11:42.950 --> 00:11:46.250
+And then, of course, the
+backside of the ball is not
+
+00:11:46.250 --> 00:11:49.930
+being lit at all because
+these are now all into the
+
+00:11:49.930 --> 00:11:51.690
+negative numbers with
+the cosine function.
+
+00:11:51.690 --> 00:11:54.175
+-Makes sense because the dot
+product, those two numbers,
+
+00:11:54.175 --> 00:11:56.655
+returns zero when they're
+90 degrees to each
+
+00:11:56.655 --> 00:11:59.015
+other, the two vectors.
+
+00:11:59.015 --> 00:12:01.375
+-To make 
+another visual demonstration,
+
+00:12:01.375 --> 00:12:04.095
+Cassidy has set up some
+lights in the coffee shop.
+
+00:12:04.095 --> 00:12:07.150
+So maybe you could explain as
+Cassidy is moving the light.
+
+00:12:07.150 --> 00:12:10.430
+-So as she moves the light back
+and forth, it's just changing
+
+00:12:10.430 --> 00:12:11.930
+the location of the light.
+
+00:12:11.930 --> 00:12:14.830
+The normals are coming up off
+the surface of the object here,
+
+00:12:14.830 --> 00:12:17.470
+and you can just see the
+rate at which see this back
+
+00:12:17.470 --> 00:12:18.970
+area back here?
+
+00:12:18.970 --> 00:12:21.825
+If Cassidy moves the light back
+and forth a little bit, see how
+
+00:12:21.825 --> 00:12:23.325
+it starts to get lit?
+
+00:12:23.325 --> 00:12:25.985
+And then now it's in,
+essentially it's in shadow.
+
+00:12:25.985 --> 00:12:29.105
+So another part of that
+equation is to start off by
+
+00:12:29.105 --> 00:12:32.545
+drawing the entire object in
+what's called ambient light.
+
+00:12:32.545 --> 00:12:35.600
+So that's just the
+light around us.
+
+00:12:35.600 --> 00:12:37.100
+I don't know.
+
+00:12:37.100 --> 00:12:38.600
+It's coming in from the
+window, bouncing off walls.
+
+00:12:38.600 --> 00:12:41.920
+If you were in a if you were
+on the moon where there's very
+
+00:12:41.920 --> 00:12:44.240
+little ambient light,
+
+00:12:44.240 --> 00:12:46.880
+this would be in complete
+shadow and the shadowy area
+
+00:12:46.880 --> 00:12:48.380
+here would be black.
+
+00:12:48.380 --> 00:12:49.517
+But around here, there's always
+
+00:12:49.517 --> 00:12:50.655
+going to be a little 
+bit of light.
+
+00:12:50.655 --> 00:12:53.575
+So we draw the whole scene in
+
+00:12:53.575 --> 00:12:56.495
+ambient light, then draw it
+
+00:12:56.495 --> 00:12:58.095
+with the diffuse light.
+
+00:12:58.095 --> 00:13:01.300
+That's the light that scatters
+off based on the direction.
+
+00:13:01.300 --> 00:13:03.780
+And then I can make
+one more pass at it.
+
+00:13:03.780 --> 00:13:05.280
+-That'll be this one, right?
+
+00:13:05.280 --> 00:13:06.780
+The diffuse light?
+
+00:13:06.780 --> 00:13:08.394
+-That's the diffuse light.
+
+00:13:08.394 --> 00:13:11.280
+And then I can make one more
+pass at it, which is that if
+
+00:13:11.280 --> 00:13:13.300
+the light goes from here,
+strikes the normal of the
+
+00:13:13.300 --> 00:13:15.347
+surface and then reflects
+
+00:13:15.347 --> 00:13:17.395
+and bounces into my eye,
+
+00:13:17.395 --> 00:13:19.235
+it looks like
+the shiny spot.
+
+00:13:19.235 --> 00:13:21.555
+-So you can actually see it
+lighting the bottom of my hand.
+
+00:13:21.555 --> 00:13:23.376
+Right?
+
+00:13:23.376 --> 00:13:26.055
+It's actually bouncing
+off the light in the bottom of
+
+00:13:26.055 --> 00:13:27.555
+my hand now because it's
+bouncing off the ball.
+
+00:13:27.555 --> 00:13:29.055
+-I do it a lot of times
+with just my hand.
+
+00:13:29.055 --> 00:13:30.755
+If you put your hand out,
+put the light above my hand.
+
+00:13:30.755 --> 00:13:33.232
+If you just have it now watch
+
+00:13:33.232 --> 00:13:35.710
+what happens to the colour or
+
+00:13:35.710 --> 00:13:38.430
+the brightness of
+my hand as I rotate.
+
+00:13:38.430 --> 00:13:41.550
+And you can see it
+suddenly go into shadows.
+
+00:13:41.550 --> 00:13:44.905
+And so it drops off
+rather rapidly at the end.
+
+00:13:44.905 --> 00:13:47.945
+-And that's when the
+dot product goes to zero.
+
+00:13:47.945 --> 00:13:49.625
+So the cosine of the angle.
+
+00:13:49.625 --> 00:13:53.145
+-Arccosine of the dot
+product, two vectors gives you
+
+00:13:53.145 --> 00:13:54.665
+the angle, right?
+
+00:13:54.665 --> 00:13:56.165
+Arccosine?
+
+00:13:56.165 --> 00:13:58.185
+-Yes. 
+-I'm impressed.
+
+00:13:59.870 --> 00:14:01.710
+Wow.
+
+00:14:01.710 --> 00:14:03.210
+-Love that.
+
+00:14:03.210 --> 00:14:05.150
+It's almost like
+I've done it before.
+
+00:14:05.150 --> 00:14:06.910
+-Well, I'll definitely
+have that on the website.
+
+00:14:06.910 --> 00:14:08.830
+Yeah. That's a great
+formula to use.
+
+00:14:08.830 --> 00:14:10.330
+Okay.
+
+00:14:10.330 --> 00:14:11.830
+So we're going to talk
+more about normals.
+
+00:14:11.830 --> 00:14:14.345
+Boy, you're going to be
+messing around with normals all
+
+00:14:14.345 --> 00:14:16.825
+over the place, so I think
+we're going to switch over.
+
+00:14:16.825 --> 00:14:18.425
+-Show the normals
+practically in three
+
+00:14:18.425 --> 00:14:19.925
+d space.
+
+00:14:19.925 --> 00:14:22.325
+-Oh, wow. This will be great.
+Thank you.

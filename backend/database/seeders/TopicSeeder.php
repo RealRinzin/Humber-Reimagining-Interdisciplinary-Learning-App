@@ -64,7 +64,7 @@ class TopicSeeder extends Seeder
         ],
 
         3  => [
-            'title' => 'Vertex Position',
+            'title' => 'Vertex Positions',
             'description' => 'The 3D coordinates of each point on a mesh, expressed in model space and used as the basis for all geometric transformations.',
             'node_color' => '#378ADD',
             'x_axis' => 95,
