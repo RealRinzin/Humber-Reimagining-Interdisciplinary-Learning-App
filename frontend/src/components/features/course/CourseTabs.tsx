@@ -76,14 +76,16 @@ export default function CourseTabs({
             className="h-5 w-5"
           />
           {title}
-          <FontAwesomeIcon
-            icon={drop ? faAngleUp : faAngleDown}
-            size="1x"
-            onClick={() => {
-              setDrop((prev) => !prev);
-            }}
-            className="cursor-pointer text-gray-600 px-2"
-          />
+          {type !== "video" && (
+            <FontAwesomeIcon
+              icon={drop ? faAngleUp : faAngleDown}
+              size="1x"
+              onClick={() => {
+                setDrop((prev) => !prev);
+              }}
+              className="cursor-pointer text-gray-600 px-2"
+            />
+          )}
         </h2>
         {type !== "faq" && (
           <div
@@ -109,9 +111,6 @@ export default function CourseTabs({
         )}
       </div>
       <div className={`relative p-3 ${drop ? "block" : "hidden"}`}>
-        {/* <div className={`relative p-3`}> */}
-
-        {/* Check the Type for the format */}
         {type === "code" ? (
           <>
             <p className="absolute right-10 my-4">
@@ -144,8 +143,6 @@ export default function CourseTabs({
               />
             )}
           </>
-        ) : type === "resources" ? (
-          "Documents"
         ) : (
           content
         )}

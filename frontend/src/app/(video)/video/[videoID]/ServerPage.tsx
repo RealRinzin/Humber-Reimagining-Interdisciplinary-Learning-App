@@ -104,16 +104,18 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
         status={completeStatus}
       />
       <div className="px-1 py-8">
-        <div className="flex items-center gap-2">
-          <Image
-            src={`/img/NextIcon.png`}
-            height={20}
-            width={20}
-            alt="Course Next Information"
-            className="h-5 w-5"
+        {/* Code Tabe */}
+        {!!user_setting?.video && (
+          <CourseTabs
+            type="video"
+            title="Video"
+            icon="NextIcon.png"
+            content=""
+            videoID={video?.id}
+            status={completeStatus?.video}
+            all_complete={completeStatus?.all_checked}
           />
-          <h1 className="text-2xl font-semibold">Video</h1>
-        </div>
+        )}
         <p className="py-2 px-1 text-gray-800 text-md">{video.tldw}</p>
       </div>
       {/* Video section */}
@@ -131,18 +133,8 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
           <CourseRelatedVideo video_sections={video?.video_sections} />
         </div>
       )}
-      {/* Code Tabe */}
-      {/* {!!user_setting?.code && video?.codes && (
-        <CourseTabs
-          type="video"
-          title="Video"
-          icon="CodeIcon.png"
-          content={video?.codes[0]?.code}
-          videoID={video?.id}
-          status={completeStatus?.video}
-          all_complete={completeStatus?.all_checked}
-        />
-      )} */}
+
+      {/* Code Snippet */}
       {!!user_setting?.code && video?.codes && (
         <CourseTabs
           type="code"
