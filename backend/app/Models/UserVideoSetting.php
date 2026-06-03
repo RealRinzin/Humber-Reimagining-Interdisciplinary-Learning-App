@@ -34,6 +34,7 @@ class UserVideoSetting extends Pivot
     protected $casts = [
         'video_id' => 'integer',
         'user_id'  => 'integer',
+        'video'                         => 'boolean',
         'code'                         => 'boolean',
         'interactive'                  => 'boolean',
         'rambling'                     => 'boolean',

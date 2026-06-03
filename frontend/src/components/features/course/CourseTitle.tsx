@@ -25,7 +25,7 @@ export default function CourseTitle({
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          video:status?.video?true:false,
+          video:true,
           code: status?.code ? true : false,
           interactive: status?.interactive ? true : false,
           rambling: status?.rambling ? true : false,

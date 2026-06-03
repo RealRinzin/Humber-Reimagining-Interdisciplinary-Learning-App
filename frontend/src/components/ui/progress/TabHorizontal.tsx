@@ -101,12 +101,19 @@ export default function TabHorizontal({
           color={color}
           borderColor={color}
           progress={progressTotal}
-          total={(userContentSetting as any)?.total_checked}
+          total={
+            (video as any)?.interactive
+              ? userContentSetting?.total_checked
+              : userContentSetting?.total_checked - 1
+          }
         />
         {isOpen && (
           <div className="pt-2 transition-all delay-300 ease-in-out">
             <p className="text-center text-xs font-semibold">
-              {progressTotal}/{userContentSetting?.total_checked}
+              {progressTotal}/
+              {(video as any)?.interactive
+                ? userContentSetting?.total_checked
+                : userContentSetting?.total_checked - 1}
             </p>
             <p className="text-gray-600 text-xs font-semibold">Complete</p>
           </div>

@@ -45,7 +45,7 @@ export default function ExploreHorizontalTab({
   }
   // Calculate the Ring circle detail from the incoming information
 
-  const fields = ["video","code", "rambling", "quiz", "interactive"] as const;
+  const fields = ["video", "code", "rambling", "quiz", "interactive"] as const;
   const total = ringInformation[0]?.user_video_setting?.all_checked
     ? fields.length
     : fields.filter((field) => ringInformation[0]?.user_video_setting?.[field])
@@ -95,7 +95,12 @@ export default function ExploreHorizontalTab({
           borderColor={color}
           progress={total}
           // total={0}
-          total={(userContentSetting as any)?.total_checked}
+          // total={(userContentSetting as any)?.total_checked}
+          total={
+            (video as any)?.interactive
+              ? userContentSetting?.total_checked
+              : userContentSetting?.total_checked - 1
+          }
           onClick={
             total_started !== 18 ? () => postUserTopic(id + 1) : undefined
           }
@@ -105,7 +110,10 @@ export default function ExploreHorizontalTab({
             {/* <p className="text-center text-xs font-semibold">{total}/4</p>
              */}
             <p className="text-center text-xs font-semibold">
-              {progressTotal}/{userContentSetting?.total_checked}
+              {progressTotal}/
+              {(video as any)?.interactive
+                ? userContentSetting?.total_checked
+                : userContentSetting?.total_checked - 1}
             </p>
 
             <p className="text-gray-600 text-xs font-semibold">Complete</p>

@@ -1,11 +1,11 @@
 import { clientFetch } from "@/lib/clientFetch";
 
 type ContentSetting = {
-    video:boolean,
-    code:  boolean;
-    rambling: boolean;
-    quiz: boolean;
-    interactive: boolean;
+    video?: boolean,
+    code?: boolean;
+    rambling?: boolean;
+    quiz?: boolean;
+    interactive?: boolean;
 };
 
 // export function RingProgressPerCalculator(data: any): number {
@@ -44,9 +44,9 @@ export function nodeProgressCalculator(data: any, user_setting: any, total_check
 
 export function exploreNodeCalculator(video: any, userContentSetting: any, UserVideoSetting: any) {
     let count = 0;
-
     if (!video) return 0;
     if (UserVideoSetting?.all_checked) return 100;
+
     const video_setting = {
         video: video?.video,
         code: video?.code,
@@ -70,41 +70,119 @@ export function exploreNodeCalculator(video: any, userContentSetting: any, UserV
         interactive: UserVideoSetting?.interactive
     };
     for (const key of Object.keys(user_content_setting) as (keyof ContentSetting)[]) {
-        if (user_content_setting[key] && user_video_setting[key] && video_setting[key] ) count++;
+        if (user_content_setting[key] && user_video_setting[key] && video_setting[key]) count++;
     }
-    const per =(count / userContentSetting?.total_checked) * 100;
-    // console.log(video?.title,'-',per)
-    return (count / userContentSetting?.total_checked) * 100;
+    
+    
+    let total = userContentSetting?.total_checked;
+//    If the video does not have the interactive
+// just deducte one from the total
+    if(!video?.interactive)total -= 1;
+    return (count / total) * 100;
 
-    return count;
 }
+
 
 export function calculateRingProgress(video: any, userContentSetting: any, UserVideoSetting: any) {
     let count = 0;
-    const video_setting = {
-        video: video?.video,
-        code: video?.code,
-        rambling: video?.rambling,
-        quiz: video?.quiz,
-        interactive: video?.interactive
-    }
-    const user_content_setting = {
-        video: userContentSetting?.video,
-        code: userContentSetting?.code,
-        rambling: userContentSetting?.rambling,
-        quiz: userContentSetting?.quiz,
-        interactive: userContentSetting?.interactive
-    };
 
-    const user_video_setting = {
-        video: UserVideoSetting?.video,
-        code: UserVideoSetting?.code,
-        rambling: UserVideoSetting?.rambling,
-        quiz: UserVideoSetting?.quiz,
-        interactive: UserVideoSetting?.interactive
-    };
-    for (const key of Object.keys(user_content_setting) as (keyof ContentSetting)[]) {
-        if (user_content_setting[key] && user_video_setting[key] && video_setting[key] ) count++;
+    if (UserVideoSetting?.all_checked) return userContentSetting?.total_checked;
+
+    if (!video?.interactive) {
+        const video_setting: ContentSetting = {
+            video: video?.video,
+            code: video?.code,
+            rambling: video?.rambling,
+            quiz: video?.quiz,
+        }
+        const user_content_setting: ContentSetting = {
+            video: userContentSetting?.video,
+            code: userContentSetting?.code,
+            rambling: userContentSetting?.rambling,
+            quiz: userContentSetting?.quiz,
+        };
+        const user_video_setting: ContentSetting = {
+            video: UserVideoSetting?.video,
+            code: UserVideoSetting?.code,
+            rambling: UserVideoSetting?.rambling,
+            quiz: UserVideoSetting?.quiz,
+        };
+        for (const key of Object.keys(user_content_setting) as (keyof ContentSetting)[]) {
+            if (user_content_setting[key] && user_video_setting[key] && video_setting[key]) count++;
+        }
+        return count;
+    } else {
+        const video_setting: ContentSetting = {
+            video: video?.video,
+            code: video?.code,
+            rambling: video?.rambling,
+            quiz: video?.quiz,
+            interactive: video?.interactive
+        }
+
+        const user_content_setting: ContentSetting = {
+            video: userContentSetting?.video,
+            code: userContentSetting?.code,
+            rambling: userContentSetting?.rambling,
+            quiz: userContentSetting?.quiz,
+            interactive: userContentSetting?.interactive
+        };
+
+        const user_video_setting: ContentSetting = {
+            video: UserVideoSetting?.video,
+            code: UserVideoSetting?.code,
+            rambling: UserVideoSetting?.rambling,
+            quiz: UserVideoSetting?.quiz,
+            interactive: UserVideoSetting?.interactive
+        };
+        console.log(user_video_setting)
+
+        for (const key of Object.keys(user_content_setting) as (keyof ContentSetting)[]) {
+            if (user_content_setting[key] && user_video_setting[key] && video_setting[key]) count++;
+        }
+        return count;
     }
-    return count;
 }
+
+// export function calculateRingProgress(video: any, userContentSetting: any, UserVideoSetting: any) {
+//     let count = 0;
+
+//     if (UserVideoSetting?.all_checked) return userContentSetting?.total_checked;
+
+//     const omitInteractive = video?.interactive === false;
+
+//     const strip = (obj: any) => {
+//         if (omitInteractive) delete obj.interactive;
+//         return obj;
+//     };
+
+//     const video_setting = strip({
+//         video: video?.video,
+//         code: video?.code,
+//         rambling: video?.rambling,
+//         quiz: video?.quiz,
+//         interactive: video?.interactive
+//     });
+
+//     const user_content_setting = strip({
+//         video: userContentSetting?.video,
+//         code: userContentSetting?.code,
+//         rambling: userContentSetting?.rambling,
+//         quiz: userContentSetting?.quiz,
+//         interactive: userContentSetting?.interactive
+//     });
+
+//     const user_video_setting = strip({
+//         video: UserVideoSetting?.video,
+//         code: UserVideoSetting?.code,
+//         rambling: UserVideoSetting?.rambling,
+//         quiz: UserVideoSetting?.quiz,
+//         interactive: UserVideoSetting?.interactive
+//     });
+
+//     for (const key of Object.keys(user_content_setting) as (keyof ContentSetting)[]) {
+//         if (user_content_setting[key] && user_video_setting[key] && video_setting[key]) count++;
+//     }
+
+//     return count;
+// }

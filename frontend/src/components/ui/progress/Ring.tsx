@@ -6,9 +6,7 @@ export default function RingProgressBar({
   total,
   onClick,
 }: RingProgressBarType) {
-  
   const progressRateCalculation = total > 0 ? (progress / total) * 100 : 0;
-
   // Calculate the total check for the ring. percentage
   // We are calculation the % share of each circle
   return (

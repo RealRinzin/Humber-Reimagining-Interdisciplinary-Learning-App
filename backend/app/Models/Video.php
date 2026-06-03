@@ -32,6 +32,13 @@ class Video extends Model
         'interactive',
     ];
 
+    protected $casts = [
+        'video'                        => 'boolean',
+        'code'                         => 'boolean',
+        'interactive'                  => 'boolean',
+        'rambling'                     => 'boolean',
+        'quiz'                         => 'boolean',
+    ];
     public function getRouteKeyName()
     {
         return 'slug';
@@ -39,11 +46,11 @@ class Video extends Model
     /**
      * Model Relationship
      * Children   
-     * */       
-    public function subVideos() 
-{
-    return $this->hasMany(Video::class, 'parent_id');
-}
+     * */
+    public function subVideos()
+    {
+        return $this->hasMany(Video::class, 'parent_id');
+    }
     // Topic Relationship
     // A video belongs to one topic
     // Video Table relationship with topics table
@@ -62,14 +69,15 @@ class Video extends Model
      * Video Table relationship with codes table
      * Code belongs to one Video
      * */
-    public function videoSections(){
+    public function videoSections()
+    {
         return $this->hasMany(VideoSection::class);
     }
     // Code Relationship
     // A video can have many codes
     // Video Table relationship with codes table
     // Code belongs to one Video
-    
+
     public function codes()
     {
         return $this->hasMany(Code::class);
@@ -78,7 +86,8 @@ class Video extends Model
      * Model Relationship
      * Subtitle
      */
-    public function subtitle(){
+    public function subtitle()
+    {
         return $this->hasOne(Subtitle::class);
     }
     // Quizzes
