@@ -29,6 +29,7 @@ export default function CourseTabs({
   quizzes,
   ramblings,
   interactive_path,
+  available,
 }: courseTabsTypes) {
   const { isOn: isOpen, toggle } = useToggle(status);
   const router = useRouter();
@@ -76,7 +77,7 @@ export default function CourseTabs({
             className="h-5 w-5"
           />
           {title}
-          {type !== "video" && (
+          {type !== "video" && !!available &&(
             <FontAwesomeIcon
               icon={drop ? faAngleUp : faAngleDown}
               size="1x"
@@ -87,7 +88,7 @@ export default function CourseTabs({
             />
           )}
         </h2>
-        {type !== "faq" && (
+        {!!available && (
           <div
             className={`h-8 w-8 rounded-full border-6  ${
               all_complete || isOpen || status

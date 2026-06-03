@@ -10,10 +10,12 @@ export default function CourseTitle({
   title,
   videoID,
   status,
+  length,
 }: {
   title: string;
   videoID: number;
   status: userVideoSettingTypes;
+  length: number;
 }) {
   const triggerNodeRefresh = useRefreshNode();
   const router = useRouter();
@@ -49,15 +51,16 @@ export default function CourseTitle({
   return (
     <div className="flex flex-col md:flex-row  justify-start md:justify-between items-center-safe bg-gray-200 p-8 rounded-xl">
       <h1 className="text-3xl font-bold">{title}</h1>
-      <button
-        className={`rounded-2xl  p-3 text-white cursor-pointer ${markCompleteAll ? "bg-green-600 transition-all" : "bg-gray-500"}`}
-        onClick={() => {
-          setMarkCompleteAll((prev) => !prev);
-          handleMarkAllComplete();
-        }}
-      >
-        {markCompleteAll ? "Marked Completed" : "Mark All Content Complete"}
-      </button>
+
+        <button
+          className={`rounded-2xl  p-3 text-white cursor-pointer ${markCompleteAll ? "bg-green-600 transition-all" : "bg-gray-500"}`}
+          onClick={() => {
+            setMarkCompleteAll((prev) => !prev);
+            handleMarkAllComplete();
+          }}
+        >
+          {markCompleteAll ? "Marked Completed" : "Mark All Content Complete"}
+        </button>
     </div>
   );
 }

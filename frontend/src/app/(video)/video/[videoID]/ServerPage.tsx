@@ -102,10 +102,10 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
         title={video.title}
         videoID={video.id}
         status={completeStatus}
+        length={user_setting?.total_checked}
       />
       <div className="px-1 py-8">
         {/* Code Tabe */}
-        {!!user_setting?.video && (
           <CourseTabs
             type="video"
             title="Video"
@@ -114,8 +114,8 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
             videoID={video?.id}
             status={completeStatus?.video}
             all_complete={completeStatus?.all_checked}
+            available ={user_setting?.video }
           />
-        )}
         <p className="py-2 px-1 text-gray-800 text-md">{video.tldw}</p>
       </div>
       {/* Video section */}
@@ -135,7 +135,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
       )}
 
       {/* Code Snippet */}
-      {!!user_setting?.code && video?.codes && (
+      {video?.codes && (
         <CourseTabs
           type="code"
           title={"Code Snippet"}
@@ -144,10 +144,11 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
           videoID={video?.id}
           status={completeStatus?.code}
           all_complete={completeStatus?.all_checked}
+          available={user_setting?.code}
         />
       )}
       {/* Quiz Tab */}
-      {!!user_setting?.quiz && (
+      {video?.quiz && (
         <CourseTabs
           type="quiz"
           title={"Test Your Knowledge"}
@@ -157,11 +158,13 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
           videoID={video?.id}
           all_complete={completeStatus?.all_checked}
           quizzes={video.quizzes}
+          available={user_setting?.quiz}
+
         />
       )}
 
       {/* Interactive */}
-      {!!user_setting?.interactive && video?.interactive_path && (
+      {video?.interactive_path && (
         <CourseTabs
           type="interactive"
           title={"Interactive Simulation"}
@@ -172,10 +175,13 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
           all_complete={completeStatus?.all_checked}
           quizzes={video?.quizzes}
           interactive_path={video?.interactive_path}
+          available={user_setting?.interactive}
+
         />
       )}
       {/* Rambling Tab */}
-      {!!user_setting?.rambling && (
+      {video?.rambling && (
+      
         <CourseTabs
           type="rambling"
           title={"Umer's Rambling"}
@@ -185,6 +191,8 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
           status={completeStatus?.rambling}
           all_complete={completeStatus?.all_checked}
           ramblings={video?.ramblings}
+          available={user_setting?.rambling}
+
         />
       )}
       <section className="my-10">

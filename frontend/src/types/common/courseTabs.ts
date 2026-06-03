@@ -10,4 +10,5 @@ interface courseTabsTypes {
   all_complete: boolean;
   quizzes?:[] | null;
   ramblings?:[] | null;
+  available:boolean;
 }
