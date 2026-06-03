@@ -77,7 +77,7 @@ export default function CourseTabs({
             className="h-5 w-5"
           />
           {title}
-          {type !== "video" && !!available &&(
+          {type !== "video" &&(
             <FontAwesomeIcon
               icon={drop ? faAngleUp : faAngleDown}
               size="1x"
