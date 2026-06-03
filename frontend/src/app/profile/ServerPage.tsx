@@ -20,10 +20,10 @@ export default async function ServerPage() {
       rambling: acc.rambling + (data?.pivot?.rambling ? 1 : 0),
       interactive: acc.interactive + (data?.pivot?.interactive ? 1 : 0),
     }),
-    { video:0,code: 0, quiz: 0, rambling: 0, interactive: 0 },
+    { video: 0, code: 0, quiz: 0, rambling: 0, interactive: 0 },
   );
   return (
-    <div className="col-span-3 md:col-span-2 h-full">
+    <div className="col-span-3 md:col-span-2 h-screen">
       <div className="grid grid-cols-1 md:grid-cols-7 col-span-2 bg-gray-200  gap-10 p-6 rounded-lg">
         <div className="col-span-1">
           <ProfileCirleRing />
@@ -31,7 +31,7 @@ export default async function ServerPage() {
         <div className="col-span-3">
           <TabProgressBar
             name={"Lectures Started"}
-            completed={userData?.topics?.length ?? 0}
+            completed={checkedMarkCount?.video ?? 0}
             total={topics?.length}
           />
           <TabProgressBar
@@ -59,13 +59,13 @@ export default async function ServerPage() {
         </div>
       </div>
       {/* Continue Learning section */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 my-10">
+      {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-10 my-10">
         {topics.slice(0, 3).map((video: VideoType, index: number) => (
           <div className="flex" key={index}>
             <VideoCard video={video} />
           </div>
         ))}
-      </div>
+      </div> */}
       {/* Content Setting */}
       <div>
         <ContentSetting />

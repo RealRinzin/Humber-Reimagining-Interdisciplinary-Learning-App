@@ -3,6 +3,7 @@
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function CourseRelatedVideo({ video_sections }: any) {
@@ -39,7 +40,7 @@ export default function CourseRelatedVideo({ video_sections }: any) {
                   key={index}
                   className="bg-slate-200 rounded-md py-2 md:w-2/6 px-3 hover:text-blue-600"
                 >
-                  <a href={`/video/section/${video.slug}`}>{video.title}</a>
+                  <Link href={`/video/section/${video.slug}`}>{video.title}</Link>
                 </li>
               );
             })}

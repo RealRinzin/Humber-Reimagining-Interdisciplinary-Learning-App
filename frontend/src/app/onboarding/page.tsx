@@ -10,6 +10,7 @@ import {
   OnboardLearningPathType,
   OnboardShowProgressType,
 } from "@/types/onboard/onboard-types";
+import Link from "next/link";
 import Script from "next/script";
 import { useRef, useState } from "react";
 
@@ -181,12 +182,12 @@ export default function OnboardingPage() {
             </div>
             <p className="text-gray-800 text-xs mt-4 pt-2 flex">
               Already have account?
-              <a
+              <Link
                 href="/"
                 className="text-slate-900 font-extrabold hover:text-slate-900 px-2 underline"
               >
                 Login here
-              </a>
+              </Link>
             </p>
           </div>
         </div>

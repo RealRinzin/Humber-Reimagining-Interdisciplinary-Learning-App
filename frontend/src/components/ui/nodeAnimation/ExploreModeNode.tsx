@@ -378,13 +378,13 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
 
               const isStarted = node.data("is_started"); // is following or is started
               // If the topic is not started yet, the register one otherwise skip it
-              if (!isStarted) {
+              // if (!isStarted) {
                 postUserTopic(Number(node.data("id")));
-                window.location.reload();
-                return;
-              } else {
+                // window.location.reload();
+                // return;
+              // } else {
                 window.open(url, "_self");
-              }
+              // }
             });
 
             cy.on("mouseover", "node", (e) => {

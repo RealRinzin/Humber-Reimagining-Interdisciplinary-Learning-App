@@ -193,9 +193,9 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
           available={user_setting?.rambling}
         />
       )}
-      <section className="my-10">
+      {/* <section className="my-10">
         <MoreCourses status={completeStatus} />
-      </section>
+      </section> */}
     </>
   );
 }
