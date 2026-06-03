@@ -3,6 +3,7 @@ import RingProgressBar from "@/components/ui/progress/Ring";
 import { clientFetch, clientPost } from "@/lib/clientFetch";
 import { VideoType } from "@/types/video";
 import { calculateRingProgress } from "@/utils/RingProgressPerCalculator";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 async function postUserTopic(topic_id: number) {
   // Post method
@@ -59,13 +60,13 @@ export default function VideoCard({ video }: { video: VideoType }) {
         </div>
         <p className="py-3">{video.description}</p>
         <div className="flex justify-end">
-          <a
+          <Link
             href={`/video/${video.slug}`}
             className="rounded-md bg-slate-950 px-2 py-0.5 text-sm font-medium text-white cursor-pointer"
             onClick={is_started ? undefined : () => postUserTopic(video.id)}
           >
             {video.is_following ? "Continue" : "Start"}
-          </a>
+          </Link>
         </div>
       </div>
     </>

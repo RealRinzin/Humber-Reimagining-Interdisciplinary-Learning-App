@@ -1,5 +1,6 @@
 import { faAtom } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 
 export default function OnBoardingRegistration() {
   return (
@@ -12,20 +13,20 @@ export default function OnBoardingRegistration() {
           SPACES PROJECT
         </h1>
         <div className="text-center">
-          <a
+          <Link
             href=""
             className="bg-slate-800 text-white rounded-md py-2 px-3  hover:bg-slate-900 transition-colors duration-200 font-medium"
           >
             Create an Account
-          </a>
+          </Link>
           <p className="text-gray-500 text-xs mt-4 pt-2">
             Already have an Account?
-            <a
+            <Link
               href="#"
               className="underline text-slate-800 hover:text-slate-900 px-1"
             >
               Login
-            </a>
+            </Link>
           </p>
         </div>
       </div>

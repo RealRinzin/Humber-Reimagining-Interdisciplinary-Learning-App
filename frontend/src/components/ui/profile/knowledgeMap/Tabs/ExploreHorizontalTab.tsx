@@ -8,6 +8,7 @@ import { clientFetch, clientPost } from "@/lib/clientFetch";
 import RingProgressBar from "@/components/ui/progress/Ring";
 import { useEffect, useState } from "react";
 import { calculateRingProgress } from "@/utils/RingProgressPerCalculator";
+import Link from "next/link";
 
 /**
  *
@@ -124,13 +125,13 @@ export default function ExploreHorizontalTab({
         <div className="flex flex-1 justify-between items-center">
           <h2 className="text-gray-600 font-bold">{name}</h2>
 
-          <a
+          <Link
             href={`/video/${slug}`}
             className={`rounded-xl px-3 py-1 text-slate-400 text-sm bg-gray-500`}
             onClick={is_started ? undefined : () => postUserTopic(id)}
           >
             {is_started ? "Continue" : "Start"}
-          </a>
+          </Link>
         </div>
 
         <p

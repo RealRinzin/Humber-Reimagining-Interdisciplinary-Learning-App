@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { clientPost } from "@/lib/clientFetch";
 import { useState } from "react";
+import Link from "next/link";
 export default function DesktopNavigation() {
   const [search, setSearch] = useState("");
   const router = useRouter();
@@ -30,7 +31,7 @@ export default function DesktopNavigation() {
     <>
       <header className="flex flex-col md:flex-row justify-between place-items-center py-3 gap-2 md:py-6 md:px-20 text-white">
         <h2 className="text-xl">
-          <a href="/">
+          <Link href="/">
           SPA
           <Image
             src="/img/SpaceLogo.png"
@@ -40,7 +41,7 @@ export default function DesktopNavigation() {
             className="inline"
           />
           CES PROJECT
-          </a>
+          </Link>
         </h2>
 
         <nav className="flex flex-col md:flex-row  place-items-center justify-end gap-5">
@@ -61,34 +62,34 @@ export default function DesktopNavigation() {
           </div>
           <ul className="flex gap-5 justify-evenly">
             <li>
-              <a href="/team">
+              <Link href="/team">
                 <Image
                   src="/img/InformationIcon.png"
                   height={25}
                   width={25}
                   alt="Home Icon"
                 />
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/profile/knowledge_map">
+              <Link href="/profile/knowledge_map">
                 <Image
                   src="/img/HomeIcon.png"
                   height={25}
                   width={25}
                   alt="Home Icon"
                 />
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/profile">
+              <Link href="/profile">
                 <Image
                   src="/img/AccountIcon.png"
                   height={25}
                   width={25}
                   alt="User Icon"
                 />
-              </a>
+              </Link>
             </li>
             <li>
               <FontAwesomeIcon

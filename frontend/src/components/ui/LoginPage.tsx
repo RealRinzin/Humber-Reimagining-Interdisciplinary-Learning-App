@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAtom } from "@fortawesome/free-solid-svg-icons";
 import Script from "next/script";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -121,12 +122,12 @@ export default function LoginPage() {
             </div>
             <p className="text-gray-800 text-xs mt-4 pt-2">
               Don't have an Account?
-              <a
+              <Link
                 href="/onboarding"
                 className="text-slate-900 font-extrabold hover:text-slate-900 px-2 underline"
               >
                 Create one here
-              </a>
+              </Link>
             </p>
           </form>
         </div>

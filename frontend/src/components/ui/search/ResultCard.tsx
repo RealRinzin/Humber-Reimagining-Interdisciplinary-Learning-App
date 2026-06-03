@@ -1,4 +1,5 @@
 import { highlightKeyword } from "@/lib/common";
+import Link from "next/link";
 
 interface NodeIconProps {
   color: string;
@@ -65,12 +66,12 @@ export default function SearchResultCard({
       />
       <div className="flex justify-end">
         {result.type === "topic" && (
-          <a
+          <Link
             href={`/video/${result.slug}`}
             className="bg-gray-800 hover:bg-pink-500 text-white text-sm font-medium px-4 py-1.5 rounded-lg transition-colors duration-200"
           >
             View
-          </a>
+          </Link>
         )}
       </div>
     </div>
