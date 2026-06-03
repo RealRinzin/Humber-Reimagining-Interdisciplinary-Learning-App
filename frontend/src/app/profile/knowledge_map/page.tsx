@@ -31,13 +31,6 @@ export default function KnowledgeMap() {
       component: StepByStep,
       sidebarNode: CommonSideBarNode,
     },
-    // {
-    //   id: 2,
-    //   name: "Foundation First",
-    //   status: false,
-    //   component: FoundationFirst,
-    //   sidebarNode: FoundationFirstNode,
-    // },
   ]);
 
   //   Function to active and deactive the tab options
@@ -128,8 +121,6 @@ export default function KnowledgeMap() {
               </div>
             );
           })()}
-          {/* <CourseNodeLink /> */}
-          {/* <CommonSideBarNode hoveredTopicId={hoveredTopicId} /> */}
         </div>
       </main>
     </>

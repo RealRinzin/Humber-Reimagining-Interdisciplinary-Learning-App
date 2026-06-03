@@ -106,16 +106,16 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
       />
       <div className="px-1 py-8">
         {/* Code Tabe */}
-          <CourseTabs
-            type="video"
-            title="Video"
-            icon="NextIcon.png"
-            content=""
-            videoID={video?.id}
-            status={completeStatus?.video}
-            all_complete={completeStatus?.all_checked}
-            available ={user_setting?.video }
-          />
+        <CourseTabs
+          type="video"
+          title="Video"
+          icon="NextIcon.png"
+          content=""
+          videoID={video?.id}
+          status={completeStatus?.video}
+          all_complete={completeStatus?.all_checked}
+          available={user_setting?.video}
+        />
         <p className="py-2 px-1 text-gray-800 text-md">{video.tldw}</p>
       </div>
       {/* Video section */}
@@ -159,7 +159,6 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
           all_complete={completeStatus?.all_checked}
           quizzes={video.quizzes}
           available={user_setting?.quiz}
-
         />
       )}
 
@@ -176,12 +175,10 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
           quizzes={video?.quizzes}
           interactive_path={video?.interactive_path}
           available={user_setting?.interactive}
-
         />
       )}
       {/* Rambling Tab */}
       {video?.rambling && (
-      
         <CourseTabs
           type="rambling"
           title={"Umer's Rambling"}
@@ -192,7 +189,6 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
           all_complete={completeStatus?.all_checked}
           ramblings={video?.ramblings}
           available={user_setting?.rambling}
-
         />
       )}
       <section className="my-10">

@@ -4,7 +4,6 @@ import TabProgressBar from "@/components/ui/progress/Tab";
 import VideoCard from "@/components/ui/video/VideoCard";
 import { serverFetch } from "@/lib/fetch";
 import { VideoType } from "@/types/video";
-import React from "react";
 
 export default async function ServerPage() {
   const res = await serverFetch(`/topics`);

@@ -10,14 +10,16 @@ import CytoscapeComponent from "react-cytoscapejs";
 import type { Core } from "cytoscape";
 import { useEffect, useRef, useState } from "react";
 import { clientFetch, clientPost } from "@/lib/clientFetch";
-import { exploreNodeCalculator, nodeProgressCalculator } from "@/utils/RingProgressPerCalculator";
+import {
+  exploreNodeCalculator,
+  nodeProgressCalculator,
+} from "@/utils/RingProgressPerCalculator";
 
 interface Props {
   hoveredTopicId?: string | null;
   refreshKey?: number;
 }
 function makeRing(progress: any, color: any, innerColor: any) {
-  console.log(progress)
   const r = 40,
     cx = 50,
     cy = 50,
@@ -160,7 +162,7 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
       const connect = await topicConnection.json();
 
       const List: cytoscape.ElementDefinition[] = [];
-      topics[0].is_following = true;
+      // topics[0].is_following = true;
       topics.forEach((topic: any, index: number) => {
         List.push({
           data: {
@@ -194,20 +196,33 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
             "text-transform": "uppercase",
             color: "#000",
             "background-image": (ele: any) => {
-              return progressTracking
-                ? makeRing(
-                    // nodeProgressCalculator(
-                    //   topic?.videos?.[0]?.user_video_setting,
-                    //   user_setting,
-                    //   user_setting?.total_checked
-                    //   // topic?.videos?.[0]?.total_tracking
-                    // ),
-                    exploreNodeCalculator(topic?.videos?.[0],user_setting,topic?.videos?.[0]?.user_video_setting),
-                    topic.node_color,
-                    topic.node_color,
-                  )
-                : // ? makeRing(34, topic.node_color, topic.node_color)
-                  makeRingZero(0, topic.node_color, topic.node_color);
+              if (topic?.is_following) {
+                return progressTracking
+                  ? makeRing(
+                      exploreNodeCalculator(
+                        topic?.videos?.[0],
+                        user_setting,
+                        topic?.videos?.[0]?.user_video_setting,
+                      ),
+                      topic.node_color,
+                      topic.node_color,
+                    )
+                  : // ? makeRing(34, topic.node_color, topic.node_color)
+                    makeRingZero(0, topic.node_color, topic.node_color);
+              } else {
+                return progressTracking
+                  ? makeRing(
+                      exploreNodeCalculator(
+                        topic?.videos?.[0],
+                        user_setting,
+                        topic?.videos?.[0]?.user_video_setting,
+                      ),
+                      "gray",
+                      "gray",
+                    )
+                  : // ? makeRing(34, topic.node_color, topic.node_color)
+                    makeRingZero(0, topic.node_color, topic.node_color);
+              }
             },
             "text-background-color": "#fff",
             "text-background-opacity": 0.7,
