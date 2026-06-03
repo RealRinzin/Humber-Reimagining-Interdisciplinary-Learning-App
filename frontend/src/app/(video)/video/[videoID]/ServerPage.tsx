@@ -47,7 +47,6 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
             video_id: video.id,
             last_paused: 0,
             completed: false,
-
           },
         );
         // new user_video for this video with the logged in user
@@ -79,7 +78,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
     const res = await serverPatch(
       `/user-video-setting/users/me/videos/${video.id}`,
       {
-        video:true,
+        video: true,
         code: false,
         interactive: false,
         rambling: false,
@@ -92,6 +91,11 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
       },
     );
   }
+  // User Video Setting
+  const user_content_setting = await serverFetch(
+    "/user-content-settings/users/me",
+  );
+  const { data: user_setting } = await user_content_setting.json();
   return (
     <>
       <CourseTitle
@@ -128,7 +132,18 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
         </div>
       )}
       {/* Code Tabe */}
-      {video?.codes && (
+      {/* {!!user_setting?.code && video?.codes && (
+        <CourseTabs
+          type="video"
+          title="Video"
+          icon="CodeIcon.png"
+          content={video?.codes[0]?.code}
+          videoID={video?.id}
+          status={completeStatus?.video}
+          all_complete={completeStatus?.all_checked}
+        />
+      )} */}
+      {!!user_setting?.code && video?.codes && (
         <CourseTabs
           type="code"
           title={"Code Snippet"}
@@ -140,18 +155,21 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
         />
       )}
       {/* Quiz Tab */}
-      <CourseTabs
-        type="quiz"
-        title={"Test Your Knowledge"}
-        icon="QuizIcon.png"
-        content={video.title}
-        status={completeStatus?.quiz}
-        videoID={video?.id}
-        all_complete={completeStatus?.all_checked}
-        quizzes={video.quizzes}
-      />
+      {!!user_setting?.quiz && (
+        <CourseTabs
+          type="quiz"
+          title={"Test Your Knowledge"}
+          icon="QuizIcon.png"
+          content={video.title}
+          status={completeStatus?.quiz}
+          videoID={video?.id}
+          all_complete={completeStatus?.all_checked}
+          quizzes={video.quizzes}
+        />
+      )}
+
       {/* Interactive */}
-      {video?.interactive_path && (
+      {!!user_setting?.interactive && video?.interactive_path && (
         <CourseTabs
           type="interactive"
           title={"Interactive Simulation"}
@@ -165,16 +183,18 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
         />
       )}
       {/* Rambling Tab */}
-      <CourseTabs
-        type="rambling"
-        title={"Umer's Rambling"}
-        icon="RamblingsIcon.png"
-        content={video?.ramblings}
-        videoID={video?.id}
-        status={completeStatus?.rambling}
-        all_complete={completeStatus?.all_checked}
-        ramblings={video?.ramblings}
-      />
+      {!!user_setting?.rambling && (
+        <CourseTabs
+          type="rambling"
+          title={"Umer's Rambling"}
+          icon="RamblingsIcon.png"
+          content={video?.ramblings}
+          videoID={video?.id}
+          status={completeStatus?.rambling}
+          all_complete={completeStatus?.all_checked}
+          ramblings={video?.ramblings}
+        />
+      )}
       <section className="my-10">
         <MoreCourses status={completeStatus} />
       </section>

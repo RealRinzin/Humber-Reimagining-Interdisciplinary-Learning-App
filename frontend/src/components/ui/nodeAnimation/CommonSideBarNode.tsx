@@ -192,11 +192,6 @@ export default function CommonSideBarNode({
             "background-image": (ele: any) => {
               return progressTracking
                 ? makeRing(
-                    // nodeProgressCalculator(
-                    //   topic?.videos?.[0]?.user_video_setting,
-                    //   user_setting,
-                    //   topic?.videos[0]?.total_tracking,
-                    // ),
                     exploreNodeCalculator(
                       topic?.videos?.[0],
                       user_setting,
