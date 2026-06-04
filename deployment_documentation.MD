@@ -8,7 +8,7 @@ git clone https://github.com/RealRinzin/Humber-Reimagining-Interdisciplinary-Lea
 ```php
 # BACKEND
 # app/backend
-
+ # mysql -u humber_db_user -p humber_space_db < humber_space_db.sql
 composer update
 
 sudo chown -R www-data:www-data /app/backend

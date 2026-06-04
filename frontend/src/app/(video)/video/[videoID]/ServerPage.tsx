@@ -96,7 +96,6 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
     "/user-content-settings/users/me",
   );
   const { data: user_setting } = await user_content_setting.json();
-  console.log(video)
   return (
     
     <>

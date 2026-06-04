@@ -18,7 +18,6 @@ export function RingProgressPerCalculator(data: any) {
 }
 
 export function nodeProgressCalculator(data: any, user_setting: any, total_checked: number) {
-    console.log(data)
     let count = 0;
     if (!data) return 0;
     if (data?.all_checked) return 100;
@@ -135,7 +134,6 @@ export function calculateRingProgress(video: any, userContentSetting: any, UserV
             quiz: UserVideoSetting?.quiz,
             interactive: UserVideoSetting?.interactive
         };
-        console.log(user_video_setting)
 
         for (const key of Object.keys(user_content_setting) as (keyof ContentSetting)[]) {
             if (user_content_setting[key] && user_video_setting[key] && video_setting[key]) count++;
@@ -143,46 +141,3 @@ export function calculateRingProgress(video: any, userContentSetting: any, UserV
         return count;
     }
 }
-
-// export function calculateRingProgress(video: any, userContentSetting: any, UserVideoSetting: any) {
-//     let count = 0;
-
-//     if (UserVideoSetting?.all_checked) return userContentSetting?.total_checked;
-
-//     const omitInteractive = video?.interactive === false;
-
-//     const strip = (obj: any) => {
-//         if (omitInteractive) delete obj.interactive;
-//         return obj;
-//     };
-
-//     const video_setting = strip({
-//         video: video?.video,
-//         code: video?.code,
-//         rambling: video?.rambling,
-//         quiz: video?.quiz,
-//         interactive: video?.interactive
-//     });
-
-//     const user_content_setting = strip({
-//         video: userContentSetting?.video,
-//         code: userContentSetting?.code,
-//         rambling: userContentSetting?.rambling,
-//         quiz: userContentSetting?.quiz,
-//         interactive: userContentSetting?.interactive
-//     });
-
-//     const user_video_setting = strip({
-//         video: UserVideoSetting?.video,
-//         code: UserVideoSetting?.code,
-//         rambling: UserVideoSetting?.rambling,
-//         quiz: UserVideoSetting?.quiz,
-//         interactive: UserVideoSetting?.interactive
-//     });
-
-//     for (const key of Object.keys(user_content_setting) as (keyof ContentSetting)[]) {
-//         if (user_content_setting[key] && user_video_setting[key] && video_setting[key]) count++;
-//     }
-
-//     return count;
-// }

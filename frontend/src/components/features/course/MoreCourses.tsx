@@ -8,7 +8,6 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { clientFetch } from "@/lib/clientFetch";
 export default  function MoreCourses({status}:any) {
-  console.log("reloaded Related page")
 const [topics, setTopics] = useState<VideoType[]>([]);
   useEffect(()=>{
     async function getTopics(){

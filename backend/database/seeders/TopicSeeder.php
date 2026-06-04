@@ -36,7 +36,7 @@ class TopicSeeder extends Seeder
     private array $topics = [
         1  => [
             'title' => 'Intro to Space',
-            'description' => 'A foundational overview of coordinate spaces and why they matter in 3D graphics pipelines.',
+            'description' => "An introduction to coordinate spaces in 3D graphics. We explore why different spaces exist and how objects move through them during rendering.",
             'node_color' => '#378ADD',
             'x_axis' => 690,
             'y_axis' => 90,
@@ -46,7 +46,7 @@ class TopicSeeder extends Seeder
 
         2  => [
             'title' => 'Model Space',
-            'description' => 'The local coordinate system of a 3D object, defined relative to its own origin before any transformations are applied.',
+            'description' => "Model space is the local coordinate system of a 3D object. Every vertex is defined relative to the object's own origin before any transformations are applied.",
             'node_color' => '#F72585',
             'x_axis' => 520,
             'y_axis' => 190,
@@ -65,7 +65,7 @@ class TopicSeeder extends Seeder
 
         3  => [
             'title' => 'Vertex Positions',
-            'description' => 'The 3D coordinates of each point on a mesh, expressed in model space and used as the basis for all geometric transformations.',
+            'description' => 'Vertex positions define the geometry of a 3D mesh. Each vertex holds an XYZ coordinate in model space that gets transformed through the graphics pipeline.',
             'node_color' => '#378ADD',
             'x_axis' => 95,
             'y_axis' => 285,
@@ -81,7 +81,7 @@ class TopicSeeder extends Seeder
 
         4  => [
             'title' => 'Normals',
-            'description' => 'Perpendicular vectors at each vertex surface that define orientation, used in lighting calculations to determine how light interacts with geometry.',
+            'description' => 'Normal vectors are perpendicular to a surface and are critical for lighting calculations. They must be transformed carefully to remain correct after non-uniform scaling.',
             'node_color' => '#378ADD',
             'x_axis' => 430,
             'y_axis' => 760,
@@ -95,7 +95,7 @@ class TopicSeeder extends Seeder
 
         5  => [
             'title' => 'Scale',
-            'description' => 'A transformation that resizes an object along one or more axes, applied as a diagonal matrix in model space.',
+            'description' => 'Scaling transforms change the size of an object along one or more axes. Uniform scaling preserves shape while non-uniform scaling can distort normals.',
             'node_color' => '#378ADD',
             'x_axis' => 385,
             'y_axis' => 400,
@@ -110,7 +110,7 @@ class TopicSeeder extends Seeder
 
         6  => [
             'title' => 'Translation',
-            'description' => 'A transformation that moves an object from one position to another by adding an offset vector to each vertex position.',
+            'description' => 'Translation moves an object from one position to another in 3D space. In matrix form, translation is encoded in the last column of a 4x4 matrix using homogeneous coordinates.',
             'node_color' => '#378ADD',
             'x_axis' => 285,
             'y_axis' => 260,
@@ -130,7 +130,7 @@ class TopicSeeder extends Seeder
 
         7  => [
             'title' => 'Rotation',
-            'description' => 'A transformation that orients an object around an axis by a given angle, typically represented with matrices or quaternions.',
+            'description' => 'Rotation transforms orient an object in 3D space. Rotations can be represented as Euler angles, rotation matrices, or quaternions, each with trade-offs in interpolation and gimbal lock.',
             'node_color' => '#378ADD',
             'x_axis' => 190,
             'y_axis' => 450,
@@ -147,7 +147,7 @@ class TopicSeeder extends Seeder
 
         8  => [
             'title' => 'Quaternions',
-            'description' => 'A compact 4-component mathematical representation of rotations that avoids gimbal lock and enables smooth interpolation between orientations.',
+            'description' => 'Quaternions are a mathematical system used to represent 3D rotations. They avoid gimbal lock and allow smooth interpolation between orientations using SLERP.',
             'node_color' => '#378ADD',
             'x_axis' => 365,
             'y_axis' => 530,
@@ -163,7 +163,7 @@ class TopicSeeder extends Seeder
 
         9  => [
             'title' => 'Model Matrix',
-            'description' => 'A 4x4 matrix combining scale, rotation, and translation that transforms vertices from model space into world space.',
+            'description' => 'The model matrix combines scale, rotation, and translation into a single 4x4 matrix. Multiplying a vertex by the model matrix transforms it from model space into world space.',
             'node_color' => '#378ADD',
             'x_axis' => 785,
             'y_axis' => 250,
@@ -181,7 +181,7 @@ class TopicSeeder extends Seeder
 
         10 => [
             'title' => 'World Space',
-            'description' => 'A shared global coordinate system where all objects are positioned relative to a common origin after the model matrix is applied.',
+            'description' => 'World space is the global coordinate system where all objects are placed relative to a shared origin. After applying the model matrix, vertices exist in world space.',
             'node_color' => '#F72585',
             'x_axis' => 700,
             'y_axis' => 455,
@@ -197,7 +197,7 @@ class TopicSeeder extends Seeder
 
         11 => [
             'title' => 'View Matrix',
-            'description' => 'A matrix that transforms world space coordinates into camera space by simulating the position and orientation of the viewer.',
+            'description' => "The view matrix transforms world space coordinates into camera space. It is essentially the inverse of the camera's own model matrix, repositioning the world relative to the camera.",
             'node_color' => '#378ADD',
             'x_axis' => 930,
             'y_axis' => 520,
@@ -213,7 +213,7 @@ class TopicSeeder extends Seeder
 
         12 => [
             'title' => 'Camera Space',
-            'description' => 'The coordinate system relative to the camera where the viewer is at the origin, used as an intermediate step before projection.',
+            'description' => 'Camera space, also called view space or eye space, positions vertices relative to the camera. The camera sits at the origin looking down the negative Z axis.',
             'node_color' => '#F72585',
             'x_axis' => 805,
             'y_axis' => 675,
@@ -230,7 +230,7 @@ class TopicSeeder extends Seeder
 
         13 => [
             'title' => 'Projection Matrix',
-            'description' => 'A matrix that maps camera space coordinates onto a 2D projection plane, applying either perspective or orthographic projection.',
+            'description' => 'The projection matrix transforms camera space into clip space. Perspective projection creates a realistic sense of depth while orthographic projection preserves parallel lines.',
             'node_color' => '#378ADD',
             'x_axis' => 1060,
             'y_axis' => 810,
@@ -245,7 +245,7 @@ class TopicSeeder extends Seeder
 
         14 => [
             'title' => 'Perspective Divide',
-            'description' => 'The step that divides x, y, and z components by the w component after projection, converting clip space coordinates into NDC.',
+            'description' => 'he perspective divide divides the X, Y, and Z clip coordinates by the W component to produce normalized device coordinates. This step creates the foreshortening effect of perspective.',
             'node_color' => '#378ADD',
             'x_axis' => 345,
             'y_axis' => 915,
@@ -260,7 +260,7 @@ class TopicSeeder extends Seeder
 
         15 => [
             'title' => 'NDC Space',
-            'description' => 'Normalized Device Coordinates — a device-independent coordinate system where all visible geometry falls within a -1 to 1 cube after the perspective divide.',
+            'description' => 'Normalized Device Coordinates (NDC) map the visible scene into a cube from -1 to 1 on each axis. Everything outside this range is clipped and not rendered.',
             'node_color' => '#F72585',
             'x_axis' => 640,
             'y_axis' => 930,
@@ -277,7 +277,7 @@ class TopicSeeder extends Seeder
 
         16 => [
             'title' => 'Viewport Matrix',
-            'description' => 'A matrix that maps NDC coordinates to screen-space pixel coordinates based on the defined viewport dimensions.',
+            'description' => 'The viewport transform maps NDC coordinates to pixel coordinates on the screen. It scales and offsets the NDC cube to match the dimensions and position of the render target.',
             'node_color' => '#378ADD',
             'x_axis' => 940,
             'y_axis' => 965,
@@ -291,7 +291,7 @@ class TopicSeeder extends Seeder
 
         17 => [
             'title' => 'Pixel Space',
-            'description' => 'The final 2D screen coordinate system where each unit corresponds to a pixel on the display, produced after the viewport transformation.',
+            'description' => 'Pixel space, or screen space, is the final destination of the graphics pipeline. Vertices are now 2D pixel coordinates ready for rasterization and fragment shading.',
             'node_color' => '#378ADD',
             'x_axis' => 920,
             'y_axis' => 1135,
@@ -305,7 +305,7 @@ class TopicSeeder extends Seeder
 
         18 => [
             'title' => 'Bonus',
-            'description' => 'Additional supplementary topics and extended concepts beyond the core graphics pipeline for further exploration.',
+            'description' => 'onus content covering extra tips and tricks related to the graphics pipeline. Includes practical shader examples and common mistakes to avoid when working with coordinate spaces.',
             'node_color' => '#8B9CB5',
             'x_axis' => 500,
             'y_axis' => 1110,

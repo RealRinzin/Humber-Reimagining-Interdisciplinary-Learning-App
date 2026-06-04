@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function CourseRelatedVideo({ video_sections }: any) {
-  console.log(video_sections);
   const [drop, setDrop] = useState(false);
   return (
     <section className="my-5">

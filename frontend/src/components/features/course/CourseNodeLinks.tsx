@@ -100,7 +100,6 @@ export default function CourseNodeLink() {
       // const List: cytoscape.ElementDefinition[] = [];
       // Push the nodes into array
       topics.forEach((topic: any, index: number) => {
-        console.log("topic.node_color:", topic.node_color);
         List.push({
           data: {
             id: String(topic.id),

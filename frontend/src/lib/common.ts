@@ -15,7 +15,6 @@ export function copyToClipboard(text: string) {
 }
 // Hightght the Searck Key word in the Search Result Description or Title
 export function highlightKeyword(keyword: string, text: string) {
-    console.log(keyword, text);
   if (!text || !keyword) return text ?? "";   // ← guard
 
   const regex = new RegExp(keyword, "gi");
