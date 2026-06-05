@@ -139,7 +139,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
       {video?.code && (
         <CourseTabs
           type="code"
-          title={"Code Snippet"}
+          title={"Code Snippets"}
           icon="CodeIcon.png"
           content={video?.codes}
           videoID={video?.id}
@@ -152,7 +152,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
       {video?.quiz && (
         <CourseTabs
           type="quiz"
-          title={"Test Your Knowledge"}
+          title={"Test Your Knowledge (flash cards)"}
           icon="QuizIcon.png"
           content={video.title}
           status={completeStatus?.quiz}
@@ -167,7 +167,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
       {video?.interactive_path && (
         <CourseTabs
           type="interactive"
-          title={"Dina's Demos"}
+          title={"Dina's Demos (interactive simulations)"}
           icon="QuizIcon.png"
           content={video.title}
           status={completeStatus?.interactive}
@@ -182,7 +182,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
       {video?.rambling && (
         <CourseTabs
           type="rambling"
-          title={"Umer's Ramblings"}
+          title={"Umer's Ramblings (extra content for reading)"}
           icon="RamblingsIcon.png"
           content={video?.ramblings}
           videoID={video?.id}

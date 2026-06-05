@@ -53,7 +53,7 @@ const OnBoardingLearningPath = ({ onSuccess, values }: Props) => {
           <ToggleRadio<OnboardLearningPathType>
             name="learning_path"
             value="guide_path"
-            label="Guide Path"
+            label="Guided Path"
             register={register}
             required={false}
             error={errors.explore_mode?.message}

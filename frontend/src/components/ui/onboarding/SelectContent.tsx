@@ -43,7 +43,7 @@ const OnBoardingSelectContent = ({ onSuccess, values }: Props) => {
             {/* Interactive Checkbox */}
             <ToggleCheckBox<OnboardSelectContentType>
               name="interactive"
-              label="Dina's Demos"
+              label="Dina's Demos (interactive simulations)"
               register={register}
               required={false}
               error={errors.interactive?.message}
@@ -59,7 +59,7 @@ const OnBoardingSelectContent = ({ onSuccess, values }: Props) => {
             {/* Quiz Checkbox */}
             <ToggleCheckBox<OnboardSelectContentType>
               name="quiz"
-              label="Quiz"
+              label="Test your knowledge (flash cards)"
               register={register}
               required={false}
               error={errors.quiz?.message}
@@ -68,7 +68,7 @@ const OnBoardingSelectContent = ({ onSuccess, values }: Props) => {
 
             <ToggleCheckBox<OnboardSelectContentType>
               name="rambling"
-              label="Ramblings (extra content to read)"
+              label="Umer's Ramblings (extra content for reading)"
               register={register}
               required={false}
               error={errors.rambling?.message}
