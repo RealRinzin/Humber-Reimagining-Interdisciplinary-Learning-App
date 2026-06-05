@@ -167,7 +167,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
       {video?.interactive_path && (
         <CourseTabs
           type="interactive"
-          title={"Dina's Demos (interactive simulations)"}
+          title={"Dina's Interactive Demos"}
           icon="QuizIcon.png"
           content={video.title}
           status={completeStatus?.interactive}

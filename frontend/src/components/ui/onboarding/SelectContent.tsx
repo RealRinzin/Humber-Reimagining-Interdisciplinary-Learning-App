@@ -43,7 +43,7 @@ const OnBoardingSelectContent = ({ onSuccess, values }: Props) => {
             {/* Interactive Checkbox */}
             <ToggleCheckBox<OnboardSelectContentType>
               name="interactive"
-              label="Dina's Demos (interactive simulations)"
+              label="Dina's Interactive Demos"
               register={register}
               required={false}
               error={errors.interactive?.message}

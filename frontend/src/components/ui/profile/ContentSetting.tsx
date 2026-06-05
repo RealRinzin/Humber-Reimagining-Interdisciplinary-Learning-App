@@ -54,6 +54,7 @@ export default function ContentSetting() {
                 name={"video"}
                 value={userSettings?.video ?? false}
                 id={userSettings?.id}
+                label={"Videos"}
               />
             </li>
             <li>
@@ -61,11 +62,13 @@ export default function ContentSetting() {
                 name={"interactive"}
                 value={userSettings?.interactive ?? false}
                 id={userSettings?.id}
+                label={"Dina's Interactive Demos"}
               />
             </li>
             <li>
               <Checkbox
                 name={"code"}
+                label={"Codes"}
                 value={userSettings?.code ?? false}
                 id={userSettings?.id}
               />
@@ -74,6 +77,7 @@ export default function ContentSetting() {
           <ul className="flex flex-col gap-4">
             <Checkbox
               name={"quiz"}
+              label={"Test your knowledge (flash cards)"}
               value={userSettings?.quiz ?? false}
               id={userSettings?.id}
             />
@@ -82,11 +86,8 @@ export default function ContentSetting() {
                 name={"rambling"}
                 value={userSettings?.rambling ?? false}
                 id={userSettings?.id}
+                label={"Umer's Ramblings (extra content for reading)"}
               />
-              <span className="text-gray-500 text-sm">
-                {" "}
-                Extra thoughts and insights from your professor.
-              </span>
             </li>
           </ul>
         </div>
