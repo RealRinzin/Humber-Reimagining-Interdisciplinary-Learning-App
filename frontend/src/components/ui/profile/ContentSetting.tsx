@@ -68,7 +68,7 @@ export default function ContentSetting() {
             <li>
               <Checkbox
                 name={"code"}
-                label={"Codes"}
+                label={"Code Snippets"}
                 value={userSettings?.code ?? false}
                 id={userSettings?.id}
               />
