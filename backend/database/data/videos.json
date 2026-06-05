@@ -150,7 +150,7 @@
         "rambling": true,
         "interactive": true,
         "quiz": true,
-        "interactive_path": "11_view_matrix"
+        "interactive_path": "03_09_vertex_pos_model_matrix"
     },
     {
         "title": "World Space",
@@ -182,9 +182,9 @@
         "video": true,
         "code": true,
         "rambling": true,
-        "interactive": false,
+        "interactive": true,
         "quiz": true,
-        "interactive_path": ""
+        "interactive_path": "11_view_matrix"
     },
     {
         "title": "Camera Space",
