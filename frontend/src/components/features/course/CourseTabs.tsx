@@ -64,6 +64,7 @@ export default function CourseTabs({
   }
   useEffect(() => {
     setIsChecked(status);
+    console.log(content)
   }, [status]);
   return (
     <section className="my-5">
@@ -114,22 +115,46 @@ export default function CourseTabs({
       <div className={`relative p-3 ${drop ? "block" : "hidden"}`}>
         {type === "code" ? (
           <>
-            <p className="absolute right-10 my-4">
-              <FontAwesomeIcon
-                icon={faCopy}
-                size="1x"
-                className="text-white hover:cursor-pointer"
-                onClick={(e) => (
-                  (e.currentTarget.style.color = "green"),
-                  copyToClipboard(content)
-                )}
-              />
-            </p>
-            <SyntaxHighlighter language="cpp" style={solarizedDarkAtom}>
-              {content}
-            </SyntaxHighlighter>
+            {(content as any)?.map((code: any, index: number) => {
+              return (
+                <div key={index}>
+                  <p className="absolute right-10 my-4">
+                    <FontAwesomeIcon
+                      icon={faCopy}
+                      size="1x"
+                      className="text-white hover:cursor-pointer"
+                      onClick={(e) => (
+                        (e.currentTarget.style.color = "green"),
+                        copyToClipboard(code?.code)
+                      )}
+                    />
+                  </p>
+                  <SyntaxHighlighter
+                    key={index}
+                    language="cpp"
+                    style={solarizedDarkAtom}
+                  >
+                    {code?.code}
+                  </SyntaxHighlighter>
+                </div>
+              );
+            })}
           </>
-        ) : type === "rambling" ? (
+        ) : // <>
+
+        //   {content.map((code: any, index: any) => {
+        //     return (
+        // <SyntaxHighlighter key={index} language="cpp" style={solarizedDarkAtom}>
+        //   {code.id}
+        //   <div>
+        //     asdfs
+        //   </div>
+        //   {/* {content} */}
+        // </SyntaxHighlighter>
+        //     );
+        //   })}
+        // </>
+        type === "rambling" ? (
           <RamblingCard ramblings={ramblings} />
         ) : type === "quiz" ? (
           <QuizWrapper quizzes={quizzes} />

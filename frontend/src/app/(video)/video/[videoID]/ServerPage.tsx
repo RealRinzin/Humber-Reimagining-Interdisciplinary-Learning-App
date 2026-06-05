@@ -117,7 +117,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
           all_complete={completeStatus?.all_checked}
           available={user_setting?.video}
         />
-        <p className="py-2 px-1 text-gray-800 text-md">{video.tldw}</p>
+        <p className="py-2 px-1 text-gray-800 text-md">{video.description}</p>
       </div>
       {/* Video section */}
       <section className="flex flex-col md:flex-row gap-3 py-3">
@@ -141,7 +141,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
           type="code"
           title={"Code Snippet"}
           icon="CodeIcon.png"
-          content={video?.codes[0]?.code}
+          content={video?.codes}
           videoID={video?.id}
           status={completeStatus?.code}
           all_complete={completeStatus?.all_checked}

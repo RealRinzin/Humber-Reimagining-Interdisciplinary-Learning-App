@@ -68,7 +68,7 @@ export default function CommonSideBarNode({
     x: 0,
     y: 0,
     label: "",
-    description: "",
+    tldw: "",
   });
 
   // UseEffect to mount the topic node when page/ component inital loads
@@ -167,7 +167,7 @@ export default function CommonSideBarNode({
             is_started: topic.is_following,
             node_color: null,
             url: `/video/${topic.slug}`,
-            description: topic.description,
+            tldw: topic.videos[0]?.tldw,
             controlPointDistance:
               (Math.floor(index / 2) + 1) * 40 * (index % 2 === 0 ? 1 : -1),
           },
@@ -373,7 +373,7 @@ export default function CommonSideBarNode({
               const node = e.target;
               const pos = e.renderedPosition;
               const label = node.data("label");
-              const description = node.data("description");
+              const tldw = node.data("tldw");
 
               if (container) container.style.cursor = "pointer";
               setTooltip({
@@ -381,7 +381,7 @@ export default function CommonSideBarNode({
                 x: pos.x,
                 y: pos.y,
                 label,
-                description,
+                tldw,
               });
 
               cy.elements().addClass("faded");
@@ -410,7 +410,7 @@ export default function CommonSideBarNode({
                 x: 0,
                 y: 0,
                 label: "",
-                description: "",
+                tldw: "",
               });
 
               cy.elements().removeClass("faded hovered connected activeEdge");
@@ -432,9 +432,9 @@ export default function CommonSideBarNode({
               <p className="text-black font-bold text-sm uppercase tracking-wide mb-1">
                 {tooltip.label}
               </p>
-              {tooltip.description && (
+              {tooltip.tldw && (
                 <p className="text-gray-500 text-xs mb-1">
-                  {tooltip.description}
+                  {tooltip.tldw}
                 </p>
               )}
               <div className="flex items-center gap-1.5 text-900-400 text-xs mt-2 font-medium">

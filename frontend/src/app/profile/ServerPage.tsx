@@ -23,7 +23,7 @@ export default async function ServerPage() {
     { video: 0, code: 0, quiz: 0, rambling: 0, interactive: 0 },
   );
   return (
-    <div className="col-span-3 md:col-span-2 h-screen">
+    <div className="col-span-3 md:col-span-2">
       <div className="grid grid-cols-1 md:grid-cols-7 col-span-2 bg-gray-200  gap-10 p-6 rounded-lg">
         <div className="col-span-1">
           <ProfileCirleRing />
