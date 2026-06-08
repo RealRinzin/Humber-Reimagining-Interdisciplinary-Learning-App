@@ -37,12 +37,12 @@ export default function VideoPlayerModal({src,title,description,subtitle}:VideoP
               <h1 className="text-2xl font-extrabold my-3 text-gray-700">
                 {title}
               </h1>
-              <p className="mb-4 font-medium text-gray-700 px-2">{description}</p>
+              <p className="mb-4 font-medium text-gray-800 px-2">{description}</p>
               <MyPlayer
                 src={src}
                 last_stop={0}
-                videoID={1}
-                userVideoID={1}
+                videoID={0}
+                userVideoID={0}
                 subtitle={subtitle}
               />
               <button

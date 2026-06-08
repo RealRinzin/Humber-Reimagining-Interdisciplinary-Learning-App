@@ -1,55 +1,51 @@
 "use client";
-import { MyPlayer } from "@/components/ui/video/VideoPlayer";
-import { useToggle } from "@/hooks/common/useToggle";
-import React from "react";
+import React, { useState } from "react";
 
-export default function Page() {
-  const { isOn: isOpen, toggle } = useToggle(false);
-
+interface OnBoardingDtypes {
+  id: number;
+  name: string;
+  completed: boolean;
+  component: string;
+}
+export default function page() {
+  const [onBoarding, setOnBoarding] = useState<OnBoardingDtypes[]>([
+    {
+      id: 1,
+      name: "personalDetail",
+      completed: true,
+      component: "PersonalDetail",
+    },
+    {
+      id: 2,
+      name: "selectContent",
+      completed: false,
+      component: "SeleceContent",
+    },
+    {
+      id: 3,
+      name: "learningPath",
+      completed: false,
+      component: "LearningPath",
+    },
+    {
+      id: 4,
+      name: "showProgress",
+      completed: false,
+      component: "showProgress",
+    },
+  ]);
   return (
-    <div className="h-screen bg-red-700">
-      <button className="cursor-pointer" onClick={toggle}>
-        Open
-      </button>
-      <div
-        className={`
-          fixed inset-0 flex justify-center items-center
-          bg-black/30 backdrop-blur-md
-          transition-all duration-300 ease-in-out
-          ${
-            isOpen
-              ? "opacity-100 visible"
-              : "opacity-0 invisible pointer-events-none"
-          }
-        `}
-        onClick={toggle}
-      >
-        <div
-          className={`
-            bg-gray-200 w-2/3 p-4 rounded-lg
-            transition-all duration-300 ease-in-out
-            ${isOpen ? "translate-y-0 scale-100" : "-translate-y-4 scale-95"}
-          `}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <h1 className="text-2xl font-extrabold my-3">
-            Intro To special Topic
-          </h1>
-          <MyPlayer
-            src="SpacesProject_V16_Viewport_Matrix_exp1_HD.mp4"
-            last_stop={0}
-            videoID={1}
-            userVideoID={1}
-            subtitle="SpaceProject_V13_ProjectionMatrix.vtt"
-          />
-          <button
-            className="text-white font-extrabold cursor-pointer absolute -top-2 -right-2 h-10 w-10 bg-red-600 rounded-full"
-            onClick={toggle}
-          >
-            X
-          </button>
-        </div>
-      </div>
+    <div className="min-h-screen bg-gray-300 w-2/4">
+      <ul className="flex py-3 justify-evenly">
+        {onBoarding.map((onboarding, index) => (
+            <li
+              key={index}
+              className={`flex h-10 w-10 items-center justify-center rounded-full ${onboarding?.completed ? "bg-gray-500 " : "bg-gray-200 "} after:content-['']`}
+            > 
+              {onboarding.id} 
+            </li>
+        ))}
+      </ul>
     </div>
   );
 }
