@@ -152,7 +152,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
       {video?.quiz && (
         <CourseTabs
           type="quiz"
-          title={"Test Your Knowledge (flash cards)"}
+          title={"Test Your Knowledge"}
           icon="QuizIcon.png"
           content={video.title}
           status={completeStatus?.quiz}
@@ -182,7 +182,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
       {video?.rambling && (
         <CourseTabs
           type="rambling"
-          title={"Umer's Ramblings (extra content for reading)"}
+          title={"Umer's Ramblings"}
           icon="RamblingsIcon.png"
           content={video?.ramblings}
           videoID={video?.id}

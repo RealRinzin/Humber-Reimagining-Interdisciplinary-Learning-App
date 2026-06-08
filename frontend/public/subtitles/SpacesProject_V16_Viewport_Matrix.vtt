@@ -1,0 +1,1471 @@
+WEBVTT
+
+00:00:00.400 --> 00:00:02.180
+- All right.
+So, yes,
+
+00:00:02.180 --> 00:00:05.040
+we're here to talk about
+the viewport matrix.
+
+00:00:05.040 --> 00:00:06.883
+Why don't we start
+with the words viewport?
+
+00:00:06.883 --> 00:00:08.399
+What does that mean?
+
+00:00:08.399 --> 00:00:10.768
+- The viewport is
+the actual window
+
+00:00:10.768 --> 00:00:13.061
+that we're looking at
+here at Cassidy's Cafe.
+
+00:00:13.061 --> 00:00:14.848
+The window you're looking at
+
+00:00:14.848 --> 00:00:16.478
+on a computer screen
+is the viewport.
+
+00:00:16.478 --> 00:00:18.767
+The viewport is usually
+just referred to
+
+00:00:18.767 --> 00:00:21.429
+or measured by
+
+00:00:21.429 --> 00:00:24.730
+the width and height of it,
+but it doesn't have to be.
+
+00:00:24.730 --> 00:00:26.785
+So usually,
+it would be zero, zero
+
+00:00:26.785 --> 00:00:28.602
+at the top left-hand corner,
+
+00:00:28.602 --> 00:00:31.770
+and then width and height
+at the bottom right-hand corner.
+
+00:00:31.770 --> 00:00:34.095
+However, you can offset
+ that a little bit,
+
+00:00:34.095 --> 00:00:36.410
+although I've never done it
+and never tried it.
+
+00:00:36.410 --> 00:00:38.607
+But computer programming
+ people are usually
+
+00:00:38.607 --> 00:00:40.845
+pretty good about
+giving you options.
+
+00:00:40.845 --> 00:00:42.525
+- Yeah, you never know.
+You might want to.
+
+00:00:42.525 --> 00:00:44.205
+- Yeah, so that just
+makes the math harder.
+
+00:00:44.205 --> 00:00:46.375
+But if we assume that
+it's just zero, zero
+
+00:00:46.375 --> 00:00:48.538
+at the upper left-hand corner,
+
+00:00:48.538 --> 00:00:51.346
+and then width and height at
+the bottom right-hand corner,
+
+00:00:51.346 --> 00:00:53.310
+that's the viewport.
+That's the window.
+
+00:00:53.310 --> 00:00:54.827
+- Viewport.
+
+00:00:54.827 --> 00:00:56.968
+- Yes, and all the stuff
+that we're doing with models
+
+00:00:56.968 --> 00:00:59.004
+and model spaces,
+camera spaces,
+
+00:00:59.004 --> 00:01:01.200
+all of these different things
+all have to get
+
+00:01:01.200 --> 00:01:03.870
+squeezed onto
+this one screen.
+
+00:01:03.870 --> 00:01:05.995
+And so I need to find
+the final process
+
+00:01:05.995 --> 00:01:07.525
+to do that.
+
+00:01:07.525 --> 00:01:09.877
+And that's this topic.
+- Yes.
+
+00:01:09.877 --> 00:01:11.845
+So that's the first word,
+viewport.
+
+00:01:11.845 --> 00:01:13.525
+It's kind of a weird word.
+
+00:01:13.525 --> 00:01:15.825
+Why isn't it just
+called window?
+
+00:01:15.825 --> 00:01:17.707
+- Okay, let's change it.
+- Okay, yeah.
+
+00:01:17.707 --> 00:01:19.749
+Okay, let's write someone
+about that viewport.
+
+00:01:19.749 --> 00:01:21.780
+- That's the view...
+
+00:01:21.780 --> 00:01:24.100
+I'm viewing into this.
+- A port.
+
+00:01:24.100 --> 00:01:25.860
+- Port.
+- Oh, okay.
+
+00:01:25.860 --> 00:01:27.460
+Kind of makes me think
+of being in the submarine
+
+00:01:27.460 --> 00:01:29.063
+looking out...
+- The window.
+
+00:01:29.063 --> 00:01:30.652
+Isn't that what you're
+looking at when you're looking
+
+00:01:30.652 --> 00:01:32.183
+at a little...
+
+00:01:32.183 --> 00:01:34.772
+- It all make sense now.
+- Of course.
+
+00:01:34.772 --> 00:01:37.575
+- And it's the viewport matrix.
+
+00:01:37.575 --> 00:01:40.698
+So maybe I should explain
+what a matrix is.
+
+00:01:40.698 --> 00:01:43.536
+Yeah, so I brought
+myself a vector,
+
+00:01:43.536 --> 00:01:45.381
+X, Y, Z,
+and I'm always
+
+00:01:45.381 --> 00:01:48.360
+keeping an eye on
+this last component, the W.
+
+00:01:48.360 --> 00:01:50.290
+So what a matrix is,
+
+00:01:50.290 --> 00:01:52.600
+it's just a table of numbers.
+
+00:01:52.600 --> 00:01:54.978
+Like, this is four long,
+
+00:01:54.978 --> 00:01:57.586
+so the matrix has to have
+a width of four,
+
+00:01:57.586 --> 00:01:59.240
+and a height of four.
+
+00:01:59.240 --> 00:02:01.745
+It's it's got to
+match this somehow.
+
+00:02:01.745 --> 00:02:04.630
+It's got to have this
+many columns or rows,
+
+00:02:04.630 --> 00:02:06.219
+depending on...
+
+00:02:06.219 --> 00:02:08.119
+We have
+a column vector here,
+
+00:02:08.119 --> 00:02:11.026
+but some people like
+ row vectors as well,
+
+00:02:11.026 --> 00:02:13.105
+where the vector
+is across.
+
+00:02:13.105 --> 00:02:15.900
+But, yeah, we like
+column vectors here.
+
+00:02:15.900 --> 00:02:18.519
+Yeah, so the viewport matrix,
+
+00:02:18.519 --> 00:02:20.500
+it's a four-by-four,
+
+00:02:20.500 --> 00:02:23.116
+so four columns, four rows
+
+00:02:23.116 --> 00:02:25.100
+to transform this thing.
+
+00:02:25.100 --> 00:02:27.500
+And this is a position.
+
+00:02:27.500 --> 00:02:30.064
+This is a position
+in Cassidy's
+
+00:02:30.064 --> 00:02:32.205
+NDC box.
+
+00:02:32.205 --> 00:02:34.127
+So Cassidy made this for us.
+
+00:02:34.127 --> 00:02:37.694
+This is the normalized
+device coordinate box.
+
+00:02:37.694 --> 00:02:39.905
+And the matrix takes us
+from this box
+
+00:02:39.905 --> 00:02:41.645
+to the screen.
+
+00:02:41.645 --> 00:02:44.133
+And Cassidy's also set up
+the camera in Unreal so
+
+00:02:44.133 --> 00:02:47.459
+that you have this huge
+looking croissant at the front
+
+00:02:47.459 --> 00:02:49.051
+because it's closer to us.
+
+00:02:49.051 --> 00:02:50.709
+And at the back,
+there's a sofa
+
+00:02:50.709 --> 00:02:52.601
+and a window, and they
+
+00:02:52.601 --> 00:02:54.959
+look much smaller
+because of that perspective
+
+00:02:54.959 --> 00:02:56.925
+trick that you do to us.
+
+00:02:56.925 --> 00:02:59.235
+This NDC box, it has
+a bunch of coordinates,
+
+00:02:59.235 --> 00:03:01.545
+X, Y, Z.
+
+00:03:01.545 --> 00:03:03.667
+X is left and right,
+Y is up and down.
+
+00:03:03.667 --> 00:03:05.305
+The Z is always
+a bit tricky one.
+
+00:03:05.305 --> 00:03:08.242
+The NDC box is left-handed,
+
+00:03:08.242 --> 00:03:11.136
+so X is positive to the right,
+
+00:03:11.136 --> 00:03:14.440
+Y is positive up,
+but Z is going towards my nose.
+
+00:03:14.440 --> 00:03:16.760
+So the front
+of this NDC box
+
+00:03:16.760 --> 00:03:19.690
+is negative Z.
+But maybe we should...
+
+00:03:19.690 --> 00:03:21.578
+- Only in OpenGL.
+- Sorry, carry on.
+
+00:03:21.578 --> 00:03:23.533
+Only in OpenGL,
+and in Vulcan,
+
+00:03:23.533 --> 00:03:26.833
+it's now the right hand, okay?
+
+00:03:26.833 --> 00:03:28.448
+So just clarify.
+
+00:03:28.448 --> 00:03:30.900
+- It's almost like it's
+a shared understanding
+
+00:03:30.900 --> 00:03:33.501
+of what space we're in,
+
+00:03:33.501 --> 00:03:35.387
+which way things point.
+
+00:03:35.387 --> 00:03:37.225
+- A lot of it is just
+legacy as well.
+
+00:03:37.225 --> 00:03:39.265
+So the reason that
+the viewport...
+
+00:03:39.265 --> 00:03:42.150
+As I was mentioning,
+the upper left-hand corner
+
+00:03:42.150 --> 00:03:45.060
+is zero, the bottom right-hand
+corner is width and height.
+
+00:03:45.060 --> 00:03:48.839
+And that comes from the old
+CRT days, cathode ray tube,
+
+00:03:48.839 --> 00:03:51.540
+where the electron
+gun is scanning along.
+
+00:03:51.540 --> 00:03:53.235
+And, of course,
+you scan starting at
+
+00:03:53.235 --> 00:03:55.400
+the upper right-hand corner,
+ and scan over
+
+00:03:55.400 --> 00:03:57.364
+towards the right,
+
+00:03:57.364 --> 00:03:58.892
+and then drop down
+a little bit,
+
+00:03:58.892 --> 00:04:00.645
+scan again, scan again,
+scan again.
+
+00:04:00.645 --> 00:04:03.101
+So TV sets,
+old-style TV sets
+
+00:04:03.101 --> 00:04:06.351
+have always had
+the zero, zero corner
+
+00:04:06.351 --> 00:04:08.294
+in the upper right-hand corner,
+upper left-hand...
+
+00:04:08.294 --> 00:04:09.794
+- The left-hand corner, yes.
+
+00:04:09.794 --> 00:04:11.433
+- Yeah, and then
+the width and height
+
+00:04:11.433 --> 00:04:13.842
+at the bottom right-hand corner.
+- Yes.
+
+00:04:13.842 --> 00:04:15.735
+- So we just carried
+on from there.
+
+00:04:15.735 --> 00:04:17.242
+- Yes, you're right.
+
+00:04:17.242 --> 00:04:18.953
+So maybe we should talk
+about these coordinates.
+
+00:04:18.953 --> 00:04:22.456
+Yes, so on the screen
+in pixel space,
+
+00:04:22.456 --> 00:04:24.686
+like Scott's saying,
+the top left corner,
+
+00:04:24.686 --> 00:04:27.734
+that's zero, zero
+for X and Y.
+
+00:04:27.734 --> 00:04:30.514
+But in our NDC box,
+
+00:04:30.514 --> 00:04:32.834
+the top-left corner,
+
+00:04:32.834 --> 00:04:35.677
+that's negative one for X,
+
+00:04:35.677 --> 00:04:39.278
+and positive
+one for Y.
+
+00:04:39.278 --> 00:04:41.342
+So the matrix,
+ this viewport matrix,
+
+00:04:41.342 --> 00:04:45.139
+is going to have to
+transform that corner,
+
+00:04:45.139 --> 00:04:47.631
+that top-left corner
+so it's equal to zero, zero
+
+00:04:47.631 --> 00:04:49.475
+on the screen.
+
+00:04:49.475 --> 00:04:52.115
+There's other parts
+of the box you could examine.
+
+00:04:52.115 --> 00:04:55.056
+The bottom-right corner
+
+00:04:55.056 --> 00:04:57.577
+over here of the NDC box,
+
+00:04:57.577 --> 00:05:00.135
+that's a positive one for X,
+
+00:05:00.135 --> 00:05:03.280
+but a negative one for Y.
+
+00:05:03.280 --> 00:05:05.920
+But on the screen,
+
+00:05:05.920 --> 00:05:08.635
+we're looking at
+the bottom right
+
+00:05:08.635 --> 00:05:11.040
+of pixel space.
+
+00:05:11.040 --> 00:05:13.220
+And my math might be wrong
+on this, so I think
+
+00:05:13.220 --> 00:05:16.240
+Dina might dub me,
+dub my voice at this point.
+
+00:05:16.240 --> 00:05:19.184
+I counted the pixels
+on the screen, and I thought...
+
+00:05:19.184 --> 00:05:20.995
+You're already
+laughing at me now.
+
+00:05:20.995 --> 00:05:24.664
+I thought it had
+1,600 pixels across,
+
+00:05:24.664 --> 00:05:26.788
+and 1,080...
+
+00:05:26.788 --> 00:05:28.913
+1,080 pixels down.
+
+00:05:28.913 --> 00:05:31.596
+So if my math is correct,
+in pixel space,
+
+00:05:31.596 --> 00:05:34.275
+that bottom-right corner
+should be
+
+00:05:34.275 --> 00:05:37.207
+a position of 1,600 for X
+
+00:05:37.207 --> 00:05:39.467
+and 1,080 for Y.
+
+00:05:39.467 --> 00:05:41.682
+- Fortunately, I can work
+with any number you want
+
+00:05:41.682 --> 00:05:44.017
+because I'm going to
+build this matrix.
+
+00:05:44.017 --> 00:05:46.217
+Another way to view the matrix
+
+00:05:46.217 --> 00:05:49.315
+is that square that you
+were saying of numbers.
+
+00:05:49.315 --> 00:05:52.195
+You can also look at
+that as a set of equations,
+
+00:05:52.195 --> 00:05:55.075
+and each one of those numbers is
+a coefficient in that equation.
+
+00:05:55.075 --> 00:05:58.760
+So what I'm going to do
+in this matrix
+
+00:05:58.760 --> 00:06:01.126
+is I'm going to
+take the numbers
+
+00:06:01.126 --> 00:06:02.772
+that I'm getting
+out of the normalized
+
+00:06:02.772 --> 00:06:04.291
+device coordinate system,
+
+00:06:04.291 --> 00:06:06.322
+and I'm going to
+expand them out
+
+00:06:06.322 --> 00:06:07.934
+so that they're the width
+of the screen,
+
+00:06:07.934 --> 00:06:10.134
+whatever the width is,
+
+00:06:10.134 --> 00:06:11.985
+and I will expand it so
+that the height
+
+00:06:11.985 --> 00:06:14.215
+is whatever
+height you want.
+
+00:06:14.215 --> 00:06:16.200
+And then because
+the origin is
+
+00:06:16.200 --> 00:06:18.482
+up at the top left-hand corner,
+
+00:06:18.482 --> 00:06:20.443
+and the width and height are at
+the bottom right-hand corner,
+
+00:06:20.443 --> 00:06:22.137
+I'm also going to take
+the whole thing and flip it
+
+00:06:22.137 --> 00:06:24.834
+so everything fits onto
+the screen coordinates
+
+00:06:24.834 --> 00:06:27.525
+of the viewport or
+the viewport coordinates.
+
+00:06:27.525 --> 00:06:29.030
+- Yeah.
+- It's simple.
+
+00:06:29.030 --> 00:06:31.591
+- One thing I struggle
+with is that in NDC space,
+
+00:06:31.591 --> 00:06:33.223
+the origin,
+zero, zero, zero,
+
+00:06:33.223 --> 00:06:34.766
+is right in the middle.
+
+00:06:34.766 --> 00:06:37.215
+But for our
+pixel space,
+
+00:06:37.215 --> 00:06:39.225
+the origin is
+
+00:06:39.225 --> 00:06:41.110
+the top-left corner.
+
+00:06:41.110 --> 00:06:42.962
+So, yeah,
+
+00:06:42.962 --> 00:06:44.606
+that's kind of weird.
+
+00:06:44.606 --> 00:06:47.228
+In a way, so that matrix
+that you're talking about,
+
+00:06:47.228 --> 00:06:49.662
+the viewport matrix,
+it's going to transform
+
+00:06:49.662 --> 00:06:52.935
+the position
+zero, zero in X
+
+00:06:52.935 --> 00:06:54.809
+to not be zero, zero here.
+
+00:06:54.809 --> 00:06:57.060
+We want the middle
+of the actual screen.
+
+00:06:57.060 --> 00:06:59.980
+So that's 1,600
+divided by two,
+
+00:06:59.980 --> 00:07:02.900
+and 1,080 divided by two.
+
+00:07:02.900 --> 00:07:05.140
+Wow, your matrix
+does lot of stuff.
+
+00:07:05.140 --> 00:07:07.763
+- It's actually not that bad
+because remember, we did...
+
+00:07:07.763 --> 00:07:10.991
+We were talking
+about scales
+
+00:07:10.991 --> 00:07:13.056
+and translates and all this.
+
+00:07:13.056 --> 00:07:16.038
+So all I need to do is
+to take this box,
+
+00:07:16.038 --> 00:07:18.451
+scale it, shift it,
+
+00:07:18.451 --> 00:07:20.271
+move it, translate it,
+
+00:07:20.271 --> 00:07:22.155
+flip it over once.
+
+00:07:22.155 --> 00:07:24.715
+And these are just
+individual little math calls.
+
+00:07:24.715 --> 00:07:27.205
+The sum of which,
+or the product of which
+
+00:07:27.205 --> 00:07:29.440
+is just this one matrix,
+
+00:07:29.440 --> 00:07:31.498
+and multiply this guy
+
+00:07:31.498 --> 00:07:33.091
+and you're going to get that.
+- Wow.
+
+00:07:33.091 --> 00:07:35.360
+- So I had a sneak peek
+at your code
+
+00:07:35.360 --> 00:07:38.200
+before our discussion today.
+
+00:07:38.200 --> 00:07:40.521
+And looking at
+your viewport move,
+
+00:07:40.521 --> 00:07:42.935
+the first move
+you do is a scale,
+
+00:07:42.935 --> 00:07:45.015
+and it's a really
+weird scale.
+
+00:07:45.015 --> 00:07:46.935
+You scale
+by negative one...
+
+00:07:46.935 --> 00:07:48.798
+- Flipping it over.
+- On the Y.
+
+00:07:48.798 --> 00:07:51.068
+Because I always think of scale
+as making things bigger,
+
+00:07:51.068 --> 00:07:53.125
+making something
+bigger or smaller,
+
+00:07:53.125 --> 00:07:55.381
+but with a negative number down.
+
+00:07:55.381 --> 00:07:58.127
+- Yeah, so that would just
+flip the coordinate that way.
+
+00:07:58.127 --> 00:08:00.053
+- It flips the box?
+- Yeah.
+
+00:08:00.053 --> 00:08:01.962
+- Wow. Okay.
+So that's the first move.
+
+00:08:01.962 --> 00:08:03.710
+And why do we need
+to do that?
+
+00:08:03.710 --> 00:08:06.409
+- Because the origin is up here,
+
+00:08:06.409 --> 00:08:09.415
+and in this one,
+the origin's in the middle.
+
+00:08:09.415 --> 00:08:11.310
+So how am I going to
+get the origin up there?
+
+00:08:11.310 --> 00:08:12.832
+I got to flip it over.
+
+00:08:12.832 --> 00:08:16.017
+- And also, like you were saying
+ with the electron gun,
+
+00:08:16.017 --> 00:08:18.244
+like thinking back,
+
+00:08:18.244 --> 00:08:20.846
+Y goes downwards,
+
+00:08:20.846 --> 00:08:23.735
+which is different to what
+we think of in NDC space.
+
+00:08:23.735 --> 00:08:26.130
+We think of y going upwards.
+
+00:08:26.130 --> 00:08:29.012
+Okay, so your first move
+is to flip Y,
+
+00:08:29.012 --> 00:08:30.673
+so it's going the other way.
+
+00:08:30.673 --> 00:08:33.250
+Instead of Y going up,
+Y has to go down.
+
+00:08:33.250 --> 00:08:35.730
+Then the next move you do,
+I looked at it.
+
+00:08:35.730 --> 00:08:37.410
+You scaled.
+
+00:08:37.410 --> 00:08:40.925
+You you didn't scale
+by 1,600 along X.
+
+00:08:40.925 --> 00:08:43.804
+You scaled by 1,600 divided
+by two along X.
+
+00:08:43.804 --> 00:08:46.111
+- Do you remember
+ that this thing is
+
+00:08:46.111 --> 00:08:48.598
+a one by one by one
+by one by...
+
+00:08:48.598 --> 00:08:51.085
+Well, not anymore.
+
+00:08:51.085 --> 00:08:53.810
+But it's going to be
+one by one by one.
+
+00:08:53.810 --> 00:08:56.450
+So I don't need to
+scale it by its full width.
+
+00:08:56.450 --> 00:08:58.556
+I just need to do it
+half of its width,
+
+00:08:58.556 --> 00:09:00.139
+and then I'm going to
+slide it over.
+
+00:09:00.139 --> 00:09:01.777
+- I thought that's
+what you were doing.
+
+00:09:01.777 --> 00:09:04.250
+So you scale the X
+
+00:09:04.250 --> 00:09:06.930
+by the pixel width.
+
+00:09:06.930 --> 00:09:09.785
+So 1,600 divided by two.
+- Divide by two.
+
+00:09:09.785 --> 00:09:11.784
+- And you scale the Y
+
+00:09:11.784 --> 00:09:13.705
+by 1,080 divided by two.
+
+00:09:13.705 --> 00:09:16.023
+So that means our NDC
+box must already
+
+00:09:16.023 --> 00:09:19.172
+be kind of set up to
+the right ratio.
+
+00:09:19.172 --> 00:09:21.990
+You mentioned before,
+the word "aspect ratio,"
+
+00:09:21.990 --> 00:09:24.382
+and that's why you think
+my numbers might not add up,
+
+00:09:24.382 --> 00:09:26.040
+the 1,600 by 1,080.
+
+00:09:26.040 --> 00:09:28.664
+It doesn't sound like
+ a proper aspect ratio
+
+00:09:28.664 --> 00:09:30.229
+you hear in the wild.
+
+00:09:30.229 --> 00:09:31.759
+- Well,
+
+00:09:31.759 --> 00:09:35.283
+Cassidy's Cafe is
+a 16:9 ratio,
+
+00:09:35.283 --> 00:09:38.655
+and the numbers you counted
+are not exactly that.
+
+00:09:38.655 --> 00:09:41.775
+But again, I can work
+with anything you give me.
+
+00:09:41.775 --> 00:09:43.306
+All right?
+- You're so generous.
+
+00:09:43.306 --> 00:09:44.863
+- Yeah, it's just math.
+
+00:09:44.863 --> 00:09:47.295
+First, the flip,
+then the scale.
+
+00:09:47.295 --> 00:09:49.297
+And the last thing is that,
+ like you're saying,
+
+00:09:49.297 --> 00:09:51.710
+the origin isn't
+in the middle
+
+00:09:51.710 --> 00:09:53.830
+of pixel space.
+
+00:09:53.830 --> 00:09:56.630
+It's in the top-left corner.
+
+00:09:56.630 --> 00:09:59.190
+So I noticed
+you did a translate.
+
+00:09:59.190 --> 00:10:01.399
+You translated by X,
+
+00:10:01.399 --> 00:10:04.695
+by half
+the number of pixels,
+
+00:10:04.695 --> 00:10:07.080
+the width, and you
+translate the Y
+
+00:10:07.080 --> 00:10:09.495
+by half the amount of pixels
+going up and down.
+
+00:10:09.495 --> 00:10:11.114
+- Now this thing fits
+
+00:10:11.114 --> 00:10:13.655
+into Cassidy's viewport.
+
+00:10:13.655 --> 00:10:15.712
+- Oh, and so that's why
+it's called
+
+00:10:15.712 --> 00:10:17.441
+the viewport matrix.
+
+00:10:17.441 --> 00:10:20.089
+And that's why I was very
+excited to bring my vector in,
+
+00:10:20.089 --> 00:10:22.981
+because if you're doing
+any kind of translation,
+
+00:10:22.981 --> 00:10:25.044
+in order for it
+to work, you need
+
+00:10:25.044 --> 00:10:27.703
+this W component,
+and it has to be one
+
+00:10:27.703 --> 00:10:29.630
+to switch on translations.
+
+00:10:29.630 --> 00:10:31.355
+Yes, we do want to
+translate stuff.
+
+00:10:31.355 --> 00:10:34.475
+- Now, the only reason I had
+to do this is because of you.
+
+00:10:34.475 --> 00:10:36.590
+- Oh, that's my fault?
+- Yes, this is all your fault
+
+00:10:36.590 --> 00:10:38.867
+because, this last move
+
+00:10:38.867 --> 00:10:40.845
+to get it into the viewport
+ is all buried
+
+00:10:40.845 --> 00:10:42.998
+inside the API of all
+
+00:10:42.998 --> 00:10:45.180
+graphic systems, okay?
+
+00:10:45.180 --> 00:10:47.606
+So OpenGL, Vulcan, DirectX,
+
+00:10:47.606 --> 00:10:50.700
+all of these things
+automatically do that for me.
+
+00:10:50.700 --> 00:10:53.580
+But you wanted
+to do ray casting.
+
+00:10:53.580 --> 00:10:55.572
+And so in ray casting,
+ we're not actually going to
+
+00:10:55.572 --> 00:10:57.660
+project this onto a screen,
+so now I have to
+
+00:10:57.660 --> 00:10:59.225
+do it the hard way manually.
+
+00:10:59.225 --> 00:11:00.728
+- Yeah, one of my assignments...
+
+00:11:00.728 --> 00:11:02.265
+actually, quite a few
+of my assignments,
+
+00:11:02.265 --> 00:11:04.745
+you're clicking on the scene
+with your mouse.
+
+00:11:04.745 --> 00:11:06.649
+You've got
+the pixel coordinates,
+
+00:11:06.649 --> 00:11:08.518
+but I need to get
+back into
+
+00:11:08.518 --> 00:11:10.951
+NDC space, and then
+ eventually
+
+00:11:10.951 --> 00:11:13.130
+all the way to world space.
+
+00:11:13.130 --> 00:11:15.045
+So I use your viewport matrix,
+
+00:11:15.045 --> 00:11:16.770
+but I use it
+going the other way.
+
+00:11:16.770 --> 00:11:18.275
+- So you take the inverse.
+
+00:11:18.275 --> 00:11:20.090
+- Oh, I love matrices.
+
+00:11:20.090 --> 00:11:21.730
+So, yeah, the matrices
+take you from
+
+00:11:21.730 --> 00:11:23.346
+one space to the other,
+
+00:11:23.346 --> 00:11:25.280
+but if you want to go
+the other way, like me,
+
+00:11:25.280 --> 00:11:26.838
+you just inverse it.
+
+00:11:26.838 --> 00:11:29.356
+- Of course.
+- Wow. Okay.
+
+00:11:29.356 --> 00:11:30.915
+So we've talked
+a lot about, like,
+
+00:11:30.915 --> 00:11:33.523
+the X and Y positions
+of the front of
+
+00:11:33.523 --> 00:11:36.845
+this box and
+where it is on the screen.
+
+00:11:36.845 --> 00:11:38.600
+But how about the Z?
+
+00:11:38.600 --> 00:11:41.640
+Do you do you need to mess
+around with the Z coordinate
+
+00:11:41.640 --> 00:11:44.528
+as you transform
+from NDC to pixel?
+
+00:11:44.528 --> 00:11:48.128
+- Yes, I need to record
+those numbers, but what I'm...
+
+00:11:48.128 --> 00:11:50.605
+Now, this is going
+to be trickier.
+
+00:11:50.605 --> 00:11:52.911
+So because these numbers go
+
+00:11:52.911 --> 00:11:55.487
+from positive Z
+
+00:11:55.487 --> 00:11:58.276
+towards negative Z,
+but just one by one again,
+
+00:11:58.276 --> 00:12:01.453
+because it's a normalized
+device, I can now scale
+
+00:12:01.453 --> 00:12:04.560
+those into real units,
+
+00:12:04.560 --> 00:12:07.167
+kind of, that match
+what Cassidy's
+
+00:12:07.167 --> 00:12:08.780
+scene looks like.
+
+00:12:08.780 --> 00:12:11.900
+And I do that also
+in the same matrix.
+
+00:12:11.900 --> 00:12:14.396
+So what I'm getting now is
+I'm getting the Z depth,
+
+00:12:14.396 --> 00:12:17.082
+in the same units
+ that the scene
+
+00:12:17.082 --> 00:12:19.327
+is drawn in,
+but I'm storing that
+
+00:12:19.327 --> 00:12:21.885
+in a separate buffer
+called the depth buffer.
+
+00:12:21.885 --> 00:12:23.965
+And I'm going to store
+those numbers in there.
+
+00:12:23.965 --> 00:12:25.925
+And, again, that's just
+so I can keep track of
+
+00:12:25.925 --> 00:12:27.885
+where things are
+in the scene.
+
+00:12:27.885 --> 00:12:29.885
+Are they close to you?
+Are they far away?
+
+00:12:29.885 --> 00:12:32.707
+And that just
+becomes helpful.
+
+00:12:32.707 --> 00:12:35.313
+- I've heard about
+this idea of, like, a...
+
+00:12:35.313 --> 00:12:37.390
+Kind of like a shakiness
+in the pixels.
+
+00:12:37.390 --> 00:12:39.870
+I think Paul was mentioning
+this, like Z fighting.
+
+00:12:39.870 --> 00:12:42.024
+- Z fighting.
+- Oh, that's it, yes.
+
+00:12:42.024 --> 00:12:43.606
+- Yeah, so you're
+getting complicated.
+
+00:12:43.606 --> 00:12:45.134
+This front surface here
+is what we call
+
+00:12:45.134 --> 00:12:46.713
+the front clipping plane.
+
+00:12:46.713 --> 00:12:49.389
+Anything that is closer
+to the viewer,
+
+00:12:49.389 --> 00:12:51.675
+from here,
+it gets clipped out,
+
+00:12:51.675 --> 00:12:53.275
+so you don't see it.
+
+00:12:53.275 --> 00:12:56.844
+Anything that is
+for the back,
+
+00:12:56.844 --> 00:12:59.061
+from the back
+clipping plane,
+
+00:12:59.061 --> 00:13:00.795
+also gets taken
+out of the scene.
+
+00:13:00.795 --> 00:13:03.020
+We can't see forever.
+
+00:13:03.020 --> 00:13:06.247
+Now, if you set up
+the coordinate system
+
+00:13:06.247 --> 00:13:09.061
+in Cassidy's scene
+such that the numbers...
+
+00:13:09.061 --> 00:13:12.940
+There's only a finite number
+of numbers I can calculate.
+
+00:13:12.940 --> 00:13:16.012
+If you make that so big
+
+00:13:16.012 --> 00:13:17.881
+that there's really no
+ difference between
+
+00:13:17.881 --> 00:13:19.652
+any two Z points,
+
+00:13:19.652 --> 00:13:22.255
+the depth of those points,
+
+00:13:22.255 --> 00:13:25.955
+then, well, sometimes
+I think I'm in front of you.
+
+00:13:25.955 --> 00:13:28.031
+Sometimes the other pixel thinks
+it's in front of another one
+
+00:13:28.031 --> 00:13:29.700
+and that's called Z fighting.
+
+00:13:29.700 --> 00:13:31.227
+And it just flickers,
+and that just means
+
+00:13:31.227 --> 00:13:32.760
+you didn't set it up right.
+
+00:13:32.760 --> 00:13:34.435
+It's because
+you didn't pay attention.
+
+00:13:34.435 --> 00:13:36.822
+- Another thought I just had
+talking about
+
+00:13:36.822 --> 00:13:40.083
+getting your objects
+from NDC space
+
+00:13:40.083 --> 00:13:42.509
+to pixel space is
+that it's generally
+
+00:13:42.509 --> 00:13:44.414
+vertex positions
+you're doing.
+
+00:13:44.414 --> 00:13:46.598
+Like, I set my W to one,
+
+00:13:46.598 --> 00:13:49.593
+but if I'm thinking about
+normals, which are directions,
+
+00:13:49.593 --> 00:13:52.333
+that has a W of zero.
+
+00:13:52.333 --> 00:13:53.836
+You don't want to
+translate it.
+
+00:13:53.836 --> 00:13:56.324
+But imagine, do you do
+do you need the normals
+
+00:13:56.324 --> 00:13:58.320
+going from NDC
+to pixel space?
+
+00:13:58.320 --> 00:13:59.880
+- That's all done.
+
+00:13:59.880 --> 00:14:02.920
+- Wow, so anything to do with
+normals has already been...
+
+00:14:02.920 --> 00:14:05.320
+- The normals are just
+mostly for lighting.
+
+00:14:05.320 --> 00:14:07.800
+- Right, so I can go back
+to that one then.
+
+00:14:07.800 --> 00:14:09.660
+- Yeah.
+- Yeah, just verticies.
+
+00:14:09.660 --> 00:14:11.185
+- Well, we're going to
+divide that away.
+
+00:14:11.185 --> 00:14:13.164
+And then to get it into
+two-dimensional space,
+
+00:14:13.164 --> 00:14:14.665
+I'm going to divide the Z away.
+
+00:14:14.665 --> 00:14:16.178
+- You're kidding.
+That, too?
+
+00:14:16.178 --> 00:14:18.176
+- Yeah, that viewport
+
+00:14:18.176 --> 00:14:19.912
+is just in X and Y.
+
+00:14:19.912 --> 00:14:21.425
+- Yeah, just two numbers.
+
+00:14:21.425 --> 00:14:23.725
+Wow, we started with
+four numbers, end with two.
+
+00:14:23.725 --> 00:14:25.230
+Okay.
+
+00:14:25.230 --> 00:14:28.030
+So I think we can summarize
+what's been going on here.
+
+00:14:28.030 --> 00:14:30.932
+We're talking about
+the viewport matrix,
+
+00:14:30.932 --> 00:14:33.864
+and that takes us
+from the NDC cube,
+
+00:14:33.864 --> 00:14:36.562
+the normalized device
+coordinate space,
+
+00:14:36.562 --> 00:14:39.006
+all the way
+to pixel space.
+
+00:14:39.006 --> 00:14:41.525
+Our NDC cube,
+it's pretty tiny.
+
+00:14:41.525 --> 00:14:44.645
+Yeah, it only has a width
+of two, a height of two,
+
+00:14:44.645 --> 00:14:46.484
+a depth of two, and this is
+quite different
+
+00:14:46.484 --> 00:14:48.325
+to the screen.
+
+00:14:48.325 --> 00:14:50.327
+This screen has a width of
+
+00:14:50.327 --> 00:14:52.216
+1,600 pixels
+
+00:14:52.216 --> 00:14:55.080
+and a height of
+1,080 pixels.
+
+00:14:55.080 --> 00:14:57.888
+The origin of in NDC space
+
+00:14:57.888 --> 00:14:59.720
+is in the middle of the box.
+
+00:14:59.720 --> 00:15:03.480
+It's not true for pixel
+space is the top-left corner.
+
+00:15:03.480 --> 00:15:05.438
+So, yeah, what your matrix
+is really doing,
+
+00:15:05.438 --> 00:15:06.995
+and I like to
+blame you for this,
+
+00:15:06.995 --> 00:15:09.359
+because I use it all the time
+when I'm trying to figure out
+
+00:15:09.359 --> 00:15:11.963
+where my mouse is on the screen,
+but get it into
+
+00:15:11.963 --> 00:15:13.819
+3D space.
+
+00:15:13.819 --> 00:15:16.931
+So I not only can use the
+viewport matrix to go one way,
+
+00:15:16.931 --> 00:15:18.791
+you can inverse it to go
+
+00:15:18.791 --> 00:15:21.383
+from pixel to NDC space.
+
+00:15:21.383 --> 00:15:23.340
+- And all the way
+back to model.
+
+00:15:23.340 --> 00:15:25.420
+- Yeah, all the way back
+to Paul Neale.

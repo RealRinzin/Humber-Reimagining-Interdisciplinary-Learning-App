@@ -117,7 +117,8 @@ export default function CourseTabs({
           <>
             {(content as any)?.map((code: any, index: number) => {
               return (
-                <div key={index}>
+                <div key={index} className="py-2">
+                  <p className="p-1 text-slate-600 my-3">{code?.description}</p>
                   <p className="absolute right-10 my-4">
                     <FontAwesomeIcon
                       icon={faCopy}
@@ -140,20 +141,7 @@ export default function CourseTabs({
               );
             })}
           </>
-        ) : // <>
-
-        //   {content.map((code: any, index: any) => {
-        //     return (
-        // <SyntaxHighlighter key={index} language="cpp" style={solarizedDarkAtom}>
-        //   {code.id}
-        //   <div>
-        //     asdfs
-        //   </div>
-        //   {/* {content} */}
-        // </SyntaxHighlighter>
-        //     );
-        //   })}
-        // </>
+        ) : 
         type === "rambling" ? (
           <RamblingCard ramblings={ramblings} />
         ) : type === "quiz" ? (

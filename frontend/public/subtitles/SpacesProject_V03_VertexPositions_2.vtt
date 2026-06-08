@@ -1,0 +1,991 @@
+WEBVTT
+
+00:00:00.160 --> 00:00:02.480
+- Okay, so, Paul,
+what are we looking at here?
+
+00:00:02.480 --> 00:00:04.320
+This is 3ds Max?
+
+00:00:04.320 --> 00:00:05.955
+- This is 3ds Max, yes.
+
+00:00:05.955 --> 00:00:08.913
+And what I've created 
+is an incredibly simple,
+
+00:00:08.913 --> 00:00:11.293
+we'll call it a leg.
+
+00:00:11.293 --> 00:00:12.973
+And it has...
+
+00:00:12.973 --> 00:00:15.197
+You know, it's being driven
+by the skin modifier
+
+00:00:15.197 --> 00:00:16.975
+and a bit of animation
+on the bone.
+
+00:00:16.975 --> 00:00:19.520
+So it's trying
+ to mimic the idea
+
+00:00:19.520 --> 00:00:23.055
+of a leg bending
+and flexing.
+
+00:00:23.055 --> 00:00:26.015
+But there's some
+severe problems with this.
+
+00:00:26.015 --> 00:00:28.021
+Again, like we were
+discussing before,
+
+00:00:28.021 --> 00:00:30.790
+is that we've got a lot more
+complex things happening.
+
+00:00:30.790 --> 00:00:32.428
+And so trying to mimic
+
+00:00:32.428 --> 00:00:34.399
+skin moving over two bones
+
+00:00:34.399 --> 00:00:36.310
+isn't what happens in us.
+
+00:00:36.310 --> 00:00:38.310
+There is a lot more going on.
+
+00:00:38.310 --> 00:00:41.030
+And so we run into problems.
+
+00:00:41.030 --> 00:00:42.945
+And one of them is
+
+00:00:42.945 --> 00:00:44.837
+what is called
+linear skin weight.
+
+00:00:44.837 --> 00:00:48.155
+So we can see the problem
+here, happening.
+
+00:00:48.155 --> 00:00:51.330
+As this leg goes down,
+you can actually see the knee
+
+00:00:51.330 --> 00:00:53.435
+getting narrower across this.
+
+00:00:53.435 --> 00:00:56.095
+So if you look at
+this point here, specifically,
+
+00:00:56.095 --> 00:00:58.480
+that point is weighted 50-50
+
+00:00:58.480 --> 00:01:00.270
+between the upper bone,
+
+00:01:00.270 --> 00:01:01.960
+the thigh bone
+and the calf bone.
+
+00:01:01.960 --> 00:01:03.969
+And you can see as it comes
+ down, it actually gets
+
+00:01:03.969 --> 00:01:06.401
+closer and closer
+and closer to the knee,
+
+00:01:06.401 --> 00:01:08.315
+and slowly starts to collapse.
+
+00:01:08.315 --> 00:01:10.052
+- And you mentioned bone.
+Is that...
+
+00:01:10.052 --> 00:01:12.455
+I see there's something
+inside the model there.
+
+00:01:12.455 --> 00:01:14.775
+- So these are the bones
+that are in here.
+
+00:01:14.775 --> 00:01:16.471
+So that's a bone there,
+
+00:01:16.471 --> 00:01:18.148
+and then this is
+another bone here,
+
+00:01:18.148 --> 00:01:20.855
+and I can select them,
+you know, and whatnot.
+
+00:01:20.855 --> 00:01:22.486
+I've got an what's called
+an IK solver,
+
+00:01:22.486 --> 00:01:24.021
+something else
+we can talk about.
+
+00:01:24.021 --> 00:01:25.975
+A little bit of trig going
+on there for the animation.
+
+00:01:25.975 --> 00:01:28.080
+That point on the end,
+
+00:01:28.080 --> 00:01:30.363
+so if we take a look
+at the skin modifier,
+
+00:01:30.363 --> 00:01:33.702
+the skin modifier
+allows us to be able to
+
+00:01:33.702 --> 00:01:36.855
+essentially take
+individual points.
+
+00:01:36.855 --> 00:01:38.911
+And in this, you know,
+in this case,
+
+00:01:38.911 --> 00:01:41.533
+this one here, let's say,
+
+00:01:41.533 --> 00:01:44.455
+and weight them 
+between bones.
+
+00:01:44.455 --> 00:01:47.495
+So you, Scott, you mentioned
+to be able to multiply matrices.
+
+00:01:47.495 --> 00:01:50.242
+Well, this bone, this vertex
+
+00:01:50.242 --> 00:01:52.534
+is actually tracking
+both the thigh bone
+
+00:01:52.534 --> 00:01:54.302
+and the calf bone.
+
+00:01:54.302 --> 00:01:56.920
+And so it has to remember
+ where it started
+
+00:01:56.920 --> 00:01:59.595
+in relationship
+to those two bones
+
+00:01:59.595 --> 00:02:02.219
+and store a matrix,
+an offset matrix
+
+00:02:02.219 --> 00:02:04.852
+from the thigh bone,
+an offset matrix from
+
+00:02:04.852 --> 00:02:07.224
+the calf bone,
+and then it stores
+
+00:02:07.224 --> 00:02:08.735
+a weight between,
+
+00:02:08.735 --> 00:02:11.055
+a weight between those
+two matrices.
+
+00:02:11.055 --> 00:02:13.851
+So when we see it bend,
+
+00:02:13.851 --> 00:02:16.479
+eventually,
+you'll very noticeably
+
+00:02:16.479 --> 00:02:18.015
+start seeing it moved in.
+
+00:02:18.015 --> 00:02:20.173
+So I've actually come up
+with a nice little display
+
+00:02:20.173 --> 00:02:22.140
+of what's going on there.
+
+00:02:22.140 --> 00:02:23.858
+So we can think of,
+I've got these
+
+00:02:23.858 --> 00:02:27.260
+three point helpers,
+happening here.
+
+00:02:27.260 --> 00:02:29.820
+And these three
+point helpers are set up.
+
+00:02:29.820 --> 00:02:31.580
+I'll just turn this back off.
+
+00:02:31.580 --> 00:02:34.888
+So this upper one,
+ this red one here
+
+00:02:34.888 --> 00:02:37.885
+is actually parented
+to the upper bone.
+
+00:02:37.885 --> 00:02:40.390
+So you can think of
+ that like the original
+
+00:02:40.390 --> 00:02:43.805
+starting transform matrix
+offset from this bone.
+
+00:02:43.805 --> 00:02:47.371
+So that vertex is storing
+ this matrix value here,
+
+00:02:47.371 --> 00:02:49.315
+which is an offset
+from that bone.
+
+00:02:49.315 --> 00:02:52.170
+- So when you say offset,
+do you mean like a translation?
+
+00:02:52.170 --> 00:02:54.666
+- Well, when I rotate it,
+
+00:02:54.666 --> 00:02:56.523
+you can see that one
+I have selected
+
+00:02:56.523 --> 00:02:58.090
+is staying with
+that upper bone.
+
+00:02:58.090 --> 00:02:59.770
+It's rotating
+with that upper bone.
+
+00:02:59.770 --> 00:03:01.558
+The blue one on the bottom
+
+00:03:01.558 --> 00:03:03.372
+is parented to the calf bone,
+
+00:03:03.372 --> 00:03:05.214
+so it is moving
+and rotating
+
+00:03:05.214 --> 00:03:07.784
+with the lower one, okay?
+
+00:03:07.784 --> 00:03:10.861
+And then the green one
+ is what we call
+
+00:03:10.861 --> 00:03:13.309
+position constrained
+in a linear fashion
+
+00:03:13.309 --> 00:03:14.934
+between the upper
+and the lower one.
+
+00:03:14.934 --> 00:03:17.287
+So you can see it's staying,
+in this case, that vertex
+
+00:03:17.287 --> 00:03:19.030
+has a 50-50 weighting.
+
+00:03:19.030 --> 00:03:21.830
+50 per cent to the upper bone,
+50 per cent to the bottom.
+
+00:03:21.830 --> 00:03:23.764
+So something else I guess
+ to note here is that
+
+00:03:23.764 --> 00:03:26.950
+every vertex has
+to have normalized weighting.
+
+00:03:26.950 --> 00:03:29.153
+So however many bones
+
+00:03:29.153 --> 00:03:32.365
+that affect that vertex
+has to add up to one.
+
+00:03:32.365 --> 00:03:35.898
+Okay, so this is a,
+you know, 50-50 split
+
+00:03:35.898 --> 00:03:38.135
+between these two,
+ and you can see it's staying
+
+00:03:38.135 --> 00:03:41.085
+in a straight line between
+these two points.
+
+00:03:41.085 --> 00:03:44.028
+So as this starts to rotate
+
+00:03:44.028 --> 00:03:46.767
+more and more,
+you can see why
+
+00:03:46.767 --> 00:03:49.398
+it begins to collapse,
+because it's in a straight line
+
+00:03:49.398 --> 00:03:51.990
+between the upper matrix
+and the lower matrix.
+
+00:03:51.990 --> 00:03:54.672
+Basically, the thigh bone
+matrix offset,
+
+00:03:54.672 --> 00:03:57.917
+we'll call it,
+and the calf bone matrix offset,
+
+00:03:57.917 --> 00:04:00.850
+and it's staying weighted
+between those two, okay?
+
+00:04:00.850 --> 00:04:03.593
+- And you said that the top
+and the bottom one
+
+00:04:03.593 --> 00:04:05.275
+are parented.
+
+00:04:05.275 --> 00:04:07.675
+Now, I think of my mom and dad
+when I think of parents,
+
+00:04:07.675 --> 00:04:09.595
+so what do you mean by that?
+
+00:04:09.595 --> 00:04:12.075
+- As that display,
+I just took this one here,
+
+00:04:12.075 --> 00:04:14.555
+and it is a child of this one.
+
+00:04:14.555 --> 00:04:17.370
+So it is inheriting
+the transform matrix
+
+00:04:17.370 --> 00:04:19.495
+of the thigh bone,
+
+00:04:19.495 --> 00:04:22.718
+with an offset value
+from it, okay?
+
+00:04:22.718 --> 00:04:24.908
+And that's what happens in skin.
+
+00:04:24.908 --> 00:04:27.474
+So if I pick this skin here,
+
+00:04:27.474 --> 00:04:29.003
+and scroll on down,
+
+00:04:29.003 --> 00:04:30.966
+you can actually see
+the weights of it.
+
+00:04:30.966 --> 00:04:32.603
+I'll just open this weight list.
+
+00:04:32.603 --> 00:04:34.995
+So with this weight
+tool open, you can see
+
+00:04:34.995 --> 00:04:36.617
+with this vertex picked,
+it's actually
+
+00:04:36.617 --> 00:04:38.155
+using those two bones.
+
+00:04:38.155 --> 00:04:40.494
+So it's actually weighted
+between those two bones
+
+00:04:40.494 --> 00:04:42.360
+and it's weighted, well,
+not quite a 50-50.
+
+00:04:42.360 --> 00:04:43.877
+It looks like I messed up.
+
+00:04:43.877 --> 00:04:46.150
+But we could actually set
+that to a pure
+
+00:04:46.150 --> 00:04:48.590
+50-50 split between those.
+
+00:04:48.590 --> 00:04:51.662
+So if we weighted those
+differently, I said maybe 25,
+
+00:04:51.662 --> 00:04:54.270
+you can see that point
+is now down here.
+
+00:04:54.270 --> 00:04:56.697
+It's because bone two has got
+
+00:04:56.697 --> 00:04:59.015
+0.75 weighting on it,
+
+00:04:59.015 --> 00:05:01.215
+and the top one is a 0.25.
+
+00:05:01.215 --> 00:05:04.095
+So it's actually pulled down
+more with the bottom bone
+
+00:05:04.095 --> 00:05:06.975
+as that bottom bone goes.
+
+00:05:06.975 --> 00:05:08.695
+But again, back to
+the 50-50 weighting
+
+00:05:08.695 --> 00:05:11.577
+and it's right in between.
+So that's how that's done.
+
+00:05:11.577 --> 00:05:13.608
+Now, there's a problem
+with this that collapsing
+
+00:05:13.608 --> 00:05:15.600
+causes other issues.
+
+00:05:15.600 --> 00:05:17.337
+I'm just going to hide these
+
+00:05:17.337 --> 00:05:19.120
+and just show this guy here.
+
+00:05:19.120 --> 00:05:21.036
+This one kind of represents,
+
+00:05:21.036 --> 00:05:22.798
+well, think of it
+like an arm,
+
+00:05:22.798 --> 00:05:25.257
+and this is a problem
+we run into.
+
+00:05:25.257 --> 00:05:27.490
+You know, you've got
+an arm, and we have
+
+00:05:27.490 --> 00:05:29.896
+a hard rotation kind
+of happening
+
+00:05:29.896 --> 00:05:32.215
+up and down,
+side to side.
+
+00:05:32.215 --> 00:05:34.855
+So we want our weight set up
+so that it produces
+
+00:05:34.855 --> 00:05:37.655
+this nice hard crease here.
+
+00:05:37.655 --> 00:05:40.346
+The thing is, when we rotate
+our hand over,
+
+00:05:40.346 --> 00:05:42.742
+our arm has an ulnar radius,
+
+00:05:42.742 --> 00:05:45.153
+fat, muscle tissues,
+all kinds of other stuff,
+
+00:05:45.153 --> 00:05:47.147
+and we get this
+ nice soft blend all the way
+
+00:05:47.147 --> 00:05:48.889
+down the length of it, okay?
+
+00:05:48.889 --> 00:05:51.623
+So we're rotating
+ effectively the same joint,
+
+00:05:51.623 --> 00:05:53.948
+but we want completely
+different weighting.
+
+00:05:53.948 --> 00:05:55.540
+So what can happen is this.
+
+00:05:55.540 --> 00:05:58.133
+So you can see as we go down,
+we get that nice, hard weight
+
+00:05:58.133 --> 00:05:59.700
+and it comes back up.
+
+00:05:59.700 --> 00:06:02.331
+But when we twist it,
+ you'll notice that
+
+00:06:02.331 --> 00:06:05.850
+it does a candy-wrapper
+effect, okay?
+
+00:06:05.850 --> 00:06:08.394
+And that's because of
+ that problem of those
+
+00:06:08.394 --> 00:06:11.375
+linear weights now,
+ those two offset matrices
+
+00:06:11.375 --> 00:06:14.225
+are literally either side
+of the joint,
+
+00:06:14.225 --> 00:06:16.200
+and so the vertex ends up
+in the middle in
+
+00:06:16.200 --> 00:06:18.175
+between the two, okay?
+
+00:06:18.175 --> 00:06:19.955
+So we have to come up
+
+00:06:19.955 --> 00:06:22.030
+with other ways of
+dealing with that.
+
+00:06:22.030 --> 00:06:23.554
+We need to cheat it.
+
+00:06:23.554 --> 00:06:25.463
+Now, you'll actually notice
+there's multiple
+
+00:06:25.463 --> 00:06:27.471
+bones in here,
+
+00:06:27.471 --> 00:06:29.240
+in the forearm.
+
+00:06:29.240 --> 00:06:31.440
+So I've got the sort of
+initial, you know,
+
+00:06:31.440 --> 00:06:34.465
+forearm bone, but I've got
+this extra one in here.
+
+00:06:34.465 --> 00:06:37.636
+And what this does is
+it does a 50 per cent twist
+
+00:06:37.636 --> 00:06:39.665
+along only that X length.
+
+00:06:39.665 --> 00:06:41.745
+So when the hand
+twists over 180,
+
+00:06:41.745 --> 00:06:43.825
+it's only gone 90 degrees.
+
+00:06:43.825 --> 00:06:47.262
+And we skin to that as well
+ so that what we can get is
+
+00:06:47.262 --> 00:06:49.894
+a way to try and just...
+
+00:06:49.894 --> 00:06:52.500
+It's still collapsing.
+
+00:06:52.500 --> 00:06:54.340
+It still has the linear weight.
+
+00:06:54.340 --> 00:06:57.140
+We're just making it
+not as bad.
+
+00:06:57.140 --> 00:07:00.251
+So the more we do that,
+the more we can look correct.
+
+00:07:00.251 --> 00:07:02.032
+- You're going to
+like this part.
+
+00:07:02.032 --> 00:07:04.516
+The mathematics
+to get that twist
+
+00:07:04.516 --> 00:07:07.115
+and all that,
+dual quaternions.
+
+00:07:07.115 --> 00:07:09.198
+- Oh, wow.
+ - That's how they're
+
+00:07:09.198 --> 00:07:10.715
+doing the mathematics
+on this.
+
+00:07:10.715 --> 00:07:12.682
+So you don't get
+the candy wrapper up.
+
+00:07:12.682 --> 00:07:14.419
+- Well, we've actually...
+I haven't actually turned on
+
+00:07:14.419 --> 00:07:16.687
+dual quats, but I can even
+turn on dual quats.
+
+00:07:16.687 --> 00:07:18.599
+- I see a button there.
+- Yeah, there is
+
+00:07:18.599 --> 00:07:20.343
+a whole button for dual quats,
+
+00:07:20.343 --> 00:07:23.578
+so you can actually
+take the vertices
+
+00:07:23.578 --> 00:07:25.605
+in the mesh.
+
+00:07:25.605 --> 00:07:28.030
+And if I were just
+to paint that...
+
+00:07:32.405 --> 00:07:34.474
+And paint in
+
+00:07:34.474 --> 00:07:36.186
+dual quats into
+that area...
+
+00:07:36.186 --> 00:07:38.645
+- Wow, so you're you're
+painting the weight?
+
+00:07:38.645 --> 00:07:40.960
+- Painting the weight.
+So it's a it's a way of sort of,
+
+00:07:40.960 --> 00:07:42.742
+you know,
+being able to input that.
+
+00:07:42.742 --> 00:07:44.840
+So that should work
+even better now
+
+00:07:44.840 --> 00:07:46.805
+as far as keeping the volume.
+
+00:07:46.805 --> 00:07:48.808
+I've got another little
+problem coming up,
+
+00:07:48.808 --> 00:07:50.644
+but you can see it's
+even collapsing less
+
+00:07:50.644 --> 00:07:52.579
+because it's using
+dual quats now.
+
+00:07:52.579 --> 00:07:55.067
+Come to video games, though,
+we generally don't do that,
+
+00:07:55.067 --> 00:07:58.060
+as far as I understand,
+because of speed.
+
+00:07:58.060 --> 00:08:01.306
+Dealing with quaternions
+is way more overhead
+
+00:08:01.306 --> 00:08:03.154
+than handling just, you know,
+
+00:08:03.154 --> 00:08:05.397
+a linear weighting
+between points, right?
+
+00:08:05.397 --> 00:08:07.562
+So, it'll slow things down.
+
+00:08:07.562 --> 00:08:10.221
+But we use, in film production
+and whatnot,
+
+00:08:10.221 --> 00:08:11.935
+we use methods like this.
+
+00:08:11.935 --> 00:08:14.134
+We track the length of edges,
+
+00:08:14.134 --> 00:08:16.655
+and then we drive things
+with targets.
+
+00:08:16.655 --> 00:08:19.649
+There's all sorts of
+layers of cheats
+
+00:08:19.649 --> 00:08:21.934
+because we don't have muscles
+
+00:08:21.934 --> 00:08:23.720
+and we don't have whatnot.
+
+00:08:23.720 --> 00:08:26.760
+We can simulate muscle
+simulations a bit.
+
+00:08:26.760 --> 00:08:28.855
+It only, you know,
+it's like sometimes,
+
+00:08:28.855 --> 00:08:30.554
+cheats are just
+the better way to do it.
+
+00:08:30.554 --> 00:08:32.074
+- Now, when you were
+showing us the...
+
+00:08:32.074 --> 00:08:33.757
+You made a teapot,
+
+00:08:33.757 --> 00:08:35.985
+and it seemed very different
+to what you're doing now.
+
+00:08:35.985 --> 00:08:38.957
+It's almost like a different
+discipline or a different role.
+
+00:08:38.957 --> 00:08:40.510
+- It's a different role.
+
+00:08:40.510 --> 00:08:42.577
+The modeling is done
+by modelers,
+
+00:08:42.577 --> 00:08:45.048
+sort of pure up
+artists, generally,
+
+00:08:45.048 --> 00:08:47.105
+are creating the models.
+
+00:08:47.105 --> 00:08:49.608
+You know, the character that
+would be driven here
+
+00:08:49.608 --> 00:08:52.350
+would have been
+created by artists.
+
+00:08:52.350 --> 00:08:54.709
+And this is a tech art
+position, really,
+
+00:08:54.709 --> 00:08:56.815
+where we have to try and solve
+
+00:08:56.815 --> 00:08:59.659
+all of the problems
+of making things work, okay?
+
+00:08:59.659 --> 00:09:01.950
+Cassidy's a technical artist.
+
+00:09:01.950 --> 00:09:04.711
+You know, she's getting
+all of this to work for us
+
+00:09:04.711 --> 00:09:06.705
+sort of thing.
+
+00:09:06.705 --> 00:09:08.688
+So we tend to come
+from the art world,
+
+00:09:08.688 --> 00:09:11.167
+so we understand the art,
+
+00:09:11.167 --> 00:09:13.831
+but we're also dealing
+with the math and the matrices
+
+00:09:13.831 --> 00:09:15.497
+and the understanding
+of how things function,
+
+00:09:15.497 --> 00:09:18.217
+just not down that
+deep rabbit hole
+
+00:09:18.217 --> 00:09:20.122
+of how do you actually
+calculate a quaternion.
+
+00:09:20.122 --> 00:09:22.287
+- So we've been
+talking about vertices
+
+00:09:22.287 --> 00:09:24.170
+or vertex positions.
+
+00:09:24.170 --> 00:09:26.537
+So I think of them
+as a position
+
+00:09:26.537 --> 00:09:28.810
+of a corner of a triangle.
+
+00:09:28.810 --> 00:09:31.739
+And looking at Paul's model
+there, you've got quads.
+
+00:09:31.739 --> 00:09:33.971
+You represent them
+using X, Y, Z,
+
+00:09:33.971 --> 00:09:36.330
+left, right,
+up, down, in, out.
+
+00:09:36.330 --> 00:09:39.115
+But mathematicians and
+coders were a little careful.
+
+00:09:39.115 --> 00:09:41.736
+We also put another
+component, the W.
+
+00:09:41.736 --> 00:09:43.915
+And typically,
+you just set W to one.
+
+00:09:43.915 --> 00:09:45.915
+That means you can translate.
+
+00:09:45.915 --> 00:09:48.575
+We go from model space,
+where the vertices
+
+00:09:48.575 --> 00:09:50.469
+are built by the artist,
+
+00:09:50.469 --> 00:09:52.650
+and we hop over
+to world space.
+
+00:09:52.650 --> 00:09:55.735
+We've got a scale,
+rotate, translate,
+
+00:09:55.735 --> 00:09:58.490
+and that's called
+the model matrix.
+
+00:09:58.490 --> 00:10:00.403
+But there's all sorts of
+things you can
+
+00:10:00.403 --> 00:10:02.170
+mess around with.
+
+00:10:02.170 --> 00:10:04.291
+Vertices or the shaders
+
+00:10:04.291 --> 00:10:06.155
+that Scott talked about, yes,
+
+00:10:06.155 --> 00:10:07.809
+and also skinning.
+
+00:10:07.809 --> 00:10:10.435
+- Yep, it's all stored
+in the vertex as, you know,
+
+00:10:10.435 --> 00:10:13.035
+those data within
+each vertex.
+
+00:10:13.035 --> 00:10:15.355
+So we use vertex colours.
+
+00:10:15.355 --> 00:10:17.344
+We colour things
+with vertices sometimes.
+
+00:10:17.344 --> 00:10:18.980
+- Wow, because I think of them
+as position,
+
+00:10:18.980 --> 00:10:20.616
+but also a colour.
+
+00:10:20.616 --> 00:10:22.490
+- Well, add a UVW, right?
+
+00:10:22.490 --> 00:10:24.970
+So where a pixel will end up
+on a surface, right,
+
+00:10:24.970 --> 00:10:27.450
+is stored in a vertex.
+
+00:10:27.450 --> 00:10:29.434
+- It's easy.
+- Yeah, it's easy.

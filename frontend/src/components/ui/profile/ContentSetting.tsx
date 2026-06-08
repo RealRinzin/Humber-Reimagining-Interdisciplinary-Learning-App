@@ -77,7 +77,7 @@ export default function ContentSetting() {
           <ul className="flex flex-col gap-4">
             <Checkbox
               name={"quiz"}
-              label={"Test your knowledge (flash cards)"}
+              label={"Test your knowledge"}
               value={userSettings?.quiz ?? false}
               id={userSettings?.id}
             />
@@ -86,7 +86,7 @@ export default function ContentSetting() {
                 name={"rambling"}
                 value={userSettings?.rambling ?? false}
                 id={userSettings?.id}
-                label={"Umer's Ramblings (extra content for reading)"}
+                label={"Umer's Ramblings"}
               />
             </li>
           </ul>

@@ -267,9 +267,9 @@
         "video": true,
         "code": true,
         "rambling": true,
-        "interactive": true,
+        "interactive": false,
         "quiz": true,
-        "interactive_path": "16_viewport_matrix"
+        "interactive_path": ""
     },
     {
         "title": "Pixel Space",

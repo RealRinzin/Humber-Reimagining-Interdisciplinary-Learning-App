@@ -30,6 +30,11 @@
         "language": "en"
     },
     {
+        "video_id": 7,
+        "subtitle_url": "SpacesProject_V07_Rotation_1.vtt",
+        "language": "en"
+    },
+    {
         "video_id": 8,
         "subtitle_url": "SpacesProject_V08_Quaternions.vtt",
         "language": "en"
@@ -52,6 +57,11 @@
     {
         "video_id": 15,
         "subtitle_url": "SpacesProject_V15_NDC Spce.vtt",
+        "language": "en"
+    },
+    {
+        "video_id": 16,
+        "subtitle_url": "SpacesProject_V16_Viewport_Matrix.vtt",
         "language": "en"
     },
     {

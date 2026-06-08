@@ -1,5 +1,6 @@
 import { serverFetch } from "@/lib/fetch";
 import Image from "next/image";
+import Link from "next/link";
 export default async function TeamPage() {
   const res = await serverFetch("/projects");
   const { data: project } = await res.json();
@@ -24,12 +25,12 @@ export default async function TeamPage() {
           <h2 className="text-2xl font-bold py-5">The Sponsors</h2>
           <p>
             This project was funded through the
-            <a
+            <Link
               href="https://humber.ca/about/vision/reimagining-learning/teaching-learning-innovation-fund"
               className="text-blue-800 px-2 font-medium"
             >
               Builders of Brilliance Teaching & Learning Innovation Fund
-            </a>
+            </Link>
             at Humber Polytechnic.
           </p>
         </div>
