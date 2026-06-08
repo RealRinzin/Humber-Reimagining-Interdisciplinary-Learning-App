@@ -1,13 +1,14 @@
 "use client";
 
+import VideoPlayerModal from "@/components/ui/video/VideoModal";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 
 export default function CourseRelatedVideo({ video_sections }: any) {
   const [drop, setDrop] = useState(false);
+
   return (
     <section className="my-5">
       <div className="flex justify-between bg-slate-100 p-3 rounded-md">
@@ -39,7 +40,15 @@ export default function CourseRelatedVideo({ video_sections }: any) {
                   key={index}
                   className="bg-slate-200 rounded-md py-2 md:w-2/6 px-3 hover:text-blue-600"
                 >
-                  <Link href={`/video/section/${video.slug}`}>{video.title}</Link>
+                  <VideoPlayerModal
+                  src={video?.video_url}
+                  title={video?.title}
+                  description={video?.description}
+                  subtitle={video?.subtitle}
+                  />
+                  {/* <Link href={`/video/section/${video.slug}`}>
+                    {video.title}
+                  </Link> */}
                 </li>
               );
             })}

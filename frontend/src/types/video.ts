@@ -22,3 +22,12 @@ export interface VideoType {
         };
     }[];
 }
+
+
+// Video Parts Modal Type description
+export interface VideoPartsType{
+    src:string,
+    title:string,
+    description:string,
+    subtitle:string,
+}
