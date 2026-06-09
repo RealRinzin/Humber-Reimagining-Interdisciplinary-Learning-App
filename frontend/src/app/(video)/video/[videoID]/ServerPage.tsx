@@ -69,7 +69,9 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
    */
   const completeStatusRes = await serverFetch(
     `/user-video-setting/users/me/videos/${video.id}`,
+    // `/user-video-setting/users/me/videos/${video.id}`,
   );
+  console.log(video)
   // destructure the return data into completeStatus for better understanding and assigning
   const { data: completeStatus } = await completeStatusRes.json();
   // Check if the response is NULL
@@ -164,7 +166,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
       )}
 
       {/* Interactive */}
-      {video?.interactive_path && (
+      {video?.interactive && video?.interactive_demo &&(
         <CourseTabs
           type="interactive"
           title={"Dina's Interactive Demos"}
@@ -174,7 +176,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
           videoID={video?.id}
           all_complete={completeStatus?.all_checked}
           quizzes={video?.quizzes}
-          interactive_path={video?.interactive_path}
+          interactive={video?.interactive_demo}
           available={user_setting?.interactive}
         />
       )}

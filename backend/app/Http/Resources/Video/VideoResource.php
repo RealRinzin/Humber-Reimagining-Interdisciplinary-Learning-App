@@ -3,8 +3,7 @@
 namespace App\Http\Resources\Video;
 
 use App\Http\Resources\Code\CodeResource;
-use App\Http\Resources\Document\DocumentResource;
-use App\Http\Resources\LessonDocument\LessonDocumentResource;
+use App\Http\Resources\Interactive\InteractiveResource;
 use App\Http\Resources\Quiz\QuizResource;
 use App\Http\Resources\Rambling\RamblingResource;
 use App\Http\Resources\Subtitle\SubtitleResource;
@@ -15,7 +14,6 @@ use App\Http\Resources\UserVideoProgress\UserVideoProgressResource;
 use App\Http\Resources\UserVideoSetting\UserVideoSettingResource;
 use App\Http\Resources\VideoSection\VideoSectionResource;
 use App\Http\Resources\VideoWatchHistory\VideoWatchHistoryResource;
-use App\Models\LessonDocument;
 use App\Models\UserVideo;
 use App\Models\UserVideoSetting;
 use App\Models\Video;
@@ -61,13 +59,12 @@ class VideoResource extends JsonResource
             'subVideos' => VideoResource::collection($this->whenLoaded('subVideos')),
             'codes' => CodeResource::collection($this->whenLoaded("codes")),
             'subtitle' => new SubtitleResource($this->whenLoaded('subtitle')),
-            'documents' => LessonDocumentResource::collection($this->whenLoaded('documents')),
             'quizzes' => QuizResource::collection($this->whenLoaded('quizzes')),
             'ramblings' => RamblingResource::collection($this->whenLoaded('ramblings')),
+            'interactive_demo' => new InteractiveResource($this->whenLoaded('interactive_demo')),
             'total_tracking' => $this->video + $this->code+$this->quiz+$this->rambling+$this->interactive,
             'count' => [
                 'codes' => $this->codes_count,
-                'documents' => $this->documents_count,
             ],
 
             'user_video_setting' => new UserVideoSettingResource($this->whenLoaded('user_video_setting')),

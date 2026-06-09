@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 use App\Http\Resources\Code\CodeResource;
-use App\Http\Resources\LessonDocument\LessonDocumentResource;
 use App\Http\Resources\Quiz\QuizResource;
 use App\Http\Resources\Video\VideoResource;
 
@@ -32,7 +31,6 @@ class TopicResource extends JsonResource
             'interactive_path' => $this->interactive_path,
             'videos' => VideoResource::collection($this->whenLoaded('videos')),
             'codes' => CodeResource::collection($this->whenLoaded('codes')),
-            'documents' => LessonDocumentResource::collection($this->whenLoaded('documents')),
             'quizees' => QuizResource::collection($this->whenLoaded('quizees')),
             'is_following' => in_array($this->id, $followedIds),
             

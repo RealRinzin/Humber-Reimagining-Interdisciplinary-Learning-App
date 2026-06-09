@@ -15,10 +15,6 @@ class Topic extends Model
      * Relationship Models
      */
     // Document Model
-    public function documents()
-    {
-        return $this->hasMany(LessonDocument::class);
-    }
     // Code Model
 
     public function codes()

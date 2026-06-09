@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\LessonDocument;
+namespace App\Http\Resources\Interactive;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class LessonDocumentResourceCollection extends ResourceCollection
+class InteractiveResourceCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -14,9 +14,6 @@ class LessonDocumentResourceCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        // return parent::toArray($request);
-                return [
-            'data' => LessonDocumentResource::collection($this->collection),
-        ];
+        return parent::toArray($request);
     }
 }

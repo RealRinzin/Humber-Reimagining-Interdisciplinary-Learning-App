@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             SubtitleSeeder::class, // Subtitles for the videos
             CodeSeeder::class, // Code for the topics or videos
             RamblingSeeder::class, // Rambling
+            InteractiveSeeder::class, // Interactive
             // Analytics 
             UserContentSettingSeeder::class,
             VideoSectionSeeder::class,

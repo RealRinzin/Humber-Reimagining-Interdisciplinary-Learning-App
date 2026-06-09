@@ -90,6 +90,11 @@ class Video extends Model
     {
         return $this->hasOne(Subtitle::class);
     }
+    // Interactive
+    public function interactive_demo()
+    {
+        return $this->hasOne(Interactive::class);
+    }
     // Quizzes
     public function quizzes()
     {
@@ -117,10 +122,6 @@ class Video extends Model
      * Video Table relationship with lesson_documents table
      * LessonDocument belongs to one Video
      * */
-    public function documents()
-    {
-        return $this->hasMany(LessonDocument::class);
-    }
 
 
     // UserVideo Relationship

@@ -17,6 +17,7 @@ import QuizWrapper from "@/components/ui/quiz/QuizWrapper";
 import RamblingCard from "@/components/ui/rambling/RamblingCard";
 import { copyToClipboard } from "@/lib/common";
 import { useRefreshNode } from "@/components/ui/video/PageRefresh";
+import InteractiveDemo from "@/components/ui/interactiveDemo/InteractiveDemo";
 //
 export default function CourseTabs({
   title,
@@ -28,7 +29,7 @@ export default function CourseTabs({
   all_complete,
   quizzes,
   ramblings,
-  interactive_path,
+  interactive,
   available,
 }: courseTabsTypes) {
   const { isOn: isOpen, toggle } = useToggle(status);
@@ -64,7 +65,7 @@ export default function CourseTabs({
   }
   useEffect(() => {
     setIsChecked(status);
-    console.log(content)
+    console.log(content);
   }, [status]);
   return (
     <section className="my-5">
@@ -141,8 +142,7 @@ export default function CourseTabs({
               );
             })}
           </>
-        ) : 
-        type === "rambling" ? (
+        ) : type === "rambling" ? (
           <RamblingCard ramblings={ramblings} />
         ) : type === "quiz" ? (
           <QuizWrapper quizzes={quizzes} />
@@ -150,11 +150,8 @@ export default function CourseTabs({
           "Later watch"
         ) : type === "interactive" ? (
           <>
-            {interactive_path && (
-              <iframe
-                src={`/interactive/${interactive_path}.html`}
-                className="w-full h-screen border-0"
-              />
+            {interactive && (
+              <InteractiveDemo interactive={interactive}/>
             )}
           </>
         ) : (

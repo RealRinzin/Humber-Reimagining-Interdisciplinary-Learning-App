@@ -1,0 +1,68 @@
+[
+    {
+        "topic_id": 2,
+        "video_id": 2,
+        "path":"02_model_space",
+        "description": "Model space is all about the artist making choices. Choose different models below and see which way is up, the size of the model, and where the centre is located."
+    },
+    {
+        "topic_id": 3,
+        "video_id": 3,
+        "path":"03_09_vertex_pos_model_matrix",
+        "description": "Pick a position on the box and see how it changes with a translation, scale, and or a rotation."
+    },
+    {
+        "topic_id": 4,
+        "video_id": 4,
+        "path":"4_normal",
+        "description": "See how the normal direction changes as you rotate the object, but not as you translate it. The normals look good for a uniform scale but look strange for a stretched or squished ball unless you correct them."
+    },
+    {
+        "topic_id": 5,
+        "video_id": 5,
+        "path":"05_scale",
+        "description": "Pick a position on the box and see how it changes with a scale applied after a translation."
+    },
+    {
+        "topic_id": 6,
+        "video_id": 6,
+        "path":"06_translation",
+        "description": "Pick a position on the box and see how it changes with the translation matrix."
+    },
+    {
+        "topic_id": 7,
+        "video_id": 7,
+        "path":"07_rotation",
+        "description": "Pick a position on the box and see how it changes with an Euler rotation applied after a translation. Try the infamous gimbal lock if you dare!"
+    },
+    {
+        "topic_id": 8,
+        "video_id": 8,
+        "path":"08_quaternions",
+        "description": "Pick a position on the box and see how it changes with a quaternion rotation applied after a translation."
+    },
+    {
+        "topic_id": 9,
+        "video_id": 9,
+        "path":"03_09_vertex_pos_model_matrix",
+        "description": "Pick a position on the box and see how it changes with a translation, scale, and or a rotation."
+    },
+    {
+        "topic_id": 11,
+        "video_id": 11,
+        "path":"11_view_matrix",
+        "description": "Look at this teapot in world space. As you rotate and translate the camera, is it the model moving the other way in the camera’s view?"
+    },
+    {
+        "topic_id": 13,
+        "video_id": 13,
+        "path":"13_projection_matrix",
+        "description": "Set up a perspective or orthographic view of this scene to see how the camera will render the image. Change what can be rendered by adjusting the size of the front plane, and the z positions of the front and back planes."
+    },
+    {
+        "topic_id": 14,
+        "video_id": 14,
+        "path":"14_perspective_divide",
+        "description": "Make the red object seem closer or further away by dividing out the “w” component of the vertex positions."
+    }
+]
