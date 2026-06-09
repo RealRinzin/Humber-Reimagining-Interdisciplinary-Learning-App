@@ -25,17 +25,11 @@ class DatabaseSeeder extends Seeder
             VideoSeeder::class, // Question
             QuizSeeder::class, // Quiz for the topic or vidoes
             SubtitleSeeder::class, // Subtitles for the videos
-            LessonDocumentSeeder::class, // Documents
             CodeSeeder::class, // Code for the topics or videos
             RamblingSeeder::class, // Rambling
             // Analytics 
             UserContentSettingSeeder::class,
             VideoSectionSeeder::class,
-            // UserTopicSeeder::class, 
-            // UserVideoSeeder::class, 
-            // UserVideoSettingSeeder::class,
-            // UserVideoAnalyticSeeder::class, 
-
             // Team Member
             ProjectSeeder::class,
             TeamSeeder::class,

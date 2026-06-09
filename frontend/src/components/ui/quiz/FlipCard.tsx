@@ -39,7 +39,7 @@ export default function FlipCard({
                     flex flex-col items-center justify-center gap-2 p-6
                     `}
         >
-          <p className="m-0 p-0 uppercase">{difficulty}</p>
+          <p className="py-2">{question}</p>
 
           <p className="py-2 border-y border-gray-200">{answer}</p>
           <p className="m-0 py-1">Click to Flip!</p>

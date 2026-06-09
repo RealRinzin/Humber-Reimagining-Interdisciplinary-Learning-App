@@ -12,8 +12,6 @@ import { useEffect, useRef, useState } from "react";
 import { clientFetch, clientPost } from "@/lib/clientFetch";
 import {
   exploreNodeCalculator,
-  nodeProgressCalculator,
-  RingProgressPerCalculator,
 } from "@/utils/RingProgressPerCalculator";
 
 interface Props {
@@ -426,23 +424,31 @@ export default function CommonSideBarNode({
         {tooltip.visible && (
           <div
             className="absolute z-30 pointer-events-none"
-            style={{ left: tooltip.x + 16, top: tooltip.y - 60 }}
+            // style={{ left: tooltip.x + 16, top: tooltip.y - 60 }}
+            style={{
+              left: tooltip.x >= 500 ? tooltip.x - 400 : tooltip.x + 16,
+              // left: tooltip.x >= 500 ? tooltip.x - 200 : tooltip.x + 16,
+              top: tooltip.y - 60,
+            }}
           >
             <div className="bg-white border border-900-500/40 rounded-xl px-4 py-3 shadow-xl shadow-pink-900/20 w-3/6">
               <p className="text-black font-bold text-sm uppercase tracking-wide mb-1">
-                {tooltip.label}
+                {tooltip.label} 
               </p>
               {tooltip.tldw && (
-                <p className="text-gray-500 text-xs mb-1">
-                  {tooltip.tldw}
-                </p>
+                <p className="text-gray-500 text-xs mb-1">{tooltip.tldw}</p>
               )}
               <div className="flex items-center gap-1.5 text-900-400 text-xs mt-2 font-medium">
                 <FontAwesomeIcon icon={faPlayCircle} size="sm" />
                 <span>Click to watch</span>
               </div>
             </div>
-            <div className="w-2 h-2 bg-white border-b border-r border-900-500/40 rotate-45 ml-4 -mt-1" />
+            {
+              tooltip.x >=500 ?
+              (<div className="w-2 h-2 bg-white border-b border-r border-900-500/40 rotate-45 ml-4 -mt-1" />)
+:
+              (<div className="w-2 h-2 bg-white border-b border-r border-900-500/40 rotate-45 ml-4 -mt-1" />)
+            }
           </div>
         )}
       </div>

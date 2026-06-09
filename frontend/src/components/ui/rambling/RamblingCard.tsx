@@ -15,7 +15,7 @@ export default function RamblingCard({ ramblings }: any) {
         <div
         id="rambling-section"
           key={index}
-          className="p-4  bg-slate-50 rambling-card text-base/9 center"
+          className="p-4  bg-slate-50 rambling-card text-base/8 center"
           dangerouslySetInnerHTML={{ __html: rambling.content }}
         />
       ))}

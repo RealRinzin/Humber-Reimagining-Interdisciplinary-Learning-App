@@ -4,6 +4,7 @@ import { createPlayer } from "@videojs/react";
 import { useRef, useEffect } from "react"; // ← ADD THIS
 import { getBrowser, getDevice, getOS, getUserAgent } from "@/utils/UserAgents";
 import { VideoSkin, Video, videoFeatures } from "@videojs/react/video";
+import { clientFetch } from "@/lib/clientFetch";
 
 interface InteractionPayload {
   type: string;
@@ -40,6 +41,9 @@ async function postInteraction({
   userVideoID,
 }: InteractionPayload) {
   const xsrfToken = await getXsrfToken();
+  // const res = await clientFetch('/me');
+  // const data = await res.json();
+  // console.log(data)
   try {
     const currentUser = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/me`,
@@ -68,7 +72,7 @@ async function postInteraction({
           interact_at: sec,
           device_type: getDevice(),
           os_type: getOS(),
-          ip_address: "23213",
+          ip_address:"IP address",
           user_agent: getUserAgent(),
           browser_type: getBrowser(),
           played_on: new Date().toISOString().split("T")[0],
@@ -164,7 +168,7 @@ export const MyPlayer = ({
     <Player.Provider>
       <VideoSkin>
         <Video
-          ref={videoRef} // ← ADD THIS
+          ref={videoRef} 
           src={`/videos/${src}`}
           playsInline
           onCanPlay={(e) => {
