@@ -120,6 +120,11 @@ const gridPlane = new THREE.GridHelper(
 );
 
 scene.add(gridPlane);
+
+
+
+
+
 // ======================================================
 // Lighting (normals matter here)
 // ======================================================
@@ -130,7 +135,7 @@ light.position.set(3, 4, 5);
 scene.add(light);
 
 // ======================================================
-// Camera object (as a visible world object)
+// Camera object
 // ======================================================
 const cameraObject = new THREE.PerspectiveCamera(
   45,    // fov
@@ -157,6 +162,7 @@ const cameraViewSize = 240; // px
 
 const DEBUG_LAYER = 1;
 
+
 // Helpers only
 cameraHelper.layers.set(DEBUG_LAYER);
 cameraAxes.layers.set(DEBUG_LAYER);
@@ -167,6 +173,37 @@ camera.layers.enable(DEBUG_LAYER);
 
 // Camera preview should NOT see debug helpers
 cameraObject.layers.disable(DEBUG_LAYER);
+
+
+// ======================================================
+// Phsyical Camera objects
+// ======================================================
+function createCameraModel() {
+  const group = new THREE.Group();
+
+  // Camera body
+  const body = new THREE.Mesh(
+    new THREE.BoxGeometry(0.4, 0.3, 0.2),
+    new THREE.MeshStandardMaterial({ color: 0xffffff })
+  );
+  //body.position.z = -0.05;
+  group.add(body);
+
+  // Lens / frustum hint
+  const lens = new THREE.Mesh(
+    new THREE.ConeGeometry(0.16, 0.4, 20),
+    new THREE.MeshStandardMaterial({ color: 0xffffff })
+  );
+  lens.rotation.x = -Math.PI / 2;
+  lens.position.z = -0.1;
+  group.add(lens);
+
+  return group;
+}
+
+const cameraVisual = createCameraModel();
+cameraObject.add(cameraVisual);
+
 
 // ======================================================
 // Matrices
@@ -395,7 +432,7 @@ scaleGUI(guiRight);
 // // Append to the LEFT gui
 // guiLeft.domElement.appendChild(equalSymbol);
 
-const updateViewMatrixUI = createMatrix4UI(guiLeft, "View Matrix");
+const updateViewMatrixUI = createMatrix4UI(guiLeft, "View Matrix (V)");
 
 const multiplySymbol = document.createElement("div");
 multiplySymbol.textContent = "×";
@@ -413,7 +450,7 @@ multiplySymbol.style.fontWeight = "bold";
 guiLeft.domElement.appendChild(multiplySymbol);
 
 
-const updateModelMatrixUI = createMatrix4UI(guiLeft, "Model Matrix");
+const updateModelMatrixUI = createMatrix4UI(guiLeft, "Model Matrix (M)");
 
 const equalSymbol = document.createElement("div");
 equalSymbol.textContent = "=";
@@ -431,7 +468,7 @@ equalSymbol.style.fontWeight = "bold";
 // Append to the LEFT gui
 guiLeft.domElement.appendChild(equalSymbol);
 
-const updateModelViewMatrixUI = createMatrix4UI(guiLeft, "Model-View Matrix");
+const updateModelViewMatrixUI = createMatrix4UI(guiLeft, "Model-View Matrix (MV)");
 
 
 
@@ -471,7 +508,19 @@ cameraPreview.style.marginTop = "0.5vw";
 guiLeft.domElement.appendChild(cameraPreview);
 
 
+// =========================
+  // Camere View label
+  // =========================
+const cameraLabel = document.createElement("div");
+cameraLabel.style.fontFamily = "monospace";
+cameraLabel.style.fontSize = SIZE.font;
+cameraLabel.style.paddingTop =  SIZE.marginSmall;
+guiLeft.domElement.appendChild(cameraLabel);
 
+
+cameraLabel.innerHTML = `
+Camera’s view 
+`;
   
 // ======================================================
 // Update function

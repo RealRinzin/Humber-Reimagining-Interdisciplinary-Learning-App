@@ -178,15 +178,15 @@ scene.add(pointMarkers.topLeftFront);
 // ======================================================
 const pointInfoDiv = document.createElement("div");
 pointInfoDiv.style.fontFamily = "monospace";
-pointInfoDiv.style.fontSize = "12px";
-pointInfoDiv.style.marginBottom = "6px";
+pointInfoDiv.style.fontSize = SIZE.font;
+pointInfoDiv.style.marginBottom = SIZE.marginTop;
 pointInfoDiv.style.borderBottom = "1px solid rgba(255,255,255,0.2)";
 guiRight.domElement.prepend(pointInfoDiv);
 
 // ======================================================
 // Vertex position sliders (model space)
 // ======================================================
-const vertexFolder = guiRight.addFolder("Vertex Position");
+const vertexFolder = guiRight.addFolder("Point on the Box Position");
 
 const vxCtrl = vertexFolder.add(params, "vx", 0, 1, 0.001)
   .name("X Edge (0=Left, 1=Right)")
@@ -214,6 +214,21 @@ vertexFolder.close();
 
 const orderFolder = guiRight.addFolder("Custom Transform Order Simulation");
 
+// labelling the order
+const orderInfo = document.createElement("div");
+orderInfo.style.display = "flex";
+orderInfo.style.alignItems = "center";
+orderInfo.style.gap = "0.3em";
+orderInfo.style.flexWrap = "wrap";
+orderInfo.style.fontFamily = "monospace";
+const label = document.createElement("span");
+label.textContent = "M = third * second * first";
+label.style.fontWeight = "bold";
+
+orderInfo.appendChild(label);
+
+
+
 // Horizontal layout for transform order
 const orderRow = document.createElement("div");
 orderRow.style.display = "flex";
@@ -226,7 +241,10 @@ orderRow.style.fontFamily = "monospace";
 const childrenContainer =
   orderFolder.domElement.querySelector('.children');
 
+childrenContainer.appendChild(orderInfo);
 childrenContainer.appendChild(orderRow);
+
+
 
 
 // Text
@@ -238,9 +256,12 @@ orderRow.appendChild(mLabel);
 
 function dot() {
   const d = document.createElement("span");
-  d.textContent = "·";
+  d.textContent = "*";
+  d.style.fontSize = SIZE.font_large;
   d.style.fontWeight = "bold"
-  d.style.margin = SIZE.marginSmall;
+  //d.style.margin = SIZE.marginSmall;
+  d.style.marginLeft = SIZE.font_large;
+  d.style.marginRIGHT = SIZE.font_large;
   return d;
 }
 
@@ -475,10 +496,10 @@ function updateOrderText() {
     S: "S",
   };
 
-  orderText.innerHTML =
-    `M = ${symbol[transformOrder.third]} · ` +
-    `${symbol[transformOrder.second]} · ` +
-    `${symbol[transformOrder.first]}`;
+  // orderText.innerHTML =
+  //   `MMM = ${symbol[transformOrder.third]}` +
+  //   `${symbol[transformOrder.second]}  · ` +
+  //   `${symbol[transformOrder.first]}`;
 }
 
 function updateVertix(trasportMatrix){
@@ -496,7 +517,7 @@ const p = pointMarkers.topLeftFront.position;
 
 pointInfoDiv.innerHTML = `
 <br>
-<b>Vertex Coordinates (Yellow Dot)</b>
+<b>Point on the Box Coordinates (Yellow Dot)</b>
 <br>
 <span style="color:${COLORS.X}"> X: ${p.x.toFixed(2)}</span> &nbsp;
 <span style="color:${COLORS.Y}"> Y: ${p.y.toFixed(2)}</span> &nbsp;
@@ -522,9 +543,9 @@ function composeModelMatrix() {
   };
 
   M.identity();
-  M.multiply(map[transformOrder.first]);
-  M.multiply(map[transformOrder.second]);
   M.multiply(map[transformOrder.third]);
+  M.multiply(map[transformOrder.second]);
+  M.multiply(map[transformOrder.first]);
 }
 
 function resetValues() {

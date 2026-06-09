@@ -130,7 +130,7 @@ ${c(e[15].toFixed(2), COLORS.NEUTRAL)}
   };
 }
 
-export function createPerspectiveMatrixFormulaUI(gui, title = "Perpective Matrix Formula") {
+export function createPerspectiveMatrixFormulaUI(gui, title = "Perspective Matrix Formula") {
   const div = document.createElement("div");
   div.classList.add("matrix-ui");
   div.style.fontFamily = "monospace";

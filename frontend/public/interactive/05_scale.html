@@ -125,7 +125,7 @@ guiRight.domElement.prepend(boxSizeDiv);
 // ======================================================
 // Vertex position sliders (model space)
 // ======================================================
-const vertexFolder = guiRight.addFolder("Vertex Position");
+const vertexFolder = guiRight.addFolder("Point on the Box Position");
 
 const vxCtrl = vertexFolder.add(params, "vx", 0, 1, 0.001)
   .name("X Edge (0=Left, 1=Right)")
@@ -199,7 +199,21 @@ dummy.domElement.style.display = "none";
 // ======================================================
 const updateMatrixUI = createScaleMatrixUI(guiLeft, "Model Scale Matrix (S)");
 
+// =========================
+  // Model calculation UI
+  // =========================
+const typeOfModelMatrix = document.createElement("div");
+typeOfModelMatrix.style.fontFamily = "monospace";
+typeOfModelMatrix.style.fontSize = SIZE.font;
+typeOfModelMatrix.style.marginTop = SIZE.marginTop;
+typeOfModelMatrix.style.borderTop = "1px solid rgba(255,255,255,0.2)";
+typeOfModelMatrix.style.paddingTop =  SIZE.marginSmall;
+guiLeft.domElement.appendChild(typeOfModelMatrix);
 
+
+typeOfModelMatrix.innerHTML = `
+Model Matrix (M) is S * T 
+`;
 
 // ======================================================
 // Reset Button
@@ -266,7 +280,7 @@ const p = pointMarkers.topLeftFront.position;
 
 pointInfoDiv.innerHTML = `
 <br>
-<b>Vertex Coordinates (Yellow Dot)</b>
+<b>Point on the Box Coordinates (Yellow Dot)</b>
 <br>
 <span style="color:${COLORS.X}"> X: ${p.x.toFixed(2)}</span> &nbsp;
 <span style="color:${COLORS.Y}"> Y: ${p.y.toFixed(2)}</span> &nbsp;
@@ -288,7 +302,7 @@ function update() {
     0, 0, 0, 1
   );
 
-  // M = S · T  (scale about origin)
+  // M = T · S  
   M.identity();
   M.multiply(S);
   M.multiply(T_obj);

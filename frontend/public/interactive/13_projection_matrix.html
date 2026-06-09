@@ -234,7 +234,7 @@ const orthoCtrl = projectionFolder
 
 projectionFolder.open();
 
-const clipFolder = guiRight.addFolder("Clip Volume");
+const clipFolder = guiRight.addFolder("Viewing Volume");
 
 clipFolder.add(params, "left", -5, 5, 0.01).name("Left (l)").onChange(updateProjection);
 clipFolder.add(params, "right", -5, 5, 0.01).name("Right (r)").onChange(updateProjection);
@@ -531,7 +531,19 @@ cameraPreview.style.marginTop = "4px";
 guiLeft.domElement.appendChild(cameraPreview);
 
 
+// =========================
+  // Camere View label
+  // =========================
+const cameraLabel = document.createElement("div");
+cameraLabel.style.fontFamily = "monospace";
+cameraLabel.style.fontSize = SIZE.font;
+cameraLabel.style.paddingTop =  SIZE.marginSmall;
+guiLeft.domElement.appendChild(cameraLabel);
 
+
+cameraLabel.innerHTML = `
+Camera’s view 
+`;
   
 // ======================================================
 // Update function

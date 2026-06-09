@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\sabied\\OneDrive - Humber College\\Research\\Humber_funding_2025\\Interactive components\\test_1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{27E17B35-80CB-445D-9F1C-9A3D7113535E}|test_1\\test_1.csproj|c:\\users\\sabied\\onedrive - humber college\\research\\humber_funding_2025\\interactive components\\test_1\\test_1\\main.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{27E17B35-80CB-445D-9F1C-9A3D7113535E}|test_1\\test_1.csproj|solutionrelative:test_1\\main.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "main.html",
+              "DocumentMoniker": "C:\\Users\\sabied\\OneDrive - Humber College\\Research\\Humber_funding_2025\\Interactive components\\test_1\\test_1\\main.html",
+              "RelativeDocumentMoniker": "test_1\\main.html",
+              "ToolTip": "C:\\Users\\sabied\\OneDrive - Humber College\\Research\\Humber_funding_2025\\Interactive components\\test_1\\test_1\\main.html",
+              "RelativeToolTip": "test_1\\main.html",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2026-03-20T19:50:41.962Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -231,6 +231,31 @@ corners.forEach((c, i) => {
   ndcPoints[i].position.copy(mapped);
 
 });
+
+// update the text values of the edges
+let text = `<br><b>Vertex Mapping</b><br>`;
+
+corners.forEach((c, i) => {
+
+  const clip = c.clone();
+  const ndc = c.clone();
+
+  if (params.applyDivide) {
+    ndc.x /= w;
+    ndc.y /= w;
+  }
+
+  const color = cornerColors[i].toString(16).padStart(6, "0");
+
+  text += `<span style="color:#${color}">
+    (${clip.x.toFixed(2)}, ${clip.y.toFixed(2)})
+    → 
+    (${ndc.x.toFixed(2)}, ${ndc.y.toFixed(2)})
+  </span><br>`;
+});
+
+coordsDiv.innerHTML = text;
+
 }
 
 // ======================================================
@@ -238,13 +263,37 @@ corners.forEach((c, i) => {
 // ======================================================
 const guiRight = new GUI({ title: "Perspective Divide" });
 
+// values of the edges
+const coordsDiv = document.createElement("div");
+coordsDiv.style.fontFamily = "monospace";
+coordsDiv.style.fontSize = SIZE.font;
+coordsDiv.style.marginBottom = SIZE.marginSmall;
+
+guiRight.domElement.prepend(coordsDiv);
+
+// Depth factor slider
 guiRight.add(params, "w", 0.1, 5, 0.01)
   .name("Depth factor (w)")
   .onChange(update);
 
-guiRight.add(params, "applyDivide")
-  .name("Apply Divide")
-  .onChange(update);
+// guiRight.add(params, "applyDivide")
+//   .name("Apply Divide")
+//   .onChange(update);
+
+
+guiRight.add({ resetValues }, "resetValues").name("Reset");
+
+function resetValues() {
+
+  // reset data
+  params.w = 1;
+
+  // update GUI display
+  guiRight.controllersRecursive().forEach(c => c.updateDisplay());
+
+  // update scene
+  update();
+}
 
 // LEFT GUI (formula)
 const guiLeft = new GUI({ title: "Formula" });
@@ -261,8 +310,8 @@ formulaDiv.style.fontFamily = "monospace";
 formulaDiv.style.fontSize = SIZE.font_large;
 formulaDiv.innerHTML = `
 <b>Perspective Divide Formula</b><br>
-x' = x / w<br>
-y' = y / w
+x_ndc = x_clip / w_clip<br>
+y_ndc = y_clip / w_clip
 `;
 
 guiLeft.domElement.appendChild(formulaDiv);

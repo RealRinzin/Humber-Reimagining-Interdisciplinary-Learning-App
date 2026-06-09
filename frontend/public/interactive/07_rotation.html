@@ -61,12 +61,34 @@ const localRings = new THREE.Group();
 localRings.add(createRotationRing(1.4, COLORS.X, "x"));
 localRings.add(createRotationRing(1.4, COLORS.Y, "y"));
 localRings.add(createRotationRing(1.4, COLORS.Z, "z"));
-modelGroup.add(localRings);
+//modelGroup.add(localRings);
+scene.add(localRings);
 localRings.visible = false;
+localRings.matrixAutoUpdate = false;
 
 localRings.children.forEach(ring => {
-  ring.userData.baseRotation = ring.rotation.clone();
+  //ring.userData.baseRotation = ring.rotation.clone();
+  ring.userData.baseQuaternion = ring.quaternion.clone();
 });
+
+const markerZ = new THREE.Mesh(
+  new THREE.SphereGeometry(0.05),
+  new THREE.MeshBasicMaterial({ color: 0xAAFF00 })
+);
+markerZ.position.set(1.4, 0, 0); // on the ring edge
+
+
+const markerY = new THREE.Mesh(
+  new THREE.SphereGeometry(0.05),
+  new THREE.MeshBasicMaterial({ color: 0xffffff })
+);
+markerY.position.set(1.4, 0, 0); // on the ring edge
+
+const markerX = new THREE.Mesh(
+  new THREE.SphereGeometry(0.05),
+  new THREE.MeshBasicMaterial({ color: 0xffffff })
+);
+markerX.position.set(1.4, 0, 0); // on the ring edge
 
 
 
@@ -156,7 +178,7 @@ guiRight.domElement.prepend(pointInfoDiv);
 // ======================================================
 // Vertex position sliders (model space)
 // ======================================================
-const vertexFolder = guiRight.addFolder("Vertex Position");
+const vertexFolder = guiRight.addFolder("Point on the Box Position");
 
 const vxCtrl = vertexFolder.add(params, "vx", 0, 1, 0.001)
   .name("X Edge (0=Left, 1=Right)")
@@ -262,7 +284,8 @@ function resetRing(ring) {
   ring.scale.set(1, 1, 1);
 
   // Restore base orientation via quaternion
-  ring.quaternion.setFromEuler(ring.userData.baseRotation);
+  //ring.quaternion.setFromEuler(ring.userData.baseRotation);
+  ring.quaternion.copy(ring.userData.baseQuaternion);
 
   ring.updateMatrixWorld(true);
 }
@@ -322,7 +345,21 @@ dummy.domElement.style.display = "none";
 // ======================================================
 const updateMatrixUI = createRotationMatrixUI(guiLeft, "Model Rotation Matrix (R)");
 
+// =========================
+  // Model calculation UI
+  // =========================
+const typeOfModelMatrix = document.createElement("div");
+typeOfModelMatrix.style.fontFamily = "monospace";
+typeOfModelMatrix.style.fontSize = SIZE.font;
+typeOfModelMatrix.style.marginTop = SIZE.marginTop;
+typeOfModelMatrix.style.borderTop = "1px solid rgba(255,255,255,0.2)";
+typeOfModelMatrix.style.paddingTop =  SIZE.marginSmall;
+guiLeft.domElement.appendChild(typeOfModelMatrix);
 
+
+typeOfModelMatrix.innerHTML = `
+Model Matrix (M) is R * T 
+`;
 
 
 // Dina
@@ -355,7 +392,7 @@ const p = pointMarkers.topLeftFront.position;
 
 pointInfoDiv.innerHTML = `
 <br>
-<b>Vertex Coordinates (Yellow Dot)</b>
+<b>Point on the Box Coordinates (Yellow Dot)</b>
 <br>
 <span style="color:${COLORS.X}"> X: ${p.x.toFixed(2)}</span> &nbsp;
 <span style="color:${COLORS.Y}"> Y: ${p.y.toFixed(2)}</span> &nbsp;
@@ -397,9 +434,10 @@ Rz.makeRotationZ(rz);
 
 // Full rotation (object orientation)
 R.identity();
-R.multiply(Rx);
-R.multiply(Ry);
 R.multiply(Rz);
+R.multiply(Ry);
+R.multiply(Rx);
+
 //}
 
 // else{
@@ -409,7 +447,7 @@ R.multiply(Rz);
 // }
 
 
-  // M = T · R 
+  // M = R . T 
   M.identity();
   M.multiply(R);
   M.multiply(T_obj);
@@ -457,28 +495,71 @@ const zAxisWorld = zAxis.clone().applyMatrix4(Rx).applyMatrix4(Ry); // Z gimbal
 
 // --- X gimbal ring ---
 const ringX = localRings.children[0];
-resetRing(ringX);
-ringX.quaternion.setFromRotationMatrix(Rx);
+// resetRing(ringX);
+// ringX.quaternion.setFromRotationMatrix(Rx);
 
 // --- Y gimbal ring ---
 const ringY = localRings.children[1];
-resetRing(ringY);
-Rxy.identity().multiply(Rx).multiply(Ry);
-ringY.quaternion.setFromRotationMatrix(Rxy);
+// resetRing(ringY);
+// Rxy.identity().multiply(Rx).multiply(Ry);
+// //Rxy.copy(Rx).multiply(Ry);
+// ringY.quaternion.setFromRotationMatrix(Rxy);
 
 // --- Z gimbal ring ---
 const ringZ = localRings.children[2];
-resetRing(ringZ);
-ringZ.quaternion.setFromRotationMatrix(R);
+// resetRing(ringZ);
+// ringZ.quaternion.setFromRotationMatrix(R);
+
+// New rotation (June 8)
+// Z ring (first applied)
+ringZ.quaternion.copy(ringZ.userData.baseQuaternion);
+ringZ.quaternion.multiply(
+  new THREE.Quaternion().setFromRotationMatrix(Rz)
+);
 
 
-ringX.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1), xAxisWorld);
-ringY.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1), yAxisWorld);
-ringZ.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1), zAxisWorld);
+ringZ.add(markerZ);
+
+
+// Y ring (after Z)
+const Rzy = new THREE.Matrix4().multiplyMatrices(Rz, Ry);
+ringY.quaternion.copy(ringY.userData.baseQuaternion);
+ringY.quaternion.multiply(
+  new THREE.Quaternion().setFromRotationMatrix(Rzy)
+);
+
+ringY.add(markerY);
+
+// X ring (full)
+ringX.quaternion.copy(ringX.userData.baseQuaternion);
+ringX.quaternion.multiply(
+  new THREE.Quaternion().setFromRotationMatrix(R)
+);
+
+ringX.add(markerX);
+// ringX.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1), xAxisWorld);
+// ringY.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1), yAxisWorld);
+// ringZ.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1), zAxisWorld);
 
 // Move ring system with the object
 //localRings.position.set(renderable.mesh.position.x, renderable.mesh.position.y, renderable.mesh.position.z);
-modelGroup.position.set(params.tx, params.ty, params.tz);
+//modelGroup.position.set(params.tx, params.ty, params.tz);
+
+
+
+
+localRings.matrix.copy(M);
+localRings.matrixWorldNeedsUpdate = true;
+const worldPosition = new THREE.Vector3();
+worldPosition.setFromMatrixPosition(M);
+localRings.position.copy(worldPosition);
+localRings.matrixAutoUpdate = true;
+
+
+
+//localRings.position.set(T_only.x, T_only.y, T_only.z);
+//localRings.matrixWorldNeedsUpdate = true;
+
 
 // // Move rings with the object
 // localRings.position.set(params.ox, params.oy, params.oz);
@@ -526,7 +607,7 @@ function animate() {
   controls.update();
   renderer.render(scene, camera);
 
-  let message = "<b>Rotation Order:</b> X → Y → Z";
+  let message = "<b>Rotation Order:</b> Z → Y → X";
 
 if (params.gimbalLockDemo) {
   message = "<b>⚠ Gimbal Lock Detected</b><br>";

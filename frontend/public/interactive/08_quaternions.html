@@ -118,7 +118,7 @@ guiRight.domElement.prepend(pointInfoDiv);
 // ======================================================
 // Vertex position sliders (model space)
 // ======================================================
-const vertexFolder = guiRight.addFolder("Vertex Position");
+const vertexFolder = guiRight.addFolder("Point on the Box Position");
 
 const vxCtrl = vertexFolder.add(params, "vx", 0, 1, 0.001)
   .name("X Edge (0=Left, 1=Right)")
@@ -249,7 +249,20 @@ quatDiv.style.borderTop = "1px solid rgba(255,255,255,0.2)";
 quatDiv.style.paddingTop =  SIZE.marginSmall;
 guiLeft.domElement.appendChild(quatDiv);
 
+// =========================
+  // Model calculation UI
+  // =========================
+const typeOfModelMatrix = document.createElement("div");
+typeOfModelMatrix.style.fontFamily = "monospace";
+typeOfModelMatrix.style.fontSize = SIZE.font;
+typeOfModelMatrix.style.marginTop = SIZE.marginTop;
+typeOfModelMatrix.style.borderTop = "1px solid rgba(255,255,255,0.2)";
+typeOfModelMatrix.style.paddingTop =  SIZE.marginSmall;
+guiLeft.domElement.appendChild(typeOfModelMatrix);
 
+typeOfModelMatrix.innerHTML = `
+Model Matrix (M) is R * T 
+`;
 
 
 // Dina
@@ -283,7 +296,7 @@ const p = pointMarkers.topLeftFront.position;
 
 pointInfoDiv.innerHTML = `
 <br>
-<b>(Vertex Coordinates (Yellow Dot)</b>
+<b>Point on the Box Coordinates  (Yellow Dot)</b>
 <br>
 <span style="color:${COLORS.X}"> X: ${p.x.toFixed(2)}</span> &nbsp;
 <span style="color:${COLORS.Y}"> Y: ${p.y.toFixed(2)}</span> &nbsp;
@@ -382,7 +395,9 @@ axis =
 <span style="color:${COLORS.Y}">${axisFromQuat.y.toFixed(3)}</span>,
 <span style="color:${COLORS.Z}">${axisFromQuat.z.toFixed(3)}</span>
 )
+ 
 `;
+
 
   // =========================
   // Axis-of-rotation visualization

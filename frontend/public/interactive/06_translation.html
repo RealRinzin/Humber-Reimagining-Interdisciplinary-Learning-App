@@ -120,7 +120,7 @@ guiRight.domElement.prepend(pointInfoDiv);
 // ======================================================
 // Vertex position sliders (model space)
 // ======================================================
-const vertexFolder = guiRight.addFolder("Vertex Position");
+const vertexFolder = guiRight.addFolder("Point on the Box Position");
 
 const vxCtrl = vertexFolder.add(params, "vx", 0, 1, 0.001)
   .name("X Edge (0=Left, 1=Right)")
@@ -245,7 +245,7 @@ const p = pointMarkers.topLeftFront.position;
 
 pointInfoDiv.innerHTML = `
 <br>
-<b>Vertex Coordinates (Yellow Dot)</b>
+<b>Point on the Box Coordinates (Yellow Dot)</b>
 <br>
 <span style="color:${COLORS.X}"> X: ${p.x.toFixed(2)}</span> &nbsp;
 <span style="color:${COLORS.Y}"> Y: ${p.y.toFixed(2)}</span> &nbsp;
