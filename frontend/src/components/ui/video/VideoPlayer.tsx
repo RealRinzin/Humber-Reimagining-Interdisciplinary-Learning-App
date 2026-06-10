@@ -130,38 +130,36 @@ export const MyPlayer = ({
   userVideoID,
 }: MyPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement>(null); // ← ADD THIS
-  const hasSeeked = useRef(false);                 // ← ADD THIS
-
-  // ← ADD THIS BLOCK
+  // const hasSeeked = useRef(false);                 // ← ADD THIS
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || last_stop <= 0) return;
+  //   if (!video || last_stop <= 0) return;
 
-    hasSeeked.current = false;
+  //   hasSeeked.current = false;
 
-    const attemptSeek = () => {
-      if (hasSeeked.current) return;
-      if (
-        video.seekable.length > 0 &&
-        video.seekable.end(0) >= last_stop &&
-        video.readyState >= 2
-      ) {
-        video.currentTime = last_stop;
-        hasSeeked.current = true;
-      }
-    };
+  //   const attemptSeek = () => {
+  //     if (hasSeeked.current) return;
+  //     if (
+  //       video.seekable.length > 0 &&
+  //       video.seekable.end(0) >= last_stop &&
+  //       video.readyState >= 2
+  //     ) {
+  //       video.currentTime = last_stop;
+  //       hasSeeked.current = true;
+  //     }
+  //   };
 
-    const onTimeUpdate = () => {
-      if (!hasSeeked.current) attemptSeek();
-    };
+  //   const onTimeUpdate = () => {
+  //     if (!hasSeeked.current) attemptSeek();
+  //   };
 
-    video.addEventListener("canplay", attemptSeek);
-    video.addEventListener("timeupdate", onTimeUpdate);
+  //   video.addEventListener("canplay", attemptSeek);
+  //   video.addEventListener("timeupdate", onTimeUpdate);
 
-    return () => {
-      video.removeEventListener("canplay", attemptSeek);
-      video.removeEventListener("timeupdate", onTimeUpdate);
-    };
+  //   return () => {
+  //     video.removeEventListener("canplay", attemptSeek);
+  //     video.removeEventListener("timeupdate", onTimeUpdate);
+  //   };
   }, [last_stop, src]);
 
   return (
@@ -171,15 +169,15 @@ export const MyPlayer = ({
           ref={videoRef} 
           src={`/videos/${src}`}
           playsInline
-          onCanPlay={(e) => {
-            const video = e.target as HTMLVideoElement;
-            if (
-              last_stop > 0 &&
-              Math.abs(video.currentTime - last_stop) > 0.5
-            ) {
-              video.currentTime = last_stop;
-            }
-          }}
+          // onCanPlay={(e) => {
+          //   const video = e.target as HTMLVideoElement;
+          //   if (
+          //     last_stop > 0 &&
+          //     Math.abs(video.currentTime - last_stop) > 0.5
+          //   ) {
+          //     video.currentTime = last_stop;
+          //   }
+          // }}
           onPlay={(e) => {
             const video = e.target as HTMLVideoElement;
             postInteraction({

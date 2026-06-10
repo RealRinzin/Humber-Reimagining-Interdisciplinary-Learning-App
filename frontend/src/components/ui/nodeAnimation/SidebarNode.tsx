@@ -32,10 +32,9 @@ function makeRing(progress: any, color: any, innerColor: any) {
   const circ = 2 * Math.PI * r;
   const dash = (progress / 100) * circ;
   const gap = circ - dash;
-  const glow = `<defs><filter id="glow"><feGaussianBlur stdDeviation="3" /></filter></defs>`;
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
     <circle cx="${cx}" cy="${cy}" r="50" fill="#1a1a2e"/>
-    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#d0d0d8" stroke-width="${sw}" filter="url(#glow)"/>
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#d0d0d8" stroke-width="${sw}" />
     ${progress > 0 ? `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${innerColor}" stroke-width="${sw}" stroke-dasharray="${dash.toFixed(1)} ${gap.toFixed(1)}" stroke-linecap="round" transform="rotate(-90 ${cx} ${cy})"/>` : ""}
     <circle cx="${cx}" cy="${cy}" r="24" fill="${innerColor}" />
   </svg>`;
@@ -152,7 +151,6 @@ export default function SideBarNode({
       // Topic Connections
       const topicConnection = await clientFetch("/topic-connections");
       const connect = await topicConnection.json();
-
       // Get the
       const List: cytoscape.ElementDefinition[] = [];
 
@@ -190,18 +188,24 @@ export default function SideBarNode({
             color: "#000",
             "background-image": (ele: any) => {
               return progressTracking
-                ? topic?.slug === videoSlug
-                  ? makeRing(
-                      exploreNodeCalculator(
-                        topic?.videos?.[0],
-                        user_setting,
-                        topic?.videos?.[0]?.user_video_setting,
-                      ),
-                      topic.node_color,
-                      topic.node_color,
-                    )
-                  : makeRingZero(0, "gray", "gray")
+                ? // ? topic?.slug === videoSlug
+                  makeRing(
+                    exploreNodeCalculator(
+                      topic?.videos?.[0],
+                      user_setting,
+                      topic?.videos?.[0]?.user_video_setting,
+                    ),
+                    `${topic?.slug === videoSlug ? topic.node_color : `${topic?.node_color}50`}`,
+                    `${
+                      topic?.slug === videoSlug ? topic.node_color : `${topic?.node_color}50`
+                    }`,
+                    // topic.node_color,
+                    // topic.node_color,
+                    // `${topic.node_color}80`,
+                    // `${topic.node_color}80`,
+                  )
                 : makeRingZero(0, "gray", "gray");
+              // : makeRingZero(0, "gray", "gray");
             },
             "text-background-color": "#fff",
             "text-background-opacity": 0.7,
