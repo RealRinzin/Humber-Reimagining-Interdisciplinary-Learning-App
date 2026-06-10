@@ -1,6 +1,6 @@
 "use client";
 
-import CommonSideBarNode from "@/components/ui/nodeAnimation/CommonSideBarNode";
+import CommonSideBarNode from "@/components/ui/nodeAnimation/SuggestPathNode";
 import ExploreModeNode from "@/components/ui/nodeAnimation/ExploreModeNode";
 import ExploreMode from "@/components/ui/profile/knowledgeMap/ExploreMode";
 import StepByStep from "@/components/ui/profile/knowledgeMap/StepByStep";

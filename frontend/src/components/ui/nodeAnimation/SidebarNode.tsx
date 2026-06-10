@@ -10,9 +10,7 @@ import CytoscapeComponent from "react-cytoscapejs";
 import type { Core } from "cytoscape";
 import { useEffect, useRef, useState } from "react";
 import { clientFetch, clientPost } from "@/lib/clientFetch";
-import {
-  exploreNodeCalculator,
-} from "@/utils/RingProgressPerCalculator";
+import { exploreNodeCalculator } from "@/utils/RingProgressPerCalculator";
 
 interface Props {
   hoveredTopicId?: string | null;
@@ -50,7 +48,7 @@ function makeRingZero(progress: any, color: any, innerColor: any) {
   </svg>`;
   return "data:image/svg+xml," + encodeURIComponent(svg);
 }
-export default function CommonSideBarNode({
+export default function SideBarNode({
   hoveredTopicId,
   refreshKey,
 }: Props) {
@@ -423,32 +421,31 @@ export default function CommonSideBarNode({
 
         {tooltip.visible && (
           <div
-            className="absolute z-30 pointer-events-none"
+            className="absolute z-30 pointer-events-none top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
             // style={{ left: tooltip.x + 16, top: tooltip.y - 60 }}
-            style={{
-              left: tooltip.x >= 500 ? tooltip.x - 400 : tooltip.x + 16,
-              // left: tooltip.x >= 500 ? tooltip.x - 200 : tooltip.x + 16,
-              top: tooltip.y - 60,
-            }}
+            // style={{ left: "50%", top: "50%" }}
+            // style={{
+            //   left: tooltip.x >= 500 ? tooltip.x - 400 : tooltip.x + 16,
+            //   // left: tooltip.x >= 500 ? tooltip.x - 200 : tooltip.x + 16,
+            //   top: tooltip.y - 60,
+            // }}
           >
-            <div className="bg-white border border-900-500/40 rounded-xl px-4 py-3 shadow-xl shadow-pink-900/20 w-3/6">
+            <div className="bg-white border border-900-500/40 rounded-xl px-4 py-3 shadow-xl shadow-pink-900/20 w-5/6">
               <p className="text-black font-bold text-sm uppercase tracking-wide mb-1">
-                {tooltip.label} 
+                <FontAwesomeIcon icon={faPlayCircle} size="sm" className="mr-2"/>
+
+                {tooltip.label}
               </p>
               {tooltip.tldw && (
                 <p className="text-gray-500 text-xs mb-1">{tooltip.tldw}</p>
               )}
-              <div className="flex items-center gap-1.5 text-900-400 text-xs mt-2 font-medium">
+              {/* <div className="flex items-center gap-1.5 text-900-400 text-xs mt-2 font-medium">
                 <FontAwesomeIcon icon={faPlayCircle} size="sm" />
                 <span>Click to watch</span>
-              </div>
+              </div> */}
             </div>
-            {
-              tooltip.x >=500 ?
-              (<div className="w-2 h-2 bg-white border-b border-r border-900-500/40 rotate-45 ml-4 -mt-1" />)
-:
-              (<div className="w-2 h-2 bg-white border-b border-r border-900-500/40 rotate-45 ml-4 -mt-1" />)
-            }
+
+            {/* <div className="w-2 h-2 bg-white border-b border-r border-900-500/40 rotate-45 ml-4 -mt-1" /> */}
           </div>
         )}
       </div>

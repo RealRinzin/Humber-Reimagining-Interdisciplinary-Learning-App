@@ -1,7 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { use } from "react";
-import CommonSideBarNode from "@/components/ui/nodeAnimation/CommonSideBarNode";
 import { clientFetch } from "@/lib/clientFetch";
 import {
   faChevronLeft,
@@ -10,6 +8,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams } from "next/navigation";
 import { MyPlayer } from "@/components/ui/video/VideoPlayer";
+import SideBarNode from "@/components/ui/nodeAnimation/SidebarNode";
 type videoType = {
   src: string | null;
   subtitle: string;
@@ -77,7 +76,7 @@ export default function Page() {
         </div>
         {open && (
           <div className={`col-span-6 md:col-span-2 bg-slate-900 rounded-xl`}>
-            <CommonSideBarNode />
+            <SideBarNode />
           </div>
         )}
       </div>

@@ -1,5 +1,5 @@
 "use client";
-import CommonSideBarNode from "@/components/ui/nodeAnimation/CommonSideBarNode";
+import CommonSideBarNode from "@/components/ui/nodeAnimation/SuggestPathNode";
 import { RefreshContext } from "@/components/ui/video/PageRefresh";
 import {
   faChevronLeft,
