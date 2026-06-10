@@ -19,10 +19,15 @@ use Illuminate\Support\Facades\Route;
 // 
 // To Get the authentication when first access by the user
 //
-Route::get('/test', function () {
+Route::prefix('v1/admin')
+    // ->middleware(['auth:sanctum', 'admin'])
+    ->group(function () {
 
-    return "This API endpoint is active and working well";
-});
+        foreach (glob(__DIR__ . '/api/admin/*.php') as $file) {
+            require $file;
+        }
+    });
+
 // Topic Connection 
 // This API will be used for user login and it will return the user data and token for the user to access the protected API
 // The API will be accessed by the frontend when the user tries to login and it will return the user data and token for the user to access the protected API
@@ -153,9 +158,8 @@ Route::prefix('v1')
          * /api/v1/videos // This API will add a video to the user
          * /api/v1/videos/{video}/users // This API will return the users who have added the video to their list 
          */
-        Route::controller(VideoSectionController::class)->prefix('video-parts')->group(function(){
+        Route::controller(VideoSectionController::class)->prefix('video-parts')->group(function () {
             Route::get('/{videoSection:slug}', 'show')->name('videos-parts.show');
-
         });
         /**
          * USER TOPICS 
