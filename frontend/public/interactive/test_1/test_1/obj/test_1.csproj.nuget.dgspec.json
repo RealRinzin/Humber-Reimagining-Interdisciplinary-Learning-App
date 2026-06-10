@@ -1,35 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sabied\\OneDrive - Humber College\\Research\\Humber_funding_2025\\Interactive components\\test_1\\test_1\\test_1.csproj": {}
+    "/Users/tenzinrinzin/Music/Humber-Reimagining-Interdisciplinary-Learning-App/frontend/public/interactive/test_1/test_1/test_1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sabied\\OneDrive - Humber College\\Research\\Humber_funding_2025\\Interactive components\\test_1\\test_1\\test_1.csproj": {
+    "/Users/tenzinrinzin/Music/Humber-Reimagining-Interdisciplinary-Learning-App/frontend/public/interactive/test_1/test_1/test_1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sabied\\OneDrive - Humber College\\Research\\Humber_funding_2025\\Interactive components\\test_1\\test_1\\test_1.csproj",
+        "projectUniqueName": "/Users/tenzinrinzin/Music/Humber-Reimagining-Interdisciplinary-Learning-App/frontend/public/interactive/test_1/test_1/test_1.csproj",
         "projectName": "test_1",
-        "projectPath": "C:\\Users\\sabied\\OneDrive - Humber College\\Research\\Humber_funding_2025\\Interactive components\\test_1\\test_1\\test_1.csproj",
-        "packagesPath": "C:\\Users\\sabied\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sabied\\OneDrive - Humber College\\Research\\Humber_funding_2025\\Interactive components\\test_1\\test_1\\obj\\",
+        "projectPath": "/Users/tenzinrinzin/Music/Humber-Reimagining-Interdisciplinary-Learning-App/frontend/public/interactive/test_1/test_1/test_1.csproj",
+        "packagesPath": "/Users/tenzinrinzin/.nuget/packages/",
+        "outputPath": "/Users/tenzinrinzin/Music/Humber-Reimagining-Interdisciplinary-Learning-App/frontend/public/interactive/test_1/test_1/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\sabied\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/tenzinrinzin/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {}
           }
@@ -44,10 +39,11 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "imports": [
             "net461",
@@ -68,7 +64,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.300/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

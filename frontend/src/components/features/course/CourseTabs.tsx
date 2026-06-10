@@ -65,7 +65,6 @@ export default function CourseTabs({
   }
   useEffect(() => {
     setIsChecked(status);
-    console.log(content);
   }, [status]);
   return (
     <section className="my-5">

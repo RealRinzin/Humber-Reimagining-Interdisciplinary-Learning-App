@@ -71,7 +71,6 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
     `/user-video-setting/users/me/videos/${video.id}`,
     // `/user-video-setting/users/me/videos/${video.id}`,
   );
-  console.log(video)
   // destructure the return data into completeStatus for better understanding and assigning
   const { data: completeStatus } = await completeStatusRes.json();
   // Check if the response is NULL

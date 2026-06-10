@@ -23,7 +23,7 @@ export default async function page({
 }) {
   const { videoID } = await params;
   return (
-    <ClientPage>
+    <ClientPage videoSlug={videoID}>
       <ServerPage videoSlug={videoID} />
     </ClientPage>
   );

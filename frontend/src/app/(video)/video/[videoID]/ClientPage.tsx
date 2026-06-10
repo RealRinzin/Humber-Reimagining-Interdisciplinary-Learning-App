@@ -1,5 +1,5 @@
 "use client";
-import CommonSideBarNode from "@/components/ui/nodeAnimation/SuggestPathNode";
+import SideBarNode from "@/components/ui/nodeAnimation/SidebarNode";
 import { RefreshContext } from "@/components/ui/video/PageRefresh";
 import {
   faChevronLeft,
@@ -7,7 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-export default function ClientPage({ children }: any) {
+export default function ClientPage({ children, videoSlug }: any) {
   const [open, setOpen] = useState(true);
   const [mounted, setMounted] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
@@ -42,9 +42,15 @@ export default function ClientPage({ children }: any) {
             {children}
           </div>
           {open && (
-            <div className={`col-span-6 md:col-span-2 bg-slate-900 rounded-xl`}>
-              {mounted && <CommonSideBarNode  refreshKey={refreshKey}/>}
-            </div>
+            <>
+              <div
+                className={`col-span-6 md:col-span-2 bg-slate-900 rounded-xl`}
+              >
+                {mounted && (
+                  <SideBarNode refreshKey={refreshKey} videoSlug={videoSlug} />
+                )}
+              </div>
+            </>
           )}
         </div>
       </main>

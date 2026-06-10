@@ -15,6 +15,7 @@ import { exploreNodeCalculator } from "@/utils/RingProgressPerCalculator";
 interface Props {
   hoveredTopicId?: string | null;
   refreshKey?: number;
+  videoSlug?:string
 }
 async function postUserTopic(topic_id: number) {
   await clientPost("/user-topics/users/me/topics", {
@@ -51,6 +52,7 @@ function makeRingZero(progress: any, color: any, innerColor: any) {
 export default function SideBarNode({
   hoveredTopicId,
   refreshKey,
+  videoSlug
 }: Props) {
   const cyRef = useRef<Core | null>(null);
   const animFrameRef = useRef<number | null>(null);
@@ -306,7 +308,7 @@ export default function SideBarNode({
         <div className="p-2 text-white absolute right-0 z-10">
           <div className="flex justify-end items-center">
             <div className="flex gap-3 items-center justify-center bg-slate-700 rounded px-3 py-1">
-              <span className="text-sm">Show Progress</span>
+              <span className="text-sm">Show Progress </span>
               <span>
                 <input
                   type="checkbox"
