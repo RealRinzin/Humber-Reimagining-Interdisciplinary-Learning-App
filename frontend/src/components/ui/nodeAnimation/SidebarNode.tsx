@@ -15,7 +15,7 @@ import { exploreNodeCalculator } from "@/utils/RingProgressPerCalculator";
 interface Props {
   hoveredTopicId?: string | null;
   refreshKey?: number;
-  videoSlug?:string
+  videoSlug?: string;
 }
 async function postUserTopic(topic_id: number) {
   await clientPost("/user-topics/users/me/topics", {
@@ -32,11 +32,12 @@ function makeRing(progress: any, color: any, innerColor: any) {
   const circ = 2 * Math.PI * r;
   const dash = (progress / 100) * circ;
   const gap = circ - dash;
+  const glow = `<defs><filter id="glow"><feGaussianBlur stdDeviation="3" /></filter></defs>`;
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
     <circle cx="${cx}" cy="${cy}" r="50" fill="#1a1a2e"/>
-    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#d0d0d8" stroke-width="${sw}"/>
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#d0d0d8" stroke-width="${sw}" filter="url(#glow)"/>
     ${progress > 0 ? `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${innerColor}" stroke-width="${sw}" stroke-dasharray="${dash.toFixed(1)} ${gap.toFixed(1)}" stroke-linecap="round" transform="rotate(-90 ${cx} ${cy})"/>` : ""}
-    <circle cx="${cx}" cy="${cy}" r="24" fill="${innerColor}"/>
+    <circle cx="${cx}" cy="${cy}" r="24" fill="${innerColor}" />
   </svg>`;
   return "data:image/svg+xml," + encodeURIComponent(svg);
 }
@@ -52,7 +53,7 @@ function makeRingZero(progress: any, color: any, innerColor: any) {
 export default function SideBarNode({
   hoveredTopicId,
   refreshKey,
-  videoSlug
+  videoSlug,
 }: Props) {
   const cyRef = useRef<Core | null>(null);
   const animFrameRef = useRef<number | null>(null);
@@ -68,7 +69,6 @@ export default function SideBarNode({
     label: "",
     tldw: "",
   });
-
   // UseEffect to mount the topic node when page/ component inital loads
   useEffect(() => {
     const newStyle: any = [
@@ -148,6 +148,7 @@ export default function SideBarNode({
       // Topic
       const res = await clientFetch(`/topics`);
       const { data: topics } = await res.json();
+      console.log(topics);
       // Topic Connections
       const topicConnection = await clientFetch("/topic-connections");
       const connect = await topicConnection.json();
@@ -189,22 +190,18 @@ export default function SideBarNode({
             color: "#000",
             "background-image": (ele: any) => {
               return progressTracking
-                ? makeRing(
-                    exploreNodeCalculator(
-                      topic?.videos?.[0],
-                      user_setting,
-                      topic?.videos?.[0]?.user_video_setting,
-                    ),
-                    topic.node_color,
-                    topic.node_color,
-
-                    // RingProgressPerCalculator(
-                    //   topic?.videos?.[0]?.user_video_setting,
-
-                    // ),
-                  )
-                : // ? makeRing(34, topic.node_color, topic.node_color)
-                  makeRingZero(0, topic.node_color, topic.node_color);
+                ? topic?.slug === videoSlug
+                  ? makeRing(
+                      exploreNodeCalculator(
+                        topic?.videos?.[0],
+                        user_setting,
+                        topic?.videos?.[0]?.user_video_setting,
+                      ),
+                      topic.node_color,
+                      topic.node_color,
+                    )
+                  : makeRingZero(0, "gray", "gray")
+                : makeRingZero(0, "gray", "gray");
             },
             "text-background-color": "#fff",
             "text-background-opacity": 0.7,
@@ -249,36 +246,37 @@ export default function SideBarNode({
     getTopics();
   }, [progressTracking, refreshKey]);
   //  React to hoveredTopicId changes from the sidebar
-  useEffect(() => {
-    const cy = cyRef.current;
-    if (!cy) return;
+  // useEffect(() => {
+  //   const cy = cyRef.current;
+  //   if (!cy) return;
 
-    // Always clear first
-    cy.elements().removeClass("faded hovered connected activeEdge");
-    if (animFrameRef.current) {
-      cancelAnimationFrame(animFrameRef.current);
-      animFrameRef.current = null;
-    }
+  //   // Always clear first
+  //   cy.elements().removeClass("faded hovered connected activeEdge");
+  //   if (animFrameRef.current) {
+  //     cancelAnimationFrame(animFrameRef.current);
+  //     animFrameRef.current = null;
+  //   }
 
-    if (!hoveredTopicId) return;
+  //   if (!hoveredTopicId) return;
 
-    const node = cy.getElementById(hoveredTopicId);
-    if (!node || node.empty()) return;
+  //   const node = cy.getElementById(hoveredTopicId);
+  //   if (!node || node.empty()) return;
 
-    cy.elements().addClass("faded");
-    node.removeClass("faded").addClass("hovered");
-    const edges = node.connectedEdges();
-    edges.removeClass("faded").addClass("activeEdge");
-    edges.connectedNodes().removeClass("faded").addClass("connected");
-    let offset = 0;
-    const animate = () => {
-      offset -= 1;
-      cy.edges(".activeEdge").style("line-dash-offset", offset);
-      animFrameRef.current = requestAnimationFrame(animate);
-    };
-    animate();
-  }, [hoveredTopicId]);
+  //   cy.elements().addClass("faded");
+  //   node.removeClass("faded").addClass("hovered");
+  //   const edges = node.connectedEdges();
+  //   edges.removeClass("faded").addClass("activeEdge");
+  //   edges.connectedNodes().removeClass("faded").addClass("connected");
+  //   let offset = 0;
+  //   const animate = () => {
+  //     offset -= 1;
+  //     cy.edges(".activeEdge").style("line-dash-offset", offset);
+  //     animFrameRef.current = requestAnimationFrame(animate);
+  //   };
+  //   animate();
+  // }, [hoveredTopicId]);
 
+  // Zoom in Function
   const handleZoomIn = () => {
     if (cyRef.current) {
       cyRef.current.zoom(cyRef.current.zoom() * 1.2);
@@ -286,13 +284,14 @@ export default function SideBarNode({
     }
   };
 
+  // Zoom out function
   const handleZoomOut = () => {
     if (cyRef.current) {
       cyRef.current.zoom(cyRef.current.zoom() * 0.8);
       cyRef.current.center();
     }
   };
-
+  // fit to the screen
   const handleFitAll = () => {
     if (cyRef.current) {
       cyRef.current.fit(undefined, 40);
@@ -359,7 +358,6 @@ export default function SideBarNode({
               const node = event.target;
               const url = node.data("url");
               const isStarted = node.data("is_started");
-
               if (!isStarted) {
                 postUserTopic(Number(node.data("id")));
               }
@@ -372,7 +370,6 @@ export default function SideBarNode({
               const pos = e.renderedPosition;
               const label = node.data("label");
               const tldw = node.data("tldw");
-
               if (container) container.style.cursor = "pointer";
               setTooltip({
                 visible: true,
@@ -382,22 +379,22 @@ export default function SideBarNode({
                 tldw,
               });
 
-              cy.elements().addClass("faded");
-              node.removeClass("faded").addClass("hovered");
+              // cy.elements().addClass("faded");
+              // node.removeClass("faded").addClass("hovered");
 
-              const edges = node.connectedEdges();
-              edges.removeClass("faded").addClass("activeEdge");
-              edges.connectedNodes().removeClass("faded").addClass("connected");
+              // const edges = node.connectedEdges();
+              // edges.removeClass("faded").addClass("activeEdge");
+              // edges.connectedNodes().removeClass("faded").addClass("connected");
 
-              let offset = 0;
-              const animate = () => {
-                offset -= 1;
-                cy.edges(".activeEdge").style("line-dash-offset", offset);
-                animFrameRef.current = requestAnimationFrame(animate);
-              };
-              if (animFrameRef.current)
-                cancelAnimationFrame(animFrameRef.current);
-              animate();
+              // let offset = 0;
+              // const animate = () => {
+              //   offset -= 1;
+              //   cy.edges(".activeEdge").style("line-dash-offset", offset);
+              //   animFrameRef.current = requestAnimationFrame(animate);
+              // };
+              // if (animFrameRef.current)
+              //   cancelAnimationFrame(animFrameRef.current);
+              // animate();
             });
 
             cy.on("mouseout", "node", () => {
@@ -434,7 +431,11 @@ export default function SideBarNode({
           >
             <div className="bg-white border border-900-500/40 rounded-xl px-4 py-3 shadow-xl shadow-pink-900/20 w-5/6">
               <p className="text-black font-bold text-sm uppercase tracking-wide mb-1">
-                <FontAwesomeIcon icon={faPlayCircle} size="sm" className="mr-2"/>
+                <FontAwesomeIcon
+                  icon={faPlayCircle}
+                  size="sm"
+                  className="mr-2"
+                />
 
                 {tooltip.label}
               </p>

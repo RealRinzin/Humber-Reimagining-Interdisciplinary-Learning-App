@@ -40,7 +40,7 @@ export function nodeProgressCalculator(data: any, user_setting: any, total_check
     }
     return (count / total_checked) * 100;
 }
-
+// Explore node animation calculator
 export function exploreNodeCalculator(video: any, userContentSetting: any, UserVideoSetting: any) {
     let count = 0;
     if (!video) return 0;
