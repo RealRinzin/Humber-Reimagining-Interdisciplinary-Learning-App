@@ -1,5 +1,5 @@
 "use client";
-import SideBarNode from "@/components/ui/nodeAnimation/SidebarNode";
+import ProfileSidebarNode from "@/components/ui/nodeAnimation/ProfileSidebarNode";
 import {
   faChevronLeft,
   faChevronRight,
@@ -39,7 +39,7 @@ export default function ClientPage({ children }: any) {
         </div>
         {open && (
           <div className={`col-span-6 md:col-span-2 bg-slate-900 rounded-xl`}>
-            {mounted && <SideBarNode />}
+            {mounted && <ProfileSidebarNode />}
           </div>
         )}
       </div>

@@ -1,0 +1,1079 @@
+WEBVTT
+
+00:00:00.080 --> 00:00:01.580
+-So what is this?
+
+00:00:01.580 --> 00:00:03.080
+What are we looking at here?
+
+00:00:03.080 --> 00:00:04.960
+-We're back in
+3ds Max
+
+00:00:04.960 --> 00:00:08.800
+Again, and I'm gonna try
+and show you practically how
+
+00:00:08.800 --> 00:00:10.300
+normals work.
+
+00:00:10.300 --> 00:00:11.800
+How they normally work.
+
+00:00:11.800 --> 00:00:14.527
+Alrighty. And so, 
+you know, we
+
+00:00:14.527 --> 00:00:17.255
+were discussing 
+about a light.
+
+00:00:17.255 --> 00:00:19.375
+So I've got a light here that
+
+00:00:19.375 --> 00:00:21.495
+is sort of mimicking 
+the sun in
+
+00:00:21.495 --> 00:00:22.995
+a sense.
+
+00:00:22.995 --> 00:00:24.495
+And you can see as I move it
+around, we get the exactly what
+
+00:00:24.495 --> 00:00:26.850
+we're talking about
+with the foam ball.
+
+00:00:26.850 --> 00:00:29.010
+Okay? The light passing
+over the surface.
+
+00:00:29.010 --> 00:00:31.090
+But I'm gonna ask the
+question to you guys.
+
+00:00:31.090 --> 00:00:34.290
+What's the difference between
+this box and the sphere?
+
+00:00:34.290 --> 00:00:36.610
+Why do they look so different?
+
+00:00:36.610 --> 00:00:38.370
+-Well, that one's round
+and that one's square.
+
+00:00:38.370 --> 00:00:39.870
+-I'm going to disagree.
+
+00:00:41.370 --> 00:00:42.870
+That's not round.
+
+00:00:42.870 --> 00:00:44.535
+-It looks round to me.
+
+00:00:44.535 --> 00:00:46.035
+-Looks round to me.
+
+00:00:46.035 --> 00:00:47.535
+-Yeah. I'm gonna disagree.
+
+00:00:47.535 --> 00:00:49.035
+So I'm gonna go down here and
+
+00:00:49.035 --> 00:00:50.535
+I'm gonna go and
+make it not round.
+
+00:00:52.135 --> 00:00:54.695
+So now if I pass that
+light around it again,
+
+00:00:57.180 --> 00:01:00.300
+it doesn't look the same
+as the box, does it?
+
+00:01:00.300 --> 00:01:03.180
+It's definitely got a
+different look to it.
+
+00:01:03.180 --> 00:01:05.500
+-Yeah, it's definitely
+still smooth.
+
+00:01:05.500 --> 00:01:07.900
+-And it doesn't have
+more polygons in it now.
+
+00:01:07.900 --> 00:01:10.635
+It's actually got far fewer
+triangles. Got like half the
+
+00:01:10.635 --> 00:01:12.562
+amount of triangles
+than the box does.
+
+00:01:14.075 --> 00:01:16.155
+So it's probably
+not the poly count.
+
+00:01:16.155 --> 00:01:19.595
+So if I take that back up
+to something higher, you can
+
+00:01:19.595 --> 00:01:22.075
+actually see that the
+poly count's way up there.
+
+00:01:22.075 --> 00:01:24.810
+It's not the amount of
+polygons, because if I take the
+
+00:01:24.810 --> 00:01:28.410
+polygons, you know, count up
+in the box, well, guess what?
+
+00:01:28.410 --> 00:01:31.130
+It still looks like a box.
+
+00:01:31.130 --> 00:01:33.770
+So what's the difference?
+
+00:01:33.770 --> 00:01:36.775
+-I guess the straight edges on
+the box, but you don't have
+
+00:01:36.775 --> 00:01:38.275
+straight edges on the sphere.
+
+00:01:38.275 --> 00:01:39.775
+-Well, I did when I
+took it down to that.
+
+00:01:39.775 --> 00:01:41.275
+I do.
+
+00:01:41.275 --> 00:01:42.775
+Right?
+
+00:01:42.775 --> 00:01:44.275
+So there's all
+straight edges again.
+
+00:01:44.275 --> 00:01:46.535
+This is about how light
+interacts with the surface, not
+
+00:01:46.535 --> 00:01:48.035
+the surface itself.
+
+00:01:48.035 --> 00:01:51.270
+So as we know, when you look
+at a, you know, an object in
+
+00:01:51.270 --> 00:01:53.830
+three d, there's no such
+thing as a curved surface.
+
+00:01:53.830 --> 00:01:55.430
+It's all flat.
+
+00:01:55.430 --> 00:01:56.950
+Right? They're always flat.
+
+00:01:56.970 --> 00:01:58.470
+They're always triangles.
+
+00:01:58.470 --> 00:01:59.970
+A triangle is always flat.
+
+00:01:59.970 --> 00:02:02.035
+We don't have a
+curve happening here.
+
+00:02:02.035 --> 00:02:05.315
+We have something that looks
+like a curve happening here.
+
+00:02:05.315 --> 00:02:07.715
+It looks like it's round.
+
+00:02:07.715 --> 00:02:10.915
+And it looks like it's
+round because of normal.
+
+00:02:10.915 --> 00:02:12.933
+So if I just select both of
+
+00:02:12.933 --> 00:02:14.950
+these and you'll see that we've
+
+00:02:14.950 --> 00:02:18.470
+got normals sticking out of
+the surfaces of these two.
+
+00:02:18.470 --> 00:02:21.030
+And I'm just gonna go
+into normal mode here.
+
+00:02:21.030 --> 00:02:23.590
+And I can make this box
+
+00:02:23.590 --> 00:02:26.150
+suddenly look like it is the,
+
+00:02:26.150 --> 00:02:27.670
+the sphere very quickly.
+
+00:02:27.670 --> 00:02:30.965
+If I grab all the normals of
+the box, these little arrows,
+
+00:02:30.965 --> 00:02:33.525
+those little normalized
+normals, right, that we
+
+00:02:33.525 --> 00:02:36.965
+normally talk about, and I go
+and unify all those, you'll
+
+00:02:36.965 --> 00:02:40.005
+suddenly notice that the
+lighting of the box becomes
+
+00:02:40.005 --> 00:02:41.505
+very soft.
+
+00:02:41.505 --> 00:02:43.680
+Those edges are gone, right?
+
+00:02:43.680 --> 00:02:46.200
+And likewise, if I take all
+
+00:02:46.200 --> 00:02:48.720
+the normals of the,
+sphere and I
+
+00:02:48.720 --> 00:02:50.400
+break all those, you'll notice
+
+00:02:50.400 --> 00:02:53.200
+now it looks like
+it's all faceted.
+
+00:02:53.200 --> 00:02:55.785
+So now we're seeing all
+the flat faces of it.
+
+00:02:55.785 --> 00:02:58.585
+So I've kind of
+inverted the two models.
+
+00:02:58.585 --> 00:03:00.665
+The box looks more like the
+sphere did, and the sphere
+
+00:03:00.665 --> 00:03:02.165
+looks more like the box did as
+
+00:03:02.165 --> 00:03:03.665
+far as the lighting's concerned.
+
+00:03:03.665 --> 00:03:06.425
+So what we're seeing then in
+you know, if we look at the
+
+00:03:06.425 --> 00:03:09.170
+box, it's a little easier,
+and I can grab a corner here.
+
+00:03:09.170 --> 00:03:12.850
+This is there are three
+triangles that come together at
+
+00:03:12.850 --> 00:03:14.610
+that point, at that corner, and
+
+00:03:14.610 --> 00:03:17.090
+each of those
+vertices has a normal.
+
+00:03:17.090 --> 00:03:19.010
+And all of those normals are
+
+00:03:19.010 --> 00:03:21.615
+pointing exactly
+the same direction.
+
+00:03:21.615 --> 00:03:24.735
+So as the light comes in and
+hits really close to that
+
+00:03:24.735 --> 00:03:26.775
+corner or right on the corner,
+
+00:03:26.775 --> 00:03:28.815
+it's bouncing exactly the same
+
+00:03:28.815 --> 00:03:32.415
+direction for each of the
+triangles right at the corner.
+
+00:03:32.415 --> 00:03:35.455
+And then as it starts to curve,
+you know, that hits further
+
+00:03:35.455 --> 00:03:38.190
+down the box, it's taking
+an average of the normal.
+
+00:03:38.190 --> 00:03:41.870
+So if the normals are pointing
+like that on the bottom corner
+
+00:03:41.870 --> 00:03:43.950
+and the upper corner, the light
+
+00:03:43.950 --> 00:03:45.450
+in the middle is
+taking a normal.
+
+00:03:45.450 --> 00:03:47.630
+So it's taking the average
+of those normals or weighted
+
+00:03:47.630 --> 00:03:50.110
+average, a barycentric
+coordinate, I guess it would
+
+00:03:50.110 --> 00:03:53.805
+be, across the surface of the
+triangle to figure out where
+
+00:03:53.805 --> 00:03:56.525
+the normal is over that surface.
+
+00:03:56.525 --> 00:03:58.565
+And it's making the surface
+
+00:03:58.565 --> 00:04:00.605
+look like it's curved because
+
+00:04:00.605 --> 00:04:01.933
+the light's bouncing at
+
+00:04:01.933 --> 00:04:03.260
+different angles as it goes
+
+00:04:03.260 --> 00:04:05.420
+over this flat triangle.
+
+00:04:05.420 --> 00:04:07.820
+-Right. So instead of the
+normals all pointing the same
+
+00:04:07.820 --> 00:04:10.300
+way, they're being
+averaged out.
+
+00:04:10.300 --> 00:04:13.420
+-Our flat table experiment, we
+could actually make this look
+
+00:04:13.420 --> 00:04:14.900
+like, at the right angles, it
+
+00:04:14.900 --> 00:04:17.025
+was actually looking at a ball.
+
+00:04:17.025 --> 00:04:18.525
+You know, it would look curved.
+
+00:04:18.525 --> 00:04:22.285
+But if you look at it flat
+on, of course, we notice it's
+
+00:04:22.285 --> 00:04:23.785
+still flat.
+
+00:04:23.785 --> 00:04:25.285
+Right? It's still flat.
+
+00:04:25.285 --> 00:04:27.965
+If I break these, you'll
+suddenly notice I start getting
+
+00:04:27.965 --> 00:04:31.005
+those hard corners back, and
+now you can see I've got three
+
+00:04:31.005 --> 00:04:32.505
+normals there.
+
+00:04:32.505 --> 00:04:34.320
+So I've broken the
+three vertex normals.
+
+00:04:34.320 --> 00:04:35.980
+They're now pointing
+
+00:04:36.000 --> 00:04:38.800
+perpendicular to
+their own triangles.
+
+00:04:38.800 --> 00:04:42.560
+So when the light hits right on
+that very, very corner, little
+
+00:04:42.560 --> 00:04:44.800
+to one triangle, a little to
+the other, a little to the
+
+00:04:44.800 --> 00:04:46.880
+other, it's bouncing
+in completely different
+
+00:04:46.880 --> 00:04:49.815
+directions, making us look
+like we have a corner.
+
+00:04:49.815 --> 00:04:53.175
+But as you see, as it blends
+off to this corner, you'll see
+
+00:04:53.175 --> 00:04:54.935
+that it comes back
+together again.
+
+00:04:54.935 --> 00:04:57.015
+So if I grab that one and go
+
+00:04:57.015 --> 00:04:59.095
+break, now that corner of the
+
+00:04:59.095 --> 00:05:02.770
+box is looking like it's okay.
+
+00:05:02.770 --> 00:05:06.770
+So we can actually mess with
+normals in some fun ways.
+
+00:05:06.770 --> 00:05:08.450
+I've got a flat plane here.
+
+00:05:08.450 --> 00:05:11.730
+So as you can imagine, the flat
+plane with the lighting on it
+
+00:05:11.730 --> 00:05:14.450
+is gonna look just
+kinda like a flat plane.
+
+00:05:14.450 --> 00:05:15.950
+Alright. It's dead flat.
+
+00:05:15.950 --> 00:05:17.450
+We can see it's dead flat.
+
+00:05:17.450 --> 00:05:21.275
+Now it has it's kinda hard to
+see, but you can see that it's
+
+00:05:21.275 --> 00:05:22.775
+got there you go.
+
+00:05:22.775 --> 00:05:24.275
+When I select it, it's got a
+
+00:05:24.275 --> 00:05:26.075
+certain amount of
+segments to it.
+
+00:05:26.075 --> 00:05:29.195
+So what I did down here in this
+normal, I actually took the
+
+00:05:29.195 --> 00:05:30.715
+normals and I can bend them.
+
+00:05:30.715 --> 00:05:33.158
+So I can pick those, normals
+
+00:05:33.158 --> 00:05:35.600
+and I can manipulate the
+
+00:05:35.600 --> 00:05:37.100
+normals believe it or not.
+
+00:05:37.100 --> 00:05:38.720
+So I can actually
+change their direction.
+
+00:05:38.720 --> 00:05:41.560
+So with that on, you'll now
+
+00:05:41.560 --> 00:05:44.400
+notice the light starts casting
+
+00:05:44.400 --> 00:05:45.900
+off the edge.
+
+00:05:45.900 --> 00:05:48.575
+So because these normals are
+pointing away from the light
+
+00:05:48.575 --> 00:05:52.175
+more, okay, it thinks that edge
+
+00:05:52.175 --> 00:05:54.735
+is curving away from that light.
+
+00:05:54.735 --> 00:05:56.942
+So if I pick my light now and
+
+00:05:56.942 --> 00:05:59.150
+move it around the surface,
+
+00:05:59.150 --> 00:06:01.310
+it's looks like it's a curved
+
+00:06:01.310 --> 00:06:03.950
+surface, but it's
+not a curved surface.
+
+00:06:03.950 --> 00:06:06.990
+It's a flat surface, and we're
+just telling the light to
+
+00:06:06.990 --> 00:06:10.190
+bounce as though it
+was a curved surface.
+
+00:06:10.190 --> 00:06:11.690
+We're cheating it.
+
+00:06:11.690 --> 00:06:13.190
+I refer to it as
+natural normals.
+
+00:06:13.190 --> 00:06:15.105
+I think you called it the
+geometry normals is how you
+
+00:06:15.105 --> 00:06:17.985
+refer to the these normals
+we're talking about here.
+
+00:06:17.985 --> 00:06:21.505
+So at each at each corner of
+every triangle, there's a set
+
+00:06:21.505 --> 00:06:23.760
+there's a normal for each one.
+
+00:06:23.760 --> 00:06:26.640
+But we need to go further when
+we're doing modeling and stuff
+
+00:06:26.640 --> 00:06:28.480
+and we're doing
+the things we're doing.
+
+00:06:28.480 --> 00:06:30.720
+So if we're building a
+character, for instance, it's
+
+00:06:30.720 --> 00:06:34.560
+so complicated, we actually
+use software like ZBrush that
+
+00:06:34.560 --> 00:06:38.000
+allows us to sculpt literally
+tens of millions of polygons.
+
+00:06:38.000 --> 00:06:41.495
+It's when you go wireframe,
+you're looking at a shaded
+
+00:06:41.495 --> 00:06:42.995
+viewport still.
+
+00:06:42.995 --> 00:06:44.495
+It's just dense with polygons.
+
+00:06:44.535 --> 00:06:47.415
+So it's completely
+unusable in production.
+
+00:06:47.415 --> 00:06:49.548
+We can't actually use that, but
+
+00:06:49.548 --> 00:06:51.680
+what we can do is we can steal
+
+00:06:51.680 --> 00:06:53.180
+normals off it.
+
+00:06:53.180 --> 00:06:56.000
+So what I've got here is a
+representation of that super
+
+00:06:56.000 --> 00:06:57.500
+high res mesh.
+
+00:06:57.500 --> 00:06:59.000
+It isn't super high res, but
+
+00:06:59.000 --> 00:07:01.440
+you can see that it
+is actually deformed.
+
+00:07:01.520 --> 00:07:04.960
+It has, you know, a noise
+modifier on it that's just
+
+00:07:04.960 --> 00:07:06.460
+making it noisy.
+
+00:07:06.460 --> 00:07:10.055
+Okay. And I've got this
+flat plane down here.
+
+00:07:10.055 --> 00:07:12.215
+Now I'm just gonna
+turn this one off.
+
+00:07:12.215 --> 00:07:16.215
+I'm just gonna the normals
+are set back to normal.
+
+00:07:16.215 --> 00:07:18.650
+See what it did there?
+
+00:07:18.650 --> 00:07:21.210
+Okay. I'm using a
+projection modifier.
+
+00:07:21.210 --> 00:07:24.330
+We don't need to get into sort
+of heavily how that works, but
+
+00:07:24.330 --> 00:07:28.170
+essentially what we do from
+this little blue cage, which
+
+00:07:28.170 --> 00:07:31.690
+represents the low res, we're
+gonna fire little ray guns.
+
+00:07:31.690 --> 00:07:35.015
+For every pixel of the texture
+map, we're gonna fire a little
+
+00:07:35.015 --> 00:07:38.215
+ray gun straight down
+from the blue cage.
+
+00:07:38.215 --> 00:07:40.135
+We're gonna hit
+the high res one.
+
+00:07:40.135 --> 00:07:42.935
+We're gonna figure out the
+angle of the high res one.
+
+00:07:42.935 --> 00:07:44.775
+We're gonna hit the low res one.
+
+00:07:44.775 --> 00:07:47.830
+We're gonna get its normal at
+that point where that pixel
+
+00:07:47.830 --> 00:07:50.950
+would sit, and we're gonna
+compare the angle of the high
+
+00:07:50.950 --> 00:07:53.430
+res one with the, you know,
+
+00:07:53.430 --> 00:07:55.910
+geometry normal, as you call
+
+00:07:55.910 --> 00:07:59.110
+it, and we're gonna create a
+tangent space normal texture
+
+00:07:59.110 --> 00:08:02.365
+map, meaning two
+tangent of that.
+
+00:08:02.365 --> 00:08:04.445
+So we're gonna draw a
+little coloured pixel.
+
+00:08:04.445 --> 00:08:06.725
+Red is one way, green is
+
+00:08:06.725 --> 00:08:09.005
+the other, blue, no change.
+
+00:08:09.005 --> 00:08:11.645
+Okay? So we're gonna get this
+nice little pretty picture
+
+00:08:11.645 --> 00:08:13.145
+kinda drawn.
+
+00:08:13.145 --> 00:08:14.645
+And what happens now is when
+the light comes in like you
+
+00:08:14.645 --> 00:08:18.120
+said, it's gonna get the actual
+natural normal of it, and then
+
+00:08:18.120 --> 00:08:21.080
+it's gonna go look colour pixel
+normal is underneath there.
+
+00:08:21.080 --> 00:08:25.080
+I need to bend the I need to
+bend that normal in one of
+
+00:08:25.080 --> 00:08:27.000
+those little directions
+and bend it around.
+
+00:08:27.000 --> 00:08:30.935
+Once that's done, and we have
+this, I'm just gonna go turn
+
+00:08:30.935 --> 00:08:34.775
+that cage back off again,
+and I'm gonna go in and plug in
+
+00:08:34.775 --> 00:08:36.275
+the normal map.
+
+00:08:37.815 --> 00:08:39.975
+And what you'll see now is is
+
+00:08:39.975 --> 00:08:43.095
+that as I move this
+around.
+
+00:08:43.095 --> 00:08:45.728
+So we stole the normals out
+
+00:08:45.728 --> 00:08:48.360
+of the high res and basically
+
+00:08:48.360 --> 00:08:50.440
+baked it down into a texture
+
+00:08:50.440 --> 00:08:52.520
+map of pixel colours, and we're
+
+00:08:52.520 --> 00:08:55.352
+just using the, you know, the
+
+00:08:55.352 --> 00:08:58.185
+RGB as x y z vector changes.
+
+00:08:58.185 --> 00:09:01.225
+Right? So we can go in and
+change how this. This is
+
+00:09:01.225 --> 00:09:03.385
+referred to as a
+tangent space normal.
+
+00:09:03.385 --> 00:09:06.265
+Now if you wonder what that
+really looks like sort of on
+
+00:09:06.265 --> 00:09:08.505
+the mesh, I'll just plug
+it in as the base colour.
+
+00:09:08.505 --> 00:09:12.000
+So that's the pretty colours
+that have been generated.
+
+00:09:12.000 --> 00:09:15.600
+And essentially,
+blues, no change.
+
+00:09:15.600 --> 00:09:17.680
+Greens, one way.
+
+00:09:17.680 --> 00:09:19.680
+Reds, the other way, and it
+
+00:09:19.680 --> 00:09:22.480
+just sort of deviates
+how it looks.
+
+00:09:22.480 --> 00:09:25.760
+So we can take models that
+are potentially fairly low
+
+00:09:25.760 --> 00:09:27.957
+resolution and make them look
+
+00:09:27.957 --> 00:09:30.155
+like they have all of this
+
+00:09:30.155 --> 00:09:33.515
+extra fine detail in them,
+everywhere down to pores of
+
+00:09:33.515 --> 00:09:35.755
+skin depending on how many
+pixels you've got in your
+
+00:09:35.755 --> 00:09:37.255
+texture maps.
+
+00:09:37.255 --> 00:09:38.755
+Now, of course, when you see
+
+00:09:38.755 --> 00:09:40.550
+them edge on,
+they're still flat.
+
+00:09:40.550 --> 00:09:42.050
+There's nothing there.
+
+00:09:42.050 --> 00:09:43.990
+There's no actual
+change in surface.
+
+00:09:43.990 --> 00:09:45.490
+-Optical illusion?
+
+00:09:45.490 --> 00:09:48.950
+-Yeah. So we model things so
+they have the sort of the big
+
+00:09:48.950 --> 00:09:51.558
+or the large medium sized form
+
+00:09:51.558 --> 00:09:54.165
+shapes to them, and then we get
+
+00:09:54.165 --> 00:09:58.005
+all of the medium small to
+small detail out of normal maps
+
+00:09:58.005 --> 00:09:59.505
+and cheat it all.
+
+00:09:59.505 --> 00:10:02.885
+-Wow. And does that really help
+with the, kind of how much
+
+00:10:02.885 --> 00:10:05.525
+computer time you need to,
+like, render these objects?
+
+00:10:05.525 --> 00:10:07.750
+-Well, yeah, in
+all sorts of ways.
+
+00:10:07.750 --> 00:10:10.470
+I mean, you wanna load a
+model that's, you know,
+
+00:10:10.470 --> 00:10:13.750
+20,000,000,000 polygons or
+whatever we do when we sculpt.
+
+00:10:13.750 --> 00:10:15.250
+No. You don't.
+
+00:10:15.250 --> 00:10:17.110
+Right? It would just
+crunch everything to a halt.
+
+00:10:17.110 --> 00:10:19.363
+In this case, for games, we can
+
+00:10:19.363 --> 00:10:21.615
+load a very low res, you know,
+
+00:10:21.615 --> 00:10:24.975
+model and put normal maps on
+it and the right textures and
+
+00:10:24.975 --> 00:10:27.855
+everything and even cheat
+a little bit by painting some
+
+00:10:27.855 --> 00:10:30.095
+shadows into things that
+we want and everything.
+
+00:10:30.095 --> 00:10:32.495
+And we can cheat it out and
+make it look like it is really
+
+00:10:32.495 --> 00:10:33.995
+high detailed.
+
+00:10:33.995 --> 00:10:35.820
+Next time you're playing a
+video game, walk around an
+
+00:10:35.820 --> 00:10:37.900
+object that looks high detailed
+
+00:10:37.900 --> 00:10:39.980
+and look at it on angles, then
+
+00:10:39.980 --> 00:10:41.480
+make it go and you'll suddenly
+
+00:10:41.480 --> 00:10:42.980
+realize you're
+looking at flat faces.
+
+00:10:42.980 --> 00:10:45.660
+-Oh, I'm not gonna be able to
+look at video games the same
+
+00:10:45.660 --> 00:10:47.160
+way now.
+
+00:10:47.160 --> 00:10:48.660
+-No. We ruin them for everybody.
+
+00:10:50.160 --> 00:10:51.660
+-Yeah.
+
+00:10:51.660 --> 00:10:53.265
+Yeah. So maybe I could just
+summarize what we've been
+
+00:10:53.265 --> 00:10:54.765
+talking about today.
+
+00:10:54.785 --> 00:10:58.705
+Normals. It's a bit of a weird
+word, but it just means 90
+
+00:10:58.705 --> 00:11:00.465
+degrees to the surface.
+
+00:11:00.465 --> 00:11:02.617
+You got an x, a y, and a z,
+
+00:11:02.617 --> 00:11:04.770
+and you set that last component
+
+00:11:04.770 --> 00:11:06.450
+w to zero.
+
+00:11:06.450 --> 00:11:08.530
+That just switches
+off any translation.
+
+00:11:08.530 --> 00:11:10.370
+You know what
+translate in normals.
+
+00:11:11.490 --> 00:11:15.330
+Typically, it's the artist that
+builds the normals in model
+
+00:11:15.330 --> 00:11:19.305
+space, and then we bring it
+over into Cassidy's coffee shop
+
+00:11:19.305 --> 00:11:20.965
+world space.
+
+00:11:20.965 --> 00:11:23.305
+We can rotate them, don't
+translate them, but if you're
+
+00:11:23.305 --> 00:11:25.785
+doing some non uniform scales,
+
+00:11:25.785 --> 00:11:28.265
+can well, we gotta kind of
+
+00:11:28.265 --> 00:11:30.120
+massage that a little bit.
+
+00:11:30.120 --> 00:11:31.620
+Why are normals important?
+
+00:11:31.620 --> 00:11:33.620
+Well, Scott was
+talking about lighting.
+
+00:11:33.620 --> 00:11:35.120
+-Yeah.
+
+00:11:35.120 --> 00:11:36.620
+That's all this business.
+
+00:11:36.620 --> 00:11:38.120
+-Yeah. That's all this.
+
+00:11:38.120 --> 00:11:40.420
+Yeah. I mean, if you take that
+whole row there, and we can
+
+00:11:40.420 --> 00:11:41.920
+literally just go in.
+
+00:11:44.255 --> 00:11:46.815
+We changed the way
+the light is interacting with
+
+00:11:46.815 --> 00:11:48.315
+the surface.
+
+00:11:48.315 --> 00:11:50.275
+And that thing is as it appears.
+
+00:11:50.275 --> 00:11:51.775
+-And you blew my mind.
+
+00:11:51.775 --> 00:11:53.695
+You can even steal normals.
+
+00:11:53.695 --> 00:11:55.535
+-Steal normals 
+off other objects.
+
+00:11:55.535 --> 00:11:57.035
+-Wow.
+
+00:11:57.035 --> 00:11:58.535
+That's incredible.
+
+00:11:58.535 --> 00:12:00.035
+Thank you so much.
+
+00:12:00.035 --> 00:12:01.535
+-No trouble.
+
+00:12:01.535 --> 00:12:03.035
+That was fun.
+
+00:12:03.035 --> 00:12:04.535
+Thank you.
+
+00:12:04.535 --> 00:12:06.035
+-That really did blow my mind.
+
+00:12:07.535 --> 00:12:09.035
+You're like a magician.
+
+00:12:09.035 --> 00:12:10.535
+-I just use the software.

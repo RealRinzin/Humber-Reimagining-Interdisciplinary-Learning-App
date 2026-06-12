@@ -2,8 +2,10 @@
 import { OnboardPersonalDetailType } from "@/types/onboard/onboard-types";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-
-export default function PersonalDetail({ data, onComplete }: any) {
+interface FormAProps {
+  onComplete: (data: OnboardPersonalDetailType) => void;
+}
+export default function PersonalDetail({ onComplete }: FormAProps) {
   const {
     register,
     handleSubmit,
@@ -11,8 +13,7 @@ export default function PersonalDetail({ data, onComplete }: any) {
   } = useForm<OnboardPersonalDetailType>({ mode: "onChange" });
 
   const onSubmit = (data: OnboardPersonalDetailType) => {
-    console.log(onComplete)
-    onComplete(data); 
+    onComplete(data); // pass data up
   };
   useEffect(() => {}, []);
   return (

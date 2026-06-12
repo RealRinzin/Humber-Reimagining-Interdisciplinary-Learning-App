@@ -414,7 +414,7 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
                 cancelAnimationFrame(animFrameRef.current);
               animate();
             });
-
+            // improving the mouse out fade effect of the nodes
             cy.on("mouseout", "node", () => {
               const container = cy.container();
               if (container) container.style.cursor = "default";
@@ -438,7 +438,7 @@ export default function ExploreModeNode({ hoveredTopicId }: Props) {
         />
         {tooltip.visible && (
           <div
-            className="absolute z-30 pointer-events-none w-auto"
+            className="absolute z-30 pointer-events-none w-auto transition-all duration-300 ease-in-out "
             // style={{ left: tooltip.x + 16, top: tooltip.y - 60 }}
             style={{
               left:

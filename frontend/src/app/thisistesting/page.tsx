@@ -3,19 +3,26 @@ import LearningPath from "@/components/ui/onboardTest/LearningPath";
 import PersonalDetail from "@/components/ui/onboardTest/PersonalDetail";
 import SelectContent from "@/components/ui/onboardTest/SelectContent";
 import ShowProgress from "@/components/ui/onboardTest/ShowProgress";
-import React, { ComponentType, useState } from "react";
+import { OnboardPersonalDetailType } from "@/types/onboard/onboard-types";
+import React, { ComponentType, useEffect, useState } from "react";
 
 interface OnBoardingDtypes {
   id: number;
   name: string;
-  component: ComponentType;
   data: object;
   completed: boolean;
+  status: boolean;
+  next:boolean,
+  component: ComponentType<{ onComplete: (data: any) => void }>;
 }
 export default function page() {
   const [personalDetail, setPersonalDetail] = useState({
     username: "",
     password: "",
+  });
+  const [selectContent, setSelectContent] = useState({
+    learning: false,
+    path: false,
   });
   const [onBoarding, setOnBoarding] = useState<OnBoardingDtypes[]>([
     {
@@ -23,35 +30,34 @@ export default function page() {
       name: "Personal \n Details",
       data: personalDetail,
       component: PersonalDetail,
-      completed: true,
+      status: false,
+      completed: false,
+      next:true
     },
     // {
     //   id: 2,
     //   name: "Select \n Content",
-    //   data: "personalDetail",
+    //   data: selectContent,
     //   completed: false,
+    //   status:false,
     //   component: SelectContent,
-    // },
-    // {
-    //   id: 3,
-    //   name: "Learning \n Path",
-    //   data: personalDetail,
-
-    //   completed: false,
-    //   component: LearningPath,
-    // },
-    // {
-    //   id: 4,
-    //   name: "Show \n Progress",
-    //   data: personalDetail,
-    //   completed: false,
-    //   component: ShowProgress,
     // },
   ]);
   // Pass this down so the child can update parent state
-  const handleComplete = (id:number,data: any) => {
-    console.log(data);
+  const handleComplete = (data: OnboardPersonalDetailType, id: number) => {
+    setOnBoarding((prev) =>
+      prev.map((step) =>
+        step.id === id ? { ...step, completed: true, status: true } : step,
+      ),
+    );
+    setPersonalDetail({ username: data.username, password: data.password });
+
+    // console.log("saved", data);
+    // console.log(personalDetail);
   };
+  useEffect(() => {
+    console.log(personalDetail);
+  }, [personalDetail,onBoarding]);
   return (
     <div className="min-h-screen bg-gray-300 w-2/4">
       <ul className="flex py-3 justify-evenly">
@@ -64,8 +70,13 @@ export default function page() {
           </li>
         ))}
       </ul>
-      {onBoarding.map((component, index) => (
+
+      {/* <PersonalDetail onComplete={handleComplete} /> */}
+      {onBoarding.map((item, index) => (
         <div key={index}>
+          <item.component
+            onComplete={(data) => handleComplete(data, item.id)}
+          />
         </div>
       ))}
     </div>
