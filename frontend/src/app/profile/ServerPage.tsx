@@ -14,7 +14,7 @@ export default async function ServerPage() {
   const { data: userData } = await getUserRecords.json();
   const checkedMarkCount = (userData?.user_video_settings as any[]).reduce(
     (acc, data) => ({
-      video: acc.video + (data?.pivot?.vodep ? 1 : 0),
+      video: acc.video + (data?.pivot?.video ? 1 : 0),
       code: acc.code + (data?.pivot?.code ? 1 : 0),
       quiz: acc.quiz + (data?.pivot?.quiz ? 1 : 0),
       rambling: acc.rambling + (data?.pivot?.rambling ? 1 : 0),
@@ -58,14 +58,6 @@ export default async function ServerPage() {
           />
         </div>
       </div>
-      {/* Continue Learning section */}
-      {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-10 my-10">
-        {topics.slice(0, 3).map((video: VideoType, index: number) => (
-          <div className="flex" key={index}>
-            <VideoCard video={video} />
-          </div>
-        ))}
-      </div> */}
       {/* Content Setting */}
       <div className="py-10">
         <ContentSetting />

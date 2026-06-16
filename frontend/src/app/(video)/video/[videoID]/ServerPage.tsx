@@ -79,7 +79,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
     const res = await serverPatch(
       `/user-video-setting/users/me/videos/${video.id}`,
       {
-        video: true,
+        video: false,
         code: false,
         interactive: false,
         rambling: false,
