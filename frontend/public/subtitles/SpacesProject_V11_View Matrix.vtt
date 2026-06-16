@@ -1,0 +1,1540 @@
+WEBVTT
+
+00:00:00.160 --> 00:00:02.787
+- We are talking about
+the view matrix today.
+
+00:00:02.787 --> 00:00:05.295
+What are we viewing?
+Why is it called view matrix?
+
+00:00:05.295 --> 00:00:07.840
+- It's the view from
+the camera's point of view.
+
+00:00:07.840 --> 00:00:09.600
+- Ah, so view camera.
+
+00:00:09.600 --> 00:00:12.400
+Okay, and it's a matrix,
+which means it takes us
+
+00:00:12.400 --> 00:00:16.065
+from one space to another.
+
+00:00:16.065 --> 00:00:19.568
+This particular matrix
+takes us from world space
+
+00:00:19.568 --> 00:00:21.790
+to camera space.
+
+00:00:21.790 --> 00:00:23.472
+Now, this is where
+Scott and I
+
+00:00:23.472 --> 00:00:25.815
+argue a lot about...
+
+00:00:25.815 --> 00:00:27.334
+- Go ahead.
+Bring it on.
+
+00:00:27.334 --> 00:00:28.834
+You bring it on,
+and I'll correct you.
+
+00:00:28.834 --> 00:00:30.391
+- Thank you.
+
+00:00:30.391 --> 00:00:32.200
+Because we argue
+about the camera a lot.
+
+00:00:32.200 --> 00:00:34.595
+Like, I tend to do all my work
+
+00:00:34.595 --> 00:00:37.240
+as a physics programmer
+in world space.
+
+00:00:37.240 --> 00:00:39.207
+I like moving the camera around.
+
+00:00:39.207 --> 00:00:41.648
+I shoot rays out of the camera.
+
+00:00:41.648 --> 00:00:45.192
+So it has a position
+and an orientation,
+
+00:00:45.192 --> 00:00:48.045
+but Scott says no.
+- It doesn't.
+
+00:00:48.045 --> 00:00:49.577
+And I do the math
+ to help you
+
+00:00:49.577 --> 00:00:51.602
+do all that stuff,
+so let me explain.
+
+00:00:51.602 --> 00:00:54.152
+The camera is at
+the origin looking down
+
+00:00:54.152 --> 00:00:56.565
+the negative Z axis,
+ and rather than moving
+
+00:00:56.565 --> 00:00:58.120
+the camera around, you move
+
+00:00:58.120 --> 00:01:00.700
+the universe around.
+- Yeah.
+
+00:01:00.700 --> 00:01:03.100
+- That's just how
+it works, mathematically.
+
+00:01:03.100 --> 00:01:04.620
+That is how it works.
+
+00:01:04.620 --> 00:01:06.734
+Now, I know a lot
+of people need...
+
+00:01:06.734 --> 00:01:08.673
+they need the camera
+to move because it's...
+
+00:01:08.673 --> 00:01:10.636
+My way of looking at it is not
+
+00:01:10.636 --> 00:01:12.302
+the intuitive way
+of looking at it.
+
+00:01:12.302 --> 00:01:13.893
+That'll throw people off.
+
+00:01:13.893 --> 00:01:16.342
+So I have to fake all this stuff
+
+00:01:16.342 --> 00:01:18.228
+by saying, yeah,
+the camera can move,
+
+00:01:18.228 --> 00:01:21.240
+but really, I'm moving
+the universe around
+
+00:01:21.240 --> 00:01:22.755
+the non-moving camera,
+
+00:01:22.755 --> 00:01:24.285
+but I just need to,
+
+00:01:24.285 --> 00:01:26.362
+you know, do some
+secret things in the math
+
+00:01:26.362 --> 00:01:27.875
+that I'm not going
+to tell you about.
+
+00:01:27.875 --> 00:01:29.763
+And then you believe
+that the camera...
+
+00:01:29.763 --> 00:01:31.894
+Oh, look at me.
+The camera's moving.
+
+00:01:31.894 --> 00:01:33.412
+- Yeah, true.
+I end up believing
+
+00:01:33.412 --> 00:01:35.300
+the camera exists,
+but it's all just mathematics.
+
+00:01:35.300 --> 00:01:39.140
+So we have different
+views on this.
+
+00:01:39.140 --> 00:01:41.875
+Nice, I'm glad you
+smiled at that.
+
+00:01:41.875 --> 00:01:43.996
+In fact, the way I code this
+is if we take
+
+00:01:43.996 --> 00:01:46.610
+the projection matrix,
+which we talked about,
+
+00:01:46.610 --> 00:01:49.617
+and you take the view matrix,
+we multiply those two together,
+
+00:01:49.617 --> 00:01:51.385
+that does make the camera.
+
+00:01:51.385 --> 00:01:54.249
+And so you can view it as
+
+00:01:54.249 --> 00:01:56.550
+the view matrix
+is the orientation,
+
+00:01:56.550 --> 00:01:58.508
+position, location
+of the camera,
+
+00:01:58.508 --> 00:02:00.402
+and then the
+projection matrix is
+
+00:02:00.402 --> 00:02:02.980
+the lens on the camera.
+
+00:02:02.980 --> 00:02:04.676
+- Oh, I like that.
+Yeah.
+
+00:02:04.676 --> 00:02:07.074
+- So I combine those,
+ and now you've got
+
+00:02:07.074 --> 00:02:09.007
+the whole camera set up,
+and the model's just the actor
+
+00:02:09.007 --> 00:02:11.220
+running around on stage
+doing something.
+
+00:02:11.220 --> 00:02:13.625
+- Yeah, just like Cassidy has.
+
+00:02:13.625 --> 00:02:15.225
+All the models were set up.
+
+00:02:15.225 --> 00:02:17.502
+Now, we have a video
+on world space where,
+
+00:02:17.502 --> 00:02:19.204
+in that video, you see
+
+00:02:19.204 --> 00:02:21.965
+Cassidy's actually moving
+the camera around,
+
+00:02:21.965 --> 00:02:23.945
+and we've got the counter
+and everything.
+
+00:02:23.945 --> 00:02:26.520
+So maybe we can start
+in world space.
+
+00:02:26.520 --> 00:02:28.253
+And then we'll get to
+
+00:02:28.253 --> 00:02:29.913
+camera space in a bit.
+
+00:02:29.913 --> 00:02:32.380
+Oh, and this is the origin.
+
+00:02:32.380 --> 00:02:33.880
+I should have introduced this.
+
+00:02:33.880 --> 00:02:35.595
+These are the axes.
+
+00:02:35.595 --> 00:02:37.870
+So Y goes up, X across,
+
+00:02:37.870 --> 00:02:40.815
+Z towards you.
+
+00:02:40.815 --> 00:02:43.669
+So Scott is adamant
+ that the camera is
+
+00:02:43.669 --> 00:02:46.130
+at the origin looking down
+
+00:02:46.130 --> 00:02:47.711
+negative Z.
+
+00:02:47.711 --> 00:02:49.444
+Now, I want to
+look at this cup.
+
+00:02:49.444 --> 00:02:51.093
+Imagine the whole...
+
+00:02:51.093 --> 00:02:53.182
+All our models,
+it's just one cup.
+
+00:02:53.182 --> 00:02:54.735
+It has vertices.
+
+00:02:54.735 --> 00:02:56.580
+It has normals.
+
+00:02:56.580 --> 00:02:58.191
+I want the camera
+to look at that.
+
+00:02:58.191 --> 00:03:00.420
+And I'm in world space.
+
+00:03:00.420 --> 00:03:02.556
+So what I would do
+is I would
+
+00:03:02.556 --> 00:03:04.576
+rotate the camera...
+
+00:03:06.351 --> 00:03:08.185
+over here, and say
+I wanted to zoom in.
+
+00:03:08.185 --> 00:03:09.810
+I would
+
+00:03:09.810 --> 00:03:11.565
+translate
+
+00:03:11.565 --> 00:03:13.105
+to the object.
+
+00:03:13.105 --> 00:03:15.785
+And it's almost like
+the camera has its own
+
+00:03:15.785 --> 00:03:18.545
+model matrix,
+in a weird way.
+
+00:03:18.545 --> 00:03:20.347
+Because a model matrix,
+
+00:03:20.347 --> 00:03:22.115
+if I do the motion again,
+
+00:03:22.115 --> 00:03:24.208
+a model matrix is
+
+00:03:24.208 --> 00:03:26.548
+a rotate
+
+00:03:26.548 --> 00:03:28.560
+and a translate,
+
+00:03:28.560 --> 00:03:30.247
+if I'm skipping the scale.
+
+00:03:30.247 --> 00:03:32.437
+We don't need to
+scale the camera for this.
+
+00:03:32.437 --> 00:03:34.231
+- Now, the correct way
+to think about it...
+
+00:03:34.231 --> 00:03:35.875
+- Yeah, of course.
+
+00:03:35.875 --> 00:03:38.755
+- Is to put the camera
+back at the origin,
+
+00:03:38.755 --> 00:03:40.275
+where you had it.
+
+00:03:40.275 --> 00:03:41.867
+And now you want to
+see this cup.
+
+00:03:41.867 --> 00:03:43.390
+- Yes.
+
+00:03:43.390 --> 00:03:44.982
+- So move the cup
+in front of the camera.
+
+00:03:44.982 --> 00:03:46.515
+- I agree.
+
+00:03:46.515 --> 00:03:48.515
+- And you want to look closer?
+- Yes.
+
+00:03:48.515 --> 00:03:50.029
+- At the at the cup?
+- Yes.
+
+00:03:50.029 --> 00:03:52.126
+- Move it closer.
+- Oh.
+
+00:03:52.126 --> 00:03:54.665
+And that's the same thing
+as moving the camera forward.
+
+00:03:54.665 --> 00:03:57.115
+- Yeah, except mathematically,
+
+00:03:57.115 --> 00:03:59.330
+this is the way
+we're doing it.
+
+00:03:59.330 --> 00:04:01.635
+So you do it any way you want.
+I'll do it right.
+
+00:04:01.635 --> 00:04:03.186
+- And we are going to agree.
+I'm sure...
+
+00:04:03.186 --> 00:04:04.734
+- Ultimately, we agree.
+
+00:04:04.734 --> 00:04:06.267
+- Yes, it's weird.
+
+00:04:06.267 --> 00:04:08.023
+The arguments we have,
+we usually
+
+00:04:08.023 --> 00:04:10.618
+are talking about the same
+thing, but in different ways.
+
+00:04:10.618 --> 00:04:12.288
+- Well, if you and I were
+just out in
+
+00:04:12.288 --> 00:04:15.085
+the middle of space someplace
+with no other reference point,
+
+00:04:15.085 --> 00:04:17.920
+if you move towards me or I move
+towards you, who's moving?
+
+00:04:17.920 --> 00:04:19.644
+Who cares?
+
+00:04:19.644 --> 00:04:21.736
+- So the camera's at the origin,
+
+00:04:21.736 --> 00:04:24.801
+looking down negative Z.
+Okay.
+
+00:04:24.801 --> 00:04:27.563
+Now I'm going to
+rotate this camera,
+
+00:04:27.563 --> 00:04:29.117
+because I want
+to look at this cup,
+
+00:04:29.117 --> 00:04:32.445
+and then I'm going to
+translate it.
+
+00:04:32.445 --> 00:04:33.965
+Okay, so this is world space.
+
+00:04:33.965 --> 00:04:36.685
+I've got a nice view
+of this cup.
+
+00:04:36.685 --> 00:04:38.365
+Now, Scott's certainly right.
+
+00:04:38.365 --> 00:04:41.387
+For the next stage,
+ camera space,
+
+00:04:41.387 --> 00:04:44.285
+this camera
+has to be at the origin.
+
+00:04:44.285 --> 00:04:47.450
+It has to be looking
+down negative Z.
+
+00:04:47.450 --> 00:04:49.770
+So there's two
+moves we could do.
+
+00:04:49.770 --> 00:04:52.010
+This camera has
+a translation, right?
+
+00:04:52.010 --> 00:04:54.019
+What we could do is
+
+00:04:54.019 --> 00:04:57.297
+invert the translation.
+
+00:04:57.297 --> 00:04:58.951
+Say the camera moved
+
+00:04:58.951 --> 00:05:01.413
+one way, to your left,
+
+00:05:01.413 --> 00:05:02.939
+move it back.
+
+00:05:02.939 --> 00:05:05.205
+But the thing is you're not
+moving the camera at this point.
+
+00:05:05.205 --> 00:05:06.701
+It's all just conceptual.
+
+00:05:06.701 --> 00:05:08.475
+You're moving all the vertices
+
+00:05:08.475 --> 00:05:10.358
+and normals
+
+00:05:10.358 --> 00:05:11.917
+on that cup.
+
+00:05:11.917 --> 00:05:14.130
+Well, not the normals.
+I'll get to that in a second.
+
+00:05:14.130 --> 00:05:16.615
+So the first move
+ to get a camera space
+
+00:05:16.615 --> 00:05:20.050
+is called an inverse
+translation.
+
+00:05:20.050 --> 00:05:21.713
+Notice the camera is still
+looking at the cup.
+
+00:05:21.713 --> 00:05:23.222
+The second move...
+
+00:05:23.222 --> 00:05:24.715
+Scott's still not
+happy about this.
+
+00:05:24.715 --> 00:05:26.822
+The camera's at
+the origin right now,
+
+00:05:26.822 --> 00:05:28.875
+but it's not looking
+down negative Z.
+
+00:05:28.875 --> 00:05:31.595
+So now we've got to
+undo the rotation.
+
+00:05:31.595 --> 00:05:33.535
+So the next move is called
+
+00:05:33.535 --> 00:05:36.355
+the inverse rotation,
+
+00:05:36.355 --> 00:05:38.623
+and we're applying it
+
+00:05:38.623 --> 00:05:41.810
+to the cup's vertices
+and the normals, in this case.
+
+00:05:41.810 --> 00:05:45.109
+If the vertices have
+a W of one,
+
+00:05:45.109 --> 00:05:46.981
+they can translate.
+
+00:05:46.981 --> 00:05:48.946
+But you don't want
+your normals translating.
+
+00:05:48.946 --> 00:05:51.124
+If you move to the right,
+you don't want your normal
+
+00:05:51.124 --> 00:05:53.302
+to point more to the right,
+
+00:05:53.302 --> 00:05:55.815
+but they do rotate.
+
+00:05:55.815 --> 00:05:57.575
+So those are the two moves.
+
+00:05:57.575 --> 00:06:01.015
+And because these are matrices,
+you just multiply them together.
+
+00:06:01.015 --> 00:06:02.535
+Multiply first the input...
+
+00:06:02.535 --> 00:06:04.535
+- Put this back the way it was.
+- Of course, of course.
+
+00:06:04.535 --> 00:06:06.135
+- Put it back the way it was.
+
+00:06:06.135 --> 00:06:07.950
+You had it like this,
+
+00:06:07.950 --> 00:06:10.250
+then had it translate...
+- Yes, yes.
+
+00:06:10.250 --> 00:06:11.755
+That's what I have.
+- All right.
+
+00:06:11.755 --> 00:06:14.010
+- Because this camera
+has a location and orientation.
+
+00:06:14.010 --> 00:06:15.730
+Sorry, go ahead.
+- I grant you.
+
+00:06:15.730 --> 00:06:17.960
+Why do you need to take
+ the inverse
+
+00:06:17.960 --> 00:06:20.291
+instead of just,
+if you know you translated it
+
+00:06:20.291 --> 00:06:23.045
+a few units this way,
+just go back the other way.
+
+00:06:23.045 --> 00:06:26.405
+Just go the other direction
+rather than the inverse.
+
+00:06:26.405 --> 00:06:29.021
+Granted that the inverse
+ of the translation
+
+00:06:29.021 --> 00:06:31.388
+is just going the other way,
+why are you bothering
+
+00:06:31.388 --> 00:06:34.317
+with the full inverse?
+- Yeah, good point.
+
+00:06:34.317 --> 00:06:36.547
+- Just go the other way.
+- Yeah, I guess the inverse
+
+00:06:36.547 --> 00:06:38.180
+of the translation is going
+back the other way.
+
+00:06:38.180 --> 00:06:39.704
+- Yeah, and the same thing
+with your rotate.
+
+00:06:39.704 --> 00:06:42.833
+So if you rotated 90 degrees,
+rotate negative 90 degrees.
+
+00:06:42.833 --> 00:06:44.478
+- Yes.
+
+00:06:44.478 --> 00:06:46.311
+I guess the reason I'm saying
+
+00:06:46.311 --> 00:06:48.825
+invert the translation matrix
+
+00:06:48.825 --> 00:06:51.063
+is that a lot
+ of people like to have
+
+00:06:51.063 --> 00:06:53.615
+a model matrix for the camera.
+
+00:06:53.615 --> 00:06:56.415
+Maybe not yourself,
+but some people do.
+
+00:06:56.415 --> 00:06:58.207
+They have a model matrix
+ for the camera,
+
+00:06:58.207 --> 00:07:00.728
+and the model matrix
+does two things.
+
+00:07:00.728 --> 00:07:03.002
+Rotates,
+
+00:07:03.002 --> 00:07:04.526
+then translates.
+
+00:07:04.526 --> 00:07:07.533
+And what they like to do,
+these fancy people,
+
+00:07:07.533 --> 00:07:09.336
+is that they have
+
+00:07:09.336 --> 00:07:11.685
+a translation matrix
+on the left,
+
+00:07:11.685 --> 00:07:13.400
+a rotation matrix on the right.
+
+00:07:13.400 --> 00:07:16.025
+They're multiplied together.
+Order matters.
+
+00:07:16.025 --> 00:07:18.257
+When you inverse
+this whole matrix,
+
+00:07:18.257 --> 00:07:20.585
+it actually swaps the order.
+
+00:07:20.585 --> 00:07:23.007
+It actually does
+an inverse translation
+
+00:07:23.007 --> 00:07:26.185
+and then an inverse rotation.
+
+00:07:26.185 --> 00:07:28.523
+So the reason I'm saying inverse
+so much is just
+
+00:07:28.523 --> 00:07:31.195
+to split it into two parts.
+
+00:07:31.195 --> 00:07:32.860
+But you are correct.
+
+00:07:32.860 --> 00:07:35.493
+You don't need to inverse
+the matrix for a translation.
+
+00:07:35.493 --> 00:07:37.175
+Just go the other way.
+
+00:07:37.175 --> 00:07:38.725
+Now, if you did it my way,
+you wouldn't have to do
+
+00:07:38.725 --> 00:07:41.035
+any of this stuff.
+- How would you do it?
+
+00:07:41.035 --> 00:07:43.300
+- Leave the camera at the origin
+
+00:07:43.300 --> 00:07:45.915
+looking down
+the negative Z axis.
+
+00:07:45.915 --> 00:07:48.321
+And then, if you want to
+
+00:07:48.321 --> 00:07:51.595
+move the cup, translate it.
+
+00:07:51.595 --> 00:07:53.806
+And then if you want
+to move it from here,
+
+00:07:53.806 --> 00:07:55.942
+say to over here
+and you want to rotate it,
+
+00:07:55.942 --> 00:07:57.654
+just rotate.
+
+00:07:57.654 --> 00:08:00.245
+Now the only problem is,
+Cassidy's not going to like it
+
+00:08:00.245 --> 00:08:03.542
+because she has to
+rotate the opposite...
+
+00:08:03.542 --> 00:08:05.240
+- Yes.
+
+00:08:05.240 --> 00:08:08.200
+- Opposite direction,
+or the opposite axis.
+
+00:08:08.200 --> 00:08:10.183
+So if you're going
+to rotate here around...
+
+00:08:10.183 --> 00:08:12.727
+This is the Y axis.
+- Yes.
+
+00:08:12.727 --> 00:08:14.695
+So she would rotate
+ from here to, say,
+
+00:08:14.695 --> 00:08:16.885
+rotate to that location.
+
+00:08:16.885 --> 00:08:19.614
+She could rotate
+positive number of degrees,
+
+00:08:19.614 --> 00:08:21.525
+so that would make sense to her,
+but she'd have to rotate
+
+00:08:21.525 --> 00:08:24.260
+around the negative of the axis.
+
+00:08:24.260 --> 00:08:26.254
+And then that would put
+it in the right place,
+
+00:08:26.254 --> 00:08:28.831
+or just put a minus sign
+on the number of degrees.
+
+00:08:28.831 --> 00:08:30.340
+- Yeah, isn't it amazing?
+
+00:08:30.340 --> 00:08:31.886
+- I'm going to do that
+in a minute for you
+
+00:08:31.886 --> 00:08:34.011
+when we look at LookAt.
+- LookAt, yes.
+
+00:08:34.011 --> 00:08:36.020
+We'll get to
+another way to do this.
+
+00:08:36.020 --> 00:08:38.055
+But to answer your question,
+
+00:08:38.055 --> 00:08:40.215
+why am I making it
+so complicated?
+
+00:08:40.215 --> 00:08:42.594
+It's because I teach physics,
+
+00:08:42.594 --> 00:08:45.495
+and I have objects
+in world space.
+
+00:08:45.495 --> 00:08:48.215
+So this object
+has an X, Y, Z.
+
+00:08:48.215 --> 00:08:50.135
+W is one for its vertices.
+
+00:08:50.135 --> 00:08:52.730
+Anyways, I'm shooting
+rays out of the camera.
+
+00:08:52.730 --> 00:08:55.210
+I'm trying to click
+on things in my course.
+
+00:08:55.210 --> 00:08:58.010
+So it's really handy to know
+ where is the camera
+
+00:08:58.010 --> 00:09:00.250
+in world space.
+
+00:09:00.250 --> 00:09:01.767
+Eventually, we agree.
+
+00:09:01.767 --> 00:09:04.935
+When we get to camera space,
+that's the next space.
+
+00:09:04.935 --> 00:09:07.328
+The camera is necessarily
+ at the origin
+
+00:09:07.328 --> 00:09:09.470
+looking down negative Z,
+and that's what I do
+
+00:09:09.470 --> 00:09:11.735
+for my snooker assignment.
+
+00:09:11.735 --> 00:09:14.057
+For my snooker assignment,
+I want to whack the ball
+
+00:09:14.057 --> 00:09:16.354
+the direction that
+the camera's looking,
+
+00:09:16.354 --> 00:09:19.093
+and that's always negative Z
+in your space.
+
+00:09:19.093 --> 00:09:21.217
+Yeah, maybe if I could just
+repeat that one more time
+
+00:09:21.217 --> 00:09:23.980
+because it's really subtle,
+what we're doing.
+
+00:09:23.980 --> 00:09:26.359
+So imagine the camera
+
+00:09:26.359 --> 00:09:29.508
+is at the origin, looking
+down negative Z.
+
+00:09:29.508 --> 00:09:31.015
+Everyone's happy.
+
+00:09:31.015 --> 00:09:32.947
+Now, Scott's not going
+to be happy because I'm going to
+
+00:09:32.947 --> 00:09:35.034
+rotate the camera,
+
+00:09:35.034 --> 00:09:37.748
+and then translate it, because
+I really want to look at...
+
+00:09:37.748 --> 00:09:39.262
+Oh, it's a bit off angle now.
+
+00:09:39.262 --> 00:09:42.055
+I really want
+to look at this cup.
+
+00:09:42.055 --> 00:09:44.426
+Now, this view matrix takes us
+
+00:09:44.426 --> 00:09:46.894
+from world space
+to camera space,
+
+00:09:46.894 --> 00:09:49.158
+and the only difference
+ between those two
+
+00:09:49.158 --> 00:09:51.326
+is your frame of reference.
+
+00:09:51.326 --> 00:09:53.131
+That's one way of saying it.
+
+00:09:53.131 --> 00:09:54.662
+Nothing changes,
+
+00:09:54.662 --> 00:09:56.479
+but this camera
+has to be at the origin.
+
+00:09:56.479 --> 00:09:58.642
+I can't just
+move the camera back
+
+00:09:58.642 --> 00:10:01.755
+because then I'm not
+as close to my object.
+
+00:10:01.755 --> 00:10:03.275
+I can't just rotate the camera.
+
+00:10:03.275 --> 00:10:05.035
+I'm not looking at the object.
+
+00:10:05.035 --> 00:10:07.315
+All these operations
+are actually happening
+
+00:10:07.315 --> 00:10:10.075
+to the vertices and the normals.
+
+00:10:10.075 --> 00:10:12.007
+So the first thing
+I would do is
+
+00:10:12.007 --> 00:10:14.183
+translate back,
+
+00:10:14.183 --> 00:10:16.064
+still looking at the cup,
+
+00:10:16.064 --> 00:10:18.930
+and then rotate the other way,
+
+00:10:18.930 --> 00:10:22.761
+still looking at the cup,
+and now we are in camera space.
+
+00:10:22.761 --> 00:10:24.889
+And because these are matrices,
+
+00:10:24.889 --> 00:10:26.555
+you just multiply
+them together.
+
+00:10:26.555 --> 00:10:28.475
+And there you go.
+
+00:10:28.475 --> 00:10:30.608
+But there is another way
+ to do this,
+
+00:10:30.608 --> 00:10:32.516
+and maybe you can explain this,
+
+00:10:32.516 --> 00:10:34.955
+the LookAt function.
+
+00:10:34.955 --> 00:10:37.355
+And is this an...
+Is this in OpenGL?
+
+00:10:37.355 --> 00:10:40.036
+- Yeah, this is
+an OpenGL function.
+
+00:10:40.036 --> 00:10:42.528
+In my class,
+I tell everyone that
+
+00:10:42.528 --> 00:10:44.820
+LookAt is a lie.
+
+00:10:44.820 --> 00:10:47.053
+It lies to you.
+
+00:10:47.053 --> 00:10:49.457
+And it says that there are
+
+00:10:49.457 --> 00:10:51.165
+three things you need to know.
+
+00:10:51.165 --> 00:10:54.925
+You need to know,
+where is the camera located?
+
+00:10:54.925 --> 00:10:57.299
+So the position of the camera,
+ that would be
+
+00:10:57.299 --> 00:10:59.245
+what you're doing here.
+
+00:10:59.245 --> 00:11:02.539
+Then you would need
+to know what is it looking at.
+
+00:11:02.539 --> 00:11:04.831
+So you're looking at this,
+
+00:11:04.831 --> 00:11:06.330
+at this cup.
+
+00:11:06.330 --> 00:11:08.810
+- So that would give
+it its orientation, I guess.
+
+00:11:08.810 --> 00:11:10.917
+Because if I'm looking
+at the cup, but I'm...
+
+00:11:10.917 --> 00:11:12.729
+- You're still look...
+
+00:11:12.729 --> 00:11:14.648
+You pick a point
+out here in space,
+
+00:11:14.648 --> 00:11:16.483
+and that's what
+you're looking at.
+
+00:11:16.483 --> 00:11:18.486
+So if you did move
+ this thing up,
+
+00:11:18.486 --> 00:11:21.834
+it would still be
+looking at that, right?
+
+00:11:21.834 --> 00:11:24.865
+And then the last one is,
+which way is up?
+
+00:11:24.865 --> 00:11:27.745
+Because the camera could
+be tilted over to the side.
+
+00:11:27.745 --> 00:11:30.225
+And we really haven't
+talked about that one yet.
+
+00:11:30.225 --> 00:11:31.750
+- Yeah, you're right.
+
+00:11:31.750 --> 00:11:34.447
+- So LookAt has
+some funny features.
+
+00:11:34.447 --> 00:11:37.286
+Now, a funny thing happens
+if you print out the values.
+
+00:11:37.286 --> 00:11:39.835
+It creates a view matrix,
+
+00:11:39.835 --> 00:11:41.598
+but as I mentioned earlier,
+
+00:11:41.598 --> 00:11:43.694
+everything is rotated
+the other way,
+
+00:11:43.694 --> 00:11:45.990
+and the translation
+goes the other way.
+
+00:11:45.990 --> 00:11:48.851
+So really, what the LookAt does
+is it says,
+
+00:11:48.851 --> 00:11:51.030
+let's pretend that
+the camera has a location.
+
+00:11:51.030 --> 00:11:53.286
+Let's pretend you're
+looking at that,
+
+00:11:53.286 --> 00:11:55.203
+and let's pretend this way's up,
+
+00:11:55.203 --> 00:11:57.363
+and you do all that,
+and what you end up with
+
+00:11:57.363 --> 00:11:59.952
+is a rotation and a translation
+ of the universe to put it
+
+00:11:59.952 --> 00:12:01.465
+in front of the camera,
+
+00:12:01.465 --> 00:12:03.130
+which is sitting at the origin,
+
+00:12:03.130 --> 00:12:04.765
+looking down
+the negative Z axis.
+
+00:12:04.765 --> 00:12:06.289
+- Oh, yeah.
+So I should do that.
+
+00:12:06.289 --> 00:12:09.205
+So at the origin,
+looking down negative Z.
+
+00:12:09.205 --> 00:12:11.149
+So we get to the same place.
+- Yes, but I feel bad
+
+00:12:11.149 --> 00:12:12.719
+because I have to lie
+to everybody and say,
+
+00:12:12.719 --> 00:12:14.690
+Hey, here's a 
+really great call.
+
+00:12:14.690 --> 00:12:16.277
+And some people,
+
+00:12:16.277 --> 00:12:18.199
+like our Paul,
+
+00:12:18.199 --> 00:12:20.225
+doesn't like the idea
+that the universe moves.
+
+00:12:20.225 --> 00:12:21.730
+He wants to move the camera.
+
+00:12:21.730 --> 00:12:23.425
+- Yeah, it seems more efficient
+that way, isn't it?
+
+00:12:23.425 --> 00:12:25.607
+- No, not to me.
+
+00:12:25.607 --> 00:12:27.812
+And that's why we're doing
+this whole series is because
+
+00:12:27.812 --> 00:12:30.362
+you have to go from space 
+to space to space.
+
+00:12:30.362 --> 00:12:33.155
+And, in my view
+
+00:12:33.155 --> 00:12:35.512
+of the way all this works,
+
+00:12:35.512 --> 00:12:38.490
+it's just all there.
+It's just nice and compact.
+
+00:12:38.490 --> 00:12:40.730
+- Yes.
+- You do it in three moves.
+
+00:12:40.730 --> 00:12:42.631
+Multiply the model matrix,
+the view matrix,
+
+00:12:42.631 --> 00:12:44.183
+the projection matrix,
+and you're home.
+
+00:12:44.183 --> 00:12:45.687
+- Yeah, you're right.
+
+00:12:45.687 --> 00:12:47.372
+I always think
+of you as the GPU.
+
+00:12:47.372 --> 00:12:48.897
+You're heading
+towards the screen.
+
+00:12:48.897 --> 00:12:51.918
+You want pixels there.
+- Yeah.
+
+00:12:51.918 --> 00:12:54.456
+- I wonder if it would make
+more sense if the view matrix
+
+00:12:54.456 --> 00:12:57.065
+was the other way around.
+Like, I don't know.
+
+00:12:57.065 --> 00:13:00.749
+I'm just thinking right now
+that if the view matrix...
+
+00:13:00.749 --> 00:13:04.030
+And it doesn't, by the way,
+So I might be confusing people.
+
+00:13:04.030 --> 00:13:06.062
+But if the view matrix
+took you from
+
+00:13:06.062 --> 00:13:08.230
+camera space to world,
+
+00:13:08.230 --> 00:13:09.994
+then I guess you would translate
+
+00:13:09.994 --> 00:13:12.671
+and rotate the right way.
+
+00:13:12.671 --> 00:13:15.443
+- Yeah, now, in our classes,
+when we start off
+
+00:13:15.443 --> 00:13:18.176
+looking at graphics,
+we use a LookAt model
+
+00:13:18.176 --> 00:13:20.571
+and use that trick just so
+
+00:13:20.571 --> 00:13:23.015
+I can quickly get
+the camera in there.
+
+00:13:23.015 --> 00:13:24.848
+But in no time,
+maybe halfway through
+
+00:13:24.848 --> 00:13:27.256
+the first year
+or the first semester class,
+
+00:13:27.256 --> 00:13:29.379
+we throw that all away
+
+00:13:29.379 --> 00:13:32.031
+and do it exactly the way
+I just said,
+
+00:13:32.031 --> 00:13:34.170
+where we use one
+of your quaternions
+
+00:13:34.170 --> 00:13:38.030
+and one vector of translation,
+
+00:13:38.030 --> 00:13:40.106
+and then hook those all up
+and generate
+
+00:13:40.106 --> 00:13:43.218
+the view matrix manually.
+- I really like that.
+
+00:13:43.218 --> 00:13:45.245
+- Two lines of code,
+three lines of code.
+
+00:13:45.245 --> 00:13:46.801
+- Yeah.
+- And we're done.
+
+00:13:46.801 --> 00:13:48.714
+And then it's none of this
+inversion, inverting,
+
+00:13:48.714 --> 00:13:50.525
+moving.
+
+00:13:50.525 --> 00:13:53.169
+This stuff is too complicated
+to make more complicated.
+
+00:13:53.169 --> 00:13:54.748
+- And, yeah,
+
+00:13:54.748 --> 00:13:56.308
+I'm not a big fan
+of the LookAt
+
+00:13:56.308 --> 00:13:58.650
+because I love quaternions.
+
+00:13:58.650 --> 00:14:02.272
+Like, I want to orientate
+my camera with a quaternion,
+
+00:14:02.272 --> 00:14:05.352
+but the LookAt
+function has an at.
+
+00:14:05.352 --> 00:14:07.050
+What are you looking at?
+
+00:14:07.050 --> 00:14:09.310
+And that determines
+the orientation.
+
+00:14:09.310 --> 00:14:10.801
+- That's even a lie.
+
+00:14:10.801 --> 00:14:12.367
+You don't actually have to
+
+00:14:12.367 --> 00:14:14.199
+put in the at,
+you just have to put in
+
+00:14:14.199 --> 00:14:16.378
+the direction
+of what you're looking at.
+
+00:14:16.378 --> 00:14:18.688
+- So it's not a position?
+
+00:14:18.688 --> 00:14:21.447
+- It's not one of my
+favourite calls because
+
+00:14:21.447 --> 00:14:23.746
+if you go from here
+ and you rotate over
+
+00:14:23.746 --> 00:14:26.390
+and you come around
+the other side,
+
+00:14:26.390 --> 00:14:28.790
+it really goes crazy.
+
+00:14:28.790 --> 00:14:31.430
+- Yeah, because you've
+decided which way is up.
+
+00:14:31.430 --> 00:14:34.709
+So would the camera rotate?
+Like, would it, like...
+
+00:14:34.709 --> 00:14:36.710
+- The whole image
+just suddenly flips.
+
+00:14:36.710 --> 00:14:38.233
+- Oh, right.
+
+00:14:38.233 --> 00:14:39.734
+- Yeah, I don't like LookAt.
+
+00:14:39.734 --> 00:14:42.135
+- Yeah, but I guess maybe
+it's good for, like,
+
+00:14:42.135 --> 00:14:44.028
+simple camera moves
+ where you're just
+
+00:14:44.028 --> 00:14:46.519
+looking left, right, up,
+down, like any kind of roll.
+
+00:14:46.519 --> 00:14:49.115
+- Yeah, so the better way
+of rotating is to...
+
+00:14:49.115 --> 00:14:51.284
+As we were
+talking earlier, rotating
+
+00:14:51.284 --> 00:14:53.787
+with quaternions is way better
+
+00:14:53.787 --> 00:14:55.600
+than yaw, pitch and roll.
+
+00:14:55.600 --> 00:14:57.987
+Yeah, but if you're not doing
+ anything crazy,
+
+00:14:57.987 --> 00:14:59.840
+yaw, pitch and roll is
+easier to comprehend.
+
+00:14:59.840 --> 00:15:01.954
+- Yeah, true.
+So yeah, maybe we can
+
+00:15:01.954 --> 00:15:05.106
+summarize this,
+the view matrix.
+
+00:15:05.106 --> 00:15:07.253
+The view matrix has taken us
+
+00:15:07.253 --> 00:15:09.885
+from world space
+to camera space.
+
+00:15:09.885 --> 00:15:12.522
+So in world space,
+ my camera
+
+00:15:12.522 --> 00:15:14.315
+has a location
+
+00:15:14.315 --> 00:15:16.010
+and it's not looking
+down negative Z,
+
+00:15:16.010 --> 00:15:18.334
+it's looking off to your left.
+
+00:15:18.334 --> 00:15:21.245
+That's world space, but we need
+to be in camera space.
+
+00:15:21.245 --> 00:15:23.675
+We need this camera
+ to be at the origin
+
+00:15:23.675 --> 00:15:26.710
+looking at negative Z, but we
+still want to look at the cup.
+
+00:15:26.710 --> 00:15:28.703
+So all these moves
+are happening
+
+00:15:28.703 --> 00:15:30.550
+on the vertices and normals.
+
+00:15:30.550 --> 00:15:33.630
+It's, like you're saying,
+it's the opposite translation
+
+00:15:33.630 --> 00:15:36.729
+or I call it the inverse
+translation matrix.
+
+00:15:36.729 --> 00:15:38.395
+It's a bit fancy.
+
+00:15:38.395 --> 00:15:41.450
+And then it's
+the opposite rotation,
+
+00:15:41.450 --> 00:15:45.171
+or you could say
+the inverse rotation matrix.
+
+00:15:45.171 --> 00:15:46.715
+And you just multiply
+them together.
+
+00:15:46.715 --> 00:15:49.485
+You get one matrix,
+the view matrix.
+
+00:15:49.485 --> 00:15:51.412
+- Okay, so we still get along.
+- We do.
+
+00:15:51.412 --> 00:15:53.400
+I'm glad to hear that.
