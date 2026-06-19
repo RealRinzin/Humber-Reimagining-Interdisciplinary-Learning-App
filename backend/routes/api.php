@@ -44,6 +44,10 @@ Route::prefix('v1')
         Route::post('/login', [AuthController::class, 'login']);
     });
 
+
+Route::get('/test', function (Request $request) {
+    return "This is api";
+});
 // Registeration API
 // This API is open to public but it will be rate limited by the throttle middleware
 Route::post('/register', [AuthController::class, 'register']);
