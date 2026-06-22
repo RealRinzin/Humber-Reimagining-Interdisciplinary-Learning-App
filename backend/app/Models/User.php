@@ -110,7 +110,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Video::class, 'user_video_settings')
             ->using(UserVideoSetting::class)
-            ->withPivot('video','code', 'interactive', 'rambling', 'quiz','code_checked_with_all','interactive_checked_with_all','quiz_checked_with_all','all_checked')
+            ->withPivot('video', 'code', 'interactive', 'rambling', 'quiz', 'code_checked_with_all', 'interactive_checked_with_all', 'quiz_checked_with_all', 'all_checked')
             ->withTimestamps();
+    }
+    // User Model
+    public function isAdmin(): bool
+    {
+        return $this->role?->name === 'admin';
     }
 }

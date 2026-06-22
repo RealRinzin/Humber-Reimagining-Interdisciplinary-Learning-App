@@ -19,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 // 
 // To Get the authentication when first access by the user
 //
-Route::prefix('v1/admin')
+// Route::middleware(['auth:sanctum', 'can:access-admin'])->prefix('v1/admin')
+Route::middleware(['can:access-admin'])->prefix('v1/admin')
     // ->middleware(['auth:sanctum', 'admin'])
     ->group(function () {
 

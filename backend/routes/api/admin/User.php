@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
-Route::get('/rinzin', function () {
+Route::get('/users', function () {
 
     return "Admin API";
 });
