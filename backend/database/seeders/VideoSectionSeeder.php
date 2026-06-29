@@ -128,7 +128,7 @@ class VideoSectionSeeder extends Seeder
                 'video_url'        => 'SpacesProject_V18_Bonus_4_EXP2_HD.mp4',
                 'duration'         => 450,
                 'interactive_path' => null,
-                'subtitle'         => null,
+                'subtitle'         => "SpacesProject_V18_Bonus_4.vtt",
                 'created_at'       => now(),
                 'updated_at'       => now(),
             ]

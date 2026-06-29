@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['can:access-admin'])->prefix('v1/admin')
     // ->middleware(['auth:sanctum', 'admin'])
     ->group(function () {
-
         foreach (glob(__DIR__ . '/api/admin/*.php') as $file) {
             require $file;
         }

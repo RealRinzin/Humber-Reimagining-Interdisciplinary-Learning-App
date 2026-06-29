@@ -1,0 +1,840 @@
+WEBVTT
+
+00:00:00.580 --> 00:00:02.380
+- There's a bunch of words
+for model space.
+
+00:00:02.380 --> 00:00:05.060
+There's local space,
+there's object space.
+
+00:00:05.060 --> 00:00:06.887
+So at one point,
+Scott and I
+
+00:00:06.887 --> 00:00:08.563
+were arguing about this,
+ and we're like,
+
+00:00:08.563 --> 00:00:11.746
+"We got it. Paul Neale space."
+- Exactly.
+
+00:00:11.746 --> 00:00:14.942
+You make the 3D models,
+and then we do things with them.
+
+00:00:14.942 --> 00:00:16.460
+- Yeah.
+So there you go.
+
+00:00:16.460 --> 00:00:18.180
+- So it's such an honor
+to have you here.
+
+00:00:18.180 --> 00:00:20.240
+You're famous in our program,
+
+00:00:20.240 --> 00:00:22.169
+because when we build matrices
+
+00:00:22.169 --> 00:00:25.549
+that get you between the spaces,
+we call them Paul Neale space.
+
+00:00:25.549 --> 00:00:27.359
+And I've had some students
+think that you're this
+
+00:00:27.359 --> 00:00:28.960
+fictional character.
+
+00:00:28.960 --> 00:00:30.914
+I'm like, "No,
+Paul Neale exists."
+
+00:00:30.914 --> 00:00:33.889
+So when you come into
+the classroom, they go wild.
+
+00:00:33.889 --> 00:00:36.495
+- Man, something's going to
+happen when I retire.
+
+00:00:36.495 --> 00:00:38.104
+Then I'll become fictional,
+I guess.
+
+00:00:38.104 --> 00:00:40.871
+- I'll have to come visit you.
+- Yeah.
+
+00:00:40.871 --> 00:00:43.891
+- So, for this video,
+I asked you to make a teapot.
+
+00:00:43.891 --> 00:00:45.730
+Like, we'll get
+to that later.
+
+00:00:45.730 --> 00:00:47.267
+We'll see how you made it.
+
+00:00:47.267 --> 00:00:50.280
+But Cassidy's friend
+in industrial design, thank you,
+
+00:00:50.280 --> 00:00:52.307
+built a 3D...
+
+00:00:52.307 --> 00:00:54.511
+a 3D-printed teapot.
+
+00:00:54.511 --> 00:00:56.226
+So before we start talking
+ about this,
+
+00:00:56.226 --> 00:00:57.880
+what's the big deal
+with teapots?
+
+00:00:57.880 --> 00:01:00.248
+I mean, it seems
+to get you both smiling
+
+00:01:00.248 --> 00:01:01.757
+when you see a teapot.
+
+00:01:01.757 --> 00:01:03.634
+What happening?
+
+00:01:03.634 --> 00:01:05.806
+- In the beginning years
+
+00:01:05.806 --> 00:01:07.971
+of computer graphics,
+
+00:01:07.971 --> 00:01:10.679
+the university in Utah came up
+
+00:01:10.679 --> 00:01:13.558
+with this little design,
+and it was
+
+00:01:13.558 --> 00:01:16.946
+originally made
+ of NURBS and things
+
+00:01:16.946 --> 00:01:18.938
+to get the curves and all this.
+
+00:01:18.938 --> 00:01:21.185
+And it just became
+sort of the symbol
+
+00:01:21.185 --> 00:01:23.277
+of graphic testing,
+
+00:01:23.277 --> 00:01:25.320
+and it has existed forever.
+
+00:01:25.320 --> 00:01:27.078
+We now refer to it as
+
+00:01:27.078 --> 00:01:29.142
+the Utah teapot.
+
+00:01:29.142 --> 00:01:30.850
+- Yeah, it's got compound
+curves, right?
+
+00:01:30.850 --> 00:01:33.478
+Which were difficult
+to figure out with Blinn shaders
+
+00:01:33.478 --> 00:01:36.097
+to get them, the highlights
+to come up and everything.
+
+00:01:36.097 --> 00:01:38.340
+So it was kind of
+the test bed for years
+
+00:01:38.340 --> 00:01:41.338
+of people trying to write
+rendering algorithms, right?
+
+00:01:41.338 --> 00:01:43.224
+- I think the new test standard
+
+00:01:43.224 --> 00:01:45.793
+is called the Stanford bunny.
+
+00:01:45.793 --> 00:01:48.755
+It's a scanned,
+it's a scanned chocolate bunny.
+
+00:01:48.755 --> 00:01:50.500
+- Oh, wow.
+- Yeah.
+
+00:01:50.500 --> 00:01:52.036
+- Is that to get some of
+that soft body?
+
+00:01:52.036 --> 00:01:53.730
+Like, could it melt or...
+
+00:01:53.730 --> 00:01:55.247
+No, no, it was...
+
+00:01:55.247 --> 00:01:57.771
+It just had a lot,
+a greater resolution.
+
+00:01:57.771 --> 00:02:00.226
+This doesn't have a lot
+of vertices to it.
+
+00:02:00.226 --> 00:02:03.963
+So this is not a very good
+model for speed testing.
+
+00:02:03.963 --> 00:02:06.919
+It's just too easy
+to render nowadays.
+
+00:02:06.919 --> 00:02:08.539
+- Nowadays, it's very easy.
+
+00:02:08.539 --> 00:02:10.819
+We make millions of them
+bounce down roads
+
+00:02:10.819 --> 00:02:13.380
+in simulations and stuff
+for the fun of it.
+
+00:02:13.380 --> 00:02:15.296
+Yeah, just, you know, yeah.
+
+00:02:15.296 --> 00:02:16.860
+- And this is a default shape?
+
+00:02:16.860 --> 00:02:20.060
+Like, you, you can have spheres,
+boxes, and teapots.
+
+00:02:20.060 --> 00:02:22.372
+- Well, in, in 3ds Max, yes.
+
+00:02:22.372 --> 00:02:23.980
+And it...
+
+00:02:23.980 --> 00:02:26.192
+People often, in the industry,
+ when they started,
+
+00:02:26.192 --> 00:02:29.380
+think that it is the 3ds Max
+teapot, and it's not.
+
+00:02:29.380 --> 00:02:32.540
+It's the Utah teapot,
+as we've discovered.
+
+00:02:32.540 --> 00:02:35.782
+But when they were first
+writing 3ds Max,
+
+00:02:35.782 --> 00:02:38.680
+one of the programmers, because
+now everything's drag and drop.
+
+00:02:38.680 --> 00:02:40.297
+It used to be when they built
+this thing, they would've
+
+00:02:40.297 --> 00:02:42.589
+built it point by point.
+
+00:02:42.589 --> 00:02:44.880
+Well, now it's just
+procedural objects.
+
+00:02:44.880 --> 00:02:46.930
+We click, drag,
+and we have a teapot or a sphere
+
+00:02:46.930 --> 00:02:49.020
+or a box or whatever.
+
+00:02:49.020 --> 00:02:51.955
+So one of the programmers,
+as a lark, wrote the teapot
+
+00:02:51.955 --> 00:02:53.580
+into a procedural object.
+
+00:02:53.580 --> 00:02:55.600
+You can just click and drag out
+and change the resolution
+
+00:02:55.600 --> 00:02:57.720
+of it and whatever else.
+
+00:02:57.720 --> 00:03:00.240
+And it wasn't
+
+00:03:00.240 --> 00:03:01.885
+supposed to stay
+in the software,
+
+00:03:01.885 --> 00:03:03.398
+as far as I understand,
+and they...
+
+00:03:03.398 --> 00:03:05.427
+You know, somebody said, "No,
+you've just got to leave it."
+
+00:03:05.427 --> 00:03:07.772
+It's just, you know,
+ it pays homage
+
+00:03:07.772 --> 00:03:09.860
+to our forefathers kind
+of thing, right?
+
+00:03:09.860 --> 00:03:11.389
+And so it stayed.
+
+00:03:11.389 --> 00:03:13.134
+And, you know, everybody asks,
+ "Why is there a teapot?"
+
+00:03:13.134 --> 00:03:16.010
+Just for that reason, no other.
+
+00:03:16.010 --> 00:03:17.956
+- Yeah, because when I asked
+you, "Could you make us
+
+00:03:17.956 --> 00:03:20.140
+a teapot?" the first thing
+you said is like, "Why?
+
+00:03:20.140 --> 00:03:22.043
+There's a default teapot."
+
+00:03:22.043 --> 00:03:24.678
+But I did want to ask you,
+like, before we get
+
+00:03:24.678 --> 00:03:27.116
+to your model, like,
+what was the first thing
+
+00:03:27.116 --> 00:03:28.881
+that came to your mind
+when you're like,
+
+00:03:28.881 --> 00:03:31.805
+"Okay, Umer's asked me
+to make a teapot in 3D"?
+
+00:03:31.805 --> 00:03:33.460
+- First thing
+that comes to mind?
+
+00:03:33.460 --> 00:03:36.604
+Well, the first thing was, "Why?
+I can click and drag."
+
+00:03:36.604 --> 00:03:38.791
+I guess the second is, you know,
+
+00:03:38.791 --> 00:03:41.014
+if you're thinking
+ about how would I
+
+00:03:41.014 --> 00:03:44.278
+break this down to even start
+thinking about modeling it,
+
+00:03:44.278 --> 00:03:47.581
+what we do is
+we break things into
+
+00:03:47.581 --> 00:03:50.360
+sort of easier elements,
+you know.
+
+00:03:50.360 --> 00:03:52.526
+The lid, for instance,
+is a pretty
+
+00:03:52.526 --> 00:03:54.800
+easy shape to make.
+
+00:03:54.800 --> 00:03:57.266
+Just the body of it is a very
+easy shape to make
+
+00:03:57.266 --> 00:03:58.954
+because it's literally
+made the same way
+
+00:03:58.954 --> 00:04:01.441
+that we make the lid.
+
+00:04:01.441 --> 00:04:03.227
+And then it's trying
+to figure out, well, how do you
+
+00:04:03.227 --> 00:04:05.427
+extrude out handles
+and a spout
+
+00:04:05.427 --> 00:04:07.093
+and whatnot,
+
+00:04:07.093 --> 00:04:08.863
+and whether or not the lid's
+
+00:04:08.863 --> 00:04:10.875
+ever going to come off of it.
+
+00:04:10.875 --> 00:04:13.516
+So, you know,
+I could've made it so the lid
+
+00:04:13.516 --> 00:04:15.540
+was the same shape and it...
+
+00:04:15.540 --> 00:04:17.480
+You know, if the lid's never
+gonna come off, we don't see
+
+00:04:17.480 --> 00:04:19.481
+that in our production
+ that we're doing,
+
+00:04:19.481 --> 00:04:21.390
+there's no point in having it
+as a separate piece.
+
+00:04:21.390 --> 00:04:24.380
+- Yeah, and you
+mentioned extruding.
+
+00:04:24.380 --> 00:04:27.560
+That makes me think, like,
+you're pulling it apart?
+
+00:04:27.560 --> 00:04:29.227
+- Well, you're eventually
+down to polygons,
+
+00:04:29.227 --> 00:04:31.308
+so that would be
+probably better left to
+
+00:04:31.308 --> 00:04:33.460
+discussing how I made it,
+if you want.
+
+00:04:33.460 --> 00:04:36.092
+But yeah, so you can take
+ polygons and extrude them
+
+00:04:36.092 --> 00:04:38.508
+out into more polygons,
+essentially.
+
+00:04:38.508 --> 00:04:40.316
+So I did that
+for things like the handle
+
+00:04:40.316 --> 00:04:42.007
+and the spout and whatnot.
+
+00:04:42.007 --> 00:04:44.805
+- And you mentioned there
+ was a procedural process
+
+00:04:44.805 --> 00:04:47.260
+you did as well to...
+
+00:04:47.260 --> 00:04:49.447
+You said to make this lid,
+you could use
+
+00:04:49.447 --> 00:04:51.340
+some kind of...
+
+00:04:51.340 --> 00:04:52.882
+- You know, it's not one
+of those things.
+
+00:04:52.882 --> 00:04:55.718
+We don't model in just
+ pulling points anymore
+
+00:04:55.718 --> 00:04:57.540
+like the original Utah teapot.
+
+00:04:57.540 --> 00:04:59.150
+Somebody would've probably
+sat there programming
+
+00:04:59.150 --> 00:05:02.795
+in the numbers of every
+point on the surface.
+
+00:05:02.795 --> 00:05:05.877
+You know, I started
+with a spline, a line,
+
+00:05:05.877 --> 00:05:08.738
+a two-dimensional line
+ that followed the contour of,
+
+00:05:08.738 --> 00:05:10.966
+you know, the profile of it,
+
+00:05:10.966 --> 00:05:14.860
+and then used a procedural tool
+in Max called Lathe.
+
+00:05:14.860 --> 00:05:17.668
+You know, it exists, Revolve,
+and also they call it all sorts
+
+00:05:17.668 --> 00:05:20.697
+of things in different software,
+that basically takes that line,
+
+00:05:20.697 --> 00:05:23.694
+revolves it around,
+ and you can then
+
+00:05:23.694 --> 00:05:25.993
+choose how many segments
+you want around it,
+
+00:05:25.993 --> 00:05:29.460
+how many segments you want
+around the, the spline shape.
+
+00:05:29.460 --> 00:05:30.970
+And you essentially end up
+with that shape
+
+00:05:30.970 --> 00:05:32.700
+in a matter of clicks.
+
+00:05:32.700 --> 00:05:35.533
+Like, so probably one, two,
+ three, four, five,
+
+00:05:35.533 --> 00:05:39.033
+maybe eight points
+I only needed to make.
+
+00:05:39.033 --> 00:05:41.590
+And then the computer
+did the rest for me
+
+00:05:41.590 --> 00:05:43.320
+you know, to be able
+to get to there.
+
+00:05:43.320 --> 00:05:45.341
+We'll be able to take
+a look at it in 3D as to,
+
+00:05:45.341 --> 00:05:47.220
+how that was made.
+
+00:05:47.220 --> 00:05:50.140
+This, same thing.
+For the body...
+
+00:05:50.140 --> 00:05:52.485
+Now, my teapot that
+I made in 3D,
+
+00:05:52.485 --> 00:05:54.486
+if you look at it
+from the inside,
+
+00:05:54.486 --> 00:05:56.031
+you don't see anything.
+
+00:05:56.031 --> 00:05:57.820
+There's no inside to it, per se.
+
+00:05:57.820 --> 00:06:00.600
+It's single-sided.
+It has no thickness.
+
+00:06:00.600 --> 00:06:02.836
+I could easily add that, though.
+
+00:06:02.836 --> 00:06:04.936
+But the exact same thing
+with the body of it.
+
+00:06:04.936 --> 00:06:07.123
+It's just a profile line,
+
+00:06:07.123 --> 00:06:09.720
+and then lathed
+around it, you know,
+
+00:06:09.720 --> 00:06:12.025
+revolved around, and then
+choose how many polygons
+
+00:06:12.025 --> 00:06:14.136
+you want and whatnot in it.
+
+00:06:14.136 --> 00:06:17.316
+But at that point,
+you need the handles.
+
+00:06:17.316 --> 00:06:19.269
+You could make them
+separate, but if you look at
+
+00:06:19.269 --> 00:06:21.369
+a real teapot,
+they look like they're actually
+
+00:06:21.369 --> 00:06:23.667
+sort of blended
+into the surface.
+
+00:06:23.667 --> 00:06:25.531
+So what I did then
+is I decided to
+
+00:06:25.531 --> 00:06:27.896
+collapse it down to polygons.
+
+00:06:27.896 --> 00:06:30.463
+So polygons are just,
+
+00:06:30.463 --> 00:06:32.627
+you know, a collection of
+
+00:06:32.627 --> 00:06:36.450
+vertices and triangles,
+and the polys
+
+00:06:36.450 --> 00:06:39.015
+that we sort
+ of discuss is usually
+
+00:06:39.015 --> 00:06:41.596
+quad shape, so two triangles.
+
+00:06:41.596 --> 00:06:44.350
+But it becomes just
+a collection of
+
+00:06:44.350 --> 00:06:46.106
+triangles at that point.
+
+00:06:46.106 --> 00:06:48.110
+And once I was down to that,
+if we look at it from
+
+00:06:48.110 --> 00:06:49.643
+this angle, we can actually see
+
+00:06:49.643 --> 00:06:51.776
+there's a line
+of symmetry down here.
+
+00:06:51.776 --> 00:06:53.982
+So once I had actually revolved
+it all around,
+
+00:06:53.982 --> 00:06:56.316
+I then collapsed it down
+ to polygons
+
+00:06:56.316 --> 00:06:58.809
+and deleted half the teapot,
+
+00:06:58.809 --> 00:07:00.879
+because I'm gonna
+let the computer do
+
+00:07:00.879 --> 00:07:02.672
+as much work as
+ it can possibly do,
+
+00:07:02.672 --> 00:07:05.436
+because I'm lazy is what
+it boils down to, right?
+
+00:07:05.436 --> 00:07:08.644
+So, you know, once it's
+cut in half,
+
+00:07:08.644 --> 00:07:11.549
+I can then add another modifier
+that procedurally,
+
+00:07:11.549 --> 00:07:13.903
+it's called symmetry,
+that builds
+
+00:07:13.903 --> 00:07:16.956
+the other second half for me and
+welds it back together again.
+
+00:07:16.956 --> 00:07:19.009
+But that means all I have
+ to worry about is building
+
+00:07:19.009 --> 00:07:20.856
+half of a handle.
+
+00:07:20.856 --> 00:07:23.516
+And so I took polygon spots
+
+00:07:23.516 --> 00:07:26.279
+and extruded them out and back
+into the other side again,
+
+00:07:26.279 --> 00:07:29.911
+bridging basically
+one polygon around
+
+00:07:29.911 --> 00:07:31.816
+and back down
+ into the other polygon
+
+00:07:31.816 --> 00:07:34.156
+so it became part
+of the same shape.
+
+00:07:34.156 --> 00:07:36.013
+And then, you know,
+had to do some shaping,
+
+00:07:36.013 --> 00:07:38.641
+adding loops of, you know,
+ edges around,
+
+00:07:38.641 --> 00:07:41.132
+and pulling it out
+into the shape of the handle.
+
+00:07:41.132 --> 00:07:42.796
+Same thing with the spout.
+
+00:07:42.796 --> 00:07:44.753
+I took a group of
+polygons down here,
+
+00:07:44.753 --> 00:07:46.921
+pulled it out
+to the end, right?
+
+00:07:46.921 --> 00:07:49.718
+And then started
+subdividing, you know,
+
+00:07:49.718 --> 00:07:52.060
+in between and pulling it
+around into shape
+
+00:07:52.060 --> 00:07:54.636
+and doing a little bit
+of shaping with it, you know.
+
+00:07:54.636 --> 00:07:56.216
+So it didn't take long to do.
+
+00:07:56.216 --> 00:07:58.694
+I built mine with a separate
+lid, just in case you ever
+
+00:07:58.694 --> 00:08:01.030
+wanted to take it off, you know.
+
+00:08:01.030 --> 00:08:02.642
+But, you know,
+ it could have been literally
+
+00:08:02.642 --> 00:08:05.373
+a line from here around
+and around and down the outside.
+
+00:08:05.373 --> 00:08:06.876
+- That's a wild way to do it.
+
+00:08:06.876 --> 00:08:09.374
+If you took half the teapot
+and formed it,
+
+00:08:09.374 --> 00:08:11.774
+then put a mirror plane right
+ here,
+
+00:08:11.774 --> 00:08:13.550
+just get a mirror,
+then put this thing
+
+00:08:13.550 --> 00:08:16.208
+up to the mirror,
+you would see the whole teapot.
+
+00:08:16.208 --> 00:08:18.600
+- Yeah, that's an easy
+shape to build
+
+00:08:18.600 --> 00:08:21.656
+because a lot of it came out
+of just procedural tools.
+
+00:08:21.656 --> 00:08:23.716
+Other things can be
+far more complex.
+
+00:08:23.716 --> 00:08:26.421
+You want to create one
+ of us, for instance,
+
+00:08:26.421 --> 00:08:29.984
+it's a whole different process
+to be able to do it.
+
+00:08:29.984 --> 00:08:32.316
+- Cool. Well, you've spoken
+so much about this teapot.
+
+00:08:32.316 --> 00:08:33.916
+I can't wait to see it.
+
+00:08:33.916 --> 00:08:35.937
+So maybe we'll just do
+a quick change,
+
+00:08:35.937 --> 00:08:38.310
+and then we'll get your
+
+00:08:38.310 --> 00:08:40.196
+model up on the screen.
+
+00:08:40.196 --> 00:08:42.511
+- So we're going to leave
+Cassidy's Coffee Shop, are we?
+
+00:08:42.511 --> 00:08:44.501
+- Sorry, Cassidy.
