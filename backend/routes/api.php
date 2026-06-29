@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\V1\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\API\v1\AuthController;
 use App\Http\Controllers\API\v1\CodeController;
 use App\Http\Controllers\API\v1\ProjectController;
@@ -19,13 +20,20 @@ use Illuminate\Support\Facades\Route;
 // 
 // To Get the authentication when first access by the user
 //
-// Route::middleware(['auth:sanctum', 'can:access-admin'])->prefix('v1/admin')
-Route::middleware(['can:access-admin'])->prefix('v1/admin')
+// Route::middleware(['auth:sanctum',  'can:is-admin'])->prefix('v1/admin')
+// Route::middleware(['can:is-admin'])->prefix('v1/admin')
+Route::post('/v1/admin/login', [AdminAuthController::class, 'login']);
+
+
+Route::middleware(['auth:sanctum','can:is-admin'])->prefix('v1/admin')
     // ->middleware(['auth:sanctum', 'admin'])
     ->group(function () {
         foreach (glob(__DIR__ . '/api/admin/*.php') as $file) {
             require $file;
         }
+        // Route::get('/test', function (Request $request) {
+        //     return "This is api";
+        // });
     });
 
 // Topic Connection 
