@@ -15,20 +15,24 @@ return [
     |
     */
 
-    // 'paths' => ['api/*', 'sanctum/csrf-cookie', 'login'], // Added 'login' inside the array - Rinzin
-    'paths' => ['api/*', 'sanctum/csrf-cookie'], // Added 'login' inside the array - Rinzin
-    'allowed_methods' => ['*'],
-
-    'allowed_origins' => ['http://localhost:3000','http://localhost:3001'],
-
+    'paths' => ['api/*', 'sanctum/csrf-cookie', 'login'], // Added 'login' inside the array - Rinzin
+    // 'paths' => ['api/*', 'sanctum/csrf-cookie'], // Added 'login' inside the array - Rinzin
+    'allowed_methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    // Allow origins from the frontend
+    'allowed_origins' => ['http://localhost:3000', 'http://localhost:3001'],
     'allowed_origins_patterns' => [],
-
-    'allowed_headers' => ['*'],
-
+    // Header
+    'allowed_headers' => [
+        'Content-Type',
+        'Authorization',
+        'X-Requested-With',
+        'X-XSRF-TOKEN',  // required for Sanctum CSRF
+        'Accept'
+    ],
+    // Expose the date
     'exposed_headers' => [],
-
-    'max_age' => 0,
+    // Maximum age for the token expiration date
+    'max_age' => 86400,
     // 'supports_credentials' => false,
     'supports_credentials' => true,  // change to true by Rinzin
 ];
-

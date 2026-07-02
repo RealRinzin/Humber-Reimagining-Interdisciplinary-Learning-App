@@ -24,16 +24,17 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware(['can:is-admin'])->prefix('v1/admin')
 Route::post('/v1/admin/login', [AdminAuthController::class, 'login']);
 
-
-Route::middleware(['auth:sanctum','can:is-admin'])->prefix('v1/admin')
+// Route::middleware(['can:is-admin'])
+Route::prefix('v1/admin')
+    ->name('admin.')
     // ->middleware(['auth:sanctum', 'admin'])
     ->group(function () {
         foreach (glob(__DIR__ . '/api/admin/*.php') as $file) {
             require $file;
         }
-        // Route::get('/test', function (Request $request) {
-        //     return "This is api";
-        // });
+        Route::get('/test', function (Request $request) {
+            return "This is api";
+        });
     });
 
 // Topic Connection 

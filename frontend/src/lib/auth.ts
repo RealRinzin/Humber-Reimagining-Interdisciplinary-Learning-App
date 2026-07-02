@@ -11,6 +11,7 @@ async function getCsrfCookie() {
         credentials: 'include', // required to store the cookie
     });
 }
+
 // Step 2: call this function to login the user
 // This function will throw an error if the login fails, so you can catch it in your component and display an error message to the user.
 /**

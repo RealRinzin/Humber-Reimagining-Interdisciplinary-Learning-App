@@ -118,4 +118,5 @@ class User extends Authenticatable
     {
         return $this->role?->name === 'admin';
     }
+    protected $with = ['role']; // always eager load role with user
 }
