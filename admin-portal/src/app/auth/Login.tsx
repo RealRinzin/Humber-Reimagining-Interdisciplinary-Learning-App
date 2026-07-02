@@ -3,6 +3,7 @@ import { login } from "@/lib/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [user, setUser] = useState({
@@ -11,7 +12,9 @@ export default function Login() {
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
+  //
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUser((prev) => ({
@@ -22,11 +25,9 @@ export default function Login() {
   // Login Functioin
   const handleLogin = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
     try {
       await login(user.username, user.password);
-      // router.push("/profile/knowledge_map");
+      router.push("/dashboard");
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -53,7 +54,6 @@ export default function Login() {
               height={100}
               width={100}
             />
-            {/* <FontAwesomeIcon icon={faAtom} size="4x" className="text-white" /> */}
           </div>
           <h1 className="text-2xl font-semibold text-center py-4 text-gray-900 tracking-widest">
             SPACES PROJECT

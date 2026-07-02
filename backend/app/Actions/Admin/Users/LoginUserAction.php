@@ -16,7 +16,7 @@ class LoginUserAction
             // 'role_id'  => 2  // already ensures only role_id=2 can log in here
         ])) {
             throw ValidationException::withMessages([
-                'username' => ['Invalid credentials']
+                'message' => ['Invalid credentials']
             ]);
         }
         // Return the user detail once successfully loggined
@@ -35,8 +35,11 @@ class LoginUserAction
                 'token' => $token,
 
             ];
+        } else {
+            // If failed to login
+            return    throw ValidationException::withMessages([
+                'message' => ['Invalid credentials']
+            ]);
         }
-        // If failed to login
-        return ["Message" => 'Invalid credential. Try again..'];
     }
 }
