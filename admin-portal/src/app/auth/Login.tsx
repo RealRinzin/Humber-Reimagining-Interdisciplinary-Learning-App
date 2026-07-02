@@ -21,15 +21,14 @@ export default function Login() {
   };
   // Login Functioin
   const handleLogin = async (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Prevent page refresh
-    // TODO: POST { username, password } to /api/auth/login
-    // On success: redirect to /dashboard
-    // On failure: setError(response.message) and setLoading(false)
+    e.preventDefault();
+    setLoading(true);
+    setError("");
     try {
-      setLoading(true);
       await login(user.username, user.password);
-    } catch (error) {
-      setError("Invalid username or password.");
+      // router.push("/profile/knowledge_map");
+    } catch (err: any) {
+      setError(err.message);
     } finally {
       setLoading(false);
     }
