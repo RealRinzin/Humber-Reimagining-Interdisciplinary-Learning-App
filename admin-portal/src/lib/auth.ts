@@ -51,7 +51,6 @@ export async function login(username: string, password: string): Promise<LoginDT
         // 
         body: JSON.stringify({ username, password }), // send the username and password in the request body as JSON
     });
-    console.log(res)
     if (!res.ok) {
         const error = await res.json(); // get the error message from the response
         throw new Error(error.message || 'Login failed'); // throw an error with the message from the response, or a default message if the response does not include a message

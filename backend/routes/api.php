@@ -20,23 +20,32 @@ use Illuminate\Support\Facades\Route;
 // 
 // To Get the authentication when first access by the user
 //
+// =========================================== ADMIN / INSTRUCTOR API ENDPOINT ===========================================
+
 // Route::middleware(['auth:sanctum',  'can:is-admin'])->prefix('v1/admin')
 // Route::middleware(['can:is-admin'])->prefix('v1/admin')
 Route::post('/v1/admin/login', [AdminAuthController::class, 'login']);
-
+Route::middleware(['web', 'auth:sanctum'])->get('/v1/admin/me', function (Request $request) {
+    return $request->user();
+});
 // Route::middleware(['can:is-admin'])
 Route::prefix('v1/admin')
     ->name('admin.')
-    // ->middleware(['auth:sanctum', 'admin'])
+    ->middleware(['auth:sanctum'])
     ->group(function () {
+        // Route::get('/me', function (Request $request) {
+        //     return $request->user();
+        // });
         foreach (glob(__DIR__ . '/api/admin/*.php') as $file) {
             require $file;
         }
-        Route::get('/test', function (Request $request) {
-            return "This is api";
-        });
     });
 
+
+
+
+
+// =========================================== STUDENT API ENDPOINT ===========================================
 // Topic Connection 
 // This API will be used for user login and it will return the user data and token for the user to access the protected API
 // The API will be accessed by the frontend when the user tries to login and it will return the user data and token for the user to access the protected API
@@ -53,14 +62,9 @@ Route::prefix('v1')
         Route::post('/login', [AuthController::class, 'login']);
     });
 
-
-Route::get('/test', function (Request $request) {
-    return "This is api";
-});
 // Registeration API
 // This API is open to public but it will be rate limited by the throttle middleware
 Route::post('/register', [AuthController::class, 'register']);
-
 
 Route::post('/postmanRegister', [AuthController::class, 'postmanRegister']);
 // Get Logged User session or Token for proxy and middleware

@@ -38,11 +38,8 @@ async function isAuthenticated(request: NextRequest): Promise<boolean> {
     try {
         const res = await fetch(`${process.env.BASE_END_POINT}/api/user`, { // Default
             method: "GET",
-            // credentials: "include",
             headers: {
-                // Cookie: cookieStore.toString(),
                 Cookie: cookieHeader,
-
                 Accept: "application/json"
             }
         })
