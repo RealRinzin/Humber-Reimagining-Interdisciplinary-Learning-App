@@ -6,6 +6,11 @@ module.exports = {
       cwd: "./frontend",
       script: "npm",
       args: "run dev -- -p 3000", // Notice "run dev" and the port syntax
+      watch: true,
+      ignore_watch: [
+        "node_modules",
+        ".next"
+      ],
       env: {
         NODE_ENV: "development"
       }
@@ -17,6 +22,11 @@ module.exports = {
       cwd: "./admin-portal",
       script: "npm",
       args: "run dev -- -p 3001", // Notice "run dev" and the port syntax
+      watch: true,
+      ignore_watch: [
+        "node_modules",
+        ".next"
+      ],
       env: {
         NODE_ENV: "development"
       }

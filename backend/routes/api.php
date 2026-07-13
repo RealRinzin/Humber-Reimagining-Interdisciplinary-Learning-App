@@ -28,14 +28,13 @@ Route::post('/v1/admin/login', [AdminAuthController::class, 'login']);
 Route::middleware(['web', 'auth:sanctum'])->get('/v1/admin/me', function (Request $request) {
     return $request->user();
 });
-// Route::middleware(['can:is-admin'])
-Route::prefix('v1/admin')
+Route::middleware(['auth:sanctum', 'can:is-admin'])
+    ->prefix('v1/admin')
     ->name('admin.')
-    ->middleware(['auth:sanctum'])
     ->group(function () {
-        // Route::get('/me', function (Request $request) {
-        //     return $request->user();
-        // });
+        Route::get('/test', function (Request $request) {
+            return $request->user();
+        });
         foreach (glob(__DIR__ . '/api/admin/*.php') as $file) {
             require $file;
         }
