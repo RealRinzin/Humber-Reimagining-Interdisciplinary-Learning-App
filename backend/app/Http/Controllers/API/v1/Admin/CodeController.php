@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1\Admin;
 
+use App\Models\Code;
 use Illuminate\Http\Request;
 
 class CodeController
@@ -12,6 +13,7 @@ class CodeController
     public function index()
     {
         //
+        return Code::get();
     }
 
     /**

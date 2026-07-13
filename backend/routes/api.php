@@ -28,12 +28,16 @@ Route::post('/v1/admin/login', [AdminAuthController::class, 'login']);
 Route::middleware(['web', 'auth:sanctum'])->get('/v1/admin/me', function (Request $request) {
     return $request->user();
 });
+
 Route::middleware(['auth:sanctum', 'can:is-admin'])
     ->prefix('v1/admin')
     ->name('admin.')
     ->group(function () {
         Route::get('/test', function (Request $request) {
-            return $request->user();
+            $data = [
+                ['id' => 1, 'name' => 'John Doe'],
+            ];
+            return response()->json(['data' => $data]);
         });
         foreach (glob(__DIR__ . '/api/admin/*.php') as $file) {
             require $file;

@@ -116,7 +116,7 @@ class User extends Authenticatable
     // User Model
     public function isAdmin(): bool
     {
-        return $this->role?->name === 'admin';
+        return $this->role?->name === 'staff';
     }
     protected $with = ['role']; // always eager load role with user
 }

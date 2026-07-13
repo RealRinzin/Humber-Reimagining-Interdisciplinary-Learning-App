@@ -1,6 +1,6 @@
 'use client'
-
 import { useState, useEffect } from "react"
+import { clientFetch } from "../useAuth";
 
 export function useFetch(url: string) {
     // response data object
@@ -14,7 +14,7 @@ export function useFetch(url: string) {
         const fetchUsers = async () => {
             try {
                 setLoading(true);
-                const res = await fetch(url);
+                const res = await clientFetch(url);
                 if (!res.ok) throw new Error("Failed to fetch");
                 const data = await res.json();
                 setData(data);
