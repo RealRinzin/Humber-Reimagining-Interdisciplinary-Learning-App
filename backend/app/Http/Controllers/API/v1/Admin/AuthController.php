@@ -12,8 +12,6 @@ class AuthController
 {
     public function login(LoginUserRequest $request, LoginUserAction $action)
     {
-        // $dto = LoginUserDTO::fromRequest($request);
-        // $user = $action->execute(LoginUserDTO::fromRequest($request));
         /**
          * Login User
          * Login the user with the login user action
@@ -41,7 +39,6 @@ class AuthController
         Auth::guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
         return response()->json(['message' => 'Logged out']);
         /**
          * Delete the current access token

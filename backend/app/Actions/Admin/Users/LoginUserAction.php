@@ -24,7 +24,7 @@ class LoginUserAction
         // Once the username and password is authenticated
         // We will check if its role id = 2
         // otherwise rediret to failed login
-        // if ($user->role_id === 2) {
+        if ($user->role_id === 2) {
         //     // Generate Sanctum token
             // $token = $user->createToken('admin-token')->plainTextToken;
             session()->regenerate();
@@ -35,11 +35,11 @@ class LoginUserAction
                 // 'token' => $token
 
             // ];
-        // } else {
-        //     // If failed to login
-        //     return    throw ValidationException::withMessages([
-        //         'message' => ['Invalid credentials']
-        //     ]);
-        // }
+        } else {
+            // If failed to login
+            return    throw ValidationException::withMessages([
+                'message' => ['Invalid credentials']
+            ]);
+        }
     }
 }
