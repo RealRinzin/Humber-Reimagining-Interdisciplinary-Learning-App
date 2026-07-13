@@ -7,7 +7,7 @@ use App\DTOs\Admin\Users\LoginUserDTO;
 use App\Http\Requests\Admin\Users\LoginUserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+// This is the right file action 
 class AuthController
 {
     public function login(LoginUserRequest $request, LoginUserAction $action)
@@ -21,7 +21,7 @@ class AuthController
          */
         $user = $action->execute(LoginUserDTO::fromRequest($request));
         // CRITICAL for Sanctum SPA
-        // $request->session()->regenerate();
+        $request->session()->regenerate();
         /**
          * Return Object
          * Return the user details

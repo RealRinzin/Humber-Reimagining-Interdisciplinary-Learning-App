@@ -9,7 +9,6 @@ import type { NextRequest } from 'next/server' // to type the request object in 
  */
 async function isAuthenticated(request: NextRequest): Promise<boolean> {
     const cookieHeader = request.headers.get('cookie') ?? '';
-    console.log(cookieHeader)
     // const cookieStore = await cookies(); // get the cookies from the request using Next.js's cookies function, which returns a cookie store object that we can use to access the cookies in the request
     // We convert the cookie store to a string and include it in the headers of the fetch request to the backend API.
     //  This allows the backend to identify the user based on their session cookie and determine if they are authenticated.
@@ -22,7 +21,6 @@ async function isAuthenticated(request: NextRequest): Promise<boolean> {
                 Accept: "application/json"
             }
         })
-        console.log('status:', res.status);
         if (!res.ok) return false; // if the response is not successful (e.g., if it returns a 401 Unauthorized status), we return false, indicating that the user is not authenticated.
         return true; // if the response is successful (i.e., the user is authenticated), we return true.
 
@@ -42,8 +40,16 @@ export async function proxy(request: NextRequest) {
     const loggedIn = await isAuthenticated(request)
 
     const isHomePage = request.nextUrl.pathname === '/'
+    // If not logged in and trying to access protected page → redirect to login
+    if (!loggedIn && !isHomePage ) {
+        return NextResponse.redirect(new URL('/', request.url))
+    }
 
-    console.log(loggedIn)
+    // If already logged in and trying to access onboarding → redirect to profile
+    if (loggedIn && isHomePage) {
+        return NextResponse.redirect(new URL('/dashboard', request.url))
+    }
+
     return NextResponse.next()
 
 }
