@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\API\V1\Admin;
 
+use App\Actions\Admin\Codes\IndexCodeAction;
+use App\DTOs\Admin\Codes\IndexCodeDTO;
+use App\Http\Requests\Admin\Codes\IndexCodesRequest;
 use App\Models\Code;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class CodeController
@@ -10,10 +14,15 @@ class CodeController
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
-        return Code::get();
+    public function index(
+        IndexCodesRequest $request,
+        IndexCodeAction $action
+    ): JsonResponse {
+        $dto = IndexCodeDTO::fromRequest($request);
+        return response()->json(
+            $action->execute($dto)
+        );
+        // return Code::get();
     }
 
     /**

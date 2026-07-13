@@ -9,6 +9,7 @@ export default function UserList() {
   const {data:codes,loading,error} = useFetch(`${process.env.NEXT_PUBLIC_API_END_POINT}/codes`)
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
+  console.log(codes)
   return (
     <>
     <Navigation/>
