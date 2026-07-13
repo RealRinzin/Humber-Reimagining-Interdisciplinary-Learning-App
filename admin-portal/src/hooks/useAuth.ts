@@ -35,6 +35,7 @@ export async function clientFetch(path: string, options: RequestInit = {}) {
 
     if (!res.ok) {
         throw new Error(`Request failed: ${res.status}`);
+        
     }
 
     return res;

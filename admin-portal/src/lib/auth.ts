@@ -1,5 +1,5 @@
 
-import { LoginDTypes } from '@/types/user.dtype';
+import { LoginDTypes } from '@/types/user.type';
 import { getCookie } from './cookie';
 // Step 1: get CSRF cookie
 // This function will call the endpoint to get the CSRF cookie and store it in the browser. 

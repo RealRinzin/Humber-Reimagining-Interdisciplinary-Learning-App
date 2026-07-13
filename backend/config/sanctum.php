@@ -54,7 +54,8 @@ return [
     |
     */
 
-    'expiration' => null,
+    // 'expiration' => null, // Never expires the token
+    'expiration' => 1, // Expires the token within 1 minutes
 
     /*
     |--------------------------------------------------------------------------

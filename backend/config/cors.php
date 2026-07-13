@@ -32,7 +32,7 @@ return [
     // Expose the date
     'exposed_headers' => [],
     // Maximum age for the token expiration date
-    'max_age' => 86400,
-    // 'supports_credentials' => false,
+    // 'max_age' => 86400, // 24 hours valid
+    'max_age' => 60, // 24 hours valid
     'supports_credentials' => true,  // change to true by Rinzin
 ];

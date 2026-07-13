@@ -12,7 +12,6 @@ import Link from "next/link";
 export default function DesktopNavigation() {
   const [search, setSearch] = useState("");
   const router = useRouter();
-
   const handleSearch = () => {
     router.push(`/search?q=${search}`);
   };
@@ -43,7 +42,6 @@ export default function DesktopNavigation() {
           CES PROJECT
           </Link>
         </h2>
-
         <nav className="flex flex-col md:flex-row  place-items-center justify-end gap-5">
           <div id="hb_search" className="rounded-xl relative">
             <input
