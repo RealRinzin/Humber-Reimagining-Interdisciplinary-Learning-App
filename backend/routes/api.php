@@ -128,7 +128,6 @@ Route::prefix('v1')
          * /api/v1/codes/users/{user}/codes/{code:id} // This API will remove a code from the user 
          */
         Route::apiResource('codes', CodeController::class)->except(['create', 'edit']);
-
         // === Topic Controller ==
         // This API will be used to get the videos and also to add or remove videos from the user
         // GET /api/v1/videos // This API will return all the videos

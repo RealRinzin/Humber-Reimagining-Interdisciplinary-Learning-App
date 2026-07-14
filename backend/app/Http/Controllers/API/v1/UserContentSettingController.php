@@ -23,7 +23,6 @@ class UserContentSettingController
         $user = auth()->user();
         // 1. Fetch the setting and convert it to an array
         $contentSetting = $user->userContentSetting->toArray();
-
         // 2. Calculate the total and inject it directly into that array
         $contentSetting['total_checked'] = $user->userContentSetting->video
             + $user->userContentSetting->quiz
