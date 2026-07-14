@@ -24,6 +24,7 @@ class AuthController
          * Return Object
          * Return the user details
          * return response()->json(['message' => 'Authenticated', 'user' => $user]);
+         *  Logout the session =by deleting the keyword and session token
          */
         return response()->json([
             'message' => 'Authenticated',
@@ -34,22 +35,13 @@ class AuthController
     // Logout Controller
     public function logout(Request $request)
     {
-
         // For SPA (cookie/session) auth — this is what you're using
         Auth::guard('web')->logout();
+        // Invalid the logged session 
         $request->session()->invalidate();
+        // Regenerate the  session token for the logout
         $request->session()->regenerateToken();
+        // return the response object with the message
         return response()->json(['message' => 'Logged out']);
-        /**
-         * Delete the current access token
-         * Delete the access token of the current user
-         */
-        // $request->user();
-        $request->user()->currentAccessToken()->delete();
-        // Return JSON response
-        // return response()->json(['message' => 'Logged out']);
-        return response()->json([
-            'message' => 'Logged out'
-        ]);
     }
 }
