@@ -22,7 +22,6 @@ class CodeController
         return response()->json(
             $action->execute($dto)
         );
-        // return Code::get();
     }
 
     /**
