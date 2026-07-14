@@ -21,9 +21,11 @@ async function isAuthenticated(request: NextRequest): Promise<boolean> {
                 Accept: "application/json"
             }
         })
-        if (!res.ok) return false; // if the response is not successful (e.g., if it returns a 401 Unauthorized status), we return false, indicating that the user is not authenticated.
+        // extract the user role details
+        const user = await res.json();
+        // Check the response status and the role name of the logged user
+        if (!res.ok || user['role']['name'] !=='staff') return false; 
         return true; // if the response is successful (i.e., the user is authenticated), we return true.
-
     } catch {
         // If there is an error (e.g., network error), we also return false, indicating that the user is not authenticated.
         return false;

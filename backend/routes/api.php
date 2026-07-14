@@ -21,9 +21,6 @@ use Illuminate\Support\Facades\Route;
 // To Get the authentication when first access by the user
 //
 // =========================================== ADMIN / INSTRUCTOR API ENDPOINT ===========================================
-
-// Route::middleware(['auth:sanctum',  'can:is-admin'])->prefix('v1/admin')
-// Route::middleware(['can:is-admin'])->prefix('v1/admin')
 Route::post('/v1/admin/login', [AdminAuthController::class, 'login']);
 Route::middleware(['web', 'auth:sanctum'])->get('/v1/admin/me', function (Request $request) {
     return $request->user();
@@ -33,19 +30,14 @@ Route::middleware(['auth:sanctum', 'can:is-admin'])
     ->prefix('v1/admin')
     ->name('admin.')
     ->group(function () {
-        Route::get('/test', function (Request $request) {
-            $data = [
-                ['id' => 1, 'name' => 'John Doe'],
-            ];
-            return response()->json(['data' => $data]);
-        });
+        // includes all the controller files here
         foreach (glob(__DIR__ . '/api/admin/*.php') as $file) {
             require $file;
         }
+        // Regular endpoint API
+        Route::post('/logout', [AdminAuthController::class, 'logout']);
+        
     });
-
-
-
 
 
 // =========================================== STUDENT API ENDPOINT ===========================================

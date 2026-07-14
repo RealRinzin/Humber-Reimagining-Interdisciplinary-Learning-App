@@ -1,21 +1,33 @@
-import { faMagnifyingGlass, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { clientPost } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
+
+import {
+  faMagnifyingGlass,
+  faRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 function Navigation() {
+  const router = useRouter();
+  // Logout Function to clear the session and redirect it to the login page
+  async function logOut(): Promise<void> {
+    const res = await clientPost("/logout", {});
+    router.push("/");
+  }
   return (
     <header className="flex flex-col md:flex-row justify-between place-items-center py-3 gap-2 md:py-6 md:px-20 text-white">
       <h2 className="text-xl">
         <Link href="/">
           SPA
           <Image
-            src="/img/SpaceLogo.png"
+            src="/img/icons/SpaceLogo.png"
             height={20}
             width={20}
             alt="User Icon"
             className="inline"
           />
-          CES PROJECT
+          CES PROJECT - Admin Dashboard
         </Link>
       </h2>
 
@@ -34,27 +46,7 @@ function Navigation() {
         </div>
         <ul className="flex gap-5 justify-evenly">
           <li>
-            <Link href="/team">
-              <Image
-                src="/img/icons/InformationIcon.png"
-                height={25}
-                width={25}
-                alt="Home Icon"
-              />
-            </Link>
-          </li>
-          <li>
-            <Link href="/profile/icons/knowledge_map">
-              <Image
-                src="/img/icons/HomeIcon.png"
-                height={25}
-                width={25}
-                alt="Home Icon"
-              />
-            </Link>
-          </li>
-          <li>
-            <Link href="/profile">
+            <Link href="/">
               <Image
                 src="/img/icons/AccountIcon.png"
                 height={25}

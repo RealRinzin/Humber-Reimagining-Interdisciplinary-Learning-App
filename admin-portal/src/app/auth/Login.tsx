@@ -49,7 +49,7 @@ export default function Login() {
           {/* Step Indicator */}
           <div className="flex justify-center bg-slate-800 mx-auto p-5 rounded-full h-30 w-30 items-center-safe">
             <Image
-              src="/img/SpaceLogo.png"
+              src="/img/icons/SpaceLogo.png"
               alt="Space Project"
               height={100}
               width={100}
@@ -100,15 +100,6 @@ export default function Login() {
                 {loading ? "Logging in...." : "Login"}
               </button>
             </div>
-            <p className="text-gray-800 text-xs mt-4 pt-2">
-              Don't have an Account?
-              <Link
-                href="/onboarding"
-                className="text-slate-900 font-extrabold hover:text-slate-900 px-2 underline"
-              >
-                Create one here
-              </Link>
-            </p>
           </form>
         </div>
       </div>
