@@ -1,7 +1,6 @@
 import { cookies } from 'next/headers' // to access cookies in the middleware
 import { NextResponse } from 'next/server' // to create responses and redirects in the middleware
 import type { NextRequest } from 'next/server' // to type the request object in the middleware
-
 /**
  * 
  * @param request 
@@ -23,7 +22,9 @@ async function isAuthenticated(request: NextRequest): Promise<boolean> {
         })
         // extract the user role details
         const user = await res.json();
+        // STAFF | ADMIN role 
         // Check the response status and the role name of the logged user
+        // The login status should be true only if the user role is staff
         if (!res.ok || user['role']['name'] !=='staff') return false; 
         // if (!res.ok) return false; 
         return true; // if the response is successful (i.e., the user is authenticated), we return true.
@@ -32,7 +33,6 @@ async function isAuthenticated(request: NextRequest): Promise<boolean> {
         return false;
     }
 }
-
 /**
  * 
  * @param request 
@@ -41,20 +41,18 @@ async function isAuthenticated(request: NextRequest): Promise<boolean> {
 export async function proxy(request: NextRequest) {
 
     const loggedIn = await isAuthenticated(request)
-
+    // Redirect to the home page
     const isHomePage = request.nextUrl.pathname === '/'
     // If not logged in and trying to access protected page → redirect to login
     if (!loggedIn && !isHomePage ) {
         return NextResponse.redirect(new URL('/', request.url))
     }
-
     // If already logged in and trying to access onboarding → redirect to profile
     if (loggedIn && isHomePage) {
         return NextResponse.redirect(new URL('/dashboard', request.url))
     }
-
+    // Return response to the next 
     return NextResponse.next()
-
 }
 
 export const config = {

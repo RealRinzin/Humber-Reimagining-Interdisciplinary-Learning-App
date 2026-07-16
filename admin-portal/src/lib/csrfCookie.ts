@@ -1,4 +1,4 @@
-// GET CSRF TOKEN
+// Get the browser 
 async function fetchCsrfToken(): Promise<string> {
     await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/sanctum/csrf-cookie`, {
         credentials: "include",

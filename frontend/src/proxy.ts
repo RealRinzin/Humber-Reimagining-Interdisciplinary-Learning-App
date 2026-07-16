@@ -21,7 +21,6 @@ import type { NextRequest } from 'next/server' // to type the request object in 
  * @param request 
  * @returns 
  */
-
 // This function checks if the user is authenticated by making a request to the backend API with the cookies from the request.
 // If the request is successful, it returns true, indicating that the user is authenticated. 
 // If the request fails (e.g., due to a 401 Unauthorized response), it returns false, indicating that the user is not authenticated.
@@ -45,7 +44,6 @@ async function isAuthenticated(request: NextRequest): Promise<boolean> {
         })
         if (!res.ok) return false; // if the response is not successful (e.g., if it returns a 401 Unauthorized status), we return false, indicating that the user is not authenticated.
         return true; // if the response is successful (i.e., the user is authenticated), we return true.
-
     } catch {
         // If there is an error (e.g., network error), we also return false, indicating that the user is not authenticated.
         return false;

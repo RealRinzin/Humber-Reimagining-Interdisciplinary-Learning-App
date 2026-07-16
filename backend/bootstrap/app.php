@@ -24,6 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
     // Return the response - empty checl
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (NotFoundHttpException $e, Request $request) {
+            
             // return response()->json(['message' => 'Record not found'], 404);
             // return response()->json(null, 404);
             return response()->json(['data' => null], 404);

@@ -1,18 +1,52 @@
 "use client";
 import TextInput from "@/components/ui/input/Text";
 import { useFetch } from "@/hooks/client/useFetch";
+import { useState } from "react";
 export default function Dash() {
-  const {data: codes,loading,error,} = useFetch(`${process.env.NEXT_PUBLIC_API_END_POINT}/codes`);
+  const [isEditing, setIsEditing] = useState(false);
+  const {
+    data: codes,
+    loading,
+    error,
+  } = useFetch(`${process.env.NEXT_PUBLIC_API_END_POINT}/codes`);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
+  const title = "This is the title";
+  // Double Click funciton
+  const doubleClick = () => {
+    setIsEditing(true);
+    console.log("test");
+  };
+
+  const handleSave = () => {
+    setIsEditing(false);
+    alert("Helo")
+    // Optionally: trim whitespace, prevent empty titles, call an API here
+    // if (title.trim() === "") setTitle("Untitled");
+  };
   return (
     <>
-        <ul>
-          <TextInput/>
-          {codes?.map((code: any) => (
-            <li  key={code.id}>{code.description}</li>
-          ))}
-        </ul>
+      <ul>
+        {isEditing ? (
+          <TextInput value={title} />
+        ) : (
+          <h1
+            onDoubleClick={doubleClick}
+            style={{ cursor: "text" }}
+            onBlur={handleSave}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleSave();
+              if (e.key === "Escape") setIsEditing(false);
+            }}
+          >
+            {title}
+          </h1>
+        )}
+
+        {codes?.map((code: any) => (
+          <li key={code.id}>{code.description}</li>
+        ))}
+      </ul>
     </>
   );
 }
