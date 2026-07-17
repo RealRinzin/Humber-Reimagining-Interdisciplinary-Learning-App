@@ -11,7 +11,6 @@
  * If the user is already authenticated and tries to access the login page, they will be redirected to the dashboard page. 
  * The `matcher` configuration specifies which routes should be protected by this middleware.
  */
-
 import { cookies } from 'next/headers' // to access cookies in the middleware
 import { NextResponse } from 'next/server' // to create responses and redirects in the middleware
 import type { NextRequest } from 'next/server' // to type the request object in the middleware
@@ -48,7 +47,6 @@ async function isAuthenticated(request: NextRequest): Promise<boolean> {
         // If there is an error (e.g., network error), we also return false, indicating that the user is not authenticated.
         return false;
     }
-
 }
 /**
  * 
@@ -58,7 +56,7 @@ async function isAuthenticated(request: NextRequest): Promise<boolean> {
 export async function proxy(request: NextRequest) {
     // const session = request.cookies.get('humber-idl-app-session')
     const loggedIn = await isAuthenticated(request)
-
+    // Path for the home / login page redirect
     const isAuthPage = request.nextUrl.pathname === '/'
     const isOnBoardingPage = request.nextUrl.pathname === '/onboarding';
     // If not logged in and trying to access protected page → redirect to login
