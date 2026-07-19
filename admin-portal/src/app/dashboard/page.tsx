@@ -1,59 +1,35 @@
-"use client";
-import SkeletonCard from "@/components/layout/skeletons/Cards";
-import LoadingPath from "@/components/layout/skeletons/Paths";
-import TextInput from "@/components/ui/form/Text";
-import Ring from "@/components/ui/ring/Ring";
-import { useFetch } from "@/hooks/client/useHTTP";
-import { useState } from "react";
+import NodeGroup from "@/components/layout/Dashboard/NodeGroup";
+import PathCard from "@/components/ui/cards/paths/PathCard";
+import React from "react";
 
-export default function Dash() {
-  const [isEditing, setIsEditing] = useState(false);
-  const {
-    data: codes,
-    loading,
-    error,
-  } = useFetch(`${process.env.NEXT_PUBLIC_API_END_POINT}/codes`);
-  if (loading) return <><SkeletonCard/> <LoadingPath/></>;
-  if (error) return <p>Error: {error}</p>;
-  const title = "This is the title";
-  // Double Click funciton
-  const doubleClick = () => {
-    setIsEditing(true);
-    console.log("test");
-  };
-
-  const handleSave = () => {
-    setIsEditing(false);
-    alert("Helo")
-    // Optionally: trim whitespace, prevent empty titles, call an API here
-    // if (title.trim() === "") setTitle("Untitled");
-  };
+export default function HomePage() {
   return (
     <>
-      <ul>
-        {isEditing ? (
-          <>
-          <TextInput value={title} />
-          <Ring/>
-          </>
-        ) : (
-          <h1
-            onDoubleClick={doubleClick}
-            style={{ cursor: "text" }}
-            onBlur={handleSave}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") handleSave();
-              if (e.key === "Escape") setIsEditing(false);
-            }}
-          >
-            {title}
-          </h1>
-        )}
-
-        {codes?.map((code: any) => (
-          <li key={code.id}>{code.description}</li>
-        ))}
-      </ul>
+      <div className="grid grid-cols-3 gap-4">
+        <div className="col-span-2">
+          <div className="flex flex-row justify-between border-b border-gray-400 pb-2">
+            <h1>Paths</h1>
+            <button>+</button>
+          </div>
+          {/* Path Card */}
+          <div className="grid grid-cols-3 gap-4">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <PathCard key={index} />
+            ))}
+          </div>
+          {/* Node Card */}
+          <div className="flex flex-row justify-between border-b border-gray-400 pb-2">
+            <h1>Nodes</h1>
+            <button>+</button>
+          </div>
+          {/* Groups */}
+          <NodeGroup link="group-1"/>
+          <NodeGroup link="group-2"/>
+          <NodeGroup link="group-2"/>
+        </div>
+        {/* Sidebar Areas */}
+        <div> Sidebar</div>
+      </div>
     </>
   );
 }
