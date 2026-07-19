@@ -1,7 +1,11 @@
 "use client";
-import TextInput from "@/components/ui/input/Text";
-import { useFetch } from "@/hooks/client/useFetch";
+import SkeletonCard from "@/components/layout/skeletons/Cards";
+import LoadingPath from "@/components/layout/skeletons/Paths";
+import TextInput from "@/components/ui/form/Text";
+import Ring from "@/components/ui/ring/Ring";
+import { useFetch } from "@/hooks/client/useHTTP";
 import { useState } from "react";
+
 export default function Dash() {
   const [isEditing, setIsEditing] = useState(false);
   const {
@@ -9,7 +13,7 @@ export default function Dash() {
     loading,
     error,
   } = useFetch(`${process.env.NEXT_PUBLIC_API_END_POINT}/codes`);
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <><SkeletonCard/> <LoadingPath/></>;
   if (error) return <p>Error: {error}</p>;
   const title = "This is the title";
   // Double Click funciton
@@ -28,7 +32,10 @@ export default function Dash() {
     <>
       <ul>
         {isEditing ? (
+          <>
           <TextInput value={title} />
+          <Ring/>
+          </>
         ) : (
           <h1
             onDoubleClick={doubleClick}

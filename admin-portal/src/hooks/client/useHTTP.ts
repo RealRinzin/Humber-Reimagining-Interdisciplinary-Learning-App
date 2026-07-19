@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from "react"
-import { clientFetch } from "../useAuth";
+import { clientFetch } from "../useClient";
 
 export function useFetch(url: string) {
     // response data object
