@@ -11,12 +11,13 @@ import { faAngleDown } from "@fortawesome/free-solid-svg-icons/faAngleDown";
 import { faCirclePlay } from "@fortawesome/free-solid-svg-icons/faCirclePlay";
 import Image from "next/image";
 
-export default function NodeCard() {
+export default function NodeCard({color}:any) {
   return (
-    <div className="border rounded-xl border-gray-200 p-4">
+    <div className="border rounded-xl border-gray-200 p-4 shadow-sm">
       {/* Top */}
-      <div className="flex my-4">
-        <Ring /> Intro to Space
+      <div className="flex my-4 gap-4 justify-items-center-safe">
+        <Ring  color={color}/> 
+        <h2 className="font-extrabold text-gray-800">Intro to Space</h2>
       </div>
       {/* Student Visibility */}
       <div className="flex my-4 justify-items-center gap-2 text-sm text-gray-600">
@@ -57,7 +58,7 @@ export default function NodeCard() {
           <FontAwesomeIcon
             icon={faCode}
             size="1x"
-            className="cursor-pointer"
+            className="cursor-pointer bg-gray-400 text-white rounded-sm"
           />
         </li>
         <li>
@@ -69,7 +70,7 @@ export default function NodeCard() {
         </li>
       </ul>
       <div className="flex justify-end">
-        <button className="bg-gray-800 text-white rounded-md text-sm font-extralight px-2 py-1">
+        <button className="bg-gray-800 text-white text-xs rounded-md  px-2 py-1">
           Edit
         </button>
       </div>
