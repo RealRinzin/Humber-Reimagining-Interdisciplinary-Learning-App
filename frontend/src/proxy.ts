@@ -35,7 +35,7 @@ async function isAuthenticated(request: NextRequest): Promise<boolean> {
     //  This allows the backend to identify the user based on their session cookie and determine if they are authenticated.
     try {
         const res = await fetch(`${process.env.BASE_END_POINT}/api/user`, { // Default
-            method: "GET",
+            method: "GET", // Method Otpions
             headers: {
                 Cookie: cookieHeader,
                 Accept: "application/json"

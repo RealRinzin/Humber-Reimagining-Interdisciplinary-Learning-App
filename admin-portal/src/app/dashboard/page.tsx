@@ -1,7 +1,5 @@
 import NodeGroup from "@/components/layout/Dashboard/NodeGroup";
 import PathCard from "@/components/ui/cards/paths/PathCard";
-import React from "react";
-
 export default function HomePage() {
   return (
     <>
@@ -18,9 +16,9 @@ export default function HomePage() {
             ))}
           </div>
           {/* Node Card */}
-          <div className="flex flex-row justify-between border-b border-gray-400 pb-2">
-            <h1>Nodes</h1>
-            <button>+</button>
+          <div className="flex flex-row justify-between border-b-2 border-gray-300 pb-2 mb-4">
+            <h1 className="text-xl font-semibold text-gray-700">Nodes Groups</h1>
+            <button className="flex justify-center items-center rounded-full text-md h-6 w-6 font-extrabold bg-gray-700 text-white">+</button>
           </div>
           {/* Groups */}
           <NodeGroup color="pink-600"/>

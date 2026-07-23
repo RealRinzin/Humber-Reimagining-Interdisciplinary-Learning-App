@@ -1,4 +1,10 @@
-// lib/clientFetch.ts
+/**
+ * CLIENT SIDE HTTP METHODS
+ * We are using this http method fuctions to GET,POST,UPDATE,PATCH AND DELETE 
+ * data from the table.
+ * Notes 
+ * it will refactor the code from using same http method call through out the application
+ */
 import { useRouter } from 'next/navigation';
 // GET CSRF TOKEN
 async function fetchCsrfToken(): Promise<string> {
@@ -20,6 +26,8 @@ async function fetchCsrfToken(): Promise<string> {
  * @param options 
  * @returns 
  */
+
+// ======================= Client Side HTTP GET Method ==============================================
 export async function clientFetch(path: string, options: RequestInit = {}) {
     const xsrfToken = await fetchCsrfToken();
     // try {
@@ -47,11 +55,13 @@ export async function clientFetch(path: string, options: RequestInit = {}) {
 
     return res;
 }
+
+// ======================= Client Side HTTP Post Method ==============================================
 export async function clientPost(path: string, body: unknown, options: RequestInit = {}) {
     const xsrfToken = await fetchCsrfToken();
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${path}`, {
-            ...options,
+            ...options, // Passing the Options parameter for the HTTP Method
             method: "POST",
             body: JSON.stringify(body),
             headers: {
@@ -81,18 +91,8 @@ export async function clientPost(path: string, body: unknown, options: RequestIn
     } catch (error) {
         console.log(error);
     }
-    // if (!res.ok) {
-    //     if (res.status === 401) {
-    //         window.location.href = '/login';
-    //     }
-    //     if (res.status === 404) {
-    //         throw new Error('Not found');
-    //     }
-    //     throw new Error(`Request failed: ${res.status}`);
-    // }
-
-    // return res;
 }
+// ======================= Client Side  HTTP PATCH Method ==============================================
 
 export async function clientPatch(path: string, body: unknown, options: RequestInit = {}) {
     const xsrfToken = await fetchCsrfToken();
@@ -129,19 +129,8 @@ export async function clientPatch(path: string, body: unknown, options: RequestI
         console.log(error);
     }
 
-    // if (!res.ok) {
-    //     if (res.status === 401) {
-    //         window.location.href = '/login';
-    //     }
-    //     if (res.status === 404) {
-    //         throw new Error('Not found');
-    //     }
-    //     throw new Error(`Request failed: ${res.status}`);
-    // }
-
-    // return res;
 }
-
+// ======================= Client Side HTTP DELETE Method ==============================================
 export async function clientDelete(path: string, options: RequestInit = {}) {
     const xsrfToken = await fetchCsrfToken();
     try {
@@ -174,16 +163,4 @@ export async function clientDelete(path: string, options: RequestInit = {}) {
     } catch (error) {
         console.log(error);
     }
-
-    // if (!res.ok) {
-    //     if (res.status === 401) {
-    //         window.location.href = '/login';
-    //     }
-    //     if (res.status === 404) {
-    //         throw new Error('Not found');
-    //     }
-    //     throw new Error(`Request failed: ${res.status}`);
-    // }
-
-    // return res;
 }
