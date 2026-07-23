@@ -1,16 +1,23 @@
-import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown, faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
 export default function PathCard() {
   return (
-    <div className="border rounded-xl border-gray-200 p-4 shadow-sm">
+    <div className="border-2 bg-gray-200/50 rounded-xl border-gray-300 p-4 shadow-md">
       <h1 className="font-extrabold text-gray-900">Explore</h1>
-      <div className="flex items-center-safe gap-2 my-2 text-gray-500 text-sm">
+      <div className="flex items-center gap-2 my-2 text-gray-500 text-sm">
         <FontAwesomeIcon icon={faEye} size="1x" className="cursor-pointer " />
         <p>Visible to students</p>
+        <p>
+          <FontAwesomeIcon
+            icon={faCaretDown}
+            size="1x"
+            className="cursor-pointer"
+          />
+        </p>
       </div>
-      <p className="text-gray-800 my-2">
+      <p className="text-gray-700 my-2 text-sm font-medium">
         This mode encourages self-directed learning by allowing students to
         explore modules in any order. Choose a starting module while allowing
         students to navigate the rest of the map independently.

@@ -12,10 +12,10 @@ function NodeGroup({ color }: any) {
         </div>
       </div> */}
 
-      <div className="bg-gray-200/50 border-2 rounded-md border-gray-300 py-2 my-4">
-        <div className="flex justify-between pb-2 px-6 border-b-2 border-gray-300">
-          <h2 className="font-extrabold text-gray-700">Transformation</h2>
-          <button className="flex justify-center items-center rounded-full text-md h-6 w-6 font-thin bg-gray-400 text-white">
+      <div className="bg-gray-200/50 border-2 rounded-md border-gray-300 py-4 my-4">
+        <div className="flex justify-between  items-center pb-2 px-6 border-b-2 border-gray-300">
+          <h2 className="font-extrabold text-gray-700">Transformation <span className="text-gray-500 font-thin">(Group Name)</span></h2>
+          <button className="flex justify-center items-center rounded-full text-md h-6 w-6  bg-slate-300 font-medium">
             +
           </button>
         </div>
