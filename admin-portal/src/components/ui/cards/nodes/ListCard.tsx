@@ -23,7 +23,7 @@ export default function ListCard({ color }: any) {
               className="cursor-pointer"
             />
           </p>
-          <p className="text-gray-500 text-sm"> Visible to student</p>
+          <p className="text-gray-500 text-sm"> Visible to students</p>
           <p className="text-gray-500">
             <FontAwesomeIcon
               icon={faCaretDown}
@@ -39,7 +39,7 @@ export default function ListCard({ color }: any) {
           regular array, you must convert its entries into an array using
           Array.from() before calling
         </p>
-        <ul className="flex gap-2 my-4 text-gray-400">
+        <ul className="flex gap-2 my-4 text-slate-400">
           <li>
             <FontAwesomeIcon
               icon={faCirclePlay}
@@ -58,7 +58,7 @@ export default function ListCard({ color }: any) {
             <FontAwesomeIcon
               icon={faCode}
               size="1x"
-              className="cursor-pointer bg-gray-400 text-white rounded-sm"
+              className="cursor-pointer bg-slate-400 text-white rounded-sm"
             />
           </li>
           <li>

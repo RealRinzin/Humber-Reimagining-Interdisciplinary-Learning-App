@@ -1,11 +1,10 @@
 import { faCaretDown, faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 
-export default function PathCard() {
+export default function PathCard({title}:any) {
   return (
-    <div className="border-2 bg-gray-200/50 rounded-xl border-gray-300 p-4 shadow-md">
-      <h1 className="font-extrabold text-gray-900">Explore</h1>
+    <div className="border-2 bg-gray-200/50 rounded-xl border-gray-300 p-4">
+      <h1 className="font-extrabold text-gray-900">{title}</h1>
       <div className="flex items-center gap-2 my-2 text-gray-500 text-sm">
         <FontAwesomeIcon icon={faEye} size="1x" className="cursor-pointer " />
         <p>Visible to students</p>
