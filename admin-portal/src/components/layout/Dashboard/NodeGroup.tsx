@@ -14,7 +14,6 @@ function NodeGroup({ color,title }: any) {
           {Array.from({ length: 3 }).map((_, index) => (
           <ListCard key={index} color={color} title={title}/>
           ))}
-
         </div>
       </div>
     </>

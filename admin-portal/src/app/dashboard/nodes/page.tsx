@@ -1,5 +1,14 @@
+import AddContent from "@/components/layout/Dashboard/AddContent";
 import Select from "@/components/ui/form/Select";
-import { faCaretDown, faEye } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBook,
+  faCaretDown,
+  faCirclePlay,
+  faCircleQuestion,
+  faCode,
+  faEye,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function NewNodePage() {
@@ -54,6 +63,7 @@ export default function NewNodePage() {
           </div>
         </div>
       </div>
+      <AddContent/>
       {/* Node Setting */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 p-6">
         <h1 className="border-b-2 border-gray-400 pb-2 font-bold text-gray-700">
@@ -72,14 +82,72 @@ export default function NewNodePage() {
           </li>
         </ul>
         {/* Content */}
-        <div className="my-10">
+        <div className="mt-10">
           <h1 className="border-b-2 border-gray-400 pb-2 font-bold text-gray-700">
             Content
           </h1>
-          <p className="py-4 text-sm text-gray-500">Select type of content or create you own.</p>
+          <p className="py-4 text-sm text-gray-500">
+            Select type of content or create you own.
+          </p>
         </div>
+        {/* Cards */}
+        <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 text-gray-500">
+          <li className="flex flex-col gap-2 justify-center items-center px-12 py-5 border border-gray-300 bg-gray-200 rounded-md">
+            <span>
+              <FontAwesomeIcon
+                icon={faCirclePlay}
+                className="cursor-pointer text-2xl"
+              />
+            </span>
+            <span className="text-sm">Videos</span>
+          </li>
+          <li className="flex flex-col gap-2 justify-center items-center px-12 py-5 border border-gray-300 bg-gray-200 rounded-md">
+            <span>
+              <FontAwesomeIcon
+                icon={faCircleQuestion}
+                className="cursor-pointer text-2xl"
+              />
+            </span>
+            <span className="text-sm">Flashcards</span>
+          </li>
+          <li className="flex flex-col gap-2 justify-center items-center px-12 py-5 border border-gray-300 bg-gray-200 rounded-md">
+            <span>
+              <FontAwesomeIcon
+                icon={faBook}
+                className="cursor-pointer text-2xl"
+              />
+            </span>
+            <span className="text-sm">Resources</span>
+          </li>
+          <li className="flex flex-col gap-2 justify-center items-center px-12 py-5 border border-gray-300 bg-gray-200 rounded-md">
+            <span>
+              <FontAwesomeIcon
+                icon={faCircleQuestion}
+                className="cursor-pointer text-2xl"
+              />
+            </span>
+            <span className="text-sm">FAQ</span>
+          </li>
+          <li className="flex flex-col gap-2 justify-center items-center px-12 py-5 border border-gray-300 bg-gray-200 rounded-md">
+            <span>
+              <FontAwesomeIcon
+                icon={faCode}
+                className="cursor-pointer text-2xl"
+              />
+            </span>
+            <span className="text-sm">Codes</span>
+          </li>
+          <li className="flex flex-col gap-2 justify-center items-center px-12 py-5 border border-gray-300 bg-gray-200 rounded-md">
+            <span>
+              <FontAwesomeIcon
+                icon={faPlus}
+                className="cursor-pointer text-2xl"
+              />
+            </span>
+            <span className="text-sm">Custom</span>
+          </li>
+        </ul>
       </div>
-
       {/*  */}
     </>
   );
