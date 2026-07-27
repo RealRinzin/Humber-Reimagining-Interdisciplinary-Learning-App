@@ -18,12 +18,12 @@ async function fetchCsrfToken(): Promise<string> {
  * @param options 
  * @returns 
  */
-export async function clientFetch(path: string, options: RequestInit = {}) {
+export async function clientFetch(path: string, method:string, options: RequestInit = {}) {
     const xsrfToken = await fetchCsrfToken();
     // try {
     const res = await fetch(path, {
         ...options,
-        method: "GET",
+        method: method,
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",

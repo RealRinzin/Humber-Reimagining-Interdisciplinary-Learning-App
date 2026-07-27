@@ -5,13 +5,12 @@ import { useEffect, useState } from "react";
 import LoadingPath from "../skeletons/Paths";
 import SkeletonCard from "../skeletons/Cards";
 
-export default function Select({ title }: any) {
-  const [topics, setTopics] = useState([]);
+export default function Select({ title,endpoint }: any,) {
   const {
-    data: topic,
+    data: data,
     loading,
     error,
-  } = useFetch(`${process.env.NEXT_PUBLIC_API_END_POINT}/topics`);
+  } = useFetch(`${process.env.NEXT_PUBLIC_API_END_POINT}/${endpoint}`,"GET");
   if (loading) return <p className="bg-gray-100 px-2 text-xs py-1 rounded">Loading...</p>
   if (error) return <p>Error: {error}</p>;
   return (
@@ -21,8 +20,8 @@ export default function Select({ title }: any) {
         {title}
       </option>
 
-      {topic?.map((topic: any) => (
-        <option value={topic.id}>{topic.title}</option>
+      {data?.map((data: any,index:number) => (
+        <option value={data.id} key={index}>{data.title}</option>
       ))}
       <option value="1"> Transformations</option>
       <option value="3"> Spaces</option>

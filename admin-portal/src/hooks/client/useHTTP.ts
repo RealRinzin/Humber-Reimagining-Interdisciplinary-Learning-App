@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react"
 import { clientFetch } from "../useClient";
 
-export function useFetch(url: string) {
+export function useFetch(url: string,method:string) {
     // response data object
     const [data, setData] = useState(null);
     // loading status

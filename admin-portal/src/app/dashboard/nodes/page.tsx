@@ -1,4 +1,3 @@
-
 import CodeCard from "@/components/ui/cards/ code/CodeCard";
 import TextContent from "@/components/ui/cards/content/TextContent";
 import FlashCard from "@/components/ui/cards/flashCard/FlashCard";
@@ -16,7 +15,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function NewNodePage() {
+export default async function NewNodePage() {
   return (
     <>
       <div className="bg-gray-600">
@@ -76,13 +75,13 @@ export default function NewNodePage() {
         <ul className="flex gap-4 my-6 text-gray-600 text-md">
           <li>Group</li>
           <li>
-            <Select title="Select Node Group" />
+            <Select title="Select Node Group" endpoint="codes" />
           </li>
         </ul>
         <ul className="flex gap-4  text-gray-600 text-md">
           <li>Connections</li>
           <li>
-            <Select title="Select Connection" />
+            <Select title="Select Connection" endpoint="topics"/>
           </li>
         </ul>
         {/* Content */}
@@ -95,12 +94,12 @@ export default function NewNodePage() {
           </p>
         </div>
         {/* Content */}
-        <TextContent/>
-        <VideoCard/>
+        <TextContent />
+        <VideoCard />
         {/* <AddContent /> */}
-        <FlashCard/>
-        <CodeCard/>
-        <RamblingCard/>
+        <FlashCard />
+        <CodeCard />
+        <RamblingCard />
         {/* Cards */}
         <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 text-gray-500 my-4">
           <li className="flex flex-col gap-2 justify-center items-center px-12 py-5 border border-gray-300 bg-gray-200 rounded-md">

@@ -26,8 +26,9 @@ Route::middleware(['web', 'auth:sanctum'])->get('/v1/admin/me', function (Reques
     return $request->user();
 });
 
-Route::middleware(['auth:sanctum', 'can:is-admin'])
-    ->prefix('v1/admin')
+// Route::middleware(['auth:sanctum', 'can:is-admin'])
+//     ->prefix('v1/admin')
+Route::prefix('v1/admin')
     ->name('admin.')
     ->group(function () {
         // includes all the controller files here

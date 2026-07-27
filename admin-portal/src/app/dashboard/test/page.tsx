@@ -12,7 +12,7 @@ export default function Dashboard() {
     data: codes,
     loading,
     error,
-  } = useFetch(`${process.env.NEXT_PUBLIC_API_END_POINT}/codes`);
+  } = useFetch(`${process.env.NEXT_PUBLIC_API_END_POINT}/codes`,"GET");
   if (loading) return <><SkeletonCard/> <LoadingPath/></>;
   if (error) return <p>Error: {error}</p>;
   const title = "This is the title";

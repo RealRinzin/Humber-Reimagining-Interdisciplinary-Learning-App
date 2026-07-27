@@ -1,9 +1,8 @@
 "use client";
-
 import Footer from "@/components/layout/Footer";
 import Navigation from "@/components/layout/Navigation";
 
-function DashboardLayout({
+export default function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -17,4 +16,4 @@ function DashboardLayout({
   );
 }
 
-export default DashboardLayout;
+// export default DashboardLayout;
