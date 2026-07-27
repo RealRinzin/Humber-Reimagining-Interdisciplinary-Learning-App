@@ -11,7 +11,7 @@ function DashboardLayout({
   return (
     <>
       <Navigation />
-      <main className="min-h-screen bg-gray-100">{children}</main>
+      <main className="min-h-screen bg-white">{children}</main>
       <Footer />
     </>
   );
