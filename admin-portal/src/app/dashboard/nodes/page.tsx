@@ -54,12 +54,12 @@ export default function NewNodePage() {
             <div className="basis-2/6">
               <ul className="flex justify-end gap-2">
                 <li>
-                  <button className="bg-slate-500 text-xs rounded-md px-2 py-1 text-white">
+                  <button className="bg-slate-500 text-xs rounded-md px-2 py-1 text-white cursor-pointer">
                     Cancel
                   </button>
                 </li>
                 <li>
-                  <button className="bg-slate-200 text-xs rounded-md px-2 py-1 ">
+                  <button className="bg-slate-200 text-xs rounded-md px-2 py-1 cursor-pointer">
                     Save
                   </button>
                 </li>

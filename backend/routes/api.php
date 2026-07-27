@@ -36,7 +36,6 @@ Route::middleware(['auth:sanctum', 'can:is-admin'])
         }
         // Regular endpoint API
         Route::post('/logout', [AdminAuthController::class, 'logout']);
-        
     });
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1\Admin;
 
+use App\Models\Topic;
 use Illuminate\Http\Request;
 
 class TopicController
@@ -12,6 +13,7 @@ class TopicController
     public function index()
     {
         //
+        return Topic::get();
     }
 
     /**
