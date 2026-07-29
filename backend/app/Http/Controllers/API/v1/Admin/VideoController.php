@@ -52,8 +52,11 @@ class VideoController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Video $video)
     {
-        //
+        if (!$video) {
+            return back()->with('error', 'Topic not found.');
+        }
+        $video->delete();
     }
 }

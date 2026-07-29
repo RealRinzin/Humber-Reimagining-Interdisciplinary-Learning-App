@@ -23,7 +23,8 @@ class Topic extends Model
         'rambling',
         'quiz',
         'interactive_path',
-        'slug'
+        'slug',
+        'node_group_id'
     ];
     protected $table = 'topics';
 
@@ -42,6 +43,9 @@ class Topic extends Model
     public function quizees()
     {
         return $this->hasMany(Quiz::class);
+    }
+    public function nodeGroup(){
+        return $this->belongsTo(NodeGroup::class);
     }
     /*
      * Get the route key for the model.

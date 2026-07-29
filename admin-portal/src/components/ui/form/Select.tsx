@@ -2,8 +2,6 @@
 
 import { useFetch } from "@/hooks/client/useHTTP";
 import { useEffect, useState } from "react";
-import LoadingPath from "../skeletons/Paths";
-import SkeletonCard from "../skeletons/Cards";
 
 export default function Select({ title,endpoint }: any,) {
   const {
@@ -15,17 +13,10 @@ export default function Select({ title,endpoint }: any,) {
   if (error) return <p>Error: {error}</p>;
   return (
     <select className="border border-gray-300 bg-gray-200 text-gray-500 px-4 py-1  rounded-md w-50 text-xs">
-      <option value="" disabled>
-        {" "}
-        {title}
-      </option>
-
+      <option value="" disabled>{title}</option>
       {data?.map((data: any,index:number) => (
-        <option value={data.id} key={index}>{data.title}{data.code}</option>
+        <option value={data.id} key={index}>{data.title} {data.name}</option>
       ))}
-      <option value="1"> Transformations</option>
-      <option value="3"> Spaces</option>
-      <option value="3"> Metrics</option>
     </select>
   );
 }

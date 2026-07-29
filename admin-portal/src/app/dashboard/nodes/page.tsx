@@ -75,7 +75,7 @@ export default async function NewNodePage() {
         <ul className="flex gap-4 my-6 text-gray-600 text-md">
           <li>Group</li>
           <li>
-            <Select title="Select Node Group" endpoint="codes" />
+            <Select title="Select Node Group" endpoint="node_groups" />
           </li>
         </ul>
         <ul className="flex gap-4  text-gray-600 text-md">
