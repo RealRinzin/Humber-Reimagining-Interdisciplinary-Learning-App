@@ -9,7 +9,17 @@ class Code extends Model
 {
     /** @use HasFactory<\Database\Factories\CodeFactory> */
     use HasFactory;
-
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $fillable = [
+        'topic_id',
+        'video_id',
+        'code',
+        'description'
+    ];
     /** 
      * Audio belongs to one Video
      * Document Table relationship with video table

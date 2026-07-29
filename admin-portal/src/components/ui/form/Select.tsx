@@ -21,7 +21,7 @@ export default function Select({ title,endpoint }: any,) {
       </option>
 
       {data?.map((data: any,index:number) => (
-        <option value={data.id} key={index}>{data.title}</option>
+        <option value={data.id} key={index}>{data.title}{data.code}</option>
       ))}
       <option value="1"> Transformations</option>
       <option value="3"> Spaces</option>

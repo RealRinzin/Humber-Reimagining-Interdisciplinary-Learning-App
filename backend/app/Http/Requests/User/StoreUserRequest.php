@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+
 class StoreUserRequest extends FormRequest
 {
     public function authorize(): bool
@@ -12,12 +14,10 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'name'     => ['required', 'string', 'max:255'],
-            // 'email'    => ['required', 'email', 'unique:users,email'],
-            'username'    => ['required', 'alpha_num','unique:users','max:30'],
-            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
+
+            'username'    => ['required', 'alpha_num', 'unique:users', 'max:30'],
             'password' => ['required', 'string', 'min:6'],
-            'role_id' => ['required','integer'],
+            'role_id' => ['required', 'integer'],
         ];
     }
 

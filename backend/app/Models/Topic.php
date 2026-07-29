@@ -10,7 +10,23 @@ class Topic extends Model
 {
     /** @use HasFactory<\Database\Factories\TopicFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'description',
+        'node_color',
+        'x_axis',
+        'y_axis',
+        'video',
+        'code',
+        'interactive',
+        'rambling',
+        'quiz',
+        'interactive_path',
+        'slug'
+    ];
     protected $table = 'topics';
+
     /**
      * Relationship Models
      */
