@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\API\V1\Admin;
 
+use App\Actions\Admin\Videos\StoreVideoAction;
+use App\DTOs\Admin\Videos\StoreVideoDTO;
+use App\Http\Requests\Admin\Videos\StoreVideoRequest;
 use Illuminate\Http\Request;
 
 class VideoController
@@ -17,9 +20,12 @@ class VideoController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreVideoRequest $request, StoreVideoAction $action)
     {
-        //
+        $dto = StoreVideoDTO::fromRequest($request); // Create a DTO from the request data
+        $video = $action->execute($dto); // Create a new video using the action class
+        return $video->fresh();
+
     }
 
     /**

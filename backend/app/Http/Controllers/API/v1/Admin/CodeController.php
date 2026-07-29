@@ -54,20 +54,24 @@ class CodeController
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCodeRequest $request, Code $code,UpdateCodeAction $action)
+    public function update(UpdateCodeRequest $request, Code $code, UpdateCodeAction $action)
     {
         //
         $dto = UpdateCodeDTO::fromRequest($request);
-        $update = $action->execute($code,$dto);
+        $update = $action->execute($code, $dto);
         return $update;
-
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Code $code)
     {
-        //
+
+        if (!$code) {
+            return back()->with('error', 'Code not found.');
+        }
+
+        $code->delete();
     }
 }

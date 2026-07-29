@@ -49,19 +49,21 @@ class TopicController
      * Update the specified resource in storage.
      */
     // public function update(UpdateTopicRequest $request,Topic $topic,UpdateTopicAction $action )
-    public function update(UpdateTopicRequest $request, UpdateTopicAction $action,Topic $topic)
+    public function update(UpdateTopicRequest $request, UpdateTopicAction $action, Topic $topic)
     {
         $dto = UpdateTopicDTO::fromRequest($request);
         $update = $action->execute($topic, $dto);
         return $update;
         //
     }
-
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Topic $topic)
     {
-        //
+        if (!$topic) {
+            return back()->with('error', 'Topic not found.');
+        }
+        $topic->delete();
     }
 }
