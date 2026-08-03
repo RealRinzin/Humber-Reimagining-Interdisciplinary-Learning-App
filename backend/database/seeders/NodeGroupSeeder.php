@@ -19,18 +19,18 @@ class NodeGroupSeeder extends Seeder
         NodeGroup::insert([
             [
                 'name'  => 'Transformations',
-                'color' => "cyan",
+                'color' => "cyan-500",
                 'description' => $faker->words(40, true),
             ],
             [
                 'name'  => 'Spaces',
-                'color' => "pink",
+                'color' => "pink-500",
                 'description' => $faker->words(40, true),
 
             ],
             [
                 'name'  => 'Matrices',
-                'color' => "purple",
+                'color' => "purple-500",
                 'description' => $faker->words(40, true),
 
             ],

@@ -33,7 +33,6 @@ class Video extends Model
     ];
 
     protected $casts = [
-        'video'                        => 'boolean',
         'code'                         => 'boolean',
         'interactive'                  => 'boolean',
         'rambling'                     => 'boolean',

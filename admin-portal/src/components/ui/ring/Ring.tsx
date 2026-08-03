@@ -1,11 +1,15 @@
+type RingColor = "cyan-500" | "pink-500" | "purple-500" | "blue-500";
 
-export default function Ring({color}:any) {
+const ringColorMap: Record<RingColor, string> = {
+  "cyan-500":   "bg-cyan-500/60 ring-cyan-500",
+  "pink-500":   "bg-pink-500/60 ring-pink-500",
+  "purple-500": "bg-purple-500/60 ring-purple-500",
+  "blue-500":   "bg-blue-500/60 ring-blue-500",
+};
+
+export default function Ring({ color }: { color: RingColor }) {
+  const classes = ringColorMap[color] ?? "bg-gray-500/60 ring-gray-500";
   return (
-    <>
-      <div className={`bg-${color}/60 ring-3 ring-${color} ring-offset-4 rounded-full h-5 w-5`}></div>
-      {/* <div className="bg-cyan-400/60 ring-3 ring-cyan-400 ring-offset-3 rounded-full h-5 w-5"></div> */}
-      {/* <div className="bg-blue-600/60 ring-3 ring-blue-600 ring-offset-4 rounded-full h-5 w-5"></div> */}
-      {/* <div className="bg-purple-600/60 ring-3 ring-purple-600 ring-offset-4 rounded-full h-5 w-5"></div> */}
-    </>
-  )
+    <div className={`${classes} ring-3 ring-offset-4 rounded-full h-5 w-5`} />
+  );
 }

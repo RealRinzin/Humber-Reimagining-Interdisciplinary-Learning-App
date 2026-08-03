@@ -10,6 +10,7 @@ class Topic extends Model
 {
     /** @use HasFactory<\Database\Factories\TopicFactory> */
     use HasFactory;
+    protected $table = 'topics';
 
     protected $fillable = [
         'title',
@@ -26,8 +27,16 @@ class Topic extends Model
         'slug',
         'node_group_id'
     ];
-    protected $table = 'topics';
 
+
+
+    protected $casts = [
+        'video'       => 'boolean',
+        'code'        => 'boolean',
+        'interactive' => 'boolean',
+        'rambling'    => 'boolean',
+        'quiz'        => 'boolean',
+    ];
     /**
      * Relationship Models
      */
@@ -44,7 +53,8 @@ class Topic extends Model
     {
         return $this->hasMany(Quiz::class);
     }
-    public function nodeGroup(){
+    public function nodeGroup()
+    {
         return $this->belongsTo(NodeGroup::class);
     }
     /*

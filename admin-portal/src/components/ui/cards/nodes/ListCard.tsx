@@ -9,7 +9,8 @@ import {
   faEye,
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function ListCard({ topics,node_color}: any) {
+export default function ListCard({ topics, node_color }: any) {
+  console.log(topics?.video === true);
   return (
     <div className="my-4">
       <div className="flex gap-4 flex-col md:flex-row items-center">
@@ -35,37 +36,47 @@ export default function ListCard({ topics,node_color}: any) {
       </div>
       <div className="py-2">
         <p className="text-gray-800 text-md font-medium">
-         {topics.description}
+          {topics.description}
         </p>
         <ul className="flex gap-2 my-4 text-slate-400">
-          <li>
-            <FontAwesomeIcon
-              icon={faCirclePlay}
-              size="1x"
-              className="cursor-pointer"
-            />
-          </li>
-          <li>
-            <FontAwesomeIcon
-              icon={faCircleQuestion}
-              size="1x"
-              className="cursor-pointer"
-            />
-          </li>
-          <li>
-            <FontAwesomeIcon
-              icon={faCode}
-              size="1x"
-              className="cursor-pointer bg-slate-400 text-white rounded-sm"
-            />
-          </li>
-          <li>
-            <FontAwesomeIcon
-              icon={faBook}
-              size="1x"
-              className="cursor-pointer"
-            />
-          </li>
+          {topics?.video && (
+            <li>
+              <FontAwesomeIcon
+                icon={faCirclePlay}
+                size="1x"
+                className="cursor-pointer"
+              />
+            </li>
+          )}
+
+          {topics?.quiz && (
+            <li>
+              <FontAwesomeIcon
+                icon={faCircleQuestion}
+                size="1x"
+                className="cursor-pointer"
+              />
+            </li>
+          )}
+
+          {topics?.code && (
+            <li>
+              <FontAwesomeIcon
+                icon={faCode}
+                size="1x"
+                className="cursor-pointer bg-slate-400 text-white rounded-sm"
+              />
+            </li>
+          )}
+          {topics?.rambling && (
+            <li>
+              <FontAwesomeIcon
+                icon={faBook}
+                size="1x"
+                className="cursor-pointer"
+              />
+            </li>
+          )}
         </ul>
       </div>
     </div>
