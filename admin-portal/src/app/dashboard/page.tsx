@@ -1,7 +1,17 @@
+'use client'
 import NodeGroup from "@/components/layout/Dashboard/NodeGroup";
 import PathCard from "@/components/ui/cards/paths/PathCard";
+import { useFetch } from "@/hooks/client/useHTTP";
 import Link from "next/link";
-export default function HomePage() {
+export default  function HomePage() {
+  const {
+    data: response,
+    loading,
+    error,
+  } = useFetch(`${process.env.NEXT_PUBLIC_API_END_POINT}/node_groups`, "GET");
+  if (loading)
+    return <p className="bg-gray-100 px-2 text-xs py-1 rounded">Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
   return (
     <>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -37,9 +47,12 @@ export default function HomePage() {
             </button> */}
             </div>
             {/* Groups */}
-            <NodeGroup color="blue-600" title="Transformation" />
-            <NodeGroup color="purple-600" title="Spaces" />
-            <NodeGroup color="red-600" title="Matrics" />
+            {
+              response?.data?.map((nodes:any,index:number) =>(
+                <NodeGroup key={index} data={nodes} />
+              ))
+            }
+
           </div>
           {/* Sidebar Areas */}
           <div> Sidebar</div>

@@ -75,7 +75,7 @@ export default async function NewNodePage() {
         <ul className="flex gap-4 my-6 text-gray-600 text-md">
           <li>Group</li>
           <li>
-            <Select title="Select Node Group" endpoint="node_groups" />
+            {/* <Select title="Select Node Group" endpoint="node_groups" /> */}
           </li>
         </ul>
         <ul className="flex gap-4  text-gray-600 text-md">
@@ -95,11 +95,11 @@ export default async function NewNodePage() {
         </div>
         {/* Content */}
         <TextContent />
-        <VideoCard />
+        {/* <VideoCard /> */}
         {/* <AddContent /> */}
-        <FlashCard />
-        <CodeCard />
-        <RamblingCard />
+        {/* <FlashCard /> */}
+        {/* <CodeCard /> */}
+        {/* <RamblingCard /> */}
         {/* Cards */}
         <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 text-gray-500 my-4">
           <li className="flex flex-col gap-2 justify-center items-center px-12 py-5 border border-gray-300 bg-gray-200 rounded-md">

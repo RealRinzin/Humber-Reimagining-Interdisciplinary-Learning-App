@@ -8,10 +8,10 @@ use App\DTOs\Admin\Topics\StoreTopicDTO;
 use App\DTOs\Admin\Topics\UpdateTopicDTO;
 use App\Http\Requests\Admin\Topics\StoreTopicRequest;
 use App\Http\Requests\Admin\Topics\UpdateTopicRequest;
-use App\Http\Resources\Topic\TopicResource;
+use App\Http\Resources\Admin\Topics\TopicResource;
 use App\Models\Topic;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+
 
 class TopicController
 {
@@ -20,6 +20,7 @@ class TopicController
      */
     public function index(): JsonResponse
     {
+
         return response()->json(
             TopicResource::collection(Topic::all())
         );

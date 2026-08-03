@@ -28,12 +28,14 @@ class StoreTopicRequest extends FormRequest
             'node_color'    => ['required', 'string'],
             'x_axis'    => ['required', 'integer'],
             'y_axis'    => ['required', 'integer'],
-            'video'    => ['boolean','required'],
-            'code'    => ['boolean','required'],
-            'interactive'    => [ 'boolean','required'],
-            'rambling'    => ['boolean','required'],
-            'quiz'    => ['boolean','required'],
-            'interactive_path'    => ['string'],
+            'node_group_id' =>['required', 'integer']
+            // We probably dont need the below fields
+            // 'video'    => ['boolean','required'],
+            // 'code'    => ['boolean','required'],
+            // 'interactive'    => [ 'boolean','required'],
+            // 'rambling'    => ['boolean','required'],
+            // 'quiz'    => ['boolean','required'],
+            // 'interactive_path'    => ['string'],
         ];
     }
 
@@ -47,7 +49,7 @@ class StoreTopicRequest extends FormRequest
             'node_color.required'      => 'Node color is required.',
             'x_axis.required'      =>  'X axis is required.',
             'y_axis.required'      =>  'X axis is required.',
-            'interactive_path.required'      =>  'X axis is required.',
+            // 'interactive_path.required'      =>  'X axis is required.',
         ];
     }
 }

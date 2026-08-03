@@ -9,12 +9,12 @@ import {
   faEye,
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function ListCard({ color }: any) {
+export default function ListCard({ topics,node_color}: any) {
   return (
     <div className="my-4">
       <div className="flex gap-4 flex-col md:flex-row items-center">
-        <Ring color={color} />
-        <h1 className="text-gray-700 font-bold text-lg">Intro To Space</h1>
+        <Ring color={node_color} />
+        <h1 className="text-gray-700 font-bold text-lg">{topics.title}</h1>
         <div className="flex gap-2 items-center">
           <p className="text-gray-500">
             <FontAwesomeIcon
@@ -35,9 +35,7 @@ export default function ListCard({ color }: any) {
       </div>
       <div className="py-2">
         <p className="text-gray-800 text-md font-medium">
-          If your data is stored in a native JavaScript Map object rather than a
-          regular array, you must convert its entries into an array using
-          Array.from() before calling
+         {topics.description}
         </p>
         <ul className="flex gap-2 my-4 text-slate-400">
           <li>

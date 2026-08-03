@@ -14,12 +14,15 @@ class UpdateTopicRequest extends FormRequest
             'node_color'    => ['sometimes', 'required', 'string'],
             'x_axis'    => ['sometimes', 'required', 'integer'],
             'y_axis'    => ['sometimes', 'required', 'integer'],
-            'video'    => ['sometimes', 'boolean'],
-            'code'    => ['sometimes', 'boolean'],
-            'interactive'    => ['sometimes', 'boolean', 'required'],
-            'rambling'    => ['sometimes', 'boolean', 'required'],
-            'quiz'    => ['sometimes', 'boolean', 'required'],
-            'interactive_path'    => ['sometimes', 'string'],
+            'node_group_id' => ['required', 'integer']
+
+            // We probably dont need the below fields
+            // 'video'    => ['sometimes', 'boolean'],
+            // 'code'    => ['sometimes', 'boolean'],
+            // 'interactive'    => ['sometimes', 'boolean', 'required'],
+            // 'rambling'    => ['sometimes', 'boolean', 'required'],
+            // 'quiz'    => ['sometimes', 'boolean', 'required'],
+            // 'interactive_path'    => ['sometimes', 'string'],
         ];
     }
     // Error Validation Message

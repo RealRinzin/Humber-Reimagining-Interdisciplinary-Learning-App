@@ -120,7 +120,7 @@ export default function CkEditor() {
         }}
         onChange={(event, editor) => {
           const data = editor.getData();
-          console.log("Editor Data:", data);
+          // console.log("Editor Data:", data);
         }}
       />
     </div>

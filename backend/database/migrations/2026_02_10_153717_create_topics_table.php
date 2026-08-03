@@ -25,6 +25,10 @@ return new class extends Migration
         Schema::create('topics', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->foreignId('node_group_id')->default(2)
+                ->constrained('node_groups')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->string('slug')->unique();
             $table->string('description');
             $table->string('node_color')->default('blue'); // 'blue' | 'pink'
@@ -35,6 +39,7 @@ return new class extends Migration
             $table->string('interactive')->default(false);
             $table->string('rambling')->default(false);
             $table->string('quiz')->default(false);
+            $table->boolean('student_visible')->default(true);
             $table->string('interactive_path')->default('space');
             $table->timestamps();
         });

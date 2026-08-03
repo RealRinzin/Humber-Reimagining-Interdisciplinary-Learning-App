@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\NodeGroup;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 
 class NodeGroupSeeder extends Seeder
 {
@@ -13,19 +14,25 @@ class NodeGroupSeeder extends Seeder
      */
     public function run(): void
     {
+        $faker = Faker::create();
         // 
         NodeGroup::insert([
             [
                 'name'  => 'Transformations',
-                'color' => "#00bcff"
+                'color' => "cyan",
+                'description' => $faker->words(40, true),
             ],
             [
                 'name'  => 'Spaces',
-                'color' => "#e60076"
+                'color' => "pink",
+                'description' => $faker->words(40, true),
+
             ],
             [
                 'name'  => 'Matrices',
-                'color' => "#8023fe"
+                'color' => "purple",
+                'description' => $faker->words(40, true),
+
             ],
         ]);
     }

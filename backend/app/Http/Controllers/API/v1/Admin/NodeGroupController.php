@@ -13,9 +13,12 @@ class NodeGroupController
      */
     public function index()
     {
-        return response()->json(
-            NodeGroupResource::collection(NodeGroup::all())
-        );
+
+    $nodeGroups = NodeGroup::with('topics')->get();
+    return NodeGroupResource::collection($nodeGroups);
+        // return response()->json(
+        //     NodeGroupResource::collection(NodeGroup::all())
+        // );
     }
 
     /**

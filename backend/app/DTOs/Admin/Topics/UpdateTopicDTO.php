@@ -14,12 +14,12 @@ class UpdateTopicDTO
         public readonly ?string $node_color,
         public readonly ?int $x_axis,
         public readonly ?int $y_axis,
-        public readonly ?bool $video,
-        public readonly ?bool $code,
-        public readonly ?bool $interactive,
-        public readonly ?bool $rambling,
-        public readonly ?bool $quiz,
-        public readonly ?bool $interactive_path,
+        // public readonly ?bool $video,
+        // public readonly ?bool $code,
+        // public readonly ?bool $interactive,
+        // public readonly ?bool $rambling,
+        // public readonly ?bool $quiz,
+        // public readonly ?bool $interactive_path,
 
     ) {}
 
