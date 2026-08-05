@@ -1,4 +1,4 @@
-import { clientPost } from "@/hooks/useClient";
+import { clientPost } from "@/hooks/client/useClient";
 import { useRouter } from "next/navigation";
 
 import {

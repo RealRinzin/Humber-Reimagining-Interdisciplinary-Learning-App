@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from "react"
-import { clientFetch } from "../useClient";
+import { clientDelete, clientFetch, clientPatch, clientPost } from "./useClient";
 
 export function useFetch(url: string,method:string) {
     // response data object
@@ -34,39 +34,82 @@ export function useFetch(url: string,method:string) {
 
 // ======================= Client Side  HTTP PATCH Method ==============================================
 
-export async function clientPatch(path: string, body: unknown, options: RequestInit = {}) {
-    const xsrfToken = await fetchCsrfToken();
-    try {
+export function usePost(url: string) {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${path}`, {
-            ...options,
-            method: "PATCH",
-            body: JSON.stringify(body),
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-                "X-XSRF-TOKEN": xsrfToken,
-                ...options.headers,
-            },
-            credentials: 'include', // needed for Sanctum cookie auth
-        });
-        if (!res.ok) {
-            const error = await res.json();
-
-            if (res.status === 401) {
-                window.location.href = '/login';
-                return; // stop execution after redirect
-            }
-
-            if (res.status === 404) {
-                throw new Error('Not found');
-            }
-            // Throw the error message and error status
-            throw new Error(error.message ?? `Request failed: ${res.status}`);
+    const postData = async (body: any) => {
+        try {
+            setLoading(true);
+            setError(null);
+            const res = await clientPost(url, "POST", body);
+            if (!res.ok) throw new Error("Failed to post data");
+            const result = await res.json();
+            setData(result);
+            return result;
+        } catch (err: any) {
+            setError(err.message);
+            throw err;
+        } finally {
+            setLoading(false);
         }
+    };
 
-    } catch (error) {
-        console.log(error);
-    }
+    return { postData, data, loading, error };
+}
 
+
+// ======================= Client Side  HTTP PATCH Method ==============================================
+
+export function usePatch(url: string) {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const patchData = async (body: any) => {
+        try {
+            setLoading(true);
+            setError(null);
+            const res = await clientPatch(url, "PATCH", body);
+            if (!res.ok) throw new Error("Failed to patch data");
+            const result = await res.json();
+            setData(result);
+            return result;
+        } catch (err: any) {
+            setError(err.message);
+            throw err;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return { patchData, data, loading, error };
+}
+
+
+// ======================= Client Side  HTTP PATCH Method ==============================================
+export function useDelete(url: string) {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const deleteData = async () => {
+        try {
+            setLoading(true);
+            setError(null);
+            const res = await clientDelete(url);
+            if (!res.ok) throw new Error("Failed to delete data");
+            const result = await res.json().catch(() => null); // DELETE often has no body
+            setData(result);
+            return result;
+        } catch (err: any) {
+            setError(err.message);
+            throw err;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return { deleteData, data, loading, error };
 }
