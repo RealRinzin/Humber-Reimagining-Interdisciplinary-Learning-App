@@ -1,3 +1,4 @@
+// Only Video formats | mp4, mv etc
 "use client";
 import { faCloudUpload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,7 +9,7 @@ interface PreviewFile {
   url: string;
 }
 
-export default function File() {
+export default function VideoFileUpload() {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<PreviewFile[]>([]);
   const [isDragging, setIsDragging] = useState(false);
@@ -26,6 +27,7 @@ export default function File() {
   // Remove the file
   const removeFile = (id: number) => {
     setSelectedFiles((prev) => prev.filter((_, i) => i !== id));
+    console.log(selectedFiles)
   };
 
   // Drag Handlers

@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
-import File from "../../form/File";
+import File from "../../form/file/VideoType";
 
 export default function VideoCard() {
   return (
