@@ -1,12 +1,25 @@
-import React from 'react'
-interface inputType {
-  value:string
-}
-export default function TextInput({value}:inputType) {
-  // console.log(value)
+import { inputType } from "@/types/form.type";
+import { useState } from "react";
+
+// Type, text
+export default function TextInput({ type, value, label }: inputType) {
+  const [data,setData] = useState(value);
+  console.log(data);
   return (
     <>
-    <input type='text' className='border border-gray-500 rounded-md p-1' value={value} onChange={()=>{console.log("this is file")}}/>
+      <label htmlFor="" className="flex flex-col text-gray-500 font-medium text-sm py-1">
+        {label}
+      </label>
+      <input
+        type={`${type}`}
+        className="border border-gray-300 rounded p-2 text-sm"
+        value={data}
+        onChange={(e) => {
+          setData(e.target.value)
+          console.log(e.target.value)
+        }}
+        placeholder={label}
+      />
     </>
-  )
+  );
 }

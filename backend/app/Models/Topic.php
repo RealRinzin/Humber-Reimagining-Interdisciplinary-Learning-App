@@ -36,6 +36,7 @@ class Topic extends Model
         'interactive' => 'boolean',
         'rambling'    => 'boolean',
         'quiz'        => 'boolean',
+        'student_visible' => 'boolean',
     ];
     /**
      * Relationship Models
