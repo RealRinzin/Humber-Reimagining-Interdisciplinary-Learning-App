@@ -16,7 +16,7 @@ export interface Topic {
 }
 
 // Add new Topics
-export interface addNewTopic {
+export interface AddNewTopic {
     title: string;
     description: string,
     node_group_id: number,

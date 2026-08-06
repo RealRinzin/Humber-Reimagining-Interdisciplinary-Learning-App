@@ -2,7 +2,6 @@
 import SkeletonCard from "@/components/ui/skeletons/Cards";
 import LoadingPath from "@/components/ui/skeletons/Paths";
 import TextInput from "@/components/ui/form/Text";
-import Ring from "@/components/ui/ring/Ring";
 import { useFetch } from "@/hooks/client/useHTTP";
 import { useState } from "react";
 
@@ -24,17 +23,13 @@ export default function Dashboard() {
 
   const handleSave = () => {
     setIsEditing(false);
-    alert("Helo")
-    // Optionally: trim whitespace, prevent empty titles, call an API here
-    // if (title.trim() === "") setTitle("Untitled");
   };
   return (
     <>
-      <ul>
+      <form>
         {isEditing ? (
           <>
-          <TextInput value={title} />
-          <Ring/>
+          <TextInput />
           </>
         ) : (
           <h1
@@ -49,11 +44,7 @@ export default function Dashboard() {
             {title}
           </h1>
         )}
-
-        {codes?.map((code: any) => (
-          <li key={code.id}>{code.description}</li>
-        ))}
-      </ul>
+      </form>
     </>
   );
 }
