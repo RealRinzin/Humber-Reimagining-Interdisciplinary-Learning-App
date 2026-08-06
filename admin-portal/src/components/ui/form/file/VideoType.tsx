@@ -1,7 +1,5 @@
 // Only Video formats | mp4, mv etc
 "use client";
-import { faCloudUpload } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import InputFile from "./Input";
 
@@ -10,6 +8,8 @@ interface PreviewFile {
   url: string;
 }
 
+// Video Format types
+const videoFormats = ["video/mp4", "video/x-matroska", "video/quicktime"];
 export default function VideoFileUpload() {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<PreviewFile[]>([]);
@@ -104,17 +104,7 @@ export default function VideoFileUpload() {
             : "bg-gray-200 border-gray-300 hover:shadow"
         }`}
       >
-        <label className="cursor-pointer flex flex-col items-center justify-center p-6">
-          <FontAwesomeIcon
-            icon={faCloudUpload}
-            size="3x"
-            className="text-4xl text-gray-400/80"
-          />
-          <span className="text-sm text-gray-500 mt-3">
-            Upload Videos, Images or Files
-          </span>
-          <InputFile format="video/*" handlerFunction={handleFile} />
-        </label>
+          <InputFile format={videoFormats.join(",")} label="Video | mp4, mvk, mov" handlerFunction={handleFile} />
       </div>
       {previews.map((p, index) => (
         <div key={index} className="relative w-fit">

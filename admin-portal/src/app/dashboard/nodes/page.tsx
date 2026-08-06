@@ -15,6 +15,7 @@ import {
   faCode,
   faEye,
   faPlus,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
@@ -35,7 +36,7 @@ export default function NewNodePage() {
                   <input
                     type="text"
                     className="w-full border border-slate-400 rounded-md px-3 text-white"
-                    placeholder="Node Name"
+                    placeholder="Topic Name"
                   />
                 </li>
                 <li className="flex basis-1/3 gap-2 items-center justify-start w-fit border border-slate-100 rounded-md px-2 text-white text-sm ">
@@ -96,9 +97,22 @@ export default function NewNodePage() {
           </li>
         </ul>
         <ul className="flex gap-4 my-4">
-          <li className="text-xs px-2 py-1 bg-gray-500 rounded-md text-white font-medium relative">Intro to spac <span className="absolute -top-1 -right-1 bg-blue-600 h-3 w-3 flex justify-center items-center rounded">x</span></li>
-          <li className="text-xs px-2 py-1 bg-gray-500 rounded-md text-white font-medium relative">Normal <span className="absolute -top-1 -right-1 bg-blue-600 h-3 w-3 flex justify-center items-center rounded">x</span></li>
-          <li className="text-xs px-2 py-1 bg-gray-500 rounded-md text-white font-medium relative">Metric<span className="absolute -top-1 -right-1 bg-blue-600 h-3 w-3 flex justify-center items-center rounded">x</span></li>
+          <li className="text-xs px-2 py-1 bg-gray-500 rounded-md text-white font-medium relative cursor-pointer">
+            Intro to spac{" "}
+            <span className="absolute -top-1 -right-1 bg-red-600 h-3 w-3 flex justify-center items-center rounded">x</span>
+          </li>
+          <li className="text-xs px-2 py-1 bg-gray-500 rounded-md text-white font-medium relative cursor-pointer">
+            Normal
+            <span className="absolute -top-1 -right-1 bg-red-600 h-3 w-3 flex justify-center items-center rounded">
+              x
+            </span>
+          </li>
+          <li className="text-xs px-2 py-1 bg-gray-500 rounded-md text-white font-medium relative cursor-pointer">
+            Metric
+            <span className="absolute -top-1 -right-1 bg-red-600 h-3 w-3 flex justify-center items-center rounded">
+              x
+            </span>
+          </li>
         </ul>
         {/* Content */}
         <div className="mt-10">
@@ -117,7 +131,11 @@ export default function NewNodePage() {
                 <TextInput type="number" value={4234.1} label="Y Axis" />
               </li>
               <li>
-                <TextInput type="text" value="Interactive Path" label="X Axis" />
+                <TextInput
+                  type="text"
+                  value="Interactive Path"
+                  label="X Axis"
+                />
               </li>
               <li>
                 <TextInput type="color" value={"red"} label="Color" />
@@ -132,7 +150,7 @@ export default function NewNodePage() {
                 <CheckBox checked={false} label="Ramblings" />
               </li>
               <li>
-                <CheckBox  checked={false} label="Quiz" />
+                <CheckBox checked={false} label="Quiz" />
               </li>
               <li>
                 <CheckBox checked={true} label="Interactive" />

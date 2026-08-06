@@ -1,7 +1,6 @@
+import DocumentType from '@/components/ui/form/file/DocumentType'
 import ImageType from '@/components/ui/form/file/ImageType'
 import VideoFileUpload from '@/components/ui/form/file/VideoType'
-import React from 'react'
-
 export default function page() {
   return (
     <>
@@ -9,6 +8,8 @@ export default function page() {
     <VideoFileUpload/>
     Image
     <ImageType />
+
+    <DocumentType/>
     </>
   )
 }
