@@ -90,10 +90,15 @@ export default function NewNodePage() {
           </li>
         </ul>
         <ul className="flex gap-4  text-gray-600 text-md">
-          <li>Connections</li>
+          <li>Topic Connections</li>
           <li>
             <Select title="Select Connection" endpoint="topics" />
           </li>
+        </ul>
+        <ul className="flex gap-4 my-4">
+          <li className="text-xs px-2 py-1 bg-gray-500 rounded-md text-white font-medium relative">Intro to spac <span className="absolute -top-1 -right-1 bg-blue-600 h-3 w-3 flex justify-center items-center rounded">x</span></li>
+          <li className="text-xs px-2 py-1 bg-gray-500 rounded-md text-white font-medium relative">Normal <span className="absolute -top-1 -right-1 bg-blue-600 h-3 w-3 flex justify-center items-center rounded">x</span></li>
+          <li className="text-xs px-2 py-1 bg-gray-500 rounded-md text-white font-medium relative">Metric<span className="absolute -top-1 -right-1 bg-blue-600 h-3 w-3 flex justify-center items-center rounded">x</span></li>
         </ul>
         {/* Content */}
         <div className="mt-10">

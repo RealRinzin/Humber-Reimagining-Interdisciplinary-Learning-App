@@ -17,7 +17,6 @@ export default function CheckBox({ checked, label }: checkBoxType) {
         checked={data}
         onChange={(e) => {
           setData(e.target.checked);
-          console.log(e.target.value);
         }}
         placeholder={label}
       />

@@ -3,6 +3,7 @@
 import { faCloudUpload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
+import InputFile from "./Input";
 
 interface PreviewFile {
   file: File;
@@ -27,7 +28,7 @@ export default function VideoFileUpload() {
   // Remove the file
   const removeFile = (id: number) => {
     setSelectedFiles((prev) => prev.filter((_, i) => i !== id));
-    console.log(selectedFiles)
+    console.log(selectedFiles);
   };
 
   // Drag Handlers
@@ -85,7 +86,7 @@ export default function VideoFileUpload() {
   }, [selectedFiles]);
 
   return (
-    <div>
+    <>
       {selectedFiles.map((file, index) => (
         <p key={index}>
           Selected: {file.name} ({(file.size / (1024 * 1024)).toFixed(2)} MB)
@@ -112,16 +113,9 @@ export default function VideoFileUpload() {
           <span className="text-sm text-gray-500 mt-3">
             Upload Videos, Images or Files
           </span>
-          <input
-            type="file"
-            className="hidden"
-            accept="video/*"
-            multiple
-            onChange={handleFile}
-          />
+          <InputFile format="video/*" handlerFunction={handleFile} />
         </label>
       </div>
-
       {previews.map((p, index) => (
         <div key={index} className="relative w-fit">
           <p
@@ -137,6 +131,6 @@ export default function VideoFileUpload() {
           />
         </div>
       ))}
-    </div>
+    </>
   );
 }
