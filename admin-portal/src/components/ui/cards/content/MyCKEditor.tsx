@@ -45,15 +45,15 @@ export default function MyCKEditor<T extends FieldValues>({
         }
         render={({ field, fieldState: { error } }) => (
           <>
+            {error && (
+              <p className="text-red-500 text-xs mt-1">{error.message}</p>
+            )}
             <CkEditor
               data={field.value ?? ""}
               onChange={(event: any, editor: any) => {
                 field.onChange(editor.getData());
               }}
             />
-            {error && (
-              <p className="text-red-500 text-xs mt-1">{error.message}</p>
-            )}
           </>
         )}
       />

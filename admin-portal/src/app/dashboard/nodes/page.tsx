@@ -51,8 +51,8 @@ export default function NewNodePage() {
       console.log("Success:", result);
     } catch (err) {
       console.log(err);
-      toast.error("Error. Filled all the fields", {
-        description: "Monday, January 3rd at 6:00pm",
+      toast.error("Error", {
+        description: "Fill all the mandatory fields",
       });
 
       // console.error("POST failed:", err);
@@ -69,6 +69,7 @@ export default function NewNodePage() {
                 <div className="basis-4/6">
                   <ul className="flex gap-2">
                     <li className="basis-1/3">
+                    <span></span>
                       <FormInput
                         type="text"
                         name="title"

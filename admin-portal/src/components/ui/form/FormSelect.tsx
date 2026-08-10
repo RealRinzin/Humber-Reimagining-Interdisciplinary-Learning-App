@@ -33,6 +33,7 @@ export default function FormSelect<T extends FieldValues>({
 
   return (
     <>
+      {required && <span className="text-red-500">*</span>}
       <select
         {...register(name, {
           required: required ? `${label} is required` : false,
