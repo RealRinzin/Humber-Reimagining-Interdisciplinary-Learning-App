@@ -35,11 +35,18 @@ import {
 
 // Import the necessary CSS styles for the editor
 import "ckeditor5/ckeditor5.css";
-export default function CkEditor() {
+
+interface CkEditorProps {
+  data?: string;
+  onChange?: (event: any, editor: any) => void;
+}
+
+export default function CkEditor({ data, onChange }: CkEditorProps) {
   return (
     <div className="p-4">
       <CKEditor
         editor={ClassicEditor}
+        data={data}
         config={{
           // CRITICAL: The free open-source tier requires 'GPL' as the key
           licenseKey: "GPL",
@@ -115,13 +122,8 @@ export default function CkEditor() {
           table: {
             contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
           },
-          initialData:
-            "<p>Hello from the latest free version of CKEditor 5!</p>",
         }}
-        onChange={(event, editor) => {
-          const data = editor.getData();
-          // console.log("Editor Data:", data);
-        }}
+        onChange={onChange}
       />
     </div>
   );

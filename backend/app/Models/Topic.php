@@ -15,6 +15,7 @@ class Topic extends Model
     protected $fillable = [
         'title',
         'description',
+        'node_group_id',
         'node_color',
         'x_axis',
         'y_axis',
@@ -25,9 +26,7 @@ class Topic extends Model
         'quiz',
         'interactive_path',
         'slug',
-        'node_group_id'
     ];
-
 
 
     protected $casts = [

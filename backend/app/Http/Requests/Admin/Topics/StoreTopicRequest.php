@@ -25,17 +25,18 @@ class StoreTopicRequest extends FormRequest
         return [
             'title'    => ['required', 'string'],
             'description'    => ['required', 'string'],
+            'node_group_id' =>['required', 'integer'],
             'node_color'    => ['required', 'string'],
             'x_axis'    => ['required', 'integer'],
             'y_axis'    => ['required', 'integer'],
-            'node_group_id' =>['required', 'integer']
             // We probably dont need the below fields
-            // 'video'    => ['boolean','required'],
-            // 'code'    => ['boolean','required'],
-            // 'interactive'    => [ 'boolean','required'],
-            // 'rambling'    => ['boolean','required'],
-            // 'quiz'    => ['boolean','required'],
-            // 'interactive_path'    => ['string'],
+            'video'    => ['boolean','required'],
+            'code'    => ['boolean','required'],
+            'interactive'    => [ 'boolean','required'],
+            'rambling'    => ['boolean','required'],
+            'quiz'    => ['boolean','required'],
+            'interactive_path'    => ['string'],
+            'student_visible' => ['boolean','required']
         ];
     }
 
@@ -49,7 +50,13 @@ class StoreTopicRequest extends FormRequest
             'node_color.required'      => 'Node color is required.',
             'x_axis.required'      =>  'X axis is required.',
             'y_axis.required'      =>  'X axis is required.',
-            // 'interactive_path.required'      =>  'X axis is required.',
+            'node_group_id.required'      =>  'X axis is required.',
+            'video.required'      =>  'X axis is required.',
+            'code.required'      =>  'X axis is required.',
+            'interactive.required'      =>  'X axis is required.',
+            'quiz.required'      =>  'X axis is required.',
+            'rambling.required'      =>  'X axis is required.',
+            'student_visible.required'      =>  'X axis is required.',
         ];
     }
 }

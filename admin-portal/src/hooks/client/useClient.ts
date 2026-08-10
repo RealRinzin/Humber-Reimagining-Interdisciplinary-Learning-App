@@ -47,7 +47,7 @@ export async function clientFetch(path: string, method: string, options: Request
 export async function clientPost(path: string, body: unknown, options: RequestInit = {}) {
     const xsrfToken = await fetchCsrfToken();
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${path}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_END_POINT}${path}`, {
             ...options,
             method: "POST",
             body: JSON.stringify(body),

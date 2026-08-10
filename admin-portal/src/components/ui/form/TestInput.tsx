@@ -1,29 +1,40 @@
 "use client";
+import { FieldPath, FieldValues, useFormContext } from "react-hook-form";
+import FormErrorMessage from "./FormErrorMessage";
+import { error } from "console";
 
-import { useState } from "react";
-import { useFormContext } from "react-hook-form";
-interface inputType {
-  name: string;
+interface inputType<T extends FieldValues> {
+  name: FieldPath<T>;
   label: string;
+  required?: boolean;
+  type?: "text" | "email" | "password" | "number" | "checkbox" | "radio";
 }
-export default function TestInput({ name, label }: inputType) {
-  const { register,watch,formState:{errors,touchedFields} } = useFormContext();
+
+export default function TestInput<T extends FieldValues>({
+  name,
+  label,
+  required,
+  type,
+}: inputType<T>) {
+  const {
+    register,
+    formState: { errors, touchedFields },
+  } = useFormContext();
   return (
     <>
       <input
-        {...register(name,{
-            required:`${label} is required`
+        type={type}
+        {...register(name, {
+          required: required ? `${label} is required` : false,
         })}
         placeholder={label}
-        className="border border-gray-200 rounded-md"
+        className={` ${touchedFields[name] && errors[name] ? " border-red-500 " : " border-gray-200 "}  border rounded-md`}
       />
-      {
-       touchedFields[name] && errors[name] && (
-            <p className="text-red-500 text-xs">
-                {String(errors[name]?.message)}
-            </p>
-        )
-      }
+          <FormErrorMessage name={name} errors={errors} touched={!!touchedFields['name']}/>
+{/*       
+      {touchedFields[name] && errors[name] && (
+        <p className="text-red-500 text-xs">{String(errors[name]?.message)}</p>
+      )} */}
     </>
   );
 }

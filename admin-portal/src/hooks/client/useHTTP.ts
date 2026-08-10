@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react"
 import { clientDelete, clientFetch, clientPatch, clientPost } from "./useClient";
 
-export function useFetch(url: string,method:string) {
+export function useFetch(url: string, method: string) {
     // response data object
     const [data, setData] = useState(null);
     // loading status
@@ -14,7 +14,7 @@ export function useFetch(url: string,method:string) {
         const fetchUsers = async () => {
             try {
                 setLoading(true);
-                const res = await clientFetch(url,"GET");
+                const res = await clientFetch(url, "GET");
                 if (!res.ok) throw new Error("Failed to fetch");
                 const data = await res.json();
                 setData(data);
@@ -29,10 +29,10 @@ export function useFetch(url: string,method:string) {
     }, [url]);
 
     // Return the response object
-    return {data,loading,error}
+    return { data, loading, error }
 }
 
-// ======================= Client Side  HTTP PATCH Method ==============================================
+// ======================= Client Side  HTTP POST Method ==============================================
 
 export function usePost(url: string) {
     const [data, setData] = useState(null);
@@ -43,7 +43,7 @@ export function usePost(url: string) {
         try {
             setLoading(true);
             setError(null);
-            const res = await clientPost(url, "POST", body);
+            const res = await clientPost(url, body);
             if (!res.ok) throw new Error("Failed to post data");
             const result = await res.json();
             setData(result);
