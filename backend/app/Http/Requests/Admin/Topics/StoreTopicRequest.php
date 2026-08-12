@@ -35,7 +35,7 @@ class StoreTopicRequest extends FormRequest
             'interactive'    => [ 'boolean','required'],
             'rambling'    => ['boolean','required'],
             'quiz'    => ['boolean','required'],
-            'interactive_path'    => ['string'],
+            'interactive_path'    => ['nullable','string'],
             'student_visible' => ['boolean','required']
         ];
     }
@@ -48,15 +48,15 @@ class StoreTopicRequest extends FormRequest
             'title.unique'       => 'Topic Title should be unique',
             'description.required'      => 'Description is required.',
             'node_color.required'      => 'Node color is required.',
-            'x_axis.required'      =>  'X axis is required.',
-            'y_axis.required'      =>  'X axis is required.',
-            'node_group_id.required'      =>  'X axis is required.',
-            'video.required'      =>  'X axis is required.',
-            'code.required'      =>  'X axis is required.',
-            'interactive.required'      =>  'X axis is required.',
-            'quiz.required'      =>  'X axis is required.',
-            'rambling.required'      =>  'X axis is required.',
-            'student_visible.required'      =>  'X axis is required.',
+            'x_axis.required'      =>  'X Axis is required.',
+            'y_axis.required'      =>  'Y Axis is required.',
+            'node_group_id.required'      =>  'Node Group ID is required.',
+            'video.required'      =>  'Video is required.',
+            'code.required'      =>  'Video is required.',
+            'interactive.required'      =>  'Interactive is required.',
+            'quiz.required'      =>  ' Quiz is required.',
+            'rambling.required'      =>  'Rambling is required.',
+            'student_visible.required'      =>  'Student Visible is required.',
         ];
     }
 }

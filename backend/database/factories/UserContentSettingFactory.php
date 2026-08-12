@@ -19,7 +19,7 @@ class UserContentSettingFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::inRandomOrder()->value('id'),
+            'user_id' => 1,
             'video'=>false,
             'code'=>false,
             'quiz'=>false,

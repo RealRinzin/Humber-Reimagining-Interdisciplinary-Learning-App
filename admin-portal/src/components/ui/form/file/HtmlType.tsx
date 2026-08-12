@@ -20,7 +20,6 @@ export default function FormFileInput<T extends FieldValues>({
   } = useFormContext();
   // Handler
   const handleHtmlUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("test");
     console.log(e.target.files);
   };
   return (
@@ -30,7 +29,6 @@ export default function FormFileInput<T extends FieldValues>({
         size="1x"
         className=" text-gray-400/80"
       />
-      {type}
       <span className="text-sm text-gray-500">Upload File</span>
       <input
         type={type}

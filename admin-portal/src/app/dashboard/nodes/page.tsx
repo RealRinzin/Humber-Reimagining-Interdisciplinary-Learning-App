@@ -216,20 +216,14 @@ export default function NewNodePage() {
                   </li>
                 </ul>
                 <div className="my-4">
-                  <p className="text-gray-700 py-3 text-sm">
-                    Upload Interactive File
+                  <p className="text-gray-600 py-3 text-sm">
+                    Interactive File
                   </p>
-                  <FormInput
-                    type="text"
-                    name="interactive_path"
-                    label="Interactive Path"
-                    required
-                  />
-                  {/* <FormFileInput
+                  <FormFileInput
                     type="file"
                     name="interactive_path"
                     label="interactive path"
-                  /> */}
+                  />
                 </div>
               </div>
             </div>

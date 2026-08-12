@@ -40,7 +40,7 @@ return new class extends Migration
             $table->string('rambling')->default(false);
             $table->string('quiz')->default(false);
             $table->boolean('student_visible')->default(true);
-            $table->string('interactive_path')->default('space');
+            $table->string('interactive_path')->default('space')->nullable();
             $table->timestamps();
         });
     }
