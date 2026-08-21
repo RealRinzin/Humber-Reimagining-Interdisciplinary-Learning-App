@@ -41,9 +41,11 @@ class TopicController
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Topic $topic)
     {
         //
+        $topic->load('videos');
+        return new TopicResource($topic);
     }
 
     /**

@@ -1,22 +1,62 @@
 "use client";
+import { useToggle } from "@/hooks/common/useToggle";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FieldPath, FieldValues, useFormContext } from "react-hook-form";
 
-import { useFetch } from "@/hooks/client/useHTTP";
-import { useEffect, useState } from "react";
+interface FormSelectType<T extends FieldValues> {
+  name: FieldPath<T>;
+  label: string;
+  placeholder?: string;
+  required?: boolean;
+}
 
-export default function Select({ title,endpoint }: any,) {
+export default function SelectType<T extends FieldValues>({
+  name,
+  label,
+  placeholder = "Select an option",
+
+  required,
+}: FormSelectType<T>) {
+  const { isOn: isOpen, toggle } = useToggle(true);
+
+  const studentOptions = [
+    { id: 0, name: "Not Visible to Student", status: false },
+    { id: 1, name: "Visible to Student", status: true },
+  ];
   const {
-    data: data,
-    loading,
-    error,
-  } = useFetch(`${process.env.NEXT_PUBLIC_API_END_POINT}/${endpoint}`,"GET");
-  if (loading) return <p className="bg-gray-100 px-2 text-xs py-1 rounded">Loading...</p>
-  if (error) return <p>Error: {error}</p>;
+    register,
+    formState: { errors, touchedFields },
+  } = useFormContext();
+
   return (
-    <select className="border border-gray-300 bg-gray-200 text-gray-500 px-4 py-1  rounded-md w-50 text-xs">
-      <option value="" disabled>{title}</option>
-      {data?.map((data: any,index:number) => (
-        <option value={data.id} key={index}>{data.title} {data.name}</option>
-      ))}
-    </select>
+    <>
+      {required && <span className="text-red-500">*</span>}
+      {isOpen ? (
+        <FontAwesomeIcon icon={faEye} />
+      ) : (
+        <FontAwesomeIcon icon={faEyeSlash} />
+      )}
+
+      <select
+        {...register(name, {
+          required: required ? `${label} is required` : false,
+        })}
+        className="outline-none"
+        onChange={toggle}
+      >
+        <option value="" disabled className="text-red-400">
+          {placeholder}
+        </option>
+        {studentOptions?.map((student: any, index: number) => (
+          <option value={String(student.id)} key={`${index}${label}`}>
+            {student.name}
+          </option>
+        ))}
+      </select>
+      {touchedFields[name] && errors[name] && (
+        <p className="text-red-500 text-xs">{String(errors[name]?.message)}</p>
+      )}
+    </>
   );
 }

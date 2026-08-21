@@ -37,7 +37,7 @@ export default  function HomePage() {
                 Nodes Groups
               </h1>
               <Link
-                href="/dashboard/nodes"
+                href="/dashboard/topics"
                 className="flex justify-center items-center rounded-full text-md h-6 w-6 font-extrabold bg-slate-300"
               >
                 +

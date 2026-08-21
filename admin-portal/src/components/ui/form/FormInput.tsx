@@ -23,7 +23,7 @@ export default function FormInput<T extends FieldValues>({
       {["number", "color"].includes(type ?? "") && (
         <span className="text-xs">{label}</span>
       )}
-      {required && <span className="text-red-500">*</span>}
+      {required && ["number", "color"].includes(type ?? "") && <span className="text-red-500">*</span>}
       <input
         type={type}
         {...register(name, {
@@ -35,12 +35,6 @@ export default function FormInput<T extends FieldValues>({
       {touchedFields[name] && errors[name] && (
         <p className="text-red-500 text-xs">{String(errors[name]?.message)}</p>
       )}
-      {/* <FormErrorMessage
-        name={name}
-        errors={errors}
-        touched={!!touchedFields["name"]}
-        required={true}
-      /> */}
     </>
   );
 }

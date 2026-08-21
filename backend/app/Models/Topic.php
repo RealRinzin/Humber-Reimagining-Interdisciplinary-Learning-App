@@ -26,6 +26,7 @@ class Topic extends Model
         'quiz',
         'interactive_path',
         'slug',
+        'student_visible',
     ];
 
 
