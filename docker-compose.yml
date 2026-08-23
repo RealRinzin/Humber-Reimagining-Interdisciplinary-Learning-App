@@ -1,7 +1,7 @@
 services:
 # ----------------------------------NGINX CONFIG--------------------------------------------------
   nginx:
-    image: nginx:1.27
+    image: nginx:1.30.4
     container_name: nginx_container
     restart: unless-stopped
     ports:
