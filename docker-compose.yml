@@ -1,7 +1,7 @@
 services:
 # ----------------------------------NGINX CONFIG--------------------------------------------------
   nginx:
-    image: nginx:1.30.4
+    image: nginx:1.30.4-alpine
     container_name: nginx_container
     restart: unless-stopped
     ports:
@@ -9,9 +9,12 @@ services:
       - "443:443"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/conf.d:/etc/nginx/confid.d:ro
-      - ./nginx/certs:/etc/nginx/certs:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      # - ./nginx/certs:/etc/nginx/certs:ro
       - ./logs/nginx:/var/log/nginx
+    depends_on:
+      - frontend
+      # - backend
     networks:
       - app-network
 # ----------------------------------FRONTEND CONFIG--------------------------------------------------
