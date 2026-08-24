@@ -75,7 +75,16 @@ class Topic extends Model
     {
         return $this->hasMany(Video::class, 'topic_id');
     }
-
+    // TOPIC CONNECTIONS
+    public function connectedTopics()
+    {
+        return $this->belongsToMany(
+            Topic::class,
+            'topic_connections',
+            'topic_id',
+            'connected_topic_id'
+        )->withPivot('line_style');
+    }
     // Override the default route key name to use 'slug' instead of 'id'
     // This allows us to use the topic's slug in URLs instead of its numeric ID.
     // For example, instead of /topics/1, we can have /topics/my-topic-slug.

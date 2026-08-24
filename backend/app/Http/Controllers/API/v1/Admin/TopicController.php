@@ -11,7 +11,7 @@ use App\Http\Requests\Admin\Topics\UpdateTopicRequest;
 use App\Http\Resources\Admin\Topics\TopicResource;
 use App\Models\Topic;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class TopicController
 {
@@ -72,14 +72,13 @@ class TopicController
 
     public function attachConnections(Request $request, Topic $topic)
     {
-        return "rinzin";
         $validated = $request->validate([
-            'connection_ids' => ['required', 'array'],
-            'connection_ids.*' => ['integer', 'exists:connections,id'],
+            'connected_topic_ids' => ['required', 'array'],
+            'connected_topic_ids.*' => ['integer', 'exists:topics,id'], // ← validate against topics, not topicConnections
         ]);
 
-        $topic->connections()->sync($validated['connection_ids']);
+        $topic->connectedTopics()->sync($validated['connected_topic_ids']);
 
-        return response()->json($topic->load('connections'));
+        return response()->json($topic->load('connectedTopics'));
     }
 }

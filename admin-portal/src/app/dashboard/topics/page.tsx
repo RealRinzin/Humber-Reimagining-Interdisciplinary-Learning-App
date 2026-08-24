@@ -53,9 +53,9 @@ export default function TopicPage() {
     console.log("FORM DATA:", data);
     try {
       const res = await postData(data);
-      setTopicId(res.id);
       toast.success("New Topic Successfully Created");
-      if (res.ok) {
+      if (res) {
+        setTopicId(res.id);
         router.push(`/dashboard/topics/${res.id}`);
       }
     } catch (err) {
@@ -139,38 +139,6 @@ export default function TopicPage() {
               <h2>Topic Connections</h2>
               <TopicConnectionDropdown topicId={topicId} />
             </div>
-            {/* <ul className="flex gap-4  text-gray-600 text-md">
-              <li>Topic Connections</li>
-              <li>
-                <FormSelect
-                  name="topic_id"
-                  label="Topic"
-                  placeholder="Select Connection Topics"
-                  endpoint="topics"
-                  required
-                />
-              </li>
-            </ul> */}
-            {/* <ul className="flex gap-4 my-4">
-              <li className="text-xs px-2 py-1 bg-gray-500 rounded-md text-white font-medium relative cursor-pointer">
-                Intro to spac{" "}
-                <span className="absolute -top-1 -right-1 bg-red-600 h-3 w-3 flex justify-center items-center rounded">
-                  x
-                </span>
-              </li>
-              <li className="text-xs px-2 py-1 bg-gray-500 rounded-md text-white font-medium relative cursor-pointer">
-                Normal
-                <span className="absolute -top-1 -right-1 bg-red-600 h-3 w-3 flex justify-center items-center rounded">
-                  x
-                </span>
-              </li>
-              <li className="text-xs px-2 py-1 bg-gray-500 rounded-md text-white font-medium relative cursor-pointer">
-                Metric
-                <span className="absolute -top-1 -right-1 bg-red-600 h-3 w-3 flex justify-center items-center rounded">
-                  x
-                </span>
-              </li>
-            </ul> */}
             {/* Content */}
             <div className="mt-10">
               <h1 className="border-b-2 border-gray-400 pb-2 font-bold text-gray-700">

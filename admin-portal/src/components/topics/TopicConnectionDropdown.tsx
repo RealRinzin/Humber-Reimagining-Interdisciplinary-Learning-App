@@ -9,7 +9,11 @@ export default function TopicConnectionDropdown({
 }: {
   topicId: number | null;
 }) {
-  const { postData, loading: load, error: err } = usePost("/topic_connections");
+  const {
+    postData,
+    loading: load,
+    error: err,
+  } = usePost(`/topics/${topicId}/connections`);
   // Store selected IDs as an array of strings
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const {
@@ -19,16 +23,10 @@ export default function TopicConnectionDropdown({
   } = useFetch(`${process.env.NEXT_PUBLIC_API_END_POINT}/topics`, "GET");
   useEffect(() => {
     if (!topicId) return; // don't post until topic exists
-    console.log(topicId);
-    // async function topicConnectionFunction(){
-    //   const res = await postData(selectedOptions);
-    //   console.log(res);
-    // }
-    // fetch(`${process.env.NEXT_PUBLIC_API_URL}/topics/${topicId}/connections`, {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ connection_ids: selectedOptions }),
-    // });
+    async function topicConnectionFunction() {
+      const res = await postData({ connected_topic_ids: selectedOptions });
+    }
+    topicConnectionFunction();
   }, [topicId]);
   if (loading)
     return <p className="bg-gray-100 px-2 text-xs py-1 rounded">Loading...</p>;
@@ -36,7 +34,6 @@ export default function TopicConnectionDropdown({
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
-    console.log(selectedOptions);
     if (!value) return;
     // Prevent duplicates and add new value to state
     if (!selectedOptions.includes(value)) {
@@ -47,7 +44,6 @@ export default function TopicConnectionDropdown({
   };
 
   const handleRemove = (idToRemove: string) => {
-    console.log(selectedOptions);
     setSelectedOptions((prev) => prev.filter((id) => id !== idToRemove));
   };
 
