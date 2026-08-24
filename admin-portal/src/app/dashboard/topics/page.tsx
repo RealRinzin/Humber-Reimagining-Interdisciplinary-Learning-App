@@ -26,8 +26,10 @@ import { usePost } from "@/hooks/client/useHTTP";
 import FormFileInput from "@/components/ui/form/file/HtmlType";
 import Select from "@/components/ui/form/Select";
 import TopicConnectionDropdown from "@/components/topics/TopicConnectionDropdown";
+import { useState } from "react";
 export default function TopicPage() {
   const { postData, loading, error } = usePost("/topics");
+  const [topicId, setTopicId] = useState<number | null>(null);
   const router = useRouter();
   const methods = useForm<AddNewTopic>({
     mode: "onBlur",
@@ -50,10 +52,11 @@ export default function TopicPage() {
   const addNewTopic = async (data: AddNewTopic) => {
     console.log("FORM DATA:", data);
     try {
-      const result = await postData(data);
+      const res = await postData(data);
+      setTopicId(res.id);
       toast.success("New Topic Successfully Created");
-      if (result) {
-        router.push(`/dashboard/topics/${result.id}`);
+      if (res.ok) {
+        router.push(`/dashboard/topics/${res.id}`);
       }
     } catch (err) {
       console.log(err);
@@ -134,7 +137,7 @@ export default function TopicPage() {
             </ul>
             <div className="flex gap-4 text-gray-600 text-md">
               <h2>Topic Connections</h2>
-              <TopicConnectionDropdown id={1} />
+              <TopicConnectionDropdown topicId={topicId} />
             </div>
             {/* <ul className="flex gap-4  text-gray-600 text-md">
               <li>Topic Connections</li>

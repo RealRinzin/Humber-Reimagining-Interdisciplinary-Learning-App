@@ -1,10 +1,15 @@
 "use client";
 
-import { useFetch } from "@/hooks/client/useHTTP";
-import { TopicType } from "@/types/topic.type";
-import { useState } from "react";
+import { useFetch, usePost } from "@/hooks/client/useHTTP";
+import { AddNewTopic, TopicType } from "@/types/topic.type";
+import { useEffect, useState } from "react";
 
-export default function TopicConnectionDropdown({id}:{id:number}) {
+export default function TopicConnectionDropdown({
+  topicId,
+}: {
+  topicId: number | null;
+}) {
+  const { postData, loading: load, error: err } = usePost("/topic_connections");
   // Store selected IDs as an array of strings
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const {
@@ -12,6 +17,19 @@ export default function TopicConnectionDropdown({id}:{id:number}) {
     loading,
     error,
   } = useFetch(`${process.env.NEXT_PUBLIC_API_END_POINT}/topics`, "GET");
+  useEffect(() => {
+    if (!topicId) return; // don't post until topic exists
+    console.log(topicId);
+    // async function topicConnectionFunction(){
+    //   const res = await postData(selectedOptions);
+    //   console.log(res);
+    // }
+    // fetch(`${process.env.NEXT_PUBLIC_API_URL}/topics/${topicId}/connections`, {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({ connection_ids: selectedOptions }),
+    // });
+  }, [topicId]);
   if (loading)
     return <p className="bg-gray-100 px-2 text-xs py-1 rounded">Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -29,7 +47,7 @@ export default function TopicConnectionDropdown({id}:{id:number}) {
   };
 
   const handleRemove = (idToRemove: string) => {
-    console.log(selectedOptions)
+    console.log(selectedOptions);
     setSelectedOptions((prev) => prev.filter((id) => id !== idToRemove));
   };
 
@@ -45,7 +63,7 @@ export default function TopicConnectionDropdown({id}:{id:number}) {
         <option value="" disabled>
           Select a topic...
         </option>
-        {(data as any)?.map((topic:TopicType) => (
+        {(data as any)?.map((topic: TopicType) => (
           <option
             key={topic.id}
             value={topic.id}
@@ -59,7 +77,7 @@ export default function TopicConnectionDropdown({id}:{id:number}) {
       {/* Selected Tags Display */}
       <ul className="flex flex-wrap gap-4 my-4">
         {selectedOptions.map((id) => {
-          const topic = (data as any)?.find((t:any) => String(t.id) === id);
+          const topic = (data as any)?.find((t: any) => String(t.id) === id);
           return (
             <li
               key={id}

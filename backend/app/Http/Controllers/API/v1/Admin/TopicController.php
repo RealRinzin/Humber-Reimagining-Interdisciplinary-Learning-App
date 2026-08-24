@@ -11,7 +11,7 @@ use App\Http\Requests\Admin\Topics\UpdateTopicRequest;
 use App\Http\Resources\Admin\Topics\TopicResource;
 use App\Models\Topic;
 use Illuminate\Http\JsonResponse;
-
+use Illuminate\Support\Facades\Request;
 
 class TopicController
 {
@@ -68,5 +68,18 @@ class TopicController
             return back()->with('error', 'Topic not found.');
         }
         $topic->delete();
+    }
+
+    public function attachConnections(Request $request, Topic $topic)
+    {
+        return "rinzin";
+        $validated = $request->validate([
+            'connection_ids' => ['required', 'array'],
+            'connection_ids.*' => ['integer', 'exists:connections,id'],
+        ]);
+
+        $topic->connections()->sync($validated['connection_ids']);
+
+        return response()->json($topic->load('connections'));
     }
 }

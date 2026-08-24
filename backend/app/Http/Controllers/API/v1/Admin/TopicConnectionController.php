@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1\Admin;
 
+use App\Models\Topic;
 use Illuminate\Http\Request;
 
 class TopicConnectionController
@@ -20,6 +21,7 @@ class TopicConnectionController
     public function store(Request $request)
     {
         //
+        return $request;
     }
 
     /**
@@ -45,4 +47,15 @@ class TopicConnectionController
     {
         //
     }
+    public function attachConnections(Request $request, Topic $topic)
+{
+    $validated = $request->validate([
+        'connection_ids' => ['required', 'array'],
+        'connection_ids.*' => ['integer', 'exists:connections,id'],
+    ]);
+
+    $topic->connections()->sync($validated['connection_ids']);
+
+    return response()->json($topic->load('connections'));
+}
 }
