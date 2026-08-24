@@ -28,12 +28,11 @@ class TopicResource extends JsonResource
             'node_color' => $this->node_color,
             'x_axis' => $this->x_axis,
             'y_axis' => $this->y_axis,
-            'interactive_path' => $this->interactive_path,
+            // 'interactive_path' => $this->interactive_path,
             'videos' => VideoResource::collection($this->whenLoaded('videos')),
             'codes' => CodeResource::collection($this->whenLoaded('codes')),
             'quizees' => QuizResource::collection($this->whenLoaded('quizees')),
             'is_following' => in_array($this->id, $followedIds),
-            
         ];
     }
 }

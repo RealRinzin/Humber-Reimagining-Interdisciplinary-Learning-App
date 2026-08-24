@@ -1,5 +1,6 @@
 // TOPIC basic structure
 export interface TopicType {
+    id:number;
     title: string;
     description: string,
     node_group_id: number,

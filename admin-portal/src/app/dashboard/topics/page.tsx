@@ -25,6 +25,7 @@ import MyCKEditor from "@/components/ui/cards/content/MyCKEditor";
 import { usePost } from "@/hooks/client/useHTTP";
 import FormFileInput from "@/components/ui/form/file/HtmlType";
 import Select from "@/components/ui/form/Select";
+import TopicConnectionDropdown from "@/components/topics/TopicConnectionDropdown";
 export default function TopicPage() {
   const { postData, loading, error } = usePost("/topics");
   const router = useRouter();
@@ -83,8 +84,12 @@ export default function TopicPage() {
                       />
                     </li>
                     <li className="flex basis-1/3 gap-2 items-center justify-start w-fit border border-slate-100 rounded-md px-2 text-white text-sm ">
-                      <Select name="student_visible" label="Student Visible" placeholder="Select Option" required />
-
+                      <Select
+                        name="student_visible"
+                        label="Student Visible"
+                        placeholder="Select Option"
+                        required
+                      />
                     </li>
                   </ul>
                 </div>
@@ -127,7 +132,11 @@ export default function TopicPage() {
                 />
               </li>
             </ul>
-            <ul className="flex gap-4  text-gray-600 text-md">
+            <div className="flex gap-4 text-gray-600 text-md">
+              <h2>Topic Connections</h2>
+              <TopicConnectionDropdown id={1} />
+            </div>
+            {/* <ul className="flex gap-4  text-gray-600 text-md">
               <li>Topic Connections</li>
               <li>
                 <FormSelect
@@ -138,8 +147,8 @@ export default function TopicPage() {
                   required
                 />
               </li>
-            </ul>
-            <ul className="flex gap-4 my-4">
+            </ul> */}
+            {/* <ul className="flex gap-4 my-4">
               <li className="text-xs px-2 py-1 bg-gray-500 rounded-md text-white font-medium relative cursor-pointer">
                 Intro to spac{" "}
                 <span className="absolute -top-1 -right-1 bg-red-600 h-3 w-3 flex justify-center items-center rounded">
@@ -158,7 +167,7 @@ export default function TopicPage() {
                   x
                 </span>
               </li>
-            </ul>
+            </ul> */}
             {/* Content */}
             <div className="mt-10">
               <h1 className="border-b-2 border-gray-400 pb-2 font-bold text-gray-700">

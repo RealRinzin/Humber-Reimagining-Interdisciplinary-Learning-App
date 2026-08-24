@@ -1,8 +1,8 @@
 "use client";
 
 import { useFetch } from "@/hooks/client/useHTTP";
+import { TopicType } from "@/types/topic.type";
 import { useState } from "react";
-
 
 export default function DebugPage() {
   // Store selected IDs as an array of strings
@@ -20,7 +20,6 @@ export default function DebugPage() {
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     console.log(selectedOptions);
-
     if (!value) return;
 
     // Prevent duplicates and add new value to state
@@ -49,7 +48,7 @@ export default function DebugPage() {
         <option value="" disabled>
           Select a topic...
         </option>
-        {data?.map((topic) => (
+        {(data as any)?.map((topic:TopicType) => (
           <option
             key={topic.id}
             value={topic.id}
@@ -63,7 +62,7 @@ export default function DebugPage() {
       {/* Selected Tags Display */}
       <ul className="flex flex-wrap gap-4 my-4">
         {selectedOptions.map((id) => {
-          const topic = data?.find((t) => String(t.id) === id);
+          const topic = (data as any)?.find((t:any) => String(t.id) === id);
           return (
             <li
               key={id}
@@ -73,7 +72,7 @@ export default function DebugPage() {
               <button
                 type="button"
                 onClick={() => handleRemove(id)}
-                className="absolute top-1 right-1 bg-red-600 hover:bg-red-700 text-white h-4 w-4 flex justify-center items-center rounded-full text-[10px] leading-none"
+                className="absolute -top-1 -right-1 bg-red-600 hover:bg-red-700 text-white h-4 w-4 flex justify-center items-center rounded-full text-[10px] leading-none"
                 aria-label={`Remove ${topic?.title}`}
               >
                 ×

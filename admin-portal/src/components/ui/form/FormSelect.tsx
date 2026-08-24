@@ -48,7 +48,7 @@ export default function FormSelect<T extends FieldValues>({
         <option value="" disabled className="text-black">
           {placeholder}
         </option>
-        {data?.map((data: any, index: number) => (
+        {(data as any)?.map((data: any, index: number) => (
           <option value={data.id} key={`${index}${label}`}>
             {data.title} {data.name}
           </option>
