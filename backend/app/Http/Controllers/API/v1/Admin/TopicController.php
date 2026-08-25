@@ -44,7 +44,7 @@ class TopicController
     public function show(Topic $topic)
     {
         //
-        $topic->load('videos');
+        $topic->load(['videos','connectedTopics']);
         return new TopicResource($topic);
     }
 

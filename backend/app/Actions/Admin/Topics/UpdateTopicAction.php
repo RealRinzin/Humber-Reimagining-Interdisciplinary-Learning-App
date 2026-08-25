@@ -25,7 +25,7 @@ class UpdateTopicAction
             'rambling' => $dto->rambling,
             'quiz' => $dto->quiz,
             'student_visible' => $dto->student_visible,
-            'interactive_path' => $dto->interactive_path
+            // 'interactive_path' => $dto->interactive_path
         ]);
         return $topic->fresh();
     }

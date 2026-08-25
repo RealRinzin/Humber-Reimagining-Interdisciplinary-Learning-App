@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Admin\Topics;
 
+use App\Http\Resources\Admin\TopicConnection\TopicConnectionResource;
 use App\Http\Resources\Admin\Videos\VideoResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -32,7 +33,7 @@ class TopicResource extends JsonResource
             'student_visible' => $this->student_visible,
             'interactive_path' => $this->interactive_path,
             'videos' => VideoResource::collection($this->whenLoaded('videos')),
-
+            'connections' => TopicConnectionResource::collection($this->whenLoaded('connectedTopics')),
         ];
     }
 }

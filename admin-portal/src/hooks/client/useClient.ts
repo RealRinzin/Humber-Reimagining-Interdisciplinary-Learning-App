@@ -68,10 +68,11 @@ export async function clientPost(path: string, body: unknown, options: RequestIn
 // ======================= HTTP PATCH METHOD==============================================
 
 export async function clientPatch(path: string, body: unknown, options: RequestInit = {}) {
+    console.log(body)
     const xsrfToken = await fetchCsrfToken();
     try {
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${path}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_END_POINT}${path}`, {
             ...options,
             method: "PATCH",
             body: JSON.stringify(body),
@@ -95,7 +96,7 @@ export async function clientPatch(path: string, body: unknown, options: RequestI
 export async function clientDelete(path: string, options: RequestInit = {}) {
     const xsrfToken = await fetchCsrfToken();
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${path}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_END_POINT}${path}`, {
             ...options,
             method: "DELETE",
             headers: {

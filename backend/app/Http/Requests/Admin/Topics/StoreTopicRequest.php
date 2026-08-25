@@ -35,8 +35,8 @@ class StoreTopicRequest extends FormRequest
             'interactive'    => [ 'boolean','required'],
             'rambling'    => ['boolean','required'],
             'quiz'    => ['boolean','required'],
+            'student_visible'    => ['boolean','required'],
             'interactive_path'    => ['nullable','string'],
-            'student_visible' => ['boolean','required']
         ];
     }
 

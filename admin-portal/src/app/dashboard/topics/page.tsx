@@ -3,21 +3,7 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { Toaster, toast } from "sonner";
 import { useRouter } from "next/navigation";
-import CodeCard from "@/components/ui/cards/ code/CodeCard";
-import FlashCard from "@/components/ui/cards/flashCard/FlashCard";
-import RamblingCard from "@/components/ui/cards/rambling/RamblingCard";
-import VideoCard from "@/components/ui/cards/video/VideoCard";
-import HtmlType from "@/components/ui/form/file/HtmlType";
 import { AddNewTopic } from "@/types/topic.type";
-import {
-  faBook,
-  faCirclePlay,
-  faCircleQuestion,
-  faCode,
-  faEye,
-  faPlus,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FormInput from "@/components/ui/form/FormInput";
 import FormSelect from "@/components/ui/form/FormSelect";
 import FormCheckbox from "@/components/ui/form/FormCheckbox";
@@ -50,7 +36,6 @@ export default function TopicPage() {
   });
 
   const addNewTopic = async (data: AddNewTopic) => {
-    console.log("FORM DATA:", data);
     try {
       const res = await postData(data);
       toast.success("New Topic Successfully Created");
@@ -63,8 +48,6 @@ export default function TopicPage() {
       toast.error("Error", {
         description: "Fill all the mandatory fields",
       });
-
-      // console.error("POST failed:", err);
     }
   };
   return (
@@ -74,11 +57,10 @@ export default function TopicPage() {
         <form onSubmit={methods.handleSubmit(addNewTopic)}>
           <div className="bg-gray-600">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex gap-4 justify-between  p-6 ">
+              <div className="flex gap-4 justify-between p-6 ">
                 <div className="basis-4/6">
                   <ul className="flex gap-2">
                     <li className="basis-1/3">
-                      <span></span>
                       <FormInput
                         type="text"
                         name="title"

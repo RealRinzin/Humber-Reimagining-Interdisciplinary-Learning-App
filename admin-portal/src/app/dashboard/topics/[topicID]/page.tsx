@@ -1,4 +1,4 @@
-import { useFetch } from "@/hooks/client/useHTTP";
+import EditTopic from "@/components/topics/Edit";
 import { serverFetch } from "@/hooks/server/useServer";
 import { Suspense } from "react";
 
@@ -13,10 +13,13 @@ export default function Page({
     </Suspense>
   );
 }
-async function TopicPage({ params }: { params: Promise<{ topicID: string }> }) {
-  
-  const { topicID } = await params;
-  const res = await serverFetch(`/topics/${topicID}`)
 
-  return <div>{res?.data?.id}</div>;
+async function TopicPage({ params }: { params: Promise<{ topicID: string }> }) {
+  const { topicID } = await params;
+  const res = await serverFetch(`/topics/${topicID}`);
+  const topic = res.data;
+  return (
+    <EditTopic topic={topic}/>
+  );
 }
+

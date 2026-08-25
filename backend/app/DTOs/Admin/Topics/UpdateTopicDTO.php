@@ -8,7 +8,6 @@ class UpdateTopicDTO
 {
     public function __construct(
         // public readonly ?int $id,
-
         public readonly ?string $title,
         public readonly ?string $description,
         public readonly ?string $node_color,
@@ -21,7 +20,7 @@ class UpdateTopicDTO
         public readonly ?bool $rambling,
         public readonly ?bool $quiz,
         public readonly ?bool $student_visible,
-        public readonly ?string $interactive_path,
+        // public readonly ?string $interactive_path,
 
     ) {}
 

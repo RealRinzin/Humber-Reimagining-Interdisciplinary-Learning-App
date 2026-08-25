@@ -72,7 +72,7 @@ export function usePatch(url: string) {
         try {
             setLoading(true);
             setError(null);
-            const res = await clientPatch(url, "PATCH", body);
+            const res = await clientPatch(url,body);
             if (!res.ok) throw new Error("Failed to patch data");
             const result = await res.json();
             setData(result);

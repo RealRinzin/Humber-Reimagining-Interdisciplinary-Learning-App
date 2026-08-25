@@ -23,7 +23,9 @@ export default function FormInput<T extends FieldValues>({
       {["number", "color"].includes(type ?? "") && (
         <span className="text-xs">{label}</span>
       )}
-      {required && ["number", "color"].includes(type ?? "") && <span className="text-red-500">*</span>}
+      {required && ["number", "color"].includes(type ?? "") && (
+        <span className="text-red-500">*</span>
+      )}
       <input
         type={type}
         {...register(name, {
