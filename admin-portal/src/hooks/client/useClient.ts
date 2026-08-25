@@ -117,7 +117,7 @@ export async function clientDelete(path: string, options: RequestInit = {}) {
 
 }
 
-// ======================= HTTP DELETE METHOD==============================================
+// ======================= HTTP FILE METHOD==============================================
 export async function clientPostFormData(path: string, formData: FormData, options: RequestInit = {}) {
     const xsrfToken = await fetchCsrfToken();
     try {
@@ -136,4 +136,35 @@ export async function clientPostFormData(path: string, formData: FormData, optio
     } catch (error) {
         throw error;
     }
+}
+// ======================= HTTP FILE with progress METHOD==============================================
+
+export function clientPostFormDataProgress(
+    path: string,
+    formData: FormData,
+    onProgress: (percent: number) => void
+): Promise<Response> {
+    return new Promise(async (resolve, reject) => {
+        const xsrfToken = await fetchCsrfToken();
+        const xhr = new XMLHttpRequest();
+
+        xhr.open("POST", `${process.env.NEXT_PUBLIC_API_END_POINT}${path}`);
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader("X-XSRF-TOKEN", xsrfToken);
+        xhr.withCredentials = true;
+
+        xhr.upload.onprogress = (event) => {
+            if (event.lengthComputable) {
+                onProgress(Math.round((event.loaded / event.total) * 100));
+            }
+        };
+
+        xhr.onload = () => {
+            resolve(new Response(xhr.responseText, { status: xhr.status }));
+        };
+
+        xhr.onerror = () => reject(new Error("Upload failed"));
+
+        xhr.send(formData);
+    });
 }
