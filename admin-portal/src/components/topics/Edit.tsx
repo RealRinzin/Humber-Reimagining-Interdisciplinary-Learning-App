@@ -4,13 +4,14 @@ import { FormProvider, useForm } from "react-hook-form";
 import FormInput from "../ui/form/FormInput";
 import FormSelect from "../ui/form/FormSelect";
 import { useRouter } from "next/navigation";
-import TopicConnectionDropdown from "./TopicConnectionDropdown";
+// import TopicConnectionDropdown from "./TopicConnectionDropdown";
 import MyCKEditor from "../ui/cards/content/MyCKEditor";
 import FormCheckbox from "../ui/form/FormCheckbox";
 import Select from "@/components/ui/form/Select";
 import { usePatch } from "@/hooks/client/useHTTP";
 import { useEffect } from "react";
 import { toast, Toaster } from "sonner";
+import TopicEditConnectionDropdown from "../ui/topics/edit/TopicEditConnectionDropdown";
 
 export default function EditTopic({ topic }: { topic: any }) {
   const router = useRouter();
@@ -20,9 +21,6 @@ export default function EditTopic({ topic }: { topic: any }) {
     values: topic,
   });
 
-  const removeConnection = async (id: number) => {
-    console.log(id);
-  };
   const updateTopic = async (data: AddNewTopic) => {
     try {
       const res = await patchData(data);
@@ -117,9 +115,10 @@ export default function EditTopic({ topic }: { topic: any }) {
           <div className=" text-gray-600 text-md">
             <div className="flex gap-4">
               <h2>Topic Connections</h2>
+              <TopicEditConnectionDropdown topicId={topic?.id} connections={topic?.connections} updateFun={updateTopic}/>
               {/* <TopicConnectionDropdown topicId={topic?.id} /> */}
             </div>
-            <ul className="flex gap-4 my-2">
+            {/* <ul className="flex gap-4 my-2">
               {topic?.connections.map((connection: any, index: number) => (
                 <li
                   key={index}
@@ -136,7 +135,7 @@ export default function EditTopic({ topic }: { topic: any }) {
                   </button>
                 </li>
               ))}
-            </ul>
+            </ul> */}
           </div>
           {/* Content */}
           <div className="mt-10">

@@ -20,7 +20,8 @@ export default function TopicConnectionDropdown({
     data: data,
     loading,
     error,
-  } = useFetch(`${process.env.NEXT_PUBLIC_API_END_POINT}/topics`, "GET");
+  } = useFetch(`${process.env.NEXT_PUBLIC_API_END_POINT}/topics`);
+
   useEffect(() => {
     if (!topicId) return; // don't post until topic exists
     async function topicConnectionFunction() {
@@ -31,7 +32,6 @@ export default function TopicConnectionDropdown({
   if (loading)
     return <p className="bg-gray-100 px-2 text-xs py-1 rounded">Loading...</p>;
   if (error) return <p>Error: {error}</p>;
-
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     if (!value) return;
