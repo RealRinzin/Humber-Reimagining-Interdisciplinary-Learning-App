@@ -44,4 +44,20 @@ class AuthController
         // return the response object with the message
         return response()->json(['message' => 'Logged out']);
     }
+
+
+    // FileUpload Test
+    public function upload(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|max:10240', // 10MB max
+        ]);
+
+        $path = $request->file('file')->store('uploads', 'public');
+
+        return response()->json([
+            'path' => $path,
+            'url' => asset('storage/' . $path),
+        ]);
+    }
 }

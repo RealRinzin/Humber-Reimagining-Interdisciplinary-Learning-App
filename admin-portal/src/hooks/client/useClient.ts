@@ -114,4 +114,26 @@ export async function clientDelete(path: string, options: RequestInit = {}) {
         throw error;
 
     }
+
+}
+
+// ======================= HTTP DELETE METHOD==============================================
+export async function clientPostFormData(path: string, formData: FormData, options: RequestInit = {}) {
+    const xsrfToken = await fetchCsrfToken();
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_END_POINT}${path}`, {
+            ...options,
+            method: "POST",
+            body: formData,
+            headers: {
+                Accept: "application/json",
+                "X-XSRF-TOKEN": xsrfToken,
+                ...options.headers,
+            },
+            credentials: "include",
+        });
+        return res;
+    } catch (error) {
+        throw error;
+    }
 }
