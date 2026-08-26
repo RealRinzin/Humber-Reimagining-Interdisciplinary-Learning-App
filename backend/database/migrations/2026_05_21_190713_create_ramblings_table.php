@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('ramblings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('video_id')->constrained();
-            $table->foreignId('topic_id')->constrained();
+            $table->foreignId('video_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('topic_id')->constrained()->cascadeOnDelete();
             $table->text('content');
             $table->timestamps();
         });
