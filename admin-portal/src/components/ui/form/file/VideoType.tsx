@@ -4,6 +4,7 @@ import InputFile from "./Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { clientPostFormDataProgress } from "@/hooks/client/useClient";
+import { VideoType } from "@/types/video.type";
 
 interface PreviewFile {
   file: File;
@@ -13,62 +14,10 @@ interface PreviewFile {
 
 const videoFormats = ["video/mp4", "video/x-matroska", "video/quicktime"];
 
-// Grabs a single frame from a video File and returns it as a data URL
-function generateVideoThumbnail(file: File, seekTo = 1): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const video = document.createElement("video");
-    video.preload = "metadata";
-    video.muted = true;
-    video.playsInline = true;
-
-    const url = URL.createObjectURL(file);
-    video.src = url;
-
-    video.onloadedmetadata = () => {
-      video.currentTime = Math.min(seekTo, video.duration || seekTo);
-    };
-
-    video.onseeked = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      const ctx = canvas.getContext("2d");
-      if (!ctx) {
-        URL.revokeObjectURL(url);
-        reject(new Error("Canvas context unavailable"));
-        return;
-      }
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      const dataUrl = canvas.toDataURL("image/jpeg", 0.8);
-      URL.revokeObjectURL(url);
-      resolve(dataUrl);
-    };
-
-    video.onerror = () => {
-      URL.revokeObjectURL(url);
-      reject(new Error("Failed to load video for thumbnail"));
-    };
-  });
-}
-
-// Converts a data URL (from canvas.toDataURL) into a Blob for uploading
-function dataUrlToBlob(dataUrl: string): Blob {
-  const [header, base64] = dataUrl.split(",");
-  const mimeMatch = header.match(/:(.*?);/);
-  const mime = mimeMatch ? mimeMatch[1] : "image/jpeg";
-  const binary = atob(base64);
-  const bytes = new Uint8Array(binary.length);
-  for (let i = 0; i < binary.length; i++) {
-    bytes[i] = binary.charCodeAt(i);
-  }
-  return new Blob([bytes], { type: mime });
-}
-
-export default function VideoFileUpload({ videoID }: { videoID: number | null }) {
+export default function VideoFileUpload({ videoID,saveVideoFun }: { videoID: number | null,saveVideoFun:(data: VideoType)=>Promise<void> }) {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<PreviewFile[]>([]);
   const [isDragging, setIsDragging] = useState(false);
-  const dragCounter = useRef(0);
   const [uploadButton, setUploadButton] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
@@ -92,43 +41,6 @@ export default function VideoFileUpload({ videoID }: { videoID: number | null })
     }
   };
 
-  const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    dragCounter.current++;
-    if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
-      setIsDragging(true);
-    }
-  };
-
-  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    dragCounter.current--;
-    if (dragCounter.current === 0) {
-      setIsDragging(false);
-    }
-  };
-
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(false);
-    dragCounter.current = 0;
-
-    const files = e.dataTransfer.files;
-    if (files && files.length > 0) {
-      const fileArray = Array.from(files);
-      setSelectedFiles(fileArray);
-      setUploadButton(true);
-    }
-  };
-
   useEffect(() => {
     if (selectedFiles.length === 0) {
       setPreviews([]);
@@ -136,52 +48,27 @@ export default function VideoFileUpload({ videoID }: { videoID: number | null })
     }
 
     let cancelled = false;
-
+    console.log("test");
     const newPreviews: PreviewFile[] = selectedFiles.map((file) => ({
       file,
       url: URL.createObjectURL(file),
     }));
     setPreviews(newPreviews);
     setProgressByFile({});
-
-    newPreviews.forEach((p, index) => {
-      generateVideoThumbnail(p.file)
-        .then((thumbnail) => {
-          if (cancelled) return;
-          setPreviews((prev) => {
-            const next = [...prev];
-            if (next[index]) next[index] = { ...next[index], thumbnail };
-            return next;
-          });
-        })
-        .catch((err) => console.error("Thumbnail generation failed:", err));
-    });
-
-    return () => {
-      cancelled = true;
-      newPreviews.forEach((p) => URL.revokeObjectURL(p.url));
-    };
-  }, [selectedFiles]);
+  }, [selectedFiles,saveVideoFun]);
 
   // Uploads each video + its thumbnail via the shared client hook, tracking progress per file
   const handleUpload = async () => {
+    if(!videoID) return setUploadError("Add the Video details before uploading the video");
     setIsUploading(true);
     setUploadError(null);
-
     try {
       for (let index = 0; index < previews.length; index++) {
         const preview = previews[index];
-
-        let thumbnail = preview.thumbnail;
-        if (!thumbnail) {
-          thumbnail = await generateVideoThumbnail(preview.file);
-        }
-
         const formData = new FormData();
         formData.append("video", preview.file);
         formData.append(
           "thumbnail",
-          dataUrlToBlob(thumbnail),
           `${preview.file.name.replace(/\.[^/.]+$/, "")}-thumb.jpg`
         );
         if (videoID !== null) {
@@ -210,10 +97,6 @@ export default function VideoFileUpload({ videoID }: { videoID: number | null })
   return (
     <>
       <div
-        onDragEnter={handleDragEnter}
-        onDragLeave={handleDragLeave}
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
         className={`w-fit p-4 rounded-md border transition mx-4 ${
           isDragging
             ? "bg-blue-100 border-blue-400 shadow"
@@ -226,12 +109,13 @@ export default function VideoFileUpload({ videoID }: { videoID: number | null })
           handlerFunction={handleFile}
         />
       </div>
+      {videoID}
       <div className="flex flex-col gap-4">
         {uploadButton && (
           <button
             onClick={handleUpload}
             disabled={isUploading}
-            className="text-white w-fit bg-blue-500 disabled:bg-blue-300 text-md py-3 px-4 rounded-md cursor-pointer flex items-center gap-2"
+            className="text-white w-fit bg-blue-400 disabled:bg-blue-300 text-md py-3 px-4 rounded-md cursor-pointer flex items-center gap-2"
           >
             <FontAwesomeIcon icon={isUploading ? faSpinner : faArrowUp} spin={isUploading} />
             {isUploading ? "Uploading..." : "Upload Video"}

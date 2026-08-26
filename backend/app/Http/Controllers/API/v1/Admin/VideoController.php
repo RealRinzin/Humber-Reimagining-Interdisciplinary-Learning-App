@@ -11,6 +11,7 @@ use App\Http\Requests\Admin\Videos\UpdateVideoRequest;
 use App\Models\Video;
 use Illuminate\Http\Request;
 
+
 class VideoController
 {
     /**
@@ -58,5 +59,26 @@ class VideoController
             return back()->with('error', 'Topic not found.');
         }
         $video->delete();
+    }
+
+    // Video Upload
+    public function upload_videos(Request $request, Video $video)
+    {
+
+        $request->validate([
+            'video' => 'required|file|mimetypes:video/mp4,video/quicktime,video/x-msvideo,video/webm|max:102400', // 100MB max, size in KB
+        ]);
+
+        // Path
+        $path = $request->file('video')->store('uploads/videos', 'public');
+        // Update the upload_videos
+
+        $video->update([
+            'video_url' => $path,
+        ]);
+        return response()->json([
+            'video_url' => $path,
+            'url' => asset('storage/' . $path),
+        ]);
     }
 }

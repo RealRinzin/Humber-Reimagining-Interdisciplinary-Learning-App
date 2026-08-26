@@ -54,7 +54,7 @@ class AuthController
             'video' => 'required|file', // 10MB max
         ]);
 
-        $path = $request->file('video')->store('uploads', 'public');
+        $path = $request->file('video')->store('uploads/videos', 'public');
 
         return response()->json([
             'path' => $path,

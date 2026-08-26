@@ -6,3 +6,5 @@ use App\Http\Controllers\API\V1\Admin\VideoController;
 use Illuminate\Support\Facades\Route;
 
 Route::apiResource('videos', VideoController::class)->scoped(['video' => 'id']);
+Route::patch('videos/{video:id}/upload', [VideoController::class, 'upload_videos']);
+

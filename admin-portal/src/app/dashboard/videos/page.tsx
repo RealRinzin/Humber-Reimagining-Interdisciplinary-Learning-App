@@ -4,9 +4,7 @@ import { usePost } from "@/hooks/client/useHTTP";
 import { VideoType } from "@/types/video.type";
 import { FormProvider, useForm } from "react-hook-form";
 import Select from "@/components/ui/form/Select";
-import FormFileInput from "@/components/ui/form/file/HtmlType";
 import FormCheckbox from "@/components/ui/form/FormCheckbox";
-import TopicConnectionDropdown from "@/components/topics/TopicConnectionDropdown";
 import FormSelect from "@/components/ui/form/FormSelect";
 import MyCKEditor from "@/components/ui/cards/content/MyCKEditor";
 import VideoFileUpload from "@/components/ui/form/file/VideoType";
@@ -44,7 +42,8 @@ export default function VideoPage() {
     if (res) {
       setVideoID(res.id)
       toast.success("New Topic Successfully Created");
-      router.push(`/dashboard/topics/`);
+      console.log(res);
+      // router.push(`/dashboard/topics/`);
     }
   };
   return (
@@ -113,11 +112,6 @@ export default function VideoPage() {
               />
             </li>
           </ul>
-          {/* <div className="flex gap-4 text-gray-600 text-md">
-            <h2>Topic Connections</h2>
-            <TopicConnectionDropdown topicId={topicId} />
-          </div> */}
-          {/* Content */}
           <div className="mt-10">
             <p className="py-4 text-md text-gray-500 font-medium">
               Content resources options
@@ -152,7 +146,7 @@ export default function VideoPage() {
             <MyCKEditor name="tldw" label="Tldw Description" required={true} />
           </div>
           <div className="bg-gray-50 border border-gray-200/80  py-10 flex flex-col md:flex-row justify-center items-center rounded-md">
-            <VideoFileUpload videoID={videoID} />
+            <VideoFileUpload videoID={videoID} saveVideoFun={addNewVideo} />
           </div>
           {/* Other Contents */}
         </div>
