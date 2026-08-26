@@ -25,7 +25,7 @@ export default function UploadPage() {
     const data = await res.json();
     setUrl(data.url);
   };
-
+  
   return (
     <div>
       <input

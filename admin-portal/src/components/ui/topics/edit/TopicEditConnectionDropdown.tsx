@@ -19,7 +19,6 @@ export default function TopicEditConnectionDropdown({
 
   const [selectedOptions, setSelectedOptions] = useState<any[]>(connections);
   const selectedIds = selectedOptions.map((o: any) => o.id);
-  console.log(selectedIds)
   const {
     data: topics,
     loading,

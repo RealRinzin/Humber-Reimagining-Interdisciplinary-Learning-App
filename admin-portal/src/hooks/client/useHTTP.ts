@@ -44,7 +44,6 @@ export function usePost(url: string) {
             setLoading(true);
             setError(null);
             const res = await clientPost(url, body);
-            console.log(body);
             if (!res.ok) throw new Error("Failed to post data");
             const result = await res.json();
             setData(result);
