@@ -65,6 +65,7 @@ export default function TopicPage() {
                         type="text"
                         name="title"
                         label="Title"
+                        placeholder="Topic Title"
                         required
                       />
                     </li>

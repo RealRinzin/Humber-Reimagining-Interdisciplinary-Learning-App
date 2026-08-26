@@ -17,7 +17,7 @@ export default function Videos({ videos }: { videos: any }) {
     console.log(id);
   };
   return (
-    <div>
+    <div className="my-4">
       <div className="flex text-gray-700 gap-1 font-extrabold">
         <FontAwesomeIcon
           icon={faCirclePlay}
@@ -25,10 +25,10 @@ export default function Videos({ videos }: { videos: any }) {
         />
         Videos
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 my-4">
         {videos?.map((video: any, index: number) => (
           <div
-            className="bg-gray-100 w-full rounded-md  py-14  my-4 relative flex justify-center items-center"
+            className="border border-gray-200/80 bg-gray-100 w-full rounded-md  py-14 relative flex justify-center items-center"
             key={index}
           >
             <Link
@@ -51,7 +51,7 @@ export default function Videos({ videos }: { videos: any }) {
                 />
               </li>
               <li
-                className="bg-blue-200 rounded-md h-5 w-5 flex items-center justify-center"
+                className="bg-blue-200 rounded-lg h-5 w-5 flex items-center justify-center"
                 onClick={() => editVideo(video?.id)}
               >
                 <FontAwesomeIcon
@@ -61,7 +61,7 @@ export default function Videos({ videos }: { videos: any }) {
               </li>
             </ul>
 
-            <div className="absolute bottom-4  left-0 px-4">
+            <div className="absolute bottom-2 left-0 px-4">
               <p className="text-gray-600 font-bold">
                 <Link
                   href={`http://localhost:3000/video/${video?.slug}`}

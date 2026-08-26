@@ -190,9 +190,6 @@ export default function EditTopic({ topic }: { topic: any }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-lg text-gray-800 border-b-2 border-gray-300 my-4">Contents</h2>
         <Videos videos={topic?.videos} />
-        <h2>Interactive</h2>
-        <h2>Flashcard</h2>
-        <h2>Rambling</h2>
       </div>
     </>
   );

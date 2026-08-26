@@ -5,6 +5,7 @@ interface FormInputType<T extends FieldValues> {
   name: FieldPath<T>;
   label: string;
   required?: boolean;
+  placeholder?:string;
   type?: "text" | "email" | "password" | "number" | "color";
 }
 
@@ -12,6 +13,7 @@ export default function FormInput<T extends FieldValues>({
   name,
   label,
   required,
+  placeholder,
   type,
 }: FormInputType<T>) {
   const {
@@ -31,7 +33,7 @@ export default function FormInput<T extends FieldValues>({
         {...register(name, {
           required: required ? `${label} is required` : false,
         })}
-        placeholder={label}
+        placeholder={placeholder}
         className={` ${touchedFields[name] && errors[name] ? " border-red-500 " : " border-gray-200 "} border  w-full ${name === "title" ? "text-white" : "text-gray-600"} rounded-md px-4 py-1`}
       />
       {touchedFields[name] && errors[name] && (
