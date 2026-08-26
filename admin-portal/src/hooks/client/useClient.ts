@@ -147,8 +147,7 @@ export function clientPostFormDataProgress(
     return new Promise(async (resolve, reject) => {
         const xsrfToken = await fetchCsrfToken();
         const xhr = new XMLHttpRequest();
-
-        xhr.open("POST", `${process.env.NEXT_PUBLIC_API_END_POINT}${path}`);
+        xhr.open("PATCH", `${process.env.NEXT_PUBLIC_API_END_POINT}${path}`);
         xhr.setRequestHeader("Accept", "application/json");
         xhr.setRequestHeader("X-XSRF-TOKEN", xsrfToken);
         xhr.withCredentials = true;

@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function VideoPage() {
+export default function VideoCreate() {
   const { postData, loading, error } = usePost("/videos");
   const [videoID,setVideoID] =  useState<number | null>(null);
   const router = useRouter();

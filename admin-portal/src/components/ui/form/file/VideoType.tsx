@@ -14,7 +14,13 @@ interface PreviewFile {
 
 const videoFormats = ["video/mp4", "video/x-matroska", "video/quicktime"];
 
-export default function VideoFileUpload({ videoID,saveVideoFun }: { videoID: number | null,saveVideoFun:(data: VideoType)=>Promise<void> }) {
+export default function VideoFileUpload({
+  videoID,
+  saveVideoFun,
+}: {
+  videoID: number | null;
+  saveVideoFun: (data: VideoType) => Promise<void>;
+}) {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<PreviewFile[]>([]);
   const [isDragging, setIsDragging] = useState(false);
@@ -22,7 +28,9 @@ export default function VideoFileUpload({ videoID,saveVideoFun }: { videoID: num
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   // Per-file progress, keyed by index in `previews`
-  const [progressByFile, setProgressByFile] = useState<Record<number, number>>({});
+  const [progressByFile, setProgressByFile] = useState<Record<number, number>>(
+    {},
+  );
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -48,18 +56,19 @@ export default function VideoFileUpload({ videoID,saveVideoFun }: { videoID: num
     }
 
     let cancelled = false;
-    console.log("test");
+    console.log("testing")
     const newPreviews: PreviewFile[] = selectedFiles.map((file) => ({
       file,
       url: URL.createObjectURL(file),
     }));
     setPreviews(newPreviews);
     setProgressByFile({});
-  }, [selectedFiles,saveVideoFun]);
+  }, [selectedFiles, saveVideoFun]);
 
   // Uploads each video + its thumbnail via the shared client hook, tracking progress per file
   const handleUpload = async () => {
-    if(!videoID) return setUploadError("Add the Video details before uploading the video");
+    if (!videoID)
+      return setUploadError("Add the Video details before uploading the video");
     setIsUploading(true);
     setUploadError(null);
     try {
@@ -69,14 +78,14 @@ export default function VideoFileUpload({ videoID,saveVideoFun }: { videoID: num
         formData.append("video", preview.file);
         formData.append(
           "thumbnail",
-          `${preview.file.name.replace(/\.[^/.]+$/, "")}-thumb.jpg`
+          `${preview.file.name.replace(/\.[^/.]+$/, "")}-thumb.jpg`,
         );
         if (videoID !== null) {
           formData.append("videoID", String(videoID));
         }
 
         await clientPostFormDataProgress(
-          "/upload",
+          `/videos/${videoID}/upload`,
           formData,
           (percent: number) =>
             setProgressByFile((prev) => ({ ...prev, [index]: percent })),
@@ -117,7 +126,10 @@ export default function VideoFileUpload({ videoID,saveVideoFun }: { videoID: num
             disabled={isUploading}
             className="text-white w-fit bg-blue-400 disabled:bg-blue-300 text-md py-3 px-4 rounded-md cursor-pointer flex items-center gap-2"
           >
-            <FontAwesomeIcon icon={isUploading ? faSpinner : faArrowUp} spin={isUploading} />
+            <FontAwesomeIcon
+              icon={isUploading ? faSpinner : faArrowUp}
+              spin={isUploading}
+            />
             {isUploading ? "Uploading..." : "Upload Video"}
           </button>
         )}
@@ -163,14 +175,15 @@ export default function VideoFileUpload({ videoID,saveVideoFun }: { videoID: num
                 style={{ width: "100%", maxWidth: "320px", marginTop: "8px" }}
               />
 
-              {progressByFile[index] !== undefined && progressByFile[index] < 100 && (
-                <div className="w-full bg-gray-200 rounded-full h-2 mt-2 max-w-[320px]">
-                  <div
-                    className="bg-blue-500 h-2 rounded-full transition-all"
-                    style={{ width: `${progressByFile[index]}%` }}
-                  />
-                </div>
-              )}
+              {progressByFile[index] !== undefined &&
+                progressByFile[index] < 100 && (
+                  <div className="w-full bg-gray-200 rounded-full h-2 mt-2 max-w-[320px]">
+                    <div
+                      className="bg-blue-500 h-2 rounded-full transition-all"
+                      style={{ width: `${progressByFile[index]}%` }}
+                    />
+                  </div>
+                )}
             </div>
           ))}
         </div>
