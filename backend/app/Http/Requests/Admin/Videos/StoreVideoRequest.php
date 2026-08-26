@@ -11,17 +11,17 @@ class StoreVideoRequest extends FormRequest
         return [
             'title'     => ['required', 'string', 'max:255','unique:videos'],
             'topic_id' => ['required', 'integer'],
-            'thumbnail' => ['required','string','max:255'],
+            'thumbnail' => ['nullable','string','max:255'],
             'video_url' => ['required','string','max:255'],
             'duration' => ['required','integer'],
             'description' => ['required','string'],
-            'tldw' => ['required','string'],
+            'tldw' => ['nullable','string'],
             'video' => ['required','bool'],
             'code' => ['required','bool'],
             'interactive' => ['required','bool'],
             'rambling' => ['required','bool'],
             'quiz' => ['required','bool'],
-            'interactive_path' => ['string'],
+            'interactive_path' => ['nullable','string'],
         ];
     }
 
@@ -33,7 +33,6 @@ class StoreVideoRequest extends FormRequest
             'topic_id.required'      => 'Video must be attached to some Topic',
             'duration.required'      => 'Video length or duration is missing.',
             'description.required'      => 'Video description missing',
-            'tldw.required'      => 'Video description missing',
             'video_url.required'      => 'video URL description missing',
             'video.required'      => 'video status required',
             'code.required'      => 'Code status required',

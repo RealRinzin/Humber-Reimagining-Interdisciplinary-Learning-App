@@ -4,6 +4,7 @@ import CourseTitle from "@/components/features/course/CourseTitle";
 import MoreCourses from "@/components/features/course/MoreCourses";
 import { MyPlayer } from "@/components/ui/video/VideoPlayer";
 import { serverFetch, serverPatch, serverPost } from "@/lib/fetch";
+import DOMPurify from "dompurify";
 import Image from "next/image";
 
 export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
@@ -98,7 +99,6 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
   );
   const { data: user_setting } = await user_content_setting.json();
   return (
-    
     <>
       <CourseTitle
         title={video.title}
@@ -118,7 +118,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
           all_complete={completeStatus?.all_checked}
           available={user_setting?.video}
         />
-        <p className="py-2 px-1 text-gray-800 text-md">{video.description}</p>
+        <div className="py-2 px-1 text-gray-800 text-md" dangerouslySetInnerHTML={{ __html: video?.description }} />
       </div>
       {/* Video section */}
       <section className="flex flex-col md:flex-row gap-3 py-3">
@@ -165,7 +165,7 @@ export default async function ServerPage({ videoSlug }: { videoSlug: string }) {
       )}
 
       {/* Interactive */}
-      {video?.interactive && video?.interactive_demo &&(
+      {video?.interactive && video?.interactive_demo && (
         <CourseTabs
           type="interactive"
           title={"Dina's Interactive Demos"}

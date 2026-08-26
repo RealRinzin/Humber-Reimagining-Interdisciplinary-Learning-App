@@ -15,7 +15,7 @@ export default function UploadPage() {
     if (!file) return;
 
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("video", file);
     // const res = await clientPostFormData("/upload", formData);
     const res = await clientPostFormDataProgress(
       "/upload",

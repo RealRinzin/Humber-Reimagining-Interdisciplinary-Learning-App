@@ -6,6 +6,9 @@ Thumbs.db
 *.log
 *.tmp
 *.swp
+*.mp4
+*.mp3
+*.mkv
 
 ##################################
 # Frontend (Next.js)

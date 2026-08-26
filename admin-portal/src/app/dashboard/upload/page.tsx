@@ -6,11 +6,11 @@ import VideoFileUpload from "@/components/ui/form/file/VideoType";
 export default function page() {
   return (
     <>
-      <FormFileInput
+      {/* <FormFileInput
         type="file"
         name="interactive_path"
         label="interactive path"
-      />
+      /> */}
       {/* <VideoFileUpload/> */}
       {/* <ImageType /> */}
 

@@ -1,4 +1,4 @@
-import { faCloudUpload } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUpFromBracket, faCloudUpload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface fileType {
@@ -12,9 +12,8 @@ export default function InputFile({ format,label, handlerFunction }: fileType) {
     <>
       <label className="cursor-pointer flex flex-col items-center justify-center p-6">
         <FontAwesomeIcon
-          icon={faCloudUpload}
-          size="3x"
-          className="text-4xl text-gray-400/80"
+          icon={faArrowUpFromBracket}
+          className="text-4xl text-gray-400/90"
         />
         <span className="text-sm text-gray-500 mt-3">
           Upload {label}

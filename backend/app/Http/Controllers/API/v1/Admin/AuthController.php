@@ -50,10 +50,11 @@ class AuthController
     public function upload(Request $request)
     {
         $request->validate([
-            'file' => 'required|file|max:50240000', // 10MB max
+            // 'file' => 'required|file|max:50240000', // 10MB max
+            'video' => 'required|file', // 10MB max
         ]);
 
-        $path = $request->file('file')->store('uploads', 'public');
+        $path = $request->file('video')->store('uploads', 'public');
 
         return response()->json([
             'path' => $path,

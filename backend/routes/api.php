@@ -25,7 +25,8 @@ Route::post('/v1/admin/login', [AdminAuthController::class, 'login']);
 Route::middleware(['web', 'auth:sanctum'])->get('/v1/admin/me', function (Request $request) {
     return $request->user();
 });
-
+// routes/web.php
+Route::get('/phpinfo', fn() => phpinfo());
 // Route::middleware(['auth:sanctum', 'can:is-admin'])
     // ->prefix('v1/admin')
 Route::prefix('v1/admin')

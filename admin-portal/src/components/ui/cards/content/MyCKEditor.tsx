@@ -26,8 +26,8 @@ export default function MyCKEditor<T extends FieldValues>({
 }: MyCKEditorDataType<T>) {
   const { control } = useFormContext();
   return (
-    <div className="border-b-2 border-gray-200 my-6 py-2">
-      <p className="flex text-gray-700 gap-2 font-extrabold">
+    <div className="py-2">
+      <p className="flex text-gray-600 gap-2 text-md font-bold">
         <FontAwesomeIcon
           icon={faFileLines}
           className="cursor-pointer text-2xl text-gray-500"

@@ -24,10 +24,10 @@ return new class extends Migration
             $table->foreign('parent_id')
                 ->references('id')
                 ->on('videos');
-            $table->string('thumbnail'); // Add this line for the thumbnail column
-            $table->string('video_url'); // Add this line for the video_url column
-            $table->integer('duration'); // Add this line for the duration column
-            $table->text('description'); // Add this line for the description column
+            $table->string('thumbnail')->nullable();
+            $table->string('video_url');
+            $table->integer('duration'); 
+            $table->text('description');
             $table->text('tldw');
 
             $table->string('video')->default(true);
@@ -35,7 +35,7 @@ return new class extends Migration
             $table->string('interactive')->default(false);
             $table->string('rambling')->default(false);
             $table->string('quiz')->default(false);
-            $table->string('interactive_path')->default('space');
+            $table->string('interactive_path')->default('space')->nullable();
             // Timestamp
             $table->timestamps();
         });
