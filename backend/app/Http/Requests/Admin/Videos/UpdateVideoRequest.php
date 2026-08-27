@@ -10,7 +10,7 @@ class UpdateVideoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'     => ['sometimes','required', 'string', 'max:255','unique:videos'],
+            'title'     => ['sometimes','required', 'string', 'max:255'],
             'topic_id' => ['sometimes','required', 'integer'],
             'thumbnail' => ['sometimes','required','string','max:255'],
             'video_url' => ['sometimes','required','string','max:255'],

@@ -33,6 +33,7 @@ export default function TopicPage() {
       interactive_path: "",
       student_visible: true,
     },
+    
   });
 
   const addNewTopic = async (data: AddNewTopic) => {
@@ -42,6 +43,7 @@ export default function TopicPage() {
       if (res) {
         setTopicId(res.id);
         router.push(`/dashboard/topics/${res.id}`);
+         methods.reset();
       }
     } catch (err) {
       console.log(err);

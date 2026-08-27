@@ -11,11 +11,13 @@ import VideoFileUpload from "@/components/ui/form/file/VideoType";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
 
 export default function VideoCreate() {
   const { postData, loading, error } = usePost("/videos");
-  const [videoID,setVideoID] =  useState<number | null>(null);
-  const [addSuccess,setAddSuccess] = useState<boolean>(false)
+  const [videoID, setVideoID] = useState<number | null>(null);
+  const [addSuccess, setAddSuccess] = useState<boolean>(false);
   const router = useRouter();
   const methods = useForm<VideoType>({
     mode: "onBlur",
@@ -41,11 +43,11 @@ export default function VideoCreate() {
   const addNewVideo = async (data: VideoType) => {
     const res = await postData(data);
     if (res) {
-      setVideoID(res.id)
-      setAddSuccess(true)
+      setVideoID(res.id);
+      setAddSuccess(true);
       toast.success("New Video Successfully added");
-      console.log(res);
       router.push(`/dashboard/videos/${res?.id}`);
+      methods.reset();
     }
   };
   return (
@@ -99,7 +101,7 @@ export default function VideoCreate() {
         </div>
         {/* Node Setting */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 p-6">
-          <h1 className="border-b-2 border-gray-400 pb-2 font-bold text-gray-700">
+          <h1 className="border-b-2 border-gray-300 pb-2 font-bold text-gray-700 uppercase">
             Video Setting
           </h1>
           <ul className="flex gap-4 my-6 text-gray-600 text-md">
@@ -139,7 +141,17 @@ export default function VideoCreate() {
               </ul>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+          <div className="border-b-2 pb-2 border-gray-300 my-4">
+            <h2 className="uppercase font-bold text-gray-700">Contents</h2>
+          </div>
+          <div className="flex text-gray-700 gap-1 font-extrabold">
+            <FontAwesomeIcon
+              icon={faCirclePlay}
+              className="cursor-pointer text-2xl text-gray-500"
+            />
+            Videos
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6  bg-gray-50 border border-gray-100 rounded-md p-6">
             <MyCKEditor
               name="description"
               label="Video Description"
@@ -148,9 +160,13 @@ export default function VideoCreate() {
             <MyCKEditor name="tldw" label="Tldw Description" required={true} />
           </div>
           <div className="bg-gray-50 border border-gray-200/80  py-10 flex flex-col md:flex-row justify-center items-center rounded-md">
-            <VideoFileUpload videoID={videoID} saveVideoFun={addNewVideo} successStatus={addSuccess}/>
+            <VideoFileUpload
+              videoID={videoID}
+              saveVideoFun={addNewVideo}
+              successStatus={addSuccess}
+            />
           </div>
-          {/* Other Contents */}
+          {/* Flashcard */}
         </div>
       </form>
     </FormProvider>

@@ -10,12 +10,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 export default function Videos({ videos }: { videos: any }) {
   const deleteVideo = async () => {
-    console.log("delete");
+    if (window.confirm("Are you sure?")) {
+      console.log("delete");
+    }
   };
 
-  const editVideo = async (id: number) => {
-    console.log(id);
-  };
   return (
     <div className="my-4">
       <div className="flex text-gray-700 gap-1 font-extrabold">
@@ -50,14 +49,13 @@ export default function Videos({ videos }: { videos: any }) {
                   className="cursor-pointer text-xs text-red-500"
                 />
               </li>
-              <li
-                className="bg-blue-200 rounded-lg h-5 w-5 flex items-center justify-center"
-                onClick={() => editVideo(video?.id)}
-              >
-                <FontAwesomeIcon
-                  icon={faEdit}
-                  className="cursor-pointer text-xs text-blue-500"
-                />
+              <li className="bg-blue-200 rounded-lg h-5 w-5 flex items-center justify-center">
+                <Link href={`/dashboard/videos/${video?.id}`}>
+                  <FontAwesomeIcon
+                    icon={faEdit}
+                    className="cursor-pointer text-xs text-blue-500"
+                  />
+                </Link>
               </li>
             </ul>
 
