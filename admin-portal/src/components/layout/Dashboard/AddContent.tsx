@@ -1,4 +1,4 @@
-import FlashCard from "@/components/ui/cards/flashCard/FlashCard";
+import FlashCard from "@/components/ui/cards/flashCard/DisplayFlashCard";
 export default function AddContent() {
   return (
     <>

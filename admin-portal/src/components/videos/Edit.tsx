@@ -1,6 +1,6 @@
 "use client";
 import FormInput from "@/components/ui/form/FormInput";
-import { usePatch, usePost } from "@/hooks/client/useHTTP";
+import { usePatch } from "@/hooks/client/useHTTP";
 import { VideoType } from "@/types/video.type";
 import { FormProvider, useForm } from "react-hook-form";
 import Select from "@/components/ui/form/Select";
@@ -13,8 +13,10 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import VideoCard from "../ui/cards/video/VideoCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlay, faInfo } from "@fortawesome/free-solid-svg-icons";
 import SubVideoCard from "../ui/cards/video/SubVideoCard";
+import DisplayFlashCard from "../ui/cards/flashCard/DisplayFlashCard";
+import AddFlashCard from "../ui/cards/flashCard/AddFlashCard";
 
 export default function EditVideo({ video }: { video: any }) {
   const { patchData, loading, error } = usePatch(`/videos/${video?.id}`);
@@ -127,10 +129,10 @@ export default function EditVideo({ video }: { video: any }) {
               </ul>
             </div>
           </div>
-          <div className="border-b-2 pb-2 border-gray-300 my-4">
+          <div className="my-4">
             <h2 className="uppercase font-bold text-gray-700">Contents</h2>
           </div>
-          <div className="flex text-gray-700 gap-1 font-extrabold">
+          <div className="flex text-gray-700 gap-1 font-extrabold border-t-2 pt-4 border-gray-400 my-6">
             <FontAwesomeIcon
               icon={faCirclePlay}
               className="cursor-pointer text-2xl text-gray-500"
@@ -158,7 +160,7 @@ export default function EditVideo({ video }: { video: any }) {
                 successStatus={addSuccess}
               />
             </div>
-            <div className="my-6">
+            {/* <div className="my-6">
               <div className="flex my-4 text-gray-700 gap-1 font-extrabold">
                 <FontAwesomeIcon
                   icon={faCirclePlay}
@@ -174,9 +176,22 @@ export default function EditVideo({ video }: { video: any }) {
                   successStatus={addSuccess}
                 />
               </div>
-            </div>
+            </div> */}
           </div>
-          {/* Other Contents */}
+          {/* FlashCard */}
+          <div className="flex text-gray-700 gap-1 font-extrabold border-t-2 pt-4 border-gray-400 my-6">
+            <FontAwesomeIcon
+              icon={faInfo}
+              className="cursor-pointer text-2xl text-gray-500"
+            />
+            Flashcards
+          </div>
+          <div className="my-4">
+            {
+              video?.quizzes.length>0 && <DisplayFlashCard flashcards={video?.quizzes} />
+            }
+          </div>
+          <AddFlashCard/>
         </div>
       </form>
     </FormProvider>

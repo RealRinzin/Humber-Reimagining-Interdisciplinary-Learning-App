@@ -15,7 +15,7 @@ class StoreVideoDTO
         public readonly ?string $video_url,
         public readonly ?int $duration,
         public readonly ?string $description,
-        public readonly ?bool $tldw,
+        public readonly ?string $tldw,
         public readonly ?bool $code,
         public readonly ?bool $video,
         public readonly ?bool $interactive,

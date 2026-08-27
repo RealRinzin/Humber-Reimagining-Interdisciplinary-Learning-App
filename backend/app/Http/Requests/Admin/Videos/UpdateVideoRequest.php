@@ -12,9 +12,9 @@ class UpdateVideoRequest extends FormRequest
         return [
             'title'     => ['sometimes','required', 'string', 'max:255'],
             'topic_id' => ['sometimes','required', 'integer'],
-            'thumbnail' => ['sometimes','required','string','max:255'],
+            'thumbnail' => ['sometimes','required','string','max:255','nullable'],
             'video_url' => ['sometimes','required','string','max:255'],
-            'duration' => ['sometimes','required','integer'],
+            'duration' => ['sometimes','required','integer','nullable'],
             'description' => ['sometimes','required','string'],
             'tldw' => ['sometimes','required','string'],
             'video' => ['sometimes','required','bool'],
@@ -22,7 +22,7 @@ class UpdateVideoRequest extends FormRequest
             'interactive' => ['sometimes','required','bool'],
             'rambling' => ['sometimes','required','bool'],
             'quiz' => ['sometimes','required','bool'],
-            'interactive_path' => ['sometimes','string'],
+            'interactive_path' => ['sometimes','string','nullable'],
         ];
     }
 
@@ -32,9 +32,9 @@ class UpdateVideoRequest extends FormRequest
         return [
             'title.required'      => 'Title is required.',
             'topic_id.required'      => 'Video must be attached to some Topic',
-            'duration.required'      => 'Video length or duration is missing.',
-            'description.required'      => 'Video description missing',
-            'tldw.required'      => 'Video description missing',
+            'duration.required'      => ' length or duration is missing.',
+            'description.required'      => ' description missing',
+            'tldw.required'      => 'TLDW description missing',
             'video_url.required'      => 'video URL description missing',
             'video.required'      => 'video status required',
             'code.required'      => 'Code status required',
