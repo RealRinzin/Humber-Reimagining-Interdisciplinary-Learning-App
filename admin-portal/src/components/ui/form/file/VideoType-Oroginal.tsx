@@ -64,7 +64,7 @@ function dataUrlToBlob(dataUrl: string): Blob {
   return new Blob([bytes], { type: mime });
 }
 
-export default function VideoFileUpload({ videoID }: { videoID: number | null }) {
+export default function VideoUploadTest({ videoID,status }: { videoID: number | null ,status:boolean|null}) {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<PreviewFile[]>([]);
   const [isDragging, setIsDragging] = useState(false);
@@ -220,6 +220,7 @@ export default function VideoFileUpload({ videoID }: { videoID: number | null })
             : "bg-gray-200 border-gray-300 hover:shadow"
         }`}
       >
+        {status?'upload':'No upload'}
         <InputFile
           format={videoFormats.join(",")}
           label="Video | mp4, mvk, mov"

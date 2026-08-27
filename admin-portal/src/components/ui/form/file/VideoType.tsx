@@ -17,14 +17,16 @@ const videoFormats = ["video/mp4", "video/x-matroska", "video/quicktime"];
 export default function VideoFileUpload({
   videoID,
   saveVideoFun,
+  successStatus,
 }: {
   videoID: number | null;
   saveVideoFun: (data: VideoType) => Promise<void>;
+  successStatus: boolean;
 }) {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<PreviewFile[]>([]);
   const [isDragging, setIsDragging] = useState(false);
-  const [uploadButton, setUploadButton] = useState(false);
+  const [uploadButton, setUploadButton] = useState(successStatus);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   // Per-file progress, keyed by index in `previews`
@@ -37,7 +39,7 @@ export default function VideoFileUpload({
     if (files && files.length > 0) {
       const fileArray = Array.from(files);
       setSelectedFiles(fileArray);
-      setUploadButton(true);
+      // setUploadButton(true);
       setUploadError(null);
     }
   };
@@ -45,7 +47,7 @@ export default function VideoFileUpload({
   const removeFile = (id: number) => {
     setSelectedFiles((prev) => prev.filter((_, i) => i !== id));
     if (selectedFiles.length <= 1) {
-      setUploadButton(false);
+      // setUploadButton(false);
     }
   };
 
@@ -56,14 +58,13 @@ export default function VideoFileUpload({
     }
 
     let cancelled = false;
-    console.log("testing")
     const newPreviews: PreviewFile[] = selectedFiles.map((file) => ({
       file,
       url: URL.createObjectURL(file),
     }));
     setPreviews(newPreviews);
     setProgressByFile({});
-  }, [selectedFiles, saveVideoFun]);
+  }, [selectedFiles, saveVideoFun,successStatus]);
 
   // Uploads each video + its thumbnail via the shared client hook, tracking progress per file
   const handleUpload = async () => {
@@ -91,7 +92,6 @@ export default function VideoFileUpload({
             setProgressByFile((prev) => ({ ...prev, [index]: percent })),
         );
       }
-
       setSelectedFiles([]);
       setUploadButton(false);
       setProgressByFile({});
@@ -118,9 +118,8 @@ export default function VideoFileUpload({
           handlerFunction={handleFile}
         />
       </div>
-      {videoID}
       <div className="flex flex-col gap-4">
-        {uploadButton && (
+        {successStatus && (
           <button
             onClick={handleUpload}
             disabled={isUploading}
@@ -152,23 +151,6 @@ export default function VideoFileUpload({
               >
                 X
               </p>
-
-              {/* {p.thumbnail ? (
-                <img
-                  src={p.thumbnail}
-                  alt={`${p.file.name} thumbnail`}
-                  style={{ width: "100%", maxWidth: "320px", marginTop: "12px" }}
-                  className="rounded-md"
-                />
-              ) : (
-                <div
-                  style={{ width: "100%", maxWidth: "320px", height: "180px", marginTop: "12px" }}
-                  className="bg-gray-300 rounded-md flex items-center justify-center text-gray-500 text-sm"
-                >
-                  Generating thumbnail...
-                </div>
-              )} */}
-
               <video
                 src={p.url}
                 controls

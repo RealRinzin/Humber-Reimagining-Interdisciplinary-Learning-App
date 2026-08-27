@@ -15,6 +15,7 @@ import { useState } from "react";
 export default function VideoCreate() {
   const { postData, loading, error } = usePost("/videos");
   const [videoID,setVideoID] =  useState<number | null>(null);
+  const [addSuccess,setAddSuccess] = useState<boolean>(false)
   const router = useRouter();
   const methods = useForm<VideoType>({
     mode: "onBlur",
@@ -41,9 +42,10 @@ export default function VideoCreate() {
     const res = await postData(data);
     if (res) {
       setVideoID(res.id)
-      toast.success("New Topic Successfully Created");
+      setAddSuccess(true)
+      toast.success("New Video Successfully added");
       console.log(res);
-      // router.push(`/dashboard/topics/`);
+      router.push(`/dashboard/videos/${res?.id}`);
     }
   };
   return (
@@ -146,7 +148,7 @@ export default function VideoCreate() {
             <MyCKEditor name="tldw" label="Tldw Description" required={true} />
           </div>
           <div className="bg-gray-50 border border-gray-200/80  py-10 flex flex-col md:flex-row justify-center items-center rounded-md">
-            <VideoFileUpload videoID={videoID} saveVideoFun={addNewVideo} />
+            <VideoFileUpload videoID={videoID} saveVideoFun={addNewVideo} successStatus={addSuccess}/>
           </div>
           {/* Other Contents */}
         </div>

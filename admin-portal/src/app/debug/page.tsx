@@ -1,47 +1,22 @@
 "use client";
-
-import {
-  clientPostFormData,
-  clientPostFormDataProgress,
-} from "@/hooks/client/useClient";
+import ChildTest from "@/components/test";
 import { useState } from "react";
 
-export default function UploadPage() {
-  const [file, setFile] = useState<File | null>(null);
-  const [url, setUrl] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const handleUpload = async () => {
-    if (!file) return;
+export default function ParentTest() {
+  const [live, setLive] = useState<boolean>(false);
+  const [videoID, setVideoID] = useState<number | null>(null);
 
-    const formData = new FormData();
-    formData.append("video", file);
-    // const res = await clientPostFormData("/upload", formData);
-    const res = await clientPostFormDataProgress(
-      "/upload",
-      formData,
-      setProgress,
-    );
-    const data = await res.json();
-    setUrl(data.url);
+  const update = async () => {
+    setLive((prev) => !prev);
+    if(live) return setVideoID(1)
   };
-  
   return (
-    <div>
-      <input
-        type="file"
-        onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-      />
-      <button onClick={handleUpload} disabled={!file || loading}>
-        {loading ? "Uploading..." : "Upload"}
+    <>
+      <button className="bg-red-50 py-2" onClick={update}>
+        Click
       </button>
-
-      {url && (
-        <p>
-          Uploaded: <a href={url}>{url}</a>
-        </p>
-      )}
-      {progress > 0 && <p>{progress}%</p>}
-    </div>
+      {live ? "live" : "Not live"}
+      <ChildTest updateFun={update} live={live} videoID={videoID} />
+    </>
   );
 }

@@ -8,6 +8,7 @@ use App\DTOs\Admin\Videos\StoreVideoDTO;
 use App\DTOs\Admin\Videos\UpdateVideoDTO;
 use App\Http\Requests\Admin\Videos\StoreVideoRequest;
 use App\Http\Requests\Admin\Videos\UpdateVideoRequest;
+use App\Http\Resources\Admin\Videos\VideoResource;
 use App\Models\Video;
 use Illuminate\Http\Request;
 
@@ -35,9 +36,11 @@ class VideoController
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Video $video)
     {
-        //
+        $video->load(['subVideos','ramblings','videoSections','codes','subtitle','quizzes','interactive_demo']);
+
+        return new VideoResource($video);
     }
 
     /**
