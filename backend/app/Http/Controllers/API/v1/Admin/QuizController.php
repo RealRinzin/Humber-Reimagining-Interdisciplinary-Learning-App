@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1\Admin;
 use App\Actions\Admin\Quizzes\StoreQuizAction;
 use App\DTOs\Admin\Quizzes\StoreQuizDTO;
 use App\Http\Requests\Admin\Quizzes\StoreQuizRequest;
+use App\Models\Quiz;
 use Illuminate\Http\Request;
 
 class QuizController
@@ -57,8 +58,12 @@ class QuizController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Quiz $quiz)
     {
         //
+        if (!$quiz) {
+            return back()->with('error', 'Topic not found.');
+        }
+        $quiz->delete();
     }
 }

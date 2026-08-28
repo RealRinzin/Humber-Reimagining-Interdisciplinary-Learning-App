@@ -89,12 +89,12 @@ export function usePatch(url: string) {
 
 
 // ======================= Client Side  HTTP PATCH Method ==============================================
-export function useDelete(url: string) {
+export function useDelete() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const deleteData = async () => {
+    const deleteData = async (url: string) => {
         try {
             setLoading(true);
             setError(null);

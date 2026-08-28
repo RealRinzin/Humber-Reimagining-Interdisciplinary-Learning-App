@@ -1,3 +1,4 @@
+import { useDelete } from "@/hooks/client/useHTTP";
 import { useToggle } from "@/hooks/common/useToggle";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -5,13 +6,16 @@ import React from "react";
 
 export default function DisplayFlashCard({ flashcards }: { flashcards: any }) {
   const { isOn: isOpen, toggle } = useToggle(false);
-  const deleteVideo = async () => {
+  const { deleteData, loading, error } = useDelete();
+  
+  const deleteVideo = async (id:number) => {
     if (window.confirm("Are you sure?")) {
-      console.log("delete");
+      console.log("tee")
+      const res = await deleteData(`/quizzes/${id}`)
     }
   };
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mx-auto">
       {flashcards?.map((flashcard: any, index: number) => (
         <div
           className="w-78 h-50 cursor-pointer group bg-gray-300 rounded-2xl relative"
@@ -21,7 +25,7 @@ export default function DisplayFlashCard({ flashcards }: { flashcards: any }) {
           <ul className="absolute -top-1 -right-1 flex gap-1 z-10">
             <li
               className="bg-red-200 rounded-md h-5 w-5 flex items-center justify-center"
-              onClick={() => deleteVideo()}
+              onClick={() => deleteVideo(flashcard?.id)}
             >
               <FontAwesomeIcon
                 icon={faTrash}

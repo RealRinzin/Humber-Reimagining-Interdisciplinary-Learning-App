@@ -9,6 +9,7 @@ import {
   faEye,
   faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 export default function ListCard({ topics, node_color }: any) {
   const updateStudentVisibility = (id:number) =>{
@@ -18,7 +19,11 @@ export default function ListCard({ topics, node_color }: any) {
     <div className="my-4">
       <div className="flex gap-4 flex-col md:flex-row items-center">
         <Ring color={node_color} />
-        <h1 className="text-gray-700 font-bold text-lg">{topics.title}</h1>
+        <h1 className="text-gray-700 font-bold text-lg">
+          <Link href={`/dashboard/topics/${topics?.id}`}>
+          {topics.title}
+          </Link>
+          </h1>
         <div className="flex gap-1 items-center w-fit border border-gray-200 rounded-lg py-1 px-2">
           <p className="text-gray-500">
             {topics?.student_visible ? (
@@ -55,9 +60,8 @@ export default function ListCard({ topics, node_color }: any) {
         </div>
       </div>
       <div className="py-2">
-        <p className="text-gray-800 text-md font-medium">
-          {topics.description}
-        </p>
+        <div className="text-gray-800 text-md font-medium" dangerouslySetInnerHTML={{ __html: topics?.description }}/>
+          
         <ul className="flex gap-2 my-4 text-slate-400">
           {topics?.video && (
             <li>

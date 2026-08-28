@@ -110,7 +110,7 @@ export default function EditVideo({ video }: { video: any }) {
               </p>
               <div>
                 {/* <ul className="flex flex-col md:flex-row gap-10 items-center"> */}
-                <ul className="grid grid-cols-3 md:grid-cols-12">
+                <ul className="grid grid-cols-3 md:grid-cols-10">
                   <li>
                     <FormCheckbox name="video" label="Video" />
                   </li>
