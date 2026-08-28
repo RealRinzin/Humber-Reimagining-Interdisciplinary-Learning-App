@@ -71,7 +71,7 @@ export default function EditVideo({ video }: { video: any }) {
                   <ul className="flex md:justify-end justify-around  gap-2">
                     <li>
                       <button className="bg-slate-500 text-xs rounded-md px-2 py-1 text-white cursor-pointer">
-                        Cancel
+                        Cancels
                       </button>
                     </li>
                     <li>
@@ -80,7 +80,7 @@ export default function EditVideo({ video }: { video: any }) {
                         disabled={loading}
                         className="bg-slate-200 text-xs rounded-md px-2 py-1 cursor-pointer"
                       >
-                        {loading ? "Saving..." : "Save"}
+                        {loading ? "Updating..." : "Update"}
                       </button>
                     </li>
                   </ul>
@@ -138,6 +138,7 @@ export default function EditVideo({ video }: { video: any }) {
                 icon={faCirclePlay}
                 className="cursor-pointer text-2xl text-gray-500"
               />
+              tnen
               Videos
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6  bg-gray-50 border border-gray-100 rounded-md p-6">
