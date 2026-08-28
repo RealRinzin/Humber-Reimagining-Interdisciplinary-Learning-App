@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1\Admin;
 use App\Actions\Admin\Quizzes\StoreQuizAction;
 use App\DTOs\Admin\Quizzes\StoreQuizDTO;
 use App\Http\Requests\Admin\Quizzes\StoreQuizRequest;
+use App\Http\Resources\Admin\QuizResource\QuizResource;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,9 @@ class QuizController
      */
     public function index()
     {
-        //
+        return response()->json(
+            QuizResource::collection(Quiz::all())
+        );
     }
 
     /**

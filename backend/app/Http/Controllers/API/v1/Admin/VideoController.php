@@ -20,7 +20,9 @@ class VideoController
      */
     public function index()
     {
-        //
+        return response()->json(
+            VideoResource::collection(Video::all())
+        );
     }
 
     /**
@@ -38,7 +40,7 @@ class VideoController
      */
     public function show(Video $video)
     {
-        $video->load(['subVideos','ramblings','videoSections','codes','subtitle','quizzes','interactive_demo']);
+        $video->load(['subVideos', 'ramblings', 'videoSections', 'codes', 'subtitle', 'quizzes', 'interactive_demo']);
 
         return new VideoResource($video);
     }
