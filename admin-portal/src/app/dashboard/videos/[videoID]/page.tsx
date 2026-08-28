@@ -19,7 +19,6 @@ async function VideoPage({ params }: { params: Promise<{ videoID: string }> }) {
   const { videoID } = await params;
   const res = await serverFetch(`/videos/${videoID}`);
   const video = res.data;
-  console.log(video)
   return (
     <EditVideo video={video}/>
   );

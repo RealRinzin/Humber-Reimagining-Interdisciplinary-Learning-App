@@ -23,7 +23,7 @@ export default function AddFlashCard({videoID}:{videoID:number}) {
         className="bg-gray-200 py-2 px-4 rounded-md text-gray-600 font-bold cursor-pointer"
         onClick={toggle}
       >
-        Add Flashcard - 
+        Add Flashcard
       </button>
       {isOpen && (
         <div className="bg-gray-900/40 fixed left-0 top-0 h-screen w-screen  flex p-4 z-50">

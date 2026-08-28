@@ -174,14 +174,14 @@ export default function TopicPage() {
                     <FormCheckbox name="interactive" label="Interactive" />
                   </li>
                 </ul>
-                <div className="my-4">
+                {/* <div className="my-4">
                   <p className="text-gray-600 py-3 text-sm">Interactive File</p>
                   <FormFileInput
                     type="file"
                     name="interactive_path"
                     label="interactive path"
                   />
-                </div>
+                </div> */}
               </div>
             </div>
             {/* Content */}

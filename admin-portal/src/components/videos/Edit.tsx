@@ -34,7 +34,6 @@ export default function EditVideo({ video }: { video: any }) {
       setVideoID(res.id);
       setAddSuccess(true);
       toast.success("Updated Video Successfully");
-      console.log(res);
       router.push(`/dashboard/videos/${res?.id}`);
     }
   };
@@ -71,7 +70,7 @@ export default function EditVideo({ video }: { video: any }) {
                   <ul className="flex md:justify-end justify-around  gap-2">
                     <li>
                       <button className="bg-slate-500 text-xs rounded-md px-2 py-1 text-white cursor-pointer">
-                        Cancels
+                        Cancel
                       </button>
                     </li>
                     <li>

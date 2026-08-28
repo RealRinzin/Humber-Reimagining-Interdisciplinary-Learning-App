@@ -21,7 +21,7 @@ class UpdateTopicRequest extends FormRequest
             'interactive'    => ['boolean', 'required'],
             'rambling'    => ['boolean', 'required'],
             'quiz'    => ['boolean', 'required'],
-            // 'interactive_path'    => ['nullable', 'string'],
+            'interactive_path'    => ['sometime','nullable', 'string'],
             'student_visible' => ['boolean', 'required']
 
         ];

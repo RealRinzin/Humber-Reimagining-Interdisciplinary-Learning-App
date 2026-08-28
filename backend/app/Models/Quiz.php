@@ -9,6 +9,13 @@ class Quiz extends Model
 {
     /** @use HasFactory<\Database\Factories\QuizFactory> */
     use HasFactory;
+        protected $fillable = [
+        'topic_id',
+        'video_id',
+        'difficulty',
+        'question',
+        'answer'
+    ];
 
     public function topic()
     {

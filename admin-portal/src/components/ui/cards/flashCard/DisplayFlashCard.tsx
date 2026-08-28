@@ -14,7 +14,7 @@ export default function DisplayFlashCard({ flashcards }: { flashcards: any }) {
     <div className="grid grid-cols-3 gap-4">
       {flashcards?.map((flashcard: any, index: number) => (
         <div
-          className="w-78 h-50 cursor-pointer group bg-slate-300 rounded-2xl relative"
+          className="w-78 h-50 cursor-pointer group bg-gray-300 rounded-2xl relative"
           onClick={toggle}
           key={index}
         >
@@ -58,7 +58,7 @@ export default function DisplayFlashCard({ flashcards }: { flashcards: any }) {
             <div
               className={`
             absolute inset-0 
-                    backface-hidden bg-slate-900 text-white rounded-2xl
+                    backface-hidden bg-gray-400 text-white rounded-2xl
                     transform-[rotateY(180deg)]
                     flex flex-col items-center justify-center gap-2 p-6
                     `}
