@@ -45,6 +45,12 @@ function Navigation() {
           />
         </div>
         <ul className="flex gap-5 justify-evenly">
+          <li><Link href="/dashboard/topics">Topics</Link></li>
+          <li><Link href="/dashboard/users">Users</Link></li>
+          <li><Link href="/dashboard/videos">Videos</Link></li>
+          <li><Link href="/dashboard/quizzes">Quizzes</Link></li>
+          <li><Link href="/dashboard/codes">Codes</Link></li>
+          <li><Link href="/dashboard/media">Medias</Link></li>
           <li>
             <Link href="/">
               <Image
