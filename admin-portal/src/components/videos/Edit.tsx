@@ -137,7 +137,6 @@ export default function EditVideo({ video }: { video: any }) {
                 icon={faCirclePlay}
                 className="cursor-pointer text-2xl text-gray-500"
               />
-              tnen
               Videos
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6  bg-gray-50 border border-gray-100 rounded-md p-6">

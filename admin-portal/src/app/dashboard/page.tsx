@@ -5,7 +5,7 @@ import { useFetch } from "@/hooks/client/useHTTP";
 import Link from "next/link";
 export default  function HomePage() {
   const {
-    data: response,
+    data: res,
     loading,
     error,
   } = useFetch(`${process.env.NEXT_PUBLIC_API_END_POINT}/node_groups`, "GET");
@@ -48,7 +48,7 @@ export default  function HomePage() {
             </div>
             {/* Groups */}
             {
-              response?.data?.map((nodes:any,index:number) =>(
+              res?.data?.map((nodes:any,index:number) =>(
                 <NodeGroup key={index} data={nodes} />
               ))
             }
