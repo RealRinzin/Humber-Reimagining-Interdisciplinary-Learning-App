@@ -1,5 +1,6 @@
 import { usePatch } from "@/hooks/client/useHTTP";
 import { useToggle } from "@/hooks/common/useToggle";
+import { FlashCardDType } from "@/types/flashcard.type";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
@@ -7,19 +8,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-type flashCardType = {
-  id: number;
-  difficulty: string;
-  question: string;
-  answer: string;
-  topic_id: number;
-  video_id: number;
-};
 
 export default function EditFlashCard({
   flashcard,
 }: {
-  flashcard: flashCardType;
+  flashcard: FlashCardDType;
 }) {
   const router = useRouter();
 
@@ -31,13 +24,13 @@ export default function EditFlashCard({
     watch,
     reset,
     formState: { errors },
-  } = useForm<flashCardType>();
+  } = useForm<FlashCardDType>();
   const openModal = () => {
     reset(flashcard);
     toggle();
   };
 
-  const onSubmit = async (data: flashCardType) => {
+  const onSubmit = async (data: FlashCardDType) => {
     try {
       const res = await patchData(data);
       

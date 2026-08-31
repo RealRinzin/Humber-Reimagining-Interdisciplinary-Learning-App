@@ -1,9 +1,18 @@
+import { useDelete } from "@/hooks/client/useHTTP";
 import { faCopy, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { solarizedDarkAtom } from "react-syntax-highlighter/dist/esm/styles/prism";
+import EditCodeCard from "./EditCodeCard";
 
 export default function DisplayCode({ codes }: { codes: any }) {
+    const { deleteData, loading, error } = useDelete();
+  
+  const deleteQuiz = async (id: number) => {
+    if (window.confirm("Are you sure?")) {
+      const res = await deleteData(`/codes/${id}`);
+    }
+  };
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
       {codes?.map((code: any, index: number) => (
@@ -13,14 +22,11 @@ export default function DisplayCode({ codes }: { codes: any }) {
               <FontAwesomeIcon
                 icon={faTrash}
                 className="cursor-pointer text-xs text-red-500"
+                onClick={() => deleteQuiz(code?.id)}
+
               />
             </li>
-            <li className="bg-blue-200 rounded-lg h-5 w-5 flex items-center justify-center">
-              <FontAwesomeIcon
-                icon={faEdit}
-                className="cursor-pointer text-xs text-blue-500"
-              />
-            </li>
+            <EditCodeCard code={code}/>
             <li className="bg-gray-200 rounded-md h-5 w-5 flex items-center justify-center">
               <FontAwesomeIcon
                 icon={faCopy}
@@ -28,7 +34,7 @@ export default function DisplayCode({ codes }: { codes: any }) {
               />
             </li>
           </ul>
-          <SyntaxHighlighter language="cpp" style={solarizedDarkAtom}  className="text-xs font-thin">
+          <SyntaxHighlighter language="cpp" style={solarizedDarkAtom}  className="text-xs font-thin rounded-md">
             {code?.code}
           </SyntaxHighlighter>
         </div>

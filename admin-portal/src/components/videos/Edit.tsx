@@ -17,9 +17,10 @@ import { faCirclePlay, faInfo } from "@fortawesome/free-solid-svg-icons";
 import SubVideoCard from "../ui/cards/video/SubVideoCard";
 import DisplayFlashCard from "../ui/cards/flashCard/DisplayFlashCard";
 import AddFlashCard from "../ui/cards/flashCard/AddFlashCard";
-import AddCode from "../ui/cards/ code/AddCode";
-import DisplayCode from "../ui/cards/ code/DisplayCode";
+import AddCode from "../ui/cards/ code/AddCodeCard";
+import DisplayCode from "../ui/cards/ code/DisplayCodeCard";
 import EditFlashCard from "../ui/cards/flashCard/EditFlashCard";
+import DisplayRamblingCard from "../ui/cards/rambling/DisplayRamblingCard";
 
 export default function EditVideo({ video }: { video: any }) {
   const { patchData, loading, error } = usePatch(`/videos/${video?.id}`);
@@ -216,6 +217,23 @@ export default function EditVideo({ video }: { video: any }) {
         <div className="my-4">
           {video?.codes.length > 0 && (
             <DisplayCode codes={video?.codes} />
+          )}
+        </div>
+        <AddCode videoID={video?.id} />
+      </div>
+      {/* Rambling */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* FlashCard */}
+        <div className="flex text-gray-700 gap-1 font-extrabold border-t-2 pt-4 border-gray-400 my-6">
+          <FontAwesomeIcon
+            icon={faInfo}
+            className="cursor-pointer text-2xl text-gray-500"
+          />
+          Ramblings
+        </div>
+        <div className="my-4">
+          {video?.ramblings.length > 0 && (
+            <DisplayRamblingCard ramblings={video?.ramblings} />
           )}
         </div>
         <AddCode videoID={video?.id} />

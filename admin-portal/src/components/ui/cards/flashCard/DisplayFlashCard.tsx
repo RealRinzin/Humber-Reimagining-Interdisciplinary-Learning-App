@@ -18,7 +18,6 @@ export default function DisplayFlashCard({ flashcards }: { flashcards: any }) {
   // Delete
   const deleteQuiz = async (id: number) => {
     if (window.confirm("Are you sure?")) {
-      console.log("tee");
       const res = await deleteData(`/quizzes/${id}`);
     }
   };
