@@ -67,8 +67,12 @@ class RamblingController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Rambling $rambling)
     {
         //
+        if (!$rambling) {
+            return back()->with('error', 'Topic not found.');
+        }
+        $rambling->delete();
     }
 }

@@ -21,6 +21,7 @@ import AddCode from "../ui/cards/ code/AddCodeCard";
 import DisplayCode from "../ui/cards/ code/DisplayCodeCard";
 import EditFlashCard from "../ui/cards/flashCard/EditFlashCard";
 import DisplayRamblingCard from "../ui/cards/rambling/DisplayRamblingCard";
+import AddRamblingCard from "../ui/cards/rambling/AddRamblingCard";
 
 export default function EditVideo({ video }: { video: any }) {
   const { patchData, loading, error } = usePatch(`/videos/${video?.id}`);
@@ -236,7 +237,7 @@ export default function EditVideo({ video }: { video: any }) {
             <DisplayRamblingCard ramblings={video?.ramblings} />
           )}
         </div>
-        <AddCode videoID={video?.id} />
+        <AddRamblingCard videoID={video?.id} />
       </div>
     </>
   );

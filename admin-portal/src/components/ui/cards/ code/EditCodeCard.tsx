@@ -9,7 +9,6 @@ import { toast } from "sonner";
 export default function EditCodeCard({ code }: { code: codeDType }) {
   const { isOn: isOpen, toggle } = useToggle(false);
   const { patchData, loading, error } = usePatch(`/codes/${code?.id}`);
-
   const {
     register,
     handleSubmit,
