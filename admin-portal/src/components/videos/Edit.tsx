@@ -19,6 +19,7 @@ import DisplayFlashCard from "../ui/cards/flashCard/DisplayFlashCard";
 import AddFlashCard from "../ui/cards/flashCard/AddFlashCard";
 import AddCode from "../ui/cards/ code/AddCode";
 import DisplayCode from "../ui/cards/ code/DisplayCode";
+import EditFlashCard from "../ui/cards/flashCard/EditFlashCard";
 
 export default function EditVideo({ video }: { video: any }) {
   const { patchData, loading, error } = usePatch(`/videos/${video?.id}`);
