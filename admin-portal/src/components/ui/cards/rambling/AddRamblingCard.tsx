@@ -17,7 +17,7 @@ export default function AddRamblingCard({ videoID }: { videoID: number }) {
     data["video_id"] = videoID;
     try {
       const res = await postData(data);
-      toast.success("Updated Video Successfully");
+      toast.success("Add Rambling Successfully");
     } catch (err) {
       console.log(err);
     }

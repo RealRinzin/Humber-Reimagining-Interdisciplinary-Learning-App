@@ -22,7 +22,7 @@ export default function EditRamblingCard({ rambling }: { rambling: any }) {
   const onSubmit = async (data: RamblingDType) => {
     try {
       const res = await patchData(data);
-      if (res) return toast.success("Quiz Updated Successfully");
+      if (res) return toast.success("Rambling Updated Successfully");
       // router.refresh();
       // toggle();
     } catch (err: any) {

@@ -116,7 +116,9 @@ export default function CkEditor({ data, onChange }: CkEditorProps) {
               "imageStyle:inline",
               "imageStyle:block",
               "imageStyle:side",
+              "|",
               "toggleImageCaption",
+              "imageTextAlternative",
             ],
           },
           table: {

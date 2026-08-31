@@ -4,7 +4,7 @@ import { codeDType } from "@/types/code.type";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
 
 export default function EditCodeCard({ code }: { code: codeDType }) {
   const { isOn: isOpen, toggle } = useToggle(false);
@@ -36,7 +36,8 @@ export default function EditCodeCard({ code }: { code: codeDType }) {
   if (error) return <p className="text-red-600 text-xs">Error: {error}</p>;
   return (
     <>
-      <li className="bg-blue-200 rounded-lg h-5 w-5 flex items-center justify-center">
+      <Toaster position="top-center" richColors />
+      <li className="bg-blue-200 rounded-lg h-5 w-5 flex items-center justify-center z-50">
         <FontAwesomeIcon
           icon={faEdit}
           className="cursor-pointer text-xs text-blue-500"

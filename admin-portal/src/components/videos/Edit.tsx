@@ -10,7 +10,7 @@ import MyCKEditor from "@/components/ui/cards/content/MyCKEditor";
 import VideoFileUpload from "@/components/ui/form/file/VideoType";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import VideoCard from "../ui/cards/video/VideoCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay, faInfo } from "@fortawesome/free-solid-svg-icons";
@@ -42,6 +42,11 @@ export default function EditVideo({ video }: { video: any }) {
       router.push(`/dashboard/videos/${res?.id}`);
     }
   };
+
+  useEffect(()=>{
+    console.log("update video")
+  },[])
+
   return (
     <>
       <FormProvider {...methods}>
@@ -220,7 +225,7 @@ export default function EditVideo({ video }: { video: any }) {
             <DisplayCode codes={video?.codes} />
           )}
         </div>
-        <AddCode videoID={video?.id} />
+        <AddCode videoID={video?.id}/>
       </div>
       {/* Rambling */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

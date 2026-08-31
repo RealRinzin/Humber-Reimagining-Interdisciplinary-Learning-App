@@ -2,9 +2,9 @@ import { usePost } from "@/hooks/client/useHTTP";
 import { useToggle } from "@/hooks/common/useToggle";
 import { codeDType } from "@/types/code.type";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
 
-export default function AddCode({ videoID }: { videoID: number }) {
+export default function AddCode({ videoID }: { videoID: number}) {
   const { isOn: isOpen, toggle } = useToggle(false);
     const { postData, loading, error } = usePost("/codes");
   
@@ -21,14 +21,15 @@ export default function AddCode({ videoID }: { videoID: number }) {
     data["topic_id"] = videoID;
     data["video_id"] = videoID;
     try {
-      const res = await postData(data);
       toast.success("Updated Video Successfully");
+      const res = await postData(data);
     } catch (err) {
       console.log(err);
     }
   };
   return (
     <>
+      <Toaster position="top-center" richColors />
       <button
         className="bg-gray-200 py-2 px-4 rounded-md text-gray-600 font-bold cursor-pointer"
         onClick={toggle}
