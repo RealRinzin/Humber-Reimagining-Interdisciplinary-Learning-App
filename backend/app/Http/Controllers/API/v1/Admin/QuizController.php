@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\API\V1\Admin;
 
 use App\Actions\Admin\Quizzes\StoreQuizAction;
+use App\Actions\Admin\Quizzes\UpdateQuizAction;
 use App\DTOs\Admin\Quizzes\StoreQuizDTO;
+use App\DTOs\Admin\Quizzes\UpdateQuizDTO;
 use App\Http\Requests\Admin\Quizzes\StoreQuizRequest;
+use App\Http\Requests\Admin\Quizzes\UpdateQuizRequest;
 use App\Http\Resources\Admin\QuizResource\QuizResource;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
@@ -42,20 +45,16 @@ class QuizController
         return $newQuiz;
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateQuizRequest $request,UpdateQuizAction $action, Quiz $quiz)
     {
         //
+        $dto = UpdateQuizDTO::fromRequest($request);
+        $update = $action->execute($quiz, $dto);
+        return $update;
     }
 
     /**

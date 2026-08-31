@@ -15,7 +15,7 @@ import TopicEditConnectionDropdown from "../ui/topics/edit/TopicEditConnectionDr
 import Videos from "./videos/Videos";
 
 export default function EditTopic({ topic }: { topic: any }) {
-  const router = useRouter();
+  const router = useRouter(); 
   const { patchData, loading, error } = usePatch(`/topics/${topic?.id}`);
   const methods = useForm<AddNewTopic>({
     mode: "onBlur",
