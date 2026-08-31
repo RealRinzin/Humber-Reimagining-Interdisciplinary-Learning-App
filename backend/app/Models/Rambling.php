@@ -11,6 +11,11 @@ class Rambling extends Model
     use HasFactory;
     // protected $table = 'ramblings';
 
+        protected $fillable = [
+        'topic_id',
+        'video_id',
+        'content',
+    ];
     public function topic()
     {
         return $this->belongsTo(Topic::class);
