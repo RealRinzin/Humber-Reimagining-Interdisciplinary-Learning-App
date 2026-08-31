@@ -32,24 +32,26 @@ function Navigation() {
       </h2>
 
       <nav className="flex flex-col md:flex-row  place-items-center justify-end gap-5">
-        <div id="hb_search" className="rounded-xl relative">
-          <input
+        {/* <div id="hb_search" className="rounded-xl relative"> */}
+          {/* <input
             type="text"
             className="py-1 px-5 rounded-xl focus:outline-none"
             placeholder="Search..."
-          />
-          <FontAwesomeIcon
+          /> */}
+          {/* <FontAwesomeIcon
             icon={faMagnifyingGlass}
             size="1x"
             className="absolute top-2 right-2 cursor-pointer"
-          />
-        </div>
+          /> */}
+        {/* </div> */}
         <ul className="flex gap-5 justify-evenly">
           <li><Link href="/dashboard/topics">Topics</Link></li>
           <li><Link href="/dashboard/users">Users</Link></li>
           <li><Link href="/dashboard/videos">Videos</Link></li>
           <li><Link href="/dashboard/quizzes">Quizzes</Link></li>
           <li><Link href="/dashboard/codes">Codes</Link></li>
+          <li><Link href="/dashboard/interactives">Interactives</Link></li>
+          <li><Link href="/dashboard/projects">Projects</Link></li>
           <li><Link href="/dashboard/media">Medias</Link></li>
           <li>
             <Link href="/">
