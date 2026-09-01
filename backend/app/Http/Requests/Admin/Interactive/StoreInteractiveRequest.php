@@ -7,13 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreInteractiveRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -23,7 +16,21 @@ class StoreInteractiveRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'topic_id' => ['required', 'integer', 'exists:topics,id'],
+            'video_id' => ['required', 'integer', 'exists:topics,id'],
+            'description' => ['required', 'string'],
+            'path' => ['required', 'string'],
+        ];
+    }
+
+    // Error Validation Message
+    public function messages(): array
+    {
+        return [
+            'topic_id.required'      => 'Code should attatched',
+            'video_id.required'      => 'Video should attatched',
+            'path.required'      => 'Path should attatched',
+            'description.required'      => 'Description should attatched',
         ];
     }
 }
