@@ -14,7 +14,7 @@ export default function DisplayRamblingCard({ ramblings }: { ramblings: any }) {
   return (
     <div className="grid grid-cols-1 gap-4">
       {ramblings.map((rambling: any, index: number) => (
-        <div key={index} className="rounded relative bg-gray-200 p-6 ">
+        <div key={index} className="rounded relative bg-gray-200 p-6  ">
           <ul className="absolute -top-1 -right-1 flex gap-1">
             <li className="bg-red-200 rounded-md h-5 w-5 flex items-center justify-center">
               <FontAwesomeIcon
@@ -23,7 +23,7 @@ export default function DisplayRamblingCard({ ramblings }: { ramblings: any }) {
                 onClick={() => deleteQuiz(rambling?.id)}
               />
             </li>
-            <EditRamblingCard rambling={rambling} />
+            <EditRamblingCard rambling={rambling}  />
             <li className="bg-gray-200 rounded-md h-5 w-5 flex items-center justify-center">
               <FontAwesomeIcon
                 icon={faCopy}

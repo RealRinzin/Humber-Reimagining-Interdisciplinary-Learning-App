@@ -3,7 +3,7 @@ import { useToggle } from "@/hooks/common/useToggle";
 import { RamblingDType } from "@/types/rambling.type";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
 import MyCKEditor from "../content/MyCKEditor";
 
 export default function AddRamblingCard({ videoID }: { videoID: number }) {
@@ -24,6 +24,8 @@ export default function AddRamblingCard({ videoID }: { videoID: number }) {
   };
   return (
     <>
+      <Toaster position="top-center" richColors />
+
       <button
         className="bg-gray-200 py-2 px-4 rounded-md text-gray-600 font-bold cursor-pointer"
         onClick={toggle}
@@ -31,7 +33,7 @@ export default function AddRamblingCard({ videoID }: { videoID: number }) {
         Add Rambling
       </button>
       {isOpen && (
-        <div className="bg-gray-900/40 fixed left-0 top-0 h-screen w-screen  flex p-4 z-50">
+        <div className="bg-gray-900/40 fixed left-0 top-0 h-screen w-screen  flex p-4">
           <div className="bg-white mx-auto my-auto w-full  md:w-1/2 relative p-10 rounded-lg ">
             <button
               onClick={() => {

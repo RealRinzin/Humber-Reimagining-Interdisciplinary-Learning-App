@@ -37,7 +37,7 @@ export default function AddCode({ videoID }: { videoID: number}) {
         Add Code
       </button>
       {isOpen && (
-        <div className="bg-gray-900/40 fixed left-0 top-0 h-screen w-screen  flex p-4 z-50">
+        <div className="bg-gray-900/40 fixed left-0 top-0 h-screen w-screen  flex p-4">
           <div className="bg-white mx-auto my-auto w-full  md:w-1/2 relative p-10 rounded-lg ">
             <button
               onClick={() => {

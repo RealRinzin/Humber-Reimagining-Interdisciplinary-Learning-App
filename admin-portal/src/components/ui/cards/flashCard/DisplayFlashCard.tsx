@@ -25,19 +25,19 @@ export default function DisplayFlashCard({ flashcards }: { flashcards: any }) {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mx-auto">
       {flashcards?.map((flashcard: any, index: number) => (
         <div key={index}>
+          <ul className="top-2 -right-1 flex justify-end gap-1">
+            <li
+              className="bg-red-200 rounded-md h-5 w-5 flex items-center justify-center"
+              onClick={() => deleteQuiz(flashcard?.id)}
+            >
+              <FontAwesomeIcon
+                icon={faTrash}
+                className="cursor-pointer text-xs text-red-500"
+              />
+            </li>
+            {<EditFlashCard flashcard={flashcard} />}
+          </ul>
           <div className="w-78 h-50 cursor-pointer group bg-gray-300 rounded-2xl relative">
-            <ul className="absolute -top-1 -right-1 flex gap-1 z-10">
-              <li
-                className="bg-red-200 rounded-md h-5 w-5 flex items-center justify-center"
-                onClick={() => deleteQuiz(flashcard?.id)}
-              >
-                <FontAwesomeIcon
-                  icon={faTrash}
-                  className="cursor-pointer text-xs text-red-500"
-                />
-              </li>
-              {<EditFlashCard flashcard={flashcard} />}
-            </ul>
             <div
               className={`
                   relative w-full h-full transition-transform duration-500

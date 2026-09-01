@@ -37,7 +37,7 @@ export default function EditCodeCard({ code }: { code: codeDType }) {
   return (
     <>
       <Toaster position="top-center" richColors />
-      <li className="bg-blue-200 rounded-lg h-5 w-5 flex items-center justify-center z-50">
+      <li className="bg-blue-200 rounded-lg h-5 w-5 flex items-center justify-center">
         <FontAwesomeIcon
           icon={faEdit}
           className="cursor-pointer text-xs text-blue-500"

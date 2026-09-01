@@ -17,7 +17,7 @@ export default function DisplayCode({ codes }: { codes: any }) {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
       {codes?.map((code: any, index: number) => (
         <div key={index} className="relative">
-          <ul className="absolute top-0 right-0 flex gap-1 z-10">
+          <ul className="absolute top-0 right-0 flex gap-1">
             <li className="bg-red-200 rounded-md h-5 w-5 flex items-center justify-center">
               <FontAwesomeIcon
                 icon={faTrash}

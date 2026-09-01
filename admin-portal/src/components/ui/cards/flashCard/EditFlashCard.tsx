@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
 
 
 export default function EditFlashCard({
@@ -46,6 +46,8 @@ export default function EditFlashCard({
   if (error) return <p>Error: {error}</p>;
   return (
     <>
+      <Toaster position="top-center" richColors />
+
       <li className="bg-blue-200 rounded-lg h-5 w-5 flex items-center justify-center">
         <FontAwesomeIcon
           icon={faEdit}
@@ -54,7 +56,7 @@ export default function EditFlashCard({
         />
       </li>
       {flashcard && isOpen && (
-        <div className="bg-gray-900/40 fixed left-0 top-0 h-screen w-screen  flex p-4 z-50">
+        <div className="bg-gray-900/40 fixed left-0 top-0 h-screen w-screen  flex p-4 z-10">
           <div className="bg-white mx-auto my-auto w-full  md:w-1/2 relative p-10 rounded-lg ">
             <button
               onClick={() => {

@@ -26,10 +26,10 @@ export default function VideoCard({ id,title,slug }: { id: number,title:string,s
             >
               <FontAwesomeIcon
                 icon={faCirclePlay}
-                className="cursor-pointer text-3xl text-gray-500 z-10"
+                className="cursor-pointer text-3xl text-gray-500"
               />
             </Link>
-            <ul className="absolute -top-1 -right-1 flex gap-1 z-20">
+            <ul className="absolute -top-1 -right-1 flex gap-1">
               <li
                 className="bg-red-200 rounded-md h-5 w-5 flex items-center justify-center"
                 onClick={() => deleteVideo()}
