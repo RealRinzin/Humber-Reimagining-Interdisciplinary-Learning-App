@@ -13,7 +13,7 @@ class UpdateInteractiveRequest extends FormRequest
             'topic_id' => ['required', 'integer', 'exists:topics,id'],
             'video_id' => ['required', 'integer', 'exists:topics,id'],
             'description' => ['required', 'string'],
-            'path' => ['required', 'string'],
+            'path' => ['required', 'file', 'image', 'max:10240'],
         ];
     }
 

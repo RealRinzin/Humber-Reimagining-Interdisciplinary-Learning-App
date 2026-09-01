@@ -256,7 +256,7 @@ export default function EditVideo({ video }: { video: any }) {
         </div>
         <div className="my-4">
           {video?.ramblings.length > 0 && (
-            <DisplayInteractiveCard/>
+            <DisplayInteractiveCard interactives={video?.interactive_demo}/>
           )}
         </div>
         <AddInteractiveCard videoID={video?.id} />

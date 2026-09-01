@@ -3,17 +3,19 @@
 namespace App\DTOs\Admin\Interactives;
 
 use App\Http\Requests\Admin\Interactive\StoreInteractiveRequest;
+use Illuminate\Http\UploadedFile;
 
-class StoreInteractiveDTO {
+class StoreInteractiveDTO
+{
     public function __construct(
         // public readonly ?int $id,
 
         public readonly ?int $topic_id,
         public readonly ?int $video_id,
-        public readonly ?string $path,
+        public readonly ?UploadedFile $path,
         public readonly ?string $description
 
-    ){}
+    ) {}
 
     /**
      * @param StoreInteractiveRequest $request

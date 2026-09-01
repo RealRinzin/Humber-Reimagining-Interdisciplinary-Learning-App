@@ -19,7 +19,7 @@ class StoreInteractiveRequest extends FormRequest
             'topic_id' => ['required', 'integer', 'exists:topics,id'],
             'video_id' => ['required', 'integer', 'exists:topics,id'],
             'description' => ['required', 'string'],
-            'path' => ['required', 'string'],
+            'path' => ['required', 'file', 'mimes:html', 'max:10240'],
         ];
     }
 
@@ -29,7 +29,7 @@ class StoreInteractiveRequest extends FormRequest
         return [
             'topic_id.required'      => 'Code should attatched',
             'video_id.required'      => 'Video should attatched',
-            'path.required'      => 'Path should attatched',
+            'path.required'      => 'File Should be html page',
             'description.required'      => 'Description should attatched',
         ];
     }
