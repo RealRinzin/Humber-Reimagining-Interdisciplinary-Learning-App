@@ -3,16 +3,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import EditRamblingCard from "./EditRamblingCard";
 import { useDelete } from "@/hooks/client/useHTTP";
+import { useRouter } from "next/navigation";
+import { toast, Toaster } from "sonner";
 
 export default function DisplayRamblingCard({ ramblings }: { ramblings: any }) {
   const { deleteData, loading, error } = useDelete();
+  const router = useRouter();
   const deleteQuiz = async (id: number) => {
-    if (window.confirm("Are you sure?")) {
+    if (window.confirm("Are you sure? You want to delete.")) {
+      toast.error("Successfully Deleted");
       const res = await deleteData(`/ramblings/${id}`);
+      router.refresh();
     }
   };
   return (
     <div className="grid grid-cols-1 gap-4">
+      <Toaster position="top-center" richColors />
       {ramblings.map((rambling: any, index: number) => (
         <div key={index} className="rounded relative bg-gray-200 p-6  ">
           <ul className="absolute -top-1 -right-1 flex gap-1">
@@ -23,7 +29,7 @@ export default function DisplayRamblingCard({ ramblings }: { ramblings: any }) {
                 onClick={() => deleteQuiz(rambling?.id)}
               />
             </li>
-            <EditRamblingCard rambling={rambling}  />
+            <EditRamblingCard rambling={rambling} />
             <li className="bg-gray-200 rounded-md h-5 w-5 flex items-center justify-center">
               <FontAwesomeIcon
                 icon={faCopy}

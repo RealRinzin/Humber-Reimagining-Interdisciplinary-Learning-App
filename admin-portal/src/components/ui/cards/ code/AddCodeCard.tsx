@@ -1,13 +1,14 @@
 import { usePost } from "@/hooks/client/useHTTP";
 import { useToggle } from "@/hooks/common/useToggle";
 import { codeDType } from "@/types/code.type";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast, Toaster } from "sonner";
 
-export default function AddCode({ videoID }: { videoID: number}) {
+export default function AddCode({ videoID }: { videoID: number }) {
   const { isOn: isOpen, toggle } = useToggle(false);
-    const { postData, loading, error } = usePost("/codes");
-  
+  const { postData, loading, error } = usePost("/codes");
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -21,8 +22,10 @@ export default function AddCode({ videoID }: { videoID: number}) {
     data["topic_id"] = videoID;
     data["video_id"] = videoID;
     try {
-      toast.success("Updated Video Successfully");
+      toast.success("Successfully Added New Code");
       const res = await postData(data);
+      router.refresh();
+      toggle();
     } catch (err) {
       console.log(err);
     }
@@ -49,7 +52,7 @@ export default function AddCode({ videoID }: { videoID: number}) {
               ×
             </button>
             <form onSubmit={handleSubmit(onSubmit)}>
-                      <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-2">
                   <label htmlFor="description" className="font-medium text-lg">
                     Description
