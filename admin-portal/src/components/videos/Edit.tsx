@@ -22,6 +22,8 @@ import DisplayCode from "../ui/cards/ code/DisplayCodeCard";
 import EditFlashCard from "../ui/cards/flashCard/EditFlashCard";
 import DisplayRamblingCard from "../ui/cards/rambling/DisplayRamblingCard";
 import AddRamblingCard from "../ui/cards/rambling/AddRamblingCard";
+import AddInteractiveCard from "../ui/cards/interactive/AddInteractiveCard";
+import DisplayInteractiveCard from "../ui/cards/interactive/DisplayInteractiveCard";
 
 export default function EditVideo({ video }: { video: any }) {
   const { patchData, loading, error } = usePatch(`/videos/${video?.id}`);
@@ -43,9 +45,9 @@ export default function EditVideo({ video }: { video: any }) {
     }
   };
 
-  useEffect(()=>{
-    console.log("update video")
-  },[])
+  useEffect(() => {
+    console.log("update video");
+  }, []);
 
   return (
     <>
@@ -221,11 +223,9 @@ export default function EditVideo({ video }: { video: any }) {
           Codes
         </div>
         <div className="my-4">
-          {video?.codes.length > 0 && (
-            <DisplayCode codes={video?.codes} />
-          )}
+          {video?.codes.length > 0 && <DisplayCode codes={video?.codes} />}
         </div>
-        <AddCode videoID={video?.id}/>
+        <AddCode videoID={video?.id} />
       </div>
       {/* Rambling */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -243,6 +243,23 @@ export default function EditVideo({ video }: { video: any }) {
           )}
         </div>
         <AddRamblingCard videoID={video?.id} />
+      </div>
+      {/* Interactive Files */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* FlashCard */}
+        <div className="flex text-gray-700 gap-1 font-extrabold border-t-2 pt-4 border-gray-400 my-6">
+          <FontAwesomeIcon
+            icon={faInfo}
+            className="cursor-pointer text-2xl text-gray-500"
+          />
+          Interactive Files
+        </div>
+        <div className="my-4">
+          {video?.ramblings.length > 0 && (
+            <DisplayInteractiveCard/>
+          )}
+        </div>
+        <AddInteractiveCard videoID={video?.id} />
       </div>
     </>
   );

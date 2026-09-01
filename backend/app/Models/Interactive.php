@@ -9,9 +9,18 @@ class Interactive extends Model
 {
     /** @use HasFactory<\Database\Factories\InteractiveFactory> */
     use HasFactory;
+    protected $fillable = [
+        'topic_id',
+        'video_id',
+        'description',
+        'path',
+    ];
 
     // Relationship
     public function video(){
         return $this->belongsTo(Video::class);
+    }
+        public function topic(){
+        return $this->belongsTo(Topic::class);
     }
 }
