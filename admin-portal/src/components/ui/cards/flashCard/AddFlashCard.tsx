@@ -1,5 +1,6 @@
 import { usePost } from "@/hooks/client/useHTTP";
 import { useToggle } from "@/hooks/common/useToggle";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast, Toaster } from "sonner";
 type FormData = {
@@ -13,6 +14,7 @@ type FormData = {
 export default function AddFlashCard({ videoID }: { videoID: number }) {
   const { isOn: isOpen, toggle } = useToggle(false);
   const { postData, loading, error } = usePost("/quizzes");
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -21,12 +23,14 @@ export default function AddFlashCard({ videoID }: { videoID: number }) {
     formState: { errors },
   } = useForm<FormData>();
   const onSubmit = async (data: FormData) => {
-// append these two 
-    data['topic_id'] = videoID;
-    data['video_id'] = videoID;
+    // append these two
+    data["topic_id"] = videoID;
+    data["video_id"] = videoID;
     try {
       const res = await postData(data);
       toast.success("Updated Video Successfully");
+      router.refresh();
+      toggle();
     } catch (err) {
       console.log(err);
     }

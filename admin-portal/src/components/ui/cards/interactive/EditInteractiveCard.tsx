@@ -35,7 +35,7 @@ export default function EditInteractiveCard({
   if (error) return <p>Error: {error}</p>;
   return (
     <>
-      <Toaster position="top-center" richColors />
+      <Toaster position="top-center" richColors /> 
 
       <li className="bg-blue-200 rounded-lg h-5 w-5 flex items-center justify-center">
         <FontAwesomeIcon
