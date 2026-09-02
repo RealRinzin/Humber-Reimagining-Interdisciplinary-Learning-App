@@ -1,5 +1,5 @@
 export interface InteractiveDType {
-    id?:number,
+    id:number,
     topic_id:number,
     video_id:number,
     description:string,

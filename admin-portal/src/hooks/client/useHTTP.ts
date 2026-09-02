@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from "react"
-import { clientDelete, clientFetch, clientPatch, clientPost } from "./useClient";
+import { clientDelete, clientFetch, clientPatch, clientPost, clientPostFormData } from "./useClient";
 
 export function useFetch(url: string, method?: string) {
     // response data object
@@ -112,4 +112,30 @@ export function useDelete() {
     };
 
     return { deleteData, data, loading, error };
+}
+// ======================= Client Side  HTTP PATCH Method ==============================================
+
+export function usePostForm(url: string) {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const postData = async (body: any) => {
+        try {
+            setLoading(true);
+            setError(null);
+            const res = await clientPostFormData(url, body);
+            if (!res.ok) throw new Error("Failed to post data");
+            const result = await res.json();
+            setData(result);
+            return result;
+        } catch (err: any) {
+            setError(err.message);
+            throw err;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return { postData, data, loading, error };
 }

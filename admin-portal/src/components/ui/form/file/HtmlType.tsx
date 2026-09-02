@@ -8,7 +8,7 @@ interface FormFileType<T extends FieldValues> {
   required?: boolean;
   type:string,
 }
-export default function FormFileInput<T extends FieldValues>({
+export default function FormFileInputHtmlType<T extends FieldValues>({
   name,
   label,
   type,

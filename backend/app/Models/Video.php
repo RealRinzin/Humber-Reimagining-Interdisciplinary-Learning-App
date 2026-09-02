@@ -92,7 +92,7 @@ class Video extends Model
     // Interactive
     public function interactive_demo()
     {
-        return $this->hasOne(Interactive::class);
+        return $this->hasMany(Interactive::class);
     }
     // Quizzes
     public function quizzes()

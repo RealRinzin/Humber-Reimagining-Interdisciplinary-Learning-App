@@ -13,7 +13,7 @@ class StoreInteractiveAction
         $fileName = Str::slug(pathinfo($dto->path->getClientOriginalName(), PATHINFO_FILENAME))
             . '-' . time() . '.' . $dto->path->getClientOriginalExtension();
 
-        $storedPath = $dto->path->storeAs('upload/interactives', $fileName, 'public');
+        $storedPath = $dto->path->storeAs('uploads/interactives', $fileName, 'public');
         // $path = $dto->path->store('uploads/interactives', 'public');
         // 
         return Interactive::create([

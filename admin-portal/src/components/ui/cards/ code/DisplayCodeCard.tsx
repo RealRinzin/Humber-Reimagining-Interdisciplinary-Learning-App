@@ -6,8 +6,9 @@ import { solarizedDarkAtom } from "react-syntax-highlighter/dist/esm/styles/pris
 import EditCodeCard from "./EditCodeCard";
 import { toast, Toaster } from "sonner";
 import { useRouter } from "next/navigation";
+import { codeDType } from "@/types/code.type";
 
-export default function DisplayCode({ codes }: { codes: any }) {
+export default function DisplayCode({ codes }: { codes: codeDType[] }) {
   const { deleteData, loading, error } = useDelete();
   const router = useRouter();
   const deleteQuiz = async (id: number) => {

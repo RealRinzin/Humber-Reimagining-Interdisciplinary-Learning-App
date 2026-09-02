@@ -61,12 +61,12 @@ class VideoResource extends JsonResource
             'subtitle' => new SubtitleResource($this->whenLoaded('subtitle')),
             'quizzes' => QuizResource::collection($this->whenLoaded('quizzes')),
             'ramblings' => RamblingResource::collection($this->whenLoaded('ramblings')),
-            'interactive_demo' => new InteractiveResource($this->whenLoaded('interactive_demo')),
+            // 'interactive_demo' => new InteractiveResource($this->whenLoaded('interactive_demo')),
+            'interactive_demo' => InteractiveResource::collection($this->whenLoaded('interactive_demo')),
             'total_tracking' => $this->video + $this->code+$this->quiz+$this->rambling+$this->interactive,
             'count' => [
                 'codes' => $this->codes_count,
             ],
-
             'user_video_setting' => new UserVideoSettingResource($this->whenLoaded('user_video_setting')),
 
         ];

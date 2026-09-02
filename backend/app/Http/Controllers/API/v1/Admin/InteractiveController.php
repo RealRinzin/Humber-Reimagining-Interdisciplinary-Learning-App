@@ -28,7 +28,7 @@ class InteractiveController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreInteractiveRequest $request,StoreInteractiveAction $action)
+    public function store(StoreInteractiveRequest $request, StoreInteractiveAction $action)
     {
         // Create a DTO from the request
         /**
@@ -44,7 +44,6 @@ class InteractiveController
         $newInteractive = $action->execute($dto); // Create a new video using the action class
         // Return the newly created video resource as a response
         return $newInteractive;
-
     }
 
     /**
@@ -69,8 +68,13 @@ class InteractiveController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Interactive $interactive)
     {
         //
+        if (!$interactive) {
+            return back()->with('error', 'Code not found.');
+        }
+
+        $interactive->delete();
     }
 }

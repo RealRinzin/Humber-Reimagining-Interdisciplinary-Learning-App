@@ -4,7 +4,6 @@ import CourseTitle from "@/components/features/course/CourseTitle";
 import MoreCourses from "@/components/features/course/MoreCourses";
 import { MyPlayer } from "@/components/ui/video/VideoPlayer";
 import { serverFetch, serverPatch, serverPost } from "@/lib/fetch";
-import DOMPurify from "dompurify";
 import Image from "next/image";
 
 export default async function ServerPage({ videoSlug }: { videoSlug: string }) {

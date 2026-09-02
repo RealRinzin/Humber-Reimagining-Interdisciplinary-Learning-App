@@ -5,8 +5,9 @@ import EditRamblingCard from "./EditRamblingCard";
 import { useDelete } from "@/hooks/client/useHTTP";
 import { useRouter } from "next/navigation";
 import { toast, Toaster } from "sonner";
+import { RamblingDType } from "@/types/rambling.type";
 
-export default function DisplayRamblingCard({ ramblings }: { ramblings: any }) {
+export default function DisplayRamblingCard({ ramblings }: { ramblings: RamblingDType[] }) {
   const { deleteData, loading, error } = useDelete();
   const router = useRouter();
   const deleteQuiz = async (id: number) => {
