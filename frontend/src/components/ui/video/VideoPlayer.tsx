@@ -228,7 +228,8 @@ export const MyPlayer = ({
             kind="captions"
             label="English"
             srcLang="en"
-            src={`/subtitles/${subtitle}`}
+            src={`${process.env.NEXT_PUBLIC_UPLOAD_FILE_PATH}/subtitles/${subtitle}`}
+            // src={`/subtitles/${subtitle}`}
             default
           />
         </Video>
