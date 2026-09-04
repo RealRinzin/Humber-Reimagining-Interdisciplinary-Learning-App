@@ -23,7 +23,7 @@ export default function ViewInteractiveCard({
       </button>
       {isOpen && (
         <div className="bg-gray-900/40 fixed left-0 top-0 h-screen w-screen  flex p-4 z-10">
-          <div className="bg-white mx-auto my-auto w-full  md:w-1/2 relative p-10 rounded-lg ">
+          <div className="bg-white mx-auto my-auto w-full  max-h-full relative p-10 rounded-lg ">
             <button
               onClick={() => {
                 toggle();

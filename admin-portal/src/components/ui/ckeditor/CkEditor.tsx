@@ -21,16 +21,20 @@ import {
   CodeBlock,
   Table,
   TableToolbar,
-  ImageUpload,
   Base64UploadAdapter,
-  ImageToolbar,
-  ImageCaption,
-  ImageStyle,
   MediaEmbed,
   Alignment,
   Autoformat,
   PasteFromOffice,
   Highlight,
+  // Newly Added for the image upload
+  Image,
+  ImageUpload,
+  ImageToolbar,
+  ImageCaption,
+  ImageStyle,
+  ImageResize,
+  SimpleUploadAdapter,
 } from "ckeditor5";
 
 // Import the necessary CSS styles for the editor
@@ -71,15 +75,19 @@ export default function CkEditor({ data, onChange }: CkEditorProps) {
             CodeBlock,
             Table,
             TableToolbar,
-            ImageUpload,
             Base64UploadAdapter,
-            ImageToolbar,
-            ImageCaption,
-            ImageStyle,
             MediaEmbed,
             Alignment,
             Autoformat,
             PasteFromOffice,
+            // Added for image upload
+            Image,
+            ImageUpload,
+            ImageToolbar,
+            ImageCaption,
+            ImageStyle,
+            ImageResize,
+            SimpleUploadAdapter,
           ],
           toolbar: [
             "undo",
@@ -110,6 +118,7 @@ export default function CkEditor({ data, onChange }: CkEditorProps) {
             "blockQuote",
             "codeBlock",
             "mediaEmbed",
+            "uploadImage",
           ],
           image: {
             toolbar: [
@@ -120,6 +129,10 @@ export default function CkEditor({ data, onChange }: CkEditorProps) {
               "toggleImageCaption",
               "imageTextAlternative",
             ],
+          },
+          simpleUpload: {
+            uploadUrl: `${process.env.NEXT_PUBLIC_API_END_POINT}/uploads/images`, // your endpoint
+            withCredentials: true,
           },
           table: {
             contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
