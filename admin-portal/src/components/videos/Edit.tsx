@@ -176,7 +176,7 @@ export default function EditVideo({ video }: { video: any }) {
                   successStatus={addSuccess}
                 />
               </div>
-              {/* <div className="my-6">
+              <div className="my-6">
               <div className="flex my-4 text-gray-700 gap-1 font-extrabold">
                 <FontAwesomeIcon
                   icon={faCirclePlay}
@@ -192,7 +192,7 @@ export default function EditVideo({ video }: { video: any }) {
                   successStatus={addSuccess}
                 />
               </div>
-            </div> */}
+            </div>
             </div>
           </div>
         </form>
