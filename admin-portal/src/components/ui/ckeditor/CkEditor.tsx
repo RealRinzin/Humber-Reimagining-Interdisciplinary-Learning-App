@@ -1,4 +1,5 @@
 "use client";
+import { clientPostFormData } from "@/hooks/client/useClient";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
   ClassicEditor,
@@ -21,7 +22,7 @@ import {
   CodeBlock,
   Table,
   TableToolbar,
-  Base64UploadAdapter,
+  // Base64UploadAdapter,
   MediaEmbed,
   Alignment,
   Autoformat,
@@ -34,7 +35,6 @@ import {
   ImageCaption,
   ImageStyle,
   ImageResize,
-  SimpleUploadAdapter,
 } from "ckeditor5";
 
 // Import the necessary CSS styles for the editor
@@ -45,6 +45,28 @@ interface CkEditorProps {
   onChange?: (event: any, editor: any) => void;
 }
 
+class UploadAdapter {
+  loader: any;
+  constructor(loader: any) {
+    this.loader = loader;
+  }
+  async upload() {
+    const file = await this.loader.file;
+    const formData = new FormData();
+    formData.append("upload", file);
+
+    const res = await clientPostFormData("/uploads/images", formData);
+    if (!res.ok) throw new Error("Upload failed");
+
+    const { url } = await res.json();
+    return { default: url };
+  }
+  abort() {}
+}
+function uploadPlugin(editor: any) {
+  editor.plugins.get("FileRepository").createUploadAdapter = (loader: any) =>
+    new UploadAdapter(loader);
+}
 export default function CkEditor({ data, onChange }: CkEditorProps) {
   return (
     <div className="p-4">
@@ -75,7 +97,7 @@ export default function CkEditor({ data, onChange }: CkEditorProps) {
             CodeBlock,
             Table,
             TableToolbar,
-            Base64UploadAdapter,
+            // Base64UploadAdapter,
             MediaEmbed,
             Alignment,
             Autoformat,
@@ -87,8 +109,9 @@ export default function CkEditor({ data, onChange }: CkEditorProps) {
             ImageCaption,
             ImageStyle,
             ImageResize,
-            SimpleUploadAdapter,
           ],
+          extraPlugins: [uploadPlugin],
+
           toolbar: [
             "undo",
             "redo",
@@ -130,10 +153,7 @@ export default function CkEditor({ data, onChange }: CkEditorProps) {
               "imageTextAlternative",
             ],
           },
-          simpleUpload: {
-            uploadUrl: `${process.env.NEXT_PUBLIC_API_END_POINT}/uploads/images`, // your endpoint
-            withCredentials: true,
-          },
+
           table: {
             contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
           },
