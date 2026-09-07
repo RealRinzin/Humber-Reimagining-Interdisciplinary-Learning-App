@@ -23,7 +23,7 @@ export default function VideoCreate() {
     mode: "onBlur",
     defaultValues: {
       title: "",
-      topic_id: 0,
+      topic_id: null,
       video_url: "url",
       thumbnail: "thumb",
       description: "",
@@ -38,6 +38,9 @@ export default function VideoCreate() {
       student_visible: true,
     },
   });
+  const {
+    formState: { isValid },
+  } = methods;
 
   // Add Function
   const addNewVideo = async (data: VideoType) => {
@@ -45,12 +48,18 @@ export default function VideoCreate() {
     if (res) {
       setVideoID(res.id);
       setAddSuccess(true);
-      if (addSuccess) {
-        toast.success("New Video Successfully added");
-        router.push(`/dashboard/videos/${res?.id}`);
-        methods.reset();
-      }
+      // if (addSuccess) {
+      //   toast.success("New Video Successfully added");
+      //   router.push(`/dashboard/videos/${res?.id}`);
+      //   methods.reset();
+      // }
     }
+  };
+  // Called once the actual video file has finished uploading
+  const handleUploadComplete = () => {
+    toast.success("New Video Successfully added");
+    router.push(`/dashboard/videos/${videoID}`);
+    methods.reset();
   };
   return (
     <FormProvider {...methods}>
@@ -90,8 +99,8 @@ export default function VideoCreate() {
                   <li>
                     <button
                       type="submit"
-                      disabled={loading}
-                      className="bg-slate-200 text-xs rounded-md px-2 py-1 cursor-pointer"
+                      disabled={loading || !isValid}
+                      className="bg-slate-200 text-xs rounded-md px-2 py-1 cursor-pointer disabled:opacity-50"
                     >
                       {loading ? "Saving..." : "Save"}
                     </button>
@@ -166,6 +175,7 @@ export default function VideoCreate() {
               videoID={videoID}
               saveVideoFun={addNewVideo}
               successStatus={addSuccess}
+              onUploadComplete={handleUploadComplete}
             />
           </div>
           {/* Flashcard */}

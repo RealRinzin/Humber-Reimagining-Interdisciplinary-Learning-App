@@ -1,6 +1,6 @@
 export interface VideoType {
     title: string;
-    topic_id: number,
+    topic_id: number|null,
     video_url:string,
     thumbnail?:string,
     description: string,

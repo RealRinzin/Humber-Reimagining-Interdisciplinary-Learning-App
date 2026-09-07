@@ -18,10 +18,12 @@ export default function VideoFileUpload({
   videoID,
   saveVideoFun,
   successStatus,
+  onUploadComplete,
 }: {
   videoID: number | null;
   saveVideoFun: (data: VideoType) => Promise<void>;
   successStatus: boolean;
+  onUploadComplete?: () => void;
 }) {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<PreviewFile[]>([]);
@@ -64,7 +66,7 @@ export default function VideoFileUpload({
     }));
     setPreviews(newPreviews);
     setProgressByFile({});
-  }, [selectedFiles, saveVideoFun,successStatus]);
+  }, [selectedFiles, saveVideoFun, successStatus]);
 
   // Uploads each video + its thumbnail via the shared client hook, tracking progress per file
   const handleUpload = async () => {
@@ -95,6 +97,7 @@ export default function VideoFileUpload({
       setSelectedFiles([]);
       setUploadButton(false);
       setProgressByFile({});
+      onUploadComplete?.();
     } catch (err) {
       console.error(err);
       setUploadError(err instanceof Error ? err.message : "Upload failed");
@@ -119,7 +122,7 @@ export default function VideoFileUpload({
         />
       </div>
       <div className="flex flex-col gap-4">
-        {successStatus && (
+        {successStatus && selectedFiles !=null && (
           <button
             onClick={handleUpload}
             disabled={isUploading}

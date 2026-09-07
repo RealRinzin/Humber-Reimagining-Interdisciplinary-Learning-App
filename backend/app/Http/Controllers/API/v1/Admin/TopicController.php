@@ -44,7 +44,7 @@ class TopicController
     public function show(Topic $topic)
     {
         //
-        $topic->load(['videos','connectedTopics']);
+        $topic->load(['videos', 'connectedTopics']);
         return new TopicResource($topic);
     }
 
@@ -80,5 +80,11 @@ class TopicController
         $topic->connectedTopics()->sync($validated['connected_topic_ids']);
 
         return response()->json($topic->load('connectedTopics'));
+    }
+    // Student visibility
+    public function visibility(Topic $topic)
+    {
+        $topic->update(['student_visible' => !$topic->student_visible]);
+        return response()->json($topic);
     }
 }

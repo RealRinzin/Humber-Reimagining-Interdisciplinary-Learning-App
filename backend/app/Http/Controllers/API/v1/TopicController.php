@@ -24,4 +24,6 @@ class TopicController
 
         return TopicResource::collection($topics);
     }
+
+
 }

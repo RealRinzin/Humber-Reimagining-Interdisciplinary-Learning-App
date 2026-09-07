@@ -1,12 +1,10 @@
-// app/page.tsx
-'use client';
-
-import dynamic from 'next/dynamic';
-import { useState } from 'react';
-
-const Editor = dynamic(() => import('@/components/test/Editor'), { ssr: false });
+"use client";
+import StudentVisibility from "@/components/ui/visibility/StudentVisibility";
+import { useState } from "react";
 
 export default function Page() {
-  const [content, setContent] = useState('<p>Hello world</p>');
-  return <Editor value={content} onChange={setContent} />;
+
+  return (
+    <StudentVisibility status={true} model="topics" id={1}/>
+  )
 }

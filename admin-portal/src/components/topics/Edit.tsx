@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { toast, Toaster } from "sonner";
 import TopicEditConnectionDropdown from "../ui/topics/edit/TopicEditConnectionDropdown";
 import Videos from "./videos/Videos";
+import Link from "next/link";
 
 export default function EditTopic({ topic }: { topic: any }) {
   const router = useRouter(); 
@@ -33,7 +34,7 @@ export default function EditTopic({ topic }: { topic: any }) {
     if (topic) {
       methods.reset({
         title: topic.title,
-        student_visible: topic.student_visible,
+        student_visible: topic.student_visible?'1':'0',
         node_group_id: topic.node_group_id,
         x_axis: topic.x_axis,
         y_axis: topic.y_axis,
@@ -65,12 +66,12 @@ export default function EditTopic({ topic }: { topic: any }) {
                         required
                       />
                     </li>
-                    {topic?.student_visible}
                     <li className="flex basis-1/3 gap-2 items-center justify-start w-fit border border-slate-100 rounded-md px-2 text-white text-sm ">
                       <Select
                         name="student_visible"
                         label="Student Visible"
                         placeholder="Select Option"
+                        status={topic?.student_visible}
                         required
                       />
                     </li>
@@ -189,6 +190,7 @@ export default function EditTopic({ topic }: { topic: any }) {
       </FormProvider>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-lg text-gray-800 border-b-2 border-gray-300 my-4">Contents</h2>
+        <Link href={`/dashboard/videos`}  className="bg-gray-200 py-2 px-4 rounded-md text-gray-600 font-bold cursor-pointer">Add New Video</Link>
         <Videos videos={topic?.videos} />
       </div>
     </>
