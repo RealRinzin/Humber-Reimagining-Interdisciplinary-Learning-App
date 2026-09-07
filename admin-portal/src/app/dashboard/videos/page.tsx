@@ -45,9 +45,11 @@ export default function VideoCreate() {
     if (res) {
       setVideoID(res.id);
       setAddSuccess(true);
-      toast.success("New Video Successfully added");
-      router.push(`/dashboard/videos/${res?.id}`);
-      methods.reset();
+      if (addSuccess) {
+        toast.success("New Video Successfully added");
+        router.push(`/dashboard/videos/${res?.id}`);
+        methods.reset();
+      }
     }
   };
   return (

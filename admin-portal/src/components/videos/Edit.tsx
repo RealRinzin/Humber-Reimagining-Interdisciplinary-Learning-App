@@ -159,7 +159,7 @@ export default function EditVideo({ video }: { video: any }) {
               />
               <MyCKEditor
                 name="tldw"
-                label="Tldw Description"
+                label="Tldw Descriptions"
                 required={true}
               />
             </div>
