@@ -35,7 +35,7 @@ export default function VideoCreate() {
       interactive: false,
       rambling: false,
       interactive_path: "",
-      student_visible: true,
+      student_visible: "1",
     },
   });
   const {

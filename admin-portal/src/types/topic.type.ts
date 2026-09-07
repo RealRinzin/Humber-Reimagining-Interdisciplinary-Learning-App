@@ -13,7 +13,7 @@ export interface TopicType {
     interactive: boolean,
     rambling: boolean,
     interactive_path: string,
-    student_visible: boolean,
+    student_visible: string,
 }
 
 // Add new Topics

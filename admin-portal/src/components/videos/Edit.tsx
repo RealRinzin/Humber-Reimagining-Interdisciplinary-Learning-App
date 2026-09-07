@@ -46,8 +46,25 @@ export default function EditVideo({ video }: { video: any }) {
   };
 
   useEffect(() => {
-    console.log("update video");
-  }, []);
+    if (video) {
+      methods.reset({
+        title: video.title,
+        topic_id: video.topic_id,
+        video_url: video.video_url,
+        thumbnail:video.thumbnail,
+        description: video.description,
+        duration: video.duration,
+        tldw: video.tldw,
+        video: video.video,
+        code: video.code,
+        quiz: video.quiz,
+        rambling: video.rambling,
+        interactive: video.interactive,
+        interactive_path: video.interactive_path,
+        student_visible: video.student_visible ? "1" : "0",
+      });
+    }
+  }, [video]);
 
   return (
     <>
@@ -72,6 +89,7 @@ export default function EditVideo({ video }: { video: any }) {
                         name="student_visible"
                         label="Student Visible"
                         placeholder="Select Option"
+                        status={video?.student_visible}
                         required
                       />
                     </li>
@@ -177,22 +195,22 @@ export default function EditVideo({ video }: { video: any }) {
                 />
               </div>
               <div className="my-6">
-              <div className="flex my-4 text-gray-700 gap-1 font-extrabold">
-                <FontAwesomeIcon
-                  icon={faCirclePlay}
-                  className="cursor-pointer text-2xl text-gray-500"
-                />
-                VIDEO PARTS
+                <div className="flex my-4 text-gray-700 gap-1 font-extrabold">
+                  <FontAwesomeIcon
+                    icon={faCirclePlay}
+                    className="cursor-pointer text-2xl text-gray-500"
+                  />
+                  VIDEO PARTS
+                </div>
+                <div className="flex flex-col md:flex-row justify-between bg-gray-50 border border-gray-200/80  p-10  rounded-md">
+                  <SubVideoCard videos={video?.video_sections} />
+                  <VideoFileUpload
+                    videoID={video?.id}
+                    saveVideoFun={updateVideo}
+                    successStatus={addSuccess}
+                  />
+                </div>
               </div>
-              <div className="flex flex-col md:flex-row justify-between bg-gray-50 border border-gray-200/80  p-10  rounded-md">
-                <SubVideoCard videos={video?.video_sections} />
-                <VideoFileUpload
-                  videoID={video?.id}
-                  saveVideoFun={updateVideo}
-                  successStatus={addSuccess}
-                />
-              </div>
-            </div>
             </div>
           </div>
         </form>
@@ -256,7 +274,7 @@ export default function EditVideo({ video }: { video: any }) {
         </div>
         <div className="my-4">
           {video?.ramblings.length > 0 && (
-            <DisplayInteractiveCard interactives={video?.interactive_demo}/>
+            <DisplayInteractiveCard interactives={video?.interactive_demo} />
           )}
         </div>
         <AddInteractiveCard videoID={video?.id} />
