@@ -246,37 +246,6 @@ export default function ProfileSidebarNode({
     }
     getTopics();
   }, [progressTracking, refreshKey]);
-  //  React to hoveredTopicId changes from the sidebar
-  // useEffect(() => {
-  //   const cy = cyRef.current;
-  //   if (!cy) return;
-
-  //   // Always clear first
-  //   cy.elements().removeClass("faded hovered connected activeEdge");
-  //   if (animFrameRef.current) {
-  //     cancelAnimationFrame(animFrameRef.current);
-  //     animFrameRef.current = null;
-  //   }
-
-  //   if (!hoveredTopicId) return;
-
-  //   const node = cy.getElementById(hoveredTopicId);
-  //   if (!node || node.empty()) return;
-
-  //   cy.elements().addClass("faded");
-  //   node.removeClass("faded").addClass("hovered");
-  //   const edges = node.connectedEdges();
-  //   edges.removeClass("faded").addClass("activeEdge");
-  //   edges.connectedNodes().removeClass("faded").addClass("connected");
-  //   let offset = 0;
-  //   const animate = () => {
-  //     offset -= 1;
-  //     cy.edges(".activeEdge").style("line-dash-offset", offset);
-  //     animFrameRef.current = requestAnimationFrame(animate);
-  //   };
-  //   animate();
-  // }, [hoveredTopicId]);
-
   // Zoom in Function
   const handleZoomIn = () => {
     if (cyRef.current) {
@@ -379,23 +348,6 @@ export default function ProfileSidebarNode({
                 label,
                 tldw,
               });
-
-              // cy.elements().addClass("faded");
-              // node.removeClass("faded").addClass("hovered");
-
-              // const edges = node.connectedEdges();
-              // edges.removeClass("faded").addClass("activeEdge");
-              // edges.connectedNodes().removeClass("faded").addClass("connected");
-
-              // let offset = 0;
-              // const animate = () => {
-              //   offset -= 1;
-              //   cy.edges(".activeEdge").style("line-dash-offset", offset);
-              //   animFrameRef.current = requestAnimationFrame(animate);
-              // };
-              // if (animFrameRef.current)
-              //   cancelAnimationFrame(animFrameRef.current);
-              // animate();
             });
 
             cy.on("mouseout", "node", () => {
@@ -422,13 +374,6 @@ export default function ProfileSidebarNode({
         {tooltip.visible && (
           <div
             className="absolute z-30 pointer-events-none top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
-            // style={{ left: tooltip.x + 16, top: tooltip.y - 60 }}
-            // style={{ left: "50%", top: "50%" }}
-            // style={{
-            //   left: tooltip.x >= 500 ? tooltip.x - 400 : tooltip.x + 16,
-            //   // left: tooltip.x >= 500 ? tooltip.x - 200 : tooltip.x + 16,
-            //   top: tooltip.y - 60,
-            // }}
           >
             <div className="bg-white border border-900-500/40 rounded-xl px-4 py-3 shadow-xl shadow-pink-900/20 w-5/6">
               <p className="text-black font-bold text-sm uppercase tracking-wide mb-1">
@@ -443,13 +388,7 @@ export default function ProfileSidebarNode({
               {tooltip.tldw && (
                 <p className="text-gray-500 text-xs mb-1">{tooltip.tldw}</p>
               )}
-              {/* <div className="flex items-center gap-1.5 text-900-400 text-xs mt-2 font-medium">
-                <FontAwesomeIcon icon={faPlayCircle} size="sm" />
-                <span>Click to watch</span>
-              </div> */}
             </div>
-
-            {/* <div className="w-2 h-2 bg-white border-b border-r border-900-500/40 rotate-45 ml-4 -mt-1" /> */}
           </div>
         )}
       </div>

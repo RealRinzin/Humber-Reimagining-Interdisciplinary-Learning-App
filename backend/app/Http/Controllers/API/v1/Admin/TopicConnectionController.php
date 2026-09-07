@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1\Admin;
 
 use App\Models\Topic;
+use App\Models\TopicConnection;
 use Illuminate\Http\Request;
 
 class TopicConnectionController
@@ -13,6 +14,8 @@ class TopicConnectionController
     public function index()
     {
         //
+        return TopicConnection::get();
+
     }
 
     /**
