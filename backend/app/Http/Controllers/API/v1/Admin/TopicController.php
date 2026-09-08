@@ -20,9 +20,10 @@ class TopicController
      */
     public function index(): JsonResponse
     {
+        $topics = Topic::with(['videos'])->get();
 
         return response()->json(
-            TopicResource::collection(Topic::all())
+            TopicResource::collection($topics)
         );
     }
 

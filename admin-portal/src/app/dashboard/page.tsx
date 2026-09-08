@@ -56,7 +56,7 @@ export default  function HomePage() {
 
           </div>
           {/* Sidebar Areas */}
-          <div className="bg-slate-900 "> 
+          <div className="bg-slate-900"> 
             <NodeSidebar/>
           </div>
         </div>

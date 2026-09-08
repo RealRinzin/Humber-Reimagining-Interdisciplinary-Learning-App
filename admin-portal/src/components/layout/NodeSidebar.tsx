@@ -117,8 +117,8 @@ export default function ProfileSidebarNode() {
           source: null,
           target: null,
           node_color: null,
-          url: `/video/${topic.slug}`,
-          tldw: "topic.videos[0]?.tldw,",
+          url: `/video/${topic.videos[0]?.slug}`,
+          tldw: topic.videos[0]?.tldw,
           controlPointDistance:
             (Math.floor(index / 2) + 1) * 40 * (index % 2 === 0 ? 1 : -1),
         },
