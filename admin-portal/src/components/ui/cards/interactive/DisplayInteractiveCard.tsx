@@ -26,7 +26,7 @@ export default function DisplayInteractiveCard({
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {interactives?.map((interactive: InteractiveDType, index: number) => (
-        <div className="bg-gray-200 py-2 px-4 rounded-md relative " key={index}>
+        <div className="bg-gray-200 py-2 px-4 rounded-md relative z-0" key={index}>
           <ul className="absolute bg-red-100 w-fit flex -top-1 -right-1">
             <li
               className="bg-red-200 rounded-md h-5 w-5 flex items-center justify-center"

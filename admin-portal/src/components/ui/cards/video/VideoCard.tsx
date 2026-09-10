@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast, Toaster } from "sonner";
-import AddSubtitleCard from "../../subtitles/AddSubtitleCard";
+import AddSubtitleCard from "../subtitles/AddSubtitleCard";
 export default function VideoCard({
   id,
   title,

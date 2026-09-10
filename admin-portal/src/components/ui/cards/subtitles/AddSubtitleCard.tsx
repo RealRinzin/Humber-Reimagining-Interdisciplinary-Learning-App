@@ -1,5 +1,5 @@
 "use client";
-import { usePost, usePostForm } from "@/hooks/client/useHTTP";
+import { usePostForm } from "@/hooks/client/useHTTP";
 import { useToggle } from "@/hooks/common/useToggle";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -37,7 +37,7 @@ export default function AddSubtitleCard({ videoID }: { videoID: number }) {
 
       <button onClick={toggle}>Add Subtitle</button>
       {isOpen && (
-        <div className="bg-gray-900/40 fixed left-0 top-0 h-screen w-screen  flex p-4">
+        <div className="bg-gray-900/40 fixed left-0 top-0 h-screen w-screen  flex p-4 z-10">
           <div className="bg-white mx-auto my-auto w-full  md:w-1/2 relative p-10 rounded-lg ">
             <button
               onClick={toggle}
