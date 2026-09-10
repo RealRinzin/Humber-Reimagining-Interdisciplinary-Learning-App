@@ -1,0 +1,86 @@
+import {
+  faCirclePlay,
+  faEdit,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
+import AddVideoPartCard from "./AddVideoPartCard";
+import { useDelete } from "@/hooks/client/useHTTP";
+import { useRouter } from "next/navigation";
+import { toast, Toaster } from "sonner";
+
+export default function DisplayVideoPartCard({
+  videos,
+  videoID,
+}: {
+  videos: any;
+  videoID: number;
+}) {
+  const { deleteData, loading, error } = useDelete();
+  const router = useRouter();
+  const deleteVideo = async (id: number) => {
+    if (window.confirm("Are you sure? You want to delete.")) {
+      toast.error("Successfully Deleted");
+      const res = await deleteData(`/video_sections/${id}`);
+      router.refresh();
+    }
+  };
+  return (
+    <div className="my-4">
+      <Toaster position="top-center" richColors />
+
+      <div className="flex flex-col md:flex-row justify-between bg-gray-50 border border-gray-200/80  p-10  rounded-md">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {videos?.map((video: any, index: number) => (
+            <div
+              className="border border-gray-200/80 bg-gray-100 w-full rounded-md  py-10 px-14 relative flex justify-center items-center"
+              key={index}
+            >
+              <Link
+                href={`http://localhost:3000/video/${video?.slug}`}
+                target="_blank"
+              >
+                <FontAwesomeIcon
+                  icon={faCirclePlay}
+                  className="cursor-pointer text-3xl text-gray-500 z-10"
+                />
+              </Link>
+              <ul className="absolute -top-1 -right-1 flex gap-1 z-20">
+                <li
+                  className="bg-red-200 rounded-md h-5 w-5 flex items-center justify-center"
+                  onClick={() => deleteVideo(video?.id)}
+                >
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    className="cursor-pointer text-xs text-red-500"
+                  />
+                </li>
+                <li className="bg-blue-200 rounded-lg h-5 w-5 flex items-center justify-center">
+                  <Link href={`/dashboard/videos/${video?.id}`}>
+                    <FontAwesomeIcon
+                      icon={faEdit}
+                      className="cursor-pointer text-xs text-blue-500"
+                    />
+                  </Link>
+                </li>
+              </ul>
+
+              <div className="absolute bottom-2 left-0 px-4">
+                <p className="text-gray-600 font-bold">
+                  <Link
+                    href={`http://localhost:3000/video/${video?.slug}`}
+                    target="_blank"
+                  >
+                    {video?.title}
+                  </Link>
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <AddVideoPartCard videoID={videoID} />
+    </div>
+  );
+}

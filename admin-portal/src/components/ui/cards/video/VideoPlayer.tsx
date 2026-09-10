@@ -1,0 +1,15 @@
+import React from "react";
+
+export default function VideoPlayer({url}:{url:string}) {
+  return (
+    <video controls width="250">
+      <source src="/shared-assets/videos/flower.webm" type="video/webm" />
+      <source src="/shared-assets/videos/flower.mp4" type="video/mp4" />
+      Download the
+      <a href="/shared-assets/videos/flower.webm">WEBM</a>
+      or
+      <a href="/shared-assets/videos/flower.mp4">MP4</a>
+      video.
+    </video>
+  );
+}

@@ -24,6 +24,7 @@ import AddRamblingCard from "../ui/cards/rambling/AddRamblingCard";
 import AddInteractiveCard from "../ui/cards/interactive/AddInteractiveCard";
 import DisplayInteractiveCard from "../ui/cards/interactive/DisplayInteractiveCard";
 import Image from "next/image";
+import DisplayVideoPartCard from "../ui/cards/videoPart/DisplayVideoPartCard";
 
 export default function EditVideo({ video }: { video: any }) {
   const { patchData, loading, error } = usePatch(`/videos/${video?.id}`);
@@ -197,14 +198,8 @@ export default function EditVideo({ video }: { video: any }) {
               />
               VIDEO PARTS
             </div>
-            <div className="flex flex-col md:flex-row justify-between bg-gray-50 border border-gray-200/80  p-10  rounded-md">
-              <SubVideoCard videos={video?.video_sections} />
-              <VideoFileUpload
-                videoID={video?.id}
-                saveVideoFun={updateVideo}
-                successStatus={addSuccess}
-              />
-            </div>
+
+            <DisplayVideoPartCard videos={video?.video_sections} videoID={video?.id}/>
           </div>
         </div>
         {/* FlashCard */}
