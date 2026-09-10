@@ -20,14 +20,6 @@ class UserVideoSettingController
         return response()->json(['data' => $setting]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
 
     /**
      * Update the specified resource in storage.

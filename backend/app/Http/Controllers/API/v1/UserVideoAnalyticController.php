@@ -62,12 +62,4 @@ class UserVideoAnalyticController
             'data' => $newData
         ]);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(UserVideoAnalytic $userVideoAnalytic)
-    {
-        //
-    }
 }
