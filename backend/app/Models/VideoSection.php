@@ -10,12 +10,21 @@ class VideoSection extends Model
 
     /** @use HasFactory<\Database\Factories\VideoSectionFactory> */
     use HasFactory;
+    protected $fillable = [
+        'video_id',
+        'title',
+        'slug',
+        'thumbnail',
+        'video_url',
+        'duration',
+        'description',
+        'interactive_path',
+    ];
 
     public function getRouteKeyName()
     {
         return 'slug';
     }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
