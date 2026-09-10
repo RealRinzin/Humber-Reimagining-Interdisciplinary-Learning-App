@@ -19,11 +19,11 @@ import DisplayFlashCard from "../ui/cards/flashCard/DisplayFlashCard";
 import AddFlashCard from "../ui/cards/flashCard/AddFlashCard";
 import AddCode from "../ui/cards/ code/AddCodeCard";
 import DisplayCode from "../ui/cards/ code/DisplayCodeCard";
-import EditFlashCard from "../ui/cards/flashCard/EditFlashCard";
 import DisplayRamblingCard from "../ui/cards/rambling/DisplayRamblingCard";
 import AddRamblingCard from "../ui/cards/rambling/AddRamblingCard";
 import AddInteractiveCard from "../ui/cards/interactive/AddInteractiveCard";
 import DisplayInteractiveCard from "../ui/cards/interactive/DisplayInteractiveCard";
+import Image from "next/image";
 
 export default function EditVideo({ video }: { video: any }) {
   const { patchData, loading, error } = usePatch(`/videos/${video?.id}`);
@@ -34,6 +34,7 @@ export default function EditVideo({ video }: { video: any }) {
     mode: "onBlur",
     values: video,
   });
+  console.log(video)
   // Add Function
   const updateVideo = async (data: VideoType) => {
     const res = await patchData(data);
@@ -186,12 +187,7 @@ export default function EditVideo({ video }: { video: any }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="my-4">
           <div className="flex flex-col md:flex-row justify-between bg-gray-50 border border-gray-200/80  p-10  rounded-md">
-            <VideoCard id={video?.id} title={video?.title} slug={video?.slug} />
-            {/* <VideoFileUpload
-                  videoID={videoID}
-                  saveVideoFun={updateVideo}
-                  successStatus={addSuccess}
-                /> */}
+            <VideoCard id={video?.id} title={video?.title} slug={video?.slug} subtitle={video?.subtitle} />
           </div>
           <div className="my-6">
             <div className="flex my-4 text-gray-700 gap-1 font-extrabold">
@@ -213,10 +209,7 @@ export default function EditVideo({ video }: { video: any }) {
         </div>
         {/* FlashCard */}
         <div className="flex text-gray-700 gap-1 font-extrabold border-t-2 pt-4 border-gray-400 my-6">
-          <FontAwesomeIcon
-            icon={faInfo}
-            className="cursor-pointer text-2xl text-gray-500"
-          />
+          <Image src="/img/icons/QuizIcon.png" alt="Quiz Icon" width={20} height={14}/>
           Flashcards
         </div>
         <div className="my-4">
@@ -229,10 +222,8 @@ export default function EditVideo({ video }: { video: any }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* FlashCard */}
         <div className="flex text-gray-700 gap-1 font-extrabold border-t-2 pt-4 border-gray-400 my-6">
-          <FontAwesomeIcon
-            icon={faInfo}
-            className="cursor-pointer text-2xl text-gray-500"
-          />
+          <Image src="/img/icons/CodeIcon.png" alt="Quiz Icon" width={20} height={20}/>
+
           Codes
         </div>
         <div className="my-4">
@@ -244,10 +235,8 @@ export default function EditVideo({ video }: { video: any }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* FlashCard */}
         <div className="flex text-gray-700 gap-1 font-extrabold border-t-2 pt-4 border-gray-400 my-6">
-          <FontAwesomeIcon
-            icon={faInfo}
-            className="cursor-pointer text-2xl text-gray-500"
-          />
+          <Image src="/img/icons/RamblingsIcon.png" alt="Quiz Icon" width={20} height={20}/>
+
           Ramblings
         </div>
         <div className="my-4">
@@ -258,13 +247,11 @@ export default function EditVideo({ video }: { video: any }) {
         <AddRamblingCard videoID={video?.id} />
       </div>
       {/* Interactive Files */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
         {/* FlashCard */}
         <div className="flex text-gray-700 gap-1 font-extrabold border-t-2 pt-4 border-gray-400 my-6">
-          <FontAwesomeIcon
-            icon={faInfo}
-            className="cursor-pointer text-2xl text-gray-500"
-          />
+          <Image src="/img/icons/InformationIcon.png" alt="Quiz Icon" width={20} height={20}/>
+
           Interactive Files
         </div>
         <div className="my-4">

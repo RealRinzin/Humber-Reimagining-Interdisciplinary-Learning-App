@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1\Admin;
 use App\Actions\Admin\Subtitles\StoreSubtitleAction;
 use App\DTOs\Admin\Subtitles\StoreSubtitleDTO;
 use App\Http\Requests\Admin\Subtitles\StoreSubtitleRequest;
+use App\Models\Subtitle;
 use Illuminate\Http\Request;
 
 class SubtitleController
@@ -58,8 +59,14 @@ class SubtitleController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Subtitle  $subtitle)
     {
         //
+
+        if (!$subtitle) {
+            return back()->with('error', 'Code not found.');
+        }
+
+        $subtitle->delete();
     }
 }

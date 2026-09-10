@@ -16,16 +16,26 @@ export default function VideoCard({
   id,
   title,
   slug,
+  subtitle,
 }: {
   id: number;
   title: string;
   slug: string;
+  subtitle: any;
 }) {
   const { deleteData, loading, error } = useDelete();
   const router = useRouter();
   const deleteVideo = async (id: number) => {
     if (window.confirm("Are you sure?")) {
       const res = await deleteData(`/videos/${id}`);
+      toast.error("Successfully Deleted");
+      router.refresh();
+    }
+  };
+
+  const deleteSubtitle = async (id: number) => {
+    if (window.confirm("Are you sure?")) {
+      const res = await deleteData(`/subtitles/${id}`);
       toast.error("Successfully Deleted");
       router.refresh();
     }
@@ -71,7 +81,17 @@ export default function VideoCard({
             </p>
           </div>
         </div>
-        <AddSubtitleCard videoID={id}/>
+        {subtitle ? (
+          <button onClick={() => deleteSubtitle(subtitle?.id)} className="text-xs bg-gray-200 rounded-md p-1">
+            <FontAwesomeIcon
+              icon={faTrash}
+              className="cursor-pointer text-xs text-red-500"
+            />
+            Delete Subtitle
+          </button>
+        ) : (
+          <AddSubtitleCard videoID={id} />
+        )}
       </div>
     </div>
   );

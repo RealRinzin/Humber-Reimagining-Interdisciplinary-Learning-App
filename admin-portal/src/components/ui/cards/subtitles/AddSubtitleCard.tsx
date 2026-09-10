@@ -23,10 +23,10 @@ export default function AddSubtitleCard({ videoID }: { videoID: number }) {
   const onSubmit = async (data: FormValues) => {
     const formData = new FormData();
     formData.append("video_id", String(videoID));
-    formData.append("language", data.language);
+    formData.append("language", "english");
     formData.append("subtitle", data.subtitle[0]);
     const res = await postData(formData);
-    toast.success("Successfully Added New Code");
+    toast.success("Subtitle Added Successfully");
     router.refresh();
     toggle();
     reset();
@@ -35,7 +35,7 @@ export default function AddSubtitleCard({ videoID }: { videoID: number }) {
     <>
       <Toaster position="top-center" richColors />
 
-      <button onClick={toggle}>Add Subtitle</button>
+      <button onClick={toggle}  className="bg-gray-200 py-2 px-4 rounded-md text-gray-600 font-bold cursor-pointer my-4">Add Subtitle</button>
       {isOpen && (
         <div className="bg-gray-900/40 fixed left-0 top-0 h-screen w-screen  flex p-4 z-10">
           <div className="bg-white mx-auto my-auto w-full  md:w-1/2 relative p-10 rounded-lg ">
@@ -46,16 +46,6 @@ export default function AddSubtitleCard({ videoID }: { videoID: number }) {
               ×
             </button>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <div>
-                <label htmlFor="language">Language</label>
-                <input
-                  id="language"
-                  {...register("language", { required: true })}
-                  placeholder="en"
-                />
-                {errors.language && <span>Language is required</span>}
-              </div>
-
               <div>
                 <label htmlFor="subtitle">Subtitle file (.vtt, .srt)</label>
                 <input
