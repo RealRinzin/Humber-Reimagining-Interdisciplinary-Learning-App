@@ -51,7 +51,7 @@ export default function EditVideo({ video }: { video: any }) {
         title: video.title,
         topic_id: video.topic_id,
         video_url: video.video_url,
-        thumbnail:video.thumbnail,
+        thumbnail: video.thumbnail,
         description: video.description,
         duration: video.duration,
         tldw: video.tldw,
@@ -180,41 +180,37 @@ export default function EditVideo({ video }: { video: any }) {
                 required={true}
               />
             </div>
-            <div className="my-4">
-              <div className="flex flex-col md:flex-row justify-between bg-gray-50 border border-gray-200/80  p-10  rounded-md">
-                <VideoCard
-                  id={video?.id}
-                  title={video?.title}
-                  slug={video?.slug}
-                />
-                {/* <VideoFileUpload
-                  videoID={videoID}
-                  saveVideoFun={updateVideo}
-                  successStatus={addSuccess}
-                /> */}
-              </div>
-              <div className="my-6">
-                <div className="flex my-4 text-gray-700 gap-1 font-extrabold">
-                  <FontAwesomeIcon
-                    icon={faCirclePlay}
-                    className="cursor-pointer text-2xl text-gray-500"
-                  />
-                  VIDEO PARTS
-                </div>
-                <div className="flex flex-col md:flex-row justify-between bg-gray-50 border border-gray-200/80  p-10  rounded-md">
-                  <SubVideoCard videos={video?.video_sections} />
-                  <VideoFileUpload
-                    videoID={video?.id}
-                    saveVideoFun={updateVideo}
-                    successStatus={addSuccess}
-                  />
-                </div>
-              </div>
-            </div>
           </div>
         </form>
       </FormProvider>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="my-4">
+          <div className="flex flex-col md:flex-row justify-between bg-gray-50 border border-gray-200/80  p-10  rounded-md">
+            <VideoCard id={video?.id} title={video?.title} slug={video?.slug} />
+            {/* <VideoFileUpload
+                  videoID={videoID}
+                  saveVideoFun={updateVideo}
+                  successStatus={addSuccess}
+                /> */}
+          </div>
+          <div className="my-6">
+            <div className="flex my-4 text-gray-700 gap-1 font-extrabold">
+              <FontAwesomeIcon
+                icon={faCirclePlay}
+                className="cursor-pointer text-2xl text-gray-500"
+              />
+              VIDEO PARTS
+            </div>
+            <div className="flex flex-col md:flex-row justify-between bg-gray-50 border border-gray-200/80  p-10  rounded-md">
+              <SubVideoCard videos={video?.video_sections} />
+              <VideoFileUpload
+                videoID={video?.id}
+                saveVideoFun={updateVideo}
+                successStatus={addSuccess}
+              />
+            </div>
+          </div>
+        </div>
         {/* FlashCard */}
         <div className="flex text-gray-700 gap-1 font-extrabold border-t-2 pt-4 border-gray-400 my-6">
           <FontAwesomeIcon

@@ -22,10 +22,11 @@ export default function AddCode({ videoID }: { videoID: number }) {
     data["topic_id"] = videoID;
     data["video_id"] = videoID;
     try {
-      toast.success("Successfully Added New Code");
       const res = await postData(data);
+      toast.success("Successfully Added New Code");
       router.refresh();
       toggle();
+      reset()
     } catch (err) {
       console.log(err);
     }
