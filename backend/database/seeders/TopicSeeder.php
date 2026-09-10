@@ -38,6 +38,7 @@ class TopicSeeder extends Seeder
             'title' => 'Intro to Space',
             'description' => "An introduction to coordinate spaces in 3D graphics. We explore why different spaces exist and how objects move through them during rendering.",
             'node_color' => '#378ADD',
+            "node_group_id"=>"1",
             'x_axis' => 690,
             'y_axis' => 90,
             'interactive_path' => '',
@@ -47,6 +48,7 @@ class TopicSeeder extends Seeder
         2  => [
             'title' => 'Model Space',
             'description' => "Model space is the local coordinate system of a 3D object. Every vertex is defined relative to the object's own origin before any transformations are applied.",
+            "node_group_id"=>"2",
             'node_color' => '#F72585',
             'x_axis' => 520,
             'y_axis' => 190,
@@ -67,6 +69,8 @@ class TopicSeeder extends Seeder
             'title' => 'Vertex Positions',
             'description' => 'Vertex positions define the geometry of a 3D mesh. Each vertex holds an XYZ coordinate in model space that gets transformed through the graphics pipeline.',
             'node_color' => '#378ADD',
+            "node_group_id"=>"1",
+
             'x_axis' => 95,
             'y_axis' => 285,
             'interactive_path' => '03_09_vertex_pos_model_matrix',
@@ -83,6 +87,8 @@ class TopicSeeder extends Seeder
             'title' => 'Normals',
             'description' => 'Normal vectors are perpendicular to a surface and are critical for lighting calculations. They must be transformed carefully to remain correct after non-uniform scaling.',
             'node_color' => '#378ADD',
+            "node_group_id"=>"2",
+
             'x_axis' => 430,
             'y_axis' => 760,
             'interactive_path' => '4_normal',
@@ -97,6 +103,8 @@ class TopicSeeder extends Seeder
             'title' => 'Scale',
             'description' => 'Scaling transforms change the size of an object along one or more axes. Uniform scaling preserves shape while non-uniform scaling can distort normals.',
             'node_color' => '#378ADD',
+            "node_group_id"=>"3",
+
             'x_axis' => 385,
             'y_axis' => 400,
             'interactive_path' => '05_scale',
@@ -112,6 +120,8 @@ class TopicSeeder extends Seeder
             'title' => 'Translation',
             'description' => 'Translation moves an object from one position to another in 3D space. In matrix form, translation is encoded in the last column of a 4x4 matrix using homogeneous coordinates.',
             'node_color' => '#378ADD',
+            "node_group_id"=>"2",
+
             'x_axis' => 285,
             'y_axis' => 260,
             'interactive_path' => '06_translation',
@@ -132,6 +142,8 @@ class TopicSeeder extends Seeder
             'title' => 'Rotation',
             'description' => 'Rotation transforms orient an object in 3D space. Rotations can be represented as Euler angles, rotation matrices, or quaternions, each with trade-offs in interpolation and gimbal lock.',
             'node_color' => '#378ADD',
+            "node_group_id"=>"1",
+
             'x_axis' => 190,
             'y_axis' => 450,
             'interactive_path' => '07_rotation',
@@ -149,6 +161,8 @@ class TopicSeeder extends Seeder
             'title' => 'Quaternions',
             'description' => 'Quaternions are a mathematical system used to represent 3D rotations. They avoid gimbal lock and allow smooth interpolation between orientations using SLERP.',
             'node_color' => '#378ADD',
+            "node_group_id"=>"3",
+
             'x_axis' => 365,
             'y_axis' => 530,
             'interactive_path' => '08_quaternions',
@@ -165,6 +179,8 @@ class TopicSeeder extends Seeder
             'title' => 'Model Matrix',
             'description' => 'The model matrix combines scale, rotation, and translation into a single 4x4 matrix. Multiplying a vertex by the model matrix transforms it from model space into world space.',
             'node_color' => '#378ADD',
+            "node_group_id"=>"2",
+
             'x_axis' => 785,
             'y_axis' => 250,
             'interactive_path' => 'space',
@@ -183,6 +199,8 @@ class TopicSeeder extends Seeder
             'title' => 'World Space',
             'description' => 'World space is the global coordinate system where all objects are placed relative to a shared origin. After applying the model matrix, vertices exist in world space.',
             'node_color' => '#F72585',
+            "node_group_id"=>"1",
+
             'x_axis' => 700,
             'y_axis' => 455,
             'interactive_path' => 'space',
@@ -199,6 +217,8 @@ class TopicSeeder extends Seeder
             'title' => 'View Matrix',
             'description' => "The view matrix transforms world space coordinates into camera space. It is essentially the inverse of the camera's own model matrix, repositioning the world relative to the camera.",
             'node_color' => '#378ADD',
+            "node_group_id"=>"2",
+
             'x_axis' => 930,
             'y_axis' => 520,
             'interactive_path' => '11_view_matrix',
@@ -215,6 +235,8 @@ class TopicSeeder extends Seeder
             'title' => 'Camera Space',
             'description' => 'Camera space, also called view space or eye space, positions vertices relative to the camera. The camera sits at the origin looking down the negative Z axis.',
             'node_color' => '#F72585',
+            "node_group_id"=>"3",
+
             'x_axis' => 805,
             'y_axis' => 675,
             'interactive_path' => 'space',
@@ -232,6 +254,8 @@ class TopicSeeder extends Seeder
             'title' => 'Projection Matrix',
             'description' => 'The projection matrix transforms camera space into clip space. Perspective projection creates a realistic sense of depth while orthographic projection preserves parallel lines.',
             'node_color' => '#378ADD',
+            "node_group_id"=>"2",
+
             'x_axis' => 1060,
             'y_axis' => 810,
             'interactive_path' => '13_projection_matrix',
@@ -247,6 +271,8 @@ class TopicSeeder extends Seeder
             'title' => 'Perspective Divide',
             'description' => 'he perspective divide divides the X, Y, and Z clip coordinates by the W component to produce normalized device coordinates. This step creates the foreshortening effect of perspective.',
             'node_color' => '#378ADD',
+            "node_group_id"=>"1",
+
             'x_axis' => 345,
             'y_axis' => 915,
             'interactive_path' => '14_perspective_divide',
@@ -262,6 +288,8 @@ class TopicSeeder extends Seeder
             'title' => 'NDC Space',
             'description' => 'Normalized Device Coordinates (NDC) map the visible scene into a cube from -1 to 1 on each axis. Everything outside this range is clipped and not rendered.',
             'node_color' => '#F72585',
+            "node_group_id"=>"2",
+
             'x_axis' => 640,
             'y_axis' => 930,
             'interactive_path' => 'space',
@@ -279,6 +307,8 @@ class TopicSeeder extends Seeder
             'title' => 'Viewport Matrix',
             'description' => 'The viewport transform maps NDC coordinates to pixel coordinates on the screen. It scales and offsets the NDC cube to match the dimensions and position of the render target.',
             'node_color' => '#378ADD',
+            "node_group_id"=>"2",
+
             'x_axis' => 940,
             'y_axis' => 965,
             'interactive_path' => '16_viewport_matrix',
@@ -293,6 +323,8 @@ class TopicSeeder extends Seeder
             'title' => 'Pixel Space',
             'description' => 'Pixel space, or screen space, is the final destination of the graphics pipeline. Vertices are now 2D pixel coordinates ready for rasterization and fragment shading.',
             'node_color' => '#378ADD',
+            "node_group_id"=>"3",
+
             'x_axis' => 920,
             'y_axis' => 1135,
             'interactive_path' => 'space',
@@ -307,6 +339,7 @@ class TopicSeeder extends Seeder
             'title' => 'Bonus',
             'description' => 'onus content covering extra tips and tricks related to the graphics pipeline. Includes practical shader examples and common mistakes to avoid when working with coordinate spaces.',
             'node_color' => '#8B9CB5',
+            "node_group_id"=>"2",
             'x_axis' => 500,
             'y_axis' => 1110,
             'interactive_path' => 'space',
@@ -325,6 +358,7 @@ class TopicSeeder extends Seeder
                 'slug'       => Str::slug($data['title']),
                 'description' => $data['description'],
                 'node_color' => $data['node_color'],
+                'node_group_id' => $data['node_group_id'],
                 'x_axis' => $data['x_axis'],
                 'y_axis' => $data['y_axis'],
                 'interactive_path' => $data['interactive_path'],

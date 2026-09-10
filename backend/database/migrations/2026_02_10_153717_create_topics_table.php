@@ -25,7 +25,7 @@ return new class extends Migration
         Schema::create('topics', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->foreignId('node_group_id')->default(2)
+            $table->foreignId('node_group_id')
                 ->constrained('node_groups')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

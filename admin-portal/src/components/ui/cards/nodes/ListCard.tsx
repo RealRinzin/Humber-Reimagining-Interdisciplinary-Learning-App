@@ -26,7 +26,6 @@ export default function ListCard({ topics, node_color }: any) {
         <div className="flex gap-1 items-center w-fit border border-gray-200 rounded-lg py-1 px-2">
 
           <StudentVisibility status={topics?.student_visible} model="topics" id={topics?.id} />
-
         </div>
       </div>
       <div className="py-2">
