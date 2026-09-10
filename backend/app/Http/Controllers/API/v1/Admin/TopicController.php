@@ -82,6 +82,22 @@ class TopicController
 
         return response()->json($topic->load('connectedTopics'));
     }
+// public function attachConnections(Request $request, Topic $topic)
+// {
+//     $validated = $request->validate([
+//         'connections' => ['required', 'array'],
+//         'connections.*.topic_id' => ['required', 'integer', 'exists:topics,id'],
+//         'connections.*.line_style' => ['required', 'string', 'in:dashed,solid,dotted'],
+//     ]);
+
+//     $syncData = collect($validated['connections'])
+//         ->mapWithKeys(fn ($c) => [$c['topic_id'] => ['line_style' => $c['line_style']]])
+//         ->toArray();
+
+//     $topic->connectedTopics()->sync($syncData);
+
+//     return response()->json($topic->load('connectedTopics'));
+// }
     // Student visibility
     public function visibility(Topic $topic)
     {

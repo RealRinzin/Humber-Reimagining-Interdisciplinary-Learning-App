@@ -20,9 +20,9 @@ export default  function HomePage() {
           <div className="col-span-3">
             <div className="flex justify-between pb-2 border-b-2 border-gray-300">
               <h2 className="text-xl font-semibold text-gray-700">Paths</h2>
-              <button className="flex justify-center items-center rounded-full text-md h-6 w-6 font-medium bg-slate-300 text-gray-700 ">
+              {/* <button className="flex justify-center items-center rounded-full text-md h-6 w-6 font-medium bg-slate-300 text-gray-700 ">
                 +
-              </button>
+              </button> */}
             </div>
             {/* Path Card */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">

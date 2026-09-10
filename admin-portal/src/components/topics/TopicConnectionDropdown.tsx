@@ -67,6 +67,7 @@ export default function TopicConnectionDropdown({
           >
             {topic.title}
           </option>
+          
         ))}
       </select>
 
@@ -88,6 +89,11 @@ export default function TopicConnectionDropdown({
               >
                 ×
               </button>
+              <select name="line_style" id="line_style" className="text-xs">
+                <option value="dashed">Dashed (-----)</option>
+                <option value="solid">Solid (____)</option>
+                <option value="dotted">Dotted (.....)</option>
+              </select>
             </li>
           );
         })}
