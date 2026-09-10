@@ -65,7 +65,6 @@ export default function EditVideo({ video }: { video: any }) {
       });
     }
   }, [video]);
-
   return (
     <>
       <FormProvider {...methods}>
@@ -167,7 +166,7 @@ export default function EditVideo({ video }: { video: any }) {
                 icon={faCirclePlay}
                 className="cursor-pointer text-2xl text-gray-500"
               />
-              Videos
+              Video
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6  bg-gray-50 border border-gray-100 rounded-md p-6">
               <MyCKEditor
@@ -188,11 +187,11 @@ export default function EditVideo({ video }: { video: any }) {
                   title={video?.title}
                   slug={video?.slug}
                 />
-                <VideoFileUpload
+                {/* <VideoFileUpload
                   videoID={videoID}
                   saveVideoFun={updateVideo}
                   successStatus={addSuccess}
-                />
+                /> */}
               </div>
               <div className="my-6">
                 <div className="flex my-4 text-gray-700 gap-1 font-extrabold">

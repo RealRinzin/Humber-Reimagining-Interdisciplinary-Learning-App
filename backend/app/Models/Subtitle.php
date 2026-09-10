@@ -9,6 +9,11 @@ class Subtitle extends Model
 {
     /** @use HasFactory<\Database\Factories\SubtitleFactory> */
     use HasFactory;
+    protected $fillable = [
+        'video_id',
+        'subtitle_url',
+        'language',
+    ];
     // Table Relationship
     public function video()
     {

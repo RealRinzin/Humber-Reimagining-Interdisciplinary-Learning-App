@@ -48,11 +48,11 @@ export default function VideoCreate() {
     if (res) {
       setVideoID(res.id);
       setAddSuccess(true);
-      // if (addSuccess) {
-      //   toast.success("New Video Successfully added");
-      //   router.push(`/dashboard/videos/${res?.id}`);
-      //   methods.reset();
-      // }
+      if (addSuccess) {
+        toast.success("New Video Successfully added");
+        router.push(`/dashboard/videos/${res?.id}`);
+        methods.reset();
+      }
     }
   };
   // Called once the actual video file has finished uploading
@@ -99,7 +99,7 @@ export default function VideoCreate() {
                   <li>
                     <button
                       type="submit"
-                      disabled={loading || !isValid}
+                      // disabled={loading || !isValid}
                       className="bg-slate-200 text-xs rounded-md px-2 py-1 cursor-pointer disabled:opacity-50"
                     >
                       {loading ? "Saving..." : "Save"}

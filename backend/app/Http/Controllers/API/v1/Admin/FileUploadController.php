@@ -7,6 +7,8 @@ use Illuminate\Support\Str;
 
 class FileUploadController
 {
+
+    // Upload Image
     public function images(Request $request)
     {
         $request->validate([
@@ -24,10 +26,12 @@ class FileUploadController
         $filename = $originalName . '-' . round(microtime(true) * 1000) . '.' . $extension;
 
         $path = $request->file('upload')->storeAs('uploads/images/ramblings', $filename, 'public');
-        print_r($request->file);
         return response()->json([
             'url' => asset('storage/' . $path),
             'file' => $request->file('upload')->getClientOriginalName()
         ]);
     }
+
+    // Upload Subtitle
+
 }

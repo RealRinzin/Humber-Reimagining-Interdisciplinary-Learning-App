@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast, Toaster } from "sonner";
+import AddSubtitleCard from "../../subtitles/AddSubtitleCard";
 export default function VideoCard({
   id,
   title,
@@ -32,8 +33,7 @@ export default function VideoCard({
   return (
     <div className="my-4">
       <Toaster position="top-center" richColors />
-
-      <div className="flex">
+      <div className="w-full">
         <div className="border border-gray-200/80 bg-gray-200 relative px-14 py-10">
           <Link href={`http://localhost:3000/video/${slug}`} target="_blank">
             <FontAwesomeIcon
@@ -71,6 +71,7 @@ export default function VideoCard({
             </p>
           </div>
         </div>
+        <AddSubtitleCard videoID={id}/>
       </div>
     </div>
   );
