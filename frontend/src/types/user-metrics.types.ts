@@ -1,7 +1,4 @@
 // Export type for
-// 1. User Video Metric
-// 2. User Topic Metric
-// 3  User Flash Card Metric
 
 export interface UserVideoMetricType{
     id:number,
