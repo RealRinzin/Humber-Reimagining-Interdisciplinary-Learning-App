@@ -1,7 +1,18 @@
-import React from 'react'
+import { Suspense } from 'react'
+import { serverFetch } from '@/hooks/server/useServer'
 
-export default function page() {
+export default function QuizPage() {
   return (
-    <div>page</div>
+    <div>
+      <Suspense fallback={<div>Loading topics...</div>}>
+        <QuizList />
+      </Suspense>
+    </div>
   )
+}
+
+async function QuizList() {
+  const res = await serverFetch('/quizees')
+  console.log(res)
+  return <div>page</div>
 }
