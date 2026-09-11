@@ -8,7 +8,6 @@ use App\Http\Requests\UserTopic\CreateOrUpdateUserTopicRequest;
 use App\Http\Resources\Topic\TopicResource;
 use App\Models\Topic;
 use App\Models\User;
-use App\Models\UserTopic;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;

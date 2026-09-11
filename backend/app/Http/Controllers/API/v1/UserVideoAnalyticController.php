@@ -12,17 +12,7 @@ use Illuminate\Http\Request;
 
 class UserVideoAnalyticController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    // public function index(User $user)
-    // {
-    //     abort_if(auth()->id() !== $user->id, 403, 'Unauthorized');
 
-    //     return UserVideoAnalyticResource::collection(
-    //         $user->userVideoAnalytics()->get()
-    //     );
-    // }
     public function index(User $user)
     {
 
