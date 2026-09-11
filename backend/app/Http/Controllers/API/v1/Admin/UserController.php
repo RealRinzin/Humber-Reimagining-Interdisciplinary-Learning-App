@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API\V1\Admin;
 
+use App\Http\Resources\Admin\Users\UserResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController
@@ -12,6 +14,9 @@ class UserController
     public function index()
     {
         //
+        return response()->json(
+            UserResource::collection(User::all())
+        );
     }
 
     /**
