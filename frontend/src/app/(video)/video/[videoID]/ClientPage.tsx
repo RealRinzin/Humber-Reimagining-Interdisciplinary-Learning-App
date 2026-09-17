@@ -17,6 +17,7 @@ export default function ClientPage({ children, videoSlug }: any) {
   return (
     <RefreshContext.Provider value={() => setRefreshKey((k) => k + 1)}>
       <main className="px-1 md:px-20 py-5">
+        
         <div className="grid grid-cols-6 gap-8">
           <div
             className={`relative col-span-6 ${open ? "md:col-span-4" : "md:col-span-6"}`}

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default async function ProfileCirleRing() {
   const arr =[];
   for (let index = 0; index < 19; index++) {
@@ -9,11 +11,14 @@ export default async function ProfileCirleRing() {
     <div className="flex flex-col gap-y-3 py-2">
       <h1 className="font-semibold text-gray-700">Your Progress</h1>
 
-
       <div className="relative flex h-30 w-30 items-center justify-center">
         {/* Profile image */}
-        <img
-          src="/img/student_icon.png"
+        <Image
+          // src={`${process.env.NEXT_PUBLIC_UPLOAD_FILE_PATH}/images/student_icon.png`}
+          src="http://localhost:8000/storage/uploads/images/student_icon.png"
+          height={20}
+          width={20}
+          // src="/img/student_icon.png"
           alt=""
           className="h-24 w-24 rounded-full"
         />

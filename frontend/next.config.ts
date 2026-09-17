@@ -17,7 +17,14 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'cdn.pixabay.com',
       },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: "8000",
+        // pathname: "/storage/**",
+      },
     ],
+    unoptimized: true,
   },
 };
 

@@ -133,33 +133,6 @@ export const MyPlayer = ({
   // const hasSeeked = useRef(false);                 // ← ADD THIS
   useEffect(() => {
     const video = videoRef.current;
-  //   if (!video || last_stop <= 0) return;
-
-  //   hasSeeked.current = false;
-
-  //   const attemptSeek = () => {
-  //     if (hasSeeked.current) return;
-  //     if (
-  //       video.seekable.length > 0 &&
-  //       video.seekable.end(0) >= last_stop &&
-  //       video.readyState >= 2
-  //     ) {
-  //       video.currentTime = last_stop;
-  //       hasSeeked.current = true;
-  //     }
-  //   };
-
-  //   const onTimeUpdate = () => {
-  //     if (!hasSeeked.current) attemptSeek();
-  //   };
-
-  //   video.addEventListener("canplay", attemptSeek);
-  //   video.addEventListener("timeupdate", onTimeUpdate);
-
-  //   return () => {
-  //     video.removeEventListener("canplay", attemptSeek);
-  //     video.removeEventListener("timeupdate", onTimeUpdate);
-  //   };
   }, [last_stop, src]);
 
   return (
@@ -167,16 +140,10 @@ export const MyPlayer = ({
       <VideoSkin>
         <Video
           ref={videoRef} 
-          src={`/videos/${src}`}
+          // src={`/videos/${src}`}
+          src={`${process.env.NEXT_PUBLIC_UPLOAD_FILE_PATH}/videos/${src}`}
           playsInline
-          // onCanPlay={(e) => {
-          //   const video = e.target as HTMLVideoElement;
-          //   if (
-          //     last_stop > 0 &&
-          //     Math.abs(video.currentTime - last_stop) > 0.5
-          //   ) {
-          //     video.currentTime = last_stop;
-          //   }
+
           // }}
           onPlay={(e) => {
             const video = e.target as HTMLVideoElement;

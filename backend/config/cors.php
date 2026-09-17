@@ -19,7 +19,7 @@ return [
     // 'paths' => ['api/*', 'sanctum/csrf-cookie'], // Added 'login' inside the array - Rinzin
     'allowed_methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     // Allow origins from the frontend
-    'allowed_origins' => ['http://localhost:3000', 'http://localhost:3001'],
+    'allowed_origins' => ['http://localhost:3000', 'http://localhost:3001', 'https://spaces.classdev.courses', 'https://humber-idl-admin.classdev.courses', 'https://humber-idl-api.classdev.courses'],
     'allowed_origins_patterns' => [],
     // Header
     'allowed_headers' => [

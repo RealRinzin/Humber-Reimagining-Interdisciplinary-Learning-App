@@ -42,10 +42,12 @@ export default async function TeamPage() {
             return (
               <div className="flex flex-col items-center py-4" key={index}>
                 <Image
-                  src={`/img/team/${team.mugshot}`}
+                  // src={`/img/team/${team.mugshot}`}
+                  // src="http://localhost:8000/storage/uploads/images/team/Felipe-P.png"
+                  src={`${process.env.NEXT_PUBLIC_UPLOAD_FILE_PATH}/images/team/${team.mugshot}`}
                   height={100}
                   width={100}
-                  alt="Alt"
+                  alt={team?.first_name}
                   className="rounded-full"
                 />
                 <p className="pt-3 font-bold">{`${team?.first_name} ${team?.last_name}`}</p>
