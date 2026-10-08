@@ -113,7 +113,7 @@ export default function LoginPage() {
             </div>
             {/* Actions */}
             <div className="flex items-center justify-start text-center gap-4 mt-4">
-              <button
+              <button suppressHydrationWarning type="submit"
                 className="w-1/3 bg-slate-700 hover:bg-slate-800 text-white text-sm font-medium px-6 py-2.5 rounded-lg transition-colors"
                 disabled={loading}
               >

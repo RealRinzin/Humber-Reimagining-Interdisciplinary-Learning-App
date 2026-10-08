@@ -1,30 +1,34 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: 'standalone',
-  /* config options here */
+  allowedDevOrigins: ["spaces.classdev.courses"],
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'images.pexels.com',
+        protocol: "https",
+        hostname: "images.pexels.com",
       },
       {
-        protocol: 'https',
-        hostname: 'pixabay.com',
+        protocol: "https",
+        hostname: "pixabay.com",
       },
       {
-        protocol: 'https',
-        hostname: 'cdn.pixabay.com',
-      },
-      {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: "8000",
-        // pathname: "/storage/**",
+        protocol: "https",
+        hostname: "cdn.pixabay.com",
       },
     ],
-    unoptimized: true,
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/sanctum/csrf-cookie",
+        destination: "http://127.0.0.1:8001/api/v1/sanctum/csrf-cookie",
+      },
+      {
+        source: "/api/:path*",
+        destination: "http://127.0.0.1:8001/api/:path*",
+      },
+    ];
   },
 };
 

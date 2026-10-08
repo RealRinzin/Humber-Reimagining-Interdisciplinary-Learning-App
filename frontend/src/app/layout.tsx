@@ -1,38 +1,31 @@
-
 import type { Metadata } from "next";
 import "./globals.css";
-
-// Google Font Setup, We are using inter font face
 import { Inter } from "next/font/google";
 const inter = Inter({
-  subsets: ['latin'],
-  weight: ['400', '500', '700'], // optional
-})
-// Fontawesome configuration setup fo
-// 
-import { config } from '@fortawesome/fontawesome-svg-core'
-import '@fortawesome/fontawesome-svg-core/styles.css'
-config.autoAddCss = false; // We are adding the autoAddClass to avoid the hydration page
-// Desktop Navivation 
-// SEO meta description
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+});
+
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+config.autoAddCss = false;
+
 export const metadata: Metadata = {
   title: "Humber Space Project - Gaming Department",
   description: "Learning through the online educational tech",
-  // viewport: "width=device-width, initial-scale=1.0",
 };
-const currentStep = 1;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.className}>
-      <title>Humber Space Project </title>
-      <link rel="icon" href="/img/logo/favicon-32x32.png" />
-      <body>
-          {children}
-      </body>
+    <html lang="en" className={inter.className} suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/img/logo/favicon-32x32.png" />
+      </head>
+      <body suppressHydrationWarning>{children}</body>
     </html>
   );
 }

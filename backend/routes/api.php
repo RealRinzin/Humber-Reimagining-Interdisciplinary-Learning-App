@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\API\V1\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\API\v1\AuthController;
 use App\Http\Controllers\API\v1\CodeController;
 use App\Http\Controllers\API\v1\ProjectController;
@@ -20,28 +19,15 @@ use Illuminate\Support\Facades\Route;
 // 
 // To Get the authentication when first access by the user
 //
-// =========================================== ADMIN / INSTRUCTOR API ENDPOINT ===========================================
-Route::post('/v1/admin/login', [AdminAuthController::class, 'login']);
-Route::middleware(['web', 'auth:sanctum'])->get('/v1/admin/me', function (Request $request) {
-    return $request->user();
-});
-// routes/web.php
-Route::get('/phpinfo', fn() => phpinfo());
-// Route::middleware(['auth:sanctum', 'can:is-admin'])
-//     ->prefix('v1/admin')
-Route::prefix('v1/admin')
-    ->name('admin.')
+// Route::middleware(['auth:sanctum', 'can:access-admin'])->prefix('v1/admin')
+Route::middleware(['can:access-admin'])->prefix('v1/admin')
+    // ->middleware(['auth:sanctum', 'admin'])
     ->group(function () {
-        // includes all the controller files here
         foreach (glob(__DIR__ . '/api/admin/*.php') as $file) {
             require $file;
         }
-        // Regular endpoint API
-        Route::post('/logout', [AdminAuthController::class, 'logout']);
     });
 
-
-// =========================================== STUDENT API ENDPOINT ===========================================
 // Topic Connection 
 // This API will be used for user login and it will return the user data and token for the user to access the protected API
 // The API will be accessed by the frontend when the user tries to login and it will return the user data and token for the user to access the protected API
@@ -55,12 +41,17 @@ Route::prefix('v1/admin')
 Route::prefix('v1')
     ->name('v1.')
     ->group(function () {
-        Route::post('/login', [AuthController::class, 'login']);
+        Route::middleware(['web'])->post('/login', [AuthController::class, 'login']);
     });
 
+
+Route::get('/test', function (Request $request) {
+    return "This is api";
+});
 // Registeration API
 // This API is open to public but it will be rate limited by the throttle middleware
-Route::post('/register', [AuthController::class, 'register']);
+Route::middleware(['web'])->post('/register', [AuthController::class, 'register']);
+
 
 Route::post('/postmanRegister', [AuthController::class, 'postmanRegister']);
 // Get Logged User session or Token for proxy and middleware
@@ -84,7 +75,7 @@ Route::prefix('v1')
         // =============== User Logout | Registeration ===============================| 
         // This API is protected by sanctum middleware and it will be used for user logout
         // This API will revoke the token of the user and it will return a success message
-        Route::post('/logout', [AuthController::class, 'logout']);
+        Route::middleware(['web'])->post('/logout', [AuthController::class, 'logout']);
      // User Controller
         // This API will be used to get the user data and also to update the user data
         // GET /api/v1/users/{user} // This API will return the user data
@@ -129,6 +120,7 @@ Route::prefix('v1')
          * /api/v1/codes/users/{user}/codes/{code:id} // This API will remove a code from the user 
          */
         Route::apiResource('codes', CodeController::class)->except(['create', 'edit']);
+
         // === Topic Controller ==
         // This API will be used to get the videos and also to add or remove videos from the user
         // GET /api/v1/videos // This API will return all the videos
